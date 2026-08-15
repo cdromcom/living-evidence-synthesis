@@ -63,7 +63,7 @@ export default async function NodeDetailPage({
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
       <div className="mb-2 flex flex-wrap items-center gap-2">
-        <NodeTypeBadge type={node.type} typeLabel={node.typeLabel} />
+        <NodeTypeBadge type={node.type} />
         <span className="mono text-xs text-muted-ink">{node.id}</span>
         <StatusBadge status={node.curationStatus} />
       </div>

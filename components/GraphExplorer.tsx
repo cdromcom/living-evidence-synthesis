@@ -157,7 +157,7 @@ export default function GraphExplorer({
           ref={fgRef}
           graphData={graphData}
           nodeId="id"
-          nodeLabel={(n: any) => `${n.type} — ${n.title}`}
+          nodeLabel={(n: any) => `${n.type}: ${n.title}`}
           nodeCanvasObject={nodeCanvasObject}
           nodePointerAreaPaint={(node: any, color: string, ctx: CanvasRenderingContext2D) => {
             const r = 3 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);

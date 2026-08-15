@@ -51,7 +51,9 @@ export default function Footer() {
             Methodology source
           </a>
           <p className="mt-2 text-xs leading-relaxed sm:text-right">
-            Extraction &amp; synthesis via Claude Code · Method adapted from{" "}
+            Extraction &amp; synthesis via Claude Code
+            <br />
+            Method adapted from{" "}
             <a
               href="https://github.com/oasisresearchlab/language-and-health-open-synthesis"
               target="_blank"

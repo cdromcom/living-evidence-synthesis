@@ -129,8 +129,6 @@ h6 {
 
 .prose-node a {
   color: var(--color-forest);
-  text-decoration: underline;
-  text-underline-offset: 2px;
 }
 
 .prose-node strong {

@@ -10,7 +10,7 @@ const STEPS = [
           href="https://github.com/oasisresearchlab/language-and-health-open-synthesis/blob/review-app-prototype/discourse-extraction/node-spec.md"
           target="_blank"
           rel="noreferrer"
-          className="text-forest underline underline-offset-2"
+          className="text-forest"
         >
           discourse-extraction node spec
         </a>
@@ -41,7 +41,7 @@ const STEPS = [
         Wire the node into the graph with Obsidian <code>[[wikilinks]]</code>{" "}
         in the appropriate section (e.g. a Claim&apos;s &quot;Supporting
         Evidence&quot; heading, an Evidence node&apos;s &quot;Caveats&quot;
-        heading) — this is what this site&apos;s build step parses into typed
+        heading). This is what this site&apos;s build step parses into typed
         edges.
       </>
     ),
@@ -53,12 +53,12 @@ const STEPS = [
         A human curator checks the draft against the source and, once
         satisfied, promotes <code>NodeFormality</code> to{" "}
         <code>ReadyForInternal</code>. This propose-then-commit step is
-        required — nothing is treated as reviewed until a human has made that
+        required; nothing is treated as reviewed until a human has made that
         call. (For accuracy checks on already-published nodes, use the live{" "}
-        <a href="/review" className="text-forest underline underline-offset-2">
+        <a href="/review" className="text-forest">
           review
         </a>{" "}
-        layer instead — sign in and leave a verdict on any node&apos;s page.)
+        layer instead. Sign in and leave a verdict on any node&apos;s page.)
       </>
     ),
   },
@@ -82,8 +82,8 @@ export default function ContributePage() {
           Add a node to the graph
         </h1>
         <p className="max-w-[65ch] text-muted-ink">
-          This site is a static, read-only rendering of a vault export — it
-          has no GitHub sign-in and no in-browser pull-request form, so new
+          This site is a static, read-only rendering of a vault export; it
+          has no GitHub sign-in and no in-browser pull-request form. New
           nodes are added directly to the source Obsidian vault, following the
           same conventions this whole corpus was built with.
         </p>
@@ -110,14 +110,14 @@ export default function ContributePage() {
       <hr className="my-10 border-border" />
 
       <p className="max-w-[65ch] text-sm text-muted-ink">
-        For the full spec — verbatim-grounding rules, the methods-context
-        (What/How/Who) facets required on every Evidence node, and the
-        review-verdict vocabulary — see the{" "}
+        For the full spec (verbatim-grounding rules, the methods-context
+        What/How/Who facets required on every Evidence node, and the
+        review-verdict vocabulary), see the{" "}
         <a
           href="https://github.com/oasisresearchlab/language-and-health-open-synthesis/tree/review-app-prototype"
           target="_blank"
           rel="noreferrer"
-          className="text-forest underline underline-offset-2"
+          className="text-forest"
         >
           oasisresearchlab/language-and-health-open-synthesis
         </a>{" "}

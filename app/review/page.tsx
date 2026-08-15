@@ -1,8 +1,4 @@
-import {
-  getCurationStatusMatrix,
-  NODE_TYPE_ORDER,
-  NODE_TYPE_LABELS,
-} from "@/lib/data";
+import { getCurationStatusMatrix, NODE_TYPE_ORDER } from "@/lib/data";
 import { VERDICT_VOCAB } from "@/lib/ui";
 import NodeTypeBadge from "@/components/NodeTypeBadge";
 import LiveReviewPanel from "@/components/LiveReviewPanel";
@@ -61,7 +57,7 @@ export default function ReviewPage() {
                 return (
                   <tr key={t} className="border-t border-border">
                     <td className="p-3">
-                      <NodeTypeBadge type={t} typeLabel={NODE_TYPE_LABELS[t]} />
+                      <NodeTypeBadge type={t} />
                     </td>
                     {allStatuses.map((s) => {
                       const count = row[s] || 0;

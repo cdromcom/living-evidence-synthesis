@@ -118,7 +118,7 @@ export default function NodesExplorer({ nodes }: { nodes: GraphNode[] }) {
               setStatusFilter("all");
               setQuery("");
             }}
-            className="text-xs text-muted-ink underline underline-offset-2 hover:text-forest"
+            className="text-xs text-muted-ink hover:text-forest"
           >
             Clear filters
           </button>
@@ -136,7 +136,7 @@ export default function NodesExplorer({ nodes }: { nodes: GraphNode[] }) {
               className="block rounded-lg border border-border bg-card p-3.5 transition-colors hover:border-forest/40"
             >
               <div className="mb-1.5 flex items-center justify-between gap-2">
-                <NodeTypeBadge type={n.type} typeLabel={n.typeLabel} />
+                <NodeTypeBadge type={n.type} />
                 <span className="mono text-[0.65rem] text-muted-ink">{n.id}</span>
               </div>
               <p className="text-sm leading-snug">{n.shortLabel}</p>

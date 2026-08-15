@@ -73,9 +73,9 @@ function LoginForm() {
     <main className="mx-auto max-w-md px-4 py-16 sm:px-6">
       <h1 className="text-2xl font-semibold">Sign in to review</h1>
       <p className="mt-2 text-sm text-muted-ink">
-        Any email works — we&apos;ll send a one-time code, no password
-        needed. Signing in lets you submit accuracy verdicts on nodes and see
-        the review dashboard.
+        Any email works; we&apos;ll send a one-time code, no password needed.
+        Signing in lets you submit accuracy verdicts on nodes and see the
+        review dashboard.
       </p>
 
       {stage === "email" ? (

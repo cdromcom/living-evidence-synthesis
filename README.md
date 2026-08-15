@@ -1,4 +1,4 @@
-# Living Evidence Synthesis — LLMs for Scientific Peer Review
+# Living Evidence Synthesis: LLMs for Scientific Peer Review
 
 A discourse-graph explorer built from the `living-synthesis` Obsidian vault
 (232 nodes: Questions, Claims, Evidence, Caveats, Sources, and a
@@ -10,22 +10,28 @@ node spec/methodology.
 ## Getting started
 
 ```bash
-nvm use          # or: check .nvmrc — this project is pinned to Node 22
+nvm use          # or: check .nvmrc; this project is pinned to Node 22
 npm install
 npm run dev       # http://localhost:3000
 ```
 
 `npm run build` produces the production build; `npm run start` serves it.
 
-Data comes from `scripts/build-graph.mjs`, which parses the vault at
-`/Users/ppatel/Documents/living-synthesis` into `lib/graph-data.generated.json`.
-Re-run it (`node scripts/build-graph.mjs`) after editing the vault.
+Data comes from `scripts/build-graph.mjs`, which parses the vault committed
+at `vault/` into `lib/graph-data.generated.json`. Re-run it
+(`node scripts/build-graph.mjs`) after editing the vault, and commit both
+the vault change and the regenerated JSON together.
+
+Note: `vault/source/pdfs/` (the full source paper PDFs) is deliberately
+excluded from this repo; publishing entire copyrighted articles publicly
+isn't something this project does. The embedded screenshot crops of
+individual tables/figures inside node markdown files are committed.
 
 ## Review backend
 
 Live, sign-in-gated accuracy review is backed by Supabase (Postgres + auth),
 unlike the read-only reference site's frozen curation-status export. Auth
-model: **open sign-in** — any email can request a one-time code and start
+model: **open sign-in**. Any email can request a one-time code and start
 reviewing; there's no invite-only roster (see `supabase/schema.sql` for the
 alternative if you want to lock it down later).
 
@@ -43,7 +49,7 @@ plus each submission, gated behind sign-in via Postgres row-level security
 (`lib/supabase.ts`, `components/ReviewWidget.tsx`, `components/LiveReviewPanel.tsx`).
 
 If `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY` are unset, the
-review UI degrades gracefully (hidden/disabled) rather than erroring — the
+review UI degrades gracefully (hidden/disabled) rather than erroring; the
 rest of the site works fine without them.
 
 ## Build reliability
@@ -52,7 +58,7 @@ This project's first production build took an unreasonably long debugging
 session to get green. The root causes, and what's now in place to stop them
 recurring:
 
-1. **Node version drift.** The system had Node 25 installed — newer than
+1. **Node version drift.** The system had Node 25 installed, newer than
    what Next.js 16.3.1's webpack build worker was tested against, which
    manifested as builds that looked hung (near-zero CPU for many minutes)
    rather than erroring cleanly. `.nvmrc` + `package.json#engines` now pin
@@ -62,13 +68,13 @@ recurring:
 2. **`outputFileTracingRoot` misconfiguration.** A stray lockfile one
    directory up made Next infer the workspace root as the whole home
    folder, so it tried to trace file output across an enormous unrelated
-   tree. Fixed explicitly in `next.config.mjs` — don't remove it.
+   tree. Fixed explicitly in `next.config.mjs`; don't remove it.
 
 3. **Concurrent builds racing on `.next`.** Two build processes running at
    once (e.g. two terminals, or an agent + a human) both doing a clean
    build against the same directory caused real, hard-to-diagnose
    failures. `npm run dev`/`build` are now wrapped in `scripts/with-lock.sh`,
-   an atomic `mkdir`-based lock — a second concurrent run fails fast with a
+   an atomic `mkdir`-based lock; a second concurrent run fails fast with a
    clear message instead of racing silently. If a stale lock is left behind
    after a crash, remove it: `rm -rf .build.lock`.
 
@@ -79,7 +85,7 @@ recurring:
 
 5. **Don't trust `ps` CPU%/RSS alone to judge "hung" vs "slow."** `ps`'s
    coarse, decayed CPU% reading can look like ~0% even while a process is
-   genuinely, busily compiling — this caused a real misdiagnosis (a
+   genuinely, busily compiling. This caused a real misdiagnosis (a
    throttling "fix" was applied that made a working build slower and look
    even more stuck). If a build looks frozen, use a real profiler before
    changing anything:

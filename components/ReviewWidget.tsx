@@ -88,7 +88,7 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
         <p className="mt-2 text-sm text-muted-ink">
           <Link
             href={`/login?next=${encodeURIComponent(pathname)}`}
-            className="text-forest underline underline-offset-2"
+            className="text-forest"
           >
             Sign in
           </Link>{" "}
@@ -173,7 +173,7 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
                   <div>
                     <span className="font-medium">{r.reviewer_email}</span>
                     {r.note && (
-                      <span className="text-muted-ink"> — {r.note}</span>
+                      <span className="text-muted-ink">: {r.note}</span>
                     )}
                   </div>
                 </li>

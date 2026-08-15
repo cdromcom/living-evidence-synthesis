@@ -1,14 +1,8 @@
-"use client";
-
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import Fuse from "fuse.js";
 import { NotebookText } from "lucide-react";
-import { ALL_NODES } from "@/lib/data";
-import NodeTypeBadge from "./NodeTypeBadge";
 import ThemeToggle from "./ThemeToggle";
 import AuthStatus from "./AuthStatus";
+import SearchPalette from "./SearchPalette";
 
 const METHOD_SOURCE_URL =
   "https://github.com/oasisresearchlab/language-and-health-open-synthesis/tree/review-app-prototype/discourse-extraction";
@@ -35,32 +29,6 @@ function GithubIcon({ className }: { className?: string }) {
 }
 
 export default function Header() {
-  const router = useRouter();
-  const [query, setQuery] = useState("");
-  const [open, setOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const fuse = useMemo(
-    () =>
-      new Fuse(ALL_NODES, {
-        keys: ["title", "tags", "id"],
-        threshold: 0.35,
-      }),
-    []
-  );
-
-  const results = useMemo(() => {
-    if (!query.trim()) return [];
-    return fuse.search(query).slice(0, 8);
-  }, [fuse, query]);
-
-  function goTo(id: string) {
-    setOpen(false);
-    setQuery("");
-    inputRef.current?.blur();
-    router.push(`/nodes/${id}`);
-  }
-
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-paper/85 backdrop-blur supports-[backdrop-filter]:bg-paper/65">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4 sm:px-6">
@@ -85,43 +53,7 @@ export default function Header() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <div className="relative w-40 sm:w-64">
-            <input
-              ref={inputRef}
-              type="search"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                setOpen(true);
-              }}
-              onFocus={() => setOpen(true)}
-              onBlur={() => setTimeout(() => setOpen(false), 120)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && results.length > 0) {
-                  goTo(results[0].item.id);
-                }
-              }}
-              placeholder="Search nodes…"
-              className="w-full rounded-md border border-border bg-card px-3 py-1.5 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
-            />
-            {open && results.length > 0 && (
-              <ul className="absolute right-0 z-50 mt-1 w-72 overflow-hidden rounded-md border border-border bg-card shadow-sm">
-                {results.map((r) => (
-                  <li key={r.item.id}>
-                    <button
-                      type="button"
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => goTo(r.item.id)}
-                      className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-muted-surface"
-                    >
-                      <NodeTypeBadge type={r.item.type} typeLabel={r.item.type} />
-                      <span className="truncate">{r.item.title}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+          <SearchPalette />
 
           <a
             href={METHOD_SOURCE_URL}

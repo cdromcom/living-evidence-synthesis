@@ -6,7 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 
-const VAULT = "/Users/ppatel/Documents/living-synthesis";
+const VAULT = path.join(process.cwd(), "vault");
 const OUT = path.join(process.cwd(), "lib", "graph-data.generated.json");
 
 const TYPE_CONFIG = [

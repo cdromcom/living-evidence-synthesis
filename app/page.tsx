@@ -26,15 +26,15 @@ export default function HomePage() {
           scientific literature?
         </h1>
         <p className="mt-5 max-w-[65ch] text-[1.05rem] leading-relaxed text-ink/90">
-          This site renders a discourse graph — Questions, Claims, Evidence,
-          Caveats, Sources, and cross-paper Evidence Patterns — extracted from
+          This site renders a discourse graph: Questions, Claims, Evidence,
+          Caveats, Sources, and cross-paper Evidence Patterns, extracted from
           a curated Obsidian vault surveying the literature on LLM-assisted
           peer review, risk-of-bias assessment, novelty evaluation, and
           related evidence-appraisal tasks. The extraction methodology
           (node types, verbatim-grounding rules, review verdict vocabulary,
           and the propose-then-commit human-AI workflow) follows the{" "}
           <a
-            className="text-forest underline underline-offset-2"
+            className="text-forest"
             href="https://github.com/oasisresearchlab/language-and-health-open-synthesis/blob/review-app-prototype/discourse-extraction/node-spec.md"
             target="_blank"
             rel="noreferrer"
@@ -74,7 +74,7 @@ export default function HomePage() {
               className="rounded-lg border border-border bg-card p-4 transition-colors hover:border-forest/40"
             >
               <div className="mb-2">
-                <NodeTypeBadge type={type} typeLabel={type} />
+                <NodeTypeBadge type={type} />
               </div>
               <div className="mono text-2xl font-semibold">{counts[type]}</div>
               <div className="mt-1 text-xs text-muted-ink">{description}</div>
@@ -102,7 +102,7 @@ export default function HomePage() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="mb-1 flex items-center gap-2">
-                    <NodeTypeBadge type={node.type} typeLabel={node.typeLabel} />
+                    <NodeTypeBadge type={node.type} />
                     <span className="mono text-xs text-muted-ink">
                       {node.id}
                     </span>

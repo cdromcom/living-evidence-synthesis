@@ -44,7 +44,7 @@ export default function LiveReviewPanel() {
   if (!session) {
     return (
       <p className="mt-2 text-sm text-muted-ink">
-        <Link href="/login?next=/review" className="text-forest underline underline-offset-2">
+        <Link href="/login?next=/review" className="text-forest">
           Sign in
         </Link>{" "}
         to see live review submissions.
@@ -81,7 +81,7 @@ export default function LiveReviewPanel() {
       </div>
 
       {reviews.length === 0 ? (
-        <p className="text-sm text-muted-ink">No reviews submitted yet — be the first.</p>
+        <p className="text-sm text-muted-ink">No reviews submitted yet. Be the first.</p>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-border">
           <table className="w-full min-w-[600px] border-collapse text-sm">
@@ -113,7 +113,7 @@ export default function LiveReviewPanel() {
                         className="flex items-center gap-2 hover:text-forest"
                       >
                         {node && (
-                          <NodeTypeBadge type={node.type} typeLabel={node.typeLabel} />
+                          <NodeTypeBadge type={node.type} />
                         )}
                         <span className="mono text-xs">{r.node_id}</span>
                       </Link>

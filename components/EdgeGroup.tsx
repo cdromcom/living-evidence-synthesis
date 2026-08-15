@@ -37,7 +37,7 @@ export default function EdgeGroups({
                     href={`/nodes/${node.id}`}
                     className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm transition-colors hover:border-forest/40"
                   >
-                    <NodeTypeBadge type={node.type} typeLabel={node.type} />
+                    <NodeTypeBadge type={node.type} />
                     <span className="truncate">{node.title}</span>
                   </Link>
                 </li>

@@ -7,7 +7,7 @@ function N({ id, children }: { id: string; children: ReactNode }) {
   return (
     <Link
       href={`/nodes/${id}`}
-      className="text-forest underline decoration-forest/40 underline-offset-2 hover:decoration-forest"
+      className="text-forest"
     >
       {children}
     </Link>
@@ -20,9 +20,9 @@ export default function NarrativesPage() {
       <h1 className="text-2xl font-semibold">Narratives</h1>
       <p className="mt-1 text-sm text-muted-ink">
         Linear readings composed from the graph. Entry into this corpus is
-        normally non-linear — explore <Link className="text-forest underline underline-offset-2" href="/graph">the graph</Link> or{" "}
-        <Link className="text-forest underline underline-offset-2" href="/nodes">browse nodes</Link> directly — but
-        these essays walk through three of its strongest cross-cutting
+        normally non-linear; you can explore <Link className="text-forest" href="/graph">the graph</Link> or{" "}
+        <Link className="text-forest" href="/nodes">browse nodes</Link> directly.
+        These essays instead walk through three of its strongest cross-cutting
         findings, citing through to the underlying nodes at every step.
       </p>
 
@@ -31,8 +31,8 @@ export default function NarrativesPage() {
           Can LLMs replace human peer reviewers?
         </h2>
         <p>
-          Not on their own, but they get closer than a skeptic might expect —
-          and closer on some dimensions than others. On raw prediction, LLM
+          Not on their own, but they get closer than a skeptic might expect;
+          closer on some dimensions than others. On raw prediction, LLM
           systems can hit near-human accuracy: <N id="EP-010">LLM peer-review systems can predict paper acceptance and preference at near-human accuracy</N>{" "}
           is instantiated by a Generative Adversarial Reviewer that reached an{" "}
           <N id="EVD-022">F1 of 0.66 on ICLR&apos;23 acceptance prediction against a 0.49 human baseline</N>,
@@ -45,8 +45,8 @@ export default function NarrativesPage() {
         </p>
         <p>
           But there is a systematic bias underneath those numbers: general-purpose
-          models are lenient graders. <N id="EP-005">General-purpose LLMs systematically over-rate papers compared to human reviewers</N>{" "}
-          — on the same 400 NeurIPS/ICLR papers,{" "}
+          models are lenient graders. <N id="EP-005">General-purpose LLMs systematically over-rate papers compared to human reviewers</N>.
+          On the same 400 NeurIPS/ICLR papers,{" "}
           <N id="EVD-067">GPT-4o averaged a recommendation of 7.7 versus a human average of 5.4</N>, and{" "}
           <N id="EVD-068">a fine-tuned reviewer matched at least one human recommendation on 55.5% of papers versus 23.8% for GPT-4o</N>. This
           is exactly what <N id="CLM-010">general-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions</N>{" "}
@@ -63,21 +63,21 @@ export default function NarrativesPage() {
         </h2>
         <p>
           The failures cluster in a specific, worrying place: not average performance,
-          but performance on the rare class that actually matters for deployment. <N id="EP-014">LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable</N>{" "}
-          — the sharpest example is citation-integrity checking, where{" "}
+          but performance on the rare class that actually matters for deployment. <N id="EP-014">LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable</N>.
+          The sharpest example is citation-integrity checking, where{" "}
           <N id="EVD-029">GPT-4 reached F1 = 0.80 for correctly flagging accurate citations but only F1 = 0.09 for flagging inaccurate ones</N>, the
           class any real fact-checking deployment cares about. A similar pattern shows
           up in scientific quality-checking, where{" "}
-          <N id="EVD-014">Claude 3.7 Sonnet found no problem in 64.9% of test papers and hit only a 16.3% detection rate</N>{" "}
-          — a model that mostly says everything is fine will look calibrated on
+          <N id="EVD-014">Claude 3.7 Sonnet found no problem in 64.9% of test papers and hit only a 16.3% detection rate</N>.
+          A model that mostly says everything is fine will look calibrated on
           aggregate accuracy while missing almost everything worth catching. That
           connects to a second pattern, poor confidence calibration: <N id="EP-008">LLM confidence calibration on scientific-error tasks is poor with extreme distributions</N>, where{" "}
           <N id="EVD-049">LLM confidence approached zero across 498 model-instance evaluations, with only two full-confidence cases</N>.
         </p>
         <p>
           Aggregate agreement statistics can also be misleading in a second way: they can
-          look fine while hiding zero real signal. <N id="EP-003">Aggregate-level LLM-human agreement masks near-zero per-paper correlation</N>{" "}
-          — GPT-4&apos;s feedback overlap with human reviewers was 30.85% until the
+          look fine while hiding zero real signal. <N id="EP-003">Aggregate-level LLM-human agreement masks near-zero per-paper correlation</N>.
+          GPT-4&apos;s feedback overlap with human reviewers was 30.85% until the
           papers were shuffled, at which point{" "}
           <N id="EVD-072">the overlap dropped to 0.43%, confirming the original agreement was paper-specific and not coincidental</N>{" "}
           (reassuring in that direction, but a reminder that overlap statistics need
@@ -99,15 +99,15 @@ export default function NarrativesPage() {
           <N id="EVD-045">human-AI collaboration reached up to 96% accuracy on PRISMA and 95% on AMSTAR, surpassing individual human raters</N>{" "}
           working alone. On novelty prediction, folding human reviewer knowledge into
           an LLM-assisted pipeline pushed performance measurably higher: <N id="EVD-070">a knowledge-guided model combining human and LLM signal reached F1 = 0.83 and accuracy = 0.84</N>,
-          and the ablation is direct evidence the human signal is load-bearing —{" "}
+          and the ablation is direct evidence the human signal is load-bearing:{" "}
           <N id="EVD-076">removing the knowledge-guided module dropped accuracy from 0.84 to 0.74</N>. Both
           results back <N id="CLM-011">human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks</N>{" "}
           and <N id="CLM-005">combining human reviewer knowledge with LLM-generated method summaries improves automated novelty prediction beyond either source alone</N>.
         </p>
         <p>
           This is the same underlying mechanism as the fine-tuning result above,
-          generalized: <N id="EP-019">task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks</N>{" "}
-          — whether the &quot;task-specific&quot; signal comes from fine-tuning on domain
+          generalized: <N id="EP-019">task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks</N>.
+          Whether the &quot;task-specific&quot; signal comes from fine-tuning on domain
           data or from a human collaborator in the loop, injecting structure the
           base model doesn&apos;t have on its own is what moves accuracy. The
           corpus&apos;s clearest actionable conclusion is less &quot;can LLMs replace
