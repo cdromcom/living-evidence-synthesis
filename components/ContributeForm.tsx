@@ -323,16 +323,26 @@ export default function ContributeForm() {
         )}
       </div>
 
-      <div className="mt-5 flex items-center gap-3">
-        <button
-          type="submit"
-          disabled={submitting || !wordsOk || !title.trim() || !requiredEdgesOk()}
-          className="rounded-lg bg-forest px-4 py-2 text-sm font-medium text-paper disabled:opacity-50"
-        >
-          {submitting ? "Committing draft…" : "Submit as draft PR"}
-        </button>
-        {!requiredEdgesOk() && (
-          <span className="text-xs text-muted-ink">Fill in the required links above.</span>
+      <div className="mt-5">
+        <div className="flex items-center gap-3">
+          <button
+            type="submit"
+            disabled={submitting || !wordsOk || !title.trim() || !requiredEdgesOk()}
+            className="rounded-lg bg-forest px-4 py-2 text-sm font-medium text-paper disabled:opacity-50"
+          >
+            {submitting ? "Committing draft…" : "Submit as draft PR"}
+          </button>
+        </div>
+        {!submitting && (!wordsOk || !title.trim() || !requiredEdgesOk()) && (
+          <ul className="mt-2 space-y-0.5 text-xs text-muted-ink">
+            {!title.trim() && <li>• Title is required.</li>}
+            {!wordsOk && (
+              <li>
+                • Body must be {MIN_WORDS}-{MAX_WORDS} words (currently {words}).
+              </li>
+            )}
+            {!requiredEdgesOk() && <li>• Fill in the required link(s) above for this node type.</li>}
+          </ul>
         )}
       </div>
       {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
