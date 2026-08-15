@@ -1,3 +1,5 @@
+import ContributeForm from "@/components/ContributeForm";
+
 export const metadata = { title: "Contribute — Living Evidence Synthesis" };
 
 const STEPS = [
@@ -82,12 +84,16 @@ export default function ContributePage() {
           Add a node to the graph
         </h1>
         <p className="max-w-[65ch] text-muted-ink">
-          This site is a static, read-only rendering of a vault export; it
-          has no GitHub sign-in and no in-browser pull-request form. New
-          nodes are added directly to the source Obsidian vault, following the
-          same conventions this whole corpus was built with.
+          Sign in with GitHub, draft a node below, and we&apos;ll fork this
+          repo into your account and commit your draft on a branch for you.
+          You review and open the pull request yourself on GitHub; nothing
+          is published without that final click.
         </p>
       </header>
+
+      <div className="mt-10">
+        <ContributeForm />
+      </div>
 
       <hr className="my-10 border-border" />
 
