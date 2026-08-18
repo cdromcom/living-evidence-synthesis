@@ -17,12 +17,12 @@
   --color-verdict-wrong: #f43f5e;
   --color-verdict-missing: #8b5cf6;
 
-  --color-node-question: #2563eb;
-  --color-node-claim: #b45309;
-  --color-node-evidence: #15803d;
-  --color-node-caveat: #c2410c;
-  --color-node-source: #57534e;
-  --color-node-ep: #0e7490;
+  --color-node-question: #6b5215; /* dark gold */
+  --color-node-claim: #166534; /* dark green */
+  --color-node-evidence: #c0392b; /* light red */
+  --color-node-caveat: #b45309; /* dark orange */
+  --color-node-source: #3f3f46; /* dark gray */
+  --color-node-ep: #7f1d1d; /* dark red */
   --color-node-artifact: #ce5555;
 }
 
