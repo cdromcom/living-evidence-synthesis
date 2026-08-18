@@ -104,13 +104,18 @@ export default function AboutPage() {
         </p>
         <h2>What this site is not</h2>
         <p>
-          This is a static, read-only rendering of a vault export. There is
-          no live editing, no GitHub OAuth contribution flow, and no LLM API
-          calls. See{" "}
+          The corpus itself is a static, read-only rendering of a vault
+          export — nothing here is edited in place. The{" "}
           <Link href="/contribute" className="text-forest">
             Contribute
           </Link>{" "}
-          for how you&apos;d add a node to the source vault instead.
+          page does use GitHub OAuth to open a real pull request against a
+          fork of the source vault, but it doesn&apos;t write to this site or
+          merge anything automatically: a human curator still has to review
+          and promote the draft before it counts as part of the corpus. This
+          site also makes no LLM API calls of its own — node drafting happens
+          offline in the discourse-extraction pipeline, before a PR ever
+          reaches here.
         </p>
       </section>
     </main>

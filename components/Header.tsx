@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NotebookText } from "lucide-react";
+import { Turtle } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import AuthStatus from "./AuthStatus";
 import SearchPalette from "./SearchPalette";
@@ -36,7 +36,7 @@ export default function Header() {
           href="/"
           className="flex shrink-0 items-center gap-2 font-heading text-base font-semibold tracking-tight"
         >
-          <NotebookText className="h-5 w-5 text-forest" aria-hidden />
+          <Turtle className="h-5 w-5 text-forest" aria-hidden />
           <span>Living Evidence Synthesis</span>
         </Link>
 

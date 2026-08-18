@@ -5,7 +5,7 @@ import { useMemo, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import type { GraphNode, GraphEdge, NodeType } from "@/lib/data";
 import { NODE_TYPE_ORDER, getDegree } from "@/lib/data";
-import { NODE_TYPE_COLOR_VAR } from "@/lib/ui";
+import { NODE_TYPE_COLOR_VAR, NODE_TYPE_BG_CLASS, NODE_TYPE_BORDER_CLASS, NODE_TYPE_TEXT_CLASS } from "@/lib/ui";
 
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
   ssr: false,
@@ -127,8 +127,8 @@ export default function GraphExplorer({
             onClick={() => toggleType(t)}
             className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
               typeFilter.has(t)
-                ? "border-forest bg-forest text-paper"
-                : "border-border bg-card text-ink/80 hover:bg-muted-surface"
+                ? `${NODE_TYPE_BG_CLASS[t]} ${NODE_TYPE_BORDER_CLASS[t]} text-white`
+                : `${NODE_TYPE_BORDER_CLASS[t]} ${NODE_TYPE_TEXT_CLASS[t]} bg-card opacity-60 hover:opacity-100`
             }`}
           >
             {t}
