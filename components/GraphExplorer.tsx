@@ -28,6 +28,10 @@ type FGNode = {
 };
 type FGLink = { source: string; target: string; type: string };
 
+function nodeRadius(node: { degree: number }): number {
+  return 4 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
+}
+
 function resolveColor(varExpr: string): string {
   if (typeof window === "undefined") return "#888";
   const match = varExpr.match(/var\((--[a-z0-9-]+)\)/);
@@ -37,17 +41,62 @@ function resolveColor(varExpr: string): string {
     .trim();
 }
 
-/** Strip the most common Markdown syntax for a plain-text preview snippet. */
-function plainTextSnippet(markdown: string, maxLen = 220): string {
-  const text = markdown
+/** Strip the most common Markdown/Obsidian-callout syntax down to plain text. */
+function stripMarkdown(raw: string): string {
+  return raw
     .replace(/^---[\s\S]*?---/, "") // frontmatter
     .replace(/!\[.*?\]\(.*?\)/g, "") // images
     .replace(/\[\[([^\]|]+)\|?[^\]]*\]\]/g, "$1") // wikilinks
     .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1") // links
-    .replace(/[#>*_`~-]/g, " ")
+    .replace(/>\s*\[!\w+\]\s*[^\n]*/g, "") // Obsidian callout markers, e.g. "> [!info] Quotes"
+    .replace(/\(@\w+\d{4}[^)]*\)/g, "") // inline citation keys like (@leeSomething2024)
+    .replace(/[#>*_`~]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-  return text.length > maxLen ? text.slice(0, maxLen) + "…" : text;
+}
+
+/** Truncate at the nearest sentence boundary under maxLen where possible, instead of mid-word. */
+function truncateReadable(text: string, maxLen: number): string {
+  if (text.length <= maxLen) return text;
+  const cut = text.slice(0, maxLen);
+  const lastStop = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("? "), cut.lastIndexOf("! "));
+  if (lastStop > maxLen * 0.4) return cut.slice(0, lastStop + 1);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut) + "…";
+}
+
+/** Pulls the plain-text content of one Markdown section (until the next heading of any level). */
+function extractSection(markdown: string, headingPattern: RegExp): string | null {
+  const lines = markdown.split("\n");
+  const startIdx = lines.findIndex((l) => headingPattern.test(l));
+  if (startIdx === -1) return null;
+  const rest = lines.slice(startIdx + 1);
+  const endIdx = rest.findIndex((l) => /^#{1,6}\s/.test(l));
+  const sectionLines = endIdx === -1 ? rest : rest.slice(0, endIdx);
+  const text = stripMarkdown(sectionLines.join(" "));
+  return text || null;
+}
+
+// Each node type's template puts its most informative content under a
+// different heading (a TL;DR callout for sources, the verbatim quote for
+// evidence, the limitation statement for caveats, etc). The node's own
+// title already states the claim/question for QUE and CLM, so for those we
+// surface the first supporting quote instead of repeating the title.
+const SUMMARY_SECTION_BY_TYPE: Partial<Record<NodeType, RegExp>> = {
+  SRC: /TL;?DR/i,
+  EVD: /^##\s*Description/im,
+  CVT: /^###?\s*Limitation/im,
+  EP: /^##\s*Pattern statement/im,
+  QUE: /Quote/i,
+  CLM: /Quote/i,
+};
+
+/** A compact, type-aware summary for the graph preview panel — not a blind character truncation. */
+function nodeSummary(node: GraphNode, maxLen = 260): string | null {
+  const pattern = SUMMARY_SECTION_BY_TYPE[node.type];
+  const extracted = pattern ? extractSection(node.bodyMarkdown, pattern) : null;
+  const text = extracted || stripMarkdown(node.bodyMarkdown) || null;
+  return text ? truncateReadable(text, maxLen) : null;
 }
 
 export default function GraphExplorer({
@@ -152,6 +201,7 @@ export default function GraphExplorer({
   }
 
   function toggleType(t: NodeType) {
+    hasAutoFittedRef.current = false; // re-fit once for the newly-visible node set
     setTypeFilter((prev) => {
       const next = new Set(prev);
       if (next.has(t)) next.delete(t);
@@ -177,6 +227,18 @@ export default function GraphExplorer({
     fgRef.current?.zoomToFit(400, 48);
   }
 
+  // Auto-fit only on the graph's first settle. Re-fitting on every engine
+  // stop (which also fires after every filter/focus-mode change) zoomed out
+  // further each time a large set of nodes came into view, shrinking dots
+  // past the point of legibility — hence the "blurry, overlapping" look.
+  // A user can always re-center manually with the "Fit to view" button.
+  const hasAutoFittedRef = useRef(false);
+  function handleEngineStop() {
+    if (hasAutoFittedRef.current) return;
+    hasAutoFittedRef.current = true;
+    zoomToFit();
+  }
+
   // Short "phrase" labels, not full titles — keeps individual labels small
   // enough that the collision check below can actually fit several at once.
   const MAX_LABEL_CHARS = 40;
@@ -190,7 +252,7 @@ export default function GraphExplorer({
     globalScale: number,
     priority: boolean
   ): [number, number, number, number] {
-    const r = 3 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
+    const r = nodeRadius(node);
     const fontSize = (priority ? 11 : 10) / globalScale;
     ctx.font = `${fontSize}px var(--font-body, sans-serif)`;
     const width = ctx.measureText(shortLabel(node.title)).width;
@@ -200,7 +262,7 @@ export default function GraphExplorer({
   }
 
   function drawLabel(node: any, ctx: CanvasRenderingContext2D, globalScale: number, priority: boolean) {
-    const r = 3 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
+    const r = nodeRadius(node);
     ctx.font = `${(priority ? 11 : 10) / globalScale}px var(--font-body, sans-serif)`;
     ctx.fillStyle = resolveColor("var(--color-ink)");
     ctx.textAlign = "left";
@@ -224,13 +286,13 @@ export default function GraphExplorer({
 
   const nodeCanvasObject = useCallback(
     (node: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
-      const r = 3 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
+      const r = nodeRadius(node);
       const color = resolveColor(NODE_TYPE_COLOR_VAR[node.type as NodeType]);
       const isHighlighted = !highlightId || node.id === highlightId || highlightNeighbors?.has(node.id);
       ctx.beginPath();
       ctx.arc(node.x, node.y, r, 0, 2 * Math.PI, false);
       ctx.fillStyle = color;
-      ctx.globalAlpha = isHighlighted ? 1 : 0.15;
+      ctx.globalAlpha = isHighlighted ? 1 : 0.3;
       ctx.fill();
       const isPriority = node.id === selectedId || node.id === hoverId;
       if (isPriority) {
@@ -281,7 +343,10 @@ export default function GraphExplorer({
         <span className="mx-1 h-4 w-px bg-border" />
         <select
           value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
+          onChange={(e) => {
+            hasAutoFittedRef.current = false;
+            setStatusFilter(e.target.value);
+          }}
           className="rounded-full border border-border bg-card px-3 py-1 text-xs"
         >
           <option value="all">All statuses</option>
@@ -312,7 +377,7 @@ export default function GraphExplorer({
             nodeLabel={(n: any) => `${NODE_TYPE_LABELS[n.type as NodeType]}: ${n.title}`}
             nodeCanvasObject={nodeCanvasObject}
             nodePointerAreaPaint={(node: any, color: string, ctx: CanvasRenderingContext2D) => {
-              const r = 3 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
+              const r = nodeRadius(node);
               ctx.fillStyle = color;
               ctx.beginPath();
               ctx.arc(node.x, node.y, r + 2, 0, 2 * Math.PI, false);
@@ -321,7 +386,8 @@ export default function GraphExplorer({
             onNodeHover={(n: any) => setHoverId(n ? n.id : null)}
             onNodeClick={(n: any) => selectNode(n.id === selectedId ? null : n.id)}
             onBackgroundClick={() => selectNode(null)}
-            onEngineStop={zoomToFit}
+            onEngineStop={handleEngineStop}
+            minZoom={0.55}
             onRenderFramePre={onRenderFramePre}
             linkColor={(l: any) => {
               const s = typeof l.source === "string" ? l.source : l.source?.id;
@@ -366,14 +432,18 @@ export default function GraphExplorer({
                 {neighborsOf.get(selectedNode.id)?.size ?? 0} connection
                 {(neighborsOf.get(selectedNode.id)?.size ?? 0) === 1 ? "" : "s"}
               </p>
-              {selectedNode.bodyMarkdown && (
-                <p className="mt-3 text-xs leading-relaxed text-ink/80">
-                  {plainTextSnippet(selectedNode.bodyMarkdown)}
-                </p>
-              )}
+              {(() => {
+                const summary = nodeSummary(selectedNode);
+                return summary ? (
+                  <p className="mt-3 text-xs leading-relaxed text-ink/80">{summary}</p>
+                ) : null;
+              })()}
               <div className="mt-4 flex flex-col gap-2">
                 <button
-                  onClick={() => setFocusMode((f) => !f)}
+                  onClick={() => {
+                    hasAutoFittedRef.current = false;
+                    setFocusMode((f) => !f);
+                  }}
                   className={`rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors ${
                     focusMode
                       ? "border-forest bg-forest text-paper"
