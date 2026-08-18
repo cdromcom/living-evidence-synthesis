@@ -22,6 +22,9 @@ type FGNode = {
   title: string;
   degree: number;
   status: string;
+  // Injected by the force simulation at runtime, absent before the first tick.
+  x?: number;
+  y?: number;
 };
 type FGLink = { source: string; target: string; type: string };
 
@@ -130,6 +133,24 @@ export default function GraphExplorer({
   const highlightId = hoverId ?? selectedId;
   const highlightNeighbors = highlightId ? neighborsOf.get(highlightId) : undefined;
 
+  const nodeById = useMemo(() => new Map(graphData.nodes.map((n) => [n.id, n])), [graphData.nodes]);
+
+  // Real per-frame label-overlap avoidance: every candidate label's screen
+  // rect is checked against every rect already claimed this frame, and
+  // skipped entirely (not drawn cropped/underneath) if it would collide.
+  // Reset in onRenderFramePre, before any node's label is considered.
+  const labelRectsRef = useRef<[number, number, number, number][]>([]);
+  function rectsOverlap(a: [number, number, number, number], b: [number, number, number, number]) {
+    return a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+  }
+  function claimLabelRect(rect: [number, number, number, number]): boolean {
+    for (const r of labelRectsRef.current) {
+      if (rectsOverlap(rect, r)) return false;
+    }
+    labelRectsRef.current.push(rect);
+    return true;
+  }
+
   function toggleType(t: NodeType) {
     setTypeFilter((prev) => {
       const next = new Set(prev);
@@ -156,6 +177,51 @@ export default function GraphExplorer({
     fgRef.current?.zoomToFit(400, 48);
   }
 
+  // Short "phrase" labels, not full titles — keeps individual labels small
+  // enough that the collision check below can actually fit several at once.
+  const MAX_LABEL_CHARS = 40;
+  function shortLabel(title: string) {
+    return title.length > MAX_LABEL_CHARS ? title.slice(0, MAX_LABEL_CHARS) + "…" : title;
+  }
+
+  function computeLabelRect(
+    node: any,
+    ctx: CanvasRenderingContext2D,
+    globalScale: number,
+    priority: boolean
+  ): [number, number, number, number] {
+    const r = 3 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
+    const fontSize = (priority ? 11 : 10) / globalScale;
+    ctx.font = `${fontSize}px var(--font-body, sans-serif)`;
+    const width = ctx.measureText(shortLabel(node.title)).width;
+    const x0 = node.x + r + 2;
+    const y0 = node.y - fontSize * 0.65;
+    return [x0, y0, x0 + width, y0 + fontSize * 1.3];
+  }
+
+  function drawLabel(node: any, ctx: CanvasRenderingContext2D, globalScale: number, priority: boolean) {
+    const r = 3 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
+    ctx.font = `${(priority ? 11 : 10) / globalScale}px var(--font-body, sans-serif)`;
+    ctx.fillStyle = resolveColor("var(--color-ink)");
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText(shortLabel(node.title), node.x + r + 2, node.y);
+  }
+
+  // Runs once per frame, before any node is drawn: reserve label space for
+  // the hovered/selected node(s) first so they always win the collision
+  // check below, instead of losing to whichever neighbor happens to be
+  // iterated first.
+  function onRenderFramePre(ctx: CanvasRenderingContext2D, globalScale: number) {
+    labelRectsRef.current = [];
+    for (const id of [hoverId, selectedId]) {
+      if (!id) continue;
+      const n = nodeById.get(id);
+      if (!n || n.x == null || n.y == null) continue;
+      claimLabelRect(computeLabelRect(n, ctx, globalScale, true));
+    }
+  }
+
   const nodeCanvasObject = useCallback(
     (node: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
       const r = 3 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
@@ -166,27 +232,31 @@ export default function GraphExplorer({
       ctx.fillStyle = color;
       ctx.globalAlpha = isHighlighted ? 1 : 0.15;
       ctx.fill();
-      if (node.id === selectedId || node.id === hoverId) {
+      const isPriority = node.id === selectedId || node.id === hoverId;
+      if (isPriority) {
         ctx.lineWidth = (node.id === selectedId ? 2.5 : 1.5) / globalScale;
         ctx.strokeStyle = resolveColor("var(--color-ink)");
         ctx.stroke();
       }
       ctx.globalAlpha = 1;
+
       // Progressive label disclosure: at low zoom only the highlighted
-      // cluster gets labels, so a dense graph doesn't turn into text soup.
-      if (globalScale > 2.5 || node.id === hoverId || node.id === selectedId || (highlightId && highlightNeighbors?.has(node.id))) {
-        ctx.font = `${(node.id === selectedId ? 11 : 10) / globalScale}px var(--font-body, sans-serif)`;
-        ctx.fillStyle = resolveColor("var(--color-ink)");
-        ctx.textAlign = "left";
-        ctx.textBaseline = "middle";
-        ctx.fillText(
-          node.title.length > 60 ? node.title.slice(0, 60) + "…" : node.title,
-          node.x + r + 2,
-          node.y
-        );
+      // cluster is even a candidate; among candidates, a label only ever
+      // draws if it doesn't collide with one already claimed this frame —
+      // so labels never overlap, they just thin out in crowded areas.
+      const isCandidate =
+        globalScale > 2.5 || isPriority || (highlightId != null && highlightNeighbors?.has(node.id));
+      if (!isCandidate) return;
+
+      if (isPriority) {
+        // Already reserved in onRenderFramePre — draw unconditionally.
+        drawLabel(node, ctx, globalScale, true);
+        return;
       }
+      const rect = computeLabelRect(node, ctx, globalScale, false);
+      if (claimLabelRect(rect)) drawLabel(node, ctx, globalScale, false);
     },
-    [hoverId, selectedId, highlightId, highlightNeighbors]
+    [hoverId, selectedId, highlightId, highlightNeighbors, nodeById]
   );
 
   const selectedNode = selectedId ? getNodeById(selectedId) : undefined;
@@ -252,6 +322,7 @@ export default function GraphExplorer({
             onNodeClick={(n: any) => selectNode(n.id === selectedId ? null : n.id)}
             onBackgroundClick={() => selectNode(null)}
             onEngineStop={zoomToFit}
+            onRenderFramePre={onRenderFramePre}
             linkColor={(l: any) => {
               const s = typeof l.source === "string" ? l.source : l.source?.id;
               const t = typeof l.target === "string" ? l.target : l.target?.id;
