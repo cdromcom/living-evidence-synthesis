@@ -41,6 +41,8 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+nameConsistency: inconsistent-formatting
+nameConsistencyNote: "Claude family: Claude-3.7-Sonnet / Claude 3.7 Sonnet / Claude 3.7-Sonnet; Gemini family: Gemini-2.5-Pro / Gemini 2.5 Pro / Gemini 2.5 pro; Gemini family: Gemini-2.0-Flash / Gemini 2.0 Flash; Gemini family: Gemini 2.5 / Gemini2.5"
 citekey: sonWhenAICoScientists2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc

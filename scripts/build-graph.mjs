@@ -328,6 +328,8 @@ const nodes = rawNodes.map((n) => {
   if (fm.pubpeerUrl !== undefined) extras.pubpeerUrl = fm.pubpeerUrl;
   if (fm.crossNodeChecked !== undefined) extras.crossNodeChecked = fm.crossNodeChecked;
   if (fm.crossNodeCorroborated !== undefined) extras.crossNodeCorroborated = fm.crossNodeCorroborated;
+  if (fm.nameConsistency !== undefined) extras.nameConsistency = fm.nameConsistency;
+  if (fm.nameConsistencyNote !== undefined) extras.nameConsistencyNote = fm.nameConsistencyNote;
 
   return {
     id: n.id,

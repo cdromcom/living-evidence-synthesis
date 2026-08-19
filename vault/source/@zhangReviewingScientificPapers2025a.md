@@ -32,6 +32,7 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+nameConsistency: consistent
 citekey: zhangReviewingScientificPapers2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95d-7879-86c1-70337328c988

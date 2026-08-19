@@ -42,6 +42,7 @@ doajListed: false
 pubpeerCommentCount: 0
 crossNodeChecked: 1
 crossNodeCorroborated: 1
+nameConsistency: consistent
 citekey: hasanIntegratingLargeLanguage2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93d-7c62-8a27-124b13d62c62

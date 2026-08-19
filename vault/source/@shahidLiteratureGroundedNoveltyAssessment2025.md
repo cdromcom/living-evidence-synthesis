@@ -36,6 +36,7 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+nameConsistency: consistent
 citekey: shahidLiteratureGroundedNoveltyAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335

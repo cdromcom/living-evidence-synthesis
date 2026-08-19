@@ -202,6 +202,8 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   );
   const crossNodeChecked = node.extras.crossNodeChecked as number | undefined;
   const crossNodeCorroborated = node.extras.crossNodeCorroborated as number | undefined;
+  const nameConsistency = node.extras.nameConsistency as "consistent" | "inconsistent-formatting" | undefined;
+  const nameConsistencyNote = node.extras.nameConsistencyNote as string | undefined;
 
   if (!doi && !sourceUrl && !critiqueStatus) return null;
 
@@ -320,6 +322,22 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
               {crossNodeCorroborated} of {crossNodeChecked} evidence claims restate a matching number in this
               source&apos;s own narrative summary (the rest may simply be paraphrased, not necessarily
               inconsistent).
+            </p>
+          )}
+          {nameConsistency && (
+            <p
+              className="mt-1 text-xs text-muted-ink"
+              title={nameConsistencyNote || undefined}
+            >
+              <span className="font-semibold text-ink/70">Model-name formatting: </span>
+              {nameConsistency === "consistent" ? (
+                <span className="text-emerald-700">consistent throughout the full text</span>
+              ) : (
+                <span className="font-semibold text-amber-700">
+                  inconsistent spellings found for the same model{nameConsistencyNote ? ` (${nameConsistencyNote})` : ""}
+                </span>
+              )}{" "}
+              — checked against the full paper PDF, not just this source&apos;s curated summary.
             </p>
           )}
           {forensicFlagged.length > 0 && (

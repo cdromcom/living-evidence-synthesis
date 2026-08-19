@@ -37,6 +37,8 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 6
 crossNodeCorroborated: 6
+nameConsistency: inconsistent-formatting
+nameConsistencyNote: "Claude family: Claude- / Claude; Claude family: Claude 3 / Claude-3"
 citekey: woelfleBenchmarkingHumanAICollaboration2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f954-743a-bc52-4e26dd72d397
