@@ -5,7 +5,13 @@ import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
 import type { GraphNode, GraphEdge, NodeType } from "@/lib/data";
 import { NODE_TYPE_ORDER, NODE_TYPE_LABELS, getNodeById } from "@/lib/data";
-import { NODE_TYPE_COLOR_VAR, NODE_TYPE_BG_CLASS, NODE_TYPE_BORDER_CLASS, NODE_TYPE_TEXT_CLASS } from "@/lib/ui";
+import {
+  NODE_TYPE_COLOR_VAR,
+  NODE_TYPE_BG_CLASS,
+  NODE_TYPE_BORDER_CLASS,
+  NODE_TYPE_TEXT_CLASS,
+  GRAPH_SELECT_NODE_EVENT,
+} from "@/lib/ui";
 
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
   ssr: false,
@@ -115,6 +121,7 @@ export default function GraphExplorer({
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState(false);
+  const [showNodeList, setShowNodeList] = useState(false);
 
   const statuses = useMemo(
     () => Array.from(new Set(nodes.map((n) => n.curationStatus))).sort(),
@@ -222,6 +229,25 @@ export default function GraphExplorer({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  // Lets the global search palette (⌘K) preview a node in place when
+  // already on /graph, instead of navigating away and losing state.
+  // Widens the current filters if needed so the requested node is guaranteed
+  // to be visible/selectable.
+  useEffect(() => {
+    function onExternalSelect(e: Event) {
+      const id = (e as CustomEvent<string>).detail;
+      const node = nodes.find((n) => n.id === id);
+      if (!node) return;
+      hasAutoFittedRef.current = false;
+      setTypeFilter((prev) => (prev.has(node.type) ? prev : new Set(prev).add(node.type)));
+      setStatusFilter((prev) => (prev === "all" || prev === node.curationStatus ? prev : "all"));
+      setFocusMode(false);
+      setSelectedId(id);
+    }
+    window.addEventListener(GRAPH_SELECT_NODE_EVENT, onExternalSelect);
+    return () => window.removeEventListener(GRAPH_SELECT_NODE_EVENT, onExternalSelect);
+  }, [nodes]);
 
   function zoomToFit() {
     fgRef.current?.zoomToFit(400, 48);
@@ -362,11 +388,53 @@ export default function GraphExplorer({
         >
           Fit to view
         </button>
+        <button
+          onClick={() => setShowNodeList((v) => !v)}
+          aria-expanded={showNodeList}
+          aria-controls="graph-node-list"
+          className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-muted-surface"
+        >
+          {showNodeList ? "Hide node list" : "Browse by keyboard"}
+        </button>
         <span className="mono ml-auto text-xs text-muted-ink">
           {graphData.nodes.length} nodes · {graphData.links.length} edges
           {focusMode ? " (focused)" : ""}
         </span>
       </div>
+
+      {showNodeList && (
+        <div
+          id="graph-node-list"
+          className="mb-3 max-h-56 overflow-y-auto rounded-lg border border-border bg-card p-2"
+        >
+          {graphData.nodes.length === 0 ? (
+            <p className="px-2 py-1 text-xs text-muted-ink">No nodes match the current filters.</p>
+          ) : (
+            <ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
+              {graphData.nodes
+                .slice()
+                .sort((a, b) => a.title.localeCompare(b.title))
+                .map((n) => (
+                  <li key={n.id}>
+                    <button
+                      type="button"
+                      onClick={() => selectNode(n.id === selectedId ? null : n.id)}
+                      aria-pressed={n.id === selectedId}
+                      className={`flex w-full items-center gap-1.5 truncate rounded-md px-2 py-1 text-left text-xs hover:bg-muted-surface ${
+                        n.id === selectedId ? "bg-muted-surface font-semibold text-ink" : "text-ink/80"
+                      }`}
+                    >
+                      <span className={`shrink-0 text-[0.6875rem] font-semibold ${NODE_TYPE_TEXT_CLASS[n.type]}`}>
+                        {n.type}
+                      </span>
+                      <span className="truncate">{n.title}</span>
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          )}
+        </div>
+      )}
 
       <div className="grid gap-3 lg:grid-cols-[1fr_280px]">
         <div ref={containerRef} className="overflow-hidden rounded-lg border border-border bg-card">
@@ -387,7 +455,11 @@ export default function GraphExplorer({
             onNodeClick={(n: any) => selectNode(n.id === selectedId ? null : n.id)}
             onBackgroundClick={() => selectNode(null)}
             onEngineStop={handleEngineStop}
-            minZoom={0.55}
+            // Low floor so zoomToFit ("Fit to view") can actually zoom out
+            // far enough to fit the full ~250-node graph — a higher floor
+            // (e.g. 0.55) silently clamps zoomToFit before it reaches the
+            // bbox-fitting scale, making the button appear to do nothing.
+            minZoom={0.05}
             onRenderFramePre={onRenderFramePre}
             linkColor={(l: any) => {
               const s = typeof l.source === "string" ? l.source : l.source?.id;
@@ -469,6 +541,10 @@ export default function GraphExplorer({
                 <li>Click a node to preview it here without leaving the graph.</li>
                 <li>&quot;Focus this neighborhood&quot; isolates a node and its connections to cut clutter.</li>
                 <li>Drag nodes to rearrange; scroll/pinch to zoom; &quot;Fit to view&quot; re-centers.</li>
+                <li>
+                  Press <kbd className="mono rounded border border-border bg-muted-surface px-1 py-0.5 text-[0.65rem]">⌘K</kbd>{" "}
+                  (or Ctrl+K) any time to search all nodes by title, tag, or id.
+                </li>
               </ul>
               <p className="mt-3">
                 Prefer a plain list?{" "}

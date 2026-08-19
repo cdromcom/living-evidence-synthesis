@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Fuse from "fuse.js";
 import { Search } from "lucide-react";
 import { ALL_NODES } from "@/lib/data";
+import { GRAPH_SELECT_NODE_EVENT } from "@/lib/ui";
 import NodeTypeBadge from "./NodeTypeBadge";
 
 export default function SearchPalette() {
   const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,6 +50,12 @@ export default function SearchPalette() {
 
   function goTo(id: string) {
     setOpen(false);
+    // On the graph page, previewing a node in place (like clicking it in the
+    // graph) keeps filter/zoom/focus state instead of navigating away.
+    if (pathname === "/graph") {
+      window.dispatchEvent(new CustomEvent(GRAPH_SELECT_NODE_EVENT, { detail: id }));
+      return;
+    }
     router.push(`/nodes/${id}`);
   }
 
@@ -60,7 +68,7 @@ export default function SearchPalette() {
       >
         <Search className="h-3.5 w-3.5" aria-hidden />
         <span className="hidden sm:inline">Search</span>
-        <kbd className="mono hidden rounded border border-border bg-muted-surface px-1.5 py-0.5 text-[0.65rem] text-muted-ink sm:inline">
+        <kbd className="mono rounded border border-border bg-muted-surface px-1.5 py-0.5 text-[0.65rem] text-muted-ink">
           ⌘K
         </kbd>
       </button>

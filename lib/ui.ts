@@ -36,6 +36,13 @@ export const NODE_TYPE_BORDER_CLASS: Record<NodeType, string> = {
   EP: "border-node-ep",
 };
 
+/**
+ * Selecting a node in the global search palette while already on /graph
+ * should preview it in place (same as clicking it in the graph) rather
+ * than navigating away and losing filter/zoom/focus state.
+ */
+export const GRAPH_SELECT_NODE_EVENT = "graph:select-node";
+
 /** Curation status -> a stable visual family (draft vs. reviewed vs. other). */
 export function curationStatusTone(status: string): "draft" | "reviewed" | "other" {
   if (status === "Initial AI draft") return "draft";
