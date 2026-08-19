@@ -11,6 +11,8 @@ tags:
   - tripod-llm/compliance/low
   - tripod-llm/proportion/41pct
   - 5c/creativity
+  - forensic/f1-check/discrepancy
+  - forensic/kappa-check/in-bounds
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6b52-7182-bd9d-7c2686f81bb7

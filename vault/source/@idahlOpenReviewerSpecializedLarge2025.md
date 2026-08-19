@@ -19,6 +19,7 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
+  - integrity/statcheck/not-applicable
 doi: 10.48550/arXiv.2412.11948
 critiqueStatus: not-registered
 critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"

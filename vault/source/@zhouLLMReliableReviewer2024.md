@@ -19,6 +19,7 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
+  - integrity/statcheck/not-applicable
 sourceUrl: https://aclanthology.org/2024.lrec-main.816/
 critiqueStatus: not-registered
 critiqueNote: "No DOI on record; source has no formal retraction-registry entry"

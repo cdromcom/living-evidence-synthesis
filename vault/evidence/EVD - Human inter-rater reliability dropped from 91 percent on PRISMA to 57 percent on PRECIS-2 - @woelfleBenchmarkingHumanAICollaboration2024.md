@@ -12,6 +12,7 @@ tags:
   - tripod-llm/proportion/67pct
   - 5c/clarity
   - 5c/credibility
+  - forensic/kappa-check/in-bounds
 created: 2026-04-27
 updated: 2026-04-29
 nodeID: 019ddb4e-6b72-7793-93a6-8b8f7cce7291

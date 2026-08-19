@@ -19,6 +19,7 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
+  - integrity/statcheck/not-applicable
 doi: 10.1136/bmjhci-2023-100830
 critiqueStatus: none
 authors:

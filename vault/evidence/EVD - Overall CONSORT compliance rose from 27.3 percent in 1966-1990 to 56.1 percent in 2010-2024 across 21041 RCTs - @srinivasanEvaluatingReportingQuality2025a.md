@@ -11,6 +11,7 @@ tags:
   - tripod-llm/compliance/low
   - tripod-llm/proportion/50pct
   - 5c/clarity
+  - forensic/ci-check/consistent
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6b83-7219-98f4-b40a6fb82d6b

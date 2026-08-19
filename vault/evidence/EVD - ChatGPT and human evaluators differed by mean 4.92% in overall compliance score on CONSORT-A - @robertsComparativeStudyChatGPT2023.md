@@ -11,6 +11,7 @@ tags:
   - tripod-llm/compliance/low
   - tripod-llm/proportion/26pct
   - 5c/clarity
+  - forensic/ci-check/bounds-reversed
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6b5a-74fa-a013-72e50c0f1cfd

@@ -11,6 +11,7 @@ tags:
   - tripod-llm/compliance/moderate
   - tripod-llm/proportion/73pct
   - 5c/connectivity
+  - forensic/kappa-check/in-bounds
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6b75-77f2-8f5f-2ee25d43c902

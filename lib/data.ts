@@ -357,3 +357,48 @@ export function getCurationStatusMatrix(): Record<
   }
   return matrix;
 }
+
+/**
+ * Forensic-metascience checks run against each EVD node's own quoted
+ * numbers (F1 = 2PR/(P+R) consistency, Cohen's κ ∈ [-1,1] bounds, and
+ * confidence-interval ordering + point-in-interval containment). Only
+ * published where the check pattern actually matched text in that node —
+ * see scripts' commit history for what was tried and dropped (a naive GRIM
+ * — percentage-vs-denominator — check produced false positives from
+ * ambiguous "X% (N)" prose and was not published).
+ */
+export type ForensicCheckKind = "f1-check" | "kappa-check" | "ci-check";
+export type ForensicSignal = { kind: ForensicCheckKind; result: string; evdId: string; evdTitle: string };
+
+const FORENSIC_TAG_PREFIX = "forensic/";
+
+export function getForensicSignalsForEvd(node: Pick<GraphNode, "tags" | "id" | "title">): ForensicSignal[] {
+  const out: ForensicSignal[] = [];
+  for (const tag of node.tags) {
+    if (!tag.startsWith(FORENSIC_TAG_PREFIX)) continue;
+    const rest = tag.slice(FORENSIC_TAG_PREFIX.length);
+    const slash = rest.indexOf("/");
+    if (slash === -1) continue;
+    const kind = rest.slice(0, slash);
+    const result = rest.slice(slash + 1);
+    if (kind === "f1-check" || kind === "kappa-check" || kind === "ci-check") {
+      out.push({ kind, result, evdId: node.id, evdTitle: node.title });
+    }
+  }
+  return out;
+}
+
+/** Rolls up forensic signals from every EVD node derivedFrom a given source. */
+export function getForensicSignalsForSource(srcId: string): ForensicSignal[] {
+  const evdIds = ALL_EDGES.filter((e) => e.type === "derivedFrom" && e.to === srcId).map((e) => e.from);
+  const out: ForensicSignal[] = [];
+  for (const id of evdIds) {
+    const evd = nodeById.get(id);
+    if (evd) out.push(...getForensicSignalsForEvd(evd));
+  }
+  return out;
+}
+
+export function getStatcheckStatus(node: Pick<GraphNode, "tags">): "not-applicable" | null {
+  return node.tags.includes("integrity/statcheck/not-applicable") ? "not-applicable" : null;
+}

@@ -1,4 +1,6 @@
-import type { GraphNode } from "@/lib/data";
+import Link from "next/link";
+import { getForensicSignalsForSource, getStatcheckStatus, type GraphNode } from "@/lib/data";
+import AltmetricBadge from "./AltmetricBadge";
 
 type CritiqueStatus = "none" | "not-registered" | "correction" | "expression-of-concern" | "retraction";
 
@@ -193,6 +195,11 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const selfCitationChecked = node.extras.selfCitationChecked as string | undefined;
   const pubpeerCommentCount = node.extras.pubpeerCommentCount as number | undefined;
   const pubpeerUrl = node.extras.pubpeerUrl as string | undefined;
+  const forensicSignals = getForensicSignalsForSource(node.id);
+  const statcheckStatus = getStatcheckStatus(node);
+  const forensicFlagged = forensicSignals.filter((s) =>
+    ["discrepancy", "out-of-bounds", "bounds-reversed", "point-outside-interval"].includes(s.result)
+  );
 
   if (!doi && !sourceUrl && !critiqueStatus) return null;
 
@@ -216,6 +223,7 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             {doi ? `doi.org/${doi}` : "Source ↗"}
           </a>
         )}
+        {doi && <AltmetricBadge doi={doi} />}
         {pubType && (
           <span
             title={`Publication type: ${PUB_TYPE_LABELS[pubType]}`}
@@ -286,6 +294,45 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
           {(selfCitationRate * 100).toFixed(0)}% of assessable references cite the paper's own
           authors{selfCitationChecked ? ` (${selfCitationChecked})` : ""}
         </p>
+      )}
+      {(forensicSignals.length > 0 || statcheckStatus) && (
+        <div className="mt-3 border-t border-border pt-2">
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+            Forensic checks <span className="font-normal normal-case">(on this source's evidence claims)</span>
+          </p>
+          <p className="mt-1 text-xs text-muted-ink">
+            {forensicSignals.length} numeric consistency check{forensicSignals.length === 1 ? "" : "s"} run
+            (F1 = 2PR/(P+R), Cohen&apos;s κ bounds, CI ordering/containment) —{" "}
+            {forensicFlagged.length === 0 ? (
+              <span className="text-emerald-700">none flagged</span>
+            ) : (
+              <span className="font-semibold text-amber-700">{forensicFlagged.length} flagged, see below</span>
+            )}
+            . statcheck (p-value/test-statistic recomputation): not applicable — no results in this corpus were
+            reported in a recomputable APA-style format.
+          </p>
+          {forensicFlagged.length > 0 && (
+            <ul className="mt-1.5 space-y-1">
+              {forensicFlagged.map((s, i) => (
+                <li key={i} className="text-xs">
+                  <Link href={`/nodes/${s.evdId}`} className="text-forest hover:underline">
+                    {s.evdTitle}
+                  </Link>{" "}
+                  <span className="text-muted-ink">
+                    —{" "}
+                    {s.kind === "f1-check"
+                      ? "reported F1 doesn't match the harmonic-mean formula (can also happen legitimately with macro/micro-averaged multi-class F1 — not necessarily an error)"
+                      : s.kind === "kappa-check"
+                        ? "Cohen's κ value falls outside the mathematically valid [-1, 1] range"
+                        : s.result === "bounds-reversed"
+                          ? "confidence interval's lower bound exceeds its upper bound"
+                          : "point estimate falls outside its own reported confidence interval"}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       )}
       <p className="mt-2 text-[0.625rem] text-muted-ink">
         Retraction/correction status checked against Crossref (which now includes the Retraction

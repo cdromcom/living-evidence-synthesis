@@ -1144,7 +1144,9 @@
         "appraisal/overall/L0-M2-H3",
         "tripod-llm/compliance/low",
         "tripod-llm/proportion/41pct",
-        "5c/creativity"
+        "5c/creativity",
+        "forensic/f1-check/discrepancy",
+        "forensic/kappa-check/in-bounds"
       ],
       "created": "2026-04-17T00:00:00.000Z",
       "updated": "2026-04-29T00:00:00.000Z",
@@ -1333,7 +1335,8 @@
         "appraisal/overall/L0-M1-H4",
         "tripod-llm/compliance/low",
         "tripod-llm/proportion/26pct",
-        "5c/clarity"
+        "5c/clarity",
+        "forensic/ci-check/bounds-reversed"
       ],
       "created": "2026-04-17T00:00:00.000Z",
       "updated": "2026-04-29T00:00:00.000Z",
@@ -2165,7 +2168,8 @@
         "appraisal/overall/L0-M3-H2",
         "tripod-llm/compliance/moderate",
         "tripod-llm/proportion/70pct",
-        "5c/credibility"
+        "5c/credibility",
+        "forensic/kappa-check/in-bounds"
       ],
       "created": "2026-04-17T00:00:00.000Z",
       "updated": "2026-04-29T00:00:00.000Z",
@@ -2220,7 +2224,8 @@
         "tripod-llm/compliance/moderate",
         "tripod-llm/proportion/67pct",
         "5c/clarity",
-        "5c/credibility"
+        "5c/credibility",
+        "forensic/kappa-check/in-bounds"
       ],
       "created": "2026-04-27T00:00:00.000Z",
       "updated": "2026-04-29T00:00:00.000Z",
@@ -2304,7 +2309,9 @@
         "appraisal/overall/L0-M2-H3",
         "tripod-llm/compliance/low",
         "tripod-llm/proportion/41pct",
-        "5c/creativity"
+        "5c/creativity",
+        "forensic/f1-check/consistent",
+        "forensic/kappa-check/in-bounds"
       ],
       "created": "2026-04-17T00:00:00.000Z",
       "updated": "2026-04-29T00:00:00.000Z",
@@ -2359,7 +2366,8 @@
         "appraisal/overall/L2-M2-H1",
         "tripod-llm/compliance/moderate",
         "tripod-llm/proportion/73pct",
-        "5c/connectivity"
+        "5c/connectivity",
+        "forensic/kappa-check/in-bounds"
       ],
       "created": "2026-04-17T00:00:00.000Z",
       "updated": "2026-04-29T00:00:00.000Z",
@@ -2413,7 +2421,8 @@
         "appraisal/overall/L1-M3-H1",
         "tripod-llm/compliance/moderate",
         "tripod-llm/proportion/62pct",
-        "5c/credibility"
+        "5c/credibility",
+        "forensic/kappa-check/in-bounds"
       ],
       "created": "2026-04-17T00:00:00.000Z",
       "updated": "2026-04-29T00:00:00.000Z",
@@ -2998,7 +3007,8 @@
         "appraisal/overall/L0-M3-H2",
         "tripod-llm/compliance/low",
         "tripod-llm/proportion/50pct",
-        "5c/clarity"
+        "5c/clarity",
+        "forensic/ci-check/consistent"
       ],
       "created": "2026-04-17T00:00:00.000Z",
       "updated": "2026-04-29T00:00:00.000Z",
@@ -4372,7 +4382,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/disclosed",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4422,7 +4433,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4468,7 +4480,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4512,7 +4525,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-disclosed",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4558,7 +4572,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/disclosed",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4612,7 +4627,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4656,7 +4672,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4700,7 +4717,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4748,7 +4766,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/disclosed",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4803,7 +4822,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4847,7 +4867,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4907,7 +4928,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -4957,7 +4979,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5005,7 +5028,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5053,7 +5077,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5106,7 +5131,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5152,7 +5178,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5197,7 +5224,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5244,7 +5272,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5287,7 +5316,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/partial",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5341,7 +5371,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5390,7 +5421,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/disclosed"
+        "integrity/coi-disclosure/disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5439,7 +5471,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5485,7 +5518,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/partial",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5532,7 +5566,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5576,7 +5611,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
@@ -5620,7 +5656,8 @@
         "rigor/study-type/exploratory",
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
-        "integrity/coi-disclosure/not-disclosed"
+        "integrity/coi-disclosure/not-disclosed",
+        "integrity/statcheck/not-applicable"
       ],
       "created": null,
       "updated": null,
