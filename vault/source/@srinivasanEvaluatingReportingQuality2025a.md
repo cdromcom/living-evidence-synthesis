@@ -16,6 +16,9 @@ tags:
   - appraisal/statistical-rigor/some-concerns
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
+  - integrity/ethical-approval/not-applicable
+  - integrity/funding-disclosure/not-disclosed
+  - integrity/coi-disclosure/not-disclosed
 citekey: srinivasanEvaluatingReportingQuality2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f950-75f1-a036-5fc27aea2466

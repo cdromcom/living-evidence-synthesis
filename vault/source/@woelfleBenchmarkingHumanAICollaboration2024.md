@@ -16,6 +16,9 @@ tags:
   - appraisal/statistical-rigor/low-risk
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
+  - integrity/ethical-approval/not-applicable
+  - integrity/funding-disclosure/disclosed
+  - integrity/coi-disclosure/disclosed
 citekey: woelfleBenchmarkingHumanAICollaboration2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f954-743a-bc52-4e26dd72d397

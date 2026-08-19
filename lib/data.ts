@@ -259,6 +259,55 @@ export function getStudyType(node: Pick<GraphNode, "tags">): StudyType | null {
   return null;
 }
 
+/**
+ * Research-integrity disclosures: Ethical approval (TRIPOD-LLM item 13),
+ * Funding (14a), Conflicts of interest (14b) — same source table and
+ * ✅/⚠️/❌/➖ scale as the TOP-aligned tags, but these aren't TOP
+ * standards (TOP covers transparency of data/code/methods specifically),
+ * so they live in their own `integrity/` tag namespace.
+ */
+export const INTEGRITY_SIGNAL_ORDER = ["ethical-approval", "funding-disclosure", "coi-disclosure"] as const;
+export type IntegritySignalKind = (typeof INTEGRITY_SIGNAL_ORDER)[number];
+
+export const INTEGRITY_SIGNAL_LABELS: Record<IntegritySignalKind, string> = {
+  "ethical-approval": "Ethical approval",
+  "funding-disclosure": "Funding disclosure",
+  "coi-disclosure": "Conflicts of interest",
+};
+
+export type DisclosureLevel = "disclosed" | "partial" | "not-disclosed" | "not-applicable";
+
+export const DISCLOSURE_LEVEL_LABELS: Record<DisclosureLevel, string> = {
+  disclosed: "Disclosed",
+  partial: "Partially disclosed",
+  "not-disclosed": "Not disclosed",
+  "not-applicable": "Not applicable",
+};
+
+export type IntegritySignal = { kind: IntegritySignalKind; level: DisclosureLevel };
+
+const INTEGRITY_TAG_PREFIX = "integrity/";
+
+export function getIntegritySignals(node: Pick<GraphNode, "tags">): IntegritySignal[] {
+  const knownKinds: readonly string[] = INTEGRITY_SIGNAL_ORDER;
+  const knownLevels: readonly string[] = Object.keys(DISCLOSURE_LEVEL_LABELS);
+  const out: IntegritySignal[] = [];
+  for (const tag of node.tags) {
+    if (!tag.startsWith(INTEGRITY_TAG_PREFIX)) continue;
+    const rest = tag.slice(INTEGRITY_TAG_PREFIX.length);
+    const slash = rest.indexOf("/");
+    if (slash === -1) continue;
+    const kind = rest.slice(0, slash);
+    const level = rest.slice(slash + 1);
+    if (knownKinds.includes(kind) && knownLevels.includes(level)) {
+      out.push({ kind: kind as IntegritySignalKind, level: level as DisclosureLevel });
+    }
+  }
+  return INTEGRITY_SIGNAL_ORDER.filter((k) => out.some((o) => o.kind === k)).map(
+    (k) => out.find((o) => o.kind === k)!
+  );
+}
+
 export const EDGE_TYPE_LABELS: Record<EdgeType, string> = {
   addresses: "Addresses",
   relatesTo: "Relates to",

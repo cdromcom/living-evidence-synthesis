@@ -16,6 +16,9 @@ tags:
   - appraisal/statistical-rigor/some-concerns
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
+  - integrity/ethical-approval/not-applicable
+  - integrity/funding-disclosure/not-disclosed
+  - integrity/coi-disclosure/not-disclosed
 citekey: sonWhenAICoScientists2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc

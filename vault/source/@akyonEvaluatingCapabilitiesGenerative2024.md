@@ -16,6 +16,9 @@ tags:
   - appraisal/statistical-rigor/some-concerns
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
+  - integrity/ethical-approval/disclosed
+  - integrity/funding-disclosure/not-disclosed
+  - integrity/coi-disclosure/disclosed
 citekey: akyonEvaluatingCapabilitiesGenerative2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f930-7bc0-be54-6850b5d43d22

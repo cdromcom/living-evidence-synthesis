@@ -16,6 +16,9 @@ tags:
   - appraisal/statistical-rigor/high-risk
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
+  - integrity/ethical-approval/not-applicable
+  - integrity/funding-disclosure/disclosed
+  - integrity/coi-disclosure/not-disclosed
 citekey: zhangDetectingReferenceErrors2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95c-7282-bd5a-5ee57f06b340

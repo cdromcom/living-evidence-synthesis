@@ -5,15 +5,20 @@ import {
   getValiditySignals,
   getSampleSizeEstimation,
   getStudyType,
+  getIntegritySignals,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
   REPRODUCIBILITY_RISK_LABELS,
   VALIDITY_DOMAIN_LABELS,
+  INTEGRITY_SIGNAL_LABELS,
+  DISCLOSURE_LEVEL_LABELS,
   type GraphNode,
   type TopStandard,
   type TopLevel,
   type ReproducibilityRisk,
   type ValidityDomain,
+  type IntegritySignalKind,
+  type DisclosureLevel,
 } from "@/lib/data";
 
 // Center for Open Science's actual Open Science Badge artwork
@@ -98,6 +103,61 @@ function ValidityGlyph({ domain }: { domain: ValidityDomain }) {
   }
 }
 
+// Original glyphs for research-integrity disclosures — no established
+// open-licensed icon set found for these (checked: ICMJE's "conflict of
+// interest" material is a disclosure form, not an icon convention; no
+// canonical funding/ethics-approval badge turned up either).
+function IntegrityGlyph({ kind }: { kind: IntegritySignalKind }) {
+  const common = { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
+  switch (kind) {
+    case "coi-disclosure":
+      // balance scale — weighing competing interests
+      return (
+        <svg {...common}>
+          <path d="M12 3v18M7 21h10" />
+          <path d="M4 7h6M14 7h6" />
+          <path d="M4 7 1.5 12a2.5 2.5 0 0 0 5 0Z" />
+          <path d="M20 7l-2.5 5a2.5 2.5 0 0 0 5 0Z" />
+        </svg>
+      );
+    case "funding-disclosure":
+      // coin — funding source
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="8.5" />
+          <path d="M12 7.5v9M9.5 9.3c0-1 1-1.8 2.5-1.8s2.5.9 2.5 2-1 1.5-2.5 1.5-2.5.6-2.5 1.8 1 1.9 2.5 1.9 2.5-.7 2.5-1.8" />
+        </svg>
+      );
+    case "ethical-approval":
+      // shield with check — approval/certification
+      return (
+        <svg {...common}>
+          <path d="M12 3.5 19 6.5v5.5c0 5-3 8-7 9-4-1-7-4-7-9V6.5Z" />
+          <path d="M8.5 12.3l2.3 2.3L15.5 10" />
+        </svg>
+      );
+  }
+}
+
+function IntegrityBadge({ kind, level }: { kind: IntegritySignalKind; level: DisclosureLevel }) {
+  const earned = level === "disclosed";
+  return (
+    <span
+      title={`${INTEGRITY_SIGNAL_LABELS[kind]}: ${DISCLOSURE_LEVEL_LABELS[level]}`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    >
+      <span
+        className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${
+          earned ? "bg-emerald-600" : level === "partial" ? "bg-amber-500" : "bg-zinc-400"
+        }`}
+      >
+        <IntegrityGlyph kind={kind} />
+      </span>
+      {INTEGRITY_SIGNAL_LABELS[kind]}
+    </span>
+  );
+}
+
 function StandardBadge({ standard, level }: { standard: TopStandard; level: TopLevel }) {
   const img = BADGE_IMAGE[standard];
   // Only the official OSF badge criterion ("shared and cited in a trusted
@@ -142,8 +202,17 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const validity = getValiditySignals(node);
   const sampleSize = getSampleSizeEstimation(node);
   const studyType = getStudyType(node);
+  const integrity = getIntegritySignals(node);
 
-  if (signals.length === 0 && !repro && validity.length === 0 && !sampleSize && !studyType) return null;
+  if (
+    signals.length === 0 &&
+    !repro &&
+    validity.length === 0 &&
+    !sampleSize &&
+    !studyType &&
+    integrity.length === 0
+  )
+    return null;
 
   return (
     <div className="mt-3 space-y-3">
@@ -235,6 +304,19 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                 {studyType === "exploratory" ? "Exploratory" : "Confirmatory"}
               </span>
             )}
+          </div>
+        </div>
+      )}
+
+      {integrity.length > 0 && (
+        <div>
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+            Research integrity
+          </p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            {integrity.map((s) => (
+              <IntegrityBadge key={s.kind} kind={s.kind} level={s.level} />
+            ))}
           </div>
         </div>
       )}

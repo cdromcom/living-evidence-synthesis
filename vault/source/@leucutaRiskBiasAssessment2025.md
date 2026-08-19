@@ -16,6 +16,9 @@ tags:
   - appraisal/statistical-rigor/high-risk
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
+  - integrity/ethical-approval/not-applicable
+  - integrity/funding-disclosure/disclosed
+  - integrity/coi-disclosure/disclosed
 citekey: leucutaRiskBiasAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f942-782f-99e1-d83f3cbbc264

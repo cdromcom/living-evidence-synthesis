@@ -4369,7 +4369,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/disclosed",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4399,7 +4402,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4429,7 +4435,10 @@
         "appraisal/external-validity/some-concerns",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4459,7 +4468,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-disclosed",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4489,7 +4501,10 @@
         "appraisal/external-validity/some-concerns",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/disclosed",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4519,7 +4534,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4549,7 +4567,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4579,7 +4600,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4609,7 +4633,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/disclosed",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4639,7 +4666,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4669,7 +4699,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4699,7 +4732,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4729,7 +4765,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4759,7 +4798,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4789,7 +4831,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4819,7 +4864,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4849,7 +4897,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4879,7 +4930,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4909,7 +4963,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4939,7 +4996,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/partial",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4969,7 +5029,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/low-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -4999,7 +5062,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/disclosed"
       ],
       "created": null,
       "updated": null,
@@ -5029,7 +5095,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -5059,7 +5128,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/partial",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -5089,7 +5161,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/high-risk",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -5119,7 +5194,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/not-disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,
@@ -5149,7 +5227,10 @@
         "appraisal/external-validity/high-risk",
         "appraisal/statistical-rigor/some-concerns",
         "rigor/sample-size-estimation/not-done",
-        "rigor/study-type/exploratory"
+        "rigor/study-type/exploratory",
+        "integrity/ethical-approval/not-applicable",
+        "integrity/funding-disclosure/disclosed",
+        "integrity/coi-disclosure/not-disclosed"
       ],
       "created": null,
       "updated": null,

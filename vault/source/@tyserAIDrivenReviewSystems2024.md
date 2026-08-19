@@ -16,6 +16,9 @@ tags:
   - appraisal/statistical-rigor/high-risk
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
+  - integrity/ethical-approval/partial
+  - integrity/funding-disclosure/not-disclosed
+  - integrity/coi-disclosure/not-disclosed
 citekey: tyserAIDrivenReviewSystems2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f952-7812-8b4b-cd633d0b6ddb
