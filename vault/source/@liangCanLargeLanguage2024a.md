@@ -83,41 +83,6 @@ flowchart TD
     class I model;
     class L,M,P result;
 ```
-
-### Results at a glance
-
-Pairwise hit rate (the share of one reviewer's comments that overlap with another's, higher is better) — GPT-4-vs-human is on par with human-vs-human, while the shuffled null collapses to near zero:
-
-```mermaid
-xychart-beta
-    title "Pairwise hit rate by comparison condition"
-    x-axis ["Nature shuffled null", "ICLR shuffled null", "Nature human-human", "Nature GPT-4-human", "ICLR human-human", "ICLR GPT-4-human"]
-    y-axis "Pairwise hit rate (%)" 0 --> 45
-    bar [0.43, 3.91, 28.58, 30.85, 35.25, 39.23]
-```
-
-Aspect-emphasis ratio (GPT-4 frequency divided by human frequency) — a value of 1 means equal emphasis; values above 1 mean GPT-4 over-emphasizes, below 1 mean GPT-4 under-emphasizes:
-
-```mermaid
-xychart-beta
-    title "Aspect frequency ratio (GPT-4 / human) on 500 ICLR papers"
-    x-axis ["Novelty", "Add ablations", "Clarity", "Reproducibility", "Add datasets", "Implications"]
-    y-axis "Frequency ratio" 0 --> 8
-    bar [0.094, 0.149, 1.0, 1.0, 2.19, 7.27]
-```
-
-Survey-rated comparative benefit of GPT-4 feedback versus the human reviewers respondents had previously received (n = 308):
-
-```mermaid
-pie showData
-    title "GPT-4 feedback vs. human reviewer feedback (n=308)"
-    "Less helpful than most humans" : 17.5
-    "Less helpful than many, more than some" : 41.9
-    "About as helpful as humans" : 20.1
-    "More helpful than many, less than some" : 18.8
-    "Much more helpful than most humans" : 1.6
-```
-
 ---
 
 ## Critical appraisal

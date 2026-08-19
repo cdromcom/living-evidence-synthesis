@@ -80,28 +80,6 @@ flowchart TD
     class H,I,J model;
     class K,O result;
 ```
-
-### Results at a glance
-
-The paper reports no accuracy scores, F1, or kappa. Findings are counts of how many of the three platforms surfaced each ethics or SOP issue. The chart below shows the headline counts by sub-task — "good" is 3 of 3 (all platforms surfaced the issue):
-
-```mermaid
-xychart-beta
-    title "Platforms (of 3) addressing each sub-task"
-    x-axis ["On-topic case responses (avg)", "5 fundamental SOP sections", "Quorum for full board review", "Post-trial access to herbal med"]
-    y-axis "Platforms (0 to 3)" 0 --> 3
-    bar [3, 3, 0, 0]
-```
-
-How the failures clustered across the 10 ethics case studies — the post-trial-access case is the lone "all platforms failed" outlier:
-
-```mermaid
-pie showData
-    title Case-study failure pattern (n = 10 cases)
-    "All 3 platforms answered on-topic" : 9
-    "All 3 platforms missed the GCP rationale (Case 10)" : 1
-```
-
 ---
 
 ## Critical appraisal

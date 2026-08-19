@@ -80,38 +80,6 @@ flowchart TD
     class I,J,K,L model;
     class N,O result;
 ```
-
-### Results at a glance
-
-F1 across the seven prompting strategies and two external systems — higher is better; F1 balances catching novel ideas against not crying wolf:
-
-```mermaid
-xychart-beta
-    title "F1 by novelty-checker condition (test n=32)"
-    x-axis ["AI Scientist", "OpenReview ICEs", "DSPy", "AI Res. Claude", "Zero-shot", "TextGRAD", "AI Res. gpt-4o", "Idea Novelty Checker"]
-    y-axis "F1" 0 --> 1
-    bar [0.44, 0.43, 0.58, 0.56, 0.65, 0.76, 0.75, 0.79]
-```
-
-Ablation result on the deployment-critical "not novel" class — accuracy collapses without the LLM re-ranker, showing where the lift comes from:
-
-```mermaid
-xychart-beta
-    title "'Not novel' accuracy across ablations (n=58)"
-    x-axis ["Keyword only", "Snippet only", "No re-ranker", "Generic RankGPT", "Full pipeline"]
-    y-axis "Accuracy (%)" 0 --> 100
-    bar [5.17, 8.62, 10.34, 13.79, 89.66]
-```
-
-Class distribution of the consensus-labeled corpus (n = 67 ideas):
-
-```mermaid
-pie showData
-    title Novelty label distribution (formative-study consensus set)
-    "Novel" : 39
-    "Not novel" : 28
-```
-
 ---
 
 ## Critical appraisal

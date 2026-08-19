@@ -75,38 +75,6 @@ flowchart TD
     class I,J,K,L,M model;
     class N result;
 ```
-
-### Results at a glance
-
-Weighted F1 across model families with HK+LLMK inputs — higher is better. The proposed fusion architecture outperforms both fine-tuned PLM baselines and zero-shot LLMs:
-
-```mermaid
-xychart-beta
-    title "Weighted F1 by model (HK+LLMK input)"
-    x-axis ["LLaMA-3.1", "ChatGPT", "GPT-4o", "Claude-3.5", "SciBERT (PLM)", "Ours-ALBERT", "Ours-SciBERT"]
-    y-axis "Weighted F1" 0 --> 1
-    bar [0.44, 0.59, 0.68, 0.69, 0.73, 0.76, 0.83]
-```
-
-Component ablation on Ours-SciBERT — the knowledge-guided module is the load-bearing piece. Removing it costs more than twice as much as the next-most-important component:
-
-```mermaid
-xychart-beta
-    title "Accuracy drop when each component is removed"
-    x-axis ["w/o Self-Attention", "w/o SAR head", "w/o Knowledge-Guided"]
-    y-axis "Accuracy drop (points)" 0 --> 12
-    bar [2, 4, 10]
-```
-
-Class distribution in the final ICLR 2022 corpus (n = 2,432 papers, after collapsing TNS scores to binary):
-
-```mermaid
-pie showData
-    title Novelty label distribution
-    "Low Novelty (TNS 1-2)" : 58.6
-    "High Novelty (TNS 3-4)" : 41.4
-```
-
 ---
 
 ## Critical appraisal

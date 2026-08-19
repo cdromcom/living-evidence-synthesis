@@ -74,39 +74,6 @@ flowchart TD
     class I,J,K model;
     class L result;
 ```
-
-### Results at a glance
-
-Bradley-Terry preference scores across the five reviewers when humans judged the pairs — higher is better, and Claude is anchored at 0 by construction so the numbers are relative:
-
-```mermaid
-xychart-beta
-    title "Bradley-Terry score (human evaluators) — higher is better"
-    x-axis ["Gemini Pro", "Claude 3 Opus", "Command R+", "Human", "GPT-4 Turbo"]
-    y-axis "BT score" -0.6 --> 0.6
-    bar [-0.522, 0.000, 0.277, 0.501, 0.558]
-```
-
-Mean recommendation score by prompt-context condition — 5.88 is the human anchor, and "good" calibration means falling near it rather than above:
-
-```mermaid
-xychart-beta
-    title "Mean recommendation score by GPT-4 context (human anchor = 5.88)"
-    x-axis ["Human", "P1", "P2", "P3", "P4", "P5"]
-    y-axis "Mean recommendation" 0 --> 8
-    bar [5.88, 7.21, 7.58, 7.62, 4.61, 5.36]
-```
-
-Blind rubric scores on 7-to-8 sampled papers — 0 means content-free, 5 is best, and the human-evaluator columns are the deployment-relevant ones:
-
-```mermaid
-xychart-beta
-    title "Rubric scores: human evaluator on Q1 (explains score) and Q2 (guides authors)"
-    x-axis ["Human writer Q1", "GPT-4 P5 writer Q1", "Human writer Q2", "GPT-4 P5 writer Q2"]
-    y-axis "Score (0-5)" 0 --> 5
-    bar [4.80, 4.76, 4.66, 4.79]
-```
-
 ---
 
 ## Critical appraisal

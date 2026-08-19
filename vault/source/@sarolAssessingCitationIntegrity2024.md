@@ -78,39 +78,6 @@ flowchart TD
     class J,K,L model;
     class M result;
 ```
-
-### Results at a glance
-
-Macro-F1 across model conditions — higher is better; macro-F1 weighs each class equally so models that ace the easy class but bomb the hard one are penalized:
-
-```mermaid
-xychart-beta
-    title "Macro-F1 by model condition"
-    x-axis ["GPT-3.5", "MultiVerS T+A", "GPT-4", "MultiVerS top-20", "Oracle gold-ev", "Oracle gold-ctx+ev"]
-    y-axis "Macro-F1" 0 --> 1
-    bar [0.38, 0.43, 0.45, 0.52, 0.75, 0.78]
-```
-
-The headline finding — GPT-4 looks competitive on macro-F1 but collapses on the only class that matters for deployment (NOT_ACCURATE):
-
-```mermaid
-xychart-beta
-    title "F1 on NOT_ACCURATE — the deployment-critical class"
-    x-axis ["GPT-3.5", "GPT-4", "MultiVerS top-20", "Oracle gold-ctx+ev"]
-    y-axis "F1 (NOT_ACCURATE)" 0 --> 0.6
-    bar [0.05, 0.09, 0.43, 0.57]
-```
-
-Citation-accuracy label distribution in the annotated corpus (n = 3,063 citation instances):
-
-```mermaid
-pie showData
-    title Citation accuracy label distribution
-    "ACCURATE" : 60.82
-    "MAJOR error" : 18.02
-    "MINOR error" : 21.16
-```
-
 ---
 
 ## Critical appraisal

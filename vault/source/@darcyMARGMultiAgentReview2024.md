@@ -78,39 +78,6 @@ flowchart TD
     class M1,M2,M3,M4 model;
     class E1,E2,R,R2 result;
 ```
-
-### Results at a glance
-
-Recall on the ARIES automated benchmark — higher is better; this is the share of real reviewer comments each method reproduces:
-
-```mermaid
-xychart-beta
-    title "Automated recall on ARIES (30 papers)"
-    x-axis ["SARG-B", "MARG-TP", "Human", "LiZCa", "SARG-TP", "MARG-S"]
-    y-axis "Recall" 0 --> 20
-    bar [7.43, 8.49, 9.42, 9.67, 10.62, 15.84]
-```
-
-Good comments per review in the user study — higher is better; this is the headline downstream-quality measure (n = 9 participants):
-
-```mermaid
-xychart-beta
-    title "Good comments per review (user study, n=9)"
-    x-axis ["LiZCa", "SARG-B", "MARG-S"]
-    y-axis "Good comments / review" 0 --> 5
-    bar [0.3, 1.7, 3.7]
-```
-
-Specificity profile across the three user-study methods — share of comments rated "Very specific" (taller bar = more concrete and actionable):
-
-```mermaid
-xychart-beta
-    title "Share of comments rated 'Very specific' (%)"
-    x-axis ["SARG-B", "LiZCa", "MARG-S"]
-    y-axis "Very specific (%)" 0 --> 50
-    bar [11.7, 11.4, 39.0]
-```
-
 ---
 
 ## Critical appraisal

@@ -78,39 +78,6 @@ flowchart TD
     class G,H,I,J,L model;
     class M result;
 ```
-
-### Results at a glance
-
-Pooled F1 across the three text-model conditions — higher is better; F1 = 1.0 means the model agrees with the human labels every time:
-
-```mermaid
-xychart-beta
-    title "Pooled F1 on CONSORT text questions (TEST)"
-    x-axis ["Llama 2 base", "Llama 2 fine-tuned", "GPT-4 Turbo"]
-    y-axis "F1-score" 0 --> 1
-    bar [0.63, 0.84, 0.89]
-```
-
-Per-question F1 for GPT-4 Turbo — most CONSORT items land near 0.9, but the effect-size question (Q9) collapses to 0.57:
-
-```mermaid
-xychart-beta
-    title "GPT-4 Turbo per-question F1 on TEST"
-    x-axis ["Q1 hyp", "Q2 outcm", "Q3 sample", "Q4 elig", "Q5 rand-impl", "Q6 rand-meth", "Q7 alloc", "Q8 blind", "Q9 effect"]
-    y-axis "F1-score" 0 --> 1
-    bar [0.86, 0.91, 0.92, 0.89, 0.95, 0.91, 0.84, 1.00, 0.57]
-```
-
-GPT-4 Vision image sub-study — the model can name the genre of the figure perfectly but cannot reliably tell whether the participant flow details are complete:
-
-```mermaid
-xychart-beta
-    title "GPT-4 Vision accuracy on CONSORT flow-diagram items (n=20)"
-    x-axis ["Q10 is-flow-diagram", "Q11 details-complete"]
-    y-axis "Accuracy (%)" 0 --> 100
-    bar [100, 57]
-```
-
 ---
 
 ## Critical appraisal

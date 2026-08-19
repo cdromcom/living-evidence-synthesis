@@ -78,39 +78,6 @@ flowchart TD
     class G,H,I,J,K model;
     class L,N,O result;
 ```
-
-### Results at a glance
-
-Percent of signaling-question assessments judged correct, by model — higher is better; the human-consensus reference would score 100% by construction:
-
-```mermaid
-xychart-beta
-    title "QUADAS-2 correct-assessment rate by model (n = 110 per model)"
-    x-axis ["Gemini 2.0 Flash", "DeepSeek V3", "ChatGPT 4o", "Grok 3"]
-    y-axis "% correct" 0 --> 100
-    bar [67.27, 71.82, 75.45, 77.27]
-```
-
-Correct-assessment rate by QUADAS-2 domain (averaged over all four models) — note the 17-point gap between the easiest and hardest domains, which is what "varies by item type" looks like in practice:
-
-```mermaid
-xychart-beta
-    title "Correct-assessment rate by QUADAS-2 domain (4-model average)"
-    x-axis ["Reference standard", "Patient selection", "Index test", "Flow and timing"]
-    y-axis "% correct" 0 --> 100
-    bar [63.75, 65.83, 73.75, 80.63]
-```
-
-Patient-selection domain accuracy by model — the domain where models diverge the most, and where Gemini 2.0 Flash drops to chance-level on a 3-option question:
-
-```mermaid
-xychart-beta
-    title "Patient-selection correct rate by model (n = 30 per model)"
-    x-axis ["Gemini 2.0 Flash", "DeepSeek V3", "Grok 3", "ChatGPT 4o"]
-    y-axis "% correct" 0 --> 100
-    bar [50.0, 63.33, 73.33, 76.67]
-```
-
 ---
 
 ## Critical appraisal

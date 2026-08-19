@@ -75,39 +75,6 @@ flowchart TD
     class G,H,K model;
     class L,M result;
 ```
-
-### Results at a glance
-
-Average recommendation (1 to 10 scale) per model — closer to the human reviewer mean of 5.4 is better; everything above 6 means most papers would be recommended for acceptance:
-
-```mermaid
-xychart-beta
-    title "Average recommendation (1-10) — human mean = 5.4"
-    x-axis ["OpenReviewer", "Humans", "Llama-70B", "Claude-3.5", "GPT-4o", "Llama-8B"]
-    y-axis "Avg recommendation" 0 --> 10
-    bar [5.4, 5.4, 6.9, 7.6, 7.7, 8.1]
-```
-
-Exact Match rate (the share of papers where the model's 1-to-10 recommendation lands exactly on a human reviewer's recommendation) — higher means closer alignment with real reviewers:
-
-```mermaid
-xychart-beta
-    title "Exact Match rate (%) vs. human reviewers"
-    x-axis ["Llama-70B", "Llama-8B", "Claude-3.5", "GPT-4o", "OpenReviewer"]
-    y-axis "EM (%)" 0 --> 60
-    bar [11.5, 14.0, 15.5, 23.8, 55.5]
-```
-
-Arena win rates for OpenReviewer (judge: GPT-4o) — share of 400 papers where the judge picked OpenReviewer's review over each baseline:
-
-```mermaid
-xychart-beta
-    title "OpenReviewer win rate (%) by baseline opponent"
-    x-axis ["vs GPT-4o", "vs Claude-3.5", "vs Llama-8B", "vs Llama-70B"]
-    y-axis "Win rate (%)" 0 --> 100
-    bar [60, 69, 70, 76]
-```
-
 ---
 
 ## Critical appraisal

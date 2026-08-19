@@ -89,40 +89,6 @@ flowchart TD
     class G,H model;
     class J,K,L,M result;
 ```
-
-### Results at a glance
-
-Best-condition accuracy by tool — humans alone, the best individual LLM, and the best human-AI pair. Higher is better; "good enough to deploy" usually means matching or beating a single human rater (the dashed bar):
-
-```mermaid
-xychart-beta
-    title "Best accuracy by condition × tool (%)"
-    x-axis ["PRISMA human", "PRISMA best LLM", "PRISMA H+AI", "AMSTAR human", "AMSTAR best LLM", "AMSTAR H+AI", "PRECIS-2 human", "PRECIS-2 best LLM", "PRECIS-2 H+AI"]
-    y-axis "Accuracy (%)" 0 --> 100
-    bar [89, 70, 96, 89, 74, 95, 75, 55, 86]
-```
-
-The accuracy-versus-deferral trade-off for the combined-LLM ensemble on PRISMA. Stricter consistency thresholds give higher accuracy but defer more items back to humans — at 9 of 9 the ensemble is nearly as good as a human, but it has handed 74% of items back:
-
-```mermaid
-xychart-beta
-    title "Combined-LLM PRISMA: accuracy vs. deferring fraction (%)"
-    x-axis ["5/9", "6/9", "7/9", "8/9", "9/9"]
-    y-axis "Percent" 0 --> 100
-    bar [75, 79, 81, 86, 88]
-    line [4, 19, 35, 53, 74]
-```
-
-Cost per 100 papers across the five LLMs (USD, log-scale meaning); Mixtral is roughly 100 times cheaper than GPT-4 for comparable or better accuracy in this benchmark:
-
-```mermaid
-xychart-beta
-    title "Median cost per 100 papers (USD)"
-    x-axis ["Mixtral-8x22B", "GPT-3.5", "Claude-2", "Claude-3-Opus", "GPT-4"]
-    y-axis "USD" 0 --> 120
-    bar [1.2, 6, 19, 40, 115]
-```
-
 ---
 
 ## Critical appraisal

@@ -80,39 +80,6 @@ flowchart TD
     class D,E,F,G model;
     class H result;
 ```
-
-### Results at a glance
-
-EQINFER F1 across models — the dashed reference is the 40% "predict everything positive" baseline; the best LLM clears it by only 8 points:
-
-```mermaid
-xychart-beta
-    title "EQINFER F1 — best LLM only 8 points above naive baseline"
-    x-axis ["OLMo-7B", "Mistral-7B", "Qwen 2.5-72B", "Llama 3.1-70B", "GPT-4o", "All-Pos baseline", "Mixtral-MoE", "Claude 3.5", "o1-preview", "Gemini 1.5", "o3-mini"]
-    y-axis "F1 (%)" 0 --> 60
-    bar [13.64, 28.45, 31.22, 33.08, 40.35, 40.00, 40.90, 45.13, 46.35, 46.74, 47.98]
-```
-
-PAPERWEAKNESS diversity (ITF-IDF) — higher means weaknesses are both informative within a paper and specific across papers; humans clearly outpace every LLM:
-
-```mermaid
-xychart-beta
-    title "PAPERWEAKNESS ITF-IDF — humans 7.69 vs best LLM 5.95"
-    x-axis ["Mixtral-MoE", "Mistral-7B", "Qwen 2.5-72B", "AI-SCI", "OLMo-7B", "Llama 3.1-70B", "Claude 3.5", "o3-mini", "o1-preview", "Gemini 1.5", "GPT-4o", "Human"]
-    y-axis "ITF-IDF" 0 --> 8
-    bar [0.98, 1.17, 1.21, 2.23, 2.45, 2.60, 3.91, 5.85, 5.63, 5.88, 5.95, 7.69]
-```
-
-REVIEWCRITIQUE F1 — the deployment-relevant question is "can the model spot deficient review segments?" The answer for every system tested is "barely":
-
-```mermaid
-xychart-beta
-    title "REVIEWCRITIQUE F1 — best system Claude Opus at 21.99%"
-    x-axis ["Llama3-8B", "Qwen2-72B", "Llama3-70B", "Gemini 1.5", "GPT-4", "Claude Opus"]
-    y-axis "F1 (%)" 0 --> 30
-    bar [12.46, 15.16, 18.43, 20.34, 20.66, 21.99]
-```
-
 ---
 
 ## Critical appraisal

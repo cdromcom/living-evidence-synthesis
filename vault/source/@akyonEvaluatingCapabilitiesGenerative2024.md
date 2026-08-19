@@ -84,29 +84,6 @@ flowchart TD
     class I,J,K,L,M,N,O model;
     class P,Q result;
 ```
-
-### Results at a glance
-
-Correct-answer rate by model — higher is better; the dashed-style takeaway is that the newest snapshot (GPT 4-1106) does not beat the older GPT 3.5-Turbo, and the June 2023 GPT-4 release sits dead last:
-
-```mermaid
-xychart-beta
-    title "Correct-answer % by LLM (5850 QA pairs each)"
-    x-axis ["GPT 4-0613", "Gemini pro", "Claude v1", "Palm 2", "GPT 4-1106", "GPT 3.5-Turbo"]
-    y-axis "Correct %" 0 --> 100
-    bar [44.1, 49.2, 58.3, 62.1, 65.6, 66.9]
-```
-
-Item-level difficulty — averaged across all six LLMs, discussion-style items at the top are far easier than technical-detail items at the bottom:
-
-```mermaid
-xychart-beta
-    title "Correct % per STROBE question (all 6 LLMs pooled)"
-    x-axis ["Q8 stat sw", "Q15 fund", "Q1 design", "Q9 numbers", "Q7 bias", "Q14 gen", "Q4 dates", "Q3 setting", "Q2 type", "Q6 source", "Q11 demo", "Q5 elig", "Q10 flow", "Q13 lim", "Q12 disc"]
-    y-axis "Correct %" 0 --> 100
-    bar [33.52, 35.81, 36.48, 38.95, 43.00, 43.78, 46.22, 50.22, 51.99, 53.33, 56.93, 57.12, 60.52, 62.77, 68.31]
-```
-
 ---
 
 ## Critical appraisal

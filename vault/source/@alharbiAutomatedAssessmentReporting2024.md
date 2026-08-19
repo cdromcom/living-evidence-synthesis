@@ -73,40 +73,6 @@ flowchart TD
     class H,I model;
     class K result;
 ```
-
-### Results at a glance
-
-Where ChatGPT and humans agree on CONSORT-A — counts of items by agreement category. Items showing a significant disagreement (p<0.05) are the deployment-critical ones because they involve methodological judgment, not surface facts:
-
-```mermaid
-xychart-beta
-    title "CONSORT-A items by ChatGPT-human agreement (n=17 items)"
-    x-axis ["Perfect agreement", "Near-complete", "Lower agreement", "Significant disagreement"]
-    y-axis "Number of items" 0 --> 10
-    bar [6, 4, 5, 2]
-```
-
-The two CONSORT-A items where ChatGPT and humans disagreed most — both methodological. Bars show the proportion of 20 RCT abstracts each rater group called "Reported":
-
-```mermaid
-xychart-beta
-    title "Disagreement on CONSORT-A: % of abstracts called 'Reported'"
-    x-axis ["Randomization (item 8)", "Recruitment (item 11)"]
-    y-axis "% Reported" 0 --> 100
-    bar [100, 100]
-    bar [55, 0]
-```
-
-Where ChatGPT and humans agree on PRISMA-for-abstracts — same picture as CONSORT, with only one statistically significant gap (eligibility criteria):
-
-```mermaid
-xychart-beta
-    title "PRISMA-abstracts items by ChatGPT-human agreement (n=12 items)"
-    x-axis ["Perfect agreement", "Near-complete", "Lower agreement", "Significant disagreement"]
-    y-axis "Number of items" 0 --> 6
-    bar [3, 4, 4, 1]
-```
-
 ---
 
 ## Critical appraisal

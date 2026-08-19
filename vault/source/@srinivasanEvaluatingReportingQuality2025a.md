@@ -78,39 +78,6 @@ flowchart TD
     class G,H,I,J model;
     class P result;
 ```
-
-### Results at a glance
-
-F1 across model conditions on the CONSORT-TM benchmark — higher is better; the prior state-of-the-art was Lan Jiang et al.'s zero-shot GPT-4 result on the same 50 articles:
-
-```mermaid
-xychart-beta
-    title "F1 on CONSORT-TM benchmark"
-    x-axis ["Lan Jiang prior SOTA", "GPT-4o", "GPT-4o-mini", "GPT-4-turbo", "GPT-4o-mini (High-conf only)"]
-    y-axis "F1" 0 --> 1
-    bar [0.51, 0.85, 0.85, 0.89, 0.95]
-```
-
-Mean CONSORT compliance per article by publication period (n = 21,041 trials) — the climb is steady but levels off below 60%:
-
-```mermaid
-xychart-beta
-    title "Mean % of CONSORT items reported per article, by period"
-    x-axis ["1966–1990", "1990–2000", "2000–2010", "2010–2024"]
-    y-axis "% items reported" 0 --> 100
-    bar [27.3, 33.9, 45.0, 56.1]
-```
-
-Per-item reporting rates (% of 21,041 articles where the criterion was MET) — the items most critical for judging trial credibility are the items most often missing:
-
-```mermaid
-xychart-beta
-    title "% of articles reporting selected CONSORT items"
-    x-axis ["Protocol access", "Randomization seq.", "Allocation concealment", "Objectives", "Background"]
-    y-axis "% reporting" 0 --> 100
-    bar [2.22, 9.7, 15.25, 89.21, 95.88]
-```
-
 ---
 
 ## Critical appraisal

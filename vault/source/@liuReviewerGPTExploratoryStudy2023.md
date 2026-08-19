@@ -71,40 +71,6 @@ flowchart TD
     class D,E,F model;
     class G,H,I result;
 ```
-
-### Results at a glance
-
-GPT-4's accuracy across the three studies — note the steep drop from a structured checklist task to an open-ended comparison task. Higher is better; chance for the abstract task is 50%:
-
-```mermaid
-xychart-beta
-    title "GPT-4 accuracy by reviewing subtask"
-    x-axis ["Checklist (119 pairs)", "Checklist (no figure-only Qs)", "Error detection (13 papers)", "Abstract comparison (10 pairs)"]
-    y-axis "Accuracy (%)" 0 --> 100
-    bar [86.6, 92.8, 53.8, 40.0]
-```
-
-Error-detection sensitivity by prompt strategy — feeding the paper sentence-by-sentence (`Prompt-Parts`) recovered the most planted errors, but GPT-4 still missed nearly half:
-
-```mermaid
-xychart-beta
-    title "Errors detected (out of 13) by prompt strategy"
-    x-axis ["Other 8 LLMs", "Prompt-Direct", "Prompt-OneShot", "Prompt-Parts"]
-    y-axis "Papers with error caught" 0 --> 13
-    bar [0, 5, 6, 7]
-```
-
-Abstract-comparison failure modes (6 of 10 pairs failed). The table below the chart shows what tripped GPT-4 up — most failures involve numeric reasoning or susceptibility to surface cues:
-
-```mermaid
-pie showData
-    title Abstract pairs by GPT-4 outcome (n=10)
-    "Correct (null result, upper bounds, buzzwords, author identity)" : 4
-    "Wrong: numeric reasoning (positive bias, parameter ranges, lower bounds)" : 3
-    "Wrong: surface cues (bombastic language, algorithm name)" : 2
-    "Wrong: prompt injection" : 1
-```
-
 ---
 
 ## Critical appraisal

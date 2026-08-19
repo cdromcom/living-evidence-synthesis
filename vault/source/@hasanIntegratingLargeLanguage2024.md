@@ -71,38 +71,6 @@ flowchart TD
     class K,L model;
     class N result;
 ```
-
-### Results at a glance
-
-Raw percent agreement between GPT-4 and Cochrane by ROBINS-I domain — higher means GPT-4 picked the same ordinal answer as the Cochrane reviewers more often. The dashed reference is Overall (61%):
-
-```mermaid
-xychart-beta
-    title "Raw % agreement: GPT-4 vs Cochrane by ROBINS-I domain"
-    x-axis ["D4 deviations", "D7 reporting", "D5 missing", "D6 outcomes", "D2 selection", "D1 confounding", "Overall", "D3 interventions"]
-    y-axis "Raw % agreement" 0 --> 100
-    bar [31, 36, 37, 42, 46, 47, 61, 71]
-```
-
-Weighted Cohen's kappa by domain — kappa adjusts for chance agreement and partial credit on close calls; here every value sits in the "slight" band (0 to 0.20) except D2, which barely reaches "fair":
-
-```mermaid
-xychart-beta
-    title "Weighted Cohen's kappa: GPT-4 vs Cochrane by domain"
-    x-axis ["D4", "D7", "D1", "D3", "Overall", "D5", "D6", "D2"]
-    y-axis "Weighted kappa" 0 --> 0.4
-    bar [0.02, 0.03, 0.07, 0.10, 0.13, 0.14, 0.15, 0.28]
-```
-
-Sample-size flow from Scopus search to analytic sample, as a share of the original 98 SRs:
-
-```mermaid
-pie showData
-    title Cochrane SRs retained vs dropped (n = 98)
-    "Retained: full ROBINS-I assessment" : 36
-    "Dropped: incomplete ROBINS-I" : 62
-```
-
 ---
 
 ## Critical appraisal

@@ -79,40 +79,6 @@ flowchart TD
     class M,O model;
     class P result;
 ```
-
-### Results at a glance
-
-HR@5 (Hit Rate at 5) by checker model and ingestion approach — share of 245 test papers on which the model raised at least one judge-confirmed real error; higher is better:
-
-```mermaid
-xychart-beta
-    title "HR@5 by checker model — PDF (left) vs. LaTeX (right) ingestion"
-    x-axis ["Claude PDF", "o4-mini PDF", "o3 PDF", "Claude LaTeX", "o4-mini LaTeX", "o3 LaTeX"]
-    y-axis "HR@5 (%)" 0 --> 80
-    bar [16.3, 59.6, 64.9, 33.1, 61.6, 71.0]
-```
-
-The deployment-critical view — cost per paper plotted against the same hit rate. o4-mini sits at the sweet spot; o3 is only marginally better but eight times more expensive; Claude PDF is a non-starter:
-
-```mermaid
-xychart-beta
-    title "Cost per paper (USD) — lower is better at equal HR"
-    x-axis ["o4-mini PDF", "o4-mini LaTeX", "Claude PDF", "o3 PDF", "o3 LaTeX"]
-    y-axis "Cost per paper ($)" 0 --> 0.5
-    bar [0.038, 0.043, 0.159, 0.321, 0.383]
-```
-
-Test-set composition (n = 245 papers) — note the heavy formal-sciences skew that limits external validity:
-
-```mermaid
-pie showData
-    title Test-set subject distribution (n=245)
-    "Math" : 52
-    "Physics" : 29
-    "Computer Science" : 15
-    "Other" : 4
-```
-
 ---
 
 ## Critical appraisal

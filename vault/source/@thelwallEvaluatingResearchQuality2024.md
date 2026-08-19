@@ -78,39 +78,6 @@ flowchart TD
     class J,K,L,M model;
     class P result;
 ```
-
-### Results at a glance
-
-Spearman correlation between model scores and the author's REF scores across the nine model-by-input combinations — higher is better; the dashed prior-work benchmarks are useful sanity checks:
-
-```mermaid
-xychart-beta
-    title "Spearman r vs. human REF score (n=51, 30 iterations)"
-    x-axis ["3.5 Title", "4o-mini Trunc", "3.5 Trunc", "4o-mini Abs", "3.5 Abs", "4o Trunc", "4o Abs"]
-    y-axis "Spearman r" 0 --> 0.8
-    bar [0.434, 0.506, 0.625, 0.571, 0.674, 0.675, 0.678]
-```
-
-The headline finding — across all three models, the abstract beats the full text, never the other way around:
-
-```mermaid
-xychart-beta
-    title "Abstracts vs. truncated full text — by model"
-    x-axis ["3.5 Abs", "3.5 Full", "4o Abs", "4o Full", "4o-mini Abs", "4o-mini Full"]
-    y-axis "Spearman r" 0 --> 0.8
-    bar [0.674, 0.625, 0.678, 0.675, 0.571, 0.506]
-```
-
-How the GPT-4o-Abstracts cell breaks down on the cost-of-error side — direct mean-absolute-deviation (MAD; lower is better; 0 means perfect prediction) versus a baseline of just guessing the corpus mean of 2.75:
-
-```mermaid
-xychart-beta
-    title "Mean absolute deviation from human REF score (lower is better)"
-    x-axis ["Baseline (guess 2.75)", "Direct GPT-4o Abs", "Regression-mapped GPT-4o Abs"]
-    y-axis "MAD (REF stars)" 0 --> 1
-    bar [0.72, 0.62, 0.50]
-```
-
 ---
 
 ## Critical appraisal

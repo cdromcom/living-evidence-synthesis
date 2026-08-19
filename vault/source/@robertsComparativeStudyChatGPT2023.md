@@ -73,29 +73,6 @@ flowchart TD
     class E,F model;
     class I,J result;
 ```
-
-### Results at a glance
-
-Per-domain mean absolute difference between ChatGPT and humans on each CONSORT-A item — lower is better; each item is scored on a 0 / 0.5 / 1 scale, so a difference of 0.5 means the raters disagreed by one full reporting category on average:
-
-```mermaid
-xychart-beta
-    title "Mean absolute difference per CONSORT-A domain (lower is better)"
-    x-axis ["Num analysed", "Blinding", "Trial reg.", "Intervention", "Trial design", "Num assigned", "Harms", "Outcome rep.", "Participants", "Objective", "Funding", "Outcome meth.", "Randomisation", "Conclusion"]
-    y-axis "Mean abs. diff (0–1 scale)" 0 --> 0.8
-    bar [0.028, 0.034, 0.045, 0.057, 0.065, 0.105, 0.133, 0.170, 0.228, 0.316, 0.411, 0.553, 0.633, 0.764]
-```
-
-Per-domain Pearson's r — higher means ChatGPT and humans rise and fall together across abstracts; the authors' own bands flag r < 0.2 as "very weak" and 0.2 to 0.39 as "weak":
-
-```mermaid
-xychart-beta
-    title "Per-domain Pearson r (ChatGPT vs human)"
-    x-axis ["Intervention", "Num analysed", "Objective", "Conclusion", "Randomisation", "Outcome meth.", "Outcome rep.", "Funding", "Participants", "Num assigned", "Harms", "Trial reg.", "Blinding", "Trial design"]
-    y-axis "Pearson r" 0 --> 0.6
-    bar [0.02, 0.04, 0.06, 0.06, 0.11, 0.14, 0.15, 0.21, 0.26, 0.31, 0.32, 0.34, 0.44, 0.49]
-```
-
 ---
 
 ## Critical appraisal

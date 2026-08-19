@@ -73,39 +73,6 @@ flowchart TD
     class I,J model;
     class K result;
 ```
-
-### Results at a glance
-
-Pearson correlation on aspect-score prediction — higher is better; this measures how well the model's scores rank reviews the same way humans did:
-
-```mermaid
-xychart-beta
-    title "Pearson r — aspect-score prediction (GPT-3.5)"
-    x-axis ["Baseline (most-freq)", "Given paper (whole)", "Given paper (abs+sec)", "Given paper (sections)", "Given review (zero-shot)", "Given review (MCQ)", "Given review (few-shot)"]
-    y-axis "Pearson r" 0 --> 0.7
-    bar [0.333, 0.131, 0.248, 0.258, 0.548, 0.558, 0.651]
-```
-
-The headline RR-MCQ result — macro accuracy is the strict measure (entire option set must match); micro accuracy is the lenient one. The gap shows GPT-4 picks up easy options but fails on whole-question reasoning:
-
-```mermaid
-xychart-beta
-    title "RR-MCQ accuracy across pipeline configurations"
-    x-axis ["GPT-3.5→GPT-3.5", "GPT-4→GPT-3.5", "GPT-4→GPT-4"]
-    y-axis "Accuracy" 0 --> 0.8
-    bar [0.128, 0.214, 0.276]
-```
-
-Per-aspect macro accuracy for the best (GPT-4 → GPT-4) pipeline — the model is weakest on the reasoning-heavy aspects (Soundness, Add) that real reviewing actually depends on:
-
-```mermaid
-xychart-beta
-    title "GPT-4 → GPT-4 macro accuracy by RR-MCQ aspect"
-    x-axis ["Add", "Soundness", "Empirical", "Need", "No-need", "Method", "Clarity", "Explain"]
-    y-axis "Macro accuracy" 0 --> 0.4
-    bar [0.153, 0.193, 0.253, 0.256, 0.291, 0.309, 0.361, 0.364]
-```
-
 ---
 
 ## Critical appraisal

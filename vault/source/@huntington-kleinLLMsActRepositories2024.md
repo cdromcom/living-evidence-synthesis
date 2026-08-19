@@ -74,38 +74,6 @@ flowchart TD
     class G,H,I,J model;
     class K,M,N result;
 ```
-
-### Results at a glance
-
-Share of variables flagged as a confounder 100 percent of the time, by expert category, under the direct prompt with reasoning. A reliable model would mark the green-and-blue expert-approved bars high and the red expert-rejected bars low. Instead, the rejected categories are flagged at rates close to (and sometimes above) the approved ones:
-
-```mermaid
-xychart-beta
-    title "Direct-prompt confounder rate by expert category (Claude 3.5)"
-    x-axis ["Original", "Added 2016", "Expert-Added", "Final DAG", "Trimmed (rejected)", "Non-Confounders"]
-    y-axis "% of variables called confounder 100% of time" 0 --> 100
-    bar [90, 50, 53, 69, 79, 40]
-```
-
-Cohen's kappa across prompt variants — kappa runs from 0 (chance) to 1 (perfect agreement); 0.21 to 0.40 is conventionally read as "fair" and 0.41 to 0.60 as "moderate". Almost every comparison falls below "moderate", meaning the same model gives meaningfully different answers when you reword the question:
-
-```mermaid
-xychart-beta
-    title "Cohen's kappa across prompt variants (lower = less reliable)"
-    x-axis ["Direct vs indirect (Claude)", "Direct vs indirect (GPT-4o)", "Direct vs indirect (o1)", "Option-order swap (Claude)", "Option-order swap (GPT-4o)"]
-    y-axis "Cohen's kappa" 0 --> 1
-    bar [0.21, 0.24, 0.16, 0.41, 0.13]
-```
-
-Share of variables that flipped between "never a confounder" (0 percent) and "always a confounder" (100 percent) based on option order alone — the strongest evidence that current LLM causal judgments are not stable enough to act on:
-
-```mermaid
-pie showData
-    title GPT-4o option-order 0% to 100% flips (n=172 variables)
-    "Flipped on option order" : 16.3
-    "Stable across option orders" : 83.7
-```
-
 ---
 
 ## Critical appraisal

@@ -76,43 +76,6 @@ flowchart TD
     class J,K,L,M model;
     class N,O result;
 ```
-
-### Results at a glance
-
-Coarse-grained accuracy on LIMITGEN-Syn — the share of papers where the system's top-three limitations include the planted flaw. Higher is better; the human ceiling is 86%:
-
-```mermaid
-xychart-beta
-    title "Coarse accuracy on LIMITGEN-Syn (%)"
-    x-axis ["Llama-3.3-70B", "Qwen-2.5-72B", "GPT-4o-mini", "GPT-4o", "MARG", "Human"]
-    y-axis "Coarse accuracy (%)" 0 --> 100
-    bar [45.7, 47.1, 49.1, 52.0, 68.1, 86.0]
-```
-
-Effect of adding RAG to each system on LIMITGEN-Syn coarse accuracy. RAG helps the strongest systems most, but no system reaches the 86% human ceiling:
-
-```mermaid
-xychart-beta
-    title "Coarse accuracy: base vs. +RAG (%)"
-    x-axis ["Qwen", "Llama", "GPT-4o-mini", "GPT-4o", "MARG"]
-    y-axis "Coarse accuracy (%)" 0 --> 100
-    bar [47.1, 45.7, 49.1, 52.0, 68.1]
-    bar [48.4, 48.1, 53.3, 64.2, 77.9]
-```
-
-Aspect distribution of the 6,047 ground-truth limitations in LIMITGEN-Human (ICLR 2025 reviewer comments). Clarity dominates while Literature Review is rare — this imbalance shapes what the benchmark actually measures:
-
-```mermaid
-pie showData
-    title LIMITGEN-Human limitation aspect distribution
-    "Clarity" : 34
-    "Experimental Design" : 23
-    "Result Analysis" : 15
-    "Methodology" : 15
-    "Literature Review" : 11
-    "Others" : 2
-```
-
 ---
 
 ## Critical appraisal

@@ -75,41 +75,6 @@ flowchart TD
     class H model;
     class J,M result;
 ```
-
-### Results at a glance
-
-The paper does not report numeric metrics, so the charts below summarize the count of chatbot–case cells in which each ethical domain was identified versus missed under a single prompt. Higher "identified" counts are better; the maximum per row is 4 chatbots times the number of cases probing that domain.
-
-Single-prompt identification on the deployment-critical domains — based on the per-row tallies in Table 2 (p. 128). For each domain, a higher green slice means more chatbot–case cells correctly flagged the issue:
-
-```mermaid
-xychart-beta
-    title "Single-prompt cells identifying the issue (out of 4 chatbots × cases)"
-    x-axis ["Study design (case 4, n=4)", "Eligibility (cases 1+3, n=8)", "Placebo (case 5, n=4)", "Sample size (case 1, n=4)", "ICD essentials (case 2, n=4)"]
-    y-axis "Cells identifying issue" 0 --> 8
-    bar [0, 0, 1, 0, 0]
-```
-
-ICD-element coverage across the 28 generated ICDs (4 chatbots times 7 cases). Fundamental elements and word-count limits were universally met; subtler safety items were not:
-
-```mermaid
-xychart-beta
-    title "ICDs meeting each criterion (out of 28)"
-    x-axis ["Fundamental elements", "Word count ≤1250", "Benefits-not-guaranteed (all 7 cases)", "Participant count stated", "Eligibility excluded from ICD"]
-    y-axis "ICDs meeting criterion" 0 --> 28
-    bar [28, 28, 4, 0, 14]
-```
-
-Direction of effect for the single-prompt vs. multi-prompt comparison across the three deployment-critical domains. The authors report multi-prompt led to better outputs in all three:
-
-```mermaid
-pie showData
-    title Multi-prompt qualitative effect on the three weak domains
-    "Improved (placebo, risk-mitigation, participant risks)" : 3
-    "No change reported" : 0
-    "Worsened" : 0
-```
-
 ---
 
 ## Critical appraisal

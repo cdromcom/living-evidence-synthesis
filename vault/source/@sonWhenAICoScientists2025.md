@@ -77,45 +77,6 @@ flowchart TD
     class J,K,L,M model;
     class N result;
 ```
-
-### Results at a glance
-
-pass@4 across the ten evaluated models — higher is better; pass@4 is the chance that at least one of four independent runs catches a given error. A useful tool would sit well above 50%; o3 is the only model that even crosses one third:
-
-```mermaid
-xychart-beta
-    title "pass@4 on SPOT (higher is better)"
-    x-axis ["Qwen2.5-VL-72B", "Llama-4-Maverick", "Qwen2.5-VL-32B", "Gemini-2.0-FL", "Llama-4-Scout", "Claude-3.7", "GPT-4.1", "Claude-3.7:Think", "Gemini-2.5-Pro", "o3"]
-    y-axis "pass@4 (%)" 0 --> 50
-    bar [1.7, 3.3, 5.6, 6.0, 7.2, 14.1, 17.8, 18.6, 25.9, 37.8]
-```
-
-pass@4 by error category for the four strongest proprietary models — the same model can lead one category and score zero on another, so the headline aggregate hides large per-task gaps:
-
-```mermaid
-xychart-beta
-    title "pass@4 by error category — o3 vs GPT-4.1"
-    x-axis ["Equation/Proof", "Figure Dup.", "Data Inconsist.", "Stat. Reporting", "Reagent ID", "Exp. Setup"]
-    y-axis "pass@4 (%)" 0 --> 100
-    bar [62.6, 0.0, 25.7, 88.4, 62.7, 0.0]
-    bar [1.5, 44.4, 19.2, 0.0, 16.5, 0.0]
-```
-
-(Top bar = o3, bottom bar = GPT-4.1.)
-
-SPOT error-category distribution across the 91 annotated errors — class imbalance is severe and three categories have fewer than five examples:
-
-```mermaid
-pie showData
-    title SPOT error category distribution (n = 91)
-    "Equation / Proof" : 37
-    "Figure Duplication" : 27
-    "Data Inconsistency" : 18
-    "Statistical Reporting" : 4
-    "Reagent Identity" : 3
-    "Experiment Setup" : 2
-```
-
 ---
 
 ## Critical appraisal

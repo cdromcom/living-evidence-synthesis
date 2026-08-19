@@ -76,39 +76,6 @@ flowchart TD
     class L model;
     class M result;
 ```
-
-### Results at a glance
-
-Overall accuracy across all twelve model-by-context cells — higher is better; chance for a 3-class task is roughly 33%, and the best system reaches 70.0%:
-
-```mermaid
-xychart-beta
-    title "Overall accuracy (%) by model and context setting"
-    x-axis ["3.5 T", "3.5 T+A", "3.5 T+A+E", "3.5 PDF", "4 T", "4 T+A", "4 T+A+E", "4 PDF", "4o PDF"]
-    y-axis "Accuracy (%)" 0 --> 100
-    bar [66.0, 56.4, 54.0, 68.0, 58.8, 61.6, 70.0, 67.6, 68.0]
-```
-
-The deployment-relevant view — accuracy on Unsubstantiated (the error class a journal cares about catching) versus Fully substantiated (the easy "no error" class) for each model's best setting:
-
-```mermaid
-xychart-beta
-    title "Per-class accuracy (%) at each model's best overall setting"
-    x-axis ["3.5 Turbo · Unsub", "3.5 Turbo · Full", "4 Turbo · Unsub", "4 Turbo · Full", "4o · Unsub", "4o · Full"]
-    y-axis "Per-class accuracy (%)" 0 --> 100
-    bar [79.5, 63.7, 83.9, 62.9, 83.9, 58.9]
-```
-
-Label distribution in the 250-pair benchmark — note how rare the Partially-substantiated class is, which is why the authors also report a 2-class collapsed analysis:
-
-```mermaid
-pie showData
-    title Label distribution (n = 250 pairs)
-    "Unsubstantiated" : 44.8
-    "Partially substantiated" : 5.6
-    "Fully substantiated" : 49.6
-```
-
 ---
 
 ## Critical appraisal

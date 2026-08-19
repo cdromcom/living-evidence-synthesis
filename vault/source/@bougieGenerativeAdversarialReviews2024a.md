@@ -76,39 +76,6 @@ flowchart TD
     class F,H model;
     class I,J,K,L result;
 ```
-
-### Results at a glance
-
-F1 on ICLR 2023 acceptance prediction — higher is better; the human baseline at 0.49 is the bar to beat for any deployment that claims human-comparable performance:
-
-```mermaid
-xychart-beta
-    title "F1 on ICLR 2023 acceptance prediction"
-    x-axis ["OpenReviewer", "Human", "ReviewerGPT", "AI-Review", "AI-Scientist", "GAR", "GAR^>"]
-    y-axis "F1" 0 --> 1
-    bar [0.45, 0.49, 0.51, 0.53, 0.55, 0.60, 0.69]
-```
-
-Bradley-Terry preference coefficients from the GPT-4o judge — higher means more often preferred; ReviewerGPT is anchored at 0:
-
-```mermaid
-xychart-beta
-    title "Bradley-Terry preference (GPT-4o judge, 200 papers)"
-    x-axis ["OpenReviewer", "AI-Review", "ReviewerGPT", "AI-Scientist", "Human", "GAR"]
-    y-axis "BT coefficient" -0.8 --> 0.8
-    bar [-0.632, -0.365, 0.000, 0.242, 0.523, 0.684]
-```
-
-Human-likeness Likert scores on ICLR 2023 — 1 means "reads as AI-generated", 5 means "reads like a human reviewer":
-
-```mermaid
-xychart-beta
-    title "Human-likeness on ICLR 2023 (1 = AI · 5 = human)"
-    x-axis ["OpenReviewer", "ReviewerGPT", "AI-Review", "AI-Scientist", "GAR"]
-    y-axis "Likert mean" 0 --> 5
-    bar [2.43, 3.29, 3.38, 3.38, 3.99]
-```
-
 ---
 
 ## Critical appraisal
