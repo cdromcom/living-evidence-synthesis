@@ -60,7 +60,16 @@ export default async function NodeDetailPage({
   const inbound = getInboundEdges(node.id);
   const outbound = getOutboundEdges(node.id);
   const { html, toc } = renderMarkdown(node.bodyMarkdown);
-  const CREDIBILITY_EXTRA_KEYS = new Set(["doi", "sourceUrl", "critiqueStatus", "critiqueNote", "authors"]);
+  const CREDIBILITY_EXTRA_KEYS = new Set([
+    "doi",
+    "sourceUrl",
+    "critiqueStatus",
+    "critiqueNote",
+    "authors",
+    "authorTrackRecord",
+    "authorTrackRecordChecked",
+    "authorTrackRecordNote",
+  ]);
   const extraEntries = Object.entries(node.extras).filter(
     ([k, v]) => v !== undefined && v !== null && v !== "" && !CREDIBILITY_EXTRA_KEYS.has(k)
   );

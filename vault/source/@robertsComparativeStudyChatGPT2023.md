@@ -27,6 +27,8 @@ authors:
   - "Hayley A Hutchings — Swansea University Medical School, Swansea University, Swansea, UK"
   - "Thomas D Dobbs — Reconstructive Surgery and Regenerative Medicine Research Centre, Swansea University, Swansea, UK"
   - "Iain S Whitaker — Reconstructive Surgery and Regenerative Medicine Research Centre, Swansea University, Swansea, UK"
+authorTrackRecord: clean
+authorTrackRecordChecked: 1 of 5 authors (ORCID on record)
 citekey: robertsComparativeStudyChatGPT2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f947-796e-bc90-271cd2fe663c

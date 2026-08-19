@@ -316,6 +316,10 @@ const nodes = rawNodes.map((n) => {
   if (fm.critiqueStatus !== undefined) extras.critiqueStatus = fm.critiqueStatus;
   if (fm.critiqueNote !== undefined) extras.critiqueNote = fm.critiqueNote;
   if (fm.authors !== undefined) extras.authors = fm.authors;
+  if (fm.authorTrackRecord !== undefined) extras.authorTrackRecord = fm.authorTrackRecord;
+  if (fm.authorTrackRecordChecked !== undefined)
+    extras.authorTrackRecordChecked = fm.authorTrackRecordChecked;
+  if (fm.authorTrackRecordNote !== undefined) extras.authorTrackRecordNote = fm.authorTrackRecordNote;
 
   return {
     id: n.id,

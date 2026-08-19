@@ -25,6 +25,7 @@ authors:
   - "Wenqing Wu — Department of Information Management Nanjing University of Science and Technology  Nanjing China"
   - "Chengzhi Zhang — Department of Information Management Nanjing University of Science and Technology  Nanjing China"
   - "Yi Zhao — Department of Information Management Nanjing University of Science and Technology  Nanjing China"
+authorTrackRecord: not-checked
 citekey: wuAutomatedNoveltyEvaluationa
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95a-7ee1-ba78-ba0e4133973c

@@ -27,6 +27,7 @@ authors:
   - "Shruthan Radhakrishna — Department of Computer Science, University of Illinois Urbana-Champaign , Champaign, IL 61801, United States"
   - "Jodi Schneider — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
   - "Halil Kilicoglu — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
+authorTrackRecord: not-checked
 citekey: sarolAssessingCitationIntegrity2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f948-7194-abaf-ed408bc298aa

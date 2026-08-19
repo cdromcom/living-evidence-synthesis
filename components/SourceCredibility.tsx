@@ -18,6 +18,36 @@ const CRITIQUE_TONE: Record<CritiqueStatus, string> = {
   retraction: "border-red-600 text-red-700",
 };
 
+// INSPECT-SR 1.3: "Do other studies by the research team highlight causes
+// for concern?" — checked via each author's ORCID publication history
+// (CrossRef), never plain name search: a same-named different person's
+// retraction misattributed to our actual author would be exactly the kind
+// of false claim this whole feature is trying to avoid.
+type AuthorTrackRecord = "clean" | "flagged" | "not-checked";
+
+const TRACK_LABELS: Record<AuthorTrackRecord, string> = {
+  clean: "No flagged studies found among this author's other work (ORCID-checked)",
+  flagged: "An author has another flagged study on record",
+  "not-checked": "Not checked — no author ORCID on record for this source",
+};
+
+const TRACK_TONE: Record<AuthorTrackRecord, string> = {
+  clean: "border-emerald-600 text-emerald-700",
+  flagged: "border-red-600 text-red-700",
+  "not-checked": "border-zinc-300 text-muted-ink",
+};
+
+function TrackRecordGlyph({ status }: { status: AuthorTrackRecord }) {
+  const common = { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
+  return (
+    <svg {...common}>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3.5 20c0-3.5 2.5-6 5.5-6s5.5 2.5 5.5 6" />
+      {status === "flagged" ? <path d="M18 5v5M18 13v.5" /> : <path d="M16.5 8.5l1.5 1.5 3-3" />}
+    </svg>
+  );
+}
+
 // Original glyphs — no established open-licensed icon convention found for
 // "editorial notice status" specifically.
 function CritiqueGlyph({ status }: { status: CritiqueStatus }) {
@@ -70,6 +100,9 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const critiqueStatus = node.extras.critiqueStatus as CritiqueStatus | undefined;
   const critiqueNote = node.extras.critiqueNote as string | undefined;
   const authors = node.extras.authors as string[] | undefined;
+  const trackRecord = node.extras.authorTrackRecord as AuthorTrackRecord | undefined;
+  const trackRecordChecked = node.extras.authorTrackRecordChecked as string | undefined;
+  const trackRecordNote = node.extras.authorTrackRecordNote as string | undefined;
 
   if (!doi && !sourceUrl && !critiqueStatus) return null;
 
@@ -96,6 +129,15 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
           >
             <CritiqueGlyph status={critiqueStatus} />
             {CRITIQUE_LABELS[critiqueStatus]}
+          </span>
+        )}
+        {trackRecord && (
+          <span
+            title={`${TRACK_LABELS[trackRecord]}${trackRecordChecked ? ` (checked ${trackRecordChecked})` : ""}${trackRecordNote ? `: ${trackRecordNote}` : ""}`}
+            className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-0.5 ${TRACK_TONE[trackRecord]}`}
+          >
+            <TrackRecordGlyph status={trackRecord} />
+            Author track record
           </span>
         )}
         {pubpeerHref && (

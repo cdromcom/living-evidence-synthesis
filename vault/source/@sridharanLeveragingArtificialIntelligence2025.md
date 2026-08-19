@@ -24,6 +24,7 @@ critiqueStatus: none
 authors:
   - "Kannan Sridharan"
   - "Gowri Sivaramakrishnan"
+authorTrackRecord: not-checked
 citekey: sridharanLeveragingArtificialIntelligence2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94e-7707-9444-b2e1619daef0
