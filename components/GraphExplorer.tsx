@@ -3,13 +3,16 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
-import type { GraphNode, GraphEdge, NodeType } from "@/lib/data";
-import { NODE_TYPE_ORDER, NODE_TYPE_LABELS, getNodeById } from "@/lib/data";
+import type { GraphNode, GraphEdge, NodeType, FiveC } from "@/lib/data";
+import { NODE_TYPE_ORDER, NODE_TYPE_LABELS, FIVE_C_ORDER, FIVE_C_LABELS, getFiveCs, getNodeById } from "@/lib/data";
 import {
   NODE_TYPE_COLOR_VAR,
   NODE_TYPE_BG_CLASS,
   NODE_TYPE_BORDER_CLASS,
   NODE_TYPE_TEXT_CLASS,
+  FIVE_C_BG_CLASS,
+  FIVE_C_BORDER_CLASS,
+  FIVE_C_TEXT_CLASS,
   GRAPH_SELECT_NODE_EVENT,
 } from "@/lib/ui";
 
@@ -28,6 +31,7 @@ type FGNode = {
   title: string;
   degree: number;
   status: string;
+  fiveCs: FiveC[];
   // Injected by the force simulation at runtime, absent before the first tick.
   x?: number;
   y?: number;
@@ -118,6 +122,10 @@ export default function GraphExplorer({
     new Set(NODE_TYPE_ORDER)
   );
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  // Empty set = filter inactive (show everything, including nodes with no
+  // 5C tag at all — most QUE/SRC/CVT/EP nodes). Non-empty = show only nodes
+  // that carry at least one of the selected 5Cs.
+  const [fiveCFilter, setFiveCFilter] = useState<Set<FiveC>>(new Set());
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState(false);
@@ -134,7 +142,8 @@ export default function GraphExplorer({
         .filter(
           (n) =>
             typeFilter.has(n.type) &&
-            (statusFilter === "all" || n.curationStatus === statusFilter)
+            (statusFilter === "all" || n.curationStatus === statusFilter) &&
+            (fiveCFilter.size === 0 || getFiveCs(n).some((c) => fiveCFilter.has(c)))
         )
         .map((n) => n.id)
     );
@@ -151,12 +160,13 @@ export default function GraphExplorer({
         title: n.title,
         degree: degreeById.get(n.id) ?? 0,
         status: n.curationStatus,
+        fiveCs: getFiveCs(n),
       }));
     const fgLinks: FGLink[] = edges
       .filter((e) => visibleIds.has(e.from) && visibleIds.has(e.to))
       .map((e) => ({ source: e.from, target: e.to, type: e.type }));
     return { nodes: fgNodes, links: fgLinks };
-  }, [nodes, edges, typeFilter, statusFilter]);
+  }, [nodes, edges, typeFilter, statusFilter, fiveCFilter]);
 
   // Adjacency, built once per filtered graph — powers both hover/selection
   // highlighting and focus (ego-network) mode.
@@ -191,17 +201,55 @@ export default function GraphExplorer({
 
   const nodeById = useMemo(() => new Map(graphData.nodes.map((n) => [n.id, n])), [graphData.nodes]);
 
-  // Real per-frame label-overlap avoidance: every candidate label's screen
-  // rect is checked against every rect already claimed this frame, and
-  // skipped entirely (not drawn cropped/underneath) if it would collide.
-  // Reset in onRenderFramePre, before any node's label is considered.
-  const labelRectsRef = useRef<[number, number, number, number][]>([]);
-  function rectsOverlap(a: [number, number, number, number], b: [number, number, number, number]) {
+  // Real per-frame label-overlap avoidance. A candidate label's screen rect
+  // is checked against three kinds of obstacles claimed so far this frame —
+  // other labels, every node's own dot, and every visible link line — and
+  // skipped entirely (not drawn cropped/underneath/through) if it collides
+  // with any of them. Node-dot and link obstacles are seeded once per frame
+  // in onRenderFramePre, before any label is considered.
+  type Rect = [number, number, number, number];
+  const labelRectsRef = useRef<Rect[]>([]);
+  const lineSegmentsRef = useRef<[number, number, number, number][]>([]);
+
+  function rectsOverlap(a: Rect, b: Rect) {
     return a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
   }
-  function claimLabelRect(rect: [number, number, number, number]): boolean {
+  function pointInRect([x0, y0, x1, y1]: Rect, x: number, y: number) {
+    return x >= x0 && x <= x1 && y >= y0 && y <= y1;
+  }
+  function cross(ox: number, oy: number, ax: number, ay: number, bx: number, by: number) {
+    return (ax - ox) * (by - oy) - (ay - oy) * (bx - ox);
+  }
+  function segmentsIntersect(
+    ax1: number, ay1: number, ax2: number, ay2: number,
+    bx1: number, by1: number, bx2: number, by2: number
+  ) {
+    const d1 = cross(bx1, by1, bx2, by2, ax1, ay1);
+    const d2 = cross(bx1, by1, bx2, by2, ax2, ay2);
+    const d3 = cross(ax1, ay1, ax2, ay2, bx1, by1);
+    const d4 = cross(ax1, ay1, ax2, ay2, bx2, by2);
+    return ((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) && ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0));
+  }
+  function segmentIntersectsRect(x1: number, y1: number, x2: number, y2: number, rect: Rect) {
+    const [rx0, ry0, rx1, ry1] = rect;
+    const segMinX = Math.min(x1, x2), segMaxX = Math.max(x1, x2);
+    const segMinY = Math.min(y1, y2), segMaxY = Math.max(y1, y2);
+    if (segMaxX < rx0 || segMinX > rx1 || segMaxY < ry0 || segMinY > ry1) return false;
+    if (pointInRect(rect, x1, y1) || pointInRect(rect, x2, y2)) return true;
+    const edges: [number, number, number, number][] = [
+      [rx0, ry0, rx1, ry0],
+      [rx1, ry0, rx1, ry1],
+      [rx1, ry1, rx0, ry1],
+      [rx0, ry1, rx0, ry0],
+    ];
+    return edges.some(([ex1, ey1, ex2, ey2]) => segmentsIntersect(x1, y1, x2, y2, ex1, ey1, ex2, ey2));
+  }
+  function claimLabelRect(rect: Rect): boolean {
     for (const r of labelRectsRef.current) {
       if (rectsOverlap(rect, r)) return false;
+    }
+    for (const [x1, y1, x2, y2] of lineSegmentsRef.current) {
+      if (segmentIntersectsRect(x1, y1, x2, y2, rect)) return false;
     }
     labelRectsRef.current.push(rect);
     return true;
@@ -213,6 +261,16 @@ export default function GraphExplorer({
       const next = new Set(prev);
       if (next.has(t)) next.delete(t);
       else next.add(t);
+      return next;
+    });
+  }
+
+  function toggleFiveC(c: FiveC) {
+    hasAutoFittedRef.current = false;
+    setFiveCFilter((prev) => {
+      const next = new Set(prev);
+      if (next.has(c)) next.delete(c);
+      else next.add(c);
       return next;
     });
   }
@@ -272,41 +330,108 @@ export default function GraphExplorer({
     return title.length > MAX_LABEL_CHARS ? title.slice(0, MAX_LABEL_CHARS) + "…" : title;
   }
 
+  type LabelSide = "right" | "left" | "bottom" | "top";
+  const LABEL_SIDES: LabelSide[] = ["right", "left", "bottom", "top"];
+
   function computeLabelRect(
     node: any,
     ctx: CanvasRenderingContext2D,
     globalScale: number,
-    priority: boolean
-  ): [number, number, number, number] {
+    priority: boolean,
+    side: LabelSide
+  ): Rect {
     const r = nodeRadius(node);
     const fontSize = (priority ? 11 : 10) / globalScale;
     ctx.font = `${fontSize}px var(--font-body, sans-serif)`;
     const width = ctx.measureText(shortLabel(node.title)).width;
-    const x0 = node.x + r + 2;
-    const y0 = node.y - fontSize * 0.65;
-    return [x0, y0, x0 + width, y0 + fontSize * 1.3];
+    const gap = 2;
+    if (side === "right") {
+      const x0 = node.x + r + gap;
+      const y0 = node.y - fontSize * 0.65;
+      return [x0, y0, x0 + width, y0 + fontSize * 1.3];
+    }
+    if (side === "left") {
+      const x1 = node.x - r - gap;
+      const y0 = node.y - fontSize * 0.65;
+      return [x1 - width, y0, x1, y0 + fontSize * 1.3];
+    }
+    if (side === "bottom") {
+      const x0 = node.x - width / 2;
+      const y0 = node.y + r + gap;
+      return [x0, y0, x0 + width, y0 + fontSize * 1.3];
+    }
+    // top
+    const x0 = node.x - width / 2;
+    const y1 = node.y - r - gap;
+    return [x0, y1 - fontSize * 1.3, x0 + width, y1];
   }
 
-  function drawLabel(node: any, ctx: CanvasRenderingContext2D, globalScale: number, priority: boolean) {
-    const r = nodeRadius(node);
+  function drawLabel(
+    node: any,
+    ctx: CanvasRenderingContext2D,
+    globalScale: number,
+    priority: boolean,
+    side: LabelSide,
+    rect: Rect
+  ) {
     ctx.font = `${(priority ? 11 : 10) / globalScale}px var(--font-body, sans-serif)`;
     ctx.fillStyle = resolveColor("var(--color-ink)");
-    ctx.textAlign = "left";
+    ctx.textAlign = side === "left" ? "right" : side === "right" ? "left" : "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(shortLabel(node.title), node.x + r + 2, node.y);
+    const x = side === "left" ? rect[2] : side === "right" ? rect[0] : (rect[0] + rect[2]) / 2;
+    const y = (rect[1] + rect[3]) / 2;
+    ctx.fillText(shortLabel(node.title), x, y);
   }
 
-  // Runs once per frame, before any node is drawn: reserve label space for
-  // the hovered/selected node(s) first so they always win the collision
-  // check below, instead of losing to whichever neighbor happens to be
-  // iterated first.
+  /**
+   * Tries each side in turn and draws at the first position that doesn't
+   * collide with anything already claimed this frame (other labels, node
+   * dots, link lines). Returns false only if literally every side collides
+   * (dense-cluster edge case) — the label is then skipped rather than drawn
+   * on top of something.
+   */
+  function placeLabel(
+    node: any,
+    ctx: CanvasRenderingContext2D,
+    globalScale: number,
+    priority: boolean
+  ): boolean {
+    for (const side of LABEL_SIDES) {
+      const rect = computeLabelRect(node, ctx, globalScale, priority, side);
+      if (claimLabelRect(rect)) {
+        drawLabel(node, ctx, globalScale, priority, side, rect);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Runs once per frame, before any node is drawn. Seeds the obstacle set
+  // with every node's own dot and every visible link line, then reserves
+  // label space for the hovered/selected node(s) so they get first pick of
+  // position — all before any label-vs-label collision is considered.
   function onRenderFramePre(ctx: CanvasRenderingContext2D, globalScale: number) {
     labelRectsRef.current = [];
+    lineSegmentsRef.current = [];
+
+    for (const n of graphData.nodes as any[]) {
+      if (n.x == null || n.y == null) continue;
+      const r = nodeRadius(n);
+      labelRectsRef.current.push([n.x - r, n.y - r, n.x + r, n.y + r]);
+    }
+
+    for (const l of graphData.links as any[]) {
+      const s = typeof l.source === "string" ? nodeById.get(l.source) : l.source;
+      const t = typeof l.target === "string" ? nodeById.get(l.target) : l.target;
+      if (!s || !t || s.x == null || s.y == null || t.x == null || t.y == null) continue;
+      lineSegmentsRef.current.push([s.x, s.y, t.x, t.y]);
+    }
+
     for (const id of [hoverId, selectedId]) {
       if (!id) continue;
       const n = nodeById.get(id);
       if (!n || n.x == null || n.y == null) continue;
-      claimLabelRect(computeLabelRect(n, ctx, globalScale, true));
+      placeLabel(n, ctx, globalScale, true);
     }
   }
 
@@ -332,17 +457,15 @@ export default function GraphExplorer({
       // cluster is even a candidate; among candidates, a label only ever
       // draws if it doesn't collide with one already claimed this frame —
       // so labels never overlap, they just thin out in crowded areas.
-      const isCandidate =
-        globalScale > 2.5 || isPriority || (highlightId != null && highlightNeighbors?.has(node.id));
+      // Priority (hover/selected) labels are already placed in
+      // onRenderFramePre (after obstacles were seeded, so they still dodge
+      // every dot/line) — skip here to avoid drawing them a second time.
+      if (isPriority) return;
+
+      const isCandidate = globalScale > 2.5 || (highlightId != null && highlightNeighbors?.has(node.id));
       if (!isCandidate) return;
 
-      if (isPriority) {
-        // Already reserved in onRenderFramePre — draw unconditionally.
-        drawLabel(node, ctx, globalScale, true);
-        return;
-      }
-      const rect = computeLabelRect(node, ctx, globalScale, false);
-      if (claimLabelRect(rect)) drawLabel(node, ctx, globalScale, false);
+      placeLabel(node, ctx, globalScale, false);
     },
     [hoverId, selectedId, highlightId, highlightNeighbors, nodeById]
   );
@@ -364,6 +487,22 @@ export default function GraphExplorer({
             }`}
           >
             {t}
+          </button>
+        ))}
+        <span className="mx-1 h-4 w-px bg-border" />
+        {FIVE_C_ORDER.map((c) => (
+          <button
+            key={c}
+            onClick={() => toggleFiveC(c)}
+            title={`5Cs: ${FIVE_C_LABELS[c]}`}
+            aria-pressed={fiveCFilter.has(c)}
+            className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
+              fiveCFilter.has(c)
+                ? `${FIVE_C_BG_CLASS[c]} ${FIVE_C_BORDER_CLASS[c]} text-white`
+                : `${FIVE_C_BORDER_CLASS[c]} ${FIVE_C_TEXT_CLASS[c]} bg-card opacity-60 hover:opacity-100`
+            }`}
+          >
+            {FIVE_C_LABELS[c]}
           </button>
         ))}
         <span className="mx-1 h-4 w-px bg-border" />
@@ -389,12 +528,24 @@ export default function GraphExplorer({
           Fit to view
         </button>
         <button
+          onClick={() => {
+            hasAutoFittedRef.current = false;
+            setTypeFilter(new Set(NODE_TYPE_ORDER));
+            setStatusFilter("all");
+            setFiveCFilter(new Set());
+          }}
+          className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-muted-surface"
+        >
+          Reset filters
+        </button>
+        <button
           onClick={() => setShowNodeList((v) => !v)}
           aria-expanded={showNodeList}
           aria-controls="graph-node-list"
+          title="Browse and select nodes as a list — keyboard accessible"
           className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-muted-surface"
         >
-          {showNodeList ? "Hide node list" : "Browse by keyboard"}
+          {showNodeList ? "Hide node list" : "Node list"}
         </button>
         <span className="mono ml-auto text-xs text-muted-ink">
           {graphData.nodes.length} nodes · {graphData.links.length} edges
@@ -504,6 +655,18 @@ export default function GraphExplorer({
                 {neighborsOf.get(selectedNode.id)?.size ?? 0} connection
                 {(neighborsOf.get(selectedNode.id)?.size ?? 0) === 1 ? "" : "s"}
               </p>
+              {getFiveCs(selectedNode).length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {getFiveCs(selectedNode).map((c) => (
+                    <span
+                      key={c}
+                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.625rem] font-semibold text-white ${FIVE_C_BG_CLASS[c]}`}
+                    >
+                      {FIVE_C_LABELS[c]}
+                    </span>
+                  ))}
+                </div>
+              )}
               {(() => {
                 const summary = nodeSummary(selectedNode);
                 return summary ? (
@@ -537,6 +700,10 @@ export default function GraphExplorer({
               <p className="font-semibold text-ink/80">How to read this graph</p>
               <ul className="mt-2 list-disc space-y-1.5 pl-4">
                 <li>Chip color above = node type; dot size = number of connections.</li>
+                <li>
+                  The second row of chips filters by 5Cs appraisal (Credibility, Clarity, Creativity, Care,
+                  Connectivity) — most claims and evidence carry one or more; other node types usually don&apos;t.
+                </li>
                 <li>Hover a node to highlight it and its direct connections.</li>
                 <li>Click a node to preview it here without leaving the graph.</li>
                 <li>&quot;Focus this neighborhood&quot; isolates a node and its connections to cut clutter.</li>

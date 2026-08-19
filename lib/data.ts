@@ -74,6 +74,38 @@ export const NODE_TYPE_LABELS: Record<NodeType, string> = {
   EP: "Evidence Pattern",
 };
 
+/**
+ * "5Cs" appraisal dimensions, authored as vault frontmatter tags
+ * (e.g. `5c/credibility`) and copied verbatim into node.tags by
+ * scripts/build-graph.mjs. A node can carry more than one.
+ */
+export const FIVE_C_ORDER = [
+  "credibility",
+  "clarity",
+  "creativity",
+  "care",
+  "connectivity",
+] as const;
+export type FiveC = (typeof FIVE_C_ORDER)[number];
+
+export const FIVE_C_LABELS: Record<FiveC, string> = {
+  credibility: "Credibility",
+  clarity: "Clarity",
+  creativity: "Creativity",
+  care: "Care (ethics)",
+  connectivity: "Connectivity",
+};
+
+const FIVE_C_TAG_PREFIX = "5c/";
+
+export function getFiveCs(node: Pick<GraphNode, "tags">): FiveC[] {
+  const known: readonly string[] = FIVE_C_ORDER;
+  return node.tags
+    .filter((t) => t.startsWith(FIVE_C_TAG_PREFIX))
+    .map((t) => t.slice(FIVE_C_TAG_PREFIX.length))
+    .filter((c): c is FiveC => known.includes(c));
+}
+
 export const EDGE_TYPE_LABELS: Record<EdgeType, string> = {
   addresses: "Addresses",
   relatesTo: "Relates to",
