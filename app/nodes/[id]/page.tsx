@@ -69,6 +69,12 @@ export default async function NodeDetailPage({
     "authorTrackRecord",
     "authorTrackRecordChecked",
     "authorTrackRecordNote",
+    "pubType",
+    "selfCitationRate",
+    "selfCitationChecked",
+    "doajListed",
+    "pubpeerCommentCount",
+    "pubpeerUrl",
   ]);
   const extraEntries = Object.entries(node.extras).filter(
     ([k, v]) => v !== undefined && v !== null && v !== "" && !CREDIBILITY_EXTRA_KEYS.has(k)

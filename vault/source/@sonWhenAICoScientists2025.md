@@ -34,6 +34,10 @@ authors:
   - "Paulo, Gonçalo"
   - "Yu, Youngjae"
   - "Biderman, Stella"
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: sonWhenAICoScientists2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc

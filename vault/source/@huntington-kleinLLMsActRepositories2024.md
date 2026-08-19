@@ -25,6 +25,10 @@ critiqueNote: "No retraction registry exists for arXiv preprints (checked via Da
 authors:
   - "Huntington-Klein, Nick"
   - "Murray, Eleanor J."
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: huntington-kleinLLMsActRepositories2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757

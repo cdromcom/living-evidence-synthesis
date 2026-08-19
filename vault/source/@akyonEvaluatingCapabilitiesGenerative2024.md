@@ -30,6 +30,11 @@ authors:
   - "Şamil Hızlı"
 authorTrackRecord: clean
 authorTrackRecordChecked: 6 of 6 authors (ORCID on record)
+pubType: journal-article
+selfCitationRate: 0.000
+selfCitationChecked: "1 of 34 references had author metadata"
+doajListed: true
+pubpeerCommentCount: 0
 citekey: akyonEvaluatingCapabilitiesGenerative2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f930-7bc0-be54-6850b5d43d22

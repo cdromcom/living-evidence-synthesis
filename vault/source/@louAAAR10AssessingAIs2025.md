@@ -41,6 +41,10 @@ authors:
   - "Xia, Congying"
   - "Huang, Lifu"
   - "Yin, Wenpeng"
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: louAAAR10AssessingAIs2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f946-7c68-bb43-0ad4895ce6b1

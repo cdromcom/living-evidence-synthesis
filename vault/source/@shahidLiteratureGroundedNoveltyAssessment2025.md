@@ -29,6 +29,10 @@ authors:
   - "Siangliulue, Pao"
   - "Weld, Daniel S."
   - "Hope, Tom"
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: shahidLiteratureGroundedNoveltyAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335

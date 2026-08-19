@@ -26,6 +26,11 @@ authors:
   - "Saeed Asiri — Department of Pediatric Dentistry, College of Dentistry, Prince Sattam Bin Abdulaziz University, Al-Kharj 11942, Saudi Arabia"
 authorTrackRecord: clean
 authorTrackRecordChecked: 2 of 2 authors (ORCID on record)
+pubType: journal-article
+selfCitationRate: 0.000
+selfCitationChecked: "34 of 36 references had author metadata"
+doajListed: true
+pubpeerCommentCount: 0
 citekey: alharbiAutomatedAssessmentReporting2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10

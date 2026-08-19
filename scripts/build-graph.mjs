@@ -320,6 +320,12 @@ const nodes = rawNodes.map((n) => {
   if (fm.authorTrackRecordChecked !== undefined)
     extras.authorTrackRecordChecked = fm.authorTrackRecordChecked;
   if (fm.authorTrackRecordNote !== undefined) extras.authorTrackRecordNote = fm.authorTrackRecordNote;
+  if (fm.pubType !== undefined) extras.pubType = fm.pubType;
+  if (fm.selfCitationRate !== undefined) extras.selfCitationRate = fm.selfCitationRate;
+  if (fm.selfCitationChecked !== undefined) extras.selfCitationChecked = fm.selfCitationChecked;
+  if (fm.doajListed !== undefined) extras.doajListed = fm.doajListed;
+  if (fm.pubpeerCommentCount !== undefined) extras.pubpeerCommentCount = fm.pubpeerCommentCount;
+  if (fm.pubpeerUrl !== undefined) extras.pubpeerUrl = fm.pubpeerUrl;
 
   return {
     id: n.id,

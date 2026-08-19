@@ -27,6 +27,10 @@ authors:
   - "Hope, Tom"
   - "Birnbaum, Larry"
   - "Downey, Doug"
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: darcyMARGMultiAgentReview2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f939-7206-9a0a-1c995b5d5a78

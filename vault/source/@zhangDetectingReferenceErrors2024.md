@@ -25,6 +25,10 @@ critiqueNote: "No retraction registry exists for arXiv preprints (checked via Da
 authors:
   - "Zhang, Tianmai M."
   - "Abernethy, Neil F."
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: zhangDetectingReferenceErrors2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95c-7282-bd5a-5ee57f06b340

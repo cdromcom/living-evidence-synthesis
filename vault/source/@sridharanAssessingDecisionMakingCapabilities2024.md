@@ -26,6 +26,11 @@ authors:
   - "Gowri Sivaramakrishnan — Dental Post Graduate Training Department, PHCC, Manama, Kingdom of Bahrain"
 authorTrackRecord: clean
 authorTrackRecordChecked: 1 of 2 authors (ORCID on record)
+pubType: journal-article
+selfCitationRate: 0.000
+selfCitationChecked: "10 of 28 references had author metadata"
+doajListed: false
+pubpeerCommentCount: 0
 citekey: sridharanAssessingDecisionMakingCapabilities2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94d-7c19-b337-3de0ad3115f5

@@ -35,6 +35,10 @@ authors:
   - "Udell, Madeleine"
   - "Te'eni, Dov"
   - "Drori, Iddo"
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: tyserAIDrivenReviewSystems2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f952-7812-8b4b-cd633d0b6ddb

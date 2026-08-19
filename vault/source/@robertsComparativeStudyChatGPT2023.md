@@ -29,6 +29,12 @@ authors:
   - "Iain S Whitaker — Reconstructive Surgery and Regenerative Medicine Research Centre, Swansea University, Swansea, UK"
 authorTrackRecord: clean
 authorTrackRecordChecked: 1 of 5 authors (ORCID on record)
+pubType: journal-article
+selfCitationRate: 0.100
+selfCitationChecked: "10 of 10 references had author metadata"
+doajListed: true
+pubpeerCommentCount: 1
+pubpeerUrl: https://pubpeer.com/publications/236DA13025E01F0BFA89DE7142EE4F
 citekey: robertsComparativeStudyChatGPT2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f947-796e-bc90-271cd2fe663c

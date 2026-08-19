@@ -34,6 +34,11 @@ authors:
   - "Zhen Wang"
   - "Mohammad Hassan Murad"
 authorTrackRecord: not-checked
+pubType: journal-article
+selfCitationRate: 0.000
+selfCitationChecked: "12 of 25 references had author metadata"
+doajListed: false
+pubpeerCommentCount: 0
 citekey: hasanIntegratingLargeLanguage2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93d-7c62-8a27-124b13d62c62

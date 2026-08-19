@@ -29,6 +29,11 @@ authors:
   - "Clare L Ardern — Department of Physical Therapy, The University of British Columbia Faculty of Medicine, Vancouver, British Columbia, Canada"
 authorTrackRecord: clean
 authorTrackRecordChecked: 2 of 5 authors (ORCID on record)
+pubType: journal-article
+selfCitationRate: 0.000
+selfCitationChecked: "23 of 36 references had author metadata"
+doajListed: true
+pubpeerCommentCount: 0
 citekey: wrightsonGPTRCTsUsing2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e

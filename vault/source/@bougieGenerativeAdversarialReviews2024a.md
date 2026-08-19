@@ -25,6 +25,10 @@ critiqueNote: "No retraction registry exists for arXiv preprints (checked via Da
 authors:
   - "Bougie, Nicolas"
   - "Watanabe, Narimasa"
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: bougieGenerativeAdversarialReviews2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f937-724d-9f43-074dca71227e

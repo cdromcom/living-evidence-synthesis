@@ -25,6 +25,10 @@ critiqueNote: "No retraction registry exists for arXiv preprints (checked via Da
 authors:
   - "Liu, Ryan"
   - "Shah, Nihar B."
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: liuReviewerGPTExploratoryStudy2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f945-72a9-a2d4-93facd4227d6

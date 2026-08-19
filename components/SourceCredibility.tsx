@@ -93,6 +93,90 @@ function CritiqueGlyph({ status }: { status: CritiqueStatus }) {
   }
 }
 
+type PubType =
+  | "journal-article"
+  | "conference-proceeding"
+  | "preprint"
+  | "thesis"
+  | "dissertation"
+  | "blog-post"
+  | "micropublication"
+  | "nanopublication"
+  | "report"
+  | "other";
+
+const PUB_TYPE_LABELS: Record<PubType, string> = {
+  "journal-article": "Journal article",
+  "conference-proceeding": "Conference proceeding",
+  preprint: "Preprint",
+  thesis: "Thesis",
+  dissertation: "Dissertation",
+  "blog-post": "Blog post",
+  micropublication: "Micropublication",
+  nanopublication: "Nanopublication",
+  report: "Report",
+  other: "Other",
+};
+
+function PubTypeGlyph({ pubType }: { pubType: PubType }) {
+  const common = { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
+  switch (pubType) {
+    case "journal-article":
+      return (
+        <svg {...common}>
+          <path d="M4 4.5c3-1 6-1 8 0v15c-2-1-5-1-8 0Z" />
+          <path d="M20 4.5c-3-1-6-1-8 0v15c2-1 5-1 8 0Z" />
+        </svg>
+      );
+    case "conference-proceeding":
+      return (
+        <svg {...common}>
+          <rect x="3" y="5" width="18" height="12" rx="1.5" />
+          <path d="M8 21h8M12 17v4" />
+        </svg>
+      );
+    case "preprint":
+      return (
+        <svg {...common}>
+          <path d="M6 3.5h9l3 3V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" />
+          <path d="M9 13.5l2.5 2.5L16 11" strokeDasharray="1.5 2" />
+        </svg>
+      );
+    case "thesis":
+    case "dissertation":
+      return (
+        <svg {...common}>
+          <path d="M2 9 12 4l10 5-10 5Z" />
+          <path d="M6 11.5V17c2 1.5 10 1.5 12 0v-5.5" />
+        </svg>
+      );
+    case "blog-post":
+      return (
+        <svg {...common}>
+          <path d="M4 5h16v11H9l-4 4V5Z" />
+          <path d="M8 9h8M8 12.5h5" />
+        </svg>
+      );
+    case "micropublication":
+    case "nanopublication":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="2" />
+          <ellipse cx="12" cy="12" rx="9" ry="4" />
+          <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(60 12 12)" />
+        </svg>
+      );
+    case "report":
+    case "other":
+      return (
+        <svg {...common}>
+          <rect x="5" y="3.5" width="14" height="17" rx="1.5" />
+          <path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4" />
+        </svg>
+      );
+  }
+}
+
 /** DOI link, critique/retraction status, PubPeer link-out, and author list for a source node. */
 export default function SourceCredibility({ node }: { node: GraphNode }) {
   const doi = node.extras.doi as string | undefined;
@@ -103,11 +187,21 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const trackRecord = node.extras.authorTrackRecord as AuthorTrackRecord | undefined;
   const trackRecordChecked = node.extras.authorTrackRecordChecked as string | undefined;
   const trackRecordNote = node.extras.authorTrackRecordNote as string | undefined;
+  const pubType = node.extras.pubType as PubType | undefined;
+  const doajListed = node.extras.doajListed as boolean | "not-applicable" | undefined;
+  const selfCitationRate = node.extras.selfCitationRate as number | "not-assessable" | undefined;
+  const selfCitationChecked = node.extras.selfCitationChecked as string | undefined;
+  const pubpeerCommentCount = node.extras.pubpeerCommentCount as number | undefined;
+  const pubpeerUrl = node.extras.pubpeerUrl as string | undefined;
 
   if (!doi && !sourceUrl && !critiqueStatus) return null;
 
   const externalHref = doi ? `https://doi.org/${doi}` : sourceUrl;
-  const pubpeerHref = doi ? `https://pubpeer.com/search?q=${encodeURIComponent(doi)}` : null;
+  const pubpeerHref = pubpeerUrl || (doi ? `https://pubpeer.com/search?q=${encodeURIComponent(doi)}` : null);
+  const pubpeerLabel =
+    pubpeerCommentCount && pubpeerCommentCount > 0
+      ? `${pubpeerCommentCount} PubPeer comment${pubpeerCommentCount === 1 ? "" : "s"} ↗`
+      : "No PubPeer comments found";
 
   return (
     <div className="mt-3 rounded-md border border-border bg-card p-3">
@@ -121,6 +215,31 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
           >
             {doi ? `doi.org/${doi}` : "Source ↗"}
           </a>
+        )}
+        {pubType && (
+          <span
+            title={`Publication type: ${PUB_TYPE_LABELS[pubType]}`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-0.5 text-ink/70"
+          >
+            <PubTypeGlyph pubType={pubType} />
+            {PUB_TYPE_LABELS[pubType]}
+          </span>
+        )}
+        {doajListed === true && (
+          <span
+            title="Journal is indexed in the Directory of Open Access Journals (DOAJ) — a positive legitimacy signal for open-access venues"
+            className="inline-flex items-center gap-1.5 rounded-full border border-emerald-600 bg-card px-2 py-0.5 text-emerald-700"
+          >
+            DOAJ-listed
+          </span>
+        )}
+        {doajListed === false && (
+          <span
+            title="Journal was not found in the Directory of Open Access Journals — not necessarily a red flag (many reputable subscription/hybrid journals aren't DOAJ members), but worth a second look for open-access-only venues"
+            className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 bg-card px-2 py-0.5 text-muted-ink"
+          >
+            Not DOAJ-listed
+          </span>
         )}
         {critiqueStatus && (
           <span
@@ -145,9 +264,13 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             href={pubpeerHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted-ink hover:text-forest hover:underline"
+            className={
+              pubpeerCommentCount && pubpeerCommentCount > 0
+                ? "font-semibold text-amber-700 hover:underline"
+                : "text-muted-ink hover:text-forest hover:underline"
+            }
           >
-            Check PubPeer comments ↗
+            {pubpeerLabel}
           </a>
         )}
       </div>
@@ -155,6 +278,13 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
         <p className="mt-2 text-xs text-muted-ink">
           <span className="font-semibold text-ink/70">Authors: </span>
           {authors.join(" · ")}
+        </p>
+      )}
+      {typeof selfCitationRate === "number" && (
+        <p className="mt-1 text-xs text-muted-ink">
+          <span className="font-semibold text-ink/70">Self-citation rate: </span>
+          {(selfCitationRate * 100).toFixed(0)}% of assessable references cite the paper's own
+          authors{selfCitationChecked ? ` (${selfCitationChecked})` : ""}
         </p>
       )}
       <p className="mt-2 text-[0.625rem] text-muted-ink">

@@ -22,6 +22,9 @@ tags:
 sourceUrl: https://aclanthology.org/2024.lrec-main.816/
 critiqueStatus: not-registered
 critiqueNote: "No DOI on record; source has no formal retraction-registry entry"
+pubType: other
+selfCitationRate: not-assessable
+doajListed: not-applicable
 citekey: zhouLLMReliableReviewer2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95e-7c73-827f-b2352b9cc159

@@ -25,6 +25,10 @@ critiqueNote: "No retraction registry exists for arXiv preprints (checked via Da
 authors:
   - "Idahl, Maximilian"
   - "Ahmadi, Zahra"
+pubType: preprint
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
 citekey: idahlOpenReviewerSpecializedLarge2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f941-711e-94d8-69d06137ee06
