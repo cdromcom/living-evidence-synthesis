@@ -19,6 +19,12 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2306.00622
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Liu, Ryan"
+  - "Shah, Nihar B."
 citekey: liuReviewerGPTExploratoryStudy2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f945-72a9-a2d4-93facd4227d6

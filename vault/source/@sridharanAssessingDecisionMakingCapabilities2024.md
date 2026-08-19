@@ -19,6 +19,11 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
+doi: 10.1177/15562646241263200
+critiqueStatus: none
+authors:
+  - "Kannan Sridharan — Department of Pharmacology and Therapeutics, College of Medicine and Medical Sciences, Arabian Gulf University, Manama, Kingdom of Bahrain"
+  - "Gowri Sivaramakrishnan — Dental Post Graduate Training Department, PHCC, Manama, Kingdom of Bahrain"
 citekey: sridharanAssessingDecisionMakingCapabilities2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94d-7c19-b337-3de0ad3115f5

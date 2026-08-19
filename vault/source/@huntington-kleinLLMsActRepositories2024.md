@@ -19,6 +19,12 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2412.10635
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Huntington-Klein, Nick"
+  - "Murray, Eleanor J."
 citekey: huntington-kleinLLMsActRepositories2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757

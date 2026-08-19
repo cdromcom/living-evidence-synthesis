@@ -19,6 +19,22 @@ tags:
   - integrity/ethical-approval/partial
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2408.10365
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Tyser, Keith"
+  - "Segev, Ben"
+  - "Longhitano, Gaston"
+  - "Zhang, Xin-Yu"
+  - "Meeks, Zachary"
+  - "Lee, Jason"
+  - "Garg, Uday"
+  - "Belsten, Nicholas"
+  - "Shporer, Avi"
+  - "Udell, Madeleine"
+  - "Te'eni, Dov"
+  - "Drori, Iddo"
 citekey: tyserAIDrivenReviewSystems2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f952-7812-8b4b-cd633d0b6ddb

@@ -19,6 +19,21 @@ tags:
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.1056/AIoa2400196
+critiqueStatus: none
+authors:
+  - "Weixin Liang — Department of Computer Science, Stanford University, Stanford, CA"
+  - "Yuhui Zhang — Department of Computer Science, Stanford University, Stanford, CA"
+  - "Hancheng Cao — Department of Computer Science, Stanford University, Stanford, CA"
+  - "Binglu Wang — Kellogg School of Management, Northwestern University, Evanston, IL"
+  - "Daisy Yi Ding — Department of Biomedical Data Science, Stanford University, Stanford, CA"
+  - "Xinyu Yang — Department of Information Science, Cornell University, Ithaca, NY"
+  - "Kailas Vodrahalli — Department of Electrical Engineering, Stanford University, Stanford, CA"
+  - "Siyu He — Department of Biomedical Data Science, Stanford University, Stanford, CA"
+  - "Daniel Scott Smith — Graduate School of Education, Stanford University, Stanford, CA"
+  - "Yian Yin — Department of Information Science, Cornell University, Ithaca, NY"
+  - "Daniel A. McFarland — Graduate School of Education, Stanford University, Stanford, CA"
+  - "James Zou — Department of Computer Science, Stanford University, Stanford, CA"
 citekey: liangCanLargeLanguage2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f943-7596-91de-9191d88da102

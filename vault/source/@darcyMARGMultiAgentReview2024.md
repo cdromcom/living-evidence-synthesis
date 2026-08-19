@@ -19,6 +19,14 @@ tags:
   - integrity/ethical-approval/not-disclosed
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2401.04259
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "D'Arcy, Mike"
+  - "Hope, Tom"
+  - "Birnbaum, Larry"
+  - "Downey, Doug"
 citekey: darcyMARGMultiAgentReview2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f939-7206-9a0a-1c995b5d5a78

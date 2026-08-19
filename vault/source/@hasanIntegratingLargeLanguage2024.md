@@ -19,6 +19,20 @@ tags:
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
+doi: 10.1136/bmjebm-2023-112597
+critiqueStatus: none
+authors:
+  - "Bashar Hasan"
+  - "Samer Saadi"
+  - "Noora S Rajjoub"
+  - "Moustafa Hegazi"
+  - "Mohammad Al-Kordi"
+  - "Farah Fleti"
+  - "Magdoleen Farah"
+  - "Irbaz B Riaz"
+  - "Imon Banerjee"
+  - "Zhen Wang"
+  - "Mohammad Hassan Murad"
 citekey: hasanIntegratingLargeLanguage2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93d-7c62-8a27-124b13d62c62

@@ -19,6 +19,15 @@ tags:
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/disclosed
+doi: 10.2196/59258
+critiqueStatus: none
+authors:
+  - "Seyma Handan Akyon"
+  - "Fatih Cagatay Akyon"
+  - "Ahmet Sefa Camyar"
+  - "Fatih Hızlı"
+  - "Talha Sari"
+  - "Şamil Hızlı"
 citekey: akyonEvaluatingCapabilitiesGenerative2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f930-7bc0-be54-6850b5d43d22

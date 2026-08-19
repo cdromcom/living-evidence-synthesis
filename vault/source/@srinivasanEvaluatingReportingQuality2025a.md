@@ -19,6 +19,14 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.1101/2025.03.06.25323528
+critiqueStatus: none
+authors:
+  - "Apoorva Srinivasan"
+  - "Jacob Berkowitz"
+  - "Sophia Kivelson"
+  - "Nadine Friedrich"
+  - "Nicholas Tatonetti"
 citekey: srinivasanEvaluatingReportingQuality2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f950-75f1-a036-5fc27aea2466

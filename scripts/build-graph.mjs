@@ -311,6 +311,11 @@ const nodes = rawNodes.map((n) => {
   if (fm.tripod_llm_pct !== undefined) extras.tripodLlmPct = fm.tripod_llm_pct;
   if (fm.citekey !== undefined) extras.citekey = fm.citekey;
   if (fm.rating !== undefined) extras.rating = fm.rating;
+  if (fm.doi !== undefined) extras.doi = fm.doi;
+  if (fm.sourceUrl !== undefined) extras.sourceUrl = fm.sourceUrl;
+  if (fm.critiqueStatus !== undefined) extras.critiqueStatus = fm.critiqueStatus;
+  if (fm.critiqueNote !== undefined) extras.critiqueNote = fm.critiqueNote;
+  if (fm.authors !== undefined) extras.authors = fm.authors;
 
   return {
     id: n.id,

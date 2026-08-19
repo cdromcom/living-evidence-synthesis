@@ -19,6 +19,12 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2505.23824
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Zhang, Tianmai M."
+  - "Abernethy, Neil F."
 citekey: zhangReviewingScientificPapers2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95d-7879-86c1-70337328c988

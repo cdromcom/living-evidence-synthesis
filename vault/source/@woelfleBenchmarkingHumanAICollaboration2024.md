@@ -19,6 +19,15 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
+doi: 10.1101/2024.04.21.24306137
+critiqueStatus: none
+authors:
+  - "Tim Woelfle"
+  - "Julian Hirt"
+  - "Perrine Janiaud"
+  - "Ludwig Kappos"
+  - "John P. A. Ioannidis"
+  - "Lars G. Hemkens"
 citekey: woelfleBenchmarkingHumanAICollaboration2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f954-743a-bc52-4e26dd72d397

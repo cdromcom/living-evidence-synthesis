@@ -19,6 +19,12 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.1002/asi.70005
+critiqueStatus: none
+authors:
+  - "Wenqing Wu — Department of Information Management Nanjing University of Science and Technology  Nanjing China"
+  - "Chengzhi Zhang — Department of Information Management Nanjing University of Science and Technology  Nanjing China"
+  - "Yi Zhao — Department of Information Management Nanjing University of Science and Technology  Nanjing China"
 citekey: wuAutomatedNoveltyEvaluationa
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95a-7ee1-ba78-ba0e4133973c

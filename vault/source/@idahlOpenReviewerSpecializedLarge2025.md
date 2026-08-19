@@ -19,6 +19,12 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2412.11948
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Idahl, Maximilian"
+  - "Ahmadi, Zahra"
 citekey: idahlOpenReviewerSpecializedLarge2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f941-711e-94d8-69d06137ee06

@@ -19,6 +19,14 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
+doi: 10.1136/bmjopen-2024-088735
+critiqueStatus: none
+authors:
+  - "James G Wrightson — Department of Physical Therapy, The University of British Columbia Faculty of Medicine, Vancouver, British Columbia, Canada"
+  - "Paul Blazey — Centre for Aging SMART, The University of British Columbia, Vancouver, British Columbia, Canada"
+  - "David Moher — Ottawa Methods Centre, Ottawa Hospital Research Institute, Ottawa, Ontario, Canada"
+  - "Karim M Khan — Department of Family Practice, The University of British Columbia, Vancouver, British Columbia, Canada"
+  - "Clare L Ardern — Department of Physical Therapy, The University of British Columbia Faculty of Medicine, Vancouver, British Columbia, Canada"
 citekey: wrightsonGPTRCTsUsing2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e

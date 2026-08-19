@@ -19,6 +19,14 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
+doi: 10.1093/bioinformatics/btae420
+critiqueStatus: none
+authors:
+  - "Maria Janina Sarol — Informatics Programs, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
+  - "Shufan Ming — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
+  - "Shruthan Radhakrishna — Department of Computer Science, University of Illinois Urbana-Champaign , Champaign, IL 61801, United States"
+  - "Jodi Schneider — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
+  - "Halil Kilicoglu — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
 citekey: sarolAssessingCitationIntegrity2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f948-7194-abaf-ed408bc298aa

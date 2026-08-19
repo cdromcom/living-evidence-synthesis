@@ -19,6 +19,28 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2410.22394
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Lou, Renze"
+  - "Xu, Hanzi"
+  - "Wang, Sijia"
+  - "Du, Jiangshu"
+  - "Kamoi, Ryo"
+  - "Lu, Xiaoxin"
+  - "Xie, Jian"
+  - "Sun, Yuxuan"
+  - "Zhang, Yusen"
+  - "Ahn, Jihyun Janice"
+  - "Fang, Hongchao"
+  - "Zou, Zhuoyang"
+  - "Ma, Wenchao"
+  - "Li, Xi"
+  - "Zhang, Kai"
+  - "Xia, Congying"
+  - "Huang, Lifu"
+  - "Yin, Wenpeng"
 citekey: louAAAR10AssessingAIs2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f946-7c68-bb43-0ad4895ce6b1

@@ -19,6 +19,14 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
+doi: 10.1136/bmjhci-2023-100830
+critiqueStatus: none
+authors:
+  - "Richard HR Roberts — Reconstructive Surgery and Regenerative Medicine Research Centre, Swansea University, Swansea, UK"
+  - "Stephen R Ali — Reconstructive Surgery and Regenerative Medicine Research Centre, Swansea University, Swansea, UK"
+  - "Hayley A Hutchings — Swansea University Medical School, Swansea University, Swansea, UK"
+  - "Thomas D Dobbs — Reconstructive Surgery and Regenerative Medicine Research Centre, Swansea University, Swansea, UK"
+  - "Iain S Whitaker — Reconstructive Surgery and Regenerative Medicine Research Centre, Swansea University, Swansea, UK"
 citekey: robertsComparativeStudyChatGPT2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f947-796e-bc90-271cd2fe663c

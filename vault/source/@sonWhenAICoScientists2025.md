@@ -19,6 +19,21 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2505.11855
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Son, Guijin"
+  - "Hong, Jiwoo"
+  - "Fan, Honglu"
+  - "Nam, Heejeong"
+  - "Ko, Hyunwoo"
+  - "Lim, Seungwon"
+  - "Song, Jinyeop"
+  - "Choi, Jinha"
+  - "Paulo, Gonçalo"
+  - "Yu, Youngjae"
+  - "Biderman, Stella"
 citekey: sonWhenAICoScientists2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc

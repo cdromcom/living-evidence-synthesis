@@ -19,6 +19,11 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
+doi: 10.3390/app142210323
+critiqueStatus: none
+authors:
+  - "Fahad Alharbi — Department of Pediatric Dentistry, College of Dentistry, Prince Sattam Bin Abdulaziz University, Al-Kharj 11942, Saudi Arabia"
+  - "Saeed Asiri — Department of Pediatric Dentistry, College of Dentistry, Prince Sattam Bin Abdulaziz University, Al-Kharj 11942, Saudi Arabia"
 citekey: alharbiAutomatedAssessmentReporting2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10

@@ -19,6 +19,15 @@ tags:
   - integrity/ethical-approval/partial
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2507.02694
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Xu, Zhijian"
+  - "Zhao, Yilun"
+  - "Patwardhan, Manasi"
+  - "Vig, Lovekesh"
+  - "Cohan, Arman"
 citekey: xuCanLLMsIdentify2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95b-77a4-8120-c69bff843bd2

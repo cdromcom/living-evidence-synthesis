@@ -13,6 +13,7 @@ import ReviewWidget from "@/components/ReviewWidget";
 import NodeArticle from "@/components/NodeArticle";
 import SourceToc from "@/components/SourceToc";
 import TopBadges from "@/components/TopBadges";
+import SourceCredibility from "@/components/SourceCredibility";
 
 export function generateStaticParams() {
   return ALL_NODES.map((n) => ({ id: n.id }));
@@ -59,8 +60,9 @@ export default async function NodeDetailPage({
   const inbound = getInboundEdges(node.id);
   const outbound = getOutboundEdges(node.id);
   const { html, toc } = renderMarkdown(node.bodyMarkdown);
+  const CREDIBILITY_EXTRA_KEYS = new Set(["doi", "sourceUrl", "critiqueStatus", "critiqueNote", "authors"]);
   const extraEntries = Object.entries(node.extras).filter(
-    ([, v]) => v !== undefined && v !== null && v !== ""
+    ([k, v]) => v !== undefined && v !== null && v !== "" && !CREDIBILITY_EXTRA_KEYS.has(k)
   );
 
   return (
@@ -98,6 +100,7 @@ export default async function NodeDetailPage({
       })()}
 
       <TopBadges node={node} />
+      <SourceCredibility node={node} />
 
       {extraEntries.length > 0 && (
         <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 rounded-md border border-border bg-card p-3 text-xs sm:grid-cols-3">

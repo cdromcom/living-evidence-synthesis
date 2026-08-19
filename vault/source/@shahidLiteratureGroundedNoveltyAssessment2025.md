@@ -19,6 +19,16 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
+doi: 10.48550/arXiv.2506.22026
+critiqueStatus: not-registered
+critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
+authors:
+  - "Shahid, Simra"
+  - "Radensky, Marissa"
+  - "Fok, Raymond"
+  - "Siangliulue, Pao"
+  - "Weld, Daniel S."
+  - "Hope, Tom"
 citekey: shahidLiteratureGroundedNoveltyAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335
