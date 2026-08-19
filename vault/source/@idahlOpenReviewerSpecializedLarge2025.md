@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/partial
+  - trust/open-code/full
+  - trust/reproducibility/some-concerns
 citekey: idahlOpenReviewerSpecializedLarge2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f941-711e-94d8-69d06137ee06

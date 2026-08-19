@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/partial
+  - trust/open-code/full
+  - trust/reproducibility/some-concerns
 citekey: sonWhenAICoScientists2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc

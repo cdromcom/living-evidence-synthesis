@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/full
+  - trust/open-code/full
+  - trust/reproducibility/low-risk
 citekey: wrightsonGPTRCTsUsing2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e

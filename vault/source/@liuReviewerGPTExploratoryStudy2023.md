@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/full
+  - trust/open-code/full
+  - trust/reproducibility/some-concerns
 citekey: liuReviewerGPTExploratoryStudy2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f945-72a9-a2d4-93facd4227d6

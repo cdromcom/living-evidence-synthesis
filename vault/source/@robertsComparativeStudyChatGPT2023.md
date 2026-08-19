@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/none
+  - trust/open-code/none
+  - trust/reproducibility/high-risk
 citekey: robertsComparativeStudyChatGPT2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f947-796e-bc90-271cd2fe663c

@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/full
+  - trust/open-code/full
+  - trust/reproducibility/low-risk
 citekey: wuAutomatedNoveltyEvaluationa
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95a-7ee1-ba78-ba0e4133973c

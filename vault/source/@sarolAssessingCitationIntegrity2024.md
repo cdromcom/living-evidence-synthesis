@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/full
+  - trust/open-code/full
+  - trust/reproducibility/low-risk
 citekey: sarolAssessingCitationIntegrity2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f948-7194-abaf-ed408bc298aa

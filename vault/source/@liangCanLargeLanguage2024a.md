@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/partial
+  - trust/open-code/full
+  - trust/reproducibility/some-concerns
 citekey: liangCanLargeLanguage2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f943-7596-91de-9191d88da102

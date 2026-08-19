@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/full
+  - trust/open-code/partial
+  - trust/reproducibility/some-concerns
 citekey: zhangDetectingReferenceErrors2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95c-7282-bd5a-5ee57f06b340

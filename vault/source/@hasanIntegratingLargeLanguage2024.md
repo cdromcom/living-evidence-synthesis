@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/partial
+  - trust/open-code/none
+  - trust/reproducibility/high-risk
 citekey: hasanIntegratingLargeLanguage2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93d-7c62-8a27-124b13d62c62

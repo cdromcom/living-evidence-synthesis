@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/partial
+  - trust/open-code/full
+  - trust/reproducibility/some-concerns
 citekey: darcyMARGMultiAgentReview2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f939-7206-9a0a-1c995b5d5a78

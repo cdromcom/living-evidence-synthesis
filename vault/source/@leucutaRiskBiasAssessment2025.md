@@ -5,6 +5,9 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - trust/open-data/full
+  - trust/open-code/not-applicable
+  - trust/reproducibility/some-concerns
 citekey: leucutaRiskBiasAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f942-782f-99e1-d83f3cbbc264

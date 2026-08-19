@@ -4358,7 +4358,10 @@
       "shortLabel": "@akyonEvaluatingCapabilitiesGenerative2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/none",
+        "trust/reproducibility/high-risk"
       ],
       "created": null,
       "updated": null,
@@ -4377,7 +4380,10 @@
       "shortLabel": "@alharbiAutomatedAssessmentReporting2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/none",
+        "trust/reproducibility/high-risk"
       ],
       "created": null,
       "updated": null,
@@ -4396,7 +4402,10 @@
       "shortLabel": "@bougieGenerativeAdversarialReviews2024a",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/none",
+        "trust/reproducibility/high-risk"
       ],
       "created": null,
       "updated": null,
@@ -4415,7 +4424,10 @@
       "shortLabel": "@darcyMARGMultiAgentReview2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/full",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4434,7 +4446,10 @@
       "shortLabel": "@hasanIntegratingLargeLanguage2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/none",
+        "trust/reproducibility/high-risk"
       ],
       "created": null,
       "updated": null,
@@ -4453,7 +4468,10 @@
       "shortLabel": "@huntington-kleinLLMsActRepositories2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/full",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4472,7 +4490,10 @@
       "shortLabel": "@idahlOpenReviewerSpecializedLarge2025",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/full",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4491,7 +4512,10 @@
       "shortLabel": "@leucutaRiskBiasAssessment2025",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/not-applicable",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4510,7 +4534,10 @@
       "shortLabel": "@liangCanLargeLanguage2024a",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/full",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4529,7 +4556,10 @@
       "shortLabel": "@liuReviewerGPTExploratoryStudy2023",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/full",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4548,7 +4578,10 @@
       "shortLabel": "@louAAAR10AssessingAIs2025",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/partial",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4567,7 +4600,10 @@
       "shortLabel": "@robertsComparativeStudyChatGPT2023",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/none",
+        "trust/open-code/none",
+        "trust/reproducibility/high-risk"
       ],
       "created": null,
       "updated": null,
@@ -4586,7 +4622,10 @@
       "shortLabel": "@sarolAssessingCitationIntegrity2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/full",
+        "trust/reproducibility/low-risk"
       ],
       "created": null,
       "updated": null,
@@ -4605,7 +4644,10 @@
       "shortLabel": "@shahidLiteratureGroundedNoveltyAssessment2025",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/partial",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4624,7 +4666,10 @@
       "shortLabel": "@sonWhenAICoScientists2025",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/full",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4643,7 +4688,10 @@
       "shortLabel": "@sridharanAssessingDecisionMakingCapabilities2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/none",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4662,7 +4710,10 @@
       "shortLabel": "@sridharanLeveragingArtificialIntelligence2025",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/not-applicable",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4681,7 +4732,10 @@
       "shortLabel": "@srinivasanEvaluatingReportingQuality2025a",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/partial",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4700,7 +4754,10 @@
       "shortLabel": "@thelwallEvaluatingResearchQuality2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/none",
+        "trust/open-code/full",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4719,7 +4776,10 @@
       "shortLabel": "@tyserAIDrivenReviewSystems2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/partial",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4738,7 +4798,10 @@
       "shortLabel": "@woelfleBenchmarkingHumanAICollaboration2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/full",
+        "trust/reproducibility/low-risk"
       ],
       "created": null,
       "updated": null,
@@ -4757,7 +4820,10 @@
       "shortLabel": "@wrightsonGPTRCTsUsing2025",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/full",
+        "trust/reproducibility/low-risk"
       ],
       "created": null,
       "updated": null,
@@ -4776,7 +4842,10 @@
       "shortLabel": "@wuAutomatedNoveltyEvaluationa",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/full",
+        "trust/reproducibility/low-risk"
       ],
       "created": null,
       "updated": null,
@@ -4795,7 +4864,10 @@
       "shortLabel": "@xuCanLLMsIdentify2025",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/full",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4814,7 +4886,10 @@
       "shortLabel": "@zhangDetectingReferenceErrors2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/full",
+        "trust/open-code/partial",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4833,7 +4908,10 @@
       "shortLabel": "@zhangReviewingScientificPapers2025a",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/partial",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
@@ -4852,7 +4930,10 @@
       "shortLabel": "@zhouLLMReliableReviewer2024",
       "curationStatus": "Seed",
       "tags": [
-        "dg/source"
+        "dg/source",
+        "trust/open-data/partial",
+        "trust/open-code/none",
+        "trust/reproducibility/some-concerns"
       ],
       "created": null,
       "updated": null,
