@@ -661,7 +661,7 @@ export default function GraphExplorer({
           />
         </div>
 
-        <div className="rounded-lg border border-border bg-card p-4">
+        <div className="min-w-0 rounded-lg border border-border bg-card p-4">
           {selectedNode ? (
             <div>
               <div className="flex items-start justify-between gap-2">
@@ -678,8 +678,10 @@ export default function GraphExplorer({
                   ✕
                 </button>
               </div>
-              <h3 className="mt-2 text-sm font-semibold leading-snug text-ink">{selectedNode.title}</h3>
-              <p className="mt-1 text-xs text-muted-ink">
+              <h3 className="mt-2 break-words text-sm font-semibold leading-snug text-ink">
+                {selectedNode.title}
+              </h3>
+              <p className="mt-1 break-words text-xs text-muted-ink">
                 {NODE_TYPE_LABELS[selectedNode.type]} · {selectedNode.curationStatus} ·{" "}
                 {neighborsOf.get(selectedNode.id)?.size ?? 0} connection
                 {(neighborsOf.get(selectedNode.id)?.size ?? 0) === 1 ? "" : "s"}
@@ -699,7 +701,7 @@ export default function GraphExplorer({
               {(() => {
                 const summary = nodeSummary(selectedNode);
                 return summary ? (
-                  <p className="mt-3 text-xs leading-relaxed text-ink/80">{summary}</p>
+                  <p className="mt-3 break-words text-xs leading-relaxed text-ink/80">{summary}</p>
                 ) : null;
               })()}
               <div className="mt-4 flex flex-col gap-2">
@@ -754,11 +756,11 @@ export default function GraphExplorer({
                               <span className={`shrink-0 text-[0.625rem] font-semibold ${NODE_TYPE_TEXT_CLASS[n.type]}`}>
                                 {n.type}
                               </span>
-                              <span className="truncate">{n.title}</span>
+                              <span className="min-w-0 truncate">{n.title}</span>
                             </button>
                             {isExpanded && (
                               <div className="border-t border-border px-2 py-2">
-                                <p className="text-xs leading-relaxed text-ink/80">
+                                <p className="break-words text-xs leading-relaxed text-ink/80">
                                   {summary ?? "No summary available."}
                                 </p>
                                 <button
