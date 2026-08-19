@@ -12,6 +12,7 @@ import EdgeGroups from "@/components/EdgeGroup";
 import ReviewWidget from "@/components/ReviewWidget";
 import NodeArticle from "@/components/NodeArticle";
 import SourceToc from "@/components/SourceToc";
+import TopBadges from "@/components/TopBadges";
 
 export function generateStaticParams() {
   return ALL_NODES.map((n) => ({ id: n.id }));
@@ -78,18 +79,25 @@ export default async function NodeDetailPage({
         {node.updated && <span>Updated {formatDate(node.updated)}</span>}
       </div>
 
-      {node.tags.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {node.tags.map((t) => (
-            <span
-              key={t}
-              className="mono rounded-full bg-muted-surface px-2 py-0.5 text-[0.65rem] text-muted-ink"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      )}
+      {(() => {
+        const plainTags = node.tags.filter((t) => !t.startsWith("top/") && !t.startsWith("trust/"));
+        return (
+          plainTags.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {plainTags.map((t) => (
+                <span
+                  key={t}
+                  className="mono rounded-full bg-muted-surface px-2 py-0.5 text-[0.65rem] text-muted-ink"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          )
+        );
+      })()}
+
+      <TopBadges node={node} />
 
       {extraEntries.length > 0 && (
         <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 rounded-md border border-border bg-card p-3 text-xs sm:grid-cols-3">

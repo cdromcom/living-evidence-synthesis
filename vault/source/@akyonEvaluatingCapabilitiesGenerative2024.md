@@ -5,9 +5,11 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
-  - trust/open-data/partial
-  - trust/open-code/none
   - trust/reproducibility/high-risk
+  - top/study-protocol/not-disclosed
+  - top/study-registration/not-applicable
+  - top/data-transparency/level-1-disclosed
+  - top/code-transparency/not-disclosed
 citekey: akyonEvaluatingCapabilitiesGenerative2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f930-7bc0-be54-6850b5d43d22

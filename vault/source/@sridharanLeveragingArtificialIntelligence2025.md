@@ -5,9 +5,11 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
-  - trust/open-data/full
-  - trust/open-code/not-applicable
   - trust/reproducibility/some-concerns
+  - top/study-protocol/not-disclosed
+  - top/study-registration/not-applicable
+  - top/data-transparency/level-2-shared
+  - top/code-transparency/not-applicable
 citekey: sridharanLeveragingArtificialIntelligence2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94e-7707-9444-b2e1619daef0

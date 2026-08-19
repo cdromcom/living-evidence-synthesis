@@ -5,9 +5,11 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
-  - trust/open-data/partial
-  - trust/open-code/none
   - trust/reproducibility/some-concerns
+  - top/study-protocol/not-disclosed
+  - top/study-registration/not-applicable
+  - top/data-transparency/level-1-disclosed
+  - top/code-transparency/not-disclosed
 citekey: zhouLLMReliableReviewer2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95e-7c73-827f-b2352b9cc159

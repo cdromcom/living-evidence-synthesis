@@ -5,9 +5,11 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
-  - trust/open-data/partial
-  - trust/open-code/none
   - trust/reproducibility/high-risk
+  - top/study-protocol/not-disclosed
+  - top/study-registration/not-applicable
+  - top/data-transparency/level-1-disclosed
+  - top/code-transparency/not-disclosed
 citekey: alharbiAutomatedAssessmentReporting2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10

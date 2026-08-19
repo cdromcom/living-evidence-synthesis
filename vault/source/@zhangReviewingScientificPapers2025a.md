@@ -5,9 +5,11 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
-  - trust/open-data/partial
-  - trust/open-code/partial
   - trust/reproducibility/some-concerns
+  - top/study-protocol/not-disclosed
+  - top/study-registration/not-applicable
+  - top/data-transparency/level-1-disclosed
+  - top/code-transparency/level-1-disclosed
 citekey: zhangReviewingScientificPapers2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95d-7879-86c1-70337328c988

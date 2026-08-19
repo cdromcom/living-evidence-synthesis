@@ -5,9 +5,11 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
-  - trust/open-data/partial
-  - trust/open-code/none
   - trust/reproducibility/high-risk
+  - top/study-protocol/not-disclosed
+  - top/study-registration/not-applicable
+  - top/data-transparency/level-1-disclosed
+  - top/code-transparency/not-disclosed
 citekey: bougieGenerativeAdversarialReviews2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f937-724d-9f43-074dca71227e

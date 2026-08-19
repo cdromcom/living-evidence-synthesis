@@ -106,6 +106,85 @@ export function getFiveCs(node: Pick<GraphNode, "tags">): FiveC[] {
     .filter((c): c is FiveC => known.includes(c));
 }
 
+/**
+ * COS TOP (Transparency and Openness Promotion) Guidelines standards,
+ * https://www.cos.io/initiatives/top-guidelines — the four covered here are
+ * derived from data already authored in each SRC file's own TRIPOD-LLM
+ * reporting table (items 14c–14f). TOP defines three levels (1 Disclosed,
+ * 2 Shared and Cited, 3 Certified); we only ever assign 1 or 2 here, since
+ * Level 3 requires independent verification we haven't performed.
+ */
+export const TOP_STANDARD_ORDER = [
+  "data-transparency",
+  "code-transparency",
+  "study-protocol",
+  "study-registration",
+] as const;
+export type TopStandard = (typeof TOP_STANDARD_ORDER)[number];
+
+export const TOP_STANDARD_LABELS: Record<TopStandard, string> = {
+  "data-transparency": "Data Transparency",
+  "code-transparency": "Analytic Code Transparency",
+  "study-protocol": "Study Protocol",
+  "study-registration": "Study Registration",
+};
+
+export type TopLevel = "level-2-shared" | "level-1-disclosed" | "not-disclosed" | "not-applicable";
+
+export const TOP_LEVEL_LABELS: Record<TopLevel, string> = {
+  "level-2-shared": "Level 2 — Shared and Cited",
+  "level-1-disclosed": "Level 1 — Disclosed",
+  "not-disclosed": "Not Disclosed",
+  "not-applicable": "Not Applicable",
+};
+
+export type TopSignal = { standard: TopStandard; level: TopLevel };
+
+const TOP_TAG_PREFIX = "top/";
+
+export function getTopSignals(node: Pick<GraphNode, "tags">): TopSignal[] {
+  const knownStandards: readonly string[] = TOP_STANDARD_ORDER;
+  const knownLevels: readonly string[] = Object.keys(TOP_LEVEL_LABELS);
+  const out: TopSignal[] = [];
+  for (const tag of node.tags) {
+    if (!tag.startsWith(TOP_TAG_PREFIX)) continue;
+    const rest = tag.slice(TOP_TAG_PREFIX.length);
+    const slash = rest.indexOf("/");
+    if (slash === -1) continue;
+    const standard = rest.slice(0, slash);
+    const level = rest.slice(slash + 1);
+    if (knownStandards.includes(standard) && knownLevels.includes(level)) {
+      out.push({ standard: standard as TopStandard, level: level as TopLevel });
+    }
+  }
+  return TOP_STANDARD_ORDER.filter((s) => out.some((o) => o.standard === s)).map(
+    (s) => out.find((o) => o.standard === s)!
+  );
+}
+
+/**
+ * Source-level reproducibility risk, from each SRC file's Critical
+ * Appraisal table (Reproducibility domain: 🟢/🟡/🔴). Distinct from TOP's
+ * own "Computational Transparency" verification standard, which requires an
+ * independent party to actually re-run the study — this is a retrospective
+ * risk rating, not a verified reproduction.
+ */
+export type ReproducibilityRisk = "low-risk" | "some-concerns" | "high-risk";
+
+export const REPRODUCIBILITY_RISK_LABELS: Record<ReproducibilityRisk, string> = {
+  "low-risk": "Low risk",
+  "some-concerns": "Some concerns",
+  "high-risk": "High risk",
+};
+
+export function getReproducibilityRisk(node: Pick<GraphNode, "tags">): ReproducibilityRisk | null {
+  const prefix = "trust/reproducibility/";
+  const tag = node.tags.find((t) => t.startsWith(prefix));
+  if (!tag) return null;
+  const risk = tag.slice(prefix.length);
+  return risk in REPRODUCIBILITY_RISK_LABELS ? (risk as ReproducibilityRisk) : null;
+}
+
 export const EDGE_TYPE_LABELS: Record<EdgeType, string> = {
   addresses: "Addresses",
   relatesTo: "Relates to",
