@@ -10,6 +10,8 @@ import NodeTypeBadge from "@/components/NodeTypeBadge";
 import StatusBadge from "@/components/StatusBadge";
 import EdgeGroups from "@/components/EdgeGroup";
 import ReviewWidget from "@/components/ReviewWidget";
+import NodeArticle from "@/components/NodeArticle";
+import SourceToc from "@/components/SourceToc";
 
 export function generateStaticParams() {
   return ALL_NODES.map((n) => ({ id: n.id }));
@@ -55,7 +57,7 @@ export default async function NodeDetailPage({
 
   const inbound = getInboundEdges(node.id);
   const outbound = getOutboundEdges(node.id);
-  const html = renderMarkdown(node.bodyMarkdown);
+  const { html, toc } = renderMarkdown(node.bodyMarkdown);
   const extraEntries = Object.entries(node.extras).filter(
     ([, v]) => v !== undefined && v !== null && v !== ""
   );
@@ -101,10 +103,10 @@ export default async function NodeDetailPage({
       )}
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_320px]">
-        <article
-          className="prose-node"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <div className="flex gap-6">
+          {node.type === "SRC" && <SourceToc items={toc} />}
+          <NodeArticle html={html} />
+        </div>
 
         <aside className="space-y-8">
           <ReviewWidget nodeId={node.id} />

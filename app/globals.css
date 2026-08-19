@@ -185,6 +185,16 @@ h6 {
   letter-spacing: 0.06em;
 }
 
+.prose-node .mermaid {
+  margin: 1.2em 0;
+  overflow-x: auto;
+}
+
+.prose-node .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
 .prose-node blockquote {
   border-left: 3px solid var(--color-border);
   padding-left: 1em;
@@ -193,9 +203,10 @@ h6 {
 }
 
 .callout {
+  --callout-accent: var(--color-forest);
   border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-forest);
-  background: var(--color-accent-wash);
+  border-left: 3px solid var(--callout-accent);
+  background: color-mix(in srgb, var(--callout-accent) 10%, var(--color-card));
   border-radius: var(--radius-md);
   padding: 0.75em 1em;
   margin: 1em 0;
@@ -205,12 +216,24 @@ h6 {
 .callout-title {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-forest);
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  color: var(--callout-accent);
   margin-bottom: 0.4em;
 }
+
+/* Each callout type gets its own accent, so "info"/"success"/"warning"/etc.
+   actually read as visually distinct boxes instead of one generic style. */
+.callout-info { --callout-accent: #1d4ed8; }
+.callout-success { --callout-accent: #047857; }
+.callout-tip { --callout-accent: #7c3aed; }
+.callout-note { --callout-accent: #475569; }
+.callout-warning { --callout-accent: #b45309; }
+.callout-danger { --callout-accent: #b91c1c; }
+.callout-question { --callout-accent: #4338ca; }
+.callout-quote { --callout-accent: #57534e; }
+.callout-abstract { --callout-accent: #0f766e; }
+.callout-example { --callout-accent: #0e7490; }
 
 .callout-body > p:first-child {
   margin-top: 0;

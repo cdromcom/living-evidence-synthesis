@@ -48,10 +48,14 @@ function transformCallouts(md: string): string {
     const innerHtml = marked.parse(bodyLines.join("\n").trim(), {
       async: false,
     }) as string;
+    // Titles can carry inline markdown (e.g. `> [!success] **TL;DR**`) — parse
+    // it instead of escaping, so it renders as `<strong>TL;DR</strong>`
+    // rather than literal asterisks.
+    const titleHtml = title ? (marked.parseInline(title, { async: false }) as string) : "";
     out.push(
       `<div class="callout callout-${escapeAttr(type)}">` +
         `<div class="callout-title">${escapeHtml(label)}${
-          title ? `: ${escapeHtml(title)}` : ""
+          title ? `: ${titleHtml}` : ""
         }</div>` +
         `<div class="callout-body">${innerHtml}</div>` +
         `</div>`
@@ -70,7 +74,53 @@ function escapeAttr(s: string): string {
   return s.replace(/[^a-z0-9-]/gi, "");
 }
 
-export function renderMarkdown(md: string): string {
+/**
+ * `marked` emits fenced ```mermaid blocks as an inert, HTML-escaped
+ * `<pre><code class="language-mermaid">` — no diagram ever renders. Mermaid's
+ * client-side runtime looks for `<div class="mermaid">` elements containing
+ * the raw diagram source, so swap the wrapper; the code's HTML-entity
+ * escaping is preserved (and still correct) since the browser decodes it
+ * back to the original text when parsing this HTML.
+ */
+function activateMermaid(html: string): string {
+  return html.replace(
+    /<pre><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g,
+    (_m, escaped) => `<div class="mermaid">${escaped}</div>`
+  );
+}
+
+function stripTags(html: string): string {
+  return html.replace(/<[^>]+>/g, "");
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export type TocItem = { id: string; level: 2 | 3; text: string };
+
+/** Tags every H2/H3 with a stable id and returns a flat outline for a TOC. */
+function injectHeadingIds(html: string): { html: string; toc: TocItem[] } {
+  const toc: TocItem[] = [];
+  const usedSlugs = new Map<string, number>();
+  const tagged = html.replace(/<h([23])>([\s\S]*?)<\/h\1>/g, (_match, lvl, inner) => {
+    const text = stripTags(inner).trim();
+    let slug = slugify(text) || "section";
+    const seen = usedSlugs.get(slug) ?? 0;
+    usedSlugs.set(slug, seen + 1);
+    if (seen > 0) slug = `${slug}-${seen + 1}`;
+    toc.push({ id: slug, level: Number(lvl) as 2 | 3, text });
+    return `<h${lvl} id="${slug}">${inner}</h${lvl}>`;
+  });
+  return { html: tagged, toc };
+}
+
+export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
   const withCallouts = transformCallouts(md);
-  return marked.parse(withCallouts, { async: false }) as string;
+  const rawHtml = marked.parse(withCallouts, { async: false }) as string;
+  const withMermaid = activateMermaid(rawHtml);
+  return injectHeadingIds(withMermaid);
 }
