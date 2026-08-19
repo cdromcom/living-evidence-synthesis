@@ -32,6 +32,8 @@ selfCitationRate: 0.000
 selfCitationChecked: "10 of 28 references had author metadata"
 doajListed: false
 pubpeerCommentCount: 0
+crossNodeChecked: 4
+crossNodeCorroborated: 4
 citekey: sridharanAssessingDecisionMakingCapabilities2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94d-7c19-b337-3de0ad3115f5

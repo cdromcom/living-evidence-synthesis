@@ -326,6 +326,8 @@ const nodes = rawNodes.map((n) => {
   if (fm.doajListed !== undefined) extras.doajListed = fm.doajListed;
   if (fm.pubpeerCommentCount !== undefined) extras.pubpeerCommentCount = fm.pubpeerCommentCount;
   if (fm.pubpeerUrl !== undefined) extras.pubpeerUrl = fm.pubpeerUrl;
+  if (fm.crossNodeChecked !== undefined) extras.crossNodeChecked = fm.crossNodeChecked;
+  if (fm.crossNodeCorroborated !== undefined) extras.crossNodeCorroborated = fm.crossNodeCorroborated;
 
   return {
     id: n.id,

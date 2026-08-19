@@ -35,6 +35,8 @@ selfCitationRate: 0.143
 selfCitationChecked: "14 of 47 references had author metadata"
 doajListed: not-applicable
 pubpeerCommentCount: 0
+crossNodeChecked: 6
+crossNodeCorroborated: 6
 citekey: woelfleBenchmarkingHumanAICollaboration2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f954-743a-bc52-4e26dd72d397

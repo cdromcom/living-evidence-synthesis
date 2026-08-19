@@ -34,6 +34,8 @@ selfCitationRate: 0.000
 selfCitationChecked: "37 of 37 references had author metadata"
 doajListed: true
 pubpeerCommentCount: 0
+crossNodeChecked: 2
+crossNodeCorroborated: 2
 citekey: leucutaRiskBiasAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f942-782f-99e1-d83f3cbbc264

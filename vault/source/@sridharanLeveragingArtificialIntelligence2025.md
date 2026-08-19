@@ -31,6 +31,8 @@ selfCitationRate: 0.000
 selfCitationChecked: "17 of 29 references had author metadata"
 doajListed: false
 pubpeerCommentCount: 0
+crossNodeChecked: 3
+crossNodeCorroborated: 3
 citekey: sridharanLeveragingArtificialIntelligence2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94e-7707-9444-b2e1619daef0

@@ -32,6 +32,8 @@ selfCitationRate: 0.083
 selfCitationChecked: "24 of 72 references had author metadata"
 doajListed: false
 pubpeerCommentCount: 0
+crossNodeChecked: 2
+crossNodeCorroborated: 1
 citekey: wuAutomatedNoveltyEvaluationa
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95a-7ee1-ba78-ba0e4133973c

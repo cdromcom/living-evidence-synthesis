@@ -13,6 +13,7 @@ tags:
   - 5c/credibility
   - 5c/clarity
   - 5c/creativity
+  - forensic/monotonicity-check/consistent
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6b83-7219-98f4-b40b414c76b7

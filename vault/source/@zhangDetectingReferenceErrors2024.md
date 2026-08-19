@@ -30,6 +30,8 @@ pubType: preprint
 selfCitationRate: not-assessable
 doajListed: not-applicable
 pubpeerCommentCount: 0
+crossNodeChecked: 2
+crossNodeCorroborated: 2
 citekey: zhangDetectingReferenceErrors2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95c-7282-bd5a-5ee57f06b340

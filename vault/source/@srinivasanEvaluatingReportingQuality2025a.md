@@ -33,6 +33,8 @@ pubType: preprint
 selfCitationRate: not-assessable
 doajListed: not-applicable
 pubpeerCommentCount: 0
+crossNodeChecked: 4
+crossNodeCorroborated: 4
 citekey: srinivasanEvaluatingReportingQuality2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f950-75f1-a036-5fc27aea2466

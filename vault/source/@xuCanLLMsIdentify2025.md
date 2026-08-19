@@ -33,6 +33,8 @@ pubType: preprint
 selfCitationRate: not-assessable
 doajListed: not-applicable
 pubpeerCommentCount: 0
+crossNodeChecked: 2
+crossNodeCorroborated: 2
 citekey: xuCanLLMsIdentify2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95b-77a4-8120-c69bff843bd2

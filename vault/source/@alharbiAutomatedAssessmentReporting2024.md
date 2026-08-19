@@ -32,6 +32,8 @@ selfCitationRate: 0.000
 selfCitationChecked: "34 of 36 references had author metadata"
 doajListed: true
 pubpeerCommentCount: 0
+crossNodeChecked: 2
+crossNodeCorroborated: 2
 citekey: alharbiAutomatedAssessmentReporting2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10

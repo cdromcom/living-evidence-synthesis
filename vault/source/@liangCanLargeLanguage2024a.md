@@ -41,6 +41,8 @@ selfCitationRate: 0.261
 selfCitationChecked: "23 of 48 references had author metadata"
 doajListed: false
 pubpeerCommentCount: 0
+crossNodeChecked: 4
+crossNodeCorroborated: 4
 citekey: liangCanLargeLanguage2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f943-7596-91de-9191d88da102

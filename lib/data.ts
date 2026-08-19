@@ -367,7 +367,7 @@ export function getCurationStatusMatrix(): Record<
  * — percentage-vs-denominator — check produced false positives from
  * ambiguous "X% (N)" prose and was not published).
  */
-export type ForensicCheckKind = "f1-check" | "kappa-check" | "ci-check";
+export type ForensicCheckKind = "f1-check" | "kappa-check" | "ci-check" | "closure-check" | "monotonicity-check";
 export type ForensicSignal = { kind: ForensicCheckKind; result: string; evdId: string; evdTitle: string };
 
 const FORENSIC_TAG_PREFIX = "forensic/";
@@ -381,7 +381,7 @@ export function getForensicSignalsForEvd(node: Pick<GraphNode, "tags" | "id" | "
     if (slash === -1) continue;
     const kind = rest.slice(0, slash);
     const result = rest.slice(slash + 1);
-    if (kind === "f1-check" || kind === "kappa-check" || kind === "ci-check") {
+    if (kind === "f1-check" || kind === "kappa-check" || kind === "ci-check" || kind === "closure-check" || kind === "monotonicity-check") {
       out.push({ kind, result, evdId: node.id, evdTitle: node.title });
     }
   }

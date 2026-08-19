@@ -32,6 +32,8 @@ pubType: preprint
 selfCitationRate: not-assessable
 doajListed: not-applicable
 pubpeerCommentCount: 0
+crossNodeChecked: 2
+crossNodeCorroborated: 2
 citekey: darcyMARGMultiAgentReview2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f939-7206-9a0a-1c995b5d5a78

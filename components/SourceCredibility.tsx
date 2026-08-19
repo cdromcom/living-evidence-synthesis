@@ -198,8 +198,10 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const forensicSignals = getForensicSignalsForSource(node.id);
   const statcheckStatus = getStatcheckStatus(node);
   const forensicFlagged = forensicSignals.filter((s) =>
-    ["discrepancy", "out-of-bounds", "bounds-reversed", "point-outside-interval"].includes(s.result)
+    ["discrepancy", "out-of-bounds", "bounds-reversed", "point-outside-interval", "violated"].includes(s.result)
   );
+  const crossNodeChecked = node.extras.crossNodeChecked as number | undefined;
+  const crossNodeCorroborated = node.extras.crossNodeCorroborated as number | undefined;
 
   if (!doi && !sourceUrl && !critiqueStatus) return null;
 
@@ -301,8 +303,9 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             Forensic checks <span className="font-normal normal-case">(on this source's evidence claims)</span>
           </p>
           <p className="mt-1 text-xs text-muted-ink">
-            {forensicSignals.length} numeric consistency check{forensicSignals.length === 1 ? "" : "s"} run
-            (F1 = 2PR/(P+R), Cohen&apos;s κ bounds, CI ordering/containment) —{" "}
+            {forensicSignals.length} numeric consistency check{forensicSignals.length === 1 ? "" : "s"} run (F1 =
+            2PR/(P+R), Cohen&apos;s κ bounds, CI ordering/containment, percentage-of-total closure, trend
+            monotonicity) —{" "}
             {forensicFlagged.length === 0 ? (
               <span className="text-emerald-700">none flagged</span>
             ) : (
@@ -311,6 +314,14 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             . statcheck (p-value/test-statistic recomputation): not applicable — no results in this corpus were
             reported in a recomputable APA-style format.
           </p>
+          {typeof crossNodeChecked === "number" && crossNodeChecked > 0 && (
+            <p className="mt-1 text-xs text-muted-ink">
+              <span className="font-semibold text-ink/70">Cross-node corroboration: </span>
+              {crossNodeCorroborated} of {crossNodeChecked} evidence claims restate a matching number in this
+              source&apos;s own narrative summary (the rest may simply be paraphrased, not necessarily
+              inconsistent).
+            </p>
+          )}
           {forensicFlagged.length > 0 && (
             <ul className="mt-1.5 space-y-1">
               {forensicFlagged.map((s, i) => (
@@ -324,9 +335,13 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
                       ? "reported F1 doesn't match the harmonic-mean formula (can also happen legitimately with macro/micro-averaged multi-class F1 — not necessarily an error)"
                       : s.kind === "kappa-check"
                         ? "Cohen's κ value falls outside the mathematically valid [-1, 1] range"
-                        : s.result === "bounds-reversed"
-                          ? "confidence interval's lower bound exceeds its upper bound"
-                          : "point estimate falls outside its own reported confidence interval"}
+                        : s.kind === "closure-check"
+                          ? "subgroup counts/percentages don't sum to the stated total"
+                          : s.kind === "monotonicity-check"
+                            ? "reported direction (rose/fell) doesn't match the stated before/after values"
+                            : s.result === "bounds-reversed"
+                              ? "confidence interval's lower bound exceeds its upper bound"
+                              : "point estimate falls outside its own reported confidence interval"}
                   </span>
                 </li>
               ))}

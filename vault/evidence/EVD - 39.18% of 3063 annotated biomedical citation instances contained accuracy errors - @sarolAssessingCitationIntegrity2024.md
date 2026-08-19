@@ -11,6 +11,7 @@ tags:
   - tripod-llm/compliance/moderate
   - tripod-llm/proportion/73pct
   - 5c/connectivity
+  - forensic/closure-check/consistent
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6b4f-7657-91eb-6e0893973052

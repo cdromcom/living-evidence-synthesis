@@ -30,6 +30,8 @@ pubType: preprint
 selfCitationRate: not-assessable
 doajListed: not-applicable
 pubpeerCommentCount: 0
+crossNodeChecked: 2
+crossNodeCorroborated: 2
 citekey: huntington-kleinLLMsActRepositories2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757

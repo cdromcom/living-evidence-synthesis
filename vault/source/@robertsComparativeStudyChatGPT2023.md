@@ -36,6 +36,8 @@ selfCitationChecked: "10 of 10 references had author metadata"
 doajListed: true
 pubpeerCommentCount: 1
 pubpeerUrl: https://pubpeer.com/publications/236DA13025E01F0BFA89DE7142EE4F
+crossNodeChecked: 3
+crossNodeCorroborated: 3
 citekey: robertsComparativeStudyChatGPT2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f947-796e-bc90-271cd2fe663c

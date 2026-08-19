@@ -11,6 +11,7 @@ tags:
   - tripod-llm/compliance/low
   - tripod-llm/proportion/54pct
   - 5c/credibility
+  - forensic/monotonicity-check/consistent
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6b7f-7021-ba29-15252b4379b8

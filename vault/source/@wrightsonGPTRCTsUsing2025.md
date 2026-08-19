@@ -35,6 +35,8 @@ selfCitationRate: 0.000
 selfCitationChecked: "23 of 36 references had author metadata"
 doajListed: true
 pubpeerCommentCount: 0
+crossNodeChecked: 3
+crossNodeCorroborated: 3
 citekey: wrightsonGPTRCTsUsing2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e
