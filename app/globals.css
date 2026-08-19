@@ -24,14 +24,6 @@
   --color-node-source: #1e3a8a; /* dark blue */
   --color-node-ep: #7f1d1d; /* dark red */
   --color-node-artifact: #ce5555;
-
-  /* 5Cs appraisal dimensions — a distinct hue family from node types so the
-     two badge systems never get confused when both are shown together. */
-  --color-5c-credibility: #0f766e; /* teal */
-  --color-5c-clarity: #4338ca; /* indigo */
-  --color-5c-creativity: #a21caf; /* fuchsia */
-  --color-5c-care: #0e7490; /* cyan */
-  --color-5c-connectivity: #6d28d9; /* violet */
 }
 
 :root[data-theme="dark"] {
@@ -84,12 +76,6 @@
   --color-node-source: var(--color-node-source);
   --color-node-ep: var(--color-node-ep);
   --color-node-artifact: var(--color-node-artifact);
-
-  --color-5c-credibility: var(--color-5c-credibility);
-  --color-5c-clarity: var(--color-5c-clarity);
-  --color-5c-creativity: var(--color-5c-creativity);
-  --color-5c-care: var(--color-5c-care);
-  --color-5c-connectivity: var(--color-5c-connectivity);
 
   --font-heading: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-body: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;

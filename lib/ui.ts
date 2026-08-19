@@ -1,4 +1,4 @@
-import type { NodeType, FiveC } from "./data";
+import type { NodeType } from "./data";
 
 export const NODE_TYPE_COLOR_VAR: Record<NodeType, string> = {
   QUE: "var(--color-node-question)",
@@ -42,38 +42,6 @@ export const NODE_TYPE_BORDER_CLASS: Record<NodeType, string> = {
  * than navigating away and losing filter/zoom/focus state.
  */
 export const GRAPH_SELECT_NODE_EVENT = "graph:select-node";
-
-export const FIVE_C_COLOR_VAR: Record<FiveC, string> = {
-  credibility: "var(--color-5c-credibility)",
-  clarity: "var(--color-5c-clarity)",
-  creativity: "var(--color-5c-creativity)",
-  care: "var(--color-5c-care)",
-  connectivity: "var(--color-5c-connectivity)",
-};
-
-export const FIVE_C_BG_CLASS: Record<FiveC, string> = {
-  credibility: "bg-5c-credibility",
-  clarity: "bg-5c-clarity",
-  creativity: "bg-5c-creativity",
-  care: "bg-5c-care",
-  connectivity: "bg-5c-connectivity",
-};
-
-export const FIVE_C_TEXT_CLASS: Record<FiveC, string> = {
-  credibility: "text-5c-credibility",
-  clarity: "text-5c-clarity",
-  creativity: "text-5c-creativity",
-  care: "text-5c-care",
-  connectivity: "text-5c-connectivity",
-};
-
-export const FIVE_C_BORDER_CLASS: Record<FiveC, string> = {
-  credibility: "border-5c-credibility",
-  clarity: "border-5c-clarity",
-  creativity: "border-5c-creativity",
-  care: "border-5c-care",
-  connectivity: "border-5c-connectivity",
-};
 
 /** Curation status -> a stable visual family (draft vs. reviewed vs. other). */
 export function curationStatusTone(status: string): "draft" | "reviewed" | "other" {

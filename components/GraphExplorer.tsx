@@ -10,9 +10,6 @@ import {
   NODE_TYPE_BG_CLASS,
   NODE_TYPE_BORDER_CLASS,
   NODE_TYPE_TEXT_CLASS,
-  FIVE_C_BG_CLASS,
-  FIVE_C_BORDER_CLASS,
-  FIVE_C_TEXT_CLASS,
   GRAPH_SELECT_NODE_EVENT,
 } from "@/lib/ui";
 
@@ -130,6 +127,27 @@ export default function GraphExplorer({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState(false);
   const [showNodeList, setShowNodeList] = useState(false);
+  const [expandedNeighbors, setExpandedNeighbors] = useState<Set<string>>(new Set());
+
+  // force-graph defaults `width` to window.innerWidth when no width prop is
+  // given — not the actual rendered width of our (narrower) grid column. The
+  // canvas then draws at that oversized width and gets silently clipped by
+  // this container's overflow-hidden, so zoomToFit ("Fit to view") computes
+  // its target scale against a virtual viewport far wider than what's
+  // visible: the graph "fits" a box you can't see most of. Measuring the
+  // container and passing width explicitly fixes both that and the initial
+  // auto-fit.
+  const [graphWidth, setGraphWidth] = useState(0);
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      const w = Math.round(entries[0].contentRect.width);
+      setGraphWidth((prev) => (prev === w ? prev : w));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const statuses = useMemo(
     () => Array.from(new Set(nodes.map((n) => n.curationStatus))).sort(),
@@ -277,7 +295,17 @@ export default function GraphExplorer({
 
   function selectNode(id: string | null) {
     setSelectedId(id);
+    setExpandedNeighbors(new Set());
     if (!id) setFocusMode(false);
+  }
+
+  function toggleNeighborExpanded(id: string) {
+    setExpandedNeighbors((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   }
 
   useEffect(() => {
@@ -498,8 +526,8 @@ export default function GraphExplorer({
             aria-pressed={fiveCFilter.has(c)}
             className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
               fiveCFilter.has(c)
-                ? `${FIVE_C_BG_CLASS[c]} ${FIVE_C_BORDER_CLASS[c]} text-white`
-                : `${FIVE_C_BORDER_CLASS[c]} ${FIVE_C_TEXT_CLASS[c]} bg-card opacity-60 hover:opacity-100`
+                ? "border-ink bg-ink text-paper"
+                : "border-border bg-card text-ink/70 hover:bg-muted-surface"
             }`}
           >
             {FIVE_C_LABELS[c]}
@@ -626,6 +654,7 @@ export default function GraphExplorer({
             }}
             linkDirectionalArrowLength={3}
             linkDirectionalArrowRelPos={1}
+            width={graphWidth || undefined}
             height={620}
             cooldownTicks={100}
             backgroundColor="rgba(0,0,0,0)"
@@ -660,7 +689,7 @@ export default function GraphExplorer({
                   {getFiveCs(selectedNode).map((c) => (
                     <span
                       key={c}
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.625rem] font-semibold text-white ${FIVE_C_BG_CLASS[c]}`}
+                      className="inline-flex items-center rounded-full border border-border bg-muted-surface px-2 py-0.5 text-[0.625rem] font-semibold text-ink/70"
                     >
                       {FIVE_C_LABELS[c]}
                     </span>
@@ -694,6 +723,60 @@ export default function GraphExplorer({
                   Open full page →
                 </Link>
               </div>
+
+              {(() => {
+                const neighborIds = Array.from(neighborsOf.get(selectedNode.id) ?? []);
+                const neighborNodes = neighborIds
+                  .map((id) => getNodeById(id))
+                  .filter((n): n is GraphNode => !!n)
+                  .sort((a, b) => a.title.localeCompare(b.title));
+                if (neighborNodes.length === 0) return null;
+                return (
+                  <div className="mt-4 border-t border-border pt-3">
+                    <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+                      Connected nodes ({neighborNodes.length})
+                    </p>
+                    <ul className="mt-2 max-h-72 space-y-1 overflow-y-auto">
+                      {neighborNodes.map((n) => {
+                        const isExpanded = expandedNeighbors.has(n.id);
+                        const summary = isExpanded ? nodeSummary(n) : null;
+                        return (
+                          <li key={n.id} className="rounded-md border border-border">
+                            <button
+                              type="button"
+                              onClick={() => toggleNeighborExpanded(n.id)}
+                              aria-expanded={isExpanded}
+                              className="flex w-full items-center gap-1.5 px-2 py-1.5 text-left text-xs hover:bg-muted-surface"
+                            >
+                              <span aria-hidden className="w-3 shrink-0 text-muted-ink">
+                                {isExpanded ? "▾" : "▸"}
+                              </span>
+                              <span className={`shrink-0 text-[0.625rem] font-semibold ${NODE_TYPE_TEXT_CLASS[n.type]}`}>
+                                {n.type}
+                              </span>
+                              <span className="truncate">{n.title}</span>
+                            </button>
+                            {isExpanded && (
+                              <div className="border-t border-border px-2 py-2">
+                                <p className="text-xs leading-relaxed text-ink/80">
+                                  {summary ?? "No summary available."}
+                                </p>
+                                <button
+                                  type="button"
+                                  onClick={() => selectNode(n.id)}
+                                  className="mt-2 text-[0.6875rem] font-semibold text-forest hover:underline"
+                                >
+                                  Open this node →
+                                </button>
+                              </div>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })()}
             </div>
           ) : (
             <div className="text-xs text-muted-ink">
