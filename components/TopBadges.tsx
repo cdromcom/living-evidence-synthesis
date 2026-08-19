@@ -2,13 +2,18 @@ import Image from "next/image";
 import {
   getTopSignals,
   getReproducibilityRisk,
+  getValiditySignals,
+  getSampleSizeEstimation,
+  getStudyType,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
   REPRODUCIBILITY_RISK_LABELS,
+  VALIDITY_DOMAIN_LABELS,
   type GraphNode,
   type TopStandard,
   type TopLevel,
   type ReproducibilityRisk,
+  type ValidityDomain,
 } from "@/lib/data";
 
 // Center for Open Science's actual Open Science Badge artwork
@@ -35,7 +40,7 @@ const LEVEL_RING: Record<TopLevel, string> = {
   "not-applicable": "border-zinc-200",
 };
 
-const REPRO_TONE: Record<ReproducibilityRisk, string> = {
+const RISK_TONE: Record<ReproducibilityRisk, string> = {
   "low-risk": "bg-emerald-600",
   "some-concerns": "bg-amber-500",
   "high-risk": "bg-red-600",
@@ -43,22 +48,54 @@ const REPRO_TONE: Record<ReproducibilityRisk, string> = {
 
 function ProtocolGlyph() {
   return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2.4}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <rect x="5" y="4" width="14" height="17" rx="2" />
       <path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1Z" />
       <path d="M8.5 12h7M8.5 16h5" />
     </svg>
   );
+}
+
+// Original glyphs for the four validity domains — no established open-
+// licensed icon set exists for these (checked: Cochrane's RoB2 icon set is
+// CC BY-NC-ND, which forbids derivatives; nothing else turned up).
+function ValidityGlyph({ domain }: { domain: ValidityDomain }) {
+  const common = { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
+  switch (domain) {
+    case "construct-validity":
+      // target — measuring the concept it's meant to measure
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="8" />
+          <circle cx="12" cy="12" r="3.5" />
+          <circle cx="12" cy="12" r="0.5" fill="currentColor" />
+        </svg>
+      );
+    case "internal-validity":
+      // linked chain — the causal link between design and outcome
+      return (
+        <svg {...common}>
+          <rect x="3" y="9" width="9" height="7" rx="3.5" />
+          <rect x="12" y="8" width="9" height="7" rx="3.5" />
+        </svg>
+      );
+    case "external-validity":
+      // globe — generalization beyond the study's own setting
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="8.5" />
+          <path d="M3.5 12h17M12 3.5c3 3 3 14 0 17M12 3.5c-3 3-3 14 0 17" />
+        </svg>
+      );
+    case "statistical-rigor":
+      // bars with an error whisker — uncertainty-aware comparison
+      return (
+        <svg {...common}>
+          <path d="M5 20V11M12 20V6M19 20v-4" />
+          <path d="M9 6h6M12 3v6" />
+        </svg>
+      );
+  }
 }
 
 function StandardBadge({ standard, level }: { standard: TopStandard; level: TopLevel }) {
@@ -74,13 +111,7 @@ function StandardBadge({ standard, level }: { standard: TopStandard; level: TopL
       className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 ${LEVEL_RING[level]}`}
     >
       {img ? (
-        <Image
-          src={img.src}
-          alt={img.alt}
-          width={16}
-          height={17.6}
-          className={earned ? "" : "opacity-40 grayscale"}
-        />
+        <Image src={img.src} alt={img.alt} width={16} height={17.6} className={earned ? "" : "opacity-40 grayscale"} />
       ) : (
         <span
           className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${
@@ -95,39 +126,118 @@ function StandardBadge({ standard, level }: { standard: TopStandard; level: TopL
   );
 }
 
-/** Transparency & rigor badges for a node, aligned to COS's TOP Guidelines vocabulary. */
+function RiskBadge({ label, risk, title, glyph }: { label: string; risk: ReproducibilityRisk; title: string; glyph: React.ReactNode }) {
+  return (
+    <span title={title} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80">
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${RISK_TONE[risk]}`}>{glyph}</span>
+      {label}
+    </span>
+  );
+}
+
+/** Transparency, risk-of-bias, and study-design rigor badges for a node. */
 export default function TopBadges({ node }: { node: GraphNode }) {
   const signals = getTopSignals(node);
   const repro = getReproducibilityRisk(node);
-  if (signals.length === 0 && !repro) return null;
+  const validity = getValiditySignals(node);
+  const sampleSize = getSampleSizeEstimation(node);
+  const studyType = getStudyType(node);
+
+  if (signals.length === 0 && !repro && validity.length === 0 && !sampleSize && !studyType) return null;
 
   return (
-    <div className="mt-3">
-      <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-        Transparency &amp; rigor <span className="font-normal normal-case">(COS TOP Guidelines)</span>
-      </p>
-      <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-        {signals.map((s) => (
-          <StandardBadge key={s.standard} standard={s.standard} level={s.level} />
-        ))}
-        {repro && (
-          <span
-            title={`Reproducibility risk (Critical Appraisal): ${REPRODUCIBILITY_RISK_LABELS[repro]}`}
-            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
-          >
-            <span aria-hidden className={`h-3 w-3 shrink-0 rounded-full ${REPRO_TONE[repro]}`} />
-            Reproducibility
-          </span>
-        )}
-      </div>
-      <p className="mt-1.5 text-[0.625rem] text-muted-ink">
-        Open Data / Open Materials / Preregistered badge artwork ©{" "}
-        <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
-          Center for Open Science
-        </a>
-        , CC BY 4.0. Shown full-color only at Level 2 (Shared and Cited); desaturated below that
-        threshold — no badge here implies it was independently certified.
-      </p>
+    <div className="mt-3 space-y-3">
+      {signals.length > 0 && (
+        <div>
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+            Transparency <span className="font-normal normal-case">(COS TOP Guidelines)</span>
+          </p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            {signals.map((s) => (
+              <StandardBadge key={s.standard} standard={s.standard} level={s.level} />
+            ))}
+          </div>
+          <p className="mt-1.5 text-[0.625rem] text-muted-ink">
+            Open Data / Open Materials / Preregistered badge artwork ©{" "}
+            <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
+              Center for Open Science
+            </a>
+            , CC BY 4.0. Shown full-color only at Level 2 (Shared and Cited); desaturated below
+            that threshold — no badge here implies it was independently certified.
+          </p>
+        </div>
+      )}
+
+      {(validity.length > 0 || repro) && (
+        <div>
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+            Risk of bias <span className="font-normal normal-case">(Critical Appraisal)</span>
+          </p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            {validity.map((v) => (
+              <RiskBadge
+                key={v.domain}
+                label={VALIDITY_DOMAIN_LABELS[v.domain]}
+                risk={v.risk}
+                title={`${VALIDITY_DOMAIN_LABELS[v.domain]}: ${REPRODUCIBILITY_RISK_LABELS[v.risk]}`}
+                glyph={<ValidityGlyph domain={v.domain} />}
+              />
+            ))}
+            {repro && (
+              <RiskBadge
+                label="Reproducibility"
+                risk={repro}
+                title={`Reproducibility risk: ${REPRODUCIBILITY_RISK_LABELS[repro]}`}
+                glyph={<span aria-hidden className="h-2 w-2 rounded-full bg-white/90" />}
+              />
+            )}
+          </div>
+        </div>
+      )}
+
+      {(sampleSize || studyType) && (
+        <div>
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+            Study design <span className="font-normal normal-case">(NIH/NINDS rigor icons)</span>
+          </p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            {sampleSize && (
+              <span
+                title={
+                  sampleSize === "done"
+                    ? "Sample size / power estimated in advance"
+                    : "No a priori sample-size or power justification reported"
+                }
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+              >
+                <Image
+                  src="/rigor/nih-sample-size-estimation.png"
+                  alt="Sample Size Estimation icon"
+                  width={16}
+                  height={16}
+                  className={sampleSize === "done" ? "" : "opacity-40 grayscale"}
+                />
+                Sample size estimation
+              </span>
+            )}
+            {studyType && (
+              <span
+                title={studyType === "exploratory" ? "Exploratory / hypothesis-generating" : "Confirmatory hypothesis test"}
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+              >
+                <Image
+                  src="/rigor/nih-exploratory.png"
+                  alt="Exploratory study icon"
+                  width={16}
+                  height={16}
+                  className={studyType === "exploratory" ? "" : "opacity-40 grayscale"}
+                />
+                {studyType === "exploratory" ? "Exploratory" : "Confirmatory"}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

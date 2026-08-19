@@ -4363,7 +4363,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/not-disclosed"
+        "top/code-transparency/not-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/high-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4387,7 +4393,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/not-disclosed"
+        "top/code-transparency/not-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/high-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4411,7 +4423,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/not-disclosed"
+        "top/code-transparency/not-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/high-risk",
+        "appraisal/external-validity/some-concerns",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4435,7 +4453,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4459,7 +4483,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/not-disclosed"
+        "top/code-transparency/not-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/high-risk",
+        "appraisal/external-validity/some-concerns",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4483,7 +4513,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/low-risk",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4507,7 +4543,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4531,7 +4573,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/not-applicable"
+        "top/code-transparency/not-applicable",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/low-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4555,7 +4603,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/low-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4579,7 +4633,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4603,7 +4663,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-1-disclosed"
+        "top/code-transparency/level-1-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4627,7 +4693,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/not-disclosed",
-        "top/code-transparency/not-disclosed"
+        "top/code-transparency/not-disclosed",
+        "appraisal/construct-validity/high-risk",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4651,7 +4723,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/low-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4675,7 +4753,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/level-1-disclosed"
+        "top/code-transparency/level-1-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/high-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4699,7 +4783,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/low-risk",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4723,7 +4813,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/not-disclosed"
+        "top/code-transparency/not-disclosed",
+        "appraisal/construct-validity/high-risk",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4747,7 +4843,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/not-applicable"
+        "top/code-transparency/not-applicable",
+        "appraisal/construct-validity/high-risk",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4771,7 +4873,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-1-disclosed"
+        "top/code-transparency/level-1-disclosed",
+        "appraisal/construct-validity/high-risk",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4795,7 +4903,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/not-disclosed",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4819,7 +4933,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/level-1-disclosed"
+        "top/code-transparency/level-1-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/high-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4843,7 +4963,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/low-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4867,7 +4993,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/high-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4891,7 +5023,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/high-risk",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4915,7 +5053,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-2-shared"
+        "top/code-transparency/level-2-shared",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4939,7 +5083,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-2-shared",
-        "top/code-transparency/level-1-disclosed"
+        "top/code-transparency/level-1-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/high-risk",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4963,7 +5113,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/level-1-disclosed"
+        "top/code-transparency/level-1-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,
@@ -4987,7 +5143,13 @@
         "top/study-protocol/not-disclosed",
         "top/study-registration/not-applicable",
         "top/data-transparency/level-1-disclosed",
-        "top/code-transparency/not-disclosed"
+        "top/code-transparency/not-disclosed",
+        "appraisal/construct-validity/some-concerns",
+        "appraisal/internal-validity/some-concerns",
+        "appraisal/external-validity/high-risk",
+        "appraisal/statistical-rigor/some-concerns",
+        "rigor/sample-size-estimation/not-done",
+        "rigor/study-type/exploratory"
       ],
       "created": null,
       "updated": null,

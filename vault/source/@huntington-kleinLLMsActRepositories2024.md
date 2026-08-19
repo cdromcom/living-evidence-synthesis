@@ -10,6 +10,12 @@ tags:
   - top/study-registration/not-applicable
   - top/data-transparency/level-1-disclosed
   - top/code-transparency/level-2-shared
+  - appraisal/construct-validity/low-risk
+  - appraisal/internal-validity/some-concerns
+  - appraisal/external-validity/high-risk
+  - appraisal/statistical-rigor/some-concerns
+  - rigor/sample-size-estimation/not-done
+  - rigor/study-type/exploratory
 citekey: huntington-kleinLLMsActRepositories2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757

@@ -10,6 +10,12 @@ tags:
   - top/study-registration/not-applicable
   - top/data-transparency/level-2-shared
   - top/code-transparency/level-2-shared
+  - appraisal/construct-validity/some-concerns
+  - appraisal/internal-validity/some-concerns
+  - appraisal/external-validity/high-risk
+  - appraisal/statistical-rigor/high-risk
+  - rigor/sample-size-estimation/not-done
+  - rigor/study-type/exploratory
 citekey: xuCanLLMsIdentify2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95b-77a4-8120-c69bff843bd2

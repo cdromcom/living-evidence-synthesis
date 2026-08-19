@@ -10,6 +10,12 @@ tags:
   - top/study-registration/not-applicable
   - top/data-transparency/level-1-disclosed
   - top/code-transparency/not-disclosed
+  - appraisal/construct-validity/some-concerns
+  - appraisal/internal-validity/high-risk
+  - appraisal/external-validity/high-risk
+  - appraisal/statistical-rigor/high-risk
+  - rigor/sample-size-estimation/not-done
+  - rigor/study-type/exploratory
 citekey: alharbiAutomatedAssessmentReporting2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10

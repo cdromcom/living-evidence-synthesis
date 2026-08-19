@@ -10,6 +10,12 @@ tags:
   - top/study-registration/not-applicable
   - top/data-transparency/level-1-disclosed
   - top/code-transparency/not-disclosed
+  - appraisal/construct-validity/some-concerns
+  - appraisal/internal-validity/high-risk
+  - appraisal/external-validity/some-concerns
+  - appraisal/statistical-rigor/some-concerns
+  - rigor/sample-size-estimation/not-done
+  - rigor/study-type/exploratory
 citekey: bougieGenerativeAdversarialReviews2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f937-724d-9f43-074dca71227e

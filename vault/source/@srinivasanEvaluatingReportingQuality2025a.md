@@ -10,6 +10,12 @@ tags:
   - top/study-registration/not-applicable
   - top/data-transparency/level-2-shared
   - top/code-transparency/level-1-disclosed
+  - appraisal/construct-validity/high-risk
+  - appraisal/internal-validity/some-concerns
+  - appraisal/external-validity/high-risk
+  - appraisal/statistical-rigor/some-concerns
+  - rigor/sample-size-estimation/not-done
+  - rigor/study-type/exploratory
 citekey: srinivasanEvaluatingReportingQuality2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f950-75f1-a036-5fc27aea2466

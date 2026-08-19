@@ -10,6 +10,12 @@ tags:
   - top/study-registration/not-applicable
   - top/data-transparency/not-disclosed
   - top/code-transparency/level-2-shared
+  - appraisal/construct-validity/some-concerns
+  - appraisal/internal-validity/some-concerns
+  - appraisal/external-validity/high-risk
+  - appraisal/statistical-rigor/some-concerns
+  - rigor/sample-size-estimation/not-done
+  - rigor/study-type/exploratory
 citekey: thelwallEvaluatingResearchQuality2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f951-7716-87b8-85d879b3e235

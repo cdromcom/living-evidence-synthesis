@@ -10,6 +10,12 @@ tags:
   - top/study-registration/not-applicable
   - top/data-transparency/level-1-disclosed
   - top/code-transparency/level-1-disclosed
+  - appraisal/construct-validity/some-concerns
+  - appraisal/internal-validity/high-risk
+  - appraisal/external-validity/high-risk
+  - appraisal/statistical-rigor/high-risk
+  - rigor/sample-size-estimation/not-done
+  - rigor/study-type/exploratory
 citekey: shahidLiteratureGroundedNoveltyAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335

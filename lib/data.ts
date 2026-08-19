@@ -185,6 +185,80 @@ export function getReproducibilityRisk(node: Pick<GraphNode, "tags">): Reproduci
   return risk in REPRODUCIBILITY_RISK_LABELS ? (risk as ReproducibilityRisk) : null;
 }
 
+/**
+ * The other four domains of each SRC file's Critical Appraisal table
+ * (Construct/Internal/External validity, Statistical rigor — same
+ * 🟢/🟡/🔴 scale as Reproducibility, and the same `appraisal/*` tag
+ * namespace already used per-EVD elsewhere in the vault, just applied here
+ * at the whole-paper level).
+ */
+export const VALIDITY_DOMAIN_ORDER = [
+  "construct-validity",
+  "internal-validity",
+  "external-validity",
+  "statistical-rigor",
+] as const;
+export type ValidityDomain = (typeof VALIDITY_DOMAIN_ORDER)[number];
+
+export const VALIDITY_DOMAIN_LABELS: Record<ValidityDomain, string> = {
+  "construct-validity": "Construct validity",
+  "internal-validity": "Internal validity",
+  "external-validity": "External validity",
+  "statistical-rigor": "Statistical rigor",
+};
+
+export type ValiditySignal = { domain: ValidityDomain; risk: ReproducibilityRisk };
+
+const APPRAISAL_TAG_PREFIX = "appraisal/";
+
+export function getValiditySignals(node: Pick<GraphNode, "tags">): ValiditySignal[] {
+  const knownDomains: readonly string[] = VALIDITY_DOMAIN_ORDER;
+  const knownRisks: readonly string[] = Object.keys(REPRODUCIBILITY_RISK_LABELS);
+  const out: ValiditySignal[] = [];
+  for (const tag of node.tags) {
+    if (!tag.startsWith(APPRAISAL_TAG_PREFIX)) continue;
+    const rest = tag.slice(APPRAISAL_TAG_PREFIX.length);
+    const slash = rest.indexOf("/");
+    if (slash === -1) continue;
+    const domain = rest.slice(0, slash);
+    const risk = rest.slice(slash + 1);
+    if (knownDomains.includes(domain) && knownRisks.includes(risk)) {
+      out.push({ domain: domain as ValidityDomain, risk: risk as ReproducibilityRisk });
+    }
+  }
+  return VALIDITY_DOMAIN_ORDER.filter((d) => out.some((o) => o.domain === d)).map(
+    (d) => out.find((o) => o.domain === d)!
+  );
+}
+
+/**
+ * NIH/NINDS-style study-design rigor signals
+ * (ninds.nih.gov .../maximizing-data-transparency-rigor-icons). Unlike the
+ * TOP/appraisal tags above, these two aren't extracted from a structured
+ * table row — no SRC file has one for sample-size justification or
+ * exploratory/confirmatory framing. Grounded instead in direct textual
+ * evidence checked across the whole corpus: every "sample size"/"power
+ * analysis" mention in all 27 files is a caveat about its ABSENCE, and none
+ * of the 27 are registered, protocolled, or claim a confirmatory
+ * pre-specified hypothesis — one even says its own result is "suggestive,
+ * not confirmatory." So every paper here reads as exploratory/
+ * hypothesis-generating with no a priori sample-size justification.
+ */
+export type SampleSizeEstimation = "done" | "not-done";
+export type StudyType = "exploratory" | "confirmatory";
+
+export function getSampleSizeEstimation(node: Pick<GraphNode, "tags">): SampleSizeEstimation | null {
+  if (node.tags.includes("rigor/sample-size-estimation/done")) return "done";
+  if (node.tags.includes("rigor/sample-size-estimation/not-done")) return "not-done";
+  return null;
+}
+
+export function getStudyType(node: Pick<GraphNode, "tags">): StudyType | null {
+  if (node.tags.includes("rigor/study-type/exploratory")) return "exploratory";
+  if (node.tags.includes("rigor/study-type/confirmatory")) return "confirmatory";
+  return null;
+}
+
 export const EDGE_TYPE_LABELS: Record<EdgeType, string> = {
   addresses: "Addresses",
   relatesTo: "Relates to",
