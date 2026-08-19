@@ -14,14 +14,31 @@ export default function NodeArticle({ html }: { html: string }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const blocks = el.querySelectorAll<HTMLDivElement>(".mermaid");
+    const blocks = Array.from(el.querySelectorAll<HTMLDivElement>(".mermaid"));
     if (blocks.length === 0) return;
 
+    // Snapshot each diagram's source text synchronously, right now — before
+    // the async `import("mermaid")` gap. Some browser extensions (glossary/
+    // dictionary term highlighters, translators) rewrite page text
+    // asynchronously and can inject markup (e.g. <a class="glossary-...">)
+    // into this div in that window. mermaid.run() re-scans the live DOM node
+    // when it finally runs, so it can end up parsing corrupted text through
+    // no fault of the diagram source itself. Capturing the string now and
+    // rendering from that string instead avoids the race entirely.
+    const sources = blocks.map((b) => b.textContent || "");
+
     let cancelled = false;
-    import("mermaid").then(({ default: mermaid }) => {
+    import("mermaid").then(async ({ default: mermaid }) => {
       if (cancelled) return;
       mermaid.initialize({ startOnLoad: false, theme: "neutral", securityLevel: "strict" });
-      mermaid.run({ nodes: Array.from(blocks) });
+      for (let i = 0; i < blocks.length; i++) {
+        try {
+          const { svg } = await mermaid.render(`mermaid-svg-${i}-${Date.now()}`, sources[i]);
+          if (!cancelled) blocks[i].innerHTML = svg;
+        } catch (err) {
+          console.error("Mermaid diagram failed to render:", err);
+        }
+      }
     });
     return () => {
       cancelled = true;
