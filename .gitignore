@@ -42,3 +42,6 @@ yarn-error.log*
 next-env.d.ts
 /.build.lock
 /.node-local
+
+# locally-cached source PDFs used for full-text forensic checks — never commit copyrighted papers
+/.cache/
