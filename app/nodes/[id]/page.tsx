@@ -36,7 +36,6 @@ const EXTRA_LABELS: Record<string, string> = {
   severity: "Severity",
   appraisalOverall: "Appraisal overall",
   tripodLlmPct: "TRIPOD-LLM compliance",
-  citekey: "Citekey",
   rating: "Rating",
 };
 
@@ -92,6 +91,7 @@ export default async function NodeDetailPage({
     "peerReviewStatus",
     "peerReviewNote",
     "peerReviewUrl",
+    "citekey",
   ]);
   const extraEntries = Object.entries(node.extras).filter(
     ([k, v]) => v !== undefined && v !== null && v !== "" && !CREDIBILITY_EXTRA_KEYS.has(k)
@@ -99,15 +99,16 @@ export default async function NodeDetailPage({
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
-      <SourceCitation node={node} />
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <NodeTypeBadge type={node.type} />
         <span className="mono text-xs text-muted-ink">{node.id}</span>
         <StatusBadge status={node.curationStatus} />
       </div>
-      <h1 className="max-w-3xl text-2xl font-semibold leading-tight sm:text-3xl">
+      <h1 className="max-w-3xl text-2xl font-semibold leading-tight text-ink sm:text-3xl">
         {node.title}
       </h1>
+
+      <SourceCitation node={node} />
 
       <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-ink">
         {node.created && <span>Created {formatDate(node.created)}</span>}

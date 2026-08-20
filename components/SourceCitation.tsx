@@ -19,7 +19,7 @@ export default function SourceCitation({ node }: { node: GraphNode }) {
   if (!citation.hasData && !peerReviewStatus) return null;
 
   return (
-    <div className="mb-4 rounded-md border border-border bg-card p-3">
+    <div className="mb-4 mt-2">
       {citation.hasData && (
         <p className="text-sm leading-relaxed text-ink/90">
           {citation.authors} ({citation.year}). {citation.title}.{" "}
