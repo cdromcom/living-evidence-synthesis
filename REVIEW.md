@@ -1,0 +1,201 @@
+# How this site reviews its sources
+
+Every SRC (source paper) page carries a set of automated, verifiable trust
+and integrity signals, all computed from data already public — no paid
+tools, no manual re-reading required to reproduce any single number here.
+This document describes what's checked, where the data comes from, and —
+just as importantly — what's deliberately *not* checked and why, since a
+wrong signal is worse than a missing one.
+
+## Guiding principle
+
+**Every signal here was verified against real data before being published.**
+Several checks were built, tested, found to produce false positives on this
+specific corpus, and deliberately not shipped — see "What we tried and
+rejected" below. When a check can't be run reliably (data missing, a
+publisher blocks automated access, a naive extraction turns out ambiguous),
+the honest answer is "not applicable" or "not checked," never a guess. This
+is the same discipline GRIM/GRIMMER-style forensic tools require of
+themselves: the arithmetic is only as trustworthy as the data pairing that
+feeds it.
+
+## What's on every source page
+
+### Citation (`components/SourceCitation.tsx`, `lib/apa.ts`)
+A full APA 7th-edition reference — authors, year, sentence-cased title
+(acronyms like GPT-4/LLM/CONSORT preserved, not mangled), italicized
+journal + volume, DOI link — built from CrossRef/DataCite bibliographic
+data pulled per source, not hand-typed.
+
+### Transparency — COS TOP Guidelines (`components/TopBadges.tsx`)
+Four of the [TOP Guidelines](https://www.cos.io/initiatives/top-guidelines)
+standards, extracted from each source's own TRIPOD-LLM reporting table
+(items 14c/14d/14e/14f, already vault content): **Data Transparency**,
+**Analytic Code Transparency**, **Study Protocol**, **Study Registration**.
+Each gets TOP's own Level 1 (Disclosed) / Level 2 (Shared and Cited)
+language — never Level 3 (Certified), since that requires independent
+verification we haven't done. Badge artwork for Data/Code/Registration
+borrows COS's actual Open Science Badges (Open Data / Open Materials /
+Preregistered — CC BY 4.0, confirmed via cos.io's own license footer,
+downloaded from their OSF file store); shown full-color only at Level 2,
+desaturated otherwise, so nothing implies a badge was earned when it wasn't.
+
+### Risk of bias (`components/TopBadges.tsx`)
+Construct validity, internal validity, external validity, statistical
+rigor, and reproducibility — the five domains of each source's own
+Critical Appraisal table (🟢/🟡/🔴), surfaced with original icon glyphs
+(no open-licensed icon set exists for these specifically; checked —
+Cochrane's RoB2 iconography is CC BY-NC-ND, which forbids derivatives).
+
+### Study design rigor (NIH/NINDS icons)
+Sample-size estimation and exploratory-vs-confirmatory framing, using the
+real NIH/NINDS rigor icon set. Not extracted from a structured field —
+grounded in direct textual evidence checked across the whole corpus before
+tagging anything: every "sample size"/"power analysis" mention in all 27
+sources is a caveat about its *absence*, and none of the 27 are registered,
+protocolled, or claim a confirmatory pre-specified hypothesis.
+
+### Research integrity
+Ethical approval, funding disclosure, conflicts-of-interest disclosure —
+same TRIPOD-LLM table (items 13, 14a, 14b), original glyphs (checked for
+precedent first: ICMJE's COI material is a disclosure form, not an icon
+convention).
+
+### Source credibility (`components/SourceCredibility.tsx`)
+- **DOI resolution** — every source's real DOI, matched against the
+  citekey and verified by comparing the resolved title/authors against
+  what we already knew about the paper's content (not just trusted a
+  search API's top hit).
+- **Critique status** — checked live against Crossref's `update-to`
+  relation (Crossref has owned the Retraction Watch database since Sept
+  2023) or DataCite for arXiv preprints, which has no equivalent registry
+  (marked `not-registered`, not falsely implied clean).
+- **Author track record** — INSPECT-SR item 1.3 ("do other studies by the
+  research team highlight causes for concern"), checked via each author's
+  ORCID publication history on Crossref. Only proceeds when an ORCID is on
+  record — never plain name search, since a same-named different person's
+  retraction misattributed to the real author would be exactly the kind of
+  false claim this whole feature is trying to avoid.
+- **PubPeer comment count** — a live count (no comment text, no commenter
+  identities), via the same endpoint PubPeer's own official browser
+  extension uses (`POST pubpeer.com/v3/publications`, read from their
+  open-source extension code). One real finding this surfaced: the Roberts
+  et al. paper has a PubPeer comment on record.
+- **Publication type, DOAJ listing, self-citation rate** — publication
+  type from Crossref/DataCite's own type field; DOAJ status from their free
+  public API (journal legitimacy signal for open-access venues); self-
+  citation rate computed from Crossref's own reference-list metadata where
+  a publisher provides author info per reference (coverage varies —
+  explicitly marked "not-assessable" when a publisher's references are
+  bare DOIs).
+- **Peer review status** — checked directly against each source's actual
+  landing page (or, where publishers blocked automated access, marked
+  "not independently verified" rather than guessed). Preprints are marked
+  not-applicable by definition.
+- **Altmetric attention badge** — the free embeddable widget (no API key;
+  their REST API now requires one as of Nov 2025, the embed badge doesn't).
+  This tracks attention/engagement volume, not sentiment — Altmetric
+  doesn't actually offer a sentiment feature, despite the name sounding
+  like it might.
+
+### Forensic-metascience checks on individual evidence claims
+Run against the exact numbers quoted in each EVD (evidence) node, not the
+source as a whole:
+- **F1 consistency** — `F1 = 2PR/(P+R)`, flagged when a claim states
+  precision, recall, and F1 together and they don't reconcile (with a
+  caveat that macro/micro-averaged multi-class F1 can legitimately diverge
+  from the plain formula).
+- **Cohen's κ bounds** — flags any κ reported outside the mathematically
+  valid [-1, 1] range.
+- **Confidence-interval consistency** — bounds correctly ordered, and the
+  point estimate actually falls inside its own reported interval. Caught a
+  real, previously-manually-flagged error this way: the Roberts et al.
+  paper prints a 95% CI as "(0.62%, 0.37%)" — lower bound above the upper
+  bound.
+- **Percentage-of-total closure** — where a claim breaks a total into
+  subcategories, verifies the parts sum to the stated whole.
+- **Trend monotonicity** — for "rose/dropped from X to Y" claims, verifies
+  the stated direction matches the actual comparison.
+- **Cross-node corroboration** — whether a source's own narrative summary
+  restates at least one number from each evidence claim it cites (reported
+  as a corroboration rate, not a contradiction hunter — paraphrasing
+  without repeating a number is normal, not an error).
+- **Model-name spelling consistency** — checked against the *full paper
+  PDF* text (not just our curated summary) for 8 sources where a real,
+  verified PDF was available locally. Groups every GPT-4/Claude/Gemini/
+  Llama mention by normalized form and flags a paper using 2+ distinct
+  spellings for the same model.
+- **statcheck** (p-value/test-statistic recomputation) — checked across
+  the whole corpus; zero results were reported in a recomputable APA-style
+  NHST format, so this is uniformly marked "not applicable" per source
+  rather than silently omitted.
+
+## What we tried and deliberately did not ship
+
+Publishing an unreliable check is worse than publishing none — a false
+"red flag" misrepresents a real, named paper. Three checks were built,
+tested against real corpus data, and rejected on that basis:
+
+- **GRIM** (does a reported percentage match some integer/N?) — a naive
+  nearest-number pairing produced a clear false positive: "18.02% (552)"
+  in one source's table means *552 is the count 18.02% of 3063
+  represents*, not the denominator. A regex can't reliably tell these
+  apart without reading the sentence.
+- **"Too clean" / terminal-digit roundness** — several sources came back
+  "100% round percentages," which looked like a red flag until checked:
+  their underlying evaluation subsets are N=10 or N=20, where round
+  percentages (100%, 57%, 70%) are a mathematical near-certainty, not a
+  fabrication signal. Classic forensic techniques built for large-sample
+  survey/clinical data have real, demonstrated limits on a small-N
+  ML-benchmark corpus like this one.
+- **GRIMMER/`strait`-style mean+SD+scale-bounds checks** (explored after
+  the R packages `scrutiny` and `tides`/`strait` were suggested) — exactly
+  one mean+SD candidate exists in the whole 77-node evidence corpus. Pulled
+  the actual paper (a public arXiv PDF) to get the scale bounds needed to
+  run the check, and the paper never states them. Not shipped rather than
+  assumed.
+
+Also explicitly out of scope, with reasons on record:
+- **Image/text-duplication forensics** (the single most common real
+  retraction-case finding, per Elisabeth Bik's work) — no free API exists;
+  the available tools (Proofig, ImageTwin) are paid B2B products.
+- **PubPeer comment *content*** — only a live count is shown, never the
+  comment text or commenter identities. PubPeer's platform has its own
+  legal/moderation structure built for hosting serious misconduct
+  allegations; republishing that content on a different site would inherit
+  that exposure without the structure.
+- **AI-generated-text detection on the papers' own prose** — explicitly
+  declined. These detectors have a documented, specific failure mode: they
+  flag non-native-English-speaker writing as "AI-generated" at
+  disproportionate rates (Liang et al. 2023), and this corpus's authors are
+  a genuinely international group. OpenAI shut down its own AI-text
+  classifier in 2023 citing low accuracy; no major publisher uses these
+  tools for exactly this reason.
+- **Research Signals** (research-signals.com) — a commercial
+  publisher-integration platform; no public or free-tier API, would
+  require a business relationship to access.
+- **Section-level (title/abstract/intro/results/discussion) consistency
+  checking** — tested and found unreliable: one source's own methodology
+  table uses "Methods"/"Results"/"Discussion" as plain row labels sitting
+  right next to its real (ALL-CAPS) section headers, which a naive header
+  matcher would confuse. Only 8 of 27 sources have a PDF actually synced
+  locally from Zotero to test this against in the first place (the
+  remaining 19 are in Zotero's cloud storage, not locally cached).
+
+## Data sources, all free/open, none scraped against terms of service
+
+Crossref REST API · DataCite REST API · DOAJ search API · ORCID (via
+Crossref author records) · Center for Open Science's Open Science Badges
+(CC BY 4.0) · PubPeer's own public-extension API endpoint · Altmetric's
+free embeddable badge widget · each source's own vault-curated TRIPOD-LLM
+and Critical Appraisal tables.
+
+## Where this naturally points next
+
+Everything above is retrospective document analysis. The one thing
+explicitly never claimed — TOP's own Level 3 "Certified" — would mean
+picking sources with real public code+data and actually re-running their
+pipeline to confirm the numbers match. That's full reproducibility
+verification, a substantially larger and more valuable project, and a
+deliberately separate piece of future work rather than something folded
+into the checks above.
