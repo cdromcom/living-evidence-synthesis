@@ -7,12 +7,19 @@ This document describes what's checked, where the data comes from, and —
 just as importantly — what's deliberately *not* checked and why, since a
 wrong signal is worse than a missing one.
 
+**Contents:** [Guiding principle](#guiding-principle) ·
+[What's on every source page](#whats-on-every-source-page) ·
+[What we tried and deliberately did not ship](#what-we-tried-and-deliberately-did-not-ship) ·
+[Data sources](#data-sources-all-freeopen-none-scraped-against-terms-of-service) ·
+[Where this points next](#where-this-naturally-points-next)
+
 ## Guiding principle
 
 **Every signal here was verified against real data before being published.**
 Several checks were built, tested, found to produce false positives on this
-specific corpus, and deliberately not shipped — see "What we tried and
-rejected" below. When a check can't be run reliably (data missing, a
+specific corpus, and deliberately not shipped — see
+["What we tried and deliberately did not ship"](#what-we-tried-and-deliberately-did-not-ship)
+below. When a check can't be run reliably (data missing, a
 publisher blocks automated access, a naive extraction turns out ambiguous),
 the honest answer is "not applicable" or "not checked," never a guess. This
 is the same discipline GRIM/GRIMMER-style forensic tools require of
