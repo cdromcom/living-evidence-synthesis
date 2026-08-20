@@ -42,6 +42,37 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+apaTitle: "AI-Driven Review Systems: Evaluating LLMs in Scalable and Bias-Aware Academic Reviews"
+apaContainer: "arXiv"
+apaYear: 2024
+apaLandingUrl: "https://arxiv.org/abs/2408.10365"
+apaAuthors:
+  - given: "Keith"
+    family: "Tyser"
+  - given: "Ben"
+    family: "Segev"
+  - given: "Gaston"
+    family: "Longhitano"
+  - given: "Xin-Yu"
+    family: "Zhang"
+  - given: "Zachary"
+    family: "Meeks"
+  - given: "Jason"
+    family: "Lee"
+  - given: "Uday"
+    family: "Garg"
+  - given: "Nicholas"
+    family: "Belsten"
+  - given: "Avi"
+    family: "Shporer"
+  - given: "Madeleine"
+    family: "Udell"
+  - given: "Dov"
+    family: "Te'eni"
+  - given: "Iddo"
+    family: "Drori"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: tyserAIDrivenReviewSystems2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f952-7812-8b4b-cd633d0b6ddb

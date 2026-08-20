@@ -28,6 +28,20 @@ selfCitationRate: not-assessable
 doajListed: not-applicable
 crossNodeChecked: 2
 crossNodeCorroborated: 2
+apaTitle: "Is LLM a Reliable Reviewer? A Comprehensive Evaluation of LLM on Automatic Paper Reviewing Tasks"
+apaContainer: "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)"
+apaYear: 2024
+apaPages: "9340-9351"
+apaLandingUrl: "https://aclanthology.org/2024.lrec-main.816/"
+apaAuthors:
+  - given: "Ruiyang"
+    family: "Zhou"
+  - given: "Lu"
+    family: "Chen"
+  - given: "Kai"
+    family: "Yu"
+peerReviewStatus: not-found
+peerReviewNote: "Checked ACL Anthology page directly — LREC-COLING uses closed review, no report published"
 citekey: zhouLLMReliableReviewer2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95e-7c73-827f-b2352b9cc159

@@ -32,6 +32,17 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+apaTitle: "Generative Adversarial Reviews: When LLMs Become the Critic"
+apaContainer: "arXiv"
+apaYear: 2024
+apaLandingUrl: "https://arxiv.org/abs/2412.10415"
+apaAuthors:
+  - given: "Nicolas"
+    family: "Bougie"
+  - given: "Narimasa"
+    family: "Watanabe"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: bougieGenerativeAdversarialReviews2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f937-724d-9f43-074dca71227e

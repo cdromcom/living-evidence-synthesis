@@ -35,6 +35,23 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 2
 crossNodeCorroborated: 2
+apaTitle: "Can LLMs Identify Critical Limitations within Scientific Research? A Systematic Evaluation on AI Research Papers"
+apaContainer: "arXiv"
+apaYear: 2025
+apaLandingUrl: "https://arxiv.org/abs/2507.02694"
+apaAuthors:
+  - given: "Zhijian"
+    family: "Xu"
+  - given: "Yilun"
+    family: "Zhao"
+  - given: "Manasi"
+    family: "Patwardhan"
+  - given: "Lovekesh"
+    family: "Vig"
+  - given: "Arman"
+    family: "Cohan"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: xuCanLLMsIdentify2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95b-77a4-8120-c69bff843bd2

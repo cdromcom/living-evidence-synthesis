@@ -34,6 +34,20 @@ doajListed: true
 pubpeerCommentCount: 0
 crossNodeChecked: 2
 crossNodeCorroborated: 2
+apaTitle: "Automated Assessment of Reporting Completeness in Orthodontic Research Using LLMs: An Observational Study"
+apaContainer: "Applied Sciences"
+apaYear: 2024
+apaVolume: "14"
+apaIssue: "22"
+apaPages: "10323"
+apaLandingUrl: "https://www.mdpi.com/2076-3417/14/22/10323/pdf"
+apaAuthors:
+  - given: "Fahad"
+    family: "Alharbi"
+  - given: "Saeed"
+    family: "Asiri"
+peerReviewStatus: not-checked
+peerReviewNote: "MDPI blocked automated access (403)"
 citekey: alharbiAutomatedAssessmentReporting2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10

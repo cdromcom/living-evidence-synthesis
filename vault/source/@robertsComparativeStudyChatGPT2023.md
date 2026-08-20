@@ -38,6 +38,26 @@ pubpeerCommentCount: 1
 pubpeerUrl: https://pubpeer.com/publications/236DA13025E01F0BFA89DE7142EE4F
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+apaTitle: "Comparative study of ChatGPT and human evaluators on the assessment of medical literature according to recognised reporting standards"
+apaContainer: "BMJ Health &amp; Care Informatics"
+apaYear: 2023
+apaVolume: "30"
+apaIssue: "1"
+apaPages: "e100830"
+apaLandingUrl: "https://syndication.highwire.org/content/doi/10.1136/bmjhci-2023-100830"
+apaAuthors:
+  - given: "Richard HR"
+    family: "Roberts"
+  - given: "Stephen R"
+    family: "Ali"
+  - given: "Hayley A"
+    family: "Hutchings"
+  - given: "Thomas D"
+    family: "Dobbs"
+  - given: "Iain S"
+    family: "Whitaker"
+peerReviewStatus: not-checked
+peerReviewNote: "BMJ HCI blocked automated access (403)"
 citekey: robertsComparativeStudyChatGPT2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f947-796e-bc90-271cd2fe663c

@@ -33,6 +33,17 @@ pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
 nameConsistency: consistent
+apaTitle: "ReviewerGPT? An Exploratory Study on Using Large Language Models for Paper Reviewing"
+apaContainer: "arXiv"
+apaYear: 2023
+apaLandingUrl: "https://arxiv.org/abs/2306.00622"
+apaAuthors:
+  - given: "Ryan"
+    family: "Liu"
+  - given: "Nihar B."
+    family: "Shah"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: liuReviewerGPTExploratoryStudy2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f945-72a9-a2d4-93facd4227d6

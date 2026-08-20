@@ -330,6 +330,17 @@ const nodes = rawNodes.map((n) => {
   if (fm.crossNodeCorroborated !== undefined) extras.crossNodeCorroborated = fm.crossNodeCorroborated;
   if (fm.nameConsistency !== undefined) extras.nameConsistency = fm.nameConsistency;
   if (fm.nameConsistencyNote !== undefined) extras.nameConsistencyNote = fm.nameConsistencyNote;
+  if (fm.apaTitle !== undefined) extras.apaTitle = fm.apaTitle;
+  if (fm.apaContainer !== undefined) extras.apaContainer = fm.apaContainer;
+  if (fm.apaYear !== undefined) extras.apaYear = fm.apaYear;
+  if (fm.apaVolume !== undefined) extras.apaVolume = fm.apaVolume;
+  if (fm.apaIssue !== undefined) extras.apaIssue = fm.apaIssue;
+  if (fm.apaPages !== undefined) extras.apaPages = fm.apaPages;
+  if (fm.apaArticleNumber !== undefined) extras.apaArticleNumber = fm.apaArticleNumber;
+  if (fm.apaLandingUrl !== undefined) extras.apaLandingUrl = fm.apaLandingUrl;
+  if (fm.apaAuthors !== undefined) extras.apaAuthors = fm.apaAuthors;
+  if (fm.peerReviewStatus !== undefined) extras.peerReviewStatus = fm.peerReviewStatus;
+  if (fm.peerReviewNote !== undefined) extras.peerReviewNote = fm.peerReviewNote;
 
   return {
     id: n.id,

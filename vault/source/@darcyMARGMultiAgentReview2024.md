@@ -34,6 +34,21 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 2
 crossNodeCorroborated: 2
+apaTitle: "MARG: Multi-Agent Review Generation for Scientific Papers"
+apaContainer: "arXiv"
+apaYear: 2024
+apaLandingUrl: "https://arxiv.org/abs/2401.04259"
+apaAuthors:
+  - given: "Mike"
+    family: "D'Arcy"
+  - given: "Tom"
+    family: "Hope"
+  - given: "Larry"
+    family: "Birnbaum"
+  - given: "Doug"
+    family: "Downey"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: darcyMARGMultiAgentReview2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f939-7206-9a0a-1c995b5d5a78

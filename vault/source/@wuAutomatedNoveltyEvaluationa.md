@@ -34,6 +34,22 @@ doajListed: false
 pubpeerCommentCount: 0
 crossNodeChecked: 2
 crossNodeCorroborated: 1
+apaTitle: "Automated novelty evaluation of academic paper: A collaborative approach integrating human and large language model knowledge"
+apaContainer: "Journal of the Association for Information Science and Technology"
+apaYear: 2025
+apaVolume: "76"
+apaIssue: "11"
+apaPages: "1452-1469"
+apaLandingUrl: "https://asistdl.onlinelibrary.wiley.com/doi/pdf/10.1002/asi.70005"
+apaAuthors:
+  - given: "Wenqing"
+    family: "Wu"
+  - given: "Chengzhi"
+    family: "Zhang"
+  - given: "Yi"
+    family: "Zhao"
+peerReviewStatus: not-checked
+peerReviewNote: "Wiley returned 402 Payment Required"
 citekey: wuAutomatedNoveltyEvaluationa
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95a-7ee1-ba78-ba0e4133973c

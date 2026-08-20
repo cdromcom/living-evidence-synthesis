@@ -31,6 +31,15 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 2
 crossNodeCorroborated: 2
+apaTitle: "Evaluating Research Quality with Large Language Models: An Analysis of ChatGPT's Effectiveness with Different Settings and Inputs"
+apaContainer: "arXiv"
+apaYear: 2024
+apaLandingUrl: "https://arxiv.org/abs/2408.06752"
+apaAuthors:
+  - given: "Mike"
+    family: "Thelwall"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: thelwallEvaluatingResearchQuality2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f951-7716-87b8-85d879b3e235

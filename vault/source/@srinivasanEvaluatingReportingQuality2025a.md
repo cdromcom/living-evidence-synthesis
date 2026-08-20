@@ -35,6 +35,22 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 4
 crossNodeCorroborated: 4
+apaTitle: "Evaluating the Reporting Quality of 21,041 Randomized Controlled Trial Articles"
+apaYear: 2025
+apaLandingUrl: "https://syndication.highwire.org/content/doi/10.1101/2025.03.06.25323528"
+apaAuthors:
+  - given: "Apoorva"
+    family: "Srinivasan"
+  - given: "Jacob"
+    family: "Berkowitz"
+  - given: "Sophia"
+    family: "Kivelson"
+  - given: "Nadine"
+    family: "Friedrich"
+  - given: "Nicholas"
+    family: "Tatonetti"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: srinivasanEvaluatingReportingQuality2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f950-75f1-a036-5fc27aea2466

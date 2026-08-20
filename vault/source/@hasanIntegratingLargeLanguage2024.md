@@ -43,6 +43,38 @@ pubpeerCommentCount: 0
 crossNodeChecked: 1
 crossNodeCorroborated: 1
 nameConsistency: consistent
+apaTitle: "Integrating large language models in systematic reviews: a framework and case study using ROBINS-I for risk of bias assessment"
+apaContainer: "BMJ Evidence-Based Medicine"
+apaYear: 2024
+apaVolume: "29"
+apaIssue: "6"
+apaPages: "394-398"
+apaLandingUrl: "https://syndication.highwire.org/content/doi/10.1136/bmjebm-2023-112597"
+apaAuthors:
+  - given: "Bashar"
+    family: "Hasan"
+  - given: "Samer"
+    family: "Saadi"
+  - given: "Noora S"
+    family: "Rajjoub"
+  - given: "Moustafa"
+    family: "Hegazi"
+  - given: "Mohammad"
+    family: "Al-Kordi"
+  - given: "Farah"
+    family: "Fleti"
+  - given: "Magdoleen"
+    family: "Farah"
+  - given: "Irbaz B"
+    family: "Riaz"
+  - given: "Imon"
+    family: "Banerjee"
+  - given: "Zhen"
+    family: "Wang"
+  - given: "Mohammad Hassan"
+    family: "Murad"
+peerReviewStatus: not-checked
+peerReviewNote: "BMJ EBM blocked automated access (403)"
 citekey: hasanIntegratingLargeLanguage2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93d-7c62-8a27-124b13d62c62

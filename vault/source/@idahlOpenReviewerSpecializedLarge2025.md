@@ -32,6 +32,17 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+apaTitle: "OpenReviewer: A Specialized Large Language Model for Generating Critical Scientific Paper Reviews"
+apaContainer: "arXiv"
+apaYear: 2024
+apaLandingUrl: "https://arxiv.org/abs/2412.11948"
+apaAuthors:
+  - given: "Maximilian"
+    family: "Idahl"
+  - given: "Zahra"
+    family: "Ahmadi"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: idahlOpenReviewerSpecializedLarge2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f941-711e-94d8-69d06137ee06

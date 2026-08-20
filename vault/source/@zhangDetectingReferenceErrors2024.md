@@ -33,6 +33,17 @@ pubpeerCommentCount: 0
 crossNodeChecked: 2
 crossNodeCorroborated: 2
 nameConsistency: consistent
+apaTitle: "Detecting Reference Errors in Scientific Literature with Large Language Models"
+apaContainer: "arXiv"
+apaYear: 2024
+apaLandingUrl: "https://arxiv.org/abs/2411.06101"
+apaAuthors:
+  - given: "Tianmai M."
+    family: "Zhang"
+  - given: "Neil F."
+    family: "Abernethy"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: zhangDetectingReferenceErrors2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95c-7282-bd5a-5ee57f06b340

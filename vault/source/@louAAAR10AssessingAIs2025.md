@@ -48,6 +48,49 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+apaTitle: "AAAR-1.0: Assessing AI's Potential to Assist Research"
+apaContainer: "arXiv"
+apaYear: 2024
+apaLandingUrl: "https://arxiv.org/abs/2410.22394"
+apaAuthors:
+  - given: "Renze"
+    family: "Lou"
+  - given: "Hanzi"
+    family: "Xu"
+  - given: "Sijia"
+    family: "Wang"
+  - given: "Jiangshu"
+    family: "Du"
+  - given: "Ryo"
+    family: "Kamoi"
+  - given: "Xiaoxin"
+    family: "Lu"
+  - given: "Jian"
+    family: "Xie"
+  - given: "Yuxuan"
+    family: "Sun"
+  - given: "Yusen"
+    family: "Zhang"
+  - given: "Jihyun Janice"
+    family: "Ahn"
+  - given: "Hongchao"
+    family: "Fang"
+  - given: "Zhuoyang"
+    family: "Zou"
+  - given: "Wenchao"
+    family: "Ma"
+  - given: "Xi"
+    family: "Li"
+  - given: "Kai"
+    family: "Zhang"
+  - given: "Congying"
+    family: "Xia"
+  - given: "Lifu"
+    family: "Huang"
+  - given: "Wenpeng"
+    family: "Yin"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: louAAAR10AssessingAIs2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f946-7c68-bb43-0ad4895ce6b1

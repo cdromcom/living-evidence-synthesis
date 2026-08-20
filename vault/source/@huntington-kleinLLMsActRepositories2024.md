@@ -32,6 +32,17 @@ doajListed: not-applicable
 pubpeerCommentCount: 0
 crossNodeChecked: 2
 crossNodeCorroborated: 2
+apaTitle: "Do LLMs Act as Repositories of Causal Knowledge?"
+apaContainer: "arXiv"
+apaYear: 2024
+apaLandingUrl: "https://arxiv.org/abs/2412.10635"
+apaAuthors:
+  - given: "Nick"
+    family: "Huntington-Klein"
+  - given: "Eleanor J."
+    family: "Murray"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: huntington-kleinLLMsActRepositories2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757

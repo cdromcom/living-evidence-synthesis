@@ -36,6 +36,26 @@ doajListed: true
 pubpeerCommentCount: 0
 crossNodeChecked: 4
 crossNodeCorroborated: 4
+apaTitle: "Assessing citation integrity in biomedical publications: corpus annotation and NLP models"
+apaContainer: "Bioinformatics"
+apaYear: 2024
+apaVolume: "40"
+apaIssue: "7"
+apaArticleNumber: "btae420"
+apaLandingUrl: "https://academic.oup.com/bioinformatics/advance-article-pdf/doi/10.1093/bioinformatics/btae420/58342072/btae420.pdf"
+apaAuthors:
+  - given: "Maria Janina"
+    family: "Sarol"
+  - given: "Shufan"
+    family: "Ming"
+  - given: "Shruthan"
+    family: "Radhakrishna"
+  - given: "Jodi"
+    family: "Schneider"
+  - given: "Halil"
+    family: "Kilicoglu"
+peerReviewStatus: not-found
+peerReviewNote: "Checked Oxford Bioinformatics article page directly — no peer review link found"
 citekey: sarolAssessingCitationIntegrity2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f948-7194-abaf-ed408bc298aa

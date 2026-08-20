@@ -36,6 +36,24 @@ doajListed: true
 pubpeerCommentCount: 0
 crossNodeChecked: 2
 crossNodeCorroborated: 2
+apaTitle: "Risk of Bias Assessment of Diagnostic Accuracy Studies Using QUADAS 2 by Large Language Models"
+apaContainer: "Diagnostics"
+apaYear: 2025
+apaVolume: "15"
+apaIssue: "12"
+apaPages: "1451"
+apaLandingUrl: "https://www.mdpi.com/2075-4418/15/12/1451/pdf"
+apaAuthors:
+  - given: "Daniel-Corneliu"
+    family: "Leucuța"
+  - given: "Andrada Elena"
+    family: "Urda-Cîmpean"
+  - given: "Dan"
+    family: "Istrate"
+  - given: "Tudor"
+    family: "Drugan"
+peerReviewStatus: not-checked
+peerReviewNote: "MDPI blocked automated access (403)"
 citekey: leucutaRiskBiasAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f942-782f-99e1-d83f3cbbc264

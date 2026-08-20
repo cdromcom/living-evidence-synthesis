@@ -43,6 +43,39 @@ doajListed: false
 pubpeerCommentCount: 0
 crossNodeChecked: 4
 crossNodeCorroborated: 4
+apaTitle: "Can Large Language Models Provide Useful Feedback on Research Papers? A Large-Scale Empirical Analysis"
+apaContainer: "NEJM AI"
+apaYear: 2024
+apaVolume: "1"
+apaIssue: "8"
+apaLandingUrl: "https://ai.nejm.org/doi/10.1056/AIoa2400196"
+apaAuthors:
+  - given: "Weixin"
+    family: "Liang"
+  - given: "Yuhui"
+    family: "Zhang"
+  - given: "Hancheng"
+    family: "Cao"
+  - given: "Binglu"
+    family: "Wang"
+  - given: "Daisy Yi"
+    family: "Ding"
+  - given: "Xinyu"
+    family: "Yang"
+  - given: "Kailas"
+    family: "Vodrahalli"
+  - given: "Siyu"
+    family: "He"
+  - given: "Daniel Scott"
+    family: "Smith"
+  - given: "Yian"
+    family: "Yin"
+  - given: "Daniel A."
+    family: "McFarland"
+  - given: "James"
+    family: "Zou"
+peerReviewStatus: not-checked
+peerReviewNote: "NEJM AI blocked automated access (403)"
 citekey: liangCanLargeLanguage2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f943-7596-91de-9191d88da102

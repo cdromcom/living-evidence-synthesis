@@ -14,6 +14,7 @@ import NodeArticle from "@/components/NodeArticle";
 import SourceToc from "@/components/SourceToc";
 import TopBadges from "@/components/TopBadges";
 import SourceCredibility from "@/components/SourceCredibility";
+import SourceCitation from "@/components/SourceCitation";
 
 export function generateStaticParams() {
   return ALL_NODES.map((n) => ({ id: n.id }));
@@ -75,6 +76,22 @@ export default async function NodeDetailPage({
     "doajListed",
     "pubpeerCommentCount",
     "pubpeerUrl",
+    "crossNodeChecked",
+    "crossNodeCorroborated",
+    "nameConsistency",
+    "nameConsistencyNote",
+    "apaTitle",
+    "apaContainer",
+    "apaYear",
+    "apaVolume",
+    "apaIssue",
+    "apaPages",
+    "apaArticleNumber",
+    "apaLandingUrl",
+    "apaAuthors",
+    "peerReviewStatus",
+    "peerReviewNote",
+    "peerReviewUrl",
   ]);
   const extraEntries = Object.entries(node.extras).filter(
     ([k, v]) => v !== undefined && v !== null && v !== "" && !CREDIBILITY_EXTRA_KEYS.has(k)
@@ -82,6 +99,7 @@ export default async function NodeDetailPage({
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+      <SourceCitation node={node} />
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <NodeTypeBadge type={node.type} />
         <span className="mono text-xs text-muted-ink">{node.id}</span>

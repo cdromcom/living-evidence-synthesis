@@ -38,6 +38,26 @@ pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
 nameConsistency: consistent
+apaTitle: "GPT for RCTs? Using AI to determine adherence to clinical trial reporting guidelines"
+apaContainer: "BMJ Open"
+apaYear: 2025
+apaVolume: "15"
+apaIssue: "3"
+apaPages: "e088735"
+apaLandingUrl: "https://syndication.highwire.org/content/doi/10.1136/bmjopen-2024-088735"
+apaAuthors:
+  - given: "James G"
+    family: "Wrightson"
+  - given: "Paul"
+    family: "Blazey"
+  - given: "David"
+    family: "Moher"
+  - given: "Karim M"
+    family: "Khan"
+  - given: "Clare L"
+    family: "Ardern"
+peerReviewStatus: not-found
+peerReviewNote: "Checked the full paper PDF directly — no peer review report link or reference found"
 citekey: wrightsonGPTRCTsUsing2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e

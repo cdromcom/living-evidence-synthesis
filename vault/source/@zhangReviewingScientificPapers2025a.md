@@ -33,6 +33,17 @@ pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
 nameConsistency: consistent
+apaTitle: "Reviewing Scientific Papers for Critical Problems With Reasoning LLMs: Baseline Approaches and Automatic Evaluation"
+apaContainer: "arXiv"
+apaYear: 2025
+apaLandingUrl: "https://arxiv.org/abs/2505.23824"
+apaAuthors:
+  - given: "Tianmai M."
+    family: "Zhang"
+  - given: "Neil F."
+    family: "Abernethy"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: zhangReviewingScientificPapers2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95d-7879-86c1-70337328c988

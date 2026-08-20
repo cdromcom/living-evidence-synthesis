@@ -39,6 +39,24 @@ crossNodeChecked: 6
 crossNodeCorroborated: 6
 nameConsistency: inconsistent-formatting
 nameConsistencyNote: "Claude family: Claude- / Claude; Claude family: Claude 3 / Claude-3"
+apaTitle: "Benchmarking Human-AI Collaboration for Common Evidence Appraisal Tools"
+apaYear: 2024
+apaLandingUrl: "https://syndication.highwire.org/content/doi/10.1101/2024.04.21.24306137"
+apaAuthors:
+  - given: "Tim"
+    family: "Woelfle"
+  - given: "Julian"
+    family: "Hirt"
+  - given: "Perrine"
+    family: "Janiaud"
+  - given: "Ludwig"
+    family: "Kappos"
+  - given: "John P. A."
+    family: "Ioannidis"
+  - given: "Lars G."
+    family: "Hemkens"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: woelfleBenchmarkingHumanAICollaboration2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f954-743a-bc52-4e26dd72d397

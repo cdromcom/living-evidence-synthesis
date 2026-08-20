@@ -43,6 +43,35 @@ crossNodeChecked: 3
 crossNodeCorroborated: 3
 nameConsistency: inconsistent-formatting
 nameConsistencyNote: "Claude family: Claude-3.7-Sonnet / Claude 3.7 Sonnet / Claude 3.7-Sonnet; Gemini family: Gemini-2.5-Pro / Gemini 2.5 Pro / Gemini 2.5 pro; Gemini family: Gemini-2.0-Flash / Gemini 2.0 Flash; Gemini family: Gemini 2.5 / Gemini2.5"
+apaTitle: "When AI Co-Scientists Fail: SPOT-a Benchmark for Automated Verification of Scientific Research"
+apaContainer: "arXiv"
+apaYear: 2025
+apaLandingUrl: "https://arxiv.org/abs/2505.11855"
+apaAuthors:
+  - given: "Guijin"
+    family: "Son"
+  - given: "Jiwoo"
+    family: "Hong"
+  - given: "Honglu"
+    family: "Fan"
+  - given: "Heejeong"
+    family: "Nam"
+  - given: "Hyunwoo"
+    family: "Ko"
+  - given: "Seungwon"
+    family: "Lim"
+  - given: "Jinyeop"
+    family: "Song"
+  - given: "Jinha"
+    family: "Choi"
+  - given: "Gonçalo"
+    family: "Paulo"
+  - given: "Youngjae"
+    family: "Yu"
+  - given: "Stella"
+    family: "Biderman"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: sonWhenAICoScientists2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc

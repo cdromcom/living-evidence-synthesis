@@ -33,6 +33,20 @@ doajListed: false
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+apaTitle: "Leveraging artificial intelligence to detect ethical concerns in medical research: a case study"
+apaContainer: "Journal of Medical Ethics"
+apaYear: 2024
+apaVolume: "51"
+apaIssue: "2"
+apaPages: "126-134"
+apaLandingUrl: "https://syndication.highwire.org/content/doi/10.1136/jme-2023-109767"
+apaAuthors:
+  - given: "Kannan"
+    family: "Sridharan"
+  - given: "Gowri"
+    family: "Sivaramakrishnan"
+peerReviewStatus: not-checked
+peerReviewNote: "BMJ JME blocked automated access (403)"
 citekey: sridharanLeveragingArtificialIntelligence2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94e-7707-9444-b2e1619daef0

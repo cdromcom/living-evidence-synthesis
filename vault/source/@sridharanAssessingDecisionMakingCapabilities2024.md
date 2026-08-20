@@ -34,6 +34,20 @@ doajListed: false
 pubpeerCommentCount: 0
 crossNodeChecked: 4
 crossNodeCorroborated: 4
+apaTitle: "Assessing the Decision-Making Capabilities of Artificial Intelligence Platforms as Institutional Review Board Members"
+apaContainer: "Journal of Empirical Research on Human Research Ethics"
+apaYear: 2024
+apaVolume: "19"
+apaIssue: "3"
+apaPages: "83-91"
+apaLandingUrl: "https://journals.sagepub.com/doi/pdf/10.1177/15562646241263200"
+apaAuthors:
+  - given: "Kannan"
+    family: "Sridharan"
+  - given: "Gowri"
+    family: "Sivaramakrishnan"
+peerReviewStatus: not-found
+peerReviewNote: "Checked SAGE article page directly — no peer review link found"
 citekey: sridharanAssessingDecisionMakingCapabilities2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94d-7c19-b337-3de0ad3115f5

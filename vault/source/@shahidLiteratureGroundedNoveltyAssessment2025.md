@@ -37,6 +37,25 @@ pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
 nameConsistency: consistent
+apaTitle: "Literature-Grounded Novelty Assessment of Scientific Ideas"
+apaContainer: "arXiv"
+apaYear: 2025
+apaLandingUrl: "https://arxiv.org/abs/2506.22026"
+apaAuthors:
+  - given: "Simra"
+    family: "Shahid"
+  - given: "Marissa"
+    family: "Radensky"
+  - given: "Raymond"
+    family: "Fok"
+  - given: "Pao"
+    family: "Siangliulue"
+  - given: "Daniel S."
+    family: "Weld"
+  - given: "Tom"
+    family: "Hope"
+peerReviewStatus: not-applicable
+peerReviewNote: "Preprint — not peer reviewed"
 citekey: shahidLiteratureGroundedNoveltyAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335

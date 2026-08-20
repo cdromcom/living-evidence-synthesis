@@ -38,6 +38,27 @@ doajListed: true
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
+apaTitle: "Evaluating the Capabilities of Generative AI Tools in Understanding Medical Papers: Qualitative Study"
+apaContainer: "JMIR Medical Informatics"
+apaYear: 2024
+apaVolume: "12"
+apaPages: "e59258"
+apaLandingUrl: "https://medinform.jmir.org/2024/1/e59258"
+apaAuthors:
+  - given: "Seyma Handan"
+    family: "Akyon"
+  - given: "Fatih Cagatay"
+    family: "Akyon"
+  - given: "Ahmet Sefa"
+    family: "Camyar"
+  - given: "Fatih"
+    family: "Hızlı"
+  - given: "Talha"
+    family: "Sari"
+  - given: "Şamil"
+    family: "Hızlı"
+peerReviewStatus: not-checked
+peerReviewNote: "JMIR article page did not return readable content (JS-rendered)"
 citekey: akyonEvaluatingCapabilitiesGenerative2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f930-7bc0-be54-6850b5d43d22
