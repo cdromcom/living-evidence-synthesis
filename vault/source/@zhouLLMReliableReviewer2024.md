@@ -21,6 +21,12 @@ tags:
   - integrity/coi-disclosure/not-disclosed
   - integrity/statcheck/not-applicable
 sourceUrl: https://aclanthology.org/2024.lrec-main.816/
+doi: 10.63317/48d359hjdvog
+citationCount: 26
+citationCountSource: Crossref (is-referenced-by-count; OpenCitations returned 0 for this DOI, a known undercount)
+predatoryPublisherFlag: false
+authorTrackRecord: not-checked
+pubpeerCommentCount: 0
 nameConsistency: consistent
 critiqueStatus: not-registered
 critiqueNote: "No DOI on record; source has no formal retraction-registry entry"

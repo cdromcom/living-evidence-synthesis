@@ -196,6 +196,7 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const pubpeerCommentCount = node.extras.pubpeerCommentCount as number | undefined;
   const pubpeerUrl = node.extras.pubpeerUrl as string | undefined;
   const citationCount = node.extras.citationCount as number | undefined;
+  const citationCountSource = node.extras.citationCountSource as string | undefined;
   const predatoryPublisherFlag = node.extras.predatoryPublisherFlag as boolean | undefined;
   const predatoryPublisherNote = node.extras.predatoryPublisherNote as string | undefined;
   const forensicSignals = getForensicSignalsForSource(node.id);
@@ -258,7 +259,11 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
         )}
         {typeof citationCount === "number" && (
           <span
-            title="Citation count from OpenCitations (COCI) — an open, free citation index; coverage can lag behind Google Scholar or Semantic Scholar"
+            title={
+              citationCountSource
+                ? `Citation count from ${citationCountSource}`
+                : "Citation count — an open, free citation index; coverage can lag behind Google Scholar or Semantic Scholar"
+            }
             className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-0.5 text-ink/70"
           >
             {citationCount} citation{citationCount === 1 ? "" : "s"}

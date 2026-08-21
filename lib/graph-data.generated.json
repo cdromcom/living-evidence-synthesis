@@ -4565,6 +4565,7 @@
           "Bougie, Nicolas",
           "Watanabe, Narimasa"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -4633,6 +4634,7 @@
           "Birnbaum, Larry",
           "Downey, Doug"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -4823,6 +4825,7 @@
           "Huntington-Klein, Nick",
           "Murray, Eleanor J."
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -4889,6 +4892,7 @@
           "Idahl, Maximilian",
           "Ahmadi, Zahra"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -5156,6 +5160,7 @@
           "Liu, Ryan",
           "Shah, Nihar B."
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -5238,6 +5243,7 @@
           "Huang, Lifu",
           "Yin, Wenpeng"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -5546,6 +5552,7 @@
           "Weld, Daniel S.",
           "Hope, Tom"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -5637,6 +5644,7 @@
           "Yu, Youngjae",
           "Biderman, Stella"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -5961,6 +5969,7 @@
         "authors": [
           "Thelwall, Mike"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -6033,6 +6042,7 @@
           "Te'eni, Dov",
           "Drori, Iddo"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -6392,6 +6402,7 @@
           "Vig, Lovekesh",
           "Cohan, Arman"
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -6470,6 +6481,7 @@
           "Zhang, Tianmai M.",
           "Abernethy, Neil F."
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -6536,6 +6548,7 @@
           "Zhang, Tianmai M.",
           "Abernethy, Neil F."
         ],
+        "authorTrackRecord": "not-checked",
         "pubType": "preprint",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
@@ -6595,12 +6608,18 @@
       "extras": {
         "citekey": "zhouLLMReliableReviewer2024",
         "rating": 3,
+        "doi": "10.63317/48d359hjdvog",
         "sourceUrl": "https://aclanthology.org/2024.lrec-main.816/",
         "critiqueStatus": "not-registered",
         "critiqueNote": "No DOI on record; source has no formal retraction-registry entry",
+        "authorTrackRecord": "not-checked",
         "pubType": "other",
         "selfCitationRate": "not-assessable",
         "doajListed": "not-applicable",
+        "citationCount": 26,
+        "citationCountSource": "Crossref (is-referenced-by-count; OpenCitations returned 0 for this DOI, a known undercount)",
+        "predatoryPublisherFlag": false,
+        "pubpeerCommentCount": 0,
         "crossNodeChecked": 2,
         "crossNodeCorroborated": 2,
         "nameConsistency": "consistent",

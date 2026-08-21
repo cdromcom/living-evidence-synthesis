@@ -23,6 +23,7 @@ tags:
 doi: 10.48550/arXiv.2408.06752
 nameConsistency: consistent
 predatoryPublisherFlag: false
+authorTrackRecord: not-checked
 predatoryPublisherNote: "arXiv preprint — not applicable (not a journal publisher)"
 critiqueStatus: not-registered
 critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
