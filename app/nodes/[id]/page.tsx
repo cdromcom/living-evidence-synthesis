@@ -15,6 +15,8 @@ import SourceToc from "@/components/SourceToc";
 import TopBadges from "@/components/TopBadges";
 import SourceCredibility from "@/components/SourceCredibility";
 import SourceCitation from "@/components/SourceCitation";
+import ClaimTruthValue from "@/components/ClaimTruthValue";
+import CaveatMeta from "@/components/CaveatMeta";
 
 export function generateStaticParams() {
   return ALL_NODES.map((n) => ({ id: n.id }));
@@ -31,11 +33,6 @@ export async function generateMetadata({
 }
 
 const EXTRA_LABELS: Record<string, string> = {
-  truthValue: "Truth value",
-  caveatType: "Caveat type",
-  severity: "Severity",
-  appraisalOverall: "Appraisal overall",
-  tripodLlmPct: "TRIPOD-LLM compliance",
   rating: "Rating",
 };
 
@@ -60,7 +57,7 @@ export default async function NodeDetailPage({
   const inbound = getInboundEdges(node.id);
   const outbound = getOutboundEdges(node.id);
   const { html, toc } = renderMarkdown(node.bodyMarkdown);
-  const CREDIBILITY_EXTRA_KEYS = new Set([
+  const HANDLED_EXTRA_KEYS = new Set([
     "doi",
     "sourceUrl",
     "critiqueStatus",
@@ -96,9 +93,15 @@ export default async function NodeDetailPage({
     "peerReviewNote",
     "peerReviewUrl",
     "citekey",
+    "truthValue",
+    "caveatType",
+    "severity",
   ]);
+  const truthValue = node.extras.truthValue as number | undefined;
+  const caveatSeverity = node.extras.severity as "low" | "moderate" | "high" | undefined;
+  const caveatType = node.extras.caveatType as "author-stated" | "inferred" | undefined;
   const extraEntries = Object.entries(node.extras).filter(
-    ([k, v]) => v !== undefined && v !== null && v !== "" && !CREDIBILITY_EXTRA_KEYS.has(k)
+    ([k, v]) => v !== undefined && v !== null && v !== "" && !HANDLED_EXTRA_KEYS.has(k)
   );
 
   return (
@@ -136,6 +139,13 @@ export default async function NodeDetailPage({
           )
         );
       })()}
+
+      {typeof truthValue === "number" && (
+        <div className="mt-3">
+          <ClaimTruthValue value={truthValue} />
+        </div>
+      )}
+      <CaveatMeta severity={caveatSeverity} caveatType={caveatType} />
 
       <TopBadges node={node} />
       <SourceCredibility node={node} />
