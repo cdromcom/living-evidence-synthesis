@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1101/2024.04.21.24306137
+citationCount: 2
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Tim Woelfle"

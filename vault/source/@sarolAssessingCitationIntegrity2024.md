@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1093/bioinformatics/btae420
+citationCount: 4
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Maria Janina Sarol — Informatics Programs, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"

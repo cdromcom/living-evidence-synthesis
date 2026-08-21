@@ -24,6 +24,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-force-graph-2d": "^1.29.1",
+    "referencecheck": "github:giladfeldman/referencecheck#v0.1.1",
     "server-only": "^0.0.1",
     "tsx": "^4.23.12"
   },

@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.3390/app142210323
+citationCount: 3
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Fahad Alharbi — Department of Pediatric Dentistry, College of Dentistry, Prince Sattam Bin Abdulaziz University, Al-Kharj 11942, Saudi Arabia"

@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/not-disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1002/asi.70005
+citationCount: 3
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Wenqing Wu — Department of Information Management Nanjing University of Science and Technology  Nanjing China"

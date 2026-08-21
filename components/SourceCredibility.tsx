@@ -195,6 +195,9 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const selfCitationChecked = node.extras.selfCitationChecked as string | undefined;
   const pubpeerCommentCount = node.extras.pubpeerCommentCount as number | undefined;
   const pubpeerUrl = node.extras.pubpeerUrl as string | undefined;
+  const citationCount = node.extras.citationCount as number | undefined;
+  const predatoryPublisherFlag = node.extras.predatoryPublisherFlag as boolean | undefined;
+  const predatoryPublisherNote = node.extras.predatoryPublisherNote as string | undefined;
   const forensicSignals = getForensicSignalsForSource(node.id);
   const statcheckStatus = getStatcheckStatus(node);
   const forensicFlagged = forensicSignals.filter((s) =>
@@ -251,6 +254,30 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 bg-card px-2 py-0.5 text-muted-ink"
           >
             Not DOAJ-listed
+          </span>
+        )}
+        {typeof citationCount === "number" && (
+          <span
+            title="Citation count from OpenCitations (COCI) — an open, free citation index; coverage can lag behind Google Scholar or Semantic Scholar"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-0.5 text-ink/70"
+          >
+            {citationCount} citation{citationCount === 1 ? "" : "s"}
+          </span>
+        )}
+        {predatoryPublisherFlag === true && (
+          <span
+            title="Publisher appears on Beall's List of predatory publishers — treat this source's claims with extra scrutiny"
+            className="inline-flex items-center gap-1.5 rounded-full border border-red-600 bg-card px-2 py-0.5 font-semibold text-red-700"
+          >
+            Predatory publisher flagged
+          </span>
+        )}
+        {predatoryPublisherFlag === false && !predatoryPublisherNote && (
+          <span
+            title="Publisher not found on Beall's List of predatory publishers"
+            className="inline-flex items-center gap-1.5 rounded-full border border-emerald-600 bg-card px-2 py-0.5 text-emerald-700"
+          >
+            Publisher checked, not predatory
           </span>
         )}
         {critiqueStatus && (

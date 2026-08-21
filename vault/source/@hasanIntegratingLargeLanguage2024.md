@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1136/bmjebm-2023-112597
+citationCount: 60
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Bashar Hasan"

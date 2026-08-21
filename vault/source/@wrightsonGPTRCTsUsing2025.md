@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1136/bmjopen-2024-088735
+citationCount: 9
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "James G Wrightson — Department of Physical Therapy, The University of British Columbia Faculty of Medicine, Vancouver, British Columbia, Canada"

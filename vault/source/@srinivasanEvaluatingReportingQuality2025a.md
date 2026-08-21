@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/not-disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1101/2025.03.06.25323528
+citationCount: 2
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Apoorva Srinivasan"

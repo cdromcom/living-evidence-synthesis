@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/not-disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1056/AIoa2400196
+citationCount: 159
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Weixin Liang — Department of Computer Science, Stanford University, Stanford, CA"

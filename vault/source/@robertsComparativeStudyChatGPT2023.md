@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1136/bmjhci-2023-100830
+citationCount: 31
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Richard HR Roberts — Reconstructive Surgery and Regenerative Medicine Research Centre, Swansea University, Swansea, UK"

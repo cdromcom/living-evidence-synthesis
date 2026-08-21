@@ -21,6 +21,9 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1177/15562646241263200
+citationCount: 9
+citationCountSource: OpenCitations
+predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
   - "Kannan Sridharan — Department of Pharmacology and Therapeutics, College of Medicine and Medical Sciences, Arabian Gulf University, Manama, Kingdom of Bahrain"

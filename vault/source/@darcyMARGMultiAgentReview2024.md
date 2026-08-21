@@ -21,6 +21,8 @@ tags:
   - integrity/coi-disclosure/not-disclosed
   - integrity/statcheck/not-applicable
 doi: 10.48550/arXiv.2401.04259
+predatoryPublisherFlag: false
+predatoryPublisherNote: "arXiv preprint — not applicable (not a journal publisher)"
 critiqueStatus: not-registered
 critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)"
 authors:

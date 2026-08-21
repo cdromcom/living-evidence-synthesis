@@ -324,6 +324,12 @@ const nodes = rawNodes.map((n) => {
   if (fm.selfCitationRate !== undefined) extras.selfCitationRate = fm.selfCitationRate;
   if (fm.selfCitationChecked !== undefined) extras.selfCitationChecked = fm.selfCitationChecked;
   if (fm.doajListed !== undefined) extras.doajListed = fm.doajListed;
+  if (fm.citationCount !== undefined) extras.citationCount = fm.citationCount;
+  if (fm.citationCountSource !== undefined) extras.citationCountSource = fm.citationCountSource;
+  if (fm.predatoryPublisherFlag !== undefined)
+    extras.predatoryPublisherFlag = fm.predatoryPublisherFlag;
+  if (fm.predatoryPublisherNote !== undefined)
+    extras.predatoryPublisherNote = fm.predatoryPublisherNote;
   if (fm.pubpeerCommentCount !== undefined) extras.pubpeerCommentCount = fm.pubpeerCommentCount;
   if (fm.pubpeerUrl !== undefined) extras.pubpeerUrl = fm.pubpeerUrl;
   if (fm.crossNodeChecked !== undefined) extras.crossNodeChecked = fm.crossNodeChecked;
