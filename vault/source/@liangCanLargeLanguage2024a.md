@@ -21,6 +21,7 @@ tags:
   - integrity/coi-disclosure/not-disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1056/AIoa2400196
+nameConsistency: consistent
 citationCount: 159
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false
