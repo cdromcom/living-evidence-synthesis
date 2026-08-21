@@ -95,6 +95,17 @@ convention).
   a publisher provides author info per reference (coverage varies —
   explicitly marked "not-assessable" when a publisher's references are
   bare DOIs).
+- **Citation count and predatory-publisher screening** — via
+  [`referencecheck`](https://github.com/giladfeldman/referencecheck)
+  (Gilad Feldman, MIT, pinned to v0.1.1): citation counts from OpenCitations
+  for non-arXiv sources, and publisher names checked against Beall's List
+  of predatory publishers. Both spot-verified before use — correctly
+  flagged a known predatory publisher (OMICS International) and cleared a
+  known-legitimate one (Elsevier) in testing. Citation counts are
+  deliberately *not* shown for arXiv-hosted sources: OpenCitations doesn't
+  reliably index the arXiv DOI namespace (even "Attention Is All You Need"
+  returns null there), so a low/zero count would misrepresent real
+  citation activity rather than reflect it.
 - **Peer review status** — checked directly against each source's actual
   landing page (or, where publishers blocked automated access, marked
   "not independently verified" rather than guessed). Preprints are marked
@@ -163,6 +174,12 @@ tested against real corpus data, and rejected on that basis:
   assumed.
 
 Also explicitly out of scope, with reasons on record:
+- **`referencecheck`'s OpenRetractions-based retraction check** — its
+  primary data source (`api.openretractions.com`) doesn't resolve from our
+  build environment, so it silently falls back to the same Crossref
+  retraction data we'd already manually verified for `critiqueStatus`.
+  Re-running it would add no new signal, just a second label for the same
+  underlying fact — not shipped as a separate check for that reason.
 - **Image/text-duplication forensics** (the single most common real
   retraction-case finding, per Elisabeth Bik's work) — no free API exists;
   the available tools (Proofig, ImageTwin) are paid B2B products.
@@ -192,10 +209,11 @@ Also explicitly out of scope, with reasons on record:
 ## Data sources, all free/open, none scraped against terms of service
 
 Crossref REST API · DataCite REST API · DOAJ search API · ORCID (via
-Crossref author records) · Center for Open Science's Open Science Badges
-(CC BY 4.0) · PubPeer's own public-extension API endpoint · Altmetric's
-free embeddable badge widget · each source's own vault-curated TRIPOD-LLM
-and Critical Appraisal tables.
+Crossref author records) · OpenCitations (via `referencecheck`) · Beall's
+List of predatory publishers (bundled with `referencecheck`) · Center for
+Open Science's Open Science Badges (CC BY 4.0) · PubPeer's own
+public-extension API endpoint · Altmetric's free embeddable badge widget ·
+each source's own vault-curated TRIPOD-LLM and Critical Appraisal tables.
 
 ## Where this naturally points next
 
