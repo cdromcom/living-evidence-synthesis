@@ -21,6 +21,7 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1093/bioinformatics/btae420
+nameConsistency: consistent
 citationCount: 4
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false

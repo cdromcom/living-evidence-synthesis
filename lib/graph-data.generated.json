@@ -5469,6 +5469,7 @@
         "pubpeerCommentCount": 0,
         "crossNodeChecked": 4,
         "crossNodeCorroborated": 4,
+        "nameConsistency": "consistent",
         "apaTitle": "Assessing citation integrity in biomedical publications: corpus annotation and NLP models",
         "apaContainer": "Bioinformatics",
         "apaYear": 2024,
