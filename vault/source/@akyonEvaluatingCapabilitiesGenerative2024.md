@@ -21,6 +21,8 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.2196/59258
+nameConsistency: inconsistent-formatting
+nameConsistencyNote: "GPT-4-0613 family: 'GPT 4-0613' / 'GPT-4-0613' / 'ChatGPT 4-0613' used interchangeably throughout the results section for the same model"
 citationCount: 10
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false

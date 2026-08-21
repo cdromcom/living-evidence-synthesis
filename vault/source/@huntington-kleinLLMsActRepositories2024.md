@@ -21,6 +21,7 @@ tags:
   - integrity/coi-disclosure/not-disclosed
   - integrity/statcheck/not-applicable
 doi: 10.48550/arXiv.2412.10635
+nameConsistency: consistent
 predatoryPublisherFlag: false
 predatoryPublisherNote: "arXiv preprint — not applicable (not a journal publisher)"
 critiqueStatus: not-registered

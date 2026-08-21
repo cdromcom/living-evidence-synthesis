@@ -139,10 +139,20 @@ source as a whole:
   as a corroboration rate, not a contradiction hunter — paraphrasing
   without repeating a number is normal, not an error).
 - **Model-name spelling consistency** — checked against the *full paper
-  PDF* text (not just our curated summary) for 8 sources where a real,
-  verified PDF was available locally. Groups every GPT-4/Claude/Gemini/
-  Llama mention by normalized form and flags a paper using 2+ distinct
-  spellings for the same model.
+  PDF* text (not just our curated summary) for 20 of 27 sources where a
+  real, verified PDF was available locally (up from 8, once more PDFs
+  synced and the arXiv-hosted sources — reliably fetchable straight from
+  arxiv.org regardless of Zotero state — were pulled directly). Groups
+  every GPT-4/Claude/Gemini/Llama mention by normalized form and flags a
+  paper using 2+ distinct spellings for the same model. A naive first pass
+  of this extension flagged 11 of 12 newly-checked papers as
+  "inconsistent" — almost all false positives from citation-list titles,
+  software/URL identifiers, and (in one case) genuinely *different* model
+  variants being mistaken for spelling variants of the same one (e.g.
+  "Llama 3.1-70B" vs. "Llama3-8B"). Hand-verifying each flag against its
+  real context brought that down to 1 genuine inconsistency; 2 sources
+  were left unset rather than guessed, where PDF extraction quality made
+  the surrounding context too ambiguous to judge confidently.
 - **statcheck** (p-value/test-statistic recomputation) — checked across
   the whole corpus; zero results were reported in a recomputable APA-style
   NHST format, so this is uniformly marked "not applicable" per source
@@ -202,9 +212,9 @@ Also explicitly out of scope, with reasons on record:
   checking** — tested and found unreliable: one source's own methodology
   table uses "Methods"/"Results"/"Discussion" as plain row labels sitting
   right next to its real (ALL-CAPS) section headers, which a naive header
-  matcher would confuse. Only 8 of 27 sources have a PDF actually synced
-  locally from Zotero to test this against in the first place (the
-  remaining 19 are in Zotero's cloud storage, not locally cached).
+  matcher would confuse. This is a reliability problem independent of PDF
+  coverage, so it stays unshipped even now that coverage has improved
+  (below).
 
 ## Data sources, all free/open, none scraped against terms of service
 

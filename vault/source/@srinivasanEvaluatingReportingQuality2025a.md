@@ -21,6 +21,7 @@ tags:
   - integrity/coi-disclosure/not-disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1101/2025.03.06.25323528
+nameConsistency: consistent
 citationCount: 2
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false

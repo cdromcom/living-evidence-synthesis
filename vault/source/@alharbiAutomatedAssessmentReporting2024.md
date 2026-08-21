@@ -21,6 +21,7 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.3390/app142210323
+nameConsistency: consistent
 citationCount: 3
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false
