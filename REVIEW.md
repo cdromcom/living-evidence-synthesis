@@ -11,6 +11,7 @@ wrong signal is worse than a missing one.
 [What's on every source page](#whats-on-every-source-page) ·
 [What we tried and deliberately did not ship](#what-we-tried-and-deliberately-did-not-ship) ·
 [Data sources](#data-sources-all-freeopen-none-scraped-against-terms-of-service) ·
+[Runbook for future passes](#runbook-adding-trust-signals-for-a-new-or-updated-source) ·
 [Where this points next](#where-this-naturally-points-next)
 
 ## Guiding principle
@@ -225,6 +226,110 @@ List of predatory publishers (bundled with `referencecheck`) · Center for
 Open Science's Open Science Badges (CC BY 4.0) · PubPeer's own
 public-extension API endpoint · Altmetric's free embeddable badge widget ·
 each source's own vault-curated TRIPOD-LLM and Critical Appraisal tables.
+
+## Runbook: adding trust signals for a new or updated source
+
+This is the reusable procedure for extending trust-signal coverage —
+whether new sources get added to `vault/source/`, or previously-missing
+PDFs finally sync in. It's written so a future session can follow it
+without re-deriving the method from scratch.
+
+**Current priority**: DOI-based checks (below) over PDF-text-based checks.
+Model-name spelling consistency is *deprioritized* per explicit direction —
+it's a minor signal relative to the others and not worth spending a session
+on unless separately requested. Don't restart it unprompted.
+
+### 1. DOI-based checks — the default, do these first
+
+These need only a DOI, not a PDF, so they're the highest-value, lowest-cost
+pass for any source. All are already wired into `scripts/build-graph.mjs`
+(passthrough) and `components/SourceCredibility.tsx` (rendering) — adding
+a new field here means extending both.
+
+- **Find the DOI** if missing: `curl -s "https://api.crossref.org/works?query.bibliographic=<title words>&rows=3"` and manually confirm the returned title is an exact match before trusting it. Conference-proceedings and ACL-Anthology-style papers often have a real DOI that's easy to miss on a first pass (this is how Zhou et al.'s DOI was found — a plain title search, nothing fancier).
+- **`referencecheck` package** (`node_modules/referencecheck`, MIT, pinned to `github:giladfeldman/referencecheck#v0.1.1`) provides:
+  - `getCitationCount(doi)` — OpenCitations. **Do not trust it blindly**: it doesn't reliably index arXiv DOIs at all (confirmed: even "Attention Is All You Need" returns `null`), and has been seen to undercount non-arXiv DOIs too (Zhou et al.: OpenCitations said 0, Crossref's own `is-referenced-by-count` said 26). When they disagree, prefer Crossref's own count and set `citationCountSource` to say so explicitly — the UI renders whatever string is in that field, so it's always accurate to the reader.
+  - `checkBeallsList(publisher)` — predatory-journal screening. Needs the publisher name, pulled from `crossrefGet(...)`'s `data.publisher` field (or DataCite for arXiv — see below).
+  - `checkRetraction(doi)` — **skip this one**. Its primary data source (`api.openretractions.com`) doesn't resolve from this environment and it silently falls back to the same Crossref data we already use for `critiqueStatus`. Re-running it adds no new signal.
+- **Author track record** (`authorTrackRecord`): only proceeds when an author's ORCID is on record (via that paper's own Crossref author metadata). If Crossref 404s the paper (arXiv DOIs always do — they're DataCite-registered, not Crossref), check whether DataCite carries ORCIDs instead: `curl -s "https://api.datacite.org/dois/<doi>" | jq '.data.attributes.creators'` — as of this session it doesn't (every arXiv source tested has empty `nameIdentifiers`). When no ORCID is findable anywhere, set `authorTrackRecord: not-checked` explicitly — don't leave the field absent. An absent field silently omits the badge; an explicit `not-checked` value renders it and tells the reader why.
+- **DOAJ, self-citation rate, publication type, peer-review status, APA citation fields**: same methodology as documented earlier in this file — DOAJ's free API, Crossref reference-list author metadata, Crossref/DataCite type field, direct landing-page fetch, Crossref bibliographic data respectively.
+
+### 2. Finding local PDFs for the PDF-dependent checks
+
+PDFs live in `~/Zotero/storage/<item-key>/`, but the Zotero desktop app
+locks `zotero.sqlite` while running, so always query a copy:
+
+```bash
+python3 -c "
+import shutil
+shutil.copyfile('$HOME/Zotero/zotero.sqlite', '/tmp/zotero_ro.sqlite')
+"
+```
+
+Match a source's citekey (e.g. `wrightsonGPTRCTsUsing2025`) to a Zotero
+item by **surname (first-listed creator) + publication year + title-word
+overlap — never surname+year alone**. A first pass this session that
+matched on surname+year only produced real false positives (two different
+citekeys both "matched" the same multi-author paper because it happened to
+have co-authors with both surnames). Require the paper's Crossref/Zotero
+title to share 2+ non-stopword words with the citekey's own title fragment
+before trusting a match, and iterate *all* candidate items for a given
+surname+year (Zotero often holds several duplicate entries for the same
+paper across different libraries/collections) rather than stopping at the
+first one — the correct match's downloaded attachment may be on a
+different duplicate than the first one found.
+
+For arXiv-hosted sources (`doi` contains `arXiv`), skip Zotero entirely and
+fetch directly — it's more reliable and doesn't depend on any sync state:
+
+```bash
+curl -s -L -o ".cache/source-pdfs/<citekey>.pdf" "https://arxiv.org/pdf/<arxiv-id>.pdf"
+```
+
+**Always verify** the downloaded/located PDF actually matches the source
+before using it for anything: extract the first page (`lit parse <path>
+--format text --no-ocr | head -20`, see the `effective-liteparse` skill)
+and confirm the title/DOI watermark matches what's in the vault frontmatter.
+Never assume a filename match is correct.
+
+### 3. Corpus-wide completeness audit
+
+Before wrapping up a pass, check for silent gaps — a field that's present
+on most sources but missing on a few, usually because an earlier pass
+skipped a source without a clear reason (like Zhou's missing DOI, found
+this way):
+
+```bash
+python3 - <<'PYEOF'
+import os, re
+FIELDS = ["doi", "predatoryPublisherFlag", "critiqueStatus", "authorTrackRecord",
+          "selfCitationRate", "doajListed", "pubpeerCommentCount", "apaTitle", "peerReviewStatus"]
+for f in sorted(os.listdir("vault/source")):
+    if not f.endswith(".md"): continue
+    fm = open(f"vault/source/{f}").read().split("---")[1]
+    missing = [field for field in FIELDS if not re.search(rf"^{field}:", fm, re.M)]
+    if missing:
+        print(f[1:-3], missing)
+PYEOF
+```
+
+`citationCount` is deliberately excluded from that list — its absence on
+arXiv sources is intentional, not a gap (see above). Add fields to the
+list as new trust signals get built.
+
+### 4. After any vault edit
+
+1. Validate YAML across all 27 files before moving on — a single misplaced
+   list item breaks the whole frontmatter block silently:
+   `python3 -c "import glob, yaml; [yaml.safe_load(open(f).read().split('---')[1]) for f in glob.glob('vault/source/*.md')]"`
+2. `node scripts/build-graph.mjs` to regenerate `lib/graph-data.generated.json`.
+3. Spot-check the rendered page for at least one changed source (`curl -s
+   http://localhost:3010/nodes/<id>` and grep for the new field's expected
+   text — React splits text into multiple child nodes in the server-rendered
+   payload, so search for a distinctive substring, not the full sentence).
+4. Commit with a message that states what was verified and how, following
+   this file's own standard: what shipped, what was checked before
+   trusting it, what (if anything) was found unreliable and skipped.
 
 ## Where this naturally points next
 
