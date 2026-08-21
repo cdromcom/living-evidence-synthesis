@@ -21,6 +21,7 @@ tags:
   - integrity/coi-disclosure/disclosed
   - integrity/statcheck/not-applicable
 doi: 10.1136/bmjhci-2023-100830
+nameConsistency: consistent
 citationCount: 31
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false

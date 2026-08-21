@@ -150,9 +150,10 @@ source as a whole:
   software/URL identifiers, and (in one case) genuinely *different* model
   variants being mistaken for spelling variants of the same one (e.g.
   "Llama 3.1-70B" vs. "Llama3-8B"). Hand-verifying each flag against its
-  real context brought that down to 1 genuine inconsistency; 2 sources
-  were left unset rather than guessed, where PDF extraction quality made
-  the surrounding context too ambiguous to judge confidently.
+  real context brought that down to 1 genuine inconsistency across all 20
+  sources checked — Akyon et al., which alternates "GPT 4-0613" /
+  "GPT-4-0613" / "ChatGPT 4-0613" for the same model throughout their
+  results section.
 - **statcheck** (p-value/test-statistic recomputation) — checked across
   the whole corpus; zero results were reported in a recomputable APA-style
   NHST format, so this is uniformly marked "not applicable" per source
