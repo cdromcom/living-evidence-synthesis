@@ -23,8 +23,8 @@ export default function EdgeGroups({
     <div className="space-y-4">
       {Array.from(byType.entries()).map(([type, es]) => (
         <div key={type}>
-          <h4 className="mono text-xs font-semibold uppercase tracking-wide text-muted-ink">
-            {EDGE_TYPE_LABELS[type]} ({es.length})
+          <h4 className="text-[0.7rem] font-semibold uppercase tracking-wide text-ink/60">
+            {EDGE_TYPE_LABELS[type]} <span className="text-muted-ink">({es.length})</span>
           </h4>
           <ul className="mt-1.5 space-y-1.5">
             {es.map((e, i) => {

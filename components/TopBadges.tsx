@@ -230,13 +230,6 @@ export default function TopBadges({ node }: { node: GraphNode }) {
               <StandardBadge key={s.standard} standard={s.standard} level={s.level} />
             ))}
           </div>
-          <p className="mt-1.5 text-[0.625rem] text-muted-ink">
-            Badge artwork ©{" "}
-            <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
-              Center for Open Science
-            </a>
-            , CC BY 4.0.
-          </p>
         </div>
       )}
 

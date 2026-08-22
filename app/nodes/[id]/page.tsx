@@ -4,6 +4,7 @@ import {
   getInboundEdges,
   getNodeById,
   getOutboundEdges,
+  getTopSignals,
 } from "@/lib/data";
 import { renderMarkdown } from "@/lib/markdown";
 import NodeTypeBadge from "@/components/NodeTypeBadge";
@@ -105,12 +106,17 @@ export default async function NodeDetailPage({
   const extraEntries = Object.entries(node.extras).filter(
     ([k, v]) => v !== undefined && v !== null && v !== "" && !HANDLED_EXTRA_KEYS.has(k)
   );
+  // OSF/COS badge artwork (data-transparency, code-transparency, study-registration
+  // borrow real CC BY 4.0 badge images — see TopBadges.tsx's BADGE_IMAGE) requires
+  // attribution, surfaced as a References footnote at the bottom of the page instead
+  // of inline next to the badges.
+  const BADGE_ART_STANDARDS = new Set(["data-transparency", "code-transparency", "study-registration"]);
+  const hasBadgeArtwork = getTopSignals(node).some((s) => BADGE_ART_STANDARDS.has(s.standard));
 
   return (
     <main className="mx-auto max-w-[1400px] px-4 py-10 sm:px-6">
       <div className="mb-2 flex flex-wrap items-center gap-2">
-        <NodeTypeBadge type={node.type} />
-        <span className="mono text-xs text-muted-ink">{node.id}</span>
+        <NodeTypeBadge type={node.type} id={node.id} />
         <StatusBadge status={node.curationStatus} />
         {typeof rating === "number" && (
           <span
@@ -165,19 +171,34 @@ export default async function NodeDetailPage({
         <aside className="space-y-8 lg:sticky lg:top-20">
           <ReviewWidget nodeId={node.id} />
           <div>
-            <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-ink">
-              Inbound ({inbound.length})
+            <h2 className="mb-2 border-b border-border pb-1.5 text-xs font-semibold uppercase tracking-wide text-ink/70">
+              Inbound <span className="text-muted-ink">({inbound.length})</span>
             </h2>
             <EdgeGroups edges={inbound} otherEnd="from" />
           </div>
           <div>
-            <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-ink">
-              Outbound ({outbound.length})
+            <h2 className="mb-2 border-b border-border pb-1.5 text-xs font-semibold uppercase tracking-wide text-ink/70">
+              Outbound <span className="text-muted-ink">({outbound.length})</span>
             </h2>
             <EdgeGroups edges={outbound} otherEnd="to" />
           </div>
         </aside>
       </div>
+
+      {hasBadgeArtwork && (
+        <footer className="mx-auto mt-12 max-w-[1400px] border-t border-border pt-3">
+          <h2 className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+            References
+          </h2>
+          <p className="mt-1 text-[0.625rem] text-muted-ink">
+            Badge artwork ©{" "}
+            <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
+              Center for Open Science
+            </a>
+            , CC BY 4.0.
+          </p>
+        </footer>
+      )}
     </main>
   );
 }
