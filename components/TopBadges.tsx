@@ -237,10 +237,10 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         </div>
       )}
 
-      {(validity.length > 0 || repro) && (
+      {validity.length > 0 && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-            Risk of bias <span className="font-normal normal-case">(Critical Appraisal)</span>
+            Validity
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             {validity.map((v) => (
@@ -252,6 +252,16 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                 glyph={<ValidityGlyph domain={v.domain} />}
               />
             ))}
+          </div>
+        </div>
+      )}
+
+      {(sampleSize || studyType || repro) && (
+        <div>
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+            Rigor
+          </p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             {repro && (
               <RiskBadge
                 label="Reproducibility"
@@ -260,16 +270,6 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                 glyph={<span aria-hidden className="h-2 w-2 rounded-full bg-white/90" />}
               />
             )}
-          </div>
-        </div>
-      )}
-
-      {(sampleSize || studyType) && (
-        <div>
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-            Study design <span className="font-normal normal-case">(NIH/NINDS rigor icons)</span>
-          </p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             {sampleSize && (
               <span
                 title={

@@ -8,10 +8,7 @@ export default function SourceToc({ items }: { items: TocItem[] }) {
   if (items.length === 0) return null;
 
   return (
-    <nav
-      aria-label="Table of contents"
-      className="sticky top-20 hidden w-48 shrink-0 self-start lg:block"
-    >
+    <nav aria-label="Table of contents" className="sticky top-20 hidden lg:block">
       <p className="mb-1.5 whitespace-nowrap text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
         On this page
       </p>
@@ -20,7 +17,7 @@ export default function SourceToc({ items }: { items: TocItem[] }) {
           <li key={h.id} className={h.level === 3 ? "ml-3" : undefined}>
             <a
               href={`#${h.id}`}
-              className="block whitespace-nowrap text-xs leading-snug text-muted-ink hover:text-forest"
+              className="block text-xs leading-snug text-muted-ink hover:text-forest"
             >
               {h.text}
             </a>

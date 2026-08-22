@@ -105,7 +105,7 @@ export default async function NodeDetailPage({
   );
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <main className="mx-auto max-w-[1400px] px-4 py-10 sm:px-6">
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <NodeTypeBadge type={node.type} />
         <span className="mono text-xs text-muted-ink">{node.id}</span>
@@ -122,24 +122,6 @@ export default async function NodeDetailPage({
         {node.updated && <span>Updated {formatDate(node.updated)}</span>}
       </div>
 
-      {(() => {
-        const plainTags = node.tags.filter((t) => !t.startsWith("top/") && !t.startsWith("trust/"));
-        return (
-          plainTags.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {plainTags.map((t) => (
-                <span
-                  key={t}
-                  className="mono rounded-full bg-muted-surface px-2 py-0.5 text-[0.65rem] text-muted-ink"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          )
-        );
-      })()}
-
       {typeof truthValue === "number" && (
         <div className="mt-3">
           <ClaimTruthValue value={truthValue} />
@@ -151,7 +133,7 @@ export default async function NodeDetailPage({
       <SourceCredibility node={node} />
 
       {extraEntries.length > 0 && (
-        <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 rounded-md border border-border bg-card p-3 text-xs sm:grid-cols-3">
+        <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 text-xs sm:grid-cols-3">
           {extraEntries.map(([k, v]) => (
             <div key={k}>
               <dt className="text-muted-ink">{EXTRA_LABELS[k] || k}</dt>
@@ -161,13 +143,16 @@ export default async function NodeDetailPage({
         </dl>
       )}
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_320px]">
-        <div className="flex gap-6">
-          {node.type === "SRC" && <SourceToc items={toc} />}
-          <NodeArticle html={html} />
-        </div>
+      <div className="mt-8 grid gap-6 lg:grid-cols-[180px_1fr_240px] lg:items-start">
+        {node.type === "SRC" ? (
+          <SourceToc items={toc} />
+        ) : (
+          <div className="hidden lg:block" aria-hidden />
+        )}
 
-        <aside className="space-y-8">
+        <NodeArticle html={html} />
+
+        <aside className="space-y-8 lg:sticky lg:top-20">
           <ReviewWidget nodeId={node.id} />
           <div>
             <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-ink">

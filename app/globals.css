@@ -106,7 +106,7 @@ h6 {
 }
 
 .prose-node {
-  max-width: 65ch;
+  max-width: 100%;
 }
 
 .prose-node p {

@@ -1,6 +1,15 @@
-import Link from "next/link";
-import { getForensicSignalsForSource, getStatcheckStatus, type GraphNode } from "@/lib/data";
+import type { GraphNode } from "@/lib/data";
 import AltmetricBadge from "./AltmetricBadge";
+
+// Original glyph — no official PubPeer mark is licensed for reuse here.
+function PubPeerGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M15.5 15.5 21 21" />
+    </svg>
+  );
+}
 
 type CritiqueStatus = "none" | "not-registered" | "correction" | "expression-of-concern" | "retraction";
 
@@ -191,23 +200,12 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const trackRecordNote = node.extras.authorTrackRecordNote as string | undefined;
   const pubType = node.extras.pubType as PubType | undefined;
   const doajListed = node.extras.doajListed as boolean | "not-applicable" | undefined;
-  const selfCitationRate = node.extras.selfCitationRate as number | "not-assessable" | undefined;
-  const selfCitationChecked = node.extras.selfCitationChecked as string | undefined;
   const pubpeerCommentCount = node.extras.pubpeerCommentCount as number | undefined;
   const pubpeerUrl = node.extras.pubpeerUrl as string | undefined;
   const citationCount = node.extras.citationCount as number | undefined;
   const citationCountSource = node.extras.citationCountSource as string | undefined;
   const predatoryPublisherFlag = node.extras.predatoryPublisherFlag as boolean | undefined;
   const predatoryPublisherNote = node.extras.predatoryPublisherNote as string | undefined;
-  const forensicSignals = getForensicSignalsForSource(node.id);
-  const statcheckStatus = getStatcheckStatus(node);
-  const forensicFlagged = forensicSignals.filter((s) =>
-    ["discrepancy", "out-of-bounds", "bounds-reversed", "point-outside-interval", "violated"].includes(s.result)
-  );
-  const crossNodeChecked = node.extras.crossNodeChecked as number | undefined;
-  const crossNodeCorroborated = node.extras.crossNodeCorroborated as number | undefined;
-  const nameConsistency = node.extras.nameConsistency as "consistent" | "inconsistent-formatting" | undefined;
-  const nameConsistencyNote = node.extras.nameConsistencyNote as string | undefined;
 
   if (!doi && !sourceUrl && !critiqueStatus) return null;
 
@@ -308,97 +306,18 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             href={pubpeerHref}
             target="_blank"
             rel="noopener noreferrer"
+            title="View on PubPeer"
             className={
               pubpeerCommentCount && pubpeerCommentCount > 0
-                ? "font-semibold text-amber-700 hover:underline"
-                : "text-muted-ink hover:text-forest hover:underline"
+                ? "inline-flex items-center gap-1.5 rounded-full border border-amber-500 bg-card px-2 py-0.5 font-semibold text-amber-700 hover:underline"
+                : "inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-0.5 text-muted-ink hover:text-forest hover:underline"
             }
           >
+            <PubPeerGlyph />
             {pubpeerLabel}
           </a>
         )}
       </div>
-      {authors && authors.length > 0 && (
-        <p className="mt-2 text-xs text-muted-ink">
-          <span className="font-semibold text-ink/70">Authors: </span>
-          {authors.join(" · ")}
-        </p>
-      )}
-      {typeof selfCitationRate === "number" && (
-        <p className="mt-1 text-xs text-muted-ink">
-          <span className="font-semibold text-ink/70">Self-citation rate: </span>
-          {(selfCitationRate * 100).toFixed(0)}% of assessable references cite the paper's own
-          authors{selfCitationChecked ? ` (${selfCitationChecked})` : ""}
-        </p>
-      )}
-      {(forensicSignals.length > 0 || statcheckStatus) && (
-        <div className="mt-3 border-t border-border pt-2">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-            Forensic checks <span className="font-normal normal-case">(on this source's evidence claims)</span>
-          </p>
-          <p className="mt-1 text-xs text-muted-ink">
-            {forensicSignals.length} numeric consistency check{forensicSignals.length === 1 ? "" : "s"} run (F1 =
-            2PR/(P+R), Cohen&apos;s κ bounds, CI ordering/containment, percentage-of-total closure, trend
-            monotonicity) —{" "}
-            {forensicFlagged.length === 0 ? (
-              <span className="text-emerald-700">none flagged</span>
-            ) : (
-              <span className="font-semibold text-amber-700">{forensicFlagged.length} flagged, see below</span>
-            )}
-            . statcheck (p-value/test-statistic recomputation): not applicable — no results in this corpus were
-            reported in a recomputable APA-style format.
-          </p>
-          {typeof crossNodeChecked === "number" && crossNodeChecked > 0 && (
-            <p className="mt-1 text-xs text-muted-ink">
-              <span className="font-semibold text-ink/70">Cross-node corroboration: </span>
-              {crossNodeCorroborated} of {crossNodeChecked} evidence claims restate a matching number in this
-              source&apos;s own narrative summary (the rest may simply be paraphrased, not necessarily
-              inconsistent).
-            </p>
-          )}
-          {nameConsistency && (
-            <p
-              className="mt-1 text-xs text-muted-ink"
-              title={nameConsistencyNote || undefined}
-            >
-              <span className="font-semibold text-ink/70">Model-name formatting: </span>
-              {nameConsistency === "consistent" ? (
-                <span className="text-emerald-700">consistent throughout the full text</span>
-              ) : (
-                <span className="font-semibold text-amber-700">
-                  inconsistent spellings found for the same model{nameConsistencyNote ? ` (${nameConsistencyNote})` : ""}
-                </span>
-              )}{" "}
-              — checked against the full paper PDF, not just this source&apos;s curated summary.
-            </p>
-          )}
-          {forensicFlagged.length > 0 && (
-            <ul className="mt-1.5 space-y-1">
-              {forensicFlagged.map((s, i) => (
-                <li key={i} className="text-xs">
-                  <Link href={`/nodes/${s.evdId}`} className="text-forest hover:underline">
-                    {s.evdTitle}
-                  </Link>{" "}
-                  <span className="text-muted-ink">
-                    —{" "}
-                    {s.kind === "f1-check"
-                      ? "reported F1 doesn't match the harmonic-mean formula (can also happen legitimately with macro/micro-averaged multi-class F1 — not necessarily an error)"
-                      : s.kind === "kappa-check"
-                        ? "Cohen's κ value falls outside the mathematically valid [-1, 1] range"
-                        : s.kind === "closure-check"
-                          ? "subgroup counts/percentages don't sum to the stated total"
-                          : s.kind === "monotonicity-check"
-                            ? "reported direction (rose/fell) doesn't match the stated before/after values"
-                            : s.result === "bounds-reversed"
-                              ? "confidence interval's lower bound exceeds its upper bound"
-                              : "point estimate falls outside its own reported confidence interval"}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
       <p className="mt-2 text-[0.625rem] text-muted-ink">
         Retraction/correction status checked against Crossref (which now includes the Retraction
         Watch database) or DataCite for arXiv preprints, at curation time — not a live guarantee;
