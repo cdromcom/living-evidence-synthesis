@@ -3,8 +3,6 @@ import {
   getTopSignals,
   getReproducibilityRisk,
   getValiditySignals,
-  getSampleSizeEstimation,
-  getStudyType,
   getIntegritySignals,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
@@ -20,6 +18,13 @@ import {
   type IntegritySignalKind,
   type DisclosureLevel,
 } from "@/lib/data";
+
+// data/code-transparency vs. protocol/registration is our own split of the
+// same 4 TOP standards into "did you disclose what you did" (Transparency)
+// vs. "did you commit to it openly/in advance" (Openness) — TOP itself
+// doesn't name this split, but it's a reasonable reading of the standards.
+const TRANSPARENCY_STANDARDS: readonly TopStandard[] = ["data-transparency", "code-transparency"];
+const OPENNESS_STANDARDS: readonly TopStandard[] = ["study-protocol", "study-registration"];
 
 // Center for Open Science's actual Open Science Badge artwork
 // (cos.io/initiatives/badges, CC BY 4.0 — "free to use with attribution").
@@ -195,34 +200,33 @@ function RiskBadge({ label, risk, title, glyph }: { label: string; risk: Reprodu
   );
 }
 
-/** Transparency, risk-of-bias, and study-design rigor badges for a node. */
+/** Transparency, Openness, Rigor, Extensibility, and integrity badges for a node. */
 export default function TopBadges({ node }: { node: GraphNode }) {
-  const signals = getTopSignals(node);
+  const allSignals = getTopSignals(node);
+  const transparencySignals = allSignals.filter((s) => TRANSPARENCY_STANDARDS.includes(s.standard));
+  const opennessSignals = allSignals.filter((s) => OPENNESS_STANDARDS.includes(s.standard));
   const repro = getReproducibilityRisk(node);
   const validity = getValiditySignals(node);
-  const sampleSize = getSampleSizeEstimation(node);
-  const studyType = getStudyType(node);
   const integrity = getIntegritySignals(node);
 
   if (
-    signals.length === 0 &&
+    transparencySignals.length === 0 &&
+    opennessSignals.length === 0 &&
     !repro &&
     validity.length === 0 &&
-    !sampleSize &&
-    !studyType &&
     integrity.length === 0
   )
     return null;
 
   return (
     <div className="mt-3 space-y-3">
-      {signals.length > 0 && (
+      {transparencySignals.length > 0 && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Transparency
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            {signals.map((s) => (
+            {transparencySignals.map((s) => (
               <StandardBadge key={s.standard} standard={s.standard} level={s.level} />
             ))}
           </div>
@@ -236,10 +240,23 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         </div>
       )}
 
+      {opennessSignals.length > 0 && (
+        <div>
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+            Openness
+          </p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            {opennessSignals.map((s) => (
+              <StandardBadge key={s.standard} standard={s.standard} level={s.level} />
+            ))}
+          </div>
+        </div>
+      )}
+
       {validity.length > 0 && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-            Validity
+            Rigor
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             {validity.map((v) => (
@@ -255,55 +272,23 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         </div>
       )}
 
-      {(sampleSize || studyType || repro) && (
+      {repro && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-            Rigor
+            Extensibility
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            {repro && (
-              <RiskBadge
-                label="Reproducibility"
-                risk={repro}
-                title={`Reproducibility risk: ${REPRODUCIBILITY_RISK_LABELS[repro]}`}
-                glyph={<span aria-hidden className="h-2 w-2 rounded-full bg-white/90" />}
-              />
-            )}
-            {sampleSize && (
-              <span
-                title={
-                  sampleSize === "done"
-                    ? "Sample size / power estimated in advance"
-                    : "No a priori sample-size or power justification reported"
-                }
-                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
-              >
-                <Image
-                  src="/rigor/nih-sample-size-estimation.png"
-                  alt="Sample Size Estimation icon"
-                  width={16}
-                  height={16}
-                  className={sampleSize === "done" ? "" : "opacity-40 grayscale"}
-                />
-                Sample size estimation
-              </span>
-            )}
-            {studyType && (
-              <span
-                title={studyType === "exploratory" ? "Exploratory / hypothesis-generating" : "Confirmatory hypothesis test"}
-                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
-              >
-                <Image
-                  src="/rigor/nih-exploratory.png"
-                  alt="Exploratory study icon"
-                  width={16}
-                  height={16}
-                  className={studyType === "exploratory" ? "" : "opacity-40 grayscale"}
-                />
-                {studyType === "exploratory" ? "Exploratory" : "Confirmatory"}
-              </span>
-            )}
+            <RiskBadge
+              label="Reproducibility"
+              risk={repro}
+              title={`Reproducibility risk: ${REPRODUCIBILITY_RISK_LABELS[repro]}`}
+              glyph={<span aria-hidden className="h-2 w-2 rounded-full bg-white/90" />}
+            />
           </div>
+          <p className="mt-1.5 text-[0.625rem] text-muted-ink">
+            Replicability and Robustness aren&apos;t assessed yet — only
+            Reproducibility is currently checked.
+          </p>
         </div>
       )}
 

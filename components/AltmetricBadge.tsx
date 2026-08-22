@@ -16,8 +16,10 @@ const EMBED_SCRIPT_SRC = "https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"
  * API key needed. Distinct from Altmetric's Details Page API, which now
  * requires a paid/registered key as of Nov 2025 — this widget is a
  * separate, still-free mechanism where their own script fetches the data
- * client-side. "Sentiment" isn't an actual Altmetric feature we could find;
- * this is attention/engagement volume, not sentiment polarity.
+ * client-side. Altmetric does run a real AI-driven sentiment analysis
+ * (-3 to +3 polarity on news/social mentions), but it's gated behind the
+ * paid Altmetric Explorer product, not exposed via this free badge — so
+ * this widget can only surface attention/engagement volume, not polarity.
  */
 export default function AltmetricBadge({ doi }: { doi: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -44,8 +46,9 @@ export default function AltmetricBadge({ doi }: { doi: string }) {
       className="altmetric-embed"
       data-badge-type="donut"
       data-badge-popover="right"
+      data-badge-details="right"
       data-doi={doi}
-      title="Altmetric attention score — volume of news, blog, social, and policy mentions. Not a quality or sentiment measure."
+      title="Altmetric attention score — volume of news, blog, social, and policy mentions. Sentiment analysis of these mentions exists but is an Altmetric Explorer (paid) feature, not available here."
     />
   );
 }
