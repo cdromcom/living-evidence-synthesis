@@ -112,6 +112,7 @@ export default async function NodeDetailPage({
   // of inline next to the badges.
   const BADGE_ART_STANDARDS = new Set(["data-transparency", "code-transparency", "study-registration"]);
   const hasBadgeArtwork = getTopSignals(node).some((s) => BADGE_ART_STANDARDS.has(s.standard));
+  const hasCritiqueStatus = Boolean(node.extras.critiqueStatus);
 
   return (
     <main className="mx-auto max-w-[1400px] px-4 py-10 sm:px-6">
@@ -185,18 +186,27 @@ export default async function NodeDetailPage({
         </aside>
       </div>
 
-      {hasBadgeArtwork && (
-        <footer className="mx-auto mt-12 max-w-[1400px] border-t border-border pt-3">
+      {(hasBadgeArtwork || hasCritiqueStatus) && (
+        <footer className="mx-auto mt-12 max-w-[1400px] space-y-1 border-t border-border pt-3">
           <h2 className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             References
           </h2>
-          <p className="mt-1 text-[0.625rem] text-muted-ink">
-            Badge artwork ©{" "}
-            <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
-              Center for Open Science
-            </a>
-            , CC BY 4.0.
-          </p>
+          {hasBadgeArtwork && (
+            <p className="text-[0.625rem] text-muted-ink">
+              Badge artwork ©{" "}
+              <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
+                Center for Open Science
+              </a>
+              , CC BY 4.0.
+            </p>
+          )}
+          {hasCritiqueStatus && (
+            <p className="text-[0.625rem] text-muted-ink">
+              Retraction/correction status checked against Crossref (which now includes the
+              Retraction Watch database) or DataCite for arXiv preprints, at curation time — not a
+              live guarantee; verify independently before relying on it.
+            </p>
+          )}
         </footer>
       )}
     </main>

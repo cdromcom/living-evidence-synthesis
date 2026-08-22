@@ -37,6 +37,22 @@ const CRITIQUE_SHORT_LABELS: Record<CritiqueStatus, string> = {
   retraction: "Retraction on record",
 };
 
+const PEER_REVIEW_SHORT_LABEL: Record<string, string> = {
+  "not-applicable": "Not peer reviewed",
+  "not-found": "No open reviews found",
+  "not-checked": "Not checked",
+};
+
+// Original glyph — an open book, for open peer-review reports.
+function PeerReviewGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4 5.5h7v13H4a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1Z" />
+      <path d="M20 5.5h-7v13h7a1 1 0 0 0 1-1v-11a1 1 0 0 0-1-1Z" />
+    </svg>
+  );
+}
+
 // Original glyphs — no established open-licensed icon convention found for
 // "editorial notice status" specifically.
 function CritiqueGlyph({ status }: { status: CritiqueStatus }) {
@@ -105,14 +121,8 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
     pubpeerCommentCount && pubpeerCommentCount > 0
       ? `${pubpeerCommentCount} PubPeer comment${pubpeerCommentCount === 1 ? "" : "s"} ↗`
       : "No PubPeer comments found";
-  const PEER_REVIEW_LABEL: Record<string, string> = {
-    "not-applicable": "NA — preprint, not peer reviewed",
-    "not-found": "NA — checked, no open peer review reports found",
-    "not-checked": "NA — not independently verified (publisher blocked automated access)",
-  };
-
   return (
-    <div className="mt-3 rounded-md border border-border bg-card p-3">
+    <div className="mt-3 rounded-md bg-secondary-surface p-3">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
         {doi && <AltmetricBadge doi={doi} />}
         {critiqueStatus && (
@@ -124,6 +134,27 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             {CRITIQUE_SHORT_LABELS[critiqueStatus]}
           </span>
         )}
+        {peerReviewStatus &&
+          (peerReviewUrl ? (
+            <a
+              href={peerReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Open peer review reports available"
+              className="inline-flex items-center gap-1.5 rounded-full border border-emerald-600 bg-card px-2 py-0.5 font-semibold text-emerald-700 hover:underline"
+            >
+              <PeerReviewGlyph />
+              Open peer review ↗
+            </a>
+          ) : (
+            <span
+              title={peerReviewNote}
+              className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 bg-card px-2 py-0.5 text-muted-ink"
+            >
+              <PeerReviewGlyph />
+              {PEER_REVIEW_SHORT_LABEL[peerReviewStatus]}
+            </span>
+          ))}
         {pubpeerHref && (
           <a
             href={pubpeerHref}
@@ -141,23 +172,6 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
           </a>
         )}
       </div>
-      {peerReviewStatus && (
-        <p className="mt-2 text-xs text-muted-ink">
-          <span className="font-semibold text-ink/70">Open peer review reports: </span>
-          {peerReviewUrl ? (
-            <a href={peerReviewUrl} target="_blank" rel="noopener noreferrer" className="text-forest hover:underline">
-              View reports ↗
-            </a>
-          ) : (
-            <span title={peerReviewNote}>{PEER_REVIEW_LABEL[peerReviewStatus]}</span>
-          )}
-        </p>
-      )}
-      <p className="mt-2 text-[0.625rem] text-muted-ink">
-        Retraction/correction status checked against Crossref (which now includes the Retraction
-        Watch database) or DataCite for arXiv preprints, at curation time — not a live guarantee;
-        verify independently before relying on it.
-      </p>
     </div>
   );
 }

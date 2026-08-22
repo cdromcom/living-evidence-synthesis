@@ -222,6 +222,25 @@ function StandardBadge({ standard, level }: { standard: TopStandard; level: TopL
   );
 }
 
+// Gray "?" reminder chips — Extensibility work we haven't actually done yet
+// (computationally re-running the analysis, independently replicating the
+// study). Deliberately neutral/unscored, not a graded signal like the risk
+// badges above, so we never imply this checking has happened when it hasn't.
+function ReminderGlyph() {
+  return <span aria-hidden className="text-[9px] font-bold leading-none">?</span>;
+}
+
+function ReminderBadge({ label, title }: { label: string; title: string }) {
+  return (
+    <span title={title} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80">
+      <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-zinc-400 text-white">
+        <ReminderGlyph />
+      </span>
+      {label}
+    </span>
+  );
+}
+
 function RiskBadge({ label, risk, title, glyph }: { label: string; risk: ReproducibilityRisk; title: string; glyph: React.ReactNode }) {
   return (
     <span title={title} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80">
@@ -299,17 +318,15 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             Extensibility
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            <RiskBadge
-              label="Reproducibility"
-              risk={repro}
-              title={`Reproducibility risk: ${REPRODUCIBILITY_RISK_LABELS[repro]}`}
-              glyph={<span aria-hidden className="h-2 w-2 rounded-full bg-white/90" />}
+            <ReminderBadge
+              label="Computationally Reproduced"
+              title="Not yet independently reproduced — reminder to re-run this paper's own analysis/code ourselves and confirm the reported results."
+            />
+            <ReminderBadge
+              label="Replicated"
+              title="Not yet replicated — reminder to independently re-test this paper's findings (new data/setup, same question)."
             />
           </div>
-          <p className="mt-1.5 text-[0.625rem] text-muted-ink">
-            Replicability and Robustness aren&apos;t assessed yet — only
-            Reproducibility is currently checked.
-          </p>
         </div>
       )}
 
