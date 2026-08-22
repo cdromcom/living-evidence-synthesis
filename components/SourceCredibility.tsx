@@ -1,4 +1,5 @@
 import type { GraphNode } from "@/lib/data";
+import type { ReactNode } from "react";
 import AltmetricBadge from "./AltmetricBadge";
 
 // Original glyph — no official PubPeer mark is licensed for reuse here.
@@ -7,6 +8,16 @@ function PubPeerGlyph() {
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <circle cx="10.5" cy="10.5" r="6.5" />
       <path d="M15.5 15.5 21 21" />
+    </svg>
+  );
+}
+
+// Original glyph — a partial ring, evoking the Altmetric attention donut.
+function AltmetricGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" aria-hidden>
+      <circle cx="12" cy="12" r="8" opacity={0.35} />
+      <path d="M12 4a8 8 0 0 1 8 8" />
     </svg>
   );
 }
@@ -21,20 +32,34 @@ const CRITIQUE_LABELS: Record<CritiqueStatus, string> = {
   retraction: "Retraction on record",
 };
 
-const CRITIQUE_TONE: Record<CritiqueStatus, string> = {
-  none: "border-emerald-600 text-emerald-700",
-  "not-registered": "border-zinc-300 text-muted-ink",
-  correction: "border-amber-500 text-amber-700",
-  "expression-of-concern": "border-amber-600 text-amber-800",
-  retraction: "border-red-600 text-red-700",
-};
-
 const CRITIQUE_SHORT_LABELS: Record<CritiqueStatus, string> = {
   none: "No corrections/retractions",
   "not-registered": "No retraction registry",
   correction: "Correction on record",
   "expression-of-concern": "Expression of concern",
   retraction: "Retraction on record",
+};
+
+const CRITIQUE_BORDER: Record<CritiqueStatus, string> = {
+  none: "border-emerald-600/50",
+  "not-registered": "border-border",
+  correction: "border-amber-500/50",
+  "expression-of-concern": "border-amber-600/50",
+  retraction: "border-red-600/50",
+};
+
+const CRITIQUE_TEXT: Record<CritiqueStatus, string> = {
+  none: "text-emerald-700",
+  "not-registered": "text-muted-ink",
+  correction: "text-amber-700",
+  "expression-of-concern": "text-amber-800",
+  retraction: "text-red-700",
+};
+
+const PEER_REVIEW_LABELS: Record<string, string> = {
+  "not-applicable": "Preprint — not peer reviewed.",
+  "not-found": "Checked; no open peer review reports found.",
+  "not-checked": "Not independently verified (publisher blocked automated access).",
 };
 
 const PEER_REVIEW_SHORT_LABEL: Record<string, string> = {
@@ -98,7 +123,40 @@ function CritiqueGlyph({ status }: { status: CritiqueStatus }) {
   }
 }
 
-/** Altmetric badge, critique/retraction status, and PubPeer link-out for a source node. */
+/** One tile in the central box's horizontal card row. Renders as a link when `href` is given. */
+function MiniCard({
+  title,
+  icon,
+  border = "border-border",
+  href,
+  children,
+}: {
+  title: string;
+  icon: ReactNode;
+  border?: string;
+  href?: string | null;
+  children: ReactNode;
+}) {
+  const body = (
+    <>
+      <div className="flex items-center gap-1.5 text-[0.625rem] font-semibold uppercase tracking-wide text-muted-ink">
+        {icon}
+        {title}
+      </div>
+      <div className="mt-1 text-xs leading-snug">{children}</div>
+    </>
+  );
+  const className = `flex min-w-0 flex-col rounded-md border bg-card p-2.5 ${border}`;
+  return href ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={`${className} transition-colors hover:border-forest/50`}>
+      {body}
+    </a>
+  ) : (
+    <div className={className}>{body}</div>
+  );
+}
+
+/** Altmetric, current status, PubPeer, and open-peer-review preview cards for a source node. */
 export default function SourceCredibility({ node }: { node: GraphNode }) {
   const doi = node.extras.doi as string | undefined;
   const sourceUrl = node.extras.sourceUrl as string | undefined;
@@ -117,59 +175,68 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   if (!doi && !sourceUrl && !critiqueStatus) return null;
 
   const pubpeerHref = pubpeerUrl || (doi ? `https://pubpeer.com/search?q=${encodeURIComponent(doi)}` : null);
-  const pubpeerLabel =
-    pubpeerCommentCount && pubpeerCommentCount > 0
-      ? `${pubpeerCommentCount} PubPeer comment${pubpeerCommentCount === 1 ? "" : "s"} ↗`
-      : "No PubPeer comments found";
+  const hasPubpeerComments = Boolean(pubpeerCommentCount && pubpeerCommentCount > 0);
+
   return (
     <div className="mt-3 rounded-md bg-secondary-surface p-3">
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
-        {doi && <AltmetricBadge doi={doi} />}
-        {critiqueStatus && (
-          <span
-            title={critiqueNote ? `${CRITIQUE_LABELS[critiqueStatus]}: ${critiqueNote}` : CRITIQUE_LABELS[critiqueStatus]}
-            className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-0.5 ${CRITIQUE_TONE[critiqueStatus]}`}
-          >
-            <CritiqueGlyph status={critiqueStatus} />
-            {CRITIQUE_SHORT_LABELS[critiqueStatus]}
-          </span>
+      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+        {doi && (
+          <MiniCard title="Altmetric" icon={<AltmetricGlyph />}>
+            <AltmetricBadge doi={doi} />
+            <p className="mt-1.5 text-[0.625rem] leading-snug text-muted-ink">
+              News, blog, social &amp; policy mentions — volume, not quality. Sentiment analysis of
+              these mentions exists but is an Altmetric Explorer (paid) feature, not shown here.
+            </p>
+          </MiniCard>
         )}
-        {peerReviewStatus &&
-          (peerReviewUrl ? (
-            <a
-              href={peerReviewUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Open peer review reports available"
-              className="inline-flex items-center gap-1.5 rounded-full border border-emerald-600 bg-card px-2 py-0.5 font-semibold text-emerald-700 hover:underline"
-            >
-              <PeerReviewGlyph />
-              Open peer review ↗
-            </a>
-          ) : (
-            <span
-              title={peerReviewNote}
-              className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 bg-card px-2 py-0.5 text-muted-ink"
-            >
-              <PeerReviewGlyph />
-              {PEER_REVIEW_SHORT_LABEL[peerReviewStatus]}
+
+        {critiqueStatus && (
+          <MiniCard title="Current status" icon={<CritiqueGlyph status={critiqueStatus} />} border={CRITIQUE_BORDER[critiqueStatus]}>
+            <span className={`font-semibold ${CRITIQUE_TEXT[critiqueStatus]}`}>
+              {CRITIQUE_SHORT_LABELS[critiqueStatus]}
             </span>
-          ))}
-        {pubpeerHref && (
-          <a
-            href={pubpeerHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="View on PubPeer"
-            className={
-              pubpeerCommentCount && pubpeerCommentCount > 0
-                ? "inline-flex items-center gap-1.5 rounded-full border border-amber-500 bg-card px-2 py-0.5 font-semibold text-amber-700 hover:underline"
-                : "inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-0.5 text-muted-ink hover:text-forest hover:underline"
-            }
+            <p className="mt-1 text-[0.625rem] leading-snug text-muted-ink">
+              {critiqueNote || CRITIQUE_LABELS[critiqueStatus]}
+            </p>
+          </MiniCard>
+        )}
+
+        {peerReviewStatus && (
+          <MiniCard
+            title="Open peer review"
+            icon={<PeerReviewGlyph />}
+            border={peerReviewUrl ? "border-emerald-600/50" : "border-border"}
+            href={peerReviewUrl}
           >
-            <PubPeerGlyph />
-            {pubpeerLabel}
-          </a>
+            <span className={`font-semibold ${peerReviewUrl ? "text-emerald-700" : "text-ink/80"}`}>
+              {peerReviewUrl ? "Reports available ↗" : PEER_REVIEW_SHORT_LABEL[peerReviewStatus]}
+            </span>
+            <p className="mt-1 text-[0.625rem] leading-snug text-muted-ink">
+              {peerReviewUrl
+                ? "Open review reports are published for this paper — view them."
+                : peerReviewNote || PEER_REVIEW_LABELS[peerReviewStatus]}
+            </p>
+          </MiniCard>
+        )}
+
+        {pubpeerHref && (
+          <MiniCard
+            title="PubPeer"
+            icon={<PubPeerGlyph />}
+            border={hasPubpeerComments ? "border-amber-500/50" : "border-border"}
+            href={pubpeerHref}
+          >
+            <span className={`font-semibold ${hasPubpeerComments ? "text-amber-700" : "text-ink/80"}`}>
+              {hasPubpeerComments
+                ? `${pubpeerCommentCount} comment${pubpeerCommentCount === 1 ? "" : "s"} ↗`
+                : "No comments found"}
+            </span>
+            <p className="mt-1 text-[0.625rem] leading-snug text-muted-ink">
+              {hasPubpeerComments
+                ? "Post-publication discussion flagged on PubPeer — view the thread."
+                : "Checked against PubPeer; no discussion threads found yet."}
+            </p>
+          </MiniCard>
         )}
       </div>
     </div>
