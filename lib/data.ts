@@ -402,3 +402,35 @@ export function getForensicSignalsForSource(srcId: string): ForensicSignal[] {
 export function getStatcheckStatus(node: Pick<GraphNode, "tags">): "not-applicable" | null {
   return node.tags.includes("integrity/statcheck/not-applicable") ? "not-applicable" : null;
 }
+
+export type ReportingComplianceLevel = "low" | "moderate" | "high";
+
+export const REPORTING_COMPLIANCE_LABELS: Record<ReportingComplianceLevel, string> = {
+  low: "Low",
+  moderate: "Moderate",
+  high: "High",
+};
+
+export type ReportingCompliance = { level: ReportingComplianceLevel; pct: number };
+
+/**
+ * TRIPOD-LLM reporting-guideline adherence for a source — our own computed
+ * measure, hand-scored against the checklist per EVD (tripod-llm/compliance/*
+ * tag + tripod_llm_pct field) and repeated identically across every EVD
+ * derivedFrom the same source (verified consistent across all 27 sources),
+ * so the first one found is authoritative for the source as a whole.
+ */
+export function getReportingCompliance(srcId: string): ReportingCompliance | null {
+  const evdIds = ALL_EDGES.filter((e) => e.type === "derivedFrom" && e.to === srcId).map((e) => e.from);
+  for (const id of evdIds) {
+    const evd = nodeById.get(id);
+    if (!evd) continue;
+    const levelTag = evd.tags.find((t) => t.startsWith("tripod-llm/compliance/"));
+    const pctRaw = evd.extras.tripodLlmPct as string | undefined;
+    if (!levelTag || !pctRaw) continue;
+    const level = levelTag.slice("tripod-llm/compliance/".length) as ReportingComplianceLevel;
+    const pct = parseInt(pctRaw, 10);
+    if (!Number.isNaN(pct)) return { level, pct };
+  }
+  return null;
+}

@@ -4,12 +4,14 @@ import {
   getReproducibilityRisk,
   getValiditySignals,
   getIntegritySignals,
+  getReportingCompliance,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
   REPRODUCIBILITY_RISK_LABELS,
   VALIDITY_DOMAIN_LABELS,
   INTEGRITY_SIGNAL_LABELS,
   DISCLOSURE_LEVEL_LABELS,
+  REPORTING_COMPLIANCE_LABELS,
   type GraphNode,
   type TopStandard,
   type TopLevel,
@@ -17,14 +19,43 @@ import {
   type ValidityDomain,
   type IntegritySignalKind,
   type DisclosureLevel,
+  type ReportingCompliance,
 } from "@/lib/data";
 
-// data/code-transparency vs. protocol/registration is our own split of the
-// same 4 TOP standards into "did you disclose what you did" (Transparency)
-// vs. "did you commit to it openly/in advance" (Openness) — TOP itself
-// doesn't name this split, but it's a reasonable reading of the standards.
-const TRANSPARENCY_STANDARDS: readonly TopStandard[] = ["data-transparency", "code-transparency"];
-const OPENNESS_STANDARDS: readonly TopStandard[] = ["study-protocol", "study-registration"];
+// Transparency is now our own computed measure of adherence to reporting
+// guidelines (TRIPOD-LLM) — did the paper report what it did, in enough
+// detail to assess and reproduce. Openness covers all four COS TOP
+// Guidelines standards (data, code, protocol, registration) — did the
+// authors make the underlying artifacts and commitments openly available.
+const COMPLIANCE_TONE: Record<ReportingCompliance["level"], string> = {
+  high: "bg-emerald-600",
+  moderate: "bg-amber-500",
+  low: "bg-red-600",
+};
+
+function ReportingComplianceGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="5" y="3.5" width="14" height="17" rx="1.5" />
+      <path d="M9 3v2h6V3" />
+      <path d="M8.5 12.5l2 2 4.5-5" />
+    </svg>
+  );
+}
+
+function ReportingComplianceBadge({ compliance }: { compliance: ReportingCompliance }) {
+  return (
+    <span
+      title={`TRIPOD-LLM reporting-guideline adherence: ${compliance.pct}% of checklist items (Methods 5a-15, Results 16a-18) fully or partially reported — ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()} compliance. Hand-scored against the checklist, our own computed measure.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    >
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${COMPLIANCE_TONE[compliance.level]}`}>
+        <ReportingComplianceGlyph />
+      </span>
+      TRIPOD-LLM {compliance.pct}% reported
+    </span>
+  );
+}
 
 // Center for Open Science's actual Open Science Badge artwork
 // (cos.io/initiatives/badges, CC BY 4.0 — "free to use with attribution").
@@ -202,15 +233,14 @@ function RiskBadge({ label, risk, title, glyph }: { label: string; risk: Reprodu
 
 /** Transparency, Openness, Rigor, Extensibility, and integrity badges for a node. */
 export default function TopBadges({ node }: { node: GraphNode }) {
-  const allSignals = getTopSignals(node);
-  const transparencySignals = allSignals.filter((s) => TRANSPARENCY_STANDARDS.includes(s.standard));
-  const opennessSignals = allSignals.filter((s) => OPENNESS_STANDARDS.includes(s.standard));
+  const opennessSignals = getTopSignals(node);
+  const compliance = getReportingCompliance(node.id);
   const repro = getReproducibilityRisk(node);
   const validity = getValiditySignals(node);
   const integrity = getIntegritySignals(node);
 
   if (
-    transparencySignals.length === 0 &&
+    !compliance &&
     opennessSignals.length === 0 &&
     !repro &&
     validity.length === 0 &&
@@ -220,15 +250,13 @@ export default function TopBadges({ node }: { node: GraphNode }) {
 
   return (
     <div className="mt-3 space-y-3">
-      {transparencySignals.length > 0 && (
+      {compliance && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Transparency
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            {transparencySignals.map((s) => (
-              <StandardBadge key={s.standard} standard={s.standard} level={s.level} />
-            ))}
+            <ReportingComplianceBadge compliance={compliance} />
           </div>
         </div>
       )}
