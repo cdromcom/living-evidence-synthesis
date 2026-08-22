@@ -323,8 +323,12 @@ export default function TopBadges({ node }: { node: GraphNode }) {
               title="Not yet independently reproduced — reminder to re-run this paper's own analysis/code ourselves and confirm the reported results."
             />
             <ReminderBadge
-              label="Replicated"
-              title="Not yet replicated — reminder to independently re-test this paper's findings (new data/setup, same question)."
+              label="Directly Replicated"
+              title="Not yet directly replicated — reminder to run the same study design ourselves (same methods, new data) and compare results."
+            />
+            <ReminderBadge
+              label="Indirectly Replicated"
+              title="Not yet indirectly replicated — reminder to check whether independent studies using different methods reach the same conclusion."
             />
           </div>
         </div>
@@ -333,12 +337,16 @@ export default function TopBadges({ node }: { node: GraphNode }) {
       {integrity.length > 0 && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-            Research integrity
+            Integrity
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             {integrity.map((s) => (
               <IntegrityBadge key={s.kind} kind={s.kind} level={s.level} />
             ))}
+            <ReminderBadge
+              label="Plagiarism"
+              title="Not yet checked — reminder to screen this paper's text against other human-authored work for plagiarism or unattributed overlapping language."
+            />
           </div>
         </div>
       )}
