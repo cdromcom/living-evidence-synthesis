@@ -194,7 +194,6 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const sourceUrl = node.extras.sourceUrl as string | undefined;
   const critiqueStatus = node.extras.critiqueStatus as CritiqueStatus | undefined;
   const critiqueNote = node.extras.critiqueNote as string | undefined;
-  const authors = node.extras.authors as string[] | undefined;
   const trackRecord = node.extras.authorTrackRecord as AuthorTrackRecord | undefined;
   const trackRecordChecked = node.extras.authorTrackRecordChecked as string | undefined;
   const trackRecordNote = node.extras.authorTrackRecordNote as string | undefined;
@@ -206,6 +205,13 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const citationCountSource = node.extras.citationCountSource as string | undefined;
   const predatoryPublisherFlag = node.extras.predatoryPublisherFlag as boolean | undefined;
   const predatoryPublisherNote = node.extras.predatoryPublisherNote as string | undefined;
+  const peerReviewStatus = node.extras.peerReviewStatus as
+    | "not-applicable"
+    | "not-found"
+    | "not-checked"
+    | undefined;
+  const peerReviewNote = node.extras.peerReviewNote as string | undefined;
+  const peerReviewUrl = node.extras.peerReviewUrl as string | undefined;
 
   if (!doi && !sourceUrl && !critiqueStatus) return null;
 
@@ -215,6 +221,11 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
     pubpeerCommentCount && pubpeerCommentCount > 0
       ? `${pubpeerCommentCount} PubPeer comment${pubpeerCommentCount === 1 ? "" : "s"} ↗`
       : "No PubPeer comments found";
+  const PEER_REVIEW_LABEL: Record<string, string> = {
+    "not-applicable": "NA — preprint, not peer reviewed",
+    "not-found": "NA — checked, no open peer review reports found",
+    "not-checked": "NA — not independently verified (publisher blocked automated access)",
+  };
 
   return (
     <div className="mt-3 rounded-md border border-border bg-card p-3">
@@ -318,6 +329,18 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
           </a>
         )}
       </div>
+      {peerReviewStatus && (
+        <p className="mt-2 text-xs text-muted-ink">
+          <span className="font-semibold text-ink/70">Open peer review reports: </span>
+          {peerReviewUrl ? (
+            <a href={peerReviewUrl} target="_blank" rel="noopener noreferrer" className="text-forest hover:underline">
+              View reports ↗
+            </a>
+          ) : (
+            <span title={peerReviewNote}>{PEER_REVIEW_LABEL[peerReviewStatus]}</span>
+          )}
+        </p>
+      )}
       <p className="mt-2 text-[0.625rem] text-muted-ink">
         Retraction/correction status checked against Crossref (which now includes the Retraction
         Watch database) or DataCite for arXiv preprints, at curation time — not a live guarantee;

@@ -96,10 +96,12 @@ export default async function NodeDetailPage({
     "truthValue",
     "caveatType",
     "severity",
+    "rating",
   ]);
   const truthValue = node.extras.truthValue as number | undefined;
   const caveatSeverity = node.extras.severity as "low" | "moderate" | "high" | undefined;
   const caveatType = node.extras.caveatType as "author-stated" | "inferred" | undefined;
+  const rating = node.extras.rating as number | undefined;
   const extraEntries = Object.entries(node.extras).filter(
     ([k, v]) => v !== undefined && v !== null && v !== "" && !HANDLED_EXTRA_KEYS.has(k)
   );
@@ -110,6 +112,14 @@ export default async function NodeDetailPage({
         <NodeTypeBadge type={node.type} />
         <span className="mono text-xs text-muted-ink">{node.id}</span>
         <StatusBadge status={node.curationStatus} />
+        {typeof rating === "number" && (
+          <span
+            title="Curator-assigned rating"
+            className="inline-flex items-center rounded-full border border-border px-2 py-0.5 text-xs font-medium text-ink/70"
+          >
+            Rating {rating}
+          </span>
+        )}
       </div>
       <h1 className="max-w-3xl text-2xl font-semibold leading-tight text-ink sm:text-3xl">
         {node.title}

@@ -219,7 +219,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
       {signals.length > 0 && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-            Transparency <span className="font-normal normal-case">(COS TOP Guidelines)</span>
+            Transparency
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             {signals.map((s) => (
@@ -227,12 +227,11 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             ))}
           </div>
           <p className="mt-1.5 text-[0.625rem] text-muted-ink">
-            Open Data / Open Materials / Preregistered badge artwork ©{" "}
+            Badge artwork ©{" "}
             <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
               Center for Open Science
             </a>
-            , CC BY 4.0. Shown full-color only at Level 2 (Shared and Cited); desaturated below
-            that threshold — no badge here implies it was independently certified.
+            , CC BY 4.0.
           </p>
         </div>
       )}
