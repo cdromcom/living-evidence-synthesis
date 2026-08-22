@@ -3,8 +3,25 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
-import type { GraphNode, GraphEdge, NodeType, FiveC } from "@/lib/data";
-import { NODE_TYPE_ORDER, NODE_TYPE_LABELS, FIVE_C_ORDER, FIVE_C_LABELS, getFiveCs, getNodeById } from "@/lib/data";
+import type { GraphNode, GraphEdge, NodeType, FiveC, ReproducibilityRisk, ReportingComplianceLevel } from "@/lib/data";
+import {
+  NODE_TYPE_ORDER,
+  NODE_TYPE_LABELS,
+  FIVE_C_ORDER,
+  FIVE_C_LABELS,
+  getFiveCs,
+  getNodeById,
+  TOP_STANDARD_ORDER,
+  TOP_STANDARD_LABELS,
+  getTopSignals,
+  REPRODUCIBILITY_RISK_LABELS,
+  getValiditySignals,
+  REPORTING_COMPLIANCE_LABELS,
+  getReportingCompliance,
+  INTEGRITY_SIGNAL_ORDER,
+  INTEGRITY_SIGNAL_LABELS,
+  getIntegritySignals,
+} from "@/lib/data";
 import {
   NODE_TYPE_COLOR_VAR,
   NODE_TYPE_BG_CLASS,
@@ -98,6 +115,137 @@ const SUMMARY_SECTION_BY_TYPE: Partial<Record<NodeType, RegExp>> = {
   CLM: /Quote/i,
 };
 
+type TrustSignalOption = { key: string; label: string; group: string; test: (n: GraphNode) => boolean };
+
+// Mirrors the four trust-signal groups shown on each SRC page (TopBadges.tsx)
+// — Openness (COS TOP standards), Rigor (validity-domain risk), Transparency
+// (TRIPOD-LLM reporting compliance), and Integrity (disclosures). Extensibility
+// is deliberately left out: those are unscored "not done yet" reminders, not
+// real signals to filter by.
+const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
+  ...TOP_STANDARD_ORDER.map((standard) => ({
+    key: `top:${standard}`,
+    label: TOP_STANDARD_LABELS[standard],
+    group: "Openness",
+    test: (n: GraphNode) =>
+      getTopSignals(n).some(
+        (s) => s.standard === standard && (s.level === "level-1-disclosed" || s.level === "level-2-shared")
+      ),
+  })),
+  ...(["low-risk", "some-concerns", "high-risk"] as ReproducibilityRisk[]).map((risk) => ({
+    key: `rigor:${risk}`,
+    label: REPRODUCIBILITY_RISK_LABELS[risk],
+    group: "Rigor",
+    test: (n: GraphNode) => getValiditySignals(n).some((v) => v.risk === risk),
+  })),
+  ...(["high", "moderate", "low"] as ReportingComplianceLevel[]).map((level) => ({
+    key: `reporting:${level}`,
+    label: `${REPORTING_COMPLIANCE_LABELS[level]} reporting`,
+    group: "Transparency",
+    test: (n: GraphNode) => getReportingCompliance(n.id)?.level === level,
+  })),
+  ...INTEGRITY_SIGNAL_ORDER.map((kind) => ({
+    key: `integrity:${kind}`,
+    label: INTEGRITY_SIGNAL_LABELS[kind],
+    group: "Integrity",
+    test: (n: GraphNode) =>
+      getIntegritySignals(n).some((s) => s.kind === kind && (s.level === "disclosed" || s.level === "partial")),
+  })),
+];
+
+/** A dropdown filter — a labeled toggle button that opens a grouped list of square checkboxes. */
+function CheckboxDropdown({
+  label,
+  options,
+  selected,
+  onToggle,
+  onClear,
+}: {
+  label: string;
+  options: { key: string; label: string; group?: string }[];
+  selected: Set<string>;
+  onToggle: (key: string) => void;
+  onClear: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onDocMouseDown(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onDocMouseDown);
+    return () => document.removeEventListener("mousedown", onDocMouseDown);
+  }, [open]);
+
+  const groups = useMemo(() => {
+    const map = new Map<string, { key: string; label: string; group?: string }[]>();
+    for (const o of options) {
+      const g = o.group ?? "";
+      if (!map.has(g)) map.set(g, []);
+      map.get(g)!.push(o);
+    }
+    return Array.from(map.entries());
+  }, [options]);
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
+          selected.size > 0
+            ? "border-ink bg-ink text-paper"
+            : "border-border bg-card text-ink/70 hover:bg-muted-surface"
+        }`}
+      >
+        {label}
+        {selected.size > 0 && <span className="mono">{selected.size}</span>}
+        <span aria-hidden className="text-[0.6rem]">▾</span>
+      </button>
+      {open && (
+        <div className="absolute z-20 mt-1 max-h-80 w-64 overflow-y-auto rounded-md border border-border bg-card p-2 shadow-md">
+          {selected.size > 0 && (
+            <button
+              type="button"
+              onClick={onClear}
+              className="mb-1.5 text-[0.6875rem] font-semibold text-forest hover:underline"
+            >
+              Clear ({selected.size})
+            </button>
+          )}
+          {groups.map(([group, opts]) => (
+            <div key={group || "_"} className="mb-2 last:mb-0">
+              {group && (
+                <p className="mb-1 text-[0.625rem] font-semibold uppercase tracking-wide text-muted-ink">
+                  {group}
+                </p>
+              )}
+              <ul className="space-y-0.5">
+                {opts.map((o) => (
+                  <li key={o.key}>
+                    <label className="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-xs text-ink/80 hover:bg-muted-surface">
+                      <input
+                        type="checkbox"
+                        checked={selected.has(o.key)}
+                        onChange={() => onToggle(o.key)}
+                        className="h-3.5 w-3.5 shrink-0 rounded-none border-border accent-forest"
+                      />
+                      {o.label}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** A compact, type-aware summary for the graph preview panel — not a blind character truncation. */
 function nodeSummary(node: GraphNode, maxLen = 260): string | null {
   const pattern = SUMMARY_SECTION_BY_TYPE[node.type];
@@ -123,6 +271,10 @@ export default function GraphExplorer({
   // 5C tag at all — most QUE/SRC/CVT/EP nodes). Non-empty = show only nodes
   // that carry at least one of the selected 5Cs.
   const [fiveCFilter, setFiveCFilter] = useState<Set<FiveC>>(new Set());
+  // Same empty-set-means-inactive convention as fiveCFilter, OR'd across
+  // whichever trust-signal checkboxes (Openness/Rigor/Transparency/Integrity)
+  // are selected — see TRUST_SIGNAL_OPTIONS.
+  const [trustSignalFilter, setTrustSignalFilter] = useState<Set<string>>(new Set());
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState(false);
@@ -161,7 +313,9 @@ export default function GraphExplorer({
           (n) =>
             typeFilter.has(n.type) &&
             (statusFilter === "all" || n.curationStatus === statusFilter) &&
-            (fiveCFilter.size === 0 || getFiveCs(n).some((c) => fiveCFilter.has(c)))
+            (fiveCFilter.size === 0 || getFiveCs(n).some((c) => fiveCFilter.has(c))) &&
+            (trustSignalFilter.size === 0 ||
+              TRUST_SIGNAL_OPTIONS.filter((o) => trustSignalFilter.has(o.key)).some((o) => o.test(n)))
         )
         .map((n) => n.id)
     );
@@ -184,7 +338,7 @@ export default function GraphExplorer({
       .filter((e) => visibleIds.has(e.from) && visibleIds.has(e.to))
       .map((e) => ({ source: e.from, target: e.to, type: e.type }));
     return { nodes: fgNodes, links: fgLinks };
-  }, [nodes, edges, typeFilter, statusFilter, fiveCFilter]);
+  }, [nodes, edges, typeFilter, statusFilter, fiveCFilter, trustSignalFilter]);
 
   // Adjacency, built once per filtered graph — powers both hover/selection
   // highlighting and focus (ego-network) mode.
@@ -289,6 +443,16 @@ export default function GraphExplorer({
       const next = new Set(prev);
       if (next.has(c)) next.delete(c);
       else next.add(c);
+      return next;
+    });
+  }
+
+  function toggleTrustSignal(key: string) {
+    hasAutoFittedRef.current = false;
+    setTrustSignalFilter((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
       return next;
     });
   }
@@ -518,21 +682,26 @@ export default function GraphExplorer({
           </button>
         ))}
         <span className="mx-1 h-4 w-px bg-border" />
-        {FIVE_C_ORDER.map((c) => (
-          <button
-            key={c}
-            onClick={() => toggleFiveC(c)}
-            title={`5Cs: ${FIVE_C_LABELS[c]}`}
-            aria-pressed={fiveCFilter.has(c)}
-            className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
-              fiveCFilter.has(c)
-                ? "border-ink bg-ink text-paper"
-                : "border-border bg-card text-ink/70 hover:bg-muted-surface"
-            }`}
-          >
-            {FIVE_C_LABELS[c]}
-          </button>
-        ))}
+        <CheckboxDropdown
+          label="5Cs"
+          options={FIVE_C_ORDER.map((c) => ({ key: c, label: FIVE_C_LABELS[c] }))}
+          selected={fiveCFilter}
+          onToggle={(key) => toggleFiveC(key as FiveC)}
+          onClear={() => {
+            hasAutoFittedRef.current = false;
+            setFiveCFilter(new Set());
+          }}
+        />
+        <CheckboxDropdown
+          label="Trust signals"
+          options={TRUST_SIGNAL_OPTIONS.map((o) => ({ key: o.key, label: o.label, group: o.group }))}
+          selected={trustSignalFilter}
+          onToggle={toggleTrustSignal}
+          onClear={() => {
+            hasAutoFittedRef.current = false;
+            setTrustSignalFilter(new Set());
+          }}
+        />
         <span className="mx-1 h-4 w-px bg-border" />
         <select
           value={statusFilter}
@@ -786,8 +955,12 @@ export default function GraphExplorer({
               <ul className="mt-2 list-disc space-y-1.5 pl-4">
                 <li>Chip color above = node type; dot size = number of connections.</li>
                 <li>
-                  The second row of chips filters by 5Cs appraisal (Credibility, Clarity, Creativity, Care,
-                  Connectivity) — most claims and evidence carry one or more; other node types usually don&apos;t.
+                  The 5Cs dropdown filters by appraisal (Credibility, Clarity, Creativity, Care, Connectivity) —
+                  most claims and evidence carry one or more; other node types usually don&apos;t.
+                </li>
+                <li>
+                  The Trust signals dropdown filters by the same Openness/Rigor/Transparency/Integrity signals
+                  shown on each source page — check any box to show nodes matching at least one.
                 </li>
                 <li>Hover a node to highlight it and its direct connections.</li>
                 <li>Click a node to preview it here without leaving the graph.</li>
