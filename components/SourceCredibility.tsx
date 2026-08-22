@@ -146,7 +146,7 @@ function MiniCard({
       <div className="mt-1 text-xs leading-snug">{children}</div>
     </>
   );
-  const className = `flex min-w-0 flex-col rounded-md border bg-card p-2.5 ${border}`;
+  const className = `flex min-w-0 flex-col rounded-md border bg-card-muted p-2.5 ${border}`;
   return href ? (
     <a href={href} target="_blank" rel="noopener noreferrer" className={`${className} transition-colors hover:border-forest/50`}>
       {body}

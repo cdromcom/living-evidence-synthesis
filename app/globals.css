@@ -12,6 +12,11 @@
   --color-border: #e7e2d6;
   --color-destructive: #b91c1c;
 
+  /* A nested-card fill for cards that sit inside an already-tinted box
+     (e.g. the source credibility box) — softer than pure --color-card so
+     they don't read as stark white against a warm background. */
+  --color-card-muted: color-mix(in srgb, var(--color-card) 55%, var(--color-secondary-surface));
+
   --color-verdict-correct: #10b981;
   --color-verdict-edit: #f59e0b;
   --color-verdict-wrong: #f43f5e;
@@ -57,6 +62,7 @@
   --color-paper: var(--color-paper);
   --color-ink: var(--color-ink);
   --color-card: var(--color-card);
+  --color-card-muted: var(--color-card-muted);
   --color-secondary-surface: var(--color-secondary-surface);
   --color-muted-surface: var(--color-muted-surface);
   --color-accent-wash: var(--color-accent-wash);
