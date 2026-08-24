@@ -1,4 +1,4 @@
-# Living Evidence Synthesis: LLMs for Scientific Peer Review
+# Living Evidence Synthesis (LIVES): AI-assisted Appraisal of Research
 
 A discourse-graph explorer built from the `living-synthesis` Obsidian vault
 (232 nodes: Questions, Claims, Evidence, Caveats, Sources, and a
