@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/partial
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -53,6 +57,8 @@ apaAuthors:
     family: "Asiri"
 peerReviewStatus: not-checked
 peerReviewNote: "MDPI blocked automated access (403)"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: alharbiAutomatedAssessmentReporting2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10
@@ -125,7 +131,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -143,45 +154,56 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research-appraisal study — where an item's own wording says "healthcare context" or "care pathway," it's read as "reporting-appraisal context" / "checklist-rating workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Abstracts of RCTs and systematic reviews from four leading orthodontic journals: AJO-DO, Journal of Orthodontics, European Journal of Orthodontics, The Angle Orthodontist. Articles retrieved from PubMed and full-text screened to confirm design. |
-| **5b** | Data points + distribution | ✅ | 20 RCT abstracts + 20 systematic-review abstracts (40 total), balanced 5 per journal per design. |
-| **5c** | Date range of data | ⚠️ | Publication window 2018–2022 reported; exact retrieval date for the source articles is not given (ChatGPT inference performed 30 May 2024). |
-| **5d** | Pre-processing / quality checks | ⚠️ | Abstracts manually copied from PubMed into ChatGPT (Supplementary File S1 lists included articles). No tokenization / formatting checks reported. |
-| **5e** | Missing / imbalanced data | ⚠️ | NA category handled by adjusting denominator (formulas given for both checklists). Class imbalance per item not addressed analytically. |
-| **6a** | LLM name + version | ⚠️ | ChatGPT 3.5 (OpenAI, San Francisco, CA, USA), free chat interface, accessed 30 May 2024. Exact model snapshot / build (e.g., gpt-3.5-turbo-XXXX) not reported because GUI was used. |
-| **6b** | Development process | ➖ | No model training/fine-tuning; off-the-shelf consumer ChatGPT used as-is. |
-| **6c** | Inference settings / prompting | ⚠️ | In-context expert impersonation + chain-of-thought described qualitatively; temperature, top_p, seed, system prompt verbatim, and other inference parameters not reported (free chat GUI used). |
-| **6d** | Output | ✅ | Three-step output per item: extracted quote → rationale → bracketed [Yes] / [No] / [NA] rating. |
-| **6e** | Classification thresholds | ➖ | Not applicable — categorical Yes/No/NA output, no probability thresholds. |
-| **7a** | Quality metrics | ⚠️ | Per-item proportion "Reported" + Fisher's exact / chi-square p-value. No accuracy, F1, kappa, or Cohen's-style agreement metric reported between ChatGPT and humans. |
-| **7b** | Relevance to downstream | ⚠️ | Authors discuss implications for automated literature appraisal but do not formally evaluate downstream utility (time saved, screening yield). |
-| **7c** | Outcome definition | ✅ | Outcome = whether each CONSORT-A / PRISMA-for-abstracts item is reported in the abstract; per-abstract total score = (Yes / [denominator − NA]) × 100. |
-| **7d** | Subjective interpretation | ⚠️ | Two human raters used as gold standard; raters were the authors themselves (potential bias) and inter-rater agreement was not quantified — only "disagreements resolved through discussion until consensus was reached." |
-| **7e** | Comparison | ⚠️ | Comparison is ChatGPT vs. human consensus only; no baseline NLP model, no GPT-4, no other LLM. |
-| **8a** | Annotation guidelines | ✅ | Reviewers used the full CONSORT and PRISMA guidelines and associated explanations as the annotation reference. |
-| **8b** | Annotators + IAA | ⚠️ | Two annotators (F.A. and S.A.) in duplicate; disagreements resolved by consensus. No κ / agreement statistic reported. |
-| **8c** | Annotator background | ⚠️ | Both annotators are authors from Department of Pediatric Dentistry, Prince Sattam Bin Abdulaziz University; orthodontic / methodological expertise level not detailed. |
-| **9a** | Prompt design | ⚠️ | Strategy described (in-context expert impersonation + chain-of-thought + 3-step output template); full verbatim prompt text not included. |
-| **9b** | Prompt-development data | ❌ | No held-out prompt-development set described; prompt structure adopted from cited prior work [33,34]. |
-| **10** | Summarization | ➖ | Not applicable (rating task, not summarization). |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable — off-the-shelf consumer ChatGPT, no fine-tuning. |
-| **12** | Compute | ❌ | Not reported (free ChatGPT GUI). |
-| **13** | Ethical approval | ➖ | Authors state "Institutional Review Board Statement: Not applicable" — analysis on published abstracts only. |
-| **14a** | Funding | ✅ | "This research received no external funding." |
-| **14b** | Conflicts of interest | ✅ | "The authors declare no conflicts of interest." |
-| **14c** | Protocol | ❌ | No protocol referenced. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ⚠️ | Supplementary File S1 lists the included RCTs and systematic reviews; raw ChatGPT outputs and per-rater scoring spreadsheets not deposited. |
-| **14f** | Code availability | ❌ | No code repository released; analysis used Excel + R `gtsummary`, scripts not shared. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | Search → keyword screen → full-text confirmation → random sample of 20 per design described in prose; numeric flow diagram (n at each stage) not provided. |
-| **16b** | Characteristics | ⚠️ | Source-journal balance reported (5 per journal × 4 journals × 2 designs); no abstract-level characteristics (word count, year distribution within window, topic) tabulated. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroups). |
-| **16d** | N per analysis | ✅ | N = 20 RCT abstracts per CONSORT-A item (40 total ratings: 20 ChatGPT + 20 human); N = 20 SR abstracts per PRISMA item (40 ratings). Reported in Tables 1–2 column headers. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported; single ChatGPT 3.5 snapshot used). |
+| **1** | Title | ⚠️ | *"Automated Assessment of Reporting Completeness in Orthodontic Research Using LLMs: An Observational Study"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"LLMs can also be valuable assets in research projects, such as systematic reviews, where they can aid in tasks such as preparing Boolean search terms, screening abstracts, classifying articles, and performing content analysis"* `§1, p.2` |
+| **3b** | Background — target population | ⚠️ | *"This study aims to assess the usability of LLMs, particularly ChatGPT, in assessing the completeness of reporting in two key areas of orthodontic research: abstracts of randomized controlled trials (RCTs) and abstracts of systematic reviews."* `§1, p.2` |
+| **4** | Objectives | ✅ | *"a secondary objective of this investigation was to identify areas where the assessments performed by LLMs differ from those conducted by human reviewers for both RCT and systematic review abstracts."* `§1, p.2` |
+| **5a** | Data sources | ✅ | *"abstracts of randomized controlled trials (RCTs) and systematic reviews published in four leading orthodontic journals: (1) American Journal of Orthodontics and Dentofacial Orthopedics (AJO-DO), (2) Journal of Orthodontics (JO), (3) European Journal of Orthodontics (EJO), and (4) The Angle Orthodontist (AO)"* `§2.1, p.2` |
+| **5b** | Data points + distribution | ✅ | *"a random sample of 20 RCTs and 20 systematic reviews was selected for further analysis. This resulted in a balanced representation, with each of the four journals contributing five publications on RCTs and five publications on systematic reviews."* `§2.3, p.2` |
+| **5c** | Date range of data | ⚠️ | *"The timeframe included publications published between 2018 and 2022."* `§2.1, p.2` — exact retrieval date for the source articles not given (ChatGPT inference performed 30 May 2024) |
+| **5d** | Pre-processing / quality checks | ⚠️ | *"'briefing information' was provided in the form of the included systematic review or RCT abstract, manually copied from PubMed (Supplementary File S1)"* `§2.6, p.3` — no tokenization/formatting checks reported |
+| **5e** | Missing / imbalanced data | ⚠️ | *"Items marked 'NA' were excluded from the analysis, and the denominator in the calculation was adjusted accordingly."* `§2.5, p.3` — class imbalance per item not addressed analytically |
+| **6a** | LLM name + version | ⚠️ | *"This study utilized the large language model GPT-3.5 (OpenAI, San Francisco, CA, USA), which is currently offered at no cost."* `§2.6, p.3` — exact model snapshot/build not reported because GUI was used |
+| **6b** | Development process | ➖ | Not applicable — off-the-shelf consumer ChatGPT used as-is, no model training/fine-tuning performed |
+| **6c** | Inference settings / prompting | ⚠️ | *"We employed a common prompt engineering strategy known as in-context expert impersonation to enhance model performance."* `§2.6, p.3` — temperature, top_p, seed, and full system-prompt verbatim not reported (free chat GUI used) |
+| **6d** | Output | ✅ | *"the model assigned a bracketed rating for each item: '[Yes]' if reported, '[No]' if not reported, or '[NA]' if not applicable owing to the study design"* `§2.7, p.3` |
+| **6e** | Classification thresholds | ➖ | Not applicable — categorical Yes/No/NA output, no probability thresholding |
+| **7a** | Quality metrics | ✅ | *"Comparisons were made using chi-square or Fisher's exact tests, as appropriate."* `§2.9, p.4` |
+| **7b** | Relevance to downstream use | ❌ | Not reported |
+| **7c** | Outcome definition | ✅ | *"Total Score = (Total 'Yes' Items/[19 - Total 'NA' Items]) × 100"* `§2.4, p.3` |
+| **7d** | Subjective interpretation | ⚠️ | *"Two independent reviewers (F.A. and S.A.) assessed the reporting quality of RCT abstracts in duplicate using the CONSORT for the Abstract checklist... Disagreements were resolved through discussion until consensus was reached."* `§2.4, p.3` — raters were the paper's own authors, no quantified inter-rater agreement |
+| **7e** | Comparison | ✅ | *"The alignment between human and ChatGPT ratings was lower for the remaining seven items, with statistically significant discrepancies identified for two items: randomization and recruitment details."* `§3.1, p.4` |
+| **8a** | Annotation guidelines | ✅ | *"Reviewers directly referred to the full CONSORT guidelines and associated explanations for clarification."* `§2.4, p.3` |
+| **8b** | Annotators + IAA | ⚠️ | *"Two independent reviewers (F.A. and S.A.) assessed the reporting quality of RCT abstracts in duplicate"* `§2.4, p.3` — no quantitative inter-annotator agreement (κ) reported |
+| **8c** | Annotator background | ⚠️ | *"Fahad Alharbi * and Saeed Asiri ... Department of Pediatric Dentistry, College of Dentistry, Prince Sattam Bin Abdulaziz University"* `p.1` — orthodontic/methodological expertise level of the raters not further detailed |
+| **9a** | Prompt design | ✅ | *"System prompts were initiated by introducing GPT-3.5 as an 'expert in systematic reviews' for PRISMA guidelines and an 'expert in clinical trial design' for CONSORT-A guidelines"* `§2.6, p.3` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated as a primary outcome |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — off-the-shelf consumer ChatGPT, no fine-tuning or alignment performed |
+| **12** | Compute | ❌ | Not reported |
+| **13** | Ethical approval | ➖ | *"Institutional Review Board Statement: Not applicable."* `p.8` |
+| **14a** | Funding | ✅ | *"This research received no external funding."* `p.8` |
+| **14b** | Conflicts of interest | ✅ | *"The authors declare no conflicts of interest."* `p.8` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ⚠️ | *"The original contributions presented in the study are included in the article/Supplementary Materials, further inquiries can be directed to the corresponding author."* `p.8` — raw ChatGPT outputs and per-rater scoring spreadsheets not deposited |
+| **14f** | Code availability | ❌ | Not reported |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"Articles containing at least one of these keywords were retrieved for a full-text review to confirm that they truly represented a systematic review or RCT."* `§2.2, p.2` — numeric flow diagram (n at each stage) not provided |
+| **16b** | Characteristics | ✅ | *"each of the four journals contributing five publications on RCTs and five publications on systematic reviews"* `§2.3, p.2` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"Twenty randomized controlled trials (RCTs) were independently evaluated by human raters and ChatGPT 3.5 using a 17-item checklist."* `§3.1, p.4` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported; single ChatGPT 3.5 snapshot used |
 

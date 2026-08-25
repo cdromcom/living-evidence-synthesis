@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/partial
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -61,6 +65,8 @@ apaAuthors:
     family: "Hemkens"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: woelfleBenchmarkingHumanAICollaboration2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f954-743a-bc52-4e26dd72d397
@@ -149,7 +155,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -167,44 +178,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | 112 systematic reviews & meta-analyses in pediatric surgery (data shared by Cullis et al.) for PRISMA + AMSTAR; 56 RCTs from the PragMeta database for PRECIS-2. Rationale: independent ratings from 2 human raters and their consensus were already available. |
-| **5b** | Data points + distribution | ✅ | PRISMA: 27 items × 112 reviews = up to 3024 ratings; AMSTAR: 11 items × 112 = up to 1232; PRECIS-2: 9 domains × 56 RCTs = up to 504. PRISMA quotes: median 14/publication (range 5–17). AMSTAR: median 7 (range 4–8). PRECIS-2: median 10 (range 9–10). |
-| **5c** | Date range of data | ❌ | Date range of the publications themselves not reported. (LLM querying timeframe is reported — Aug 2023 – Apr 2024.) |
-| **5d** | Pre-processing / quality checks | ✅ | PDFs converted to plain text (4 text-only LLMs) or one PNG per page (Claude-3-Opus, multimodal). Minor formatting issues (e.g., forgotten squared brackets, "[Unclear]") fixed in Python; quote accuracy quantified with parasail + rapidfuzz. |
-| **5e** | Missing / imbalanced data | ⚠️ | Per-LLM publication failures reported (Claude-3-Opus 3/112; GPT-4 3/112; GPT-3.5 3/112 + 2/56; Mixtral 1/112). Class imbalance acknowledged for PRECIS-2 (mostly pragmatic trials, few explanatory) but not algorithmically rebalanced. Human rater 2 missing on 15 publications for PRISMA + AMSTAR. |
-| **6a** | LLM name + version | ✅ | claude-3-opus-20240229; claude-2.0; gpt-4-32k-0613; gpt-3.5-turbo-16k-0613; Mixtral-8x22b-instruct-v0.1. Context length, query timeframe, and API path reported in Table 1. |
-| **6b** | Development process | ➖ | No model training/fine-tuning. Zero-shot evaluation only. |
-| **6c** | Inference settings / prompting | ⚠️ | Temperature = 0 reported. System + user prompt structure shown for one item (Box 1, GPT-4 / PRECIS-2). Full prompt templates in Supplement. Top-p, max tokens, seeds, retry logic not detailed in the main text. |
-| **6d** | Output | ✅ | Per-item: 1–3 extracted quotes + reasoning paragraph + categorical/ordinal score (no/yes/NA for PRISMA & AMSTAR; 1–5 or NA for PRECIS-2 with "[X]" syntax). |
-| **6e** | Classification thresholds | ✅ | PRECIS-2 ordinal pairs collapsed: 1 + 2 → "1/2"; 4 + 5 → "4/5" for kappa. Combined-LLM consistency thresholds defined: 5/9, 6/9, 7/9, 8/9, 9/9 of the 9 LLM assessments. |
-| **7a** | Quality metrics | ✅ | Accuracy (% identical) + Cohen's kappa (weighted for ordinal PRECIS-2) with 1000-resample publication-level bootstrap 95% CIs. Deferring fraction reported for combined-LLM and human–AI conditions. Quote similarity (median %) via parasail/rapidfuzz. |
-| **7b** | Relevance to downstream | ✅ | Trade-off explicitly framed: "1 wrong response per ~25 spared" for PRISMA Claude-3-Opus pair; ~20 for AMSTAR; ~7 for PRECIS-2. Workload-saving framed as the key downstream utility for a second human rater. |
-| **7c** | Outcome definition | ✅ | "Agreement with human consensus" defined as proportion of identical ratings between rater and the consensus of 2 human raters per publication. |
-| **7d** | Subjective interpretation | ✅ | Authors discuss model "personality"/class imbalance for PRECIS-2 as plausible explanation for inverted ranking; flag risk of human consensus not being a "ground truth"; flag possible quoting from briefing materials. |
-| **7e** | Comparison | ✅ | Four explicit comparators: (1) human raters vs consensus; (2) individual LLMs; (3) combined LLMs at 5/9–9/9 consistency; (4) human + LLM. Bootstrap-CI overlap used to flag statistical significance. |
-| **8a** | Annotation guidelines | ➖ | No new annotation phase. Used existing PRISMA/AMSTAR ratings (Cullis et al.) and PRECIS-2 ratings (PragMeta) as released. |
-| **8b** | Annotators + IAA | ✅ | 2 human raters per publication; rater-1-vs-rater-2 inter-rater reliability reported (91% / 88% / 57%; κ 0.84 / 0.77 / 0.29 weighted). |
-| **8c** | Annotator background | ✅ | PRISMA + AMSTAR: 2 British pediatric surgeons (content experts). PRECIS-2: rater 1 = experienced systematic reviewer/metaresearcher; rater 2 = 1 of 2 post-graduate MSc students in epidemiology with PRECIS-2 training, or a senior clinical epidemiologist. |
-| **9a** | Prompt design | ⚠️ | Single prompt template per tool, structured as "extract 1–3 quotes → reason → score [X]"; full text in Supplement. Authors note minor variations were *not* explored in the main analysis ("Testing more diverse prompt engineering techniques may further improve performance"). |
-| **9b** | Prompt-development data | ❌ | No held-out prompt development set described; no iteration history reported. |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ➖ | No model fine-tuning or alignment performed. Zero-shot evaluation only. |
-| **12** | Compute | ❌ | Compute not reported (cost in USD and wall-clock per-publication response time reported — Table 1 — but not GPU/CPU type, token counts, or energy). |
-| **13** | Ethical approval | ➖ | Not applicable (no human subjects; analysis of published articles + previously-released human ratings). |
-| **14a** | Funding | ✅ | RC2NB supported by University Hospital Basel, University of Basel, and Foundation Clinical Neuroimmunology and Neuroscience Basel; including grants from Novartis and Roche. |
-| **14b** | Conflicts of interest | ✅ | "There are no competing interests for any author." |
-| **14c** | Protocol | ❌ | No prospective protocol referenced; outlook section calls for *future* preregistered prospective evaluation. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ✅ | All data openly available at https://github.com/timwoelfle/Evidence-Appraisal-AI. Web dashboard for interactive exploration provided. |
-| **14f** | Code availability | ✅ | All code openly available at the same GitHub repository; prompt templates in Supplement. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | Per-LLM processing failures reported in narrative (e.g., Claude-3-Opus 3/112; GPT-4 3/112). N for each Table 2 / Table 3 row given. No formal CONSORT/PRISMA-style flow diagram. |
-| **16b** | Characteristics | ⚠️ | Datasets identified by source (Cullis pediatric-surgery reviews; PragMeta RCTs); explanatory-vs-pragmatic skew of PRECIS-2 dataset acknowledged. No tabular characteristics of the included publications (year range, journals, etc.). |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup analysis). |
-| **16d** | N per analysis | ✅ | Tables 2 & 3 give per-row N (e.g., 1868/2943 for GPT-3.5 PRISMA; 173/194 for combined-LLM PRISMA at 9/9). |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each Woelfle EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating; zero-shot evaluation of frozen LLMs at fixed query timeframes). |
+| **1** | Title | ✅ | *"Benchmarking Human-AI Collaboration for Common Evidence Appraisal Tools"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"The assessment of reporting, methodological rigor, and design features of biomedical research is essential for evidence-based medicine. However, these evaluations require extensive resources."* `§1, p.2` |
+| **3b** | Background — target population | ✅ | *"The independent assessment by at least 2 human raters is the standard in systematic reviews (eg, for Cochrane reviews [13]), and is also commonly used to assess reporting and methodological rigor (eg, using PRISMA [14] and AMSTAR [14,15]), or study designs (eg, using PRECIS-2 [16])."* `§2.1, p.2` |
+| **4** | Objectives | ✅ | *"Our objectives were to quantify the agreement of 5 individual LLMs with human consensus in the assessment of evidence appraisal tools of different levels of complexity: reporting (PRISMA) and methodological rigor (AMSTAR) of systematic reviews, and degree of pragmatism of clinical trials (PRECIS-2)."* `§1, p.2` |
+| **5a** | Data sources | ✅ | *"we used human assessments of PRISMA and AMSTAR for 112 systematic reviews and meta-analyses in the field of pediatric surgery (data kindly shared by Cullis and colleagues)"* `§2.1, p.2` |
+| **5b** | Data points + distribution | ✅ | *"Five LLMs (Claude-3-Opus, Claude-2, GPT-4, GPT-3.5, Mixtral-8x22B) assessed 112 systematic reviews applying the PRISMA and AMSTAR criteria and 56 randomized controlled trials applying PRECIS-2."* `Abstract, p.1` |
+| **5c** | Date range of data | ⚠️ | *"April 2024 via Anthropic"* `Table 1, p.3` — LLM query timeframe reported per model (Aug 2023–Apr 2024); publication date range of the appraised systematic reviews/trials themselves not reported |
+| **5d** | Pre-processing / quality checks | ✅ | *"API querying, extraction of ratings, fixing minor formatting issues, and quantification of quote accuracy were performed in Python 3.11.4 using the parasail and rapidfuzz libraries"* `§2.3.3, p.5` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"Claude-3-Opus could persistently not process 3 of 112 (2.7%) publications for PRISMA and AMSTAR because of the output being blocked by Anthropic's content filtering policy or being too long."* `§3.1.4, p.8` |
+| **6a** | LLM name + version | ✅ | *"We used 4 proprietary LLMs (Anthropic's Claude-3-Opus and Claude-2 [18,19] and OpenAI's GPT-4 and GPT-3.5 [20,21]) and 1 open-source LLM (Mistral AI's Mixtral-8x22B [22])"* `§2.2, p.2` |
+| **6b** | Development process | ➖ | *"The 4 other models could only process full text (extracted by us) and no images."* `§2.2, p.3` — no model training or fine-tuning; zero-shot evaluation only |
+| **6c** | Inference settings / prompting | ⚠️ | *"All application programming interface (API) queries were performed with minimal randomness (''temperature'' 0) to allow the highest possible intrarater reliability."* `§2.3.2, p.5` — top-p, max tokens, seed, retry logic not detailed |
+| **6d** | Output | ✅ | *"1. Extract 1-3 relevant quotes from the full text. 2. Explain your reasoning in 1 paragraph. 3. Give a score X from 1 (very explanatory) to 5 (very pragmatic) in square brackets"* `Box 1, p.6` |
+| **6e** | Classification thresholds | ✅ | *"responses 1 and 2 (''very'' and ''mostly explanatory'') were pooled to ''1/2'' and responses 4 and 5 (''very'' and ''mostly pragmatic'') to ''4/5'' and a weighted version of Cohen's kappa was used"* `§2.3.1, p.3` |
+| **7a** | Quality metrics | ✅ | *"Our main outcome was agreement with human consensus measured by accuracy (agreement fraction, i.e., the proportion of identical ratings between rater and human consensus) and Cohen's kappa."* `§2.3.1, p.3` |
+| **7b** | Relevance to downstream use | ✅ | *"Conversely, this would spare the second human rater 65% of responses when accepting 96% accuracy"* `§3.1.4, p.8` |
+| **7c** | Outcome definition | ✅ | *"Items where the LLM aligned with the human rater were compared to human consensus. Inconsistent items were considered uncertain and thus ''deferred to a second human rater''."* `§2.3.1, p.4` |
+| **7d** | Subjective interpretation | ✅ | *"We performed LLM prompts twice ... and compared the ratings of each of the 2 runs. Due to the nature of LLMs, these duplicate runs are not independent, which is why we consider their agreement ''intrarater reliability''."* `§2.3.2, p.5` |
+| **7e** | Comparison | ✅ | *"We performed 4 analyses for each of the 3 evidence appraisal tools (PRISMA, AMSTAR, PRECIS-2)"* `§2.3.1, p.3` |
+| **8a** | Annotation guidelines | ➖ | Not applicable — no new annotation phase; the authors reused existing PRISMA/AMSTAR ratings (Cullis et al.) and PRECIS-2 ratings (PragMeta) as already collected |
+| **8b** | Annotators + IAA | ✅ | *"Human inter-rater reliability measured by agreement was 91%, 88%, and 57% and by kappa 0.84, 0.77, and 0.29 for PRISMA, AMSTAR, and PRECIS-2, respectively."* `§3.2, p.9` |
+| **8c** | Annotator background | ✅ | *"The 2 raters were content experts (British pediatric surgeons)."* `§2.1, p.2` |
+| **9a** | Prompt design | ⚠️ | *"Details on LLM queries, prompt engineering, and the extraction of ratings and quotes can be found the Supplementary Methods."* `§2.2, p.3` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no model fine-tuning or alignment performed; zero-shot evaluation only |
+| **12** | Compute | ⚠️ | *"Mixtral-8x22B was the most affordable model with a median of $1.20 per 100 papers and GPT-4 the most expensive one with a median of $115.00."* `§3.3, p.8` — cost and response time reported; GPU/CPU type, token counts, and energy not reported |
+| **13** | Ethical approval | ➖ | Not applicable — no human-subjects data; study analyzes only published articles and previously-released human ratings (no explicit ethics statement in the manuscript) |
+| **14a** | Funding | ✅ | *"The research activities of RC2NB (Research Center for Clinical Neuroimmunology and Neuroscience Basel) are supported by the University Hospital and the University of Basel and the Foundation Clinical Neuroimmunology and Neuroscience Basel, including grants from Novartis and Roche."* `p.1` |
+| **14b** | Conflicts of interest | ✅ | *"There are no competing interests for any author."* `Declaration of competing interest, p.10` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a clinical study |
+| **14e** | Data availability | ✅ | *"All data are openly available: https://github.com/timwoelfle/Evidence-Appraisal-AI."* `Data availability, p.10` |
+| **14f** | Code availability | ✅ | *"Codes and data are openly available on GitHub [29]."* `§2.3.3, p.5` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"Claude-3-Opus, GPT-3.5, and Mixtral-8x22B had to be reprompted several times for up to 13% of publications until success."* `§3.1.4, p.8` |
+| **16b** | Characteristics | ✅ | *"56 randomized controlled trials within the PragMeta database"* `§2.1, p.2` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"2686/3024 (89%, 87%e90%)"* `Table 2, p.5` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each Woelfle EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating; zero-shot evaluation of frozen LLMs at fixed query timeframes |

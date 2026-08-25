@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/not-addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/partial
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -51,6 +55,8 @@ apaAuthors:
     family: "Sivaramakrishnan"
 peerReviewStatus: not-checked
 peerReviewNote: "BMJ JME blocked automated access (403)"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: sridharanLeveragingArtificialIntelligence2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94e-7707-9444-b2e1619daef0
@@ -125,7 +131,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain                                                                   | Rating | Justification                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------------------------------------------------------------ | :----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -143,44 +154,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | 7 prototypical case studies from the FERCAP–SIDCER handbook of case studies on ethical issues in health research (1st ed., 2012); evaluation reference materials = FERCAP–SIDCER handbook + US HHS OHRP informed-consent checklist. Reproduction permission obtained from FERCAP–SIDCER. |
-| **5b** | Data points + distribution | ⚠️ | 7 cases × 4 LLMs = 28 LLM-case cells per prompting condition (single + multiple = 56). Queries per case: 6 (cases 1, 2), 5 (cases 3, 4, 6), 4 (case 7), 2 (case 5). No distribution of case topics by population/intervention category beyond per-case description. |
-| **5c** | Date range of data | ⚠️ | Study conducted October–November 2023; LLM platforms accessed/cited Nov 2023–Feb 2024 (Bard 01 Feb 2024; ChatGPT 3.5 01 Feb 2024; Claude-Instant-100k 04 Feb 2024; ChatGPT 4.0 04 Feb 2024). Case-study source dated 2012. LLM training-data cut-offs not disclosed. |
-| **5d** | Pre-processing / quality checks | ⚠️ | Cases used as published in the FERCAP–SIDCER handbook with reproduction permission. No textual pre-processing pipeline described; no input-text normalisation reported. |
-| **5e** | Missing / imbalanced data | ⚠️ | All 28 cells answered (no missing LLM responses). Case-level coverage imbalance (some cases probed with 6 queries, others with 2) acknowledged structurally but not adjusted for in analysis. |
-| **6a** | LLM name + version | ⚠️ | Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0 named with access URLs and access dates, but exact model checkpoints (e.g., gpt-3.5-turbo-0613 vs. -1106) not specified. |
-| **6b** | Development process | ➖ | Not applicable — off-the-shelf cloud chatbots used as-is; no fine-tuning, RAG, or system-prompt engineering. |
-| **6c** | Inference settings / prompting | ❌ | No temperature, top-p, max-tokens, seed, system prompt, or chat-history-management settings reported. Only the natural-language query text and prompt structure (single vs. multiple) are described. |
-| **6d** | Output | ✅ | Free-text natural-language responses to ethics queries (Tables 2–3) and free-text generated ICDs (Table 4 + supplemental file 4). |
-| **6e** | Classification thresholds | ➖ | Not applicable (no probabilistic classifier; outputs are open-ended text rated qualitatively). |
-| **7a** | Quality metrics | ⚠️ | Qualitative agreement against expected key responses, summarised as identified / partially identified / not identified per cell. No precision/recall/F1, no κ, no quantitative summary score per LLM. |
-| **7b** | Relevance to downstream | ⚠️ | Authors discuss IRB pre-screening and ICD drafting use-cases, but no measurement of downstream impact (e.g., reviewer time saved, IRB decision change). |
-| **7c** | Outcome definition | ⚠️ | Outcomes operationalised as identification of expected ethical issues per Table 1 and presence of HHS ICD elements. Pass/fail thresholds are implicit (rater consensus). |
-| **7d** | Subjective interpretation | ⚠️ | Two authors independently rated; consensus on disagreement. No κ, percent agreement, or other IAA statistic reported. |
-| **7e** | Comparison | ✅ | Cross-LLM comparison (4 platforms head-to-head per case + per ICD element) and within-LLM comparison (single-prompt vs. multiple-prompt). |
-| **8a** | Annotation guidelines | ✅ | Expected key responses for each case documented in Table 1; HHS checklist + FERCAP–SIDCER handbook used as ICD-element rubrics. |
-| **8b** | Annotators + IAA | ⚠️ | Two authors (KS, GS) rated independently, then "a consensus was reached"; no IAA statistic (κ, percent agreement) reported. |
-| **8c** | Annotator background | ⚠️ | KS = Department of Pharmacology & Therapeutics, College of Medicine and Medical Sciences, Arabian Gulf University; GS = Primary Health Care Centers, Manama, Bahrain. IRB experience or rating-task expertise not described. |
-| **9a** | Prompt design | ⚠️ | Generic, fixed natural-language queries derived from case scenarios; an additional "training IRB members" framing prompt verbatim quoted (p. 128); ICD prompt verbatim quoted ("Below is the summary of a research proposal. Can you generate an ICD for the study participants?"). No systematic prompt-engineering search. |
-| **9b** | Prompt-development data | ❌ | No description of pilot prompts, prompt iteration, or held-out development cases. |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable — no fine-tuning or RLHF performed by authors. |
-| **12** | Compute | ❌ | Not reported. |
-| **13** | Ethical approval | ➖ | "Since this study did not involve any interaction with humans or data from humans, approval from an ethics committee was not sought." (p. 126) |
-| **14a** | Funding | ✅ | "The authors have not received any specific grant for this research from any funding agency in the public, commercial or not-for-profit sectors." |
-| **14b** | Conflicts of interest | ✅ | "Competing interests: None declared." |
-| **14c** | Protocol | ❌ | No protocol or pre-analysis plan published or referenced. |
-| **14d** | Registration | ➖ | Not registered (not a clinical study). |
-| **14e** | Data availability | ✅ | "All data relevant to the study are included in the article or uploaded as online supplemental information." Online supplemental files 1–4 contain queries, single-prompt outputs, multi-prompt outputs, and ICDs. |
-| **14f** | Code availability | ➖ | Not applicable — no analytic code beyond manual rating; no programmatic API pipeline. |
-| **15** | Patient/public involvement | ➖ | Not applicable (no patients/public involved; case studies are pedagogical). |
-| **16a** | Flow of data | ⚠️ | FERCAP–SIDCER handbook (case count not stated) → 7 cases selected → 28 LLM-case cells × 2 prompting conditions analysed; no exclusions. Selection criteria for the 7 cases not explicitly stated. |
-| **16b** | Characteristics | ✅ | Each case characterised in Table 1 with population, intervention, design, and expected key responses. Spans paediatric vaccine trials, dose-optimisation, oncology Phase II, MDS placebo-controlled, IPV qualitative study, pesticide-exposure cross-sectional. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup comparison). |
-| **16d** | N per analysis | ✅ | Table 2 covers 28 single-prompt cells; Table 3 covers multi-prompt incremental findings across the same 28 cells; Table 4 covers 28 generated ICDs. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating or retraining performed). |
+| **1** | Title | ✅ | *"Leveraging artificial intelligence to detect ethical concerns in medical research: a case study"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Institutional review boards (IRBs) have been criticised for delays in approvals for research proposals due to inadequate or inexperienced IRB staff."* `Abstract, p.126` |
+| **3b** | Background — target population | ✅ | *"Artificial intelligence (AI), particularly large language models (LLMs), has significant potential to assist IRB members in a prompt and efficient reviewing process."* `Abstract, p.126` |
+| **4** | Objectives | ✅ | *"we designed the present study to identify and compare the ability of four LLMs to recognise potential ethical issues in seven prototypical case studies. Additionally, we have evaluated the ability of these AI tools to conceive informed consent documents (ICDs) for the same case scenarios."* `Introduction, p.126` |
+| **5a** | Data sources | ✅ | *"Seven case studies were selected from the FERCAP-SIDCER handbook of case studies on ethical issues in health research published by the Forum for Ethical Review Committees in the Asian and Western Pacific Region (FERCAP) and the Strategic Initiative for Developing Capacity in Ethical Review (SIDCER)."* `Study procedure, p.127` |
+| **5b** | Data points + distribution | ✅ | *"Six queries were posed for case scenarios 1 and 2; five for scenarios 3, 4, and 6; four for scenario 7 and two for scenario 5."* `p.127` |
+| **5c** | Date range of data | ✅ | *"The present study was conducted as an observational, cross-sectional design between October and November 2023."* `Study design, p.126` |
+| **5d** | Pre-processing / quality checks | ⚠️ | *"Approval from FERCAP-SIDCER was obtained by the authors for reproducing these cases for the purpose of this research study."* `p.127` — no textual pre-processing pipeline described |
+| **5e** | Missing / imbalanced data | ✅ | *"All four LLMs were able to provide answers to questions related to all seven cases following a single prompt"* `Results, p.127` |
+| **6a** | LLM name + version | ⚠️ | *"Google Bard©. Available: https://bard.google.com/chat [Accessed 01 Feb 2024]."* `Ref 14, p.134` — access dates given for all 4 platforms; exact model checkpoints not specified |
+| **6b** | Development process | ➖ | Not applicable — off-the-shelf cloud chatbots used as-is; no fine-tuning, RAG, or system-prompt engineering by the authors |
+| **6c** | Inference settings / prompting | ❌ | Not reported |
+| **6d** | Output | ✅ | *"All four LLMs were able to provide answers to questions related to all seven cases following a single prompt"* `Results, p.127` |
+| **6e** | Classification thresholds | ➖ | Not applicable — no probabilistic classifier; outputs are open-ended text rated qualitatively |
+| **7a** | Quality metrics | ⚠️ | *"Table 2 summarises the key findings from the outputs of the LLMs following a single prompt."* `p.127` — qualitative identified/not-identified summary, no precision/recall/F1/κ |
+| **7b** | Relevance to downstream use | ✅ | *"AI can be a promising screening tool, and IRBs can even advise the investigators to screen their clinical research proposals through AI tools to identify a large majority of ethical issues."* `Discussion, p.132` |
+| **7c** | Outcome definition | ✅ | *"Two authors independently evaluated the response of four LLMs, and a consensus was reached. Additionally, the veracity of the LLM outputs was verified with the answers provided in the FERCAP-SIDCER handbook of case studies"* `p.127` |
+| **7d** | Subjective interpretation | ⚠️ | *"Two authors independently evaluated the response of four LLMs, and a consensus was reached."* `p.127` — no κ or percent-agreement statistic reported |
+| **7e** | Comparison | ✅ | *"We compared the responses of the LLMs with a single prompt containing all of the queries together and multiple prompts in which each query was posted one by one, such as engaging in a series of dialogue."* `p.127` |
+| **8a** | Annotation guidelines | ✅ | *"A short description of key responses expected from the LLMs for each case scenario is provided in table 1."* `p.127` |
+| **8b** | Annotators + IAA | ⚠️ | *"Two authors independently evaluated the response of four LLMs, and a consensus was reached."* `p.127` — no quantitative inter-annotator agreement reported |
+| **8c** | Annotator background | ⚠️ | *"Department of Pharmacology & Therapeutics, College of Medicine and Medical Sciences, Arabian Gulf University, Manama, Bahrain"* / *"Primary Health Care Centers, Manama, Bahrain"* `p.126` |
+| **9a** | Prompt design | ⚠️ | *"Below is the summary of a research proposal. Can you generate an ICD for the study participants?"* `p.127` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — off-the-shelf chatbots; no fine-tuning or RLHF performed by the authors |
+| **12** | Compute | ⚠️ | *"Currently, ChatGPT 4.0 costs US$20 per month"* `Discussion, p.132` — subscription cost noted; no token counts, GPU/CPU usage, or latency reported |
+| **13** | Ethical approval | ➖ | *"Since this study did not involve any interaction with humans or data from humans, approval from an ethics committee was not sought."* `p.126-127` |
+| **14a** | Funding | ✅ | *"The authors have not declared a specific grant for this research from any funding agency in the public, commercial or not-for-profit sectors."* `p.133` |
+| **14b** | Conflicts of interest | ✅ | *"Competing interests None declared."* `p.133` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a clinical study |
+| **14e** | Data availability | ✅ | *"All data relevant to the study are included in the article or uploaded as online supplemental information."* `p.133` |
+| **14f** | Code availability | ➖ | Not applicable — no analytic code beyond manual rating; no programmatic API pipeline |
+| **15** | Patient/public involvement | ➖ | *"Patient consent for publication Not applicable."* `p.133` |
+| **16a** | Flow of data | ✅ | *"Details of the case scenarios and the queries posed to the LLMs are detailed in online supplemental file 1."* `p.127` |
+| **16b** | Characteristics | ✅ | *"Seven case studies were selected from the FERCAP-SIDCER handbook of case studies on ethical issues in health research"* `Study procedure, p.127` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"Six queries were posed for case scenarios 1 and 2; five for scenarios 3, 4, and 6; four for scenario 7 and two for scenario 5."* `p.127` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating or retraining performed |

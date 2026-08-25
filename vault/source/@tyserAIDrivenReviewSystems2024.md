@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/partial
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -78,6 +82,8 @@ apaAuthors:
     family: "Drori"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: tyserAIDrivenReviewSystems2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f952-7812-8b4b-cd633d0b6ddb
@@ -151,7 +157,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -169,44 +180,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Open-access conference and journal venues: ICLR 2023/2024, NeurIPS 2022/2023 (with OpenReview reviews), open-access Nature journals (12 Nature titles + 4 Communications titles, Table 4). arXiv used for Papers with Reviews deployment. |
-| **5b** | Data points + distribution | ⚠️ | Source-pool sizes given (ICLR 2024: 7,404; ICLR 2023: 4,955; NeurIPS 2023: 12,345; NeurIPS 2022: 10,411 — Table 3). Reviewer Arena uses 150 papers with 2-of-5 reviewers per paper. Discipline / topic distribution not characterized. |
-| **5c** | Date range of data | ⚠️ | ICLR 2023/2024 and NeurIPS 2022/2023 implied by venue. Specific date ranges, GPT-4 inference dates, and OpenReview pull dates not explicitly stated; only "GPT-4 Turbo (Turbo-2024-04-09)" snapshot identifier is given. |
-| **5d** | Pre-processing / quality checks | ❌ | Pipeline figures (Figs. 1–3, 6, 7) describe the system but no preprocessing or quality-control protocol (e.g., paper-text extraction, table/figure handling, deduplication) is reported. |
-| **5e** | Missing / imbalanced data | ❌ | Not addressed. Class balance across paper types / accept-reject status not reported; no handling described for papers with missing reviews. |
-| **6a** | LLM name + version | ✅ | Reviewer Arena: GPT-4 Turbo (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), Command R+. Ablation/Blind eval: GPT-4 (snapshot not specified). Fine-tuning experiments (Appendix N): Gemma-2-9b-it, Llama-3.1-8b, Mistral-Nemo-Instruct-2407 (4-bit quantized). |
-| **6b** | Development process | ⚠️ | Reviewer Arena LLMs used as-is (no fine-tuning). Open-weight LLMs in Appendix N fine-tuned with data augmentation, hyperparameter tuning (Optuna), and bias correction; described in prose, not in formal training-procedure detail. |
-| **6c** | Inference settings / prompting | ⚠️ | Context bundles (P1–P5) defined; meta-prompt for editorial roles given (Fig. 29); review-question prompts shown for several venues (Tables 10–12). Inference parameters (temperature, top_p, max tokens, system prompt for Reviewer Arena LLMs) not reported. |
-| **6d** | Output | ✅ | Reviews containing 5 standardized subscores (Correctness, Tech Novelty, Empirical Novelty, Recommendation, Confidence) plus free-text. Editorial role-play outputs structured "Review score: …; [Review decision Reject/Accept]". |
-| **6e** | Classification thresholds | ➖ | Not applicable — primary outputs are continuous review scores and pairwise preferences, not classification labels. |
-| **7a** | Quality metrics | ✅ | Bradley-Terry coefficients; mean ± SD per review dimension; 0–5 Likert rubric scores; weighted Jaccard similarity for summary-overlap; confusion-matrix counts (Appendix E). |
-| **7b** | Relevance to downstream | ⚠️ | Downstream use cases described qualitatively (author feedback, conference desk-rejection, trend analysis) but no formal utility analysis (e.g., reviewer-time savings, accept/reject decision impact) reported. |
-| **7c** | Outcome definition | ✅ | Each outcome (BT-rank, recommendation score, rubric score) defined alongside the table/figure that reports it. |
-| **7d** | Subjective interpretation | ⚠️ | Pairwise preference is acknowledged as subjective; LLM biases (position, verbosity, self-enhancement, length, sentiment, negativity) discussed and partially mitigated for the human-preference predictor, but not for the Reviewer Arena human evaluators. No human-evaluator IAA reported. |
-| **7e** | Comparison | ✅ | LLMs compared to human OpenReview reviewers (BT, recommendation ablation, blind rubric); LLMs compared against each other (Reviewer Arena); human-judge vs. LLM-judge comparison (Tables 1 vs. 2). |
-| **8a** | Annotation guidelines | ❌ | Reviewer-Arena evaluators were "asked which of the two reviews … they preferred"; no formal preference-judgment guideline document or training described. Blind-eval rubric (3 questions, 0–5) defined but no scoring guideline. |
-| **8b** | Annotators + IAA | ❌ | 5 expert evaluators in Reviewer Arena; "an ICLR 2023 reviewer" for the blind rubric. No inter-annotator agreement, no per-evaluator workload, no overlap structure reported. |
-| **8c** | Annotator background | ⚠️ | Described only as "expert evaluators" / "ICLR 2023 reviewer." No discipline, seniority, demographics, or recruitment process reported. |
-| **9a** | Prompt design | ⚠️ | Cumulative context conditions P1–P5 and editorial-role meta-prompt shown; no systematic prompt-engineering search reported. Prompts for autoeval / preference judgment not shown. |
-| **9b** | Prompt-development data | ❌ | Not reported. Context documents (review form, ethics, area-chair guidelines) described as venue-supplied; no prompt-tuning held-out set described. |
-| **10** | Summarization | ✅ | GPT-4 used (with function calling) to extract structured summary points from each review and compute weighted Jaccard overlap (Appendix I). |
-| **11** | Instruction tuning / alignment | ✅ | Open-weight LLMs (Gemma-2-9b-it, Llama-3.1-8b, Mistral-Nemo-Instruct-2407) fine-tuned for the LMSYS Chatbot Arena Human Preference Predictions Kaggle competition with data augmentation + Optuna hyperparameter search + length / sentiment / negative-pattern penalties (Appendix N). Reviewer-Arena LLMs not fine-tuned. |
-| **12** | Compute | ❌ | Not reported. Quantization to 4 bits and sequence-length / batch-size grids mentioned for fine-tuning, but no GPU-hours, hardware, or cost figures. |
-| **13** | Ethical approval | ⚠️ | Section 5 + Appendix M discuss preventive ethical actions for LLM reviewing (declaration, gatekeeping checklist, debiasing). No IRB / ethics-board approval reported for the human evaluators. |
-| **14a** | Funding | ❌ | Not reported in the manuscript. |
-| **14b** | Conflicts of interest | ❌ | Not reported. |
-| **14c** | Protocol | ❌ | No pre-registered or publicly archived protocol referenced. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ⚠️ | Live deployments at openreviewer.com, papersWithReviews.com, reviewerarena.com. Reviews and scores stated to be publicly available online; no static dataset DOI / archive cited. |
-| **14f** | Code availability | ⚠️ | Two key Python listings shown (Listing 1: win-matrix; Listing 2: BT log-likelihood, Appendix P). No GitHub repository link in the manuscript text reviewed. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | Reviewer Arena: 150 papers → 2-of-5 reviewers per paper. Blind-eval sub-study: "5% random sample" of 150 (~7–8 papers). Per-condition N for Figure 14 ablation not explicitly reported. |
-| **16b** | Characteristics | ⚠️ | Source venues and discipline mix (ML conferences + Nature open-access journals) implied; per-paper characteristics (length, subfield, accept/reject status) not tabulated for the 150-paper Arena set. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-subgroup comparison). Authors do compare LLM-vs.-human score distributions (Figs. 30–31). |
-| **16d** | N per analysis | ⚠️ | Reviewer Arena: 150 papers, 5 evaluators (Tables 1–2). Blind eval: ~7–8 papers (5% of 150) (Table 5). Recommendation-score ablation (Fig. 14): N not reported per condition. Source-pool counts in Table 3. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific BT scores, recommendation means/SDs, and 2 × 2 rubric scores. |
-| **18** | LLM updating | ⚠️ | Authors note that venue-dependent context documents "require yearly updates" and that the live Papers with Reviews / Reviewer Arena deployments are designed to ingest fresh data continuously. No model-updating / re-training cadence described. |
+| **1** | Title | ✅ | *"AI-Driven Review Systems: Evaluating LLMs in Scalable and Bias-Aware Academic Reviews"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Automatic reviewing helps handle a large volume of papers, provides early feedback and quality control, reduces bias, and allows the analysis of trends."* `Abstract, p.1` |
+| **3b** | Background — target population | ✅ | *"Paper reviews are used by researchers and academics, students, lecturers, innovators and entrepreneurs, policymakers and funding agencies, science journalists, and the general public to navigate research, analyze trends, find educational purposes, and find collaborators."* `Abstract, p.1` |
+| **4** | Objectives | ✅ | *"We evaluate the alignment of automatic paper reviews with human reviews using an arena of human preferences by pairwise comparisons."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"We deploy a system called Papers with Reviews illustrated in Figure 2 that collects around five hundred academic papers daily from arXiv and around a thousand open-access Nature journal papers monthly."* `§2, p.3` |
+| **5b** | Data points + distribution | ⚠️ | *"Table 3: Number of papers collected by venue, with open reviews."* `Table 3, p.10` — source-pool sizes given (ICLR 2024: 7,404; ICLR 2023: 4,955; NeurIPS 2023: 12,345; NeurIPS 2022: 10,411), but discipline/topic distribution for the 150-paper Reviewer Arena sample is not characterized |
+| **5c** | Date range of data | ⚠️ | *"Human, GPT-4 (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), and Command R+."* `§3, p.4` — only the GPT-4 Turbo snapshot date is given; ICLR/NeurIPS submission-date ranges and OpenReview pull dates are not explicitly stated |
+| **5d** | Pre-processing / quality checks | ❌ | Not reported |
+| **5e** | Missing / imbalanced data | ❌ | Not reported |
+| **6a** | LLM name + version | ✅ | *"Human, GPT-4 (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), and Command R+."* `§3, p.4` |
+| **6b** | Development process | ⚠️ | *"We experimented with three open weight LLMs: Gemma-2-9b-it, Llama-3.1-8b, and Mistral-Nemo-Instruct-2407. We quantize these models into 4 bits."* `Appendix N, p.38` — describes the fine-tuning models only; Reviewer Arena LLMs used as-is |
+| **6c** | Inference settings / prompting | ⚠️ | *"P1 includes the full paper text (P) and conference review form (RF). P2 adds the reviewer guide (RG). P3 adds the code of ethics (CE) and code of conduct (CC). P4 adds guidelines for the area chair (AC). P5 adds the statistics of the previous year's conference."* `Appendix D, p.13` — context bundles defined, but temperature/top_p/system prompt for the Reviewer Arena LLMs not reported |
+| **6d** | Output | ✅ | *"Figure 14 shows the average and standard deviation scores of the human reviewers and LLM review for paper correctness, technical novelty and significance, empirical novelty and significance, overall recommendation score, and confidence."* `Appendix D, p.13` |
+| **6e** | Classification thresholds | ➖ | Not applicable — primary outputs are continuous review scores and pairwise preferences, not classification labels |
+| **7a** | Quality metrics | ✅ | *"This work quantifies and ranks reviewers based on observed match outcomes using a win matrix, Bradley-Terry (BT) model coefficients, and logistic regression."* `§3, p.4` |
+| **7b** | Relevance to downstream | ⚠️ | *"For authors to improve their papers: adequately citing related work, clarity, soundness etc."* `§1, p.2` — qualitative downstream use cases described but no formal utility analysis (e.g., reviewer-time savings) |
+| **7c** | Outcome definition | ✅ | *"Table 1: Human preference ranking of reviewers."* `Table 1, p.5` |
+| **7d** | Subjective interpretation | ⚠️ | *"LLMs exhibit various biases that can affect their judgment. For instance, models may exhibit position bias, favoring the first option presented, or verbosity bias, where longer, more detailed responses are preferred irrespective of quality"* `§3, p.5` |
+| **7e** | Comparison | ✅ | *"Using GPT-4 instead of a human evaluator to choose between two reviews allows to use the PPI++ estimate (Angelopoulos, Duchi, and Zrnic 2023) of the BT coefficients."* `§3, p.5` |
+| **8a** | Annotation guidelines | ❌ | *"The evaluators were asked which of the two reviews for each paper they preferred."* `§3, p.4` — describes the task given to evaluators, but no formal preference-judgment guideline document or training is reported |
+| **8b** | Annotators + IAA | ❌ | *"To evaluate the quality of the LLM-generated reviews, five expert evaluators were provided with 150 papers together with two anonymous reviews for each paper."* `§3, p.4` — no inter-annotator agreement reported |
+| **8c** | Annotator background | ⚠️ | *"The human review writer is an ICLR 2023 reviewer."* `Appendix E, p.14` — no discipline, seniority, demographics, or recruitment process reported for the five Reviewer Arena evaluators |
+| **9a** | Prompt design | ⚠️ | *"We explored four types of review questions: (i) Fixed questions for a conference or journal: for example, ICLR and NeurIPS papers (Appendix B) have fixed review forms with questions;"* `§4, p.6` — question-selection strategies described; no systematic prompt-engineering search reported |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ✅ | *"We use GPT-4 to extract points of summaries of human and LLM reviews."* `§4, p.6` |
+| **11** | Instruction tuning / alignment | ✅ | *"We perform data augmentation, hyperparameter tuning, and bias correction."* `Appendix N, p.38` |
+| **12** | Compute | ❌ | Not reported |
+| **13** | Ethical approval | ⚠️ | *"Table 13 describes preventive actions for ethical and transparent use of LLMs in the peer review process."* `Appendix M, p.37` — ethical safeguards for the system are proposed, but no IRB/ethics-board approval is reported for the human evaluators |
+| **14a** | Funding | ❌ | Not reported |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a clinical study |
+| **14e** | Data availability | ⚠️ | *"We make the reviews of publicly available arXiv and open-access Nature journal papers available online, along with a free service which helps authors review and revise their research papers"* `Abstract, p.1` — live deployments cited, but no static dataset DOI/archive |
+| **14f** | Code availability | ⚠️ | *"Listing 1: Compute win rate matrix from preferences."* `Appendix P, p.40` — key functions shown in-text; no GitHub repository link in the manuscript |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"To evaluate the quality of the LLM-generated reviews, five expert evaluators were provided with 150 papers together with two anonymous reviews for each paper."* `§3, p.4` — per-condition N for the Figure 14 ablation not explicitly reported |
+| **16b** | Characteristics | ⚠️ | *"Table 4: Nature journal IDs and their corresponding names."* `Table 4, p.10` — source venues named, but per-paper characteristics (length, subfield, accept/reject status) not tabulated for the 150-paper Arena set |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-subgroup comparison; authors do compare LLM-vs.-human score distributions: *"Figures 30 and 31 show that GPT-4 P5 score distributions are similar to human scores"* `Appendix L, p.36` |
+| **16d** | N per analysis | ⚠️ | *"Table 5 shows the average evaluation results on a randomized sample of 5% of the papers evaluated by human experts."* `Appendix E, p.14` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific BT scores, recommendation means/SDs, and 2 × 2 rubric scores. |
+| **18** | LLM updating | ⚠️ | *"These venue-dependent documents result in our review score distributions being similar to human distributions and yielding quality reviews using the full range of scores; however, they require yearly updates."* `§5, p.7` |

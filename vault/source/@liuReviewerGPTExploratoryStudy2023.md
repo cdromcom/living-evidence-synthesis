@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/partial
+  - rigor/baseline-adequacy/partial
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -48,6 +52,8 @@ apaAuthors:
     family: "Shah"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: liuReviewerGPTExploratoryStudy2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f945-72a9-a2d4-93facd4227d6
@@ -118,7 +124,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -136,44 +147,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Three hand-built datasets: (i) 13 short CS papers each seeded with one error (constructed by authors); (ii) 15 NeurIPS 2022 papers from OpenReview (10 uniform-sampled + 5 hand-picked for crowdsourcing/human-subjects category) with author checklists; (iii) 10 hand-built abstract pairs spanning 10 intervention types. All released at github.com/niharshah/ReviewerGPT2023. |
-| **5b** | Data points + distribution | ✅ | (i) 13 short papers across 13 topics (bias/fairness, regression, sorting × 2, noisy pairwise comparisons × 2, classification, game theory, ECC, optimization, clustering, distinguishing styles × 2). (ii) 119 unique {checklist question, paper} pairs from 240 candidates (15 papers × 16 questions, restricted to author-"Yes"). (iii) 10 abstract pairs (1 per intervention type). |
-| **5c** | Date range of data | ⚠️ | NeurIPS 2022 papers (post-GPT-4 training cutoff). Short papers and abstract pairs newly hand-constructed in 2023; exact construction dates not given. GPT-4 queried 5/20/23–5/23/23 for the checklist study; ChatGPT May 3 / May 12 2023 builds for the other two studies. |
-| **5d** | Pre-processing / quality checks | ⚠️ | Checklist study: per-question paper sections were hand-selected as the only context (due to 8k token limit); first author manually labeled each pair, then re-labeled all questions a second pass for calibration. Short-paper and abstract studies: no preprocessing (entire short paper / abstracts fed verbatim). No automated quality checks. |
-| **5e** | Missing / imbalanced data | ⚠️ | Checklist study restricted to items where authors answered "Yes," excluding "No" / "N/A" — explicit and rationalized. Severe class imbalance (no Yes/No/N/A breakdown by ground-truth class reported). Short-paper corpus is all "contains-error" (no clean controls). Abstract corpus is all "one-superior" (no equivalent-pair controls). |
-| **6a** | LLM name + version | ⚠️ | GPT-4 used in all three studies, but two access modalities: (a) `gpt-4` 8k via OpenAI API for checklist study (accessed 5/20–5/23/23); (b) GPT-4 via ChatGPT, May 3 and May 12 2023 builds for short-paper and abstract studies. Pilot also evaluated Bard, Vicuna, Koala, Alpaca, LLaMa, Dolly, OpenAssistant, StableLM (versions not pinned). |
-| **6b** | Development process | ➖ | No model training or fine-tuning. Pure inference-time evaluation of off-the-shelf models. |
-| **6c** | Inference settings / prompting | ⚠️ | Checklist study: temperature=1.0, top_p=1.0 (selected via pilot sweep over `temperature ∈ {0…2.0}` and `top_p ∈ {0…1.0}`); 8k context; 3 responses per pair. Short-paper and abstract studies: ChatGPT defaults; sampling parameters not reported. Number of responses (3) reported throughout. System prompts and user-prompt templates fully shown for all three tasks. |
-| **6d** | Output | ✅ | Checklist: Yes/No/N/A + brief justification, majority-voted across 3 responses. Short papers: free-text "step-by-step" check, scored ✓/✗/! by authors. Abstracts: free-text "step-by-step" recommendation of which abstract to accept, scored ✓/✗ by authors. |
-| **6e** | Classification thresholds | ⚠️ | Checklist: majority vote over 3 responses; if all 3 differ, marked incorrect. Short papers: ✓ if any of 3 responses detected error (lenient); Overall ✓ if any prompt × any response detected. Abstracts: Overall ✗ if any of 3 responses was wrong (strict). Asymmetric scoring rules acknowledged. |
-| **7a** | Quality metrics | ⚠️ | Accuracy (proportion correct) for all three studies. Per-paper / per-question breakdowns shown in tables. No precision/recall/F1; no calibration; no confidence intervals; no significance tests. |
-| **7b** | Relevance to downstream | ⚠️ | Discussion frames LLMs as reviewer assistants, not standalone reviewers. No formal downstream-utility analysis (e.g., reviewer time saved, reviewer-LLM agreement on real submissions). |
-| **7c** | Outcome definition | ✅ | Each task's success criterion (correct Yes/No/N/A; error-detected; superior-abstract-chosen) is explicitly defined per section. |
-| **7d** | Subjective interpretation | ⚠️ | Checklist ground truth labeled by 1 annotator (CS grad student, NeurIPS author, top-CS workflow chair); no second labeler, no IAA. Short-paper / abstract ground truth defined by construction (authors inserted the errors), so no rater interpretation needed. |
-| **7e** | Comparison | ⚠️ | Pilot compares GPT-4 against Bard / Vicuna / Koala / Alpaca / LLaMa / Dolly / OpenAssistant / StableLM on the 13 short papers (all 0/13). Checklist study compares GPT-4 vs. author-submitted answers (both 86.6% but disagreeing). No human-reviewer baseline. No statistical significance testing. |
-| **8a** | Annotation guidelines | ⚠️ | Checklist labeling protocol described in prose (keyword search + full scan + cross-check vs. author answer + defer to author when unsure + second-pass re-labeling). No formal codebook released. |
-| **8b** | Annotators + IAA | ❌ | Single annotator (first author) for checklist ground truth. No second annotator, no IAA. |
-| **8c** | Annotator background | ✅ | "one computer science graduate student (first author of the present paper) with a past publication in the NeurIPS conference and experience as workflow chair in a top CS conference." |
-| **9a** | Prompt design | ✅ | Three prompt templates (Direct / OneShot / Parts) for short-paper task fully shown verbatim. Checklist system + user prompts fully shown. Abstract-comparison prompt fully shown. |
-| **9b** | Prompt-development data | ⚠️ | Checklist hyperparameter pilot used "a separate NeurIPS 2022 paper and one checklist question from each checklist category." Short-paper and abstract prompts described as informed by author intuition (Appendix A pilot), no held-out development set. |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ➖ | No fine-tuning or alignment performed; off-the-shelf inference only. |
-| **12** | Compute | ❌ | Not reported. Authors note 8k token limit forced section selection ("Due to limits on the token count, we were not able to pass in entire papers to the model"). |
-| **13** | Ethical approval | ➖ | Not applicable (no human-subjects data; analysis on author-constructed papers and publicly released NeurIPS submissions). |
-| **14a** | Funding | ✅ | NSF CAREER 1942124. |
-| **14b** | Conflicts of interest | ❌ | Not declared. |
-| **14c** | Protocol | ❌ | Not reported (no pre-registered protocol). |
-| **14d** | Registration | ➖ | Not registered (not a clinical study). |
-| **14e** | Data availability | ✅ | All 13 short papers, 10 abstract pairs, and 119 checklist {question, paper} labels public at github.com/niharshah/ReviewerGPT2023. NeurIPS papers via OpenReview; checklist questions at neurips.cc. |
-| **14f** | Code availability | ✅ | "More details on the code implementation, manual labels, the pilot, and all of GPT-4's responses in the experiment are available at github.com/niharshah/ReviewerGPT2023." |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | Checklist: 15 papers → 16 questions/paper = 240 candidate pairs → 119 retained (author-"Yes" only). Short-paper and abstract studies: full enumeration (no flow diagram needed). |
-| **16b** | Characteristics | ⚠️ | Topic spans listed for short papers and intervention-type lists for abstracts; for the checklist study, paper titles shown in Table 2 but no descriptive stats (subject area distribution, accept/reject mix, paper length). |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup analysis). |
-| **16d** | N per analysis | ✅ | N=13 short papers; N=119 checklist pairs (15 papers × 16 questions filtered to "Yes"); N=10 abstract pairs. All explicitly stated. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported). |
+| **1** | Title | ⚠️ | *"ReviewerGPT? An Exploratory Study on Using Large Language Models for Paper Reviewing"* `Title, p.1` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Peer review is highly strained due to fast increasing numbers of submissions and overburdening of reviewers"* `§1, p.1` |
+| **3b** | Background — target population | ⚠️ | *"can they be used for reviewing scientific papers (or proposals)?"* `§1, p.1` |
+| **4** | Objectives | ✅ | *"we conduct an exploratory study on whether and how LLMs can be used for reviewing"* `§1, p.1` |
+| **5a** | Data sources | ✅ | *"We constructed 13 short papers (detailed in Section 3.3). In each of these papers, we deliberately inserted an error"* `§3.1, p.4` |
+| **5b** | Data points + distribution | ✅ | *"across 119 {checklist question, paper} pairs, the LLM had an 86.6% accuracy"* `Abstract, p.1` |
+| **5c** | Date range of data | ⚠️ | *"We queried GPT-4 through the gpt-4 model in the OpenAI API ... (accessed 5/20/23 - 5/23/23)"* `footnote 5, p.28` — construction dates for the short papers and abstract pairs not given |
+| **5d** | Pre-processing / quality checks | ✅ | *"for each {question, paper} pair, we selected the section(s) in the paper that best correspond to each question, and only provided those section(s) in the prompt"* `§4.1, p.27` |
+| **5e** | Missing / imbalanced data | ✅ | *"we only consider questions where the authors labeled \"Yes\" in their original checklist, as these are the items that the authors claim to have completed"* `§4.1, p.27` |
+| **6a** | LLM name + version | ✅ | *"we access the GPT-4 model through ChatGPT (May 3 and May 12 builds)"* `§3.1, p.5` |
+| **6b** | Development process | ➖ | Not applicable — no model training or fine-tuning; off-the-shelf inference only |
+| **6c** | Inference settings / prompting | ✅ | *"we evaluated GPT-4's responses varying the temperature hyperparameter in {0, 0.1, 0.2, . . . , 2.0} and the top p hyperparameter in {0, 0.1, 0.2, . . . , 1.0}... we use (1.0, 1.0) as the hyperparameter settings"* `§4.1, p.28` |
+| **6d** | Output | ✅ | *"please answer the following question with yes, no, or n/a and provide a brief justification for your answer"* `§4.1, p.28` |
+| **6e** | Classification thresholds | ✅ | *"we consider it as a ✓ if any of the responses to any of the prompts was a ✓"* `§3.2, p.5` |
+| **7a** | Quality metrics | ✅ | *"compared to the hand-labeled ground truth, GPT-4 achieves 86.6% accuracy across 119 examples"* `§4.2, p.28` |
+| **7b** | Relevance to downstream use | ⚠️ | *"Delegating tasks such as verifying checklists to the LLM can help reduce the burden on (human) reviewers."* `§6, p.48` — no formal downstream-utility analysis (e.g., reviewer time saved) |
+| **7c** | Outcome definition | ✅ | *"we consider it as a ✓ if any of the responses to any of the prompts was a ✓. This is because in practice, one can obtain multiple responses to multiple prompts and flag the paper if any of them detect an error."* `§3.2, p.5` |
+| **7d** | Subjective interpretation | ⚠️ | *"Each entry is manually labeled by one computer science graduate student (first author of the present paper)"* `§4.1, p.27` — single labeler, no second rater |
+| **7e** | Comparison | ✅ | *"author-submitted checklists also match the ground truth 86.6% of the time"* `§4.2, p.28` |
+| **8a** | Annotation guidelines | ✅ | *"we performed both a keyword search and a full scan of the paper contents to form a preliminary ground truth label"* `§4.1, p.27` |
+| **8b** | Annotators + IAA | ❌ | Not reported — single annotator (first author); no second labeler or inter-annotator agreement statistic given |
+| **8c** | Annotator background | ✅ | *"with a past publication in the NeurIPS conference and experience as workflow chair in a top CS conference"* `§4.1, p.27` |
+| **9a** | Prompt design | ✅ | *"System prompt: You are a computer science researcher currently reviewing a paper titled \"[paper title]\" for the NeurIPS computer science conference."* `§4.1, p.28` |
+| **9b** | Prompt-development data | ✅ | *"for a separate NeurIPS 2022 paper and for one checklist question from each checklist category, we evaluated GPT-4's responses varying the temperature hyperparameter"* `§4.1, p.28` |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no model training, fine-tuning, or alignment performed |
+| **12** | Compute | ⚠️ | *"we used the standard GPT-4 model with 8k tokens for the context. Due to limits on the token count, we were not able to pass in entire papers to the model."* `§4.1, p.27-28` — no GPU/API cost or wall-clock reported |
+| **13** | Ethical approval | ➖ | Not applicable — no human-subjects data collected by the authors; no IRB/ethics-committee statement present for this paper's own study |
+| **14a** | Funding | ✅ | *"This work was supported by NSF CAREER 1942124."* `Acknowledgments, p.49` |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"More details on the code implementation, manual labels, the pilot, and all of GPT-4's responses in the experiment are available at https://github.com/niharshah/ReviewerGPT2023."* `§4.1, p.28` |
+| **14f** | Code availability | ✅ | *"Additional responses from the LLM are available at https://github.com/niharshah/ReviewerGPT2023."* `§5.3, p.33` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"After removing two checklist items (Appendix B.1), we list the remaining 16 NeurIPS 2023 checklist items"* `§B.2, p.59` |
+| **16b** | Characteristics | ✅ | *"Table 2: Accuracy of GPT-4 on papers and checklist questions."* `Table 2, p.29` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"we selected 15 papers from the NeurIPS 2022 conference OpenReview platform"* `§4.1, p.27` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -81,6 +85,8 @@ apaAuthors:
     family: "Zou"
 peerReviewStatus: not-checked
 peerReviewNote: "NEJM AI blocked automated access (403)"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: liangCanLargeLanguage2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f943-7596-91de-9191d88da102
@@ -163,7 +169,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -181,44 +192,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Three datasets: (i) 15 Nature family journals via nature.com (Supp. Table 1); (ii) ICLR 2022 + 2023 via OpenReview API (Supp. Table 2); (iii) prospective survey of 308 arXiv-recruited authors. |
-| **5b** | Data points + distribution | ✅ | Nature: 3,096 papers / 8,745 reviews (per-journal counts in Supp. Table 1; mean 12,444 paper tokens / 1,338 review tokens). ICLR: 1,709 papers / 6,505 reviews stratified by Oral/Spotlight/Poster/Reject/Withdrawn (Supp. Table 2; mean 5,841 paper tokens / 672 review tokens, Supp. Table 4). Aspect sub-study: 500 ICLR papers. |
-| **5c** | Date range of data | ✅ | Nature: papers published Jan 1, 2022 – Jun 17, 2023. ICLR: 2022 + 2023 conference cycles. Survey: arXiv preprints from Jan–Mar 2023 (recruitment window); user-uploaded papers restricted to post-Sep 2021. |
-| **5d** | Pre-processing / quality checks | ✅ | PDFs parsed with ScienceBeam (ML-based PDF parser); inputs truncated to first 6,500 tokens (title + abstract + figure/table captions + main text). Pipeline F1 validated for both extraction and matching stages (Supp. Table 3). |
-| **5e** | Missing / imbalanced data | ⚠️ | Imbalance addressed by controlling for the number of comments when comparing GPT-4-vs-human against human-vs-human (set A truncated to first N comments). Stratified sampling of 800 pairs (400 matched + 400 not-matched) for IAA. No explicit handling of missing reviewer reports beyond restricting to journals with public review. |
-| **6a** | LLM name + version | ⚠️ | "OpenAI's GPT-4" cited via the GPT-4 Technical Report (ref 19). Specific snapshot/version (e.g., gpt-4-0314 / gpt-4-0613) not disclosed. |
-| **6b** | Development process | ✅ | Zero-shot, no fine-tuning; single forward pass per paper. Authors explicitly note "our system only leverages zero-shot learning of GPT-4 without fine-tuning on additional datasets." |
-| **6c** | Inference settings / prompting | ⚠️ | Prompt structure described and a schematic prompt shown in Supp. Fig. 5 + Supp. Fig. 12 (4-section reviewer outline). Token budget (8,192) and input budget (~6,500 tokens) reported. Temperature, top_p, seed, and system prompt not reported. |
-| **6d** | Output | ✅ | Structured natural-language feedback in 4 sections: significance & novelty, potential reasons for acceptance, potential reasons for rejection, suggestions for improvement. Downstream pipeline parses into JSON `{ID: comment}` lists. |
-| **6e** | Classification thresholds | ✅ | Semantic-matching pipeline outputs a 5–10 similarity rating; only matches rated ≥ 7 ("Strongly Related") retained. Authors note 5–6 ratings introduced variability misaligned with humans. |
-| **7a** | Quality metrics | ✅ | Hit rate (|A∩B|/|A|), Szymkiewicz–Simpson, Jaccard, Sørensen–Dice (Supp. Fig. 2). Pipeline-validation F1 / precision / recall reported for each stage. Pearson r for cross-journal and cross-decision consistency. Likert distributions for the user study. |
-| **7b** | Relevance to downstream | ⚠️ | Downstream framing is "useful feedback for authors before submission"; user-study Likert ratings (helpfulness, willingness to reuse) provide partial downstream signal, but no measurable improvement in downstream paper quality (revision uptake, acceptance) is evaluated. |
-| **7c** | Outcome definition | ✅ | Two outcomes operationalized: (a) automated semantic overlap between GPT-4 and human review comments; (b) self-reported helpfulness / comparative benefit on 5-point Likert scales. |
-| **7d** | Subjective interpretation | ✅ | Multi-annotator coding for both pipeline-validation tasks (2 co-authors for extraction, 3 for matching IAA). User-study Likert ratings explicitly characterized as "subjective perceptions." |
-| **7e** | Comparison | ✅ | GPT-4 vs. human reviewer (controlled for N comments); GPT-4 vs. shuffled GPT-4 (null model); GPT-4 vs. human across journals and ICLR decision strata; aspect-by-aspect log-frequency comparison; user-study comparison vs. perceived human reviewer feedback. |
-| **8a** | Annotation guidelines | ⚠️ | 11-aspect annotation schema described (developed from ML peer-review literature + initial annotator exploration) and example codings shown (Supp. Tables 5, 6, 7). Pipeline-validation rubric (TP / FN / FP for extraction; matched-yes/no for matching) described. Full written codebook not in main text. |
-| **8b** | Annotators + IAA | ⚠️ | Pipeline-validation IAA on matching stage: 89.8% pairwise agreement, F1 = 0.887 (3 annotators on 800 stratified pairs). For the 11-aspect ICLR aspect-coding sub-study, IAA / κ between the 2 ML-background annotators is not reported. |
-| **8c** | Annotator background | ⚠️ | Aspect annotators described as "two researchers with a background in machine learning"; pipeline-validation annotators described as "co-authors." No further demographic detail. |
-| **9a** | Prompt design | ⚠️ | Prompt schematic shown in Supp. Fig. 5 and Supp. Fig. 12; structure (4-section outline mirroring leading conferences and Nature reviewer instructions) described. Authors note "the architecture and prompt used in our study only represent one of the many possible forms" and acknowledge no systematic prompt engineering. |
-| **9b** | Prompt-development data | ❌ | No held-out prompt-development set described. Authors describe "significant efforts in improving the performance of our GPT-4 feedback pipeline" but do not document the development data. |
-| **10** | Summarization | ✅ | Stage 1 of the pipeline is GPT-4-based extractive summarization of feedback into JSON comment lists; references prior summarization literature (Luhn 1958, Edmundson 1969, TextRank, LexRank). Pipeline F1 = 0.968. |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable. GPT-4 used zero-shot; no fine-tuning, RLHF, or instruction tuning performed by the authors. |
-| **12** | Compute | ❌ | Not reported. No GPU-hours, API-call counts, or cost figures disclosed. |
-| **13** | Ethical approval | ✅ | Stanford University IRB approval reported for the prospective user study (p. 11). System ethics statement embedded in the Gradio demo discouraging direct use of LLM content for review-related tasks. |
-| **14a** | Funding | ✅ | NSF (CCF 1763191; CAREER 1942926); NIH (P30AG059307; U01MH098953); Silicon Valley Foundation; Chan-Zuckerberg Initiative (J.Z.). Stanford Interdisciplinary Graduate Fellowship (H.C.). |
-| **14b** | Conflicts of interest | ❌ | No competing-interests / conflicts statement appears in the manuscript text reviewed. |
-| **14c** | Protocol | ❌ | No pre-registered protocol referenced. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical trial). |
-| **14e** | Data availability | ⚠️ | Source data sourced from public Nature website + OpenReview API (URLs cited). User-study survey responses are not stated to be publicly released. No explicit data-availability statement aggregating the released artifacts. |
-| **14f** | Code availability | ✅ | github.com/Weixin-Liang/LLM-scientific-feedback (URL printed in the Code Availability section, p. 11). |
-| **15** | Patient/public involvement | ➖ | Not applicable (no patient-facing application). |
-| **16a** | Flow of data | ⚠️ | Nature: 3,096 papers / 8,745 reviews flow into the pipeline. ICLR: 1,709 / 6,505 with stratified sampling counts in Supp. Table 2. Survey: 308 respondents from 110 institutions. No explicit CONSORT-style exclusions diagram for the survey (e.g., emails sent → opened → uploaded paper → completed survey). |
-| **16b** | Characteristics | ✅ | Per-journal paper / review counts (Supp. Table 1); per-decision counts for ICLR (Supp. Table 2); mean token lengths per dataset (Supp. Table 4); user-study covariates (publishing experience, professional status — Supp. Figs. 3, 4). |
+| **1** | Title | ⚠️ | *"Can large language models provide useful feedback on research papers? A large-scale empirical analysis."* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"the process of providing timely, comprehensive, and insightful feedback on scientific research is often laborious, resource-intensive, and complex"* `Introduction, p.2` |
+| **3b** | Background — target population | ✅ | *"Researchers who are more junior or from under-resourced settings have especially hard times getting timely feedback."* `Abstract, p.1` |
+| **4** | Objectives | ✅ | *"To address this gap, we created an automated pipeline using GPT-4 to provide comments on the full PDFs of scientific papers."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"The data were sourced directly from the Nature website (https://nature.com/)."* `Methods, p.8` — *"The paper PDFs and corresponding reviews were retrieved using the OpenReview API (https://docs.openreview.net/)."* `Methods, p.8` |
+| **5b** | Data points + distribution | ✅ | *"In total, our dataset includes 3,096 accepted papers and 8,745 reviews (Supp. Table 1)."* `Methods, p.8` — *"The dataset comprises 1709 papers and 6,506 reviews in total (Supp. Table 2)."* `Methods, p.8` |
+| **5c** | Date range of data | ✅ | *"Our dataset comprises papers from 15 Nature family journals, published between January 1, 2022, and June 17, 2023."* `Methods, p.8` |
+| **5d** | Pre-processing / quality checks | ✅ | *"The system's input was the academic paper in PDF format, which was then parsed with the machine-learning-based ScienceBeam PDF parser."* `Methods, p.8` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"we controlled for the number of comments when measuring the hit rate for Human vs. Human. Specifically, we considered only the first N comments made by the first human"* `Methods, p.10` — *"we employed stratified sampling, drawing 400 pairs identified as matches by the pipeline and 400 as non-matches"* `Methods, p.9`; no explicit handling of missing reviewer reports beyond restricting to journals with public review |
+| **6a** | LLM name + version | ⚠️ | *"We prototyped a pipeline to generate scientific feedback using OpenAI's GPT-4"* `Methods, p.8` — specific snapshot/version (e.g., gpt-4-0314 vs. gpt-4-0613) not disclosed |
+| **6b** | Development process | ✅ | *"our system only leverages zero-shot learning of GPT-4 without fine-tuning on additional datasets"* `Discussion, p.7` |
+| **6c** | Inference settings / prompting | ⚠️ | *"the initial 6,500 tokens of the extracted title, abstract, figure and table captions, and main text were utilized to construct the prompt for GPT-4"* `Methods, p.8–9` — temperature, top_p, seed, and system prompt not reported |
+| **6d** | Output | ✅ | *"we instructed GPT-4 to generate a structured outline of scientific feedback"* `Methods, p.9` |
+| **6e** | Classification thresholds | ✅ | *"we only retained matches ranked "7. Strongly Related" or above for subsequent analyses"* `Methods, p.9` |
+| **7a** | Quality metrics | ✅ | *"Hit Rate = \|A∩B\| / \|A\|"* `Methods, p.10` — *"we also evaluated three additional metrics: the Szymkiewicz-Simpson overlap coefficient, the Jaccard index, and the Sørensen-Dice coefficient"* `Methods, p.10` |
+| **7b** | Relevance to downstream use | ⚠️ | *"This could be especially helpful for researchers who lack access to timely quality feedback mechanisms"* `Discussion, p.7` — no measurable improvement in downstream paper quality (revision uptake, acceptance) is evaluated |
+| **7c** | Outcome definition | ✅ | *"The hit rate, defined as the proportion of comments in set A that match those in set B"* `Methods, p.10` |
+| **7d** | Subjective interpretation | ✅ | *"Two co-authors assessed each feedback and its corresponding list of extracted comments"* `Methods, p.9` — *"understand stakeholder's subjective perceptions of the framework"* `Introduction, p.3` |
+| **7e** | Comparison | ✅ | *"To facilitate a direct comparison between the hit rates of GPT-4 vs. Human and Human vs. Human, we controlled for the number of comments"* `Methods, p.10` |
+| **8a** | Annotation guidelines | ⚠️ | *"Each aspect was defined by its underlying emphasis, such as novelty, research implications, suggestions for additional experiments, and more."* `Methods, p.10` — full written codebook not in main text |
+| **8b** | Annotators + IAA | ⚠️ | *"The data showed 89.8% pairwise agreement and an F1 score of 88.7%, indicating the reliability of the semantic text matching stage."* `Methods, p.9` — no quantitative IAA reported for the 11-aspect ICLR aspect-coding sub-study |
+| **8c** | Annotator background | ⚠️ | *"two researchers with a background in machine learning performed the annotations"* `Methods, p.10` — no further demographic detail |
+| **9a** | Prompt design | ⚠️ | *"Following the reviewer report instructions from machine learning conferences...and Nature family journals...we provided specific instructions to generate four feedback sections"* `Methods, p.9` — *"the architecture and prompt used in our study only represent one of the many possible forms"* `Discussion, p.7` |
+| **9b** | Prompt-development data | ❌ | *"we have spent significant efforts in improving the performance of our GPT-4 feedback pipeline (and achieved reasonable utility)"* `Discussion, p.7` — no held-out prompt-development set or data documented |
+| **10** | Summarization | ✅ | *"we employed an extractive text summarization approach...Each feedback text, either from the LLM or a human, was processed by GPT-4 to extract a list of the points of comments raised in the text"* `Methods, p.9` — *"resulted in an F1 score of 0.968"* `Methods, p.9` |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — GPT-4 used zero-shot; no fine-tuning, RLHF, or instruction tuning performed by the authors |
+| **12** | Compute | ❌ | Not reported — no GPU-hours, API-call counts, or cost figures disclosed |
+| **13** | Ethical approval | ✅ | *"The study has been approved by Stanford University's Institutional Review Board."* `Methods, p.11` |
+| **14a** | Funding | ✅ | *"J.Z. is supported by the National Science Foundation (CCF 1763191 and CAREER 1942926), the US National Institutes of Health (P30AG059307 and U01MH098953) and grants from the Silicon Valley Foundation and the Chan-Zuckerberg Initiative."* `Acknowledgements, p.11` |
+| **14b** | Conflicts of interest | ❌ | Not reported — no competing-interests / conflicts statement appears in the manuscript text reviewed |
+| **14c** | Protocol | ❌ | Not reported — no pre-registered protocol referenced |
+| **14d** | Registration | ➖ | Not applicable — not a clinical trial |
+| **14e** | Data availability | ⚠️ | *"The data were sourced directly from the Nature website (https://nature.com/)."* `Methods, p.8` — *"retrieved using the OpenReview API (https://docs.openreview.net/)"* `Methods, p.8`; user-study survey responses not stated to be publicly released |
+| **14f** | Code availability | ✅ | *"The codes can be accessed at https://github.com/Weixin-Liang/LLM-scientific-feedback."* `Code Availability, p.11` |
+| **15** | Patient/public involvement | ➖ | Not applicable — no patient-facing application |
+| **16a** | Flow of data | ⚠️ | *"The first dataset, sourced from Nature family journals, includes 8,745 comments from human reviewers for 3,096 accepted papers across 15 Nature family journals"* `Methods, p.8` — *"The second dataset comprises 6,505 comments from human reviewers for 1,709 papers from the International Conference on Learning Representations (ICLR)"* `Methods, p.8`; no explicit CONSORT-style exclusions diagram for the survey arm |
+| **16b** | Characteristics | ✅ | *"Within this period, our dataset includes 773 accepted papers from Nature with 2,324 reviews, 810 sampled accepted papers from Nature Communications with 2,250 reviews, and many others."* `Methods, p.8` |
 | **16c** | Distribution comparison | ➖ | Not applicable in the clinical-subgroup sense. The closest analogues — per-journal and per-decision overlap stratifications — are reported (Fig. 2c, d). |
-| **16d** | N per analysis | ✅ | Nature overlap: 3,096 papers. ICLR overlap: 1,709 papers. Aspect-coding sub-study: 500 ICLR papers. Pipeline validation: 639 feedbacks (extraction); 760 feedback pairs / 12,035 comment pairs (matching); 800 stratified pairs (IAA). User study: 308 respondents. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **16d** | N per analysis | ✅ | *"Using a stratified sampling method, we included 55 Oral (with 200 reviews), 173 Spotlight (664 reviews), 197 Poster (752 reviews), 213 rejected (842 reviews), and 182 withdrawn (710 reviews) papers from 2022."* `Methods, p.8` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
 | **18** | LLM updating | ➖ | Not applicable. No LLM updating, fine-tuning, or retraining over time is reported. |

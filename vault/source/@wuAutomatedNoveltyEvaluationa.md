@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/partial
+  - rigor/train-dev-test/addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/not-addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -54,6 +58,8 @@ apaAuthors:
     family: "Zhao"
 peerReviewStatus: not-checked
 peerReviewNote: "Wiley returned 402 Payment Required"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: wuAutomatedNoveltyEvaluationa
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95a-7ee1-ba78-ba0e4133973c
@@ -128,7 +134,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -146,44 +157,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | ICLR 2022 papers + peer-review reports crawled from OpenReview; method sections parsed from paper PDFs via GROBID + S2ORC. |
-| **5b** | Data points + distribution | ✅ | 3,376 papers crawled → 2,432 instances after exclusions. Class breakdown (Table 1): TNS=1: 51 (ACC/REJ/WDR = 0/29/22); TNS=2: 1,374 (195/737/442); TNS=3: 936 (535/306/95); TNS=4: 71 (63/7/1). Collapsed to Low Novelty (TNS 1-2; n=1,425) vs. High Novelty (TNS 3-4; n=1,007). |
-| **5c** | Date range of data | ⚠️ | Data scope = ICLR 2022 submission cycle; review-report timestamp shown in Figure 2 example is 06 Nov 2021. Exact crawl window and LLM API call dates not stated. |
-| **5d** | Pre-processing / quality checks | ✅ | PDFs parsed with GROBID + S2ORC; manually-defined rules used to identify and extract title and methodology section (handling order vs. related-work placement). HK obtained by running Yuan et al. (2022) aspect annotation model on review reports. LLMK obtained from gpt-3.5-turbo with temperature 0, capped at 200 words, one pass per paper, "manually assessed" as reliable. |
-| **5e** | Missing / imbalanced data | ⚠️ | Papers with reviewer TNS max-min disagreement >1 excluded (944 of 3,376 dropped). Class imbalance acknowledged (TNS=1 and TNS=4 cells very small) and addressed by collapsing to binary Low/High Novelty. Negative sampling (5 negatives per instance) used during training; no formal class-rebalancing or weighting reported. |
-| **6a** | LLM name + version | ✅ | ChatGPT gpt-3.5-turbo (used to generate LLMK and as a zero-shot baseline at gpt-3.5-turbo-0125); GPT-4o; Claude-3.5-sonnet-all; LLaMA-3.1 8B; PLM baselines BERT, RoBERTa, SciBERT, XLNet, ALBERT (768-dim embeddings). |
-| **6b** | Development process | ✅ | PLMs fine-tuned end-to-end with the knowledge-guided fusion module; trained for binary MNP with negative sampling (5 negatives), Adam optimizer (lr 1e-5), batch size 16, dropout 0.2, 12 self-attention / 6 sparse-attention heads, sparse dim 128. Best checkpoint selected on test set. LLMs used zero-shot. |
-| **6c** | Inference settings / prompting | ⚠️ | LLMK prompt: title + method section + "No more than 200 words"; gpt-3.5-turbo at temperature 0, "all other parameters at default settings." Zero-shot LLM prompts shown in Figures S4–S6 (supplementary). System prompts, top_p, max-token caps, seed not reported in main text. |
-| **6d** | Output | ✅ | LLMK output = ≤200-word free-text novelty evaluation/summary (used as input to the fusion model); MNP output = binary {Low Novelty, High Novelty} via softmax + FC layer. |
-| **6e** | Classification thresholds | ✅ | TNS scores collapsed: 1-2 → Low Novelty; 3-4 → High Novelty. No probability threshold reported (argmax of softmax). |
-| **7a** | Quality metrics | ✅ | Weighted F1 and Accuracy on the test split. |
-| **7b** | Relevance to downstream | ⚠️ | Authors discuss screening utility and pipeline use cases for new domains in Discussion, but no formal downstream-utility experiment (e.g., reviewer time savings). |
-| **7c** | Outcome definition | ✅ | Method-novelty prediction (MNP) — predict binary Low vs. High novelty of a paper's methodology, using TNS reviewer scores as gold label. |
-| **7d** | Subjective interpretation | ⚠️ | TNS reviewer scoring is inherently subjective (reviewer-assigned 1-4); inter-reviewer agreement not quantified beyond max-min ≤1 inclusion rule. LLMK reliability described as "manual assessment" but no IAA-style metric. |
-| **7e** | Comparison | ✅ | Proposed Ours-{BERT, RoBERTa, SciBERT, XLNet, ALBERT} vs. five PLM baselines (HK+MT and HK+LLMK) and four zero-shot LLMs (LLaMA-3.1, ChatGPT, GPT-4o, Claude-3.5). Ablation over three components in Table 4. Case study in Figure 5. |
-| **8a** | Annotation guidelines | ⚠️ | TNS rubric reused from ICLR 2022 reviewer guidelines (1: not novel … 4: novel and not in prior work; Table S1). No project-internal labelling instructions because labels were taken from existing reviewer scores. |
-| **8b** | Annotators + IAA | ⚠️ | 3-5 ICLR 2022 reviewers per paper. No formal IAA metric; disagreement handled by exclusion rule (max-min >1 dropped). |
-| **8c** | Annotator background | ⚠️ | "Expert reviewers at ICLR 2022" — domain expertise asserted but no per-reviewer demographics or seniority data. |
-| **9a** | Prompt design | ⚠️ | Single fixed prompt template (Figures 1, 3) for ChatGPT LLMK generation: paper title + extracted method section + "No more than 200 words." Zero-shot LLM baseline prompts in Figures S4–S6 of supplementary. No systematic prompt-engineering search; authors flag this as a limitation. |
-| **9b** | Prompt-development data | ❌ | No held-out prompt-development split or example-selection procedure described. |
-| **10** | Summarization | ✅ | Core use of LLM is summarization: ChatGPT summarizes the methodology section into a ≤200-word novelty-focused feedback, which becomes the LLMK input. |
-| **11** | Instruction tuning / alignment | ➖ | LLMs used off-the-shelf zero-shot; PLMs fine-tuned for the classification task but not instruction-tuned. |
-| **12** | Compute | ⚠️ | "All models are run with V100 or RTX 4090 GPU." Total compute, training time, and API cost not reported. |
-| **13** | Ethical approval | ➖ | Not applicable (analysis on public peer-review data; no human-subjects intervention). |
-| **14a** | Funding | ✅ | National Natural Science Foundation of China (Grant No. 72074113) and Graduate Research and Practice Innovation Program of Jiangsu Province (Grant No. KYCX22_0497). |
-| **14b** | Conflicts of interest | ❌ | Not stated. |
-| **14c** | Protocol | ❌ | No pre-registered protocol reported. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ✅ | Public at github.com/njust-winchy/method_novelty_predict. |
-| **14f** | Code availability | ✅ | Same repository (github.com/njust-winchy/method_novelty_predict). |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | 3,376 ICLR 2022 papers crawled → exclude reviewer-disagreement >1 → 2,432 instances → 8:1:1 split (≈1,945 train / ≈243 val / ≈244 test). |
-| **16b** | Characteristics | ✅ | Table 1 reports per-TNS and per-decision (ACC/REJ/WDR) counts; all papers from a single venue (ICLR 2022, machine-learning domain); review reports come from 3-5 reviewers per paper. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-subgroup analysis; single-domain dataset). |
-| **16d** | N per analysis | ⚠️ | Total N=2,432 stated, but exact train/val/test sizes not numerically printed (only the 8:1:1 ratio). Per-class test counts not reported. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific F1 / Accuracy / ablation deltas. |
-| **18** | LLM updating | ➖ | Not applicable (no monitoring or updating procedure for the deployed model reported). |
+| **1** | Title | ✅ | *"Automated Novelty Evaluation of Academic Paper: A Collaborative Approach Integrating Human Expertise and Large Language Models"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Because peer review (Siler et al., 2015) necessitates a comprehensive evaluation of a manuscript's novelty, reliability, clarity, and significance to maintain consistently high standards in academic publications. The rapid advancement of artificial intelligence ... has also opened possibilities for predicting the novelty of papers without relying on citations."* `§1, p.2` |
+| **3b** | Background — target population | ✅ | *"The International Conference on Learning Representations (ICLR) is a premier conference in the field of machine learning. We wrote a web crawler code to retrieve a total of 3376 ICLR papers, each containing peer review comments and its decision, accepted (ACC), rejected (REJ), and withdrawn (WDR)."* `§3.1, p.11` |
+| **4** | Objectives | ✅ | *"In this paper, we propose leveraging human knowledge and LLM to assist pretrained language models (PLMs, e.g. BERT etc.) in predicting the method novelty of papers."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"We obtain our peer review data from the OpenReview platform. ... We wrote a web crawler code to retrieve a total of 3376 ICLR papers, each containing peer review comments and its decision"* `§3.1, p.11` |
+| **5b** | Data points + distribution | ✅ | *"# TNS=1 0 29 22 51 · # TNS=2 195 737 442 1374 · # TNS=3 535 306 95 936 · # TNS=4 63 7 1 71 · # Papers 793 1079 560 2432"* `Table 1, p.13` |
+| **5c** | Date range of data | ⚠️ | *"The peer review reports for International Conference on Learning Representations (ICLR) 2022 include the review text, Correctness, Technical Novelty and Significance, Empirical Novelty and Significance, Recommendation, and Confidence."* `§3.2, p.13` — exact crawl window and LLM API call dates not stated |
+| **5d** | Pre-processing / quality checks | ✅ | *"We utilized the GROBID (2008-2022) and S2ORC (Lo et al., 2020) tools to parse the PDFs into JSON format. Subsequently, we manually defined numerous rules to extract the title and the methodology sections from the parsed PDFs."* `§3.2, p.11-12` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"we identified the maximum and minimum scores in each review report and exclude instances where the difference exceeds 1, signifying reviewer disagreement. These cases are subsequently removed from the dataset."* ... *"the extremely imbalanced distribution of labels may lead to unfair prediction results. Therefore ... we grouped scores 1 and 2 into one category, and scores 3 and 4 into another category."* `§3.2, p.14` |
+| **6a** | LLM name + version | ✅ | *"Llama 3.1 is 8B version, ChatGPT's version is gpt-3.5-turbo-0125, GPT-4o's version is gpt-4o, Claude's version is claude-3-5-sonnet-all."* `§5.2, p.19-20` |
+| **6b** | Development process | ✅ | *"We use Adam (Kingma & Ba, 2014) with an initial learning rate of 1e-5 and update parameters with a batch size of 16. The trained model represents the best-performing model based on the validation set results. We split our dataset by a ratio of 8:1:1 for training, development and testing."* `§5.1, p.18` |
+| **6c** | Inference settings / prompting | ⚠️ | *"When calling the API, all parameters are default parameters. The experimental results of the LLMs are the averages obtained from three rounds of experiments conducted under zero-shot conditions."* `§5.2, p.20` — for LLMK generation: *"we set the temperature parameter to 0, while keeping all other parameters at their default settings"* `§3.2, p.12` — system prompt, top_p, seed not reported |
+| **6d** | Output | ✅ | *"The goal of MNP is to develop a classification model f that assigns predefined novelty (Low novelty and High novelty) based on the review text and feedback."* `§4.1, p.16` |
+| **6e** | Classification thresholds | ✅ | *"we retained only the scores for Technical Novelty and Significance (TNS) as the gold standard for novelty"* ... *"we grouped scores 1 and 2 into one category, and scores 3 and 4 into another category"* `§3.2, p.13-14` — no probability threshold reported (argmax of softmax) |
+| **7a** | Quality metrics | ✅ | *"We adopt Accuracy and Weighted F1 as the evaluation metrics for our dataset to evaluate the performance of the model."* `§5.1, p.18` |
+| **7b** | Relevance to downstream use | ⚠️ | *"In these cases, automated evaluation becomes essential to synthesize multiple reviewers' perspectives and offer readers a more objective and unified assessment."* `§6.3, p.30` — no formal downstream-utility experiment (e.g. reviewer time savings) reported |
+| **7c** | Outcome definition | ✅ | *"Based on the collected dataset, we defined a new task: method novelty prediction (MNP)."* `§4.1, p.16` |
+| **7d** | Subjective interpretation | ⚠️ | *"Through our manual assessment, the feedback generated by ChatGPT is relatively reliable."* `§3.2, p.12` — no IAA-style metric for TNS reviewer scoring itself |
+| **7e** | Comparison | ✅ | *"The results are illustrated in Table 2."* ... *"we conducted an additional comparative experiment. In this section, we separately used the HK, MT and LLMK from the previous section as inputs"* `Table 2, p.20; Table 3, §5.3.2, p.23` — plus ablation `Table 4, p.25` and case study `Figure 5, §5.5, p.26` |
+| **8a** | Annotation guidelines | ✅ | *"Yuan et al. (Yuan et al., 2022) followed the Annual Meeting of the Association for Computational Linguistics (ACL) review guidelines and utilized human annotators to label 1000 instances for aspects such as summarization, motivation, novelty, soundness, significance, replicability, meaningful comparisons, and clarity."* `§3.2, p.12-13` |
+| **8b** | Annotators + IAA | ⚠️ | *"Each paper receives evaluations from three to four reviewers, and each reviewer assigns a Technical Novelty and Significance (TNS) score."* `§3.2, p.13-14` — no quantitative inter-annotator agreement (κ/α) reported, only the max-min ≤1 exclusion rule |
+| **8c** | Annotator background | ⚠️ | *"the crucial data of novelty scores, provided by expert reviewers at ICLR 2022"* `§2.2, p.8` — no per-reviewer demographics or seniority data |
+| **9a** | Prompt design | ✅ | *"we utilized the extracted title and methodology section of the papers to construct the prompt for ChatGPT. We requested ChatGPT to provide evaluations and summaries of the novelty of the methodology section, with a constraint of staying within 200 words."* `§3.2, p.12` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ✅ | *"We requested ChatGPT to provide evaluations and summaries of the novelty of the methodology section, with a constraint of staying within 200 words."* `§3.2, p.12` |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — LLMs used off-the-shelf zero-shot; PLMs fine-tuned for the classification task but not instruction-tuned |
+| **12** | Compute | ⚠️ | *"All models are run with V100 or RTX 4090 GPU."* `§5.1, p.18` — total compute, training time, and API cost not reported |
+| **13** | Ethical approval | ➖ | Not applicable — no IRB/ethics-committee or impact statement found in the paper (analysis of public peer-review data; not human-subjects research) |
+| **14a** | Funding | ✅ | *"This work is supported by the National Natural Science Foundation of China (Grant No. 72074113) and the Graduate Research and Practice Innovation Program of Jiangsu Province (Grant No. KYCX22 0497)"* `§8 Acknowledgment, p.32` |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"The code and dataset for this paper can be accessed at https://github.com/njust-winchy/method_novelty_predict."* `§1, p.6` |
+| **14f** | Code availability | ✅ | *"The code and dataset for this paper can be accessed at https://github.com/njust-winchy/method_novelty_predict."* `§1, p.6` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"We wrote a web crawler code to retrieve a total of 3376 ICLR papers"* ... *"Following all the aforementioned preprocessing steps, the final dataset consists of 2432 instances."* `§3.1, p.11; §3.2, p.14` |
+| **16b** | Characteristics | ✅ | *"# TNS=1 0 29 22 51 · # TNS=2 195 737 442 1374 · # TNS=3 535 306 95 936 · # TNS=4 63 7 1 71 · # Papers 793 1079 560 2432"* `Table 1, p.13` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ⚠️ | *"We split our dataset by a ratio of 8:1:1 for training, development and testing."* `§5.1, p.18` — exact train/val/test counts not numerically printed |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

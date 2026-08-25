@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/partial
+  - rigor/train-dev-test/unresolved
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/not-addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -62,6 +66,8 @@ apaAuthors:
     family: "Ardern"
 peerReviewStatus: not-found
 peerReviewNote: "Checked the full paper PDF directly — no peer review report link or reference found"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: wrightsonGPTRCTsUsing2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e
@@ -139,7 +145,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -157,44 +168,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`. Reporting was self-described as following the **MI-CLAIM** checklist (Norgeot et al. 2020), filed on OSF.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`. Reporting was self-described as following the **MI-CLAIM** checklist (Norgeot et al. 2020), filed on OSF.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Subsample of Schulz et al. 2020 systematic review of sports-medicine RCTs (160 peer-reviewed papers from 2020). Open-access papers (n=24) extracted from PubMed Central; remainder from publisher EPUB / PDF. Rationale (open-source replicability) given for including Llama 2. |
-| **5b** | Data points + distribution | ✅ | Table 1 reports per-question pair counts (108–113) and per-question Schulz-et-al. adherence (range 20%–77%). Online supplemental table S1 lists by-journal distribution. Image sub-study n=20 (10 CONSORT flow diagrams + 10 distractors). |
-| **5c** | Date range of data | ⚠️ | All papers from publication year 2020 (via Schulz et al.); GPT-4 Turbo / Vision OpenAI snapshot dates and Llama 2 weights snapshot not disclosed. |
-| **5d** | Pre-processing / quality checks | ✅ | Papers excluded if text extraction contained errors or electronic file inaccessible. Each paper split into Introduction / Method / Results to fit Llama 2 context window (Liu & Shah procedure). For Q9, Method + Results concatenated. |
-| **5e** | Missing / imbalanced data | ⚠️ | Class imbalance noted implicitly (e.g., effect-size adherence 20%, blinding-detail adherence 26%); not algorithmically rebalanced. Some papers lacked specific sections, dropping per-question pair counts to 108. No validation set ("relatively low number of training examples"). |
-| **6a** | LLM name + version | ⚠️ | OpenAI GPT-4 Turbo, GPT-4 Vision, and Meta Llama 2 70B named, but specific snapshot dates / weights versions not given. Pilot used GPT-3.5. |
-| **6b** | Development process | ✅ | GPT-4 Turbo: zero-shot, prompt-engineered (no fine-tuning available at the time). Llama 2 70B: fine-tuned on TogetherAI using GPT-4-correctly-answered TRAIN examples. GPT-4 Vision: zero-shot. |
-| **6c** | Inference settings / prompting | ⚠️ | GPT-4 Turbo: temperature=0.2, Top P=0.2, max 512 tokens. Llama 2 70B: TogetherAI default temperature=0.7, Top P=0.7. GPT-4 Vision settings not separately reported. Random seed not reported for any model. |
-| **6d** | Output | ✅ | Generative QA — model summarises relevant text in step 1 then returns YES or NO in step 2; YES/NO compared to Schulz et al. ground truth. Response capped at 512 tokens. |
-| **6e** | Classification thresholds | ✅ | Direct YES/NO output; no probability thresholds. Schulz et al. labels mapped to YES/NO and stored on OSF. |
-| **7a** | Quality metrics | ✅ | Primary: F1-score. Secondary: classification accuracy (%) with 95% Clopper–Pearson CIs. Confusion matrix in Figure 1 for GPT-4 Turbo TEST; Llama 2 fine-tuned confusion matrix in supplemental Figure S2. |
-| **7b** | Relevance to downstream | ⚠️ | Authors discuss editorial / peer-review use cases but do not quantify downstream utility (e.g., reviewer-time savings, false-positive tolerance). |
-| **7c** | Outcome definition | ✅ | Adherence to 11 CONSORT-derived items (9 text + 2 image), each as a binary YES/NO outcome with Schulz et al.'s labels as ground truth. |
-| **7d** | Subjective interpretation | ⚠️ | Ground truth is Schulz et al. 2020 (already labelled by external systematic-review authors); inter-rater reliability for those labels not re-reported here. Q11 image labels appear to be derived by Wrightson et al. without IAA. |
-| **7e** | Comparison | ✅ | GPT-4 Turbo vs. base Llama 2 70B vs. fine-tuned Llama 2 70B on the same TEST split (8–9 questions). Pilot GPT-3.5 (86% accuracy) reported on OSF. No formal paired statistical test (e.g., McNemar's) between models. |
-| **8a** | Annotation guidelines | ➖ | Annotation done by Schulz et al. 2020 (external dataset); Wrightson et al. did not re-annotate. Only image-Q11 labels appear author-derived; guideline not separately documented. |
-| **8b** | Annotators + IAA | ➖ | Not applicable for the text analysis (external labels). For image-Q11, annotator(s) and IAA not reported. |
-| **8c** | Annotator background | ➖ | Schulz et al.'s labels used; Wrightson et al.'s author backgrounds (sports-med / methodology / family practice / physiotherapy) listed in author affiliations. |
-| **9a** | Prompt design | ✅ | Iterative prompt engineering documented in detail: started from OpenAI guidelines (persona + delimiters + step-list); used first 10 incorrectly-answered TRAIN examples to ask ChatGPT to revise; ran second revision round; pasted ChatGPT-suggested prompts verbatim. Final system prompt and per-question user prompts in supplemental Table S2. |
-| **9b** | Prompt-development data | ✅ | TRAIN split (80% of text-question pairs) used for prompt engineering; specifically the first 10 incorrectly-answered TRAIN examples for each prompt-revision round. |
-| **10** | Summarization | ⚠️ | Model required to summarise text relevant to the question (Step 1) before answering YES/NO (Step 2). Summary quality not separately evaluated. |
-| **11** | Instruction tuning / alignment | ✅ | Llama 2 70B fine-tuned on TogetherAI using the GPT-4-correctly-answered TRAIN examples (distillation-style). GPT-4 not fine-tuned (capability not available at the time per authors). |
-| **12** | Compute | ❌ | Not reported. Hosting platform (TogetherAI) named but compute time, GPU type, token usage, and API cost are not disclosed. |
-| **13** | Ethical approval | ➖ | "Ethics approval: Not applicable." (Patient and public not involved; analysis on published trial reports.) |
-| **14a** | Funding | ✅ | Canadian Institutes of Health Research (CIHR) Research Operating Grant (Scientific Directors) held by KMK. The funder had no role in design / conduct. |
-| **14b** | Conflicts of interest | ✅ | "DM is a member of the BMJ North America Advisory Committee." No other competing interests declared. |
-| **14c** | Protocol | ❌ | No pre-registered protocol mentioned; described as an "exploratory" analysis. Pilot study materials on OSF. |
-| **14d** | Registration | ➖ | Not a clinical study; registration not applicable. |
-| **14e** | Data availability | ✅ | "Data are available in a public, open access repository." MI-CLAIM checklist, raw data spreadsheets, R notebooks, prompt files, and PubMed IDs of image-analysis papers all on OSF (https://doi.org/10.17605/OSF.IO/4SHMT). |
-| **14f** | Code availability | ✅ | R notebooks (R 4.3.2) and Python (3.8.17) extraction code on OSF, alongside data. |
-| **15** | Patient/public involvement | ➖ | "Patients and the public were not involved in the design or conduct of this study." Stated explicitly. |
-| **16a** | Flow of data | ✅ | 160 Schulz et al. papers → 113 included after extraction-error / file-access exclusions → text-question pairs split 80/20 TRAIN/TEST stratified by paper section → image sub-study n=20 drawn from TRAIN+TEST. |
-| **16b** | Characteristics | ⚠️ | By-journal distribution in supplemental Figure S1 / Table S1 (sports-medicine and orthopaedics journals). No demographic / RCT-design characteristics of the included trials reported (since the paper evaluates reporting, not trial outcomes). |
-| **16c** | Distribution comparison | ➖ | No clinical-outcome subgroup comparisons. |
-| **16d** | N per analysis | ✅ | Per-question pair counts (108–113) in Table 1; image-analysis n=20 in Table 2 footnote; pooled-TEST confusion matrix N=198 in Figure 1; per-question TEST counts implicit in 95% CI widths in Table 2. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable — no recurring update / monitoring strategy proposed (closed-source GPT-4 versioning beyond authors' control; Llama 2 fine-tune is a one-shot). |
+| **1** | Title | ✅ | *"GPT for RCTs? Using AI to determine adherence to clinical trial reporting guidelines"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Poor reporting of clinical trials is common,1 threatens the reliability and credibility of medical research2 and affects patient care.3"* `§Introduction, p.1` |
+| **3b** | Background — target population | ✅ | *"There is increasing interest in the rigour and transparency, or lack thereof, of sports medicine, exercise science and orthopaedic research."* `§Introduction, p.2` |
+| **4** | Objectives | ✅ | *"This exploratory study aimed to determine how accurate a large language model generative artificial intelligence system (AI-LLM) was for determining reporting guideline compliance in a sample of sports medicine clinical trial reports."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"We used a subsample of the dataset provided by Schulz et al.19 In their systematic review, Schulz et al analysed the reporting practices, including items from the CONSORT checklist, of 160 peer-reviewed scientific papers published in sports medicine journals in 2020."* `§Data, p.2` |
+| **5b** | Data points + distribution | ✅ | *"The number of text-question pairs for each reporting guideline in the dataset, and the proportion of papers that adhered to each guideline"* `Table 1, p.3` |
+| **5c** | Date range of data | ⚠️ | *"of 160 peer-reviewed scientific papers published in sports medicine journals in 2020"* `§Data, p.2` — GPT-4 / Llama 2 model snapshot dates not stated |
+| **5d** | Pre-processing / quality checks | ✅ | *"Papers were removed from analysis if (a) the text extraction contained errors or (b) the electronic file was inaccessible."* `§Data, p.2` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"We did not create a validation data set because of the relatively low number of training examples."* `§Data, p.2` |
+| **6a** | LLM name + version | ⚠️ | *"We tested three models: OpenAI's GPT-4 Turbo and GPT-4 Vision and Meta's Llama 2 70B."* `§Model choice and optimisation, p.4` — specific snapshot dates / weights versions not given |
+| **6b** | Development process | ✅ | *"For the GPT-4 analysis, we used the following hyperparameter settings: temperature=0.2 and Top P=0.2. Unfortunately, at the time of this analysis, we did not have access to fine-tune the GPT-4 model. Model tuning in our study was achieved through iterative 'prompt engineering'."* `§Model choice and optimisation, p.4` |
+| **6c** | Inference settings / prompting | ⚠️ | *"we used the following hyperparameter settings: temperature=0.2 and Top P=0.2"* `§Model choice and optimisation, p.4` — Llama 2 run at "the platform default hyperparameter values (temperature and Top P=0.7)"; random seed not reported for either model |
+| **6d** | Output | ✅ | *"The model was required to summarise the text that was relevant to the question and answer YES or NO."* `§Method, p.4` |
+| **6e** | Classification thresholds | ➖ | Not applicable — outputs are direct YES/NO categorical labels, no probability thresholding |
+| **7a** | Quality metrics | ✅ | *"The primary outcome of this study was the F1-score (%) from the GPT-4 text analysis."* `§Analysis, p.5` |
+| **7b** | Relevance to downstream use | ⚠️ | *"Using an AI-LLM may help journal editors, publishers, peer reviewers and authors check reporting guideline adherence quickly and accurately, which could reduce both editorial workloads and waste in research."* `§Discussion, p.5` — discussed but not quantified |
+| **7c** | Outcome definition | ✅ | *"Each reporting guideline item was assessed using a generative question and answering format, where the model was prompted to answer a question, formulated using natural language, about the text/image extracted from each paper."* `§Method, p.4` |
+| **7d** | Subjective interpretation | ⚠️ | *"The label ('ground truth') for each question ('YES' or 'NO') was extracted from the systematic analysis by Schulz et al."* `§Method, p.4` — ground truth inherited from an external systematic review, no re-reported inter-rater agreement |
+| **7e** | Comparison | ✅ | *"As expected, the Open-AI model was more accurate than the open-source Llama 2 model. However, fine-tuning the Llama 2 model significantly improved its accuracy."* `§Discussion, p.5` |
+| **8a** | Annotation guidelines | ➖ | Not applicable — labels inherited from Schulz et al. 2020's external systematic review; Wrightson et al. did not re-annotate |
+| **8b** | Annotators + IAA | ➖ | Not applicable — external labels used for the text analysis; no annotator count or IAA reported for the image sub-study labels |
+| **8c** | Annotator background | ➖ | Not applicable — Schulz et al.'s labels used as ground truth; Wrightson et al.'s own backgrounds are listed only as author affiliations |
+| **9a** | Prompt design | ✅ | *"The system and user prompts were developed using the guidelines provided by OpenAI28 and included asking the model to adopt a persona (the system prompt), using delimiters to distinguish parts of the input and specifying the steps required to complete the task (the user prompt)."* `§Model choice and optimisation, p.4` |
+| **9b** | Prompt-development data | ✅ | *"We subsequently took the first 10 examples from the training dataset that the model had incorrectly answered and used the OpenAI ChatGPT application to help us improve the system and user prompts"* `§Model choice and optimisation, p.4` |
+| **10** | Summarization | ⚠️ | *"The model was required to summarise the text that was relevant to the question and answer YES or NO."* `§Method, p.4` — summary quality not separately evaluated |
+| **11** | Instruction tuning / alignment | ✅ | *"The Llama 2 model was fine-tuned using the correctly answered questions from the GPT-4 analysis of the text training data."* `§Model choice and optimisation, p.4` |
+| **12** | Compute | ⚠️ | *"the model was hosted on the TogetherAI platform (San Francisco, California, USA)"* `§Model choice and optimisation, p.4` — GPU type, token usage, and API cost not disclosed |
+| **13** | Ethical approval | ➖ | *"Ethics approval Not applicable."* `p.6` |
+| **14a** | Funding | ✅ | *"This work was supported by a Canadian Institutes of Health Research (CIHR) Research Operating Grant (Scientific Directors) held by KMK. The funder had no role in the design and conduct of the study."* `p.6` |
+| **14b** | Conflicts of interest | ✅ | *"DM is a member of the BMJ North America Advisory Committee."* `p.6` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"Data are available in a public, open access repository."* `p.6` |
+| **14f** | Code availability | ✅ | *"Details for the data extraction are shown in the R notebooks located on the OSF."* `§Data, p.2` |
+| **15** | Patient/public involvement | ➖ | *"Patients and the public were not involved in the design or conduct of this study."* `§Method, p.5` |
+| **16a** | Flow of data | ✅ | *"Papers were removed from analysis if (a) the text extraction contained errors or (b) the electronic file was inaccessible."* `§Data, p.2` — 160 Schulz et al. papers → 113 retained → pairs split 80/20 TRAIN/TEST stratified by section |
+| **16b** | Characteristics | ✅ | *"The breakdown of included papers (n=113) by publication name is shown in online supplemental figure S1."* `§Results, p.5` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparisons |
+| **16d** | N per analysis | ✅ | *"Analysis performed on a subset (n=20) of the dataset."* `Table 2, p.3` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no recurring update / monitoring strategy proposed |

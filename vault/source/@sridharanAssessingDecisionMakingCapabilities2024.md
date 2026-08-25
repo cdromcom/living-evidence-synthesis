@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/not-addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/not-addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -52,6 +56,8 @@ apaAuthors:
     family: "Sivaramakrishnan"
 peerReviewStatus: not-found
 peerReviewNote: "Checked SAGE article page directly — no peer review link found"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: sridharanAssessingDecisionMakingCapabilities2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94d-7c19-b337-3de0ad3115f5
@@ -131,7 +137,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain                                                                   | Rating | Justification                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------------------------------------------------------------ | :----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -149,44 +160,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | 10 prevalidated case studies from the FERCAP/SIDCER Handbook of Case Studies on Ethical Issues in Health Research (FERCAP/SIDCER, 2012); 16 prompted IRB SOP topics. Reference SOPs: Mayo Clinic IRB Policy Manual (2023) and Harvard Longwood Medical Area SOPs (2023). Normative reference: ICH E6 GCP guidelines. |
-| **5b** | Data points + distribution | ⚠️ | 10 case studies × 3 platforms = 30 case responses; 16 SOP topics × 3 platforms = 48 SOP drafts. Per-case / per-SOP word counts, response lengths, or topic distributions not reported. |
-| **5c** | Date range of data | ⚠️ | LLM-prompting period reported as September–November 2023. Training-data cutoffs of Poe Assistant, ChatGPT (GPT-3.5), and Google Bard not disclosed. FERCAP/SIDCER handbook published 2012. |
-| **5d** | Pre-processing / quality checks | ❌ | No prompt preprocessing, output normalization, or quality-screening procedure described. |
-| **5e** | Missing / imbalanced data | ➖ | Not applicable — all 30 case responses and 48 SOP drafts were obtained successfully; no missing-data handling required. |
-| **6a** | LLM name + version | ⚠️ | Three platforms named: Poe Assistant©, ChatGPT© ("based on the GPT-3.5 architecture developed by OpenAI"), Google Bard©. Specific model versions / snapshot dates / API endpoints not disclosed. |
-| **6b** | Development process | ➖ | Not applicable — off-the-shelf consumer LLMs evaluated as-is; no fine-tuning or development by authors. |
-| **6c** | Inference settings / prompting | ❌ | Inference parameters (temperature, top_p, max tokens, system prompt, seed, single vs. multi-turn) not reported. Prompts themselves provided in Electronic Supplementary Materials 1 and 2 but not in main text. |
-| **6d** | Output | ✅ | Free-text natural-language responses (case-study answers + drafted SOPs). Full outputs provided in Electronic Supplementary Materials 3 and 4. |
-| **6e** | Classification thresholds | ➖ | Not applicable — no probabilistic / classification model; outputs are free-text. |
-| **7a** | Quality metrics | ❌ | No quantitative metrics (accuracy, F1, BLEU, ROUGE, rubric scores, etc.) computed. Findings reported as narrative "stated / not stated" comparisons in Tables 1 and 2. |
-| **7b** | Relevance to downstream | ⚠️ | Authors argue qualitative coverage is the relevant outcome for IRB decision-support; no formal downstream-utility analysis (e.g., review time saved, decision-quality change). |
-| **7c** | Outcome definition | ⚠️ | Outcome implicit: whether the AI output addresses each ethical sub-issue called out by the FERCAP/SIDCER handbook / ICH E6 GCP. No explicit operational definition or scoring rubric. |
-| **7d** | Subjective interpretation | ⚠️ | Two authors independently assessed outputs and verified against handbook + ICH E6, but no inter-rater agreement metric (κ, %-agreement) is reported, and no reconciliation procedure is described. |
-| **7e** | Comparison | ✅ | Three-way comparison across Poe Assistant, ChatGPT, and Google Bard, plus comparison of SOP drafts against Mayo Clinic and Harvard Longwood reference SOPs. No statistical test of differences. |
-| **8a** | Annotation guidelines | ❌ | No annotation rubric, codebook, or scoring guideline reported for the "stated / not stated" coding in Tables 1–2. |
-| **8b** | Annotators + IAA | ⚠️ | Two annotators (the two authors); independent assessment stated, but no IAA, no disagreement-resolution procedure, and no per-rater results reported. |
-| **8c** | Annotator background | ⚠️ | Authors are a Professor of Pharmacology & Therapeutics with prior IRB service (KS) and a Specialist Dentist (GS), both with publications in evidence-based medicine. Specific IRB / GCP credentials and years of relevant experience not formally tabulated. |
-| **9a** | Prompt design | ⚠️ | Prompts described as "open-ended questions" from the FERCAP/SIDCER handbook (case studies) and "specific prompts" for SOPs; full text in Supplementary Materials 1 and 2. No prompt-engineering iteration, no system prompt, no few-shot examples disclosed. |
-| **9b** | Prompt-development data | ❌ | No held-out prompt-development set; case studies appear to be both prompt source and evaluation set. |
-| **10** | Summarization | ➖ | Not applicable — no summarization task. |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable — off-the-shelf models, no fine-tuning. |
-| **12** | Compute | ❌ | Not reported. |
-| **13** | Ethical approval | ➖ | Authors state ethics committee approval was not necessary "Due to the nature of the study" (no human subjects). |
-| **14a** | Funding | ✅ | "The authors received no financial support for the research, authorship, and/or publication of this article." |
-| **14b** | Conflicts of interest | ✅ | "The authors declared no actual or potential conflicts of interest." |
-| **14c** | Protocol | ❌ | No pre-specified protocol referenced. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ⚠️ | Case-study details (Supp 1), prompts (Supp 2), full case-study outputs (Supp 3), and SOP outputs (Supp 4) provided as supplementary material. No structured public dataset / repository. |
-| **14f** | Code availability | ❌ | No code reported (manual prompting workflow; nothing to release). |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | Implicit: 10 cases × 3 platforms and 16 SOPs × 3 platforms; no formal flow diagram, no exclusions reported. |
-| **16b** | Characteristics | ⚠️ | Case studies enumerated by title (Role of REC, Emergency Room Research, Scientific Soundness, COI, Healthy Volunteers, Observational Study, Behavioral Research, Traditional Medicine, Recruitment & Informed Consent, Post-Trial Access). SOP topics enumerated. Per-case difficulty / topic categorization not provided. |
-| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison. |
-| **16d** | N per analysis | ✅ | 10 case studies and 16 SOPs administered to each of 3 platforms; consistent N across analyses. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable — no model updating performed. Authors discuss locally-hosted vs. cloud trade-offs in Discussion but no update is implemented. |
+| **1** | Title | ✅ | *"Assessing the Decision-Making Capabilities of Artificial Intelligence Platforms as Institutional Review Board Members"* `Title, p.83` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Institutional review boards (IRBs) play a pivotal role in safeguarding the interests of both research participants and researchers... Notwithstanding widespread agreement on the need for IRBs to scrutinize research involving human subjects, accumulating evidence suggests inefficiencies within the IRB review framework"* `§Introduction, p.83` |
+| **3b** | Background — target population | ⚠️ | *"we scrutinized the ability of three AI platforms to emulate the decision-making processes of IRB members across 10 prototypical, prevalidated case scenarios"* `§Introduction, p.84` |
+| **4** | Objectives | ✅ | *"This study assesses the abilities of three artificial intelligence (AI) platforms to address IRB challenges and draft essential SOPs."* `Abstract, p.83` |
+| **5a** | Data sources | ✅ | *"The AI platforms were prompted with ten case studies with open-ended questions from the FERCAP/SIDCER Handbook of Case Studies on Ethical Issues in Health Research (FERCAP/SIDCER, 2012)"* `§Study Procedure, p.84`; *"Two authors independently assessed the outputs of SOPs and compared them with the IRB SOPs from the Mayo Clinic (IRB Mayo Clinic, 2023) and Harvard Medical School"* `§Study Procedure, p.85` |
+| **5b** | Data points + distribution | ⚠️ | *"The AI platforms were prompted with ten case studies"* `§Study Procedure, p.84`; the SOP task list enumerates 16 topics (Constitution of IRB and IRB membership … Quality assurance of IRB functions) `§Study Procedure, p.84–85` — no explicit stated count of resulting responses/drafts, and no per-case or per-SOP word counts |
+| **5c** | Date range of data | ⚠️ | *"The present work represents a cross-sectional, observational study that was carried out during September to November 2023."* `§Study Design, p.84` — training-data cutoffs of Poe Assistant, ChatGPT, and Google Bard not disclosed |
+| **5d** | Pre-processing / quality checks | ❌ | Not reported |
+| **5e** | Missing / imbalanced data | ➖ | Not applicable — no missing-data handling is described; all prompted case studies and SOP topics appear to have produced responses |
+| **6a** | LLM name + version | ⚠️ | *"ChatGPT©: This language model is based on the GPT-3.5 architecture developed by OpenAI."* `§Study Procedure, p.84` — Poe Assistant and Google Bard described only generically, no version numbers or snapshot dates for any platform |
+| **6b** | Development process | ➖ | Not applicable — off-the-shelf consumer platforms evaluated as-is; no fine-tuning or development by authors |
+| **6c** | Inference settings / prompting | ❌ | Not reported |
+| **6d** | Output | ✅ | *"The trio of AI platforms successfully responded to queries from all case studies, as detailed in Electronic Supplementary Material 3."* `§Results, p.85`; *"The SOP-related outputs from the AI platforms are set out in Electronic Supplementary Material 4."* `§Results, p.85` |
+| **6e** | Classification thresholds | ➖ | Not applicable — no probabilistic / classification model; outputs are free text |
+| **7a** | Quality metrics | ❌ | Not reported |
+| **7b** | Relevance to downstream use | ⚠️ | *"AI platforms could aid IRB decision-making and improve review efficiency. However, human oversight remains critical for ensuring the accuracy of AI-generated solutions."* `Abstract, p.83` |
+| **7c** | Outcome definition | ⚠️ | *"The accuracy of the AI outputs was assessed against good clinical practice (GCP) guidelines."* `Abstract, p.83` — no explicit scoring rubric |
+| **7d** | Subjective interpretation | ⚠️ | *"Two authors independently assessed the AI outputs, and the veracity was verified using the FERCAP/SIDCER handbook and the ICH E6 GCP guidelines"* `§Study Procedure, p.84–85` — no inter-rater agreement metric reported |
+| **7e** | Comparison | ✅ | *"variations in the responses of the AI platforms emerged, as presented in Table 1"* `§Results, p.85`; *"Distinctive differences in the SOPs crafted by the AI tools are presented in Table 2."* `§Results, p.85` |
+| **8a** | Annotation guidelines | ❌ | Not reported |
+| **8b** | Annotators + IAA | ⚠️ | *"Two authors independently assessed the AI outputs"* `§Study Procedure, p.84` — no quantitative inter-annotator agreement (κ/α) reported |
+| **8c** | Annotator background | ⚠️ | *"Dr. Kannan Sridharan is currently Professor and Chair of the Department of Pharmacology & Therapeutics in Arabian Gulf University, Bahrain. Prof. Kannan Sridharan has served in IRBs at various capacities"* `Author Biographies, p.91`; *"Dr. Gowri Sivaramakrishnan is currently the Specialist Dentist in the Kingdom of Bahrain and has published several articles related to Evidence-Based Medicine."* `Author Biographies, p.91` |
+| **9a** | Prompt design | ⚠️ | *"The AI platforms were prompted with ten case studies with open-ended questions"* `§Study Procedure, p.84`; *"we used specific prompts (Electronic Supplementary Material 2) of the AI platforms to generate the SOPs"* `§Study Procedure, p.84` — full prompt text only in supplementary material |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no model training, fine-tuning, or alignment performed |
+| **12** | Compute | ❌ | Not reported |
+| **13** | Ethical approval | ➖ | *"Due to the nature of the study, it was not necessary to seek ethics committee approval."* `§Study Design, p.84`; *"Ethics Approval and Informed Consent: Not applicable."* `p.89` |
+| **14a** | Funding | ✅ | *"The authors received no financial support for the research, authorship, and/or publication of this article."* `Funding, p.89` |
+| **14b** | Conflicts of interest | ✅ | *"The authors declared no actual or potential conflicts of interest with respect to the research, authorship, and/or publication of this article."* `Declaration of Conflicting Interests, p.89` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ⚠️ | *"Supplemental material for this article is available online."* `p.89` — case-study details (ESM 1), SOP prompts (ESM 2), and full outputs (ESM 3, ESM 4) referenced but no structured public dataset / repository |
+| **14f** | Code availability | ❌ | Not reported |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"The trio of AI platforms successfully responded to queries from all case studies"* `§Results, p.85` — no formal flow diagram or exclusion count reported |
+| **16b** | Characteristics | ⚠️ | *"Case Study 1: Role of the REC; Case Study 2: Emergency Room Research; Case Study 3: Scientific Soundness; Case Study 4: Conflict of Interest (COI); Case Study 5: Research on Healthy Volunteers; Case Study 6: Observational Study; Case Study 7: Behavioral Research; Case Study 8: Traditional Medicine; Case Study 9: Recruitment and Informed Consent; and Case Study 10: Post-Trial Access."* `§Study Procedure, p.84` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"The AI platforms were prompted with ten case studies"* `§Study Procedure, p.84`, each administered to all three platforms; the SOP-drafting task list enumerates 16 topics, also administered to all three platforms `§Study Procedure, p.84–85` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — *"one significant drawback of such locally operated AI models is their lack of internet connectivity, which poses difficulties in updating them with the most recent ethical guidelines"* `§General Discussion, p.88` — discussed as a trade-off, no update performed |

@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/partial
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/not-addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -48,6 +52,8 @@ apaAuthors:
     family: "Abernethy"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: zhangDetectingReferenceErrors2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95c-7282-bd5a-5ee57f06b340
@@ -123,7 +129,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain                                                                   | Rating | Justification                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------ | :----: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -141,44 +152,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | 250 statement-reference pairs from 3 channels: 163 (65.2%) from prior citation-verification studies (Lee & Lee 1999; Fenton et al. 2000; Gosling et al. 2004; Lukic et al. 2004; Buchan et al. 2005; Handoll & Atkinson 2015; Smith & Cumberledge 2020); 80 (32.0%) from PubPeer cross-referenced with Retraction Watch; 7 (2.8%) from PubMed corrections/errata/corrigenda. Public dataset on GitHub. |
-| **5b** | Data points + distribution | ✅ | N=250 pairs. Labels: Unsubstantiated 112 (44.8%), Partially substantiated 14 (5.6%), Fully substantiated 124 (49.6%). Domains: Biology/Medicine 34.0%, Chemistry/Materials 22.8%, Physics 10.4%, Social Science 10.4%, Earth/Environmental 9.6%, Engineering 6.8%, CS 6.0%. Reference availability: has abstract 96.8%, has PDF 97.6%. Table 2. |
-| **5c** | Date range of data | ❌ | Not reported for the underlying papers. PubPeer/Retraction Watch retractions sampled from 2022–2023; OpenAI training cutoffs not disclosed. |
-| **5d** | Pre-processing / quality checks | ✅ | Three inclusion criteria: (1) digital versions findable via search engines; (2) reference is a journal article (PDF text-extractable); (3) the cited statement is uniquely identifiable in the citing article. PubPeer pairs cross-referenced with Retraction Watch retractions for "concerns about referencing or attributions". For dataset entries from prior studies, authors reviewed each citing article to relocate the labeled sentence. |
-| **5e** | Missing / imbalanced data | ⚠️ | Class imbalance acknowledged (Partially substantiated only 5.6%); a secondary 2-class analysis collapsed Partially+Fully (Figure 1). Not algorithmically rebalanced. 8 pairs (3.2%) lack abstract; 6 (2.4%) lack PDF; 100% have either. |
-| **6a** | LLM name + version | ✅ | gpt-3.5-turbo-0125, gpt-4-0125-preview, gpt-4o-2024-05-13. Wadden et al. (2020) SciFact baseline models also tested. |
-| **6b** | Development process | ✅ | Zero-shot, no fine-tuning. RAG pipeline: GROBID PDF parsing → 256-token chunks (20-token overlap) via LlamaIndex → top-3 chunks by embedding similarity to statement. Also OpenAI Assistant API (proprietary RAG) with PDF attachment. |
-| **6c** | Inference settings / prompting | ⚠️ | Temperature = 0 reported. JSON-format output with `label` + `explanation`. OpenAI Python API. Other parameters (top_p, seed, max_tokens, system prompt) not reported. Embedding model used by LlamaIndex not specified. |
-| **6d** | Output | ✅ | JSON object with two keys: `label` ∈ {Fully substantiated, Partially substantiated, Unsubstantiated} and `explanation` (free text). |
-| **6e** | Classification thresholds | ➖ | Not applicable — direct categorical generation, no probability thresholds. Secondary 2-class analysis collapses Partially+Fully (Figure 1). |
-| **7a** | Quality metrics | ⚠️ | Per-class accuracy and overall accuracy reported (Table 3). Precision, recall, F1, kappa, AUC not reported. |
-| **7b** | Relevance to downstream | ⚠️ | Authors note rareness + low practical importance of "Partially substantiated" motivates the 2-class collapse, and discuss cost/speed trade-offs of model versions and context lengths in production. No formal downstream-utility evaluation (e.g., editor-time savings). |
-| **7c** | Outcome definition | ✅ | Quotation-error detection at the statement-reference pair level: predict label ∈ {Fully, Partially, Unsubstantiated} matching the gold label (definitions in Table 1). |
-| **7d** | Subjective interpretation | ⚠️ | Labels assembled from external "expert" sources (prior verification studies, PubPeer, journal corrections). No new annotator pool, no IAA computed. Authors call the dataset "expert-annotated" but do not characterize the experts uniformly. |
-| **7e** | Comparison | ✅ | 3 GPT versions × 4 information settings (12 conditions). Wadden et al. (2020) SciFact models tested for comparison but excluded from Table 3 because they predicted "Not Enough Information" for all pairs. No statistical-significance tests reported. |
-| **8a** | Annotation guidelines | ⚠️ | 3 label definitions adopted from Smith & Cumberledge (2020) and Cobb et al. (2024); shown in Table 1. Authors did not run a fresh annotation pass — labels inherited from source datasets / venues. |
-| **8b** | Annotators + IAA | ❌ | No new annotators, no IAA reported. Original-source annotator agreement not aggregated. |
-| **8c** | Annotator background | ❌ | Heterogeneous and not characterized (mixture of prior-study experts, PubPeer commenters, journal correction authors). |
-| **9a** | Prompt design | ✅ | Single prompt template (Appendix C) finalized before experiment. Persona ("experienced scientific writer and editor") + label definitions + JSON format spec + slot-filled fields (citing-article title, statement, reference title/abstract/excerpts). No prompt-engineering search reported. |
-| **9b** | Prompt-development data | ❌ | Authors state the prompt was "finalized before the start of the experiment" but do not describe what data (if any) was used to develop / iterate it. No held-out development split distinct from the test set is described. |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable — no fine-tuning or alignment performed by the authors. |
-| **12** | Compute | ❌ | Not reported. |
-| **13** | Ethical approval | ➖ | Not applicable (no human-subjects data; analysis on published articles + public PubPeer comments). |
-| **14a** | Funding | ✅ | "The authors received no funding for this study." (Acknowledgments) |
-| **14b** | Conflicts of interest | ❌ | Not stated. |
-| **14c** | Protocol | ❌ | Not reported. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ✅ | Dataset public at github.com/tianmai-zhang/ReferenceErrorDetection. |
-| **14f** | Code availability | ⚠️ | Same GitHub repository hosts the dataset; the paper does not explicitly state that the inference / RAG pipeline code is included. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | Source-channel breakdown reported (163 + 80 + 7 = 250); inclusion criteria reported. No explicit pre-screen-to-final flow numbers (e.g., how many candidate PubPeer comments were screened, how many failed inclusion). |
-| **16b** | Characteristics | ✅ | Table 2: label distribution, domain distribution, reference availability. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup analysis). |
-| **16d** | N per analysis | ✅ | All 250 pairs evaluated in every condition; per-class denominators implied by Table 2 (Un=112, Partially=14, Fully=124). |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported). |
+| **1** | Title | ✅ | *"Detecting Reference Errors in Scientific Literature with Large Language Models"* `Title, p.1` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"The reliability of referencing is usually taken for granted. However, previous citation verification studies in multiple scientific domains have revealed that reference errors of varying degrees are common in scientific papers, with prevalence rates ranging from 11% to 41%, depending on the domain, journal, and methodology"* `§1, p.1` |
+| **3b** | Background — target population | ⚠️ | *"we prepared an expert-annotated, general-domain dataset of statement-reference pairs from journal articles"* `Abstract, p.1` |
+| **4** | Objectives | ✅ | *"To fill this gap and encourage future attempts to automate reference error detection, this study performed a general-domain evaluation of the capability of LLMs to detect quotation errors in scientific papers."* `§2, p.2` |
+| **5a** | Data sources | ✅ | *"Statement-reference pairs in the dataset were collected through the following channels: (1) 163 (65.2%) pairs are from previous citation verification studies... (2) 80 (32.0%) pairs are from PubPeer4, a platform for researchers to leave comments on others' publications... (3) 7 (2.8%) pairs are from corrections, errata, and corrigenda available in the PubMed database."* `Appendix B, p.7` |
+| **5b** | Data points + distribution | ✅ | *"Unsubstantiated 112 (44.8) ... Partially substantiated 14 (5.6) ... Fully substantiated 124 (49.6)"* `Table 2, p.2` |
+| **5c** | Date range of data | ⚠️ | *"we cross-referenced papers retracted in 2022 and 2023 due to 'concerns or issues about referencing or attributions'"* `Appendix B, p.7` — date range for the underlying cited/citing papers and OpenAI training-cutoff dates not stated |
+| **5d** | Pre-processing / quality checks | ✅ | *"Three additional inclusion criteria were applied to the dataset to ensure data quality and experiment reproducibility. First, both the citing and the reference article should have digital versions that are findable through search engines."* `Appendix B, p.7` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"Considering both the rareness of Partially substantiated pairs in the dataset and their relatively low importance from a practical perspective, we then merged Partially and Fully substantiated predictions and performed a secondary analysis of model performance."* `§4, p.3` |
+| **6a** | LLM name + version | ✅ | *"Three LLMs in OpenAI's GPT family were evaluated in the experiment: gpt-3.5-turbo-0125, gpt-4-0125-preview, and gpt-4o-2024-05-13."* `§3, p.3` |
+| **6b** | Development process | ✅ | *"Local retrieval of excerpts from the main body of a reference followed a 3-step retrieval-augmented generation (RAG) (Gao et al., 2024) pipeline."* `§3, p.3` |
+| **6c** | Inference settings / prompting | ⚠️ | *"All LLM experiments were conducted using OpenAI's Python API with temperature set to 0."* `§3, p.3` — top_p/seed/max_tokens and the LlamaIndex embedding model not stated |
+| **6d** | Output | ✅ | *"LLMs were prompted to respond with a JSON object containing a predicted label and an explanation for their selection."* `§3, p.3` |
+| **6e** | Classification thresholds | ➖ | Not applicable — direct categorical generation, no probability thresholds |
+| **7a** | Quality metrics | ⚠️ | *"Model performance was measured by label accuracy."* `§3, p.3` — precision, recall, F1, kappa, and AUC not reported |
+| **7b** | Relevance to downstream use | ⚠️ | *"We also quantified the relative contributions of model versions and increasing levels of context which could affect cost and speed in a production environment."* `p.4` |
+| **7c** | Outcome definition | ✅ | *"a model should predict a label f(s, r) ∈ {Fully substantiated, Partially substantiated, Unsubstantiated} to indicate whether the statement-reference pair contains a quotation error"* `§2, p.2` |
+| **7d** | Subjective interpretation | ⚠️ | *"The names and definitions of the labels follow previous citation verification studies (Smith and Cumberledge, 2020; Cobb et al., 2024)."* `§2, p.2` — no new annotator pool, no IAA computed |
+| **7e** | Comparison | ✅ | *"The models for Wadden et al.'s (2020) scientific claim verification task predicted all statement-reference pairs in our dataset as 'Not Enough Information'... Therefore, they are excluded from Table 3."* `§4, p.3` |
+| **8a** | Annotation guidelines | ✅ | *"The names and definitions of the labels follow previous citation verification studies... Complete definitions of the labels are listed in Table 1."* `§2, p.2` |
+| **8b** | Annotators + IAA | ❌ | Not reported |
+| **8c** | Annotator background | ❌ | Not reported |
+| **9a** | Prompt design | ✅ | *"The prompt template (Appendix C) was finalized before the start of the experiment."* `§3, p.2` |
+| **9b** | Prompt-development data | ❌ | Not reported — no description of what data, if any, was used to develop or iterate the prompt, and no held-out development split distinct from the test set |
+| **10** | Summarization | ➖ | Not applicable |
+| **11** | Instruction tuning / alignment | ⚠️ | *"large language models are able to detect erroneous citations with limited context and without fine-tuning"* `Abstract, p.1` |
+| **12** | Compute | ❌ | Not reported |
+| **13** | Ethical approval | ➖ | Not applicable — no human-subjects data; analysis on published articles and public PubPeer comments |
+| **14a** | Funding | ✅ | *"The authors received no funding for this study."* `Acknowledgments, p.5` |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"The evaluation dataset is available on GitHub"* `§3, p.2` |
+| **14f** | Code availability | ⚠️ | *"The evaluation dataset is available on GitHub"* `§3, p.2` — same repository hosts the dataset, but the paper does not explicitly state the inference/RAG pipeline code is included |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"Distributions of labels, domains, and reference availability in the dataset are summarized in Table 2."* `§3, p.2` — no explicit pre-screen-to-final flow counts |
+| **16b** | Characteristics | ✅ | *"Biology or Medicine 85 (34.0) ... Chemistry or Material Science 57 (22.8) ... Physics 26 (10.4) ... Social Science 26 (10.4) ... Earth or Environmental Science 24 (9.6) ... Engineering 17 (6.8) ... Computer Science 15 (6.0)"* `Table 2, p.2` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"Has abstract or PDF 250 (100)"* `Table 2, p.2` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ⚠️ | *"During the progress of the study, new variants of Claude, Gemini, Llama, and GPT became available, some of which support a long enough context window to accept an entire reference article as input."* `§6 Limitation, p.5` |

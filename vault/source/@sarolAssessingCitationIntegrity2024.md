@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/partial
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/not-addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -61,6 +65,8 @@ apaAuthors:
     family: "Kilicoglu"
 peerReviewStatus: not-found
 peerReviewNote: "Checked Oxford Bioinformatics article page directly — no peer review link found"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: sarolAssessingCitationIntegrity2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f948-7194-abaf-ed408bc298aa
@@ -138,7 +144,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain                                                                   | Rating | Justification                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------------------------------------------------------------ | :----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -156,44 +167,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | 100 highly-cited PMC-OA reference articles + their PMC-OA citing articles. Rationale: enable open release of training/evaluation data. |
-| **5b** | Data points + distribution | ✅ | 3063 citation instances; 3420 citation-context sentences; 3791 evidence sentences. Median 27 citations/ref (range 11–74; IQR 8.25); median 22 citing articles/ref (range 5–29; IQR 6). Mix of primary research and review articles; topics span diabetes, COVID-19, and other PubMed disease searches. |
-| **5c** | Date range of data | ❌ | Not explicitly reported. Models inferenced February 2024; OpenAI training cutoffs not disclosed. |
-| **5d** | Pre-processing / quality checks | ✅ | OpCitance pipeline located citation markers in PMC-OA citing full text; paragraph extracted with marker pre-highlighted for annotators. |
-| **5e** | Missing / imbalanced data | ⚠️ | Citations whose evidence was in tables, figures, or Supplementary Material were excluded. Class imbalance (60.82% ACCURATE vs 39.18% errors) reflected in metrics; not algorithmically rebalanced. |
-| **6a** | LLM name + version | ✅ | GPT-3.5-turbo-0613, GPT-4 (OpenAI, Feb 2024 inference); MultiVerS (Wadden et al. 2022, Longformer-based) fine-tuned from HealthVER; BM25 + MonoT5 reranker; PubMedBERT (citation-context baseline). |
-| **6b** | Development process | ✅ | MultiVerS pretrained on HealthVER, then fine-tuned on Sarol training split with rationale-classifier loss weight = 0; three-way classification head. PubMedBERT fine-tuned for sentence-level citation-context classification. |
-| **6c** | Inference settings / prompting | ⚠️ | GPT prompt structure described (task instruction + 3 class definitions + 4 demonstrations + XML/markdown delimiters + chain-of-thought reasoning request); inference parameters (temperature, top_p, seed, max tokens, system prompt) not reported. MultiVerS hyperparameters in Supplementary Material. |
-| **6d** | Output | ✅ | Predicted 3-way label (ACCURATE / NOT_ACCURATE / IRRELEVANT) plus free-text reasoning for GPT models. |
-| **6e** | Classification thresholds | ✅ | 8 fine-grained labels collapsed to 3: ACC ← {ACCURATE, INDIRECT}; N_ACC ← {CONTRADICT, NOT_SUBSTANTIATE, OVERSIMPLIFY, MISQUOTE, ETIQUETTE}; IRR ← IRRELEVANT. No probability thresholds reported. |
-| **7a** | Quality metrics | ✅ | Precision, recall, F1 (per class); micro-F1 and macro-F1. Sentence retrieval: Recall@{1,5,10,20} and MRR. |
-| **7b** | Relevance to downstream | ⚠️ | Macro-F1 emphasizes the rare NOT_ACCURATE class; no formal downstream-utility analysis (e.g., screening time savings, false-positive tolerance) reported. |
-| **7c** | Outcome definition | ✅ | Citation accuracy at the citation-instance level, gold-labeled by humans; predicted via Python pipeline against held-out citations. |
-| **7d** | Subjective interpretation | ✅ | Annotator qualifications described; pairwise IAA reported (κ): citation context 0.96; evidence sentence 0.20→0.37; accuracy labels 0.18–0.31. |
-| **7e** | Comparison | ✅ | MultiVerS variants (titles+abstracts, top-5/10/20, top-20+gold, oracle gold-evidence, oracle gold-context+evidence) vs. GPT-3.5-turbo vs. GPT-4. McNemar's test for pairwise significance. |
-| **8a** | Annotation guidelines | ✅ | Initial guidelines drafted by investigators, refined throughout. Detailed guidelines + brat-interface screenshots in Supplementary Material. 8-category label scheme + category-priority rule for multi-error cases. |
-| **8b** | Annotators + IAA | ✅ | 5 annotators. Phase 1: all 5 on the same 10 articles (5-way overlap). Phase 2: paired annotation of 20 articles, 8/annotator (each pair overlap). Phase 3: individual annotation of 70 articles, 14/annotator, each set cross-checked. Pairwise IAA averaged on phases 1–2 (30 articles). |
-| **8c** | Annotator background | ✅ | Graduate and undergraduate students in life sciences with prior experience reading life-sciences papers. |
-| **9a** | Prompt design | ⚠️ | Manual prompt template described; only "slight variations" tried — no systematic prompt-engineering search. |
-| **9b** | Prompt-development data | ✅ | Demonstrations selected from Sarol training set (1 ACC, 1 IRR, 2 N_ACC). |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ✅ | MultiVerS fine-tuned on HealthVER then Sarol training split. GPT models not fine-tuned in main analysis (one supplementary GPT-3.5-turbo fine-tuning experiment with mixed results). |
-| **12** | Compute | ❌ | Not reported. Authors note GPT was capped at top-5 evidence sentences "due to computational costs of longer evidence segments." |
-| **13** | Ethical approval | ➖ | Not applicable (no human-subjects data; analysis on published articles). |
-| **14a** | Funding | ✅ | US Office of Research Integrity (ORI) grant ORIIR220073. |
-| **14b** | Conflicts of interest | ✅ | None declared. |
-| **14c** | Protocol | ❌ | Not reported. |
-| **14d** | Registration | ➖ | Not registered (not a clinical study). |
-| **14e** | Data availability | ✅ | Annotated corpus public at github.com/ScienceNLP-Lab/Citation-Integrity. |
-| **14f** | Code availability | ✅ | Best NLP model + pipeline public at the same repository. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | 100 reference articles → 3063 citation instances annotated. First 30 (phases 1–2) used for IAA; remaining 70 (phase 3) individually annotated and cross-checked. |
-| **16b** | Characteristics | ✅ | Median 27 citations/ref article (range 11–74; IQR 8.25); median 22 citing articles/ref (range 5–29; IQR 6); mix of primary research, review, meta-analysis, longitudinal study designs; topics span diabetes, COVID-19, etc. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup analysis). |
-| **16d** | N per analysis | ⚠️ | IAA: 30 reference articles. NLP model evaluation: full corpus split into train/test — split sizes not reported in main text. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each Sarol EVD's `## Other Notes` for the EVD-specific F1 / kappa / prevalence numbers. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported). |
+| **1** | Title | ✅ | *"Assessing citation integrity in biomedical publications: corpus annotation and NLP models"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Citations are foundational to science. It is through citations that scientific claims gain credibility, propagate, and become accepted as facts."* `§1, p.1` |
+| **3b** | Background — target population | ✅ | *"We manually annotated 100 highly-cited biomedical publications (reference articles) and citations to them."* `Abstract, p.1` |
+| **4** | Objectives | ✅ | *"we focus on quotation errors, errors in citation content that can distort the scientific evidence and that are hard to detect for humans. We construct a corpus and propose natural language processing (NLP) methods to identify such errors in biomedical publications."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"We collected 100 highly-cited research articles available in full text from the PubMed Central Open Access Subset (PMC-OA) to form our reference article set."* `§2.1, p.2` |
+| **5b** | Data points + distribution | ✅ | *"A total of 3063 citation instances corresponding 3420 citation context sentences and 3791 evidence sentences were annotated (1.12 context and 1.24 evidence sentences per citation)."* `§3.1, p.5` |
+| **5c** | Date range of data | ❌ | *"The models were evaluated in February, 2024."* `§2.5.4, p.5` — the date range of the underlying annotated corpus itself is not reported, nor are OpenAI's training/pretraining cutoff dates |
+| **5d** | Pre-processing / quality checks | ✅ | *"we employed the process used in OpCitance to locate the citation marker in the citing article. For annotation, we extracted the paragraph containing the citation marker and highlighted the citation marker of interest in the paragraph."* `§2.1, p.2` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"We excluded cases in which the relevant evidence was in tables/figures or in Supplementary Material, which is fairly common."* `§4.3, p.7` — class imbalance (60.82% ACCURATE vs. 39.18% errors) `Table 1, p.5` is reflected in metrics but not algorithmically rebalanced |
+| **6a** | LLM name + version | ✅ | *"We evaluated two LLMs from OpenAI (GPT-3.5-turbo-0613 and GPT-4) for citation accuracy classification."* `§2.5.4, p.4` |
+| **6b** | Development process | ✅ | *"For our baseline experiments, we used our training set to fine-tune the MultiVerS model trained on HealthVER (Sarrouti et al. 2021)."* `§2.5.3, p.4` |
+| **6c** | Inference settings / prompting | ⚠️ | *"The prompt consists of a detailed task instruction along with descriptions of three classes, which is followed by four demonstrations selected from the training set (one each for ACCURATE and IRRELEVANT, and two for NOT_ACCURATE)."* `§2.5.4, p.4-5` — inference parameters (temperature, top_p, seed, max tokens) not reported |
+| **6d** | Output | ✅ | *"to return a prediction (ACCURATE, NOT_ACCURATE, or IRRELEVANT) along with their reasoning for the prediction"* `§2.5.4, p.4-5` |
+| **6e** | Classification thresholds | ✅ | *"We consolidated our labels into the three categories used by MultiVerS. Specifically, we mapped the ACCURATE and INDIRECT labels to Support; CONTRADICT, NOT_SUBSTANTIATE, OVERSIMPLIFY, MISQUOTE, and ETIQUETTE to Refute; and IRRELEVANT to Not Enough Information."* `§2.5.3, p.4` |
+| **7a** | Quality metrics | ✅ | *"We report standard evaluation metrics, precision, recall, and their harmonic mean, F1 score, for citation context identification and accuracy classification tasks... we use recall@k and mean reciprocal rank (MRR)."* `§2.6, p.5` |
+| **7b** | Relevance to downstream use | ⚠️ | *"such models could help authors in improving their citation practices and journals in scrutinizing submitted manuscripts more effectively for citation integrity errors"* `§5, p.7` — no formal downstream-utility analysis (e.g. screening time savings, false-positive tolerance) reported |
+| **7c** | Outcome definition | ✅ | *"Citation accuracy classification: Based on the citation context and evidence sentences, determine whether the citation is supported by the evidence sentences (accurate) or is inconsistent with them (error)."* `§2.2, p.2-3` |
+| **7d** | Subjective interpretation | ✅ | *"We calculated average pairwise inter-annotator agreement using Cohen's κ for citation context, evidence sentence, and citation accuracy annotations over the first two phases of annotation (30 reference articles)."* `§3.2, p.5` |
+| **7e** | Comparison | ✅ | *"We assess whether the performance differences between the baseline MultiVerS model and the other models are statistically significant using McNemar's test."* `§2.6, p.5` |
+| **8a** | Annotation guidelines | ✅ | *"Initial annotation guidelines were developed by the investigators, and they were extended and refined throughout the annotation process."* `§2.3, p.3` |
+| **8b** | Annotators + IAA | ✅ | *"Annotation was performed in three phases, and five annotators were involved in the annotation process."* `§2.3, p.3` — pairwise IAA on accuracy labels *"0.18–0.31"* `§3.2, p.5` |
+| **8c** | Annotator background | ✅ | *"Annotators were graduate and undergraduate students in life sciences with experience in reading life sciences papers."* `§2.3, p.3` |
+| **9a** | Prompt design | ⚠️ | *"we only experimented with slight variations on a manual prompt and better prompting strategies, specifically focusing on NOT_ACCURATE, could yield better results"* `§4.2, p.7` |
+| **9b** | Prompt-development data | ✅ | *"four demonstrations selected from the training set (one each for ACCURATE and IRRELEVANT, and two for NOT_ACCURATE)"* `§2.5.4, p.4-5` |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated as a primary outcome |
+| **11** | Instruction tuning / alignment | ✅ | *"For our baseline experiments, we used our training set to fine-tune the MultiVerS model trained on HealthVER"* `§2.5.3, p.4` — *"We performed additional experiments (fine-tuning, binary task formulation) with GPT-3.5-turbo, which showed mixed results"* `§4.2, p.7` |
+| **12** | Compute | ❌ | *"GPT models use the top five sentences only, due to computational costs of longer evidence segments."* `§3.3.3, p.5` — no GPU/CPU hardware, wall-clock time, or API cost figures reported |
+| **13** | Ethical approval | ➖ | Not applicable — no human-subjects data; analysis performed on published articles |
+| **14a** | Funding | ✅ | *"This study was supported by the Office of Research Integrity (ORI) of the US Department of Health and Human Services (HHS) (grant number: ORIIR220073)."* `Funding, p.8` |
+| **14b** | Conflicts of interest | ✅ | *"No competing interest is declared."* `Conflict of interest, p.7` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"We make the corpus and the best-performing NLP model publicly available at https://github.com/ScienceNLP-Lab/Citation-Integrity/."* `Abstract, p.1` |
+| **14f** | Code availability | ✅ | *"We make the corpus and the best-performing NLP model publicly available at https://github.com/ScienceNLP-Lab/Citation-Integrity/."* `Abstract, p.1` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"A total of 3063 citation instances corresponding 3420 citation context sentences and 3791 evidence sentences were annotated"* `§3.1, p.5` — *"In the third phase, each annotator individually annotated citations to 14 articles, for a total of 70 articles."* `§2.3, p.3` |
+| **16b** | Characteristics | ✅ | *"The median number of citations per reference article was 27 (range: 11–74, IQR: 8.25). The median number of citing articles per reference article was 22 (range: 5–29, IQR: 6)."* `§3.1, p.5` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ⚠️ | *"The first 30 reference articles (phases one and two) were included in calculation."* `§2.4, p.4` — NLP model evaluation split sizes not reported in main text |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

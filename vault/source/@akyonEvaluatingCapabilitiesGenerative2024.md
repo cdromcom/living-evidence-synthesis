@@ -17,6 +17,11 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/not-addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/partial
+  - rigor/statistical-power/adequate
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/disclosed
@@ -65,6 +70,8 @@ apaAuthors:
     family: "Hızlı"
 peerReviewStatus: not-checked
 peerReviewNote: "JMIR article page did not return readable content (JS-rendered)"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: akyonEvaluatingCapabilitiesGenerative2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f930-7bc0-be54-6850b5d43d22
@@ -148,7 +155,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain                                                                   | Rating | Justification                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | ------------------------------------------------------------------------ | :----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -166,44 +178,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | PubMed, advanced search on 19 December 2023 with "obesity" in the title; first 50 of 303 eligible articles selected. |
-| **5b** | Data points + distribution | ✅ | 39 observational PubMed articles × 15 STROBE-derived questions × 10 trials × 6 LLMs = 5850 QA pairs per LLM (4950 for Claude v1, restricted to 33 articles). 13 yes/no + 2 multiple-choice items (Q8 with 7 options, Q15 with 2). |
-| **5c** | Date range of data | ⚠️ | Articles restricted to "the last 5 years" (Dec 2018–Dec 2023). Specific oldest/newest publication dates not enumerated. LLM training cutoffs reported only for OpenAI models (Sep 2021 / Apr 2023). |
-| **5d** | Pre-processing / quality checks | ✅ | Each PDF processed by the RAG web app: text extraction → chunking → text-ada-embedding-002 vector representation → LanceDB storage → cosine-similarity retrieval per query. |
-| **5e** | Missing / imbalanced data | ⚠️ | 11 non-observational articles excluded after detailed examination; 6 additional articles excluded for Claude v1 due to access restrictions (study scope reduced to 33 for Claude). Class imbalance per question (e.g., gold-standard yes-rate per item) not reported. |
-| **6a** | LLM name + version | ✅ | GPT 3.5-Turbo-1106 (6 Nov 2023, OpenAI, cutoff Sep 2021); GPT 4-0613 (13 Jun 2023, OpenAI, cutoff Sep 2021); GPT 4-1106 (6 Nov 2023, OpenAI, cutoff Apr 2023); Claude v1 (Anthropic); Palm 2/chat-bison (Google); Gemini pro 1.0 (Google). Cutoff dates for Claude/Palm/Gemini not publicly disclosed. |
-| **6b** | Development process | ➖ | No model development; all 6 LLMs used off-the-shelf via API. |
-| **6c** | Inference settings / prompting | ⚠️ | Temperature = 0.1 reported. Each question asked 10 times per article. Top_p, max_tokens, seed, retrieval k (number of chunks), chunk size, and per-LLM API endpoint details not reported. |
-| **6d** | Output | ✅ | One option chosen from the question's answer set (yes/no for 13 items; multiple-choice for Q8 and Q15). Free-text reasoning not solicited. |
-| **6e** | Classification thresholds | ➖ | Not applicable — output is a categorical option, not a probability. |
-| **7a** | Quality metrics | ⚠️ | Per-LLM correct-answer percentage; per-question correct-answer percentage; medians + min–max per LLM × question. No precision/recall/F1, no confidence intervals around accuracy, no agreement statistics with the gold standard. |
-| **7b** | Relevance to downstream | ⚠️ | STROBE-checklist comprehension framed as a proxy for "doctors processing medical articles efficiently"; no formal downstream-task evaluation (e.g., review time savings). |
-| **7c** | Outcome definition | ✅ | "Correct" = response exactly matches the gold-standard option AND follows instructions; ambiguous answers, evident mistakes, and responses with too many candidates marked incorrect. |
-| **7d** | Subjective interpretation | ⚠️ | Single grader applied the correctness rule; no inter-grader agreement reported. Gold standard itself derived from a single medical professor + 1 epidemiologist verifier. |
-| **7e** | Comparison | ✅ | All 6 LLMs compared pairwise (each LLM vs. next-lower performer) via Kruskal-Wallis (P<.001 overall; per-pair P-values reported). Per-question Kruskal-Wallis across LLMs in Table 4. No human or non-LLM baseline. |
-| **8a** | Annotation guidelines | ⚠️ | 15 STROBE-derived questions and their answer options listed in Table 1 with the rationale for each item-group (title/abstract, methods, results, discussion, funding). No detailed annotator instructions for handling ambiguous gold answers. |
-| **8b** | Annotators + IAA | ⚠️ | Gold standard authored by 1 medical professor (pediatric gastroenterology) and verified by 1 epidemiologist (Dr. Hilal Duzel). No quantitative IAA (κ or % agreement) reported. |
-| **8c** | Annotator background | ✅ | Annotator: experienced medical professor specialized in pediatric gastroenterology, hepatology, and nutrition. Verifier: epidemiologist with expertise in statistical analysis and epidemiological methods. |
-| **9a** | Prompt design | ⚠️ | Single fixed system prompt verbatim quoted ("You are an expert medical professor specialized in pediatric gastroenterology hepatology and nutrition..."). User prompt = retrieved chunks + question + options. No prompt iteration or sensitivity analysis. |
-| **9b** | Prompt-development data | ❌ | No development/validation split for prompt design. The same prompt was applied to all evaluation items. |
-| **10** | Summarization | ➖ | Not applicable (task is QA, not summarization). |
-| **11** | Instruction tuning / alignment | ➖ | No fine-tuning; all models used as released. |
-| **12** | Compute | ❌ | Not reported. No GPU/CPU usage, API call count, latency, or cost figures. |
-| **13** | Ethical approval | ✅ | Authors state ethical approval not required because the study used already-published internet content with no human or animal participants. |
-| **14a** | Funding | ❌ | Funding statement absent from the manuscript. |
-| **14b** | Conflicts of interest | ✅ | "None declared." |
-| **14c** | Protocol | ❌ | No published protocol. |
-| **14d** | Registration | ➖ | Not registered (not a clinical study). |
-| **14e** | Data availability | ⚠️ | Source articles are public on PubMed; per-article LLM responses tabulated in Multimedia Appendix 2. Raw response logs not released as a separate data file. |
-| **14f** | Code availability | ❌ | RAG web application ("AI Research Assistant") referenced and screenshotted (Fig. 2) but no public code repository or DOI provided. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | Reported in narrative + Figure 1 flowchart: 2996 PubMed hits → 303 after filters → first 50 → 39 final (11 excluded as non-observational); Claude v1 further reduced to 33 due to access restrictions. |
-| **16b** | Characteristics | ⚠️ | Articles restricted to "obesity"-titled, English, free full-text, human, last 5 years, observational. No table of per-article characteristics (study type breakdown, sample sizes, journals). |
-| **16c** | Distribution comparison | ➖ | Not applicable (no train/test split or subgroup distribution comparison). |
-| **16d** | N per analysis | ✅ | 5850 QA pairs per LLM (4950 for Claude v1) reported in Table 3 ("Total questions asked"). Per-question per-LLM denominators implied as 390 (or 330 for Claude v1). |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported). |
+| **1** | Title | ✅ | *"Evaluating the Medical Article Understanding Capabilities of Generative Artificial Intelligence Tools"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Reading medical articles is a challenging and time-consuming task for doctors, especially when the articles are long and complex. This poses a significant barrier to efficient knowledge acquisition and evidence-based decision making in healthcare."* `Introduction, p.7` |
+| **3b** | Background — target population | ✅ | *"The results of our study will provide valuable information for medical professionals, researchers, and developers seeking to leverage the potential of LLMs for improving medical literature comprehension and ultimately enhance patient care and research efficiency."* `Introduction, p.7` |
+| **4** | Objectives | ✅ | *"This study aims to critically assess and compare the comprehension capabilities of Large Language Models (LLMs) in accurately and efficiently understanding medical research articles using the STROBE checklist which provides a standardized framework for evaluating key elements of observational study."* `Abstract, p.6` |
+| **5a** | Data sources | ✅ | *"We included the first 50 observational studies conducted within the past five years that were retrieved through an advanced search on PubMed on December 19, 2023, using ''obesity'' in the title as the search term."* `Article Selection, p.8` |
+| **5b** | Data points + distribution | ✅ | *"In this study, 15 questions selected from the STROBE checklists were posed 10 times each for 39 articles to six different LLMs."* `Results, p.13` |
+| **5c** | Date range of data | ⚠️ | *"We included the first 50 observational studies conducted within the past five years... retrieved through an advanced search on PubMed on December 19, 2023"* `Article Selection, p.8` — search date given; specific oldest/newest publication dates of the 39 articles not enumerated |
+| **5d** | Pre-processing / quality checks | ✅ | *"Text Extraction and Chunking: Each retrieved PubMed article was converted to PDF format and then processed through our web application. The application extracts all text content from the article and divides it into smaller text chunks of manageable size."* `Benchmark Pipeline, p.11` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"Access issues with Claude v1, specifically restrictions on its ability to process certain medical information, resulted in the exclusion of data from six articles, limiting the study's scope to 33 articles."* `Results, p.13` |
+| **6a** | LLM name + version | ✅ | *"we compared the answers of the generative AI tools, which are ChatGPT 3.5-turbo 1106 (11th June version), ChatGPT 4-0613 (6th November version), ChatGPT 4-1106 (11th June version), Palm 2 (chat-bison), Claude v1, Gemini pro"* `LLMs, p.12` |
+| **6b** | Development process | ➖ | *"The methodology incorporated a novel web application specifically designed for this purpose to assess the understanding capabilities of generative AI tools in medical research articles"* `p.10` — no LLM training or fine-tuning; models used off-the-shelf via the RAG pipeline |
+| **6c** | Inference settings / prompting | ⚠️ | *"For this study, we opted for a low-temperature parameter setting of 0.1 to minimize the impact of randomness."* `p.13` — top-p, max tokens, seed, retrieval k, and chunk size not reported |
+| **6d** | Output | ✅ | *"Only the answers that were correct and followed the instructions provided in the question text were considered ''correct''. Ambiguous answers, evident mistakes, and responses with an excessive number of candidates were considered incorrect."* `Statistical Analysis, p.13` |
+| **6e** | Classification thresholds | ➖ | Not applicable — output is a categorical option, not a probability |
+| **7a** | Quality metrics | ⚠️ | *"Various descriptive statistical tests were used to assess the data presented as numbers and percentages... The Kruskal-Wallis and Pearson chi-square tests were employed in the statistical analysis."* `Statistical Analysis, p.13` |
+| **7b** | Relevance to downstream use | ⚠️ | *"The results of our study will provide valuable information for medical professionals, researchers, and developers seeking to leverage the potential of LLMs for improving medical literature comprehension and ultimately enhance patient care and research efficiency."* `Introduction, p.7` |
+| **7c** | Outcome definition | ✅ | *"The accuracy of each LLMs' response was then evaluated by comparing it to the benchmark answers provided by a medical professor."* `Benchmark Pipeline, p.12` |
+| **7d** | Subjective interpretation | ⚠️ | *"The epidemiology expert doctor, with their specialized knowledge in statistical analysis and epidemiological methods, provided verification and validation of the professor's answers, ensuring the rigor of the benchmark."* `Benchmark Development, p.9` |
+| **7e** | Comparison | ✅ | *"Each LLM was compared with another LLM that provided a lower percentage of correct answers. Statistical analysis using the Kruskal-Wallis test revealed statistically significant differences between the LLMs (P<.001)."* `Results, p.14` |
+| **8a** | Annotation guidelines | ✅ | *"This list of fifteen questions, two multiple-choice, and thirteen yes/no questions has been prepared by selecting the STROBE Checklist items that can be answered definitively and have clear, non-subjective responses."* `p.10` |
+| **8b** | Annotators + IAA | ⚠️ | *"The epidemiology expert doctor... provided verification and validation of the professor's answers"* `Benchmark Development, p.9` — no quantitative inter-annotator agreement (κ) reported |
+| **8c** | Annotator background | ✅ | *"we relied on the expertise of an experienced medical professor and an epidemiology expert doctor."* `Benchmark Development, p.9` |
+| **9a** | Prompt design | ⚠️ | *"You are an expert medical professor specialized in pediatric gastroenterology hepatology and nutrition, with a detailed understanding of various research methodologies, study types, ethical considerations, and statistical analysis procedures."* `p.12` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — task is QA, not summarization |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no fine-tuning; all models used off-the-shelf via API |
+| **12** | Compute | ❌ | Not reported |
+| **13** | Ethical approval | ✅ | *"Ethical approval was not required for this study since it did not involve any human or animal research participants."* `Ethical Considerations, p.13` |
+| **14a** | Funding | ❌ | Not reported |
+| **14b** | Conflicts of interest | ✅ | *"None declared."* `Conflicts of Interest, p.21` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a clinical study |
+| **14e** | Data availability | ⚠️ | *"Multimedia Appendix 1: [Percentages of Correct Answers by Large Language Models for Each Question]"* `p.21` |
+| **14f** | Code availability | ❌ | Not reported |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"The articles included in the study were statistically examined in detail, and a total of 11 of them were excluded because they were not observational studies. The study was completed with 39 articles."* `Article Selection, p.8` |
+| **16b** | Characteristics | ✅ | *"The included studies were limited to those written in English, available as free full-text, and focusing specifically on human subjects"* `Article Selection, p.8` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"ChatGPT 3.5 Turbo-1106 5850 3916 66.9"* `Table 3, p.14` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

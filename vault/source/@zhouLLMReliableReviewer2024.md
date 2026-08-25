@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -50,6 +54,8 @@ apaAuthors:
     family: "Yu"
 peerReviewStatus: not-found
 peerReviewNote: "Checked ACL Anthology page directly — LREC-COLING uses closed review, no report published"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: zhouLLMReliableReviewer2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95e-7c73-827f-b2352b9cc159
@@ -122,7 +128,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -140,44 +151,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Three datasets: PeerRead ICLR-2017 subset (Kang et al., 2018) for aspect-score prediction; ASAP ICLR-2020 subset (Yuan et al., 2022) for review generation; authors' own RR-MCQ built from 14 ICLR-2023 papers and review-rebuttal forum posts. |
-| **5b** | Data points + distribution | ✅ | PeerRead: 427 reviews / 1.3k aspect scores on 1–5 scale × 8 aspects. ASAP: 300 papers + 902 reviews used for GPT-3.5; 50 papers used for GPT-4. RR-MCQ: 196 MCQs from 55 reviews of 14 papers; 788 aspect labels (4 categories). Aspect-distribution histograms in Figures 3 and 5. |
-| **5c** | Date range of data | ⚠️ | Source-conference vintages reported (ICLR-2017, ICLR-2020, ICLR-2023). OpenAI training cutoffs not disclosed; inference dates not reported. |
-| **5d** | Pre-processing / quality checks | ⚠️ | RR-MCQ construction described as 4-step manual process (alignment, topic ID, MCQ transform, labelling). Aspect "not discussed" cases excluded for that aspect in PeerRead. ASAP section-extraction step described, but exact text-cleaning (e.g., math/figure handling) not detailed. |
-| **5e** | Missing / imbalanced data | ⚠️ | Aspect-label imbalance acknowledged via Figures 3 and 5. PeerRead "not discussed" labels handled by aspect-level skip. RR-MCQ option counts undetermined per question (1–4 correct). No algorithmic rebalancing. |
-| **6a** | LLM name + version | ✅ | GPT-3.5-turbo-0613, GPT-3.5-turbo-16k-0613, GPT-4-0613 (OpenAI). "If not specially marked, all models are of version 0613." |
-| **6b** | Development process | ✅ | No fine-tuning; all evaluation uses pretrained OpenAI models with prompting only. |
-| **6c** | Inference settings / prompting | ⚠️ | Temperature reported (0.3, "If not specially marked, all models are of version 0613 with temperature 0.3"). System prompts in full in Appendix A. Other parameters (top_p, max tokens, seed, frequency/presence penalty) not reported. |
-| **6d** | Output | ✅ | Task 1: aspect score 1–5 per aspect. Task 2: review text with bracketed aspect-sentiment labels (e.g., [SUBSTANCE_POSITIVE]). Task 3: A/B/C/D selection (one or more options). |
-| **6e** | Classification thresholds | ➖ | Discrete classification outputs; no probability thresholds applied. |
-| **7a** | Quality metrics | ✅ | Task 1: accuracy, \|diff\|, Pearson, Spearman, Kendall's tau. Task 2: aspect coverage/recall, ROUGE-1/2/L, BertScore, BLANC, GPT-4-as-judge relevance/precision/recall, manual relevance/informativeness, plus Pearson correlation between auto metrics and human judgements (Table 6). Task 3: macro/micro accuracy, precision, recall, F1 (overall and per-aspect). |
-| **7b** | Relevance to downstream | ⚠️ | Authors discuss qualitative downstream implications ("LLM cannot naturally generate comments of people's interest", "still too early to trust LLM as automatic scientific paper reviewer"), but no formal cost/utility analysis or human-reviewer-time comparison. |
-| **7c** | Outcome definition | ✅ | Aspect score = integer 1–5; "good review" implicitly defined by similarity to gold human reviews; MCQ correctness = exact-match (macro) or per-option binary (micro). |
-| **7d** | Subjective interpretation | ⚠️ | Manual scoring of 50 GPT-4 reviews by authors on relevance and informativeness (0–100 scale); rubric and number of raters not detailed. RR-MCQ aspect labels by 2 graduate students with disagreement rate reported (10.9%) but no formal κ. |
-| **7e** | Comparison | ✅ | Most-frequent-score baseline for Task 1; GPT-3.5 vs. GPT-4 across pipeline configurations for Task 3; reference reviews + multiple automatic metrics + manual scoring for Task 2. No prior-LLM-reviewer baselines (e.g., Liu & Shah 2023, Liang et al. 2023) re-implemented. |
-| **8a** | Annotation guidelines | ✅ | RR-MCQ labelling principle in Appendix B: 4 dimensions (review aspect, content aspect, ability, extra-info) with sub-categories defined. |
-| **8b** | Annotators + IAA | ⚠️ | RR-MCQ: "two experienced students in the domain"; 86/788 (10.9%) initial disagreement, resolved by consensus discussion; no κ reported. Manual ASAP scoring done by authors; agreement not reported. |
-| **8c** | Annotator background | ⚠️ | "Two experienced students in the domain" for RR-MCQ; specific field, degree level, and reviewing experience not detailed. |
-| **9a** | Prompt design | ✅ | Full prompts for all three tasks (PeerRead Settings 1–2 with zero-shot/few-shot/MCQ-style; ASAP Settings 1–2; RR-MCQ Settings 1–2) provided verbatim in Appendix A. |
-| **9b** | Prompt-development data | ⚠️ | Justifies "most-frequent score" few-shot demonstrations against "all-1" / "all-5" alternatives on 100 PeerRead examples (Table 3). No held-out prompt-development set described for RR-MCQ. |
-| **10** | Summarization | ➖ | Not a summarization study (review generation is closer to abstractive critique than summarization; authors treat it as such only for BLANC scoring). |
-| **11** | Instruction tuning / alignment | ➖ | No fine-tuning or alignment performed in this paper. |
-| **12** | Compute | ❌ | Not reported. Authors note "the generation is expensive and that the manual analysis also has a high cost" as the reason GPT-4 ASAP evaluation was capped at 50 papers, but no GPU/API-cost figures. |
-| **13** | Ethical approval | ➖ | Not applicable (analysis of public peer-review data; no human-subjects experiment). |
-| **14a** | Funding | ✅ | National Key R&D Program of China 2023ZD0120703; China NSFC U23B2057, 62106142, 62120106006; Shanghai Municipal Science and Technology Major Project 2021SHZDZX0102. |
-| **14b** | Conflicts of interest | ❌ | No COI statement located. |
-| **14c** | Protocol | ❌ | Not reported. |
-| **14d** | Registration | ➖ | Not a clinical study. |
-| **14e** | Data availability | ⚠️ | RR-MCQ released at huggingface.co/datasets/zhouruiyang/RR-MCQ. PeerRead and ASAP are pre-existing public datasets cited via prior work. Generated GPT-3.5/GPT-4 reviews not released. |
-| **14f** | Code availability | ❌ | No code repository linked. |
-| **15** | Patient/public involvement | ➖ | Not applicable (NLP benchmarking of peer review). |
-| **16a** | Flow of data | ⚠️ | RR-MCQ flow described prose-only (ICLR-2023 → 14 papers → 55 reviews → 196 MCQs); no consort-style diagram. PeerRead/ASAP subset selection inherits from cited dataset papers. |
-| **16b** | Characteristics | ⚠️ | Aspect distribution histograms (Figures 3, 5) and label-distribution counts shown. Paper-domain (computer-science/ML conferences only) implicit; no per-paper statistics (length, citation count, decision outcome). |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-subgroup analysis). |
-| **16d** | N per analysis | ✅ | PeerRead 427 reviews / 1.3k scores; PeerRead "given abstract" sub-experiment 100 examples; ASAP 300 examples (GPT-3.5) and 50 examples (GPT-4); RR-MCQ 196 MCQs across 3 pipeline configurations. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported). |
+| **1** | Title | ✅ | *"Is LLM a Reliable Reviewer? A Comprehensive Evaluation of LLM on Automatic Paper Reviewing Tasks"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"The continuously growing amount of new paper publications, together with the increasing specialization within various research fields makes it a challenge to obtain timely and in-depth feedback."* `§1, p.1` |
+| **3b** | Background — target population | ✅ | *"Researchers use it for timely advice and hope to obtain in-depth feedback."* `Abstract, p.1` |
+| **4** | Objectives | ✅ | *"In this paper, we first evaluate GPT-3.5 and GPT-4 (the current top-performing LLM) on 2 types of tasks under different settings: the score prediction task and the review generation task."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"For the task of aspect score prediction, we use the ICLR-2017 subset of the PeerRead dataset (Kang et al., 2018)."* `§3.1, p.2` |
+| **5b** | Data points + distribution | ✅ | *"This subset contains 1.3k manually annotated aspect scores (ranging from 1 to 5 inclusive) for 427 official reviews from ICLR-2017 conference."* `§3.1, p.2` |
+| **5c** | Date range of data | ⚠️ | *"For the task of review generation, we use the ICLR-2020 subset of the ASAP dataset (Yuan et al., 2022)."* `§4.1, p.4` — source-conference vintages given (ICLR-2017/2020/2023); OpenAI training cutoffs and inference dates not disclosed |
+| **5d** | Pre-processing / quality checks | ⚠️ | *"We then perform the following four steps: (1) align the smallest unit of comment and response to form a single argument; (2) identify its main topic and decide if controversial ... (3) transform the argument into a four-choice question without adding new contents"* `§5.1, p.6` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"aspects that are not discussed in the review have a special not discussed score label."* `§3.1, p.2` |
+| **6a** | LLM name + version | ✅ | *"We test both GPT-3.5-turbo-0613 and GPT-4-0613 on our MCQ data."* `§5.2, p.7` |
+| **6b** | Development process | ⚠️ | *"We conduct experiments under two different settings: (1) given human-written review, predict aspect scores; (2) given (part of) the research paper, predict scores."* `§3.2, p.3` — confirms a prompting-only design; the paper never explicitly states that no fine-tuning was performed |
+| **6c** | Inference settings / prompting | ✅ | *"If not specially marked, all models are of version 0613 with temperature 0.3, for example GPT-3.5-turbo-0613 in this section."* `§3.2, p.4` |
+| **6d** | Output | ✅ | *"you need to answer the following multiple choice question. You should select one or more answer choices from A, B, C, D."* `Appendix A.3, p.11` |
+| **6e** | Classification thresholds | ➖ | Not applicable — discrete classification outputs, no probability thresholding |
+| **7a** | Quality metrics | ✅ | *"Besides classical metrics accuracy and absolute difference for the score prediction task, we also calculate the correlation indicators of Pearson, Spearman, and Kendall's tau."* `§3.2, p.3` |
+| **7b** | Relevance to downstream | ⚠️ | *"this value is still low (0.506), showing that LLM cannot naturally generate comments of people's interest."* `§4.2, p.5` — qualitative downstream limitation noted, no formal cost/utility analysis |
+| **7c** | Outcome definition | ✅ | *"The macro accuracy is more strict: only when all answers are correct, the question is marked as correct"* `§5.2, p.7` |
+| **7d** | Subjective interpretation | ⚠️ | *"Table 6: Pearson correlation values between automatic evaluation metrics and manually annotated review quality labels for the 50 GPT-4 generated reviews."* `Table 6, p.7` — manual scoring performed, but rubric and number of raters not detailed |
+| **7e** | Comparison | ✅ | *"baseline 1. most frequent score"* `Table 1, p.3` — most-frequent-score baseline reported against zero-shot/few-shot/MCQ-style prompting conditions |
+| **8a** | Annotation guidelines | ✅ | *"B. Labeling Principle / B.1. Review aspect"* `Appendix B, p.11` |
+| **8b** | Annotators + IAA | ⚠️ | *"The labels are assigned by two experienced students in the domain. Among all the 788 annotated labels, 86 labels (10.9%) have disagreement at first."* `§5.1, p.6` — disagreement rate given, but no formal κ reported |
+| **8c** | Annotator background | ⚠️ | *"The labels are assigned by two experienced students in the domain."* `§5.1, p.6` — field, degree level, and reviewing experience not further detailed |
+| **9a** | Prompt design | ✅ | *"A. Prompt / A.1. Evaluation on PeerRead"* `Appendix A, p.10` |
+| **9b** | Prompt-development data | ⚠️ | *"We justify the choice of prompt example in Table 3. Using the most frequent score of each aspect in the prompt has the best result"* `§3.2, p.4` — a small prompt-selection check reported for PeerRead; no held-out development split described for RR-MCQ |
+| **10** | Summarization | ➖ | Not applicable — review generation is treated as abstractive critique, not summarization, except for BLANC scoring |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no fine-tuning or alignment performed in this paper |
+| **12** | Compute | ❌ | *"The reason for only choosing 50 papers for GPT-4 is that, the generation is expensive and that the manual analysis has also a high cost."* `§4.2, p.5` — cost cited as a reason for the sample cap, but no GPU/API-cost figures given |
+| **13** | Ethical approval | ➖ | Not applicable — analysis of public peer-review data, no human-subjects experiment |
+| **14a** | Funding | ✅ | *"This work was supported by the National Key R&D Program of China 2023ZD0120703 and the China NSFC Projects (U23B2057, 62106142 and 62120106006) and Shanghai Municipal Science and Technology Major Project (2021SHZDZX0102)."* `Acknowledgements, p.9` |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a clinical study |
+| **14e** | Data availability | ⚠️ | *"Our RR-MCQ data is available at https://huggingface.co/datasets/zhouruiyang/RR-MCQ"* `p.1` — RR-MCQ released; generated GPT-3.5/GPT-4 reviews not released |
+| **14f** | Code availability | ❌ | Not reported |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"we select 55 reviews from 14 papers with sufficient comment-response posts in the peer review forum from the ICLR-2023 conference."* `§5.1, p.6` — flow described in prose, no consort-style diagram |
+| **16b** | Characteristics | ⚠️ | *"Figure 5: Label distribution of our RR-MCQ test data. There are 4 types of labels: review aspect, content aspect, ability, and if need information from other papers."* `Figure 5, p.7` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-subgroup analysis |
+| **16d** | N per analysis | ✅ | *"The dataset contains 196 multiple-choice questions examining specific review-revision-related knowledge and ability."* `§5.1, p.6` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/partial
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/partial
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -45,6 +49,8 @@ apaAuthors:
     family: "Thelwall"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: thelwallEvaluatingResearchQuality2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f951-7716-87b8-85d879b3e235
@@ -122,7 +128,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -140,44 +151,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | 51 information-science journal articles authored by the investigator (published, prepared-for-submission, or rejected/not-submitted), available as PDF or Word. |
-| **5b** | Data points + distribution | ⚠️ | Corpus size (n=51) and overall human-score mean (2.75) reported, but per-article topic/length distribution and the count per REF score level are not tabulated. |
-| **5c** | Date range of data | ❌ | Publication-date range of the 51 articles not reported; only the API-inference month (July 2024) is given. OpenAI training cutoffs not disclosed. |
-| **5d** | Pre-processing / quality checks | ✅ | PDF→text via PyMuPDF; Word→text via Save-As; Webometric Analyst utilities for header/footer removal and paragraph merging; manual checking of paragraph structure; conversion to JSONL for the API. Code path identified (Convert_academic_pdf_to_jsonl.py in github.com/MikeThelwall/Python_misc). |
-| **5e** | Missing / imbalanced data | ⚠️ | Missing-score handling described (per-article averages drop missing iterations; e.g., article-1 mean from remaining 28 of 30). REF-score class imbalance across the 51 articles not reported. |
-| **6a** | LLM name + version | ⚠️ | Model families named (GPT-3.5-turbo, GPT-4o, GPT-4o-mini) but no specific snapshot/version IDs (e.g., `gpt-4o-2024-08-06`); July 2024 inference window stated. |
-| **6b** | Development process | ➖ | No model training/fine-tuning; off-the-shelf API models used as-is. |
-| **6c** | Inference settings / prompting | ✅ | Single API call per request; system prompt = REF Strategy 6 (Appendix 1); user prompt = `"Score the following journal article: " + <text>`; temperature=1, top_p=1, max_tokens=1000. |
-| **6d** | Output | ✅ | Free-text REF assessment containing a 1*–4* score (sometimes a range or per-criterion scores); extraction rules described; mid-scores allowed. |
-| **6e** | Classification thresholds | ✅ | Score-extraction rules: number between `"Overall Score**: **"` and `"*"`; ranges → midpoint; missing rigour score → average of originality+significance; failed extraction → human entry. |
-| **7a** | Quality metrics | ✅ | Spearman rank correlation (per (model × input × prompt × n-iter) cell); Mean Absolute Deviation (direct and after linear-regression scale transformation); MAD-improvement vs. baseline of guessing the corpus mean (2.75). |
-| **7b** | Relevance to downstream | ⚠️ | Author explicitly cautions against using individual scores for peer review or hiring/promotion; suggests aggregate use (REF-style departmental comparisons) only if no systematic bias. No formal downstream-utility quantification. |
-| **7c** | Outcome definition | ✅ | Per-article REF 1*–4* quality score (1*=nationally recognised … 4*=world-leading), allowing mid-scores (e.g., 3.5*). |
-| **7d** | Subjective interpretation | ⚠️ | Subjective nature of REF scoring acknowledged (single self-evaluator); criteria from REF 2019 panel guidelines used as the prompt. No second-rater check or sensitivity analysis. |
-| **7e** | Comparison | ✅ | Within-paper: 9 (model × input) cells in Table 1; 7 system-prompt strategies in Figure 4; 1–30 iteration sweep in Figures 1, 2, 5. Cross-paper: vs. ChatGPT-4 web interface 15-iter (Thelwall 2024, r=0.51) and vs. ML+bibliometric REF prediction (Thelwall et al. 2023, Pearson 0.084 for UoA 34, max 0.562 for Clinical Medicine). |
-| **8a** | Annotation guidelines | ✅ | REF 2019 Main Panel D guidelines used both as the system prompt and as the human-scorer's reference standard. |
-| **8b** | Annotators + IAA | ⚠️ | 1 annotator (the author); no IAA possible. Acknowledged as a limitation. |
-| **8c** | Annotator background | ✅ | Author = Information School professor, the corpus author, and an experienced REF scorer; explicitly stated as familiar with the REF scale. |
-| **9a** | Prompt design | ✅ | 7 system-prompt strategies systematically compared (Strategy 0 = brief, no justification; Strategies 1–5 = nested truncations of full REF instructions; Strategy 6 = full REF Main Panel D, Appendix 1). User prompt fixed across cells. |
-| **9b** | Prompt-development data | ⚠️ | Prompts derived from REF 2019 panel-criteria text (cited). "Configuration exercise" mentioned (fruitless tests with alternative prompts and with DOI/URL inputs) but no held-out development split. |
-| **10** | Summarization | ➖ | Not applicable (scoring task, not summarization). |
-| **11** | Instruction tuning / alignment | ➖ | Off-the-shelf models; no fine-tuning or alignment performed. |
-| **12** | Compute | ⚠️ | Cost ratio reported (4o ≈ 10× 3.5-turbo, ≈ 20× 4o-mini per call as of July 2024) but no token counts, wall-clock time, or hardware. |
-| **13** | Ethical approval | ➖ | Not applicable (no human subjects beyond the investigator-author scoring his own work). |
-| **14a** | Funding | ❌ | Not reported in the paper. |
-| **14b** | Conflicts of interest | ❌ | Not reported in the paper. |
-| **14c** | Protocol | ❌ | Not reported. |
-| **14d** | Registration | ➖ | Not registered (not a clinical study). |
-| **14e** | Data availability | ❌ | The 51 article texts and the per-article human + ChatGPT scores are not stated as publicly released; author notes scores "have never been disclosed to anyone else or uploaded to any AI system" prior to this study but does not announce a post-publication release. |
-| **14f** | Code availability | ✅ | Conversion script (Convert_academic_pdf_to_jsonl.py), Webometric Analyst utilities for cleaning/extraction/correlation, and `correlation_and_regression.py` all linked at github.com/MikeThelwall/Python_misc and the Webometric Analyst site. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | Article count (51) and iteration count (30) given, but no flow diagram of API-call success/failure or per-cell missing-score counts. |
-| **16b** | Characteristics | ⚠️ | Field (information science), authorship (single author), copyright status, and overall human-score mean (2.75) reported; no per-article publication year, length, or REF-score histogram. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no train/test split or subgroup comparison). |
-| **16d** | N per analysis | ✅ | n=51 articles for every reported correlation; 30 iterations per (model × input × prompt) cell; permutation counts for n-iter subanalyses stated (e.g., 30×29=870 for 2/28 iterations; 1000 random permutations for 3–27). |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific Spearman, MAD, and regression numbers. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating performed). |
+| **1** | Title | ✅ | *"Evaluating Research Quality with Large Language Models: An Analysis of ChatGPT's Effectiveness with Different Settings and Inputs"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Evaluating the quality of academic research is necessary for many national research evaluation exercises, such as in UK and New Zealand (Buckle & Creedy, 2024; Sivertsen, 2017), as well as for appointments, promotions, and tenure"* `§1, p.1` |
+| **3b** | Background — target population | ⚠️ | *"The raw data for this paper is a set of 51 information science journal articles that have either been published or prepared for submission and subsequently rejected or not submitted."* `§2.1, p.3` — defines the study's own corpus but not a broader target population beyond the author's own field |
+| **4** | Objectives | ✅ | *"RQ1: What is the optimal input for ChatGPT post-publication research quality assessment: full text, abstract, or title only?"* `§1, p.3` |
+| **5a** | Data sources | ✅ | *"The raw data for this paper is a set of 51 information science journal articles that have either been published or prepared for submission and subsequently rejected or not submitted. All were written by the author, who has copyright"* `§2.1, p.3` |
+| **5b** | Data points + distribution | ⚠️ | *"Table 2. Average humans scores and model average scores."* `Table 2, p.8` — corpus size (n=51) and overall human-score mean (2.75) reported, but per-article topic/length distribution and the count per REF score level are not tabulated |
+| **5c** | Date range of data | ⚠️ | *"The queries were all submitted in July 2024."* `§2, p.3` — publication-date range of the 51 source articles not reported; only the API-inference month is given, and OpenAI training cutoffs are not disclosed |
+| **5d** | Pre-processing / quality checks | ✅ | *"The PDF documents were converted to text with PyMuPDF in Python (Convert_academic_pdf_to_jsonl.py in https://github.com/MikeThelwall/Python_misc)."* `§2.1, p.4` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"For example, if two of the 30 scores for article 1 were missing, then the article 1 average score would be the average of the remaining 28."* `§2.4, p.5` |
+| **6a** | LLM name + version | ⚠️ | *"ChatGPT 4o is slightly better than 3.5-turbo (0.66), and 4o-mini (0.66)."* `Findings, p.1` — model families named but no dated snapshot IDs; only "the queries were all submitted in July 2024" gives an inference window |
+| **6b** | Development process | ➖ | Not applicable — off-the-shelf ChatGPT API models used with no fine-tuning or training of the LLMs themselves |
+| **6c** | Inference settings / prompting | ✅ | *"The maximum temperature parameter was set to 1, the default, the top_p parameter was also set to its default of 1, and the max_tokens parameter was set to 1000"* `§2.2, p.5` |
+| **6d** | Output | ✅ | *"Score the following journal article: "* `§2.2, p.5` — free-text report containing an embedded 1*–4* score |
+| **6e** | Classification thresholds | ✅ | *"one rule was to extract the number between "Overall Score**: **" and "*""* `§2.4, p.5` |
+| **7a** | Quality metrics | ✅ | *"Spearman correlations were used to assess the extent to which the 51 human scores agreed with the ChatGPT scores"* `§2.5, p.5` |
+| **7b** | Relevance to downstream | ⚠️ | *"it should not be used for peer review of conference papers or journal articles and also not for promotion and hiring decisions"* `§5, p.15` — caution against real deployment given but no formal downstream-utility quantification |
+| **7c** | Outcome definition | ✅ | *"All were written by the author, who has copyright, and were scored by him using the REF quality scale of 1*, 2*, 3* or 4* (REF, 2019)"* `§2.1, p.3` |
+| **7d** | Subjective interpretation | ⚠️ | *"This dataset is not ideal since (a) it is part of a single author's output and therefore not representative even of its field, (b) the author's scores are less relevant than the scores of more independent and less expert (on this topic) senior researchers"* `§2.1, p.3` |
+| **7e** | Comparison | ✅ | *"The results improve on the prior attempt to predict REF scores on the same set of articles with ChatGPT 4 using the web interface"* `§4.1, p.12` |
+| **8a** | Annotation guidelines | ✅ | *"The main system prompt used was like that used in the previous paper and consists of the REF guidelines for the research area (Main Panel D)"* `§2.2, p.4` |
+| **8b** | Annotators + IAA | ⚠️ | *"This study has many limitations, the most important of which is the restriction to a relatively small number of articles written by single person."* `§4, p.12` — single self-evaluator, no inter-annotator agreement possible |
+| **8c** | Annotator background | ✅ | *"scored by him using the REF quality scale of 1*, 2*, 3* or 4* (REF, 2019), with which he is familiar"* `§2.1, p.3` |
+| **9a** | Prompt design | ✅ | *"Six variations of the basic REF prompt were tested to assess whether alternative prompts might give better results."* `§2.3, p.5` |
+| **9b** | Prompt-development data | ⚠️ | *"This exercise consisted: of (a) fruitless tests with different prompts to try to get the score prediction to be reported more consistently, and (b) fruitless experiments with attempts to get score predictions from DOIs or full text URLs."* `§2.2, p.4` |
+| **10** | Summarization | ➖ | Not applicable — scoring task, not summarization |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — off-the-shelf models, no fine-tuning or alignment performed |
+| **12** | Compute | ⚠️ | *"API calls with ChatGPT 4o are ten times more expensive than calls with ChatGPT 3.5-turbo and twenty times more expensive than ChatGPT 4o-mini calls (as of July 2024)"* `§3.2, p.8` — cost ratio given but no token counts or wall-clock time |
+| **13** | Ethical approval | ➖ | Not applicable — no human subjects beyond the investigator-author scoring his own work |
+| **14a** | Funding | ❌ | Not reported |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ❌ | *"The scores given to these papers have never been disclosed to anyone else or uploaded to any Artificial Intelligence (AI) system."* `§2.1, p.3` — describes non-disclosure to date, but no future public-release plan is stated for the 51 texts or scores |
+| **14f** | Code availability | ✅ | *"Convert_academic_pdf_to_jsonl.py in https://github.com/MikeThelwall/Python_misc"* `§2.1, p.4` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"For each experiment, the ChatGPT completion requests were carried out consecutively and then repeated a further 29 times to give 30 scores for each article."* `§2, p.3` — iteration flow given, no diagram of API-call success/failure |
+| **16b** | Characteristics | ⚠️ | *"the papers are relatively homogeneous in topic, giving more scope for AI to differentiate quality differences from topic differences."* `§2.1, p.3` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no train/test split or subgroup comparison |
+| **16d** | N per analysis | ✅ | *"Averaging 2 or 28 iterations. In both cases there are 30x29=870 permutations of sets of iterations to average"* `§2.5, p.6` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific Spearman, MAD, and regression numbers. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating performed |

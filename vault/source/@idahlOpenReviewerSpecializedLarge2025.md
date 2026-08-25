@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/partial
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -48,6 +52,8 @@ apaAuthors:
     family: "Ahmadi"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: idahlOpenReviewerSpecializedLarge2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f941-711e-94d8-69d06137ee06
@@ -122,7 +128,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -140,44 +151,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | OpenReview.net submissions + reviews from ICLR and NeurIPS, 2022 onwards. Test venues: NeurIPS 2024 + ICLR 2025. PDF→markdown via Marker. |
-| **5b** | Data points + distribution | ⚠️ | Crawl: 36K papers, 141K reviews. After length-filter (top + bottom 1% trimmed) and confidence-filter (≥ "Confident, but not absolutely certain"): ≈79K reviews. No per-venue or per-year breakdown of the 79K, no statistics on review length or recommendation distribution in the training set. |
-| **5c** | Date range of data | ⚠️ | "From 2022 onwards" stated for the crawl; test set is NeurIPS 2024 + ICLR 2025. Specific crawl-cutoff date not reported. |
-| **5d** | Pre-processing / quality checks | ✅ | PDF→markdown via Marker (chosen over Nougat for higher per-page accuracy on equations and tables); appendix discarded; only main text + references kept. Reviews filtered by length (top + bottom 1% removed) and reviewer-confidence threshold. |
-| **5e** | Missing / imbalanced data | ⚠️ | Authors note original double-blind submissions are unavailable for some venues and they fall back to the non-anonymized version (potential leakage acknowledged in Limitations). Class-balance of recommendation labels not analyzed or rebalanced. |
-| **6a** | LLM name + version | ✅ | Llama-OpenReviewer-8B (full-finetune of meta-llama/Llama-3.1-8B-Instruct). Baselines: Llama-3.1-8B-Instruct, Llama-3.1-70B-Instruct, Claude-3.5-Sonnet (Oct. 22), GPT-4o (2024-11-20). Judge: GPT-4o (2024-11-20). |
-| **6b** | Development process | ✅ | 3 epochs of full fine-tuning, effective batch size 64, learning rate 2×10⁻⁵, bfloat16, max sequence length 128K tokens, axolotl + Deepspeed ZeRO-3 + Flash Attention V2 + LIGER kernel. Full axolotl config in Figure 8. |
-| **6c** | Inference settings / prompting | ✅ | Greedy decoding (temperature=0) for all models. System + user prompts shown verbatim in Figures 3–4 (OpenReviewer) and Figures 5–6 (LLM judge). vLLM serving for OpenReviewer/Llama; OpenRouter for Claude/GPT-4o. |
-| **6d** | Output | ✅ | Free-text markdown review following a venue-specific template that includes a numerical recommendation field (1–10 normalized). |
-| **6e** | Classification thresholds | ➖ | Not applicable — generative output, no probability thresholds; recommendation parsed directly from generated text. |
-| **7a** | Quality metrics | ✅ | Exact Match rate (EM, %); Average Error ± SD on 1–10 normalized recommendation scale; Average Recommendation ± SD; LLM-as-judge win/tie/loss rates. |
-| **7b** | Relevance to downstream | ⚠️ | Authors argue that recommendation alignment matters for pre-submission feedback (overly positive scores would mislead authors), but no formal user-study or downstream-utility measurement reported. |
-| **7c** | Outcome definition | ✅ | Recommendation alignment (EM and Avg. Error vs. human reviewers); pairwise preference alignment with expert reviews (LLM-as-judge). |
-| **7d** | Subjective interpretation | ⚠️ | Authors acknowledge "similarity to human reviews equals quality… may not always be accurate as the quality control for human-written reviews is limited" and that human judgments would be more meaningful but were too expensive. No human evaluation conducted. |
-| **7e** | Comparison | ✅ | OpenReviewer compared against 4 general-purpose LLM baselines (Llama-3.1-8B/70B-Instruct, Claude-3.5-Sonnet, GPT-4o) on identical prompts and test set. |
-| **8a** | Annotation guidelines | ➖ | Not applicable — no manual annotation; reviews used as-is from OpenReview. |
-| **8b** | Annotators + IAA | ➖ | Not applicable — no manual annotation. (Original OpenReview reviews were written by conference reviewers; their IAA is not analyzed here.) |
-| **8c** | Annotator background | ➖ | Not applicable. |
-| **9a** | Prompt design | ✅ | System prompt derived from the ICLR 2024 reviewer guide; user prompt is minimalistic ("Review the following paper:" + full text). LLM-judge prompt described and shown in Figures 5–6. No systematic prompt-engineering search reported. |
-| **9b** | Prompt-development data | ❌ | Not reported — no separate prompt-development / validation set described. |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ✅ | Llama-3.1-8B-Instruct full-finetuned for 3 epochs on the ≈79K filtered review set (axolotl, llama3 chat template). |
-| **12** | Compute | ✅ | "approximately 34 hours using 64 NVIDIA A100 80GB GPUs." Inference compute and baseline-LLM API costs not itemized. |
-| **13** | Ethical approval | ➖ | Not applicable (no human-subjects data; analysis on public OpenReview submissions). Authors include an Ethics and Broader Impact statement on misuse and bias. |
-| **14a** | Funding | ✅ | Leibniz Young Investigator Grant (project ARENA, LYIG-2023-01) of Leibniz University Hannover, funded by MWK (grant 11-76251-114/2022). Additional compute via AI service center KISSKI (BMBF grant 01IS22093C). |
-| **14b** | Conflicts of interest | ❌ | Not reported. |
-| **14c** | Protocol | ❌ | Not reported. |
-| **14d** | Registration | ➖ | Not registered (not a clinical study). |
-| **14e** | Data availability | ⚠️ | Training data not released (sourced from OpenReview API, derivative; no explicit dataset link). Test paper IDs (NeurIPS 2024 + ICLR 2025 held-out 400) not enumerated. |
-| **14f** | Code availability | ✅ | Model on HuggingFace (huggingface.co/maxidl/Llama-OpenReviewer-8B); demo on HuggingFace Spaces (huggingface.co/spaces/maxidl/openreviewer); axolotl config disclosed in Figure 8. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | Crawl 36K papers / 141K reviews → length + confidence filter → ≈79K reviews used for fine-tuning. Test: 400 held-out NeurIPS 2024 + ICLR 2025 papers. Train/val split sizes within the 79K not reported; no validation-set numbers reported. |
-| **16b** | Characteristics | ⚠️ | Limited — venues (ICLR + NeurIPS, 2022 onwards) and ML/AI domain stated; no breakdown of paper subfields, paper length distribution, reviewer-experience composition, or recommendation distribution in the training set. Test-set human-reviewer recommendation mean reported (5.4 ± 1.2). |
-| **16c** | Distribution comparison | ⚠️ | Generated vs. human recommendation distributions compared in mean ± SD only (Tables 1, 2). No KS / chi-square / per-decile distribution plot. |
-| **16d** | N per analysis | ✅ | 400 papers per metric; per-model evaluation N = 400 generated reviews. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each Idahl & Ahmadi EVD's `## Other Notes` for the EVD-specific EM, Avg. Error, Avg. Recommendation, and win-rate numbers. |
-| **18** | LLM updating | ➖ | Not applicable (single fine-tune, no online updating reported). |
+| **1** | Title | ⚠️ | *"OpenReviewer: A Specialized Large Language Model for Generating Critical Scientific Paper Reviews"* `Title, p.1` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Large language models (LLMs) have recently demonstrated remarkable capabilities in understanding and generating academic content, suggesting their potential to assist in peer review."* `Abstract, p.1` |
+| **3b** | Background — target population | ⚠️ | *"we present OpenReviewer, an open-source system for generating high-quality peer reviews of machine learning and AI conference papers."* `Abstract, p.1` |
+| **4** | Objectives | ✅ | *"In this paper, we present OpenReviewer, an open-source system designed to generate human-like, high-quality reviews of machine learning and AI papers."* `§1, p.1` |
+| **5a** | Data sources | ✅ | *"From OpenReview, we collected a dataset of 36K submitted papers and 141K reviews from the International Conference on Learning Representations (ICLR) and the Conference on Neural Information Processing Systems (NeurIPS), considering editions from 2022 onwards."* `§3.2.1, p.2` |
+| **5b** | Data points + distribution | ⚠️ | *"After filtering, approximately 79K reviews are remaining."* `§3.4, p.3` — no per-venue or per-year breakdown of the 79K, and no statistics on review-length or recommendation distribution in the training set |
+| **5c** | Date range of data | ⚠️ | *"considering editions from 2022 onwards"* `§3.2.1, p.2` — specific crawl-cutoff date not reported |
+| **5d** | Pre-processing / quality checks | ✅ | *"We discard any appendix content and only retain the full text of the main and reference sections. We filter papers and reviews by length, removing the top and bottom 1% quantile. Finally, we keep only high-confidence reviews."* `§3.4, p.3` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"the original double-blind submissions are no longer available for some venues; we obtain the non-anonymized version."* `§3.2, p.2` — potential leakage acknowledged; recommendation-label class balance not analyzed or rebalanced |
+| **6a** | LLM name + version | ✅ | *"We compare OpenReviewer to Llama-3.1-8B-Instruct and Llama-3.1-70B-Instruct(Dubey et al., 2024), Claude-3.5-Sonnet (Oct. 22) from Anthropic, and GPT-4o (2024-11-20) from OpenAI."* `§4.1, p.4` |
+| **6b** | Development process | ✅ | *"We full finetune Llama-3.1-8B-Instruct for three epochs with an effective batch size of 64 and a learning rate of 2 × 10-5, using bfloat16 precision. The maximum sequence length during finetuning is 128k tokens"* `§3.4, p.3` |
+| **6c** | Inference settings / prompting | ✅ | *"We generate one review for each paper in the test set using greedy decoding (temperature of 0). All LLMs are instructed with the same system and user prompts used by OpenReviewer."* `§4.1, p.4` |
+| **6d** | Output | ✅ | *"OpenReviewer extracts the full text, including technical content like equations and tables, and generates a structured review following conference-specific guidelines."* `Abstract, p.1` |
+| **6e** | Classification thresholds | ➖ | Not applicable — generative output, no probability thresholding; recommendation parsed directly from generated text |
+| **7a** | Quality metrics | ✅ | *"Table 1: Exact Match (EM) and average error for the recommendation in 400 test reviews generated with different LLMs and normalized to a scale from 1 (strong reject) to 10 (strong accept)."* `Table 1, p.5` |
+| **7b** | Relevance to downstream use | ⚠️ | *"The system provides authors with rapid, constructive feedback to improve their manuscripts before submission, though it is not intended to replace human peer review."* `Abstract, p.1` — no formal user study or downstream-utility measurement reported |
+| **7c** | Outcome definition | ✅ | *"EM measures how often the LLM's recommendation matches at least one of the human reviews. The average error is the average absolute difference between the LLM's recommendations and the human reviewers' average recommendation."* `Table 1 caption, p.5` |
+| **7d** | Subjective interpretation | ⚠️ | *"This approach assumes that similarity to human reviews equals quality, which may not always be accurate as the quality control for human-written reviews is limited."* `§4, p.5` — no human evaluation conducted |
+| **7e** | Comparison | ✅ | *"We compare OpenReviewer to Llama-3.1-8B-Instruct and Llama-3.1-70B-Instruct(Dubey et al., 2024), Claude-3.5-Sonnet (Oct. 22) from Anthropic, and GPT-4o (2024-11-20) from OpenAI."* `§4.1, p.4` |
+| **8a** | Annotation guidelines | ➖ | Not applicable — no manual annotation; reviews used as-is from OpenReview |
+| **8b** | Annotators + IAA | ➖ | Not applicable — no manual annotation phase |
+| **8c** | Annotator background | ➖ | Not applicable |
+| **9a** | Prompt design | ✅ | *"OpenReviewer uses a system prompt that conditions the LLM on its reviewer role and defines a fixed set of reviewer guidelines"* `§3.3, p.3` |
+| **9b** | Prompt-development data | ❌ | Not reported — no separate prompt-development or validation set described |
+| **10** | Summarization | ➖ | Not applicable |
+| **11** | Instruction tuning / alignment | ✅ | *"We full finetune Llama-3.1-8B-Instruct for three epochs with an effective batch size of 64 and a learning rate of 2 × 10-5"* `§3.4, p.3` |
+| **12** | Compute | ✅ | *"The training process took approximately 34 hours using 64 NVIDIA A100 80GB GPUs."* `§3.4, p.3` — inference compute and baseline-LLM API costs not itemized |
+| **13** | Ethical approval | ➖ | Not applicable — no human-subjects data; analysis on public OpenReview submissions; authors include an Ethics and Broader Impact Statement on misuse and bias |
+| **14a** | Funding | ✅ | *"This research was primarily supported by the Leibniz Young Investigator Grant program (project ARENA, LYIG-2023-01) of Leibniz University Hannover, funded by the Ministry of Science and Culture of Lower Saxony (MWK) (grant no. 11-76251-114/2022)."* `Acknowledgments, p.7` |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ⚠️ | *"From OpenReview, we collected a dataset of 36K submitted papers and 141K reviews"* `§3.2.1, p.2` — sourced from the OpenReview API but not itself redistributed; test-paper IDs not enumerated |
+| **14f** | Code availability | ✅ | *"1Model: huggingface.co/maxidl/Llama-OpenReviewer-8B ... 2Demo: huggingface.co/spaces/maxidl/openreviewer"* `p.1` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"we collected a dataset of 36K submitted papers and 141K reviews ... After filtering, approximately 79K reviews are remaining."* `§3.2.1/§3.4, p.2-3` — train/val split sizes within the 79K not reported |
+| **16b** | Characteristics | ⚠️ | *"our dataset is restricted to papers from 2022 onwards from only ICLR and NeurIPS conferences within the machine learning and AI domain."* `§6.3, p.7` — no breakdown of subfields, length distribution, or reviewer-experience composition |
+| **16c** | Distribution comparison | ⚠️ | *"OpenReviewer 5.4 ± 1.1 ... Human Reviewers 5.4 ± 1.2"* `Table 2, p.5` — compared in mean ± SD only, no distribution plot |
+| **16d** | N per analysis | ✅ | *"we conduct experiments using a test set of 400 held-out papers and their reviews from NeurIPS 2024 and ICLR 2025"* `§4, p.4` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — single fine-tune, no online updating reported |

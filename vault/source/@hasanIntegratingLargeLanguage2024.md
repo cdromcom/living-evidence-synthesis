@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/not-addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -79,6 +83,8 @@ apaAuthors:
     family: "Murad"
 peerReviewStatus: not-checked
 peerReviewNote: "BMJ EBM blocked automated access (403)"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: hasanIntegratingLargeLanguage2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93d-7c62-8a27-124b13d62c62
@@ -149,7 +155,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -167,44 +178,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical methodological case study — where an item's own wording says "healthcare context" or "care pathway," it's read as "review-workflow context" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Cochrane systematic reviews citing the original ROBINS-I publication, identified via Scopus; restricted to fully-published Cochrane SRs in medicine that used ROBINS-I to assess included non-randomised studies. |
-| **5b** | Data points + distribution | ⚠️ | 307 unique non-randomised studies, each scored on 7 ROBINS-I domains + Overall (= 8 ordinal judgments per study). Distribution of judgments across ordinal categories (low/moderate/serious/critical/no information) not reported. |
-| **5c** | Date range of data | ⚠️ | Time stamp of AI use reported as "between 14 August 2023 and 21 August 2023" (table 2). Date range of the underlying primary studies / Cochrane SRs not reported; GPT-4 training cutoff not disclosed. |
-| **5d** | Pre-processing / quality checks | ✅ | Three data-entry methods piloted (PDF upload via Code Interpreter, full-text paste, Word-converted Methods + Results paste); only the third worked. Foreign-language studies translated by ChatGPT; long studies truncated. One reviewer extracted Cochrane RoB judgments; a second reviewer verified. |
-| **5e** | Missing / imbalanced data | ⚠️ | Truncation of long studies and translation of non-English studies acknowledged as potential affecters of RoB judgements, but no quantification of how many studies were truncated/translated. Distribution of ordinal RoB classes (likely imbalanced) not reported. |
-| **6a** | LLM name + version | ⚠️ | "GPT-4" via ChatGPT Plus (Code Interpreter then standard chat). Specific GPT-4 snapshot/version (e.g., gpt-4-0613) not reported. |
-| **6b** | Development process | ➖ | No model development/training; off-the-shelf zero-shot use of GPT-4. |
-| **6c** | Inference settings / prompting | ❌ | Inference parameters (temperature, top_p, max tokens, system prompt) not reported. Prompts described as "iteratively tested and refined" with examples in the appendix; main text states "these processes were not prespecified." |
-| **6d** | Output | ✅ | Ordinal ROBINS-I judgement per domain (D1–D7) and Overall. |
-| **6e** | Classification thresholds | ➖ | Not applicable (ordinal LLM output mapped directly to ROBINS-I categories; no probability cutoffs). |
-| **7a** | Quality metrics | ✅ | Raw per cent agreement, weighted Cohen's kappa, Kendall's τ — reported per domain and Overall in Table 1. Magnitude bands defined (slight/fair/moderate/substantial/almost perfect). |
-| **7b** | Relevance to downstream | ⚠️ | Authors discuss practical implications (LLMs as duplicate independent reviewer) but no formal downstream-utility analysis (time saved, error tolerance, screening throughput). |
-| **7c** | Outcome definition | ✅ | Agreement with the published Cochrane reviewer's ROBINS-I judgment, treated as the reference standard at the per-study × per-domain level. |
-| **7d** | Subjective interpretation | ⚠️ | Cochrane reviewers' judgments treated as a single reference standard; no de novo independent human re-rating, so reference-standard reliability for this corpus is not established. Authors acknowledge ROBINS-I "can be quite poor for some domains such as confounding." |
-| **7e** | Comparison | ⚠️ | GPT-4 compared only against the published Cochrane reviewers; no comparison to other LLMs (GPT-3.5, Llama 2), to a non-LLM RoB classifier, or to a naive baseline. |
-| **8a** | Annotation guidelines | ➖ | No de novo annotation; reference labels are the published Cochrane RoB judgments. Cochrane SRs follow ROBINS-I guidance. |
-| **8b** | Annotators + IAA | ⚠️ | Two reviewers extracted/verified Cochrane judgments from the SRs (extraction QC, not RoB re-annotation). No IAA reported because no independent re-rating was performed. |
-| **8c** | Annotator background | ❌ | Background/expertise of the two extraction reviewers not described. |
-| **9a** | Prompt design | ❌ | Prompts described as iteratively tested and refined; appendix referenced but main text explicitly states the prompt-development process "was not prespecified" — no systematic prompt-engineering search reported. |
-| **9b** | Prompt-development data | ❌ | Not reported which studies (if any from the 307) were used during prompt iteration vs. held out for evaluation; no train/test split disclosed. |
-| **10** | Summarization | ➖ | Not applicable (judgement task, not summarization). |
-| **11** | Instruction tuning / alignment | ➖ | Off-the-shelf GPT-4; no fine-tuning or RLHF beyond OpenAI's defaults. |
-| **12** | Compute | ❌ | Not reported. Authors note token-limit issues ("estimated 2500-word limit for GPT-4 prompts") motivated the Word-conversion workaround. |
-| **13** | Ethical approval | ✅ | "Ethics approval Not applicable." Stated explicitly. |
-| **14a** | Funding | ✅ | "The authors have not declared a specific grant for this research from any funding agency in the public, commercial or not-for-profit sectors." |
-| **14b** | Conflicts of interest | ✅ | "Competing interests None declared." |
-| **14c** | Protocol | ❌ | No protocol for the case study reported or referenced; authors explicitly state prompt and data-entry processes "were not prespecified." |
-| **14d** | Registration | ➖ | Not applicable (methodological case study, not a clinical trial). |
-| **14e** | Data availability | ⚠️ | "Data are available upon reasonable request. Search strategy, selection process flowchart, prompts and boxes containing included SRs and studies are available in the appendix. Analysed datasheet is available upon request." Not a public release. |
-| **14f** | Code availability | ❌ | No code released. Analysis described as conducted in R but no scripts shared. |
-| **15** | Patient/public involvement | ✅ | "Patients and/or the public were not involved in the design, or conduct, or reporting, or dissemination plans of this research." Stated explicitly. |
-| **16a** | Flow of data | ✅ | 98 SRs identified → 36 SRs with full ROBINS-I assessment → 307 unique non-randomised studies after deduplication (online supplemental figure; box 1, box 2). |
-| **16b** | Characteristics | ❌ | No characteristics of the 307 studies or 36 SRs reported (clinical area, study designs, publication years, geographic distribution, etc.). |
-| **16c** | Distribution comparison | ➖ | No subgroup analysis (e.g., by clinical area or study design). |
-| **16d** | N per analysis | ✅ | N=307 studies for each of the 7 ROBINS-I domains and Overall agreement (Table 1). |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific raw agreement / kappa / Kendall τ numbers. |
-| **18** | LLM updating | ➖ | Not applicable (single-shot evaluation; no model updating planned or reported). Authors do note that "the AI model and interface used need to be explicitly reported along with a timestamp of when AI was used because the output may vary over time for the same input and prompts." |
+| **1** | Title | ⚠️ | *"Integrating large language models in systematic reviews: a framework and case study using ROBINS-I for risk of bias assessment"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Systematic reviews are the key initial step in decision-making in healthcare. However, they are costly, require a long time to complete and become outdated, especially in areas of rapidly evolving evidence."* `Introduction, p.1` |
+| **3b** | Background — target population | ⚠️ | *"All original non-randomised studies included in the identified SRs were included as long as the ROBINS-I tool was used for their RoB assessment in the SR."* `Methods, p.2` |
+| **4** | Objectives | ✅ | *"In this exposition, we propose a framework for incorporating LLMs into systematic reviews and employ GPT-4 for RoB assessment in a case study using the Cochrane Collaboration's Risk Of Bias In Non-randomised Studies of Interventions (ROBINS-I) tool."* `Introduction, p.2` |
+| **5a** | Data sources | ✅ | *"We searched Scopus to identify all systematic reviews (SRs) from the Cochrane Collaboration that cited the original publication of the ROBINS-I tool."* `Methods, p.2` |
+| **5b** | Data points + distribution | ⚠️ | *"After deduplicating studies that appeared in multiple SRs, we finalised our sample with 307 unique individual studies (online supplemental figure; box 1 and box 2)."* `Results, p.2` — distribution across ordinal RoB categories not reported |
+| **5c** | Date range of data | ⚠️ | *"Time stamp of AI use: between 14 August 2023 and 21 August 2023."* `Table 2, p.3` — date range of the underlying primary studies/SRs and GPT-4 training cutoff not disclosed |
+| **5d** | Pre-processing / quality checks | ✅ | *"we converted the PDF to a Word file and extracted only the Methods and Results sections from each study for RoB assessment because these are the sections on which human reviewers focus for RoB assessments."* `Methods, p.2` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"We also had to use ChatGPT to translate a few studies published in languages other than English, truncate text when it was too lengthy and convert files format, all may have affected RoB judgements."* `Discussion, p.4` |
+| **6a** | LLM name + version | ⚠️ | *"GPT-4 model accessed via the ChatGPT plus version."* `Table 2, p.3` — specific snapshot/version not reported |
+| **6b** | Development process | ➖ | Not applicable — no model development/training; off-the-shelf zero-shot use of GPT-4 |
+| **6c** | Inference settings / prompting | ❌ | Not reported |
+| **6d** | Output | ✅ | *"This study evaluates GPT-4 agreement with human reviewers in assessing the risk of bias using the Risk Of Bias In Non-randomised Studies of Interventions (ROBINS-I) tool"* `Abstract, p.1` |
+| **6e** | Classification thresholds | ➖ | Not applicable — ordinal LLM output mapped directly to ROBINS-I categories, no probability cutoffs |
+| **7a** | Quality metrics | ✅ | *"We measured the agreement between Cochrane reviewers and GPT-4 comparing the ordinal judgements about RoB using raw per cent agreement, weighted Cohen's kappa and Kendall's τ for correlation."* `Methods, p.2` |
+| **7b** | Relevance to downstream use | ❌ | Not reported |
+| **7c** | Outcome definition | ✅ | *"The magnitude of agreement based on values of a correlation or kappa coefficient was considered to be slight (0-0.20), fair (0.21-0.40), moderate (0.41-60), substantial (0.61-0.80) and almost perfect (0.81-1.0)."* `Methods, p.2` |
+| **7d** | Subjective interpretation | ⚠️ | *"While their RoB assessment is certainly not a reference standard and can be quite poor for some domains such as confounding, the rigorous and multidomain evaluation conducted by pairs of independent reviewers in these reviews makes them a reasonable comparison for novel LLM application."* `Discussion, p.4` |
+| **7e** | Comparison | ⚠️ | *"The current case study suggests an overall fair agreement between Cochrane reviewers and ChatGPT-4 in using ROBINS-I for assessing RoB in non-randomised studies of intervention."* `Discussion, p.3` — no comparison to other LLMs or a non-LLM baseline |
+| **8a** | Annotation guidelines | ➖ | *"One reviewer extracted RoB judgements from each Cochrane SR and a second reviewer verified the extraction."* `Methods, p.2` — no de novo annotation guidelines; reference labels are the published Cochrane judgments |
+| **8b** | Annotators + IAA | ⚠️ | *"One reviewer extracted RoB judgements from each Cochrane SR and a second reviewer verified the extraction."* `Methods, p.2` — no quantitative IAA reported (no independent re-rating performed) |
+| **8c** | Annotator background | ❌ | Not reported |
+| **9a** | Prompt design | ❌ | *"The processes of data entry and prompt development were done iteratively until data were appropriately uploaded and a sensical output was obtained (ie, these processes were not prespecified)."* `Methods, p.2` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — judgement task, not summarization |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — off-the-shelf GPT-4, no fine-tuning or RLHF beyond OpenAI's defaults |
+| **12** | Compute | ❌ | *"this was unsuccessful due to the current estimated 2500-word limit for GPT-4 prompts."* `Methods, p.2` — GPU/API compute, cost, and wall-clock time not reported |
+| **13** | Ethical approval | ✅ | *"Ethics approval Not applicable."* `Declarations, p.4` |
+| **14a** | Funding | ✅ | *"The authors have not declared a specific grant for this research from any funding agency in the public, commercial or not-for-profit sectors."* `Declarations, p.4` |
+| **14b** | Conflicts of interest | ✅ | *"Competing interests None declared."* `Declarations, p.4` |
+| **14c** | Protocol | ❌ | *"these processes were not prespecified"* `Methods, p.2` — no protocol document referenced |
+| **14d** | Registration | ➖ | Not applicable — methodological case study, not a registered clinical trial |
+| **14e** | Data availability | ⚠️ | *"Data are available upon reasonable request. Search strategy, selection process flowchart, prompts and boxes containing included SRs and studies are available in the appendix. Analysed datasheet is available upon request."* `Declarations, p.4` — not a public release |
+| **14f** | Code availability | ❌ | Not reported |
+| **15** | Patient/public involvement | ✅ | *"Patients and/or the public were not involved in the design, or conduct, or reporting, or dissemination plans of this research."* `Declarations, p.4` |
+| **16a** | Flow of data | ✅ | *"The initial search yielded 98 SRs, from which 36 provided full ROBINS-I assessment. After deduplicating studies that appeared in multiple SRs, we finalised our sample with 307 unique individual studies (online supplemental figure; box 1 and box 2)."* `Results, p.2` |
+| **16b** | Characteristics | ❌ | Not reported |
+| **16c** | Distribution comparison | ➖ | Not applicable — no subgroup analysis by clinical area or study design reported |
+| **16d** | N per analysis | ✅ | *"Agreement measures are summarised in table 1 for each ROBINS-I domain and for overall judgements."* `Results, p.2` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | *"Importantly, the AI model and interface used need to be explicitly reported along with a timestamp of when AI was used because the output may vary over time for the same input and prompts."* `Results, p.3` — not applicable, single-shot evaluation, no model updating reported |

@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/partial
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/not-addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -48,6 +52,8 @@ apaAuthors:
     family: "Murray"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: huntington-kleinLLMsActRepositories2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757
@@ -121,7 +127,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -139,44 +150,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Confounder lists from CDPRG (1980), Murray & Hernán (2016), and Debertin et al. (2024); plus 60 author-curated "Non-Confounder" variables from the CDP variable book (administrative / drug side-effects / general physical exam / sub-study-only). |
-| **5b** | Data points + distribution | ✅ | 172 candidate confounders × 8 prompt variants × 10 iterations = 13,760 LLM responses each for Claude 3.5-Sonnet and GPT-4o; 172 × 4 × 1 = 688 for GPT-o1-preview. Distribution across 6 categories: Original, Added in 2016, Expert-Added, Final Expert DAG, Trimmed, Non-Confounders (counts in Appendix A). |
-| **5c** | Date range of data | ⚠️ | LLM querying dates reported (Oct 9–15 2024 for non-Non-Confounder categories; Nov 23–Dec 8 2024 for Non-Confounders). Underlying CDP data range (1965–1985) noted. LLM training-data cutoffs not disclosed. |
-| **5d** | Pre-processing / quality checks | ⚠️ | Variables hand-categorized into 6 expert sets; "as-measured-at-baseline vs. follow-up" distinction handled per-variable. Sanity check that CDP discussions are in LLM training data (asked GPT-4o and Claude about CDP confounding before main experiments). No formal data-quality check beyond that. |
-| **5e** | Missing / imbalanced data | ⚠️ | Class imbalance across categories (Original n=18; Non-Confounders n=60) acknowledged; not rebalanced. GPT-o1-preview content-flagging required prompt edits for the Non-Confounders subgroup; the workaround is documented but creates a small subgroup-specific prompt difference. |
-| **6a** | LLM name + version | ✅ | GPT-4o, Claude 3.5-Sonnet, GPT-o1-preview (generalist models). Justification for excluding medical-specialist LLMs (MedLLaMA-3, Galactica, BioMedLM) given. |
-| **6b** | Development process | ➖ | No model training or fine-tuning; off-the-shelf inference only. |
-| **6c** | Inference settings / prompting | ✅ | Temperature = 0.7 for GPT-4o and Claude 3.5; 10 iterations per prompt. GPT-o1-preview: single call (temperature not user-controllable). Eight prompt variants (direct/indirect × with/without reasoning × standard/alternate option order). API access via `openai` and `anthropic` Python packages. |
-| **6d** | Output | ✅ | Multiple-choice letter response (A/B/C for direct; A/B/C/D for indirect) plus optional step-by-step reasoning. Per-variable share-of-confounder-designations across 10 iterations. |
-| **6e** | Classification thresholds | ✅ | Direct method: variable = confounder iff response is "B" (or, in alternate ordering, "C"). Indirect method: variable = confounder iff *both* adherence and mortality questions return "A" or "B." Per-variable categorization for consistency analyses uses 0% / Mixed / 100% bins on the 10-call share. |
-| **7a** | Quality metrics | ✅ | % of variables designated as confounder (mean over 10 iterations); Cohen's κ across prompt variants; % agreement; within-variable SD across iterations; bin distributions in 10pp bins. |
-| **7b** | Relevance to downstream | ✅ | Authors explicitly map performance to the downstream task (building a DAG for CDP causal inference) and explain why current accuracy is insufficient: "expert-selected covariates had an 80–86% chance of being correctly designated as confounders, but expert-rejected covariates had an 65–74% chance of being incorrectly designated as confounders" (p. 18). |
-| **7c** | Outcome definition | ✅ | Confounder status as labeled by published expert sources (CDPRG 1980; Murray & Hernán 2016; Debertin et al. 2024) — taken as ground truth for the recall-based hypothesis. |
-| **7d** | Subjective interpretation | ➖ | No human raters of the LLM output; outcome is mechanically derived from the LLM letter response. The "ground truth" itself is expert opinion from cited papers — the authors explicitly flag (p. 18) that LLMs could in principle disagree with experts and still be right. |
-| **7e** | Comparison | ✅ | Three models compared head-to-head; eight prompt variants compared; explicit comparison to prior recall-based studies (Long et al. 2023; Zečević et al. 2023) in the Introduction. |
-| **8a** | Annotation guidelines | ➖ | No human annotation. Variable-category assignments inherit from the cited source papers; the rule is documented (e.g., footnote 1 on p. 4: no distinction between baseline-measured and theoretically-determined confounders). |
-| **8b** | Annotators + IAA | ➖ | Not applicable (no human annotation phase). |
-| **8c** | Annotator background | ➖ | Not applicable. |
-| **9a** | Prompt design | ✅ | Full prompts for all 4 base templates (direct + reasoning, indirect + reasoning, direct no-reasoning, indirect no-reasoning) reproduced verbatim in Appendix B (pp. 22–25). System prompt, three few-shot exemplars, and the option-ordering variant all shown. |
-| **9b** | Prompt-development data | ⚠️ | Three few-shot exemplars (SES/HRT, low-dose aspirin/ACE inhibitors, vitamin D/headache) are fixed and used for all queries; not derived from a held-out development set. Authors do not describe iterative prompt tuning beyond the four named variants. |
-| **10** | Summarization | ➖ | Not a summarization task. |
-| **11** | Instruction tuning / alignment | ➖ | No fine-tuning or RLHF performed by the authors; off-the-shelf models only. |
-| **12** | Compute | ❌ | Not reported. API costs / token counts not disclosed. |
-| **13** | Ethical approval | ➖ | Not applicable (no human-subjects data; CDP variable lists are public). |
-| **14a** | Funding | ❌ | Not reported. Only acknowledgment is "Thanks to Phuong Nguyen and Meet Panjwani for research assistance" (p. 1 footnote). |
-| **14b** | Conflicts of interest | ❌ | Not reported. |
-| **14c** | Protocol | ❌ | Not reported. No pre-registration or protocol document referenced. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ⚠️ | Underlying CDP variable lists are public (NHLBI BioLINCC); the 60-item Non-Confounder list is given in Appendix A. Raw LLM responses promised to be released alongside code at https://osf.io/spzbu/ (status of raw responses not separately confirmed in the manuscript). |
-| **14f** | Code availability | ✅ | Code at https://osf.io/spzbu/ (p. 19), explicitly intended to be re-runnable on future LLMs. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | 172 variables → 8 prompt variants × 10 iterations → 13,760 responses per model (Claude / GPT-4o); 4 variants × 1 iteration → 688 for GPT-o1. Aggregated to per-variable share, then to per-category mean (Table 1; Figs 1–4). |
-| **16b** | Characteristics | ✅ | 6 variable categories enumerated in Appendix A (full lists); reasons for Non-Confounder status broken into 4 sub-categories in Appendix C. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroups). |
-| **16d** | N per analysis | ✅ | n=172 variables consistent across all aggregate analyses; n=112 if Non-Confounders excluded (footnote 5, p. 11). Iteration counts per prompt clearly stated. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes` for category-level confounder-designation shares (EVD on expert vs. trimmed) and Cohen's κ across prompt variants (EVD on inconsistency). |
-| **18** | LLM updating | ➖ | Not applicable; authors note their code is designed to be re-run on future LLM releases, but no within-paper updating performed. |
+| **1** | Title | ⚠️ | *"Do LLMs Act as Repositories of Causal Knowledge?"* `Title, p.1` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Large language models (LLMs) offer the potential to automate a large number of tasks that previously have not been possible to automate, including some in science. There is considerable interest in whether LLMs can automate the process of causal inference"* `Abstract, p.1` |
+| **3b** | Background — target population | ⚠️ | *"We use the case of confounding in the Coronary Drug Project (CDP), for which there are several studies listing expert-selected confounders that can serve as a ground truth."* `Abstract, p.1` |
+| **4** | Objectives | ✅ | *"Our general approach to checking LLM capabilities to designate variables as confounders involves taking a set of confounders identified by experts, and for each having the LLM designate whether or not it is a confounder."* `Methods, p.4` |
+| **5a** | Data sources | ✅ | *"We use confounder sets from three different studies. Confounders included in the original CDPRG (1980) study are referred to as the 'Original' confounder set."* `Methods, p.4` |
+| **5b** | Data points + distribution | ✅ | *"we query the LLM ten times each for a total of 13,760 LLM-generated responses each. For the GPT-o1-preview model, we only query the LLM once, and only use four of the prompt variations ... for a total of 688 LLM-generated responses."* `Data, p.7` |
+| **5c** | Date range of data | ⚠️ | *"Responses for all confounder categories other than 'Non-Confounders' were gathered between October 9 and 15, 2024 ... 'Non-confounder' responses were collected between November 23 and December 8, 2024."* `Data, p.7` — LLM training-data cutoffs not disclosed |
+| **5d** | Pre-processing / quality checks | ⚠️ | *"we take several different approaches to designing prompts to query LLMs about whether a given variable is a confounder in this context. First, we distinguish between a 'direct' prompting approach and an 'indirect' prompting approach."* `Methods, p.4` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"we were unable to find a way to adjust the Indirect-method prompt that would avoid content flagging. As such, for GPT-o1-preview, 'Non-confounders' were queried using this additional line in the prompt"* `Methods, p.6` — category-size imbalance (Non-Confounders n=60 vs. smaller expert sets) not rebalanced |
+| **6a** | LLM name + version | ✅ | *"Given our list of candidate confounders, we give these prompts to generalist LLM models, specifically GPT-4o, GPT-o1-preview (which is designed to engage in multi-step reasoning), and Claude 3.5 Sonnet."* `Methods, p.5` |
+| **6b** | Development process | ➖ | Not applicable — no model training or fine-tuning; off-the-shelf inference only |
+| **6c** | Inference settings / prompting | ✅ | *"GPT-4o and Claude 3.5 Sonnet are run using a temperature of 0.7, and each prompt is given ten times ... GPT-o1-preview does not allow users to raise the temperature."* `Methods, p.6` |
+| **6d** | Output | ✅ | *"A. Not a confounding variable / B. A confounding variable / C. Not sure."* `Methods, p.5` |
+| **6e** | Classification thresholds | ✅ | *"The confounder designation is determined for each pair of responses, and averaged to give the share of the time that the LLM designates the variable as a confounder."* `Methods, p.7` (footnote 3) |
+| **7a** | Quality metrics | ✅ | *"Table 1: Share of Variables Designated as Confounders"* `Table 1, p.7` |
+| **7b** | Relevance to downstream use | ✅ | *"expert-selected covariates had an 80-86% chance of being correctly designated as confounders, but expert-rejected covariates had an 65-74% chance of being incorrectly designated as confounders."* `Discussion, p.18` |
+| **7c** | Outcome definition | ✅ | *"we use confounder sets from three different studies"* `Methods, p.4` — confounder status as labeled by CDPRG (1980), Murray & Hernán (2016), and Debertin et al. (2024) is used as ground truth |
+| **7d** | Subjective interpretation | ➖ | Not applicable — no human raters of the LLM output; the designation is mechanically derived from the LLM's letter response |
+| **7e** | Comparison | ✅ | *"For GPT o1-preview, there was fair agreement across methods, with 87.7% of the variables designated the same way; however, this was driven partially by the model's tendency to label everything a confounder, so the Cohen's kappa was still low at .16."* `Results, p.14` |
+| **8a** | Annotation guidelines | ➖ | Not applicable — no human annotation phase; variable-category assignments inherit directly from the cited source papers |
+| **8b** | Annotators + IAA | ➖ | Not applicable |
+| **8c** | Annotator background | ➖ | Not applicable |
+| **9a** | Prompt design | ✅ | *"In the direct approach, we ask the LLM whether a given variable is a confounder, in the following format: I have a data set consisting only of people who have been assigned to take a certain medication X..."* `Methods, p.4` |
+| **9b** | Prompt-development data | ⚠️ | *"Full prompts are shown in Appendix B."* `Methods, p.5` — few-shot exemplars are fixed and used for all queries; no held-out prompt-development split described |
+| **10** | Summarization | ➖ | Not applicable — not a summarization task |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — off-the-shelf models only, no fine-tuning or RLHF performed by the authors |
+| **12** | Compute | ❌ | Not reported — API costs and token counts not disclosed |
+| **13** | Ethical approval | ➖ | Not applicable — no human-subjects data; CDP variable lists are public |
+| **14a** | Funding | ❌ | Not reported — the only acknowledgment is *"Thanks to Phuong Nguyen and Meet Panjwani for research assistance."* `p.1` |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ⚠️ | *"our code, which can be easily revised to test future LLM tools, will be available at https://osf.io/spzbu/."* `Conclusion, p.19` — code availability confirmed, raw LLM response release not separately confirmed |
+| **14f** | Code availability | ✅ | *"our code, which can be easily revised to test future LLM tools, will be available at https://osf.io/spzbu/."* `Conclusion, p.19` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"list of 172 potential confounders to consider across eight different prompt variations. For the Claude 3.5-Sonnet and GPT-4o models, we query the LLM ten times each for a total of 13,760 LLM-generated responses each."* `Data, p.7` |
+| **16b** | Characteristics | ✅ | *"fall into four main categories: administrative variables; anticipated side-effects, or known metabolites, of active CDP treatments; general medical information collected from routine physical examination; and sub-study data collected only on a sample of patients."* `Methods, p.4` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroups |
+| **16d** | N per analysis | ✅ | *"list of 172 potential confounders to consider across eight different prompt variations"* `Data, p.7` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — authors note their code is designed to be re-run on future LLM releases, but no within-paper updating is performed |

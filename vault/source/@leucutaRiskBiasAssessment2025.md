@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/addressed
+  - rigor/baseline-adequacy/not-addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -58,6 +62,8 @@ apaAuthors:
     family: "Drugan"
 peerReviewStatus: not-checked
 peerReviewNote: "MDPI blocked automated access (403)"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: leucutaRiskBiasAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f942-782f-99e1-d83f3cbbc264
@@ -135,7 +141,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -153,44 +164,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | 10 open-access PubMed diagnostic-accuracy articles (search "diagnostic accuracy"[TI/AB] AND diabetes[TI/AB], 9 May 2025, free full-text) + 2 non-diagnostic control articles. Articles uploaded as PDFs from publisher / PMC. |
-| **5b** | Data points + distribution | ✅ | 10 articles spanning cardiology (2), gastroenterology (2), neurology (1), rheumatology (1), sleep medicine (1), vascular surgery (1), ophthalmology (2). 11 QUADAS-2 signaling questions per article; 110 assessments per LLM; 440 LLM assessments in total. Per-domain n: patient selection 30, index test 20, reference standard 20, flow and timing 40 (per model). |
-| **5c** | Date range of data | ⚠️ | Search date 9 May 2025; "most recent papers first" — implies recently published articles, but exact publication-date span of the 10 articles not given in the text (references list spans 2024–2025). |
-| **5d** | Pre-processing / quality checks | ⚠️ | PDFs sourced from publisher's site or PubMed Central; no pre-processing or PDF-conversion verification reported. New chat session per article to prevent context carryover. |
-| **5e** | Missing / imbalanced data | ⚠️ | No imputation. "Not applicable" answers were a permitted response option. Class imbalance per signaling question not addressed. |
-| **6a** | LLM name + version | ⚠️ | ChatGPT 4o, x.AI Grok 3, Gemini 2.0 Flash, DeepSeek V3 — all via public web UIs. Specific model build dates / API versions not reported (though study window dated by 9 May 2025 search). |
-| **6b** | Development process | ➖ | No development; off-the-shelf zero-shot use of public LLM web interfaces. |
-| **6c** | Inference settings / prompting | ⚠️ | Prompt text reproduced verbatim (p. 3). New session per article. Identical prompt across all four models. Inference parameters (temperature, top_p, max tokens, system prompt) not reported (default web-UI settings). |
-| **6d** | Output | ✅ | Per signaling question: yes / no / unclear / not applicable; per domain: low / high / unclear risk of bias; followed by free-text rationale. |
-| **6e** | Classification thresholds | ➖ | No probability thresholds (LLMs return categorical labels directly). |
-| **7a** | Quality metrics | ⚠️ | Counts and percentages of correct assessments overall, per model, per domain, and per signaling question. No precision/recall/F1, no inter-rater statistic between LLM and humans, no confidence intervals or significance tests. |
-| **7b** | Relevance to downstream | ⚠️ | Discussion frames LLMs as "complementary tools" requiring "compulsory human supervision" in systematic reviews; no formal downstream-utility analysis (e.g., reviewer time saved, screening throughput). |
-| **7c** | Outcome definition | ✅ | Assessment "considered correct only if it matched the human expert's answer and included a proper argument." Identical answer with incorrect argument scored as incorrect. |
-| **7d** | Subjective interpretation | ⚠️ | Reasoning-error categorization is qualitative and investigator-driven; categorization by single team without inter-rater agreement on the qualitative themes themselves. |
-| **7e** | Comparison | ⚠️ | Four LLMs compared head-to-head; no comparison to a non-LLM baseline (e.g., random / majority class). Comparison to prior LLM RoB studies discussed narratively in Discussion. |
-| **8a** | Annotation guidelines | ✅ | QUADAS-2 instrument (Whiting et al. 2011) used as the labeling rubric; 4 domains, 11 signaling questions, low/high/unclear domain judgements. |
-| **8b** | Annotators + IAA | ⚠️ | Two human experts independently assessed each article and resolved disagreements by consensus. Pre-consensus inter-rater agreement (κ or % agreement) not reported. |
-| **8c** | Annotator background | ⚠️ | Authors are from the Department of Medical Informatics and Biostatistics, Iuliu Hațieganu University of Medicine and Pharmacy. Specific clinical-methodology training of the two assessors not detailed. |
-| **9a** | Prompt design | ⚠️ | Single hand-written prompt reproduced verbatim. Authors explicitly note no prompt engineering: "we used only one single standardized prompt to ensure comparability across LLMs… We used a simple prompt to enact a scenario where researchers that are not trained in prompt engineering would use LLMs." |
-| **9b** | Prompt-development data | ❌ | Not reported. No held-out development set or prompt-tuning corpus described. |
-| **10** | Summarization | ➖ | Not applicable (RoB classification, not summarization). |
-| **11** | Instruction tuning / alignment | ➖ | No fine-tuning. Off-the-shelf models. |
-| **12** | Compute | ❌ | Not reported. (Authors note PDF-processing time was "adequate and similar between ChatGPT 4o, Grok 3, and Gemini 2.0 flash, but longer for DeepSeek V3" — qualitative only, no wall-clock numbers.) |
-| **13** | Ethical approval | ➖ | "Institutional Review Board Statement: Not applicable." No human-subjects data; analysis on published articles. |
-| **14a** | Funding | ✅ | "This research received no external funding." |
-| **14b** | Conflicts of interest | ✅ | "The authors declare no conflicts of interest." |
-| **14c** | Protocol | ❌ | Not reported. No prospective protocol referenced. |
-| **14d** | Registration | ➖ | Not registered (not a clinical study). |
-| **14e** | Data availability | ✅ | "Data are contained within the article or Supplementary Material." Supplementary Table S1 contains full per-article LLM responses + reasoning-error annotations (https://www.mdpi.com/article/10.3390/diagnostics15121451/s1). |
-| **14f** | Code availability | ➖ | No code was developed (web-UI prompting only); no code repository applicable. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | PubMed search (9 May 2025, "diagnostic accuracy"[TI/AB] AND diabetes[TI/AB], free full-text, most recent first) → original diagnostic-accuracy articles only (excluded reviews/systematic reviews/editorials/protocols) → screened for medical-field diversity → 10 articles retained + 2 non-diagnostic controls. |
-| **16b** | Characteristics | ✅ | Article-level characteristics described: medical specialty distribution (cardiology ×2, gastroenterology ×2, neurology, rheumatology, sleep medicine, vascular surgery, ophthalmology ×2). Individual article references and topics listed (§3.1, p. 3). |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup / case-mix comparison). |
-| **16d** | N per analysis | ✅ | Quantitative analysis: 110 assessments per model (= 11 × 10); per domain n per model: 30 / 20 / 20 / 40. Qualitative reasoning-error analysis: subset of incorrect or wrong-reason assessments across the same 440. Inapplicability test on 2 non-diagnostic articles reported separately (§3.5). |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported; one-shot evaluation of fixed model versions). |
+| **1** | Title | ✅ | *"Risk of Bias Assessment of Diagnostic Accuracy Studies Using QUADAS 2 by Large Language Models"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Diagnostic accuracy studies are essential in assessing the performance of medical tests. They inform clinical decision-making during diagnostic time and guide treatment strategies. To ensure the validity of these studies, methodological tools for assessing the risk of bias (RoB) have been developed in the framework of evidence-based medicine."* `§1, p.1` |
+| **3b** | Background — target population | ⚠️ | *"For this to be effective for medical diagnosis, it is essential that they acquire the ability to critically appraise scientific literature."* `§1, p.2` — the population of diagnostic-accuracy studies being appraised is not explicitly scoped in the background beyond this |
+| **4** | Objectives | ✅ | *"the aim of the study was to assess the capability of LLMs to evaluate the risk of bias in diagnostic accuracy studies, using QUADAS2, in comparison to human experts. The specific objectives were to evaluate the accuracy of the LLMs' responses to QUADAS-2 signaling questions, identify the best-performing models, and characterize common reasoning errors made by LLMs."* `§1, p.2` |
+| **5a** | Data sources | ✅ | *"Ten diagnostic accuracy articles were selected from Pubmed, using the following search strategy: ("diagnostic accuracy" [Title/Abstract]) AND (diabetes [Title/Abstract]), with the most recent papers first."* `§2.1, p.2` |
+| **5b** | Data points + distribution | ✅ | *"Out of 110 signaling questions assessments (11 questions for each of the 10 articles) by the four AI models, the mean percentage of correct assessments ... of all the models was 72.95%."* `§3.3, p.9` |
+| **5c** | Date range of data | ⚠️ | *"The search strategy was performed on 9 May 2025."* `§2.1, p.2` — exact publication-date span of the 10 retained articles not given in the text |
+| **5d** | Pre-processing / quality checks | ⚠️ | *"Each article was uploaded as a PDF file, sourced from either the publisher's site or PubMed Central."* `§2.4, p.3` — no PDF-conversion or extraction verification reported |
+| **5e** | Missing / imbalanced data | ⚠️ | *"please provide the answer as yes/no/unclear/not applicable"* `§2.4, p.3` — "not applicable" was a permitted response option, but class imbalance per signaling question is not otherwise addressed |
+| **6a** | LLM name + version | ⚠️ | *"Four artificial intelligence generative large language models were used with their public web-based interfaces, for the AI assessment: ChatGPT 4o model, X.AI Grok 3 model, Gemini 2.0 flash model, and the DeepSeek V3 model."* `§2.4, p.3` — specific model build dates / API versions not reported |
+| **6b** | Development process | ➖ | Not applicable — no development; off-the-shelf zero-shot use of public LLM web interfaces |
+| **6c** | Inference settings / prompting | ⚠️ | *"For all the models, the prompt was the same: 'I will provide a scientific article, and I want you to use the QUADAS 2 assessment tool to assess the risk of bias for this article. Please wait for me to ask the signaling questions for each domain...'"* `§2.4, p.3` — temperature/top_p/seed/system prompt not stated |
+| **6d** | Output | ✅ | *"for the risk of bias, provide the answer as low, high, unclear, without any comments. After this answer, please provide the rationale for your answers"* `§2.4, p.3` |
+| **6e** | Classification thresholds | ➖ | Not applicable — LLMs return categorical labels directly, no probability thresholding |
+| **7a** | Quality metrics | ⚠️ | *"Categorical data were presented as counts and percentages."* `§2.7, p.3` — no precision/recall/F1, inter-rater statistic, confidence intervals, or significance tests |
+| **7b** | Relevance to downstream use | ⚠️ | *"LLMs may serve as complementary tools in systematic reviews, with compulsory human supervision."* `Abstract, p.1` — no formal downstream-utility analysis (e.g. reviewer time saved) |
+| **7c** | Outcome definition | ✅ | *"An assessment made by an LLM was considered correct only if it matched the human expert's answer and included a proper argument. Identical answers to the human expert answer with an incorrect argument behind the answer were not considered correct."* `§2.7, p.3` |
+| **7d** | Subjective interpretation | ⚠️ | *"In case there were reasoning errors, the errors were documented. All errors were grouped by domain and signaling questions and presented qualitatively."* `§2.6, p.3` — single-team categorization, no inter-rater agreement on the qualitative themes |
+| **7e** | Comparison | ⚠️ | *"The most accurate model was Grok 3, followed by ChatGPT 4o, DeepSeek V3, and Gemini 2.0 flash (Table 2, Figure 1), ranging from 74.45% to 67.27%."* `§3.3, p.9` — four LLMs compared head-to-head, no non-LLM baseline (e.g. random / majority class) |
+| **8a** | Annotation guidelines | ✅ | *"The selected articles were evaluated using QUADAS-2 tool [2]. This instrument evaluates risk of bias and applicability concerns across four domains: patient selection, index test, reference standard, and flow and timing."* `§2.2, p.2` |
+| **8b** | Annotators + IAA | ⚠️ | *"The human assessment was performed by two authors who independently assessed the quality of the articles and resolved their discrepancies by discussion and consensus."* `§2.3, p.2` — no quantitative inter-rater agreement (κ) reported |
+| **8c** | Annotator background | ⚠️ | *"Department of Medical Informatics and Biostatistics, Iuliu Hațieganu University of Medicine and Pharmacy, 400349 Cluj-Napoca, Romania"* `Affiliations, p.1` — specific clinical-methodology training of the two assessors not detailed |
+| **9a** | Prompt design | ⚠️ | *"we used only one single standardized prompt to ensure comparability across LLMs… We used a simple prompt to enact a scenario where researchers that are not trained in prompt engineering would use LLMs"* `§4.1 Limitations, p.17` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — RoB classification, not summarization |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no fine-tuning; off-the-shelf models |
+| **12** | Compute | ⚠️ | *"The time of processing the PDF file was adequate and similar between ChatGPT 4o, Grok 3, and Gemini 2.0 flash, but longer for DeepSeek V3."* `§3.4.4, p.14` — qualitative only, no wall-clock numbers or API cost |
+| **13** | Ethical approval | ➖ | *"Institutional Review Board Statement: Not applicable."* `Institutional Review Board Statement, p.18` — no human-subjects data; analysis on published articles |
+| **14a** | Funding | ✅ | *"This research received no external funding."* `Funding, p.18` |
+| **14b** | Conflicts of interest | ✅ | *"The authors declare no conflicts of interest."* `Conflicts of Interest, p.18` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"Data are contained within the article or Supplementary Material."* `Data Availability Statement, p.18` |
+| **14f** | Code availability | ➖ | Not applicable — no code was developed (web-UI prompting only) |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"Only original articles on diagnostic accuracy assessment were included. Reviews, systematic reviews, editorials, and protocols were excluded. The articles were selected from various medical fields to ensure diversity."* `§2.1, p.2` |
+| **16b** | Characteristics | ✅ | *"There were two articles in cardiology: coronary artery disease [15] and carotid atherosclerosis [16]; two in the gastroenterology field: liver diseases [17,18]; one in neurology: diabetic neuropathy [19]; one in rheumatology: knee osteoarthritis [20]; one in sleep medicine: obstructive sleep apnea [21]; one in vascular surgery: peripheral artery disease [22]; and two in ophthalmology [23,24]."* `§3.1, p.3` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"Domain Patient Selection (n = 30) Index Test (n = 20) Reference Standard (n = 20) Flow and Timing (n = 40)"* `Table 3, p.9` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported; one-shot evaluation of fixed model versions |

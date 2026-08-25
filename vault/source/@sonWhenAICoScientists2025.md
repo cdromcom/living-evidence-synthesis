@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/partial
+  - rigor/baseline-adequacy/not-addressed
+  - rigor/train-dev-test/unresolved
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/partial
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -76,6 +80,8 @@ apaAuthors:
     family: "Biderman"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: sonWhenAICoScientists2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc
@@ -152,11 +158,16 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
-| Domain                                                                   | Rating | Justification                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------------------------------ | :----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Construct validity** — does the metric actually measure the construct? |   🟢   | The authors map metrics to user role explicitly (precision for users worried about review overhead, recall for comprehensive coverage) and add pass@K plus a frequency-derived confidence estimate. The objective per-error confidence (8-run success rate via Eq. 5) is harder to game than verbalised self-confidence and tightly tracks the deployment construct of "would I trust this flag?".                  |
+| Domain | Rating | Justification |
+| --- | :---: | --- |
+| **Construct validity** — does the metric actually measure the construct? | 🟢 | The authors map metrics to user role explicitly (precision for users worried about review overhead, recall for comprehensive coverage) and add pass@K plus a frequency-derived confidence estimate. The objective per-error confidence (8-run success rate via Eq. 5) is harder to game than verbalised self-confidence and tightly tracks the deployment construct of "would I trust this flag?".                  |
 | **Internal validity** — could the comparison be biased?                  |   🟡   | All models share one fixed Generation Prompt, one match-adjudication judge (GPT-4.1), and the same 8-run protocol — a clean head-to-head. But GPT-4.1 judges its own outputs and those of its OpenAI sibling o3, with no inter-rater agreement reported between GPT-4.1 and the domain experts (TRIPOD 7d ⚠️). The post-2024 publication filter mitigates but cannot fully rule out training-data contamination.    |
 | **External validity** — do findings generalize?                          |   🔴   | Two large constraints. (1) SPOT only contains errors the original authors explicitly admitted via erratum or retraction (see [[CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors]]) — a sample skewed toward mathematically clean, locatable mistakes. (2) Three of the six error categories have ≤4 examples, so per-category claims about model strengths and weaknesses do not generalize past the specific cases tested. |
 | **Statistical rigor** — appropriate uncertainty + comparisons?           |   🟡   | Pass@K bootstrapped 1000 times with mean ± std reported, and 8 independent runs per (model, paper) is generous. But there is no formal significance testing across the 13 models × 6 categories, no multiple-comparison correction, and the 2 / 3 / 4-instance categories have variances large enough that any "best model" claim within them is essentially anecdotal — see [[CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]. |
@@ -170,44 +181,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Two seed repositories: WithdrarXiv (14,000 retracted-paper dataset) and PubPeer (anonymous post-publication peer-review). Authors briefly attempted bioRxiv/medRxiv but dropped them due to low yield. |
-| **5b** | Data points + distribution | ✅ | Final SPOT benchmark: 83 manuscripts × 91 author-confirmed errors from 47 paper sources. Mean tokens/manuscript 12,887 (std 7,421; max/min 46,441/1,207). Mean images/manuscript 17.5 (std 20.1; max/min 80/0). Six error categories: Equation/Proof (37), Figure Duplication (27), Data Inconsistency (18), Statistical Reporting (4), Reagent Identity (3), Experiment Setup (2). Severity: 59 errata vs. 32 retractions. Ten domains (Mathematics, Physics, Biology, Chemistry, Materials Science, Medicine, Environmental Science, Engineering, Computer Science, Multidisciplinary). |
-| **5c** | Date range of data | ✅ | Authors filter for papers "published from 2024 onward" to minimise contamination against parametric knowledge; corpus dates concentrate in 2024 with ten papers from 2025 and three pre-2023 retained because their first error notices appeared in March 2024 (Appendix E, Figure 19). |
-| **5d** | Pre-processing / quality checks | ✅ | Five-stage pipeline: (1) seed collection from WithdrarXiv + PubPeer; (2) two GPT-4o (gpt-4o-2024-08-06) automated filtering passes — first retains comments unambiguously pinpointing a section/figure/equation/table, second removes errors requiring external artifacts; (3) author-confirmation validation (PubPeer responses or WithdrarXiv self-retractions); (4) two-stage human sanity check against three conditions (self-contained, identifiable, explicitly acknowledged); (5) Llama-Parse + GPT-4.1 OCR refinement followed by manual audit of every flagged page. |
-| **5e** | Missing / imbalanced data | ⚠️ | Heavy class imbalance acknowledged (37 Equation/Proof vs. 2 Experiment Setup); authors filtered figure-duplication instances "based on severity and paper category to prevent a single type from dominating" but did not algorithmically rebalance. API call failures or token-limit cutoffs marked incorrect (each call retried up to 3 times). |
-| **6a** | LLM name + version | ✅ | Six proprietary multimodal models: o3 (2025-04-16), GPT-4.1 (2025-04-14), Gemini-2.5-Pro (preview-03-25), Gemini-2.0-Flash-Lite (001), Claude-3.7-Sonnet:Thinking (20250219:Think), Claude-3.7-Sonnet (20250219). Four open-source: Qwen2.5-VL-72B/32B-Instruct, Llama-4-Maverick, Llama-4-Scout. Text-only ablation adds DeepSeek-R1, DeepSeek-V3 (0324), Qwen3-235B-A22B. Pipeline LLMs: GPT-4o (gpt-4o-2024-08-06) for filtering; GPT-4.1 for OCR refinement and as evaluation judge; Llama-Parse for initial PDF parsing. |
-| **6b** | Development process | ➖ | No model training. Authors explicitly state: "We do not train our own models" (NeurIPS checklist Q6). |
-| **6c** | Inference settings / prompting | ✅ | Generation Prompt and Evaluation Prompt provided verbatim in Appendix F. Sampling temperature 0.6, top-p 0.95, repetition penalty 1.0, min 8 / max 8192 output tokens; provider-recommended defaults used when available. o4-mini reasoning effort varied across low/medium/high in the test-time-scaling ablation. All models accessed via APIs (OpenRouter as fallback); each call retried up to 3 times. |
-| **6d** | Output | ✅ | Structured JSON: `{"has_error": <bool>, "errors": [{"location": "<Section/Figure/Equation/Table id>", "description": "<text>"}]}` preceded by `<analysis>` walkthrough; full prompt template in Appendix F.2. |
-| **6e** | Classification thresholds | ➖ | Not applicable — generative outputs, no probability thresholds. Match adjudication binary via GPT-4.1 evaluation prompt. |
-| **7a** | Quality metrics | ✅ | Precision, Recall, pass@1, pass@4 (mean ± std over 8 independent runs; pass@K bootstrapped 1000 times drawing K runs without replacement). Calibration assessed via mean reported confidence vs. pass@4. |
-| **7b** | Relevance to downstream | ✅ | Authors explicitly map metrics to user role: precision for users worried about hallucination/review overhead; recall for users wanting comprehensive coverage. Confidence-calibration analysis frames whether outputs can be trusted in practice. |
-| **7c** | Outcome definition | ✅ | TP defined precisely: predicted error counts only when (a) reported location matches a benchmark annotation AND (b) GPT-4.1 confirms the descriptions indicate the same error. FP = non-matching predictions; FN = annotations the model missed. |
-| **7d** | Subjective interpretation | ⚠️ | Match adjudication delegated to GPT-4.1 (LLM-as-judge); authors note GPT-4.1 "does not evaluate the errors' correctness or severity." Domain-expert case studies (mathematics, materials science) provide qualitative validation but no inter-rater agreement statistic between expert and GPT-4.1 judge. |
-| **7e** | Comparison | ✅ | 13 models compared head-to-head on multimodal protocol; same 6 models compared on text-only subset (48 instances) plus 3 unimodal LLMs (DeepSeek-R1/V3, Qwen3-235B-A22B). Cross-benchmark comparison (Figure 3) places o3 vs. Llama-4-Maverick on MathVista, MMLU-Pro, GPQA-Diamond, MMMU, HLE, SPOT. Test-time-scaling ablation on o4-mini (low/med/high reasoning effort). Long-context vs. segment-only ablation on 36 instances (Figure 9). |
-| **8a** | Annotation guidelines | ✅ | Annotators verified each flagged issue against three conditions — self-contained, identifiable, explicitly author-acknowledged. Streamlit annotation app (figure 20) with six guided questions per error, source link, severity proxy (erratum vs. retraction). Sample platform image in Appendix E (Figure 21). |
-| **8b** | Annotators + IAA | ⚠️ | Two-stage process: "part of the authors as human annotators" performed first-pass validation; a "second group conducted a comprehensive audit … to ensure consistent application of these standards." Disputed cases referred back to original paper authors. No quantitative IAA (κ, α) reported. |
-| **8c** | Annotator background | ⚠️ | Annotators are co-authors of the paper; for the Case Study expert review, "either a researcher with related publications or a PhD-trained postdoc in the field" reviewed mathematics and materials-science papers. Other domain backgrounds not enumerated. |
-| **9a** | Prompt design | ✅ | Single, fixed Generation Prompt (scientific-rigor auditor persona; explicit JSON output schema; analysis-then-response structure) and single Evaluation Prompt (LLM-as-judge match adjudication). Both reproduced verbatim in Appendix F.2. No prompt-engineering search reported. |
-| **9b** | Prompt-development data | ❌ | Not reported how the prompts were iteratively developed or piloted. |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable — authors evaluate off-the-shelf instruction-tuned models without further alignment. |
-| **12** | Compute | ⚠️ | No GPU/CPU details; total API expenditure reported as "approximately $5,000" (NeurIPS checklist Q8). Llama-4-Maverick (402B) explicitly noted as too large to host locally. |
-| **13** | Ethical approval | ➖ | Not applicable (no human-subjects data; analysis on published manuscripts). NeurIPS Q15 (IRB) marked NA. |
-| **14a** | Funding | ❌ | Not reported in main text or appendices. |
-| **14b** | Conflicts of interest | ❌ | Not reported. |
-| **14c** | Protocol | ❌ | No pre-registered protocol. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ⚠️ | SPOT-MetaData released at huggingface.co/datasets/amphora/SPOT-MetaData. Of 83 manuscripts, 62 (74.7%) openly shared via Hugging Face under CC license; remaining 21 (25.3%) paywalled and not redistributed (preprocessing pipeline released so others can regenerate). |
-| **14f** | Code availability | ✅ | Streamlit annotation app at github.com/guijinSON/ai4s_r2; preprocessing pipeline + benchmark "provided through supplementary materials" (NeurIPS Q5). |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | Pipeline yields documented stage-by-stage: WithdrarXiv 14,000 → 1,855 (filter 1) → 58 (post-2024 filter); PubPeer 25,378 → 215 (post-2024 filter). After author-confirmation + sanity check → final 83 manuscripts / 91 errors. |
-| **16b** | Characteristics | ✅ | Per-paper token/image distributions in Table 1; error-by-domain bar chart in Figure 2; severity split (errata 59 / retractions 32); 76/83 papers contain a single error, 6 contain two, 1 contains three. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no patient subgroup analysis). Cross-domain and cross-error-category breakdowns reported in Tables 4–13 (per-model detailed results). |
-| **16d** | N per analysis | ✅ | Main multimodal eval: 83 papers × 8 runs = 664 runs/model. Multimodal vs. text-only ablation: 48 instances. Long-context ablation: 36 instances (Equation/Proof excluded). Test-time scaling: 3 independent trials per o4-mini reasoning level. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each Son EVD's `## Other Notes` for the EVD-specific precision / recall / pass@K / confidence numbers. |
-| **18** | LLM updating | ➖ | Not applicable (off-the-shelf models, no updating reported). |
+| **1** | Title | ✅ | *"When AI Co-Scientists Fail: SPOT-a Benchmark for Automated Verification of Scientific Research"* `Title, p.1` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"their utility in the backward pass of academic verification or as verifiers remains underexplored, a blind spot in which most systems lean on LLM judges [16] without validation on their credibility in reviewing scientific research."* `§1, p.1` |
+| **3b** | Background — target population | ✅ | *"we introduce SPOT (Scientific Paper Error Detection), a complex multi-modal academic error verification benchmark, comprising 83 up-to-date manuscripts spanning ten scientific fields"* `§1, p.1` |
+| **4** | Objectives | ✅ | *"In this work, we explore a complementary application: using LLMs as verifiers to automate the academic verification of scientific manuscripts."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"We source our seed manuscripts from two major repositories"* `§2.1, p.2` |
+| **5b** | Data points + distribution | ✅ | *"The final SPOT benchmark comprises 83 manuscripts with 91 annotated errors."* `§2.1, p.3` |
+| **5c** | Date range of data | ✅ | *"we filter for papers published after 2024, yielding 58 WITHDRARXIV and 215 PubPeer samples."* `§2.1, p.3` |
+| **5d** | Pre-processing / quality checks | ✅ | *"The first retains comment-manuscript pairs that unambiguously pinpoint a specific section, figure, equation, or table"* `§2.1, p.3` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"figure-duplication instances initially overwhelmed the dataset, so we filtered based on severity and paper category to prevent a single type from dominating."* `§2.2, p.3` |
+| **6a** | LLM name + version | ✅ | *"we evaluate six proprietary models: OpenAI o3, GPT-4.1, Google Gemini 2.5 Pro, Gemini 2.0 Flash Lite, Anthropic Claude 3.7 Sonnet:Thinking, and Claude 3.7 Sonnet and four open models: Qwen 2.5-VL-72B/32B-Instruct, and Llama 4 Maverick/Scout."* `§3, p.5` |
+| **6b** | Development process | ➖ | *"We do not train our own models, but prompts and generation configurations for inference are provided in Appendix F."* `NeurIPS Checklist Q6, p.18` |
+| **6c** | Inference settings / prompting | ✅ | *"For each model, we adopt the provider's recommended parameters when available; otherwise, we use a sampling temperature of 0.6, top-p of 0.95, a repetition penalty of 1.0, and enforce a minimum of 8 and a maximum of 8192 tokens."* `Appendix F.1, p.30` |
+| **6d** | Output | ✅ | *"location": "Section 2.1","* ... *"description": "Claim that 'all X are Y' is ..."* `Appendix F.2, p.32` |
+| **6e** | Classification thresholds | ➖ | Not applicable — generative outputs, no probability thresholds; match adjudication is binary via the GPT-4.1 evaluation prompt |
+| **7a** | Quality metrics | ✅ | *"We mainly evaluate verification performance through precision, recall, and pass@K."* `§2.3, p.4` |
+| **7b** | Relevance to downstream use | ✅ | *"users concerned about model hallucinations or the impact of unannotated flags should focus on Precision."* `§2.3, p.5` |
+| **7c** | Outcome definition | ✅ | *"A predicted error is counted as a true positive (TP) only when the model's reported location matches a benchmark annotation and an LLM confirms they indicate the same error."* `§2.3, p.4` |
+| **7d** | Subjective interpretation | ⚠️ | *"A domain expert evaluated each paper, either a researcher with relevant publications or a PhD-trained postdoc in the field."* `§4, p.7` — no inter-rater agreement statistic between expert and the GPT-4.1 judge |
+| **7e** | Comparison | ✅ | *"Multi-modality ablation for 13 models: recall and pass@4 (in %) are reported as mean (std) over eight independent trials."* `Table 3, p.7` |
+| **8a** | Annotation guidelines | ✅ | *"we manually validate if remaining flagged issues fulfill three conditions: (1) self-contained, (2) identifiable, and (3) explicitly acknowledged by the original authors."* `§2.1, p.3` |
+| **8b** | Annotators + IAA | ⚠️ | *"with part of the authors as human annotators, we manually validate"* ... *"the second group conducted a comprehensive audit of all annotations to ensure consistent application of these standards."* `§2.1, p.3` — no quantitative inter-annotator agreement (κ/α) reported |
+| **8c** | Annotator background | ⚠️ | *"A domain expert evaluated each paper, either a researcher with relevant publications or a PhD-trained postdoc in the field."* `§4, p.7` — background of the main-annotation authors themselves not further specified |
+| **9a** | Prompt design | ✅ | *"You are a scientific-rigor auditor. You will receive the parsed contents of a research paper."* `Appendix F.2, p.32` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated as a primary outcome |
+| **11** | Instruction tuning / alignment | ➖ | *"We do not train custom models."* `NeurIPS Checklist Q11, p.20` — off-the-shelf instruction-tuned models evaluated without further alignment |
+| **12** | Compute | ⚠️ | *"Our experiments are conducted entirely through APIs."* ... *"Total API expenditures amount to approximately $5,000."* `NeurIPS Checklist Q8, p.19` — no GPU/CPU details since no local inference is run |
+| **13** | Ethical approval | ➖ | *"Paper does not involve crowdsourcing nor research with human subjects."* `NeurIPS Checklist Q15, p.21` |
+| **14a** | Funding | ❌ | Not reported |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ⚠️ | *"62 (74.7 %) are openly accessible under a CC license; we publicly share our fully preprocessed versions via the Hugging Face Hub."* `Appendix E, p.29` — remaining 21 manuscripts (25.3%) are paywalled and not redistributed |
+| **14f** | Code availability | ✅ | *"git clone https://github.com/guijinSON/ai4s_r2.git"* `Appendix E, p.31` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"reducing our pool to 1,855 WITHDRARXIV and 25,378 PubPeer samples."* `§2.1, p.3` |
+| **16b** | Characteristics | ✅ | *"76 manuscripts out of 83 contain a single error, six contain two, and one paper has the maximum of three annotated errors."* `§2.2, p.4` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"With 83 papers and 91 total errors we generate N = 8 independent runs per paper."* `§2.3, p.5` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

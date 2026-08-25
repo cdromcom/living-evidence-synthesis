@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/partial
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-disclosed
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -54,6 +58,8 @@ apaAuthors:
     family: "Downey"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: darcyMARGMultiAgentReview2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f939-7206-9a0a-1c995b5d5a78
@@ -131,7 +137,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -149,44 +160,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | ARIES corpus (D'Arcy et al. 2023) — scientific-paper edits with paired peer-review comments — used for both prompt tuning and the 30-paper automated evaluation. User study used participants' own unpublished scientific papers uploaded via a web interface. |
-| **5b** | Data points + distribution | ⚠️ | Automated eval: 30 ARIES papers; per-method comments-per-paper reported (Table 2: range 4.0–19.8). User study: 9 participants, ~17 comments/review × 3 methods. Total per-paper real-reviewer comment counts not reported. |
-| **5c** | Date range of data | ❌ | ARIES paper-edit dates and reviewer-comment dates not reported; user-study collection window not disclosed. |
-| **5d** | Pre-processing / quality checks | ✅ | PDFs parsed with Grobid (note: Liang et al. 2023 originally used pikepdf — re-run with Grobid for consistency). Paper split on paragraph boundaries into 4096-token chunks; each paragraph annotated with its position and section name. Figures, tables, and many equations excluded due to text-only parsing. |
-| **5e** | Missing / imbalanced data | ⚠️ | Acknowledged that figures, tables, and garbled equations are missing from input. No imbalance handling for review-comment categories beyond the three-way specialised-agent split. |
-| **6a** | LLM name + version | ✅ | OpenAI GPT-4 (gpt-4-0613, 8192-token capacity) for review generation, alignment scoring, and compliment-detection probes. |
-| **6b** | Development process | ✅ | No fine-tuning. Prompts iterated "several hundred rounds" on a small ARIES subset using deliberately injected severe errors (e.g., "the proposed method achieves AGI") to probe blind-spots. Multi-agent architecture (leader + N workers + experts) described in Section 4. |
-| **6c** | Inference settings / prompting | ⚠️ | Chunk size (4096 tokens), 8k context, communication protocol described in detail; full prompts in Appendix A. Temperature, top_p, seed, system message wording for the alignment GPT call not explicitly reported. Five-pass random-permutation strategy for many-many matching reported. |
-| **6d** | Output | ✅ | Output is a list of free-text review comments per paper; alignment GPT outputs labels from 4-level relatedness × 3-level relative-specificity scales; many-many stage outputs candidate pair lists; compliment detector outputs JSON with boolean has_compliment. |
-| **6e** | Classification thresholds | ✅ | Match threshold = relatedness ∈ {medium, high} AND relative specificity ∈ {same, more}. Many-many candidate pairs require ≥2/5 random-permutation passes. Thresholds swept in Figure 3. |
-| **7a** | Quality metrics | ✅ | Automated: Recall, Precision, pseudo-Jaccard (with directional intersection operators defined), and average # comments. User study: per-comment Bad/Neutral/Good, 3-level Accuracy, 4-level Specificity, 5-point review length, 5-point review helpfulness. |
-| **7b** | Relevance to downstream | ⚠️ | Authors argue recall matters more than precision because users can filter bad comments; user study explicitly chosen as a "more reliable" downstream proxy. No measurement of actual paper improvement, time saved, or whether authors acted on suggestions. |
-| **7c** | Outcome definition | ✅ | "Actionable feedback comments that could help authors improve the paper" — same definition as D'Arcy et al. 2023 ARIES; positive remarks excluded. |
-| **7d** | Subjective interpretation | ✅ | Survey rubrics for Specificity / Accuracy / Overall provided to participants in survey preamble (quoted in paper). Participant blinding to method ID and review-order randomisation reported. Failure-mode taxonomy (Section 8) annotated by one author with disclosed expertise. |
-| **7e** | Comparison | ✅ | Five generation methods compared (SARG-B, SARG-TP, MARG-TP, LiZCa, MARG-S) plus four MARG-S ablations and a Human-Human baseline; per-user related-sample t-test, per-comment Barnard's exact test, mixed-effects logistic regression (Tables 6–8). |
-| **8a** | Annotation guidelines | ✅ | Survey-question rubrics fully quoted in Section 7.1 (Specificity / Accuracy / Overall rating). Failure-mode taxonomy defined in Section 8. |
-| **8b** | Annotators + IAA | ❌ | No inter-annotator agreement reported. Each comment rated by a single participant (the paper author); failure analysis done by a single author. |
-| **8c** | Annotator background | ✅ | User-study participants: 9 NLP / HCI researchers from a "large research organization." Failure analyst: "an author of this work with several publications in the field of machine learning and natural language processing." |
-| **9a** | Prompt design | ✅ | Final prompts in Appendix A (~9 pages of prompts: leader / worker / experts × 3 specialisations + refinement + SARG-B / SARG-TP / MARG-TP). Iterative manual prompt-engineering process described, including injecting severe errors to surface blind-spots. |
-| **9b** | Prompt-development data | ✅ | Prompts tuned on a small ARIES subset disjoint from the 30-paper test set; "several hundred rounds of manual iteration." |
-| **10** | Summarization | ➖ | Not applicable (task is review-comment generation, not summarisation). |
-| **11** | Instruction tuning / alignment | ➖ | No model training or alignment performed; off-the-shelf gpt-4-0613 used throughout. |
-| **12** | Compute | ⚠️ | Per-paper input + generated tokens reported per method (Table 4: e.g., MARG-S consumes ~1.24M input + 51k generated tokens/paper). Wall-clock noted only as "roughly an hour longer per review" for MARG-S. No GPU/CPU spec, no $ cost. |
-| **13** | Ethical approval | ❌ | No mention of IRB / ethics review for the 9-participant user study collecting unpublished papers and ratings. |
-| **14a** | Funding | ✅ | NSF grant IIS-2006851 and Tencent AI Lab Rhino-Bird Gift Fund. |
-| **14b** | Conflicts of interest | ❌ | Not declared in the paper. |
-| **14c** | Protocol | ❌ | No pre-registered protocol reported. |
-| **14d** | Registration | ➖ | Not a clinical study. |
-| **14e** | Data availability | ⚠️ | ARIES is publicly available (cited). User-study survey responses and the 30-paper alignment outputs not explicitly released. Code repo at github.com/allenai/marg-reviewer (footnote 1). |
-| **14f** | Code availability | ✅ | github.com/allenai/marg-reviewer (linked in footnote 1 on p. 1). |
-| **15** | Patient/public involvement | ➖ | Not applicable (no patients; "public" in the LLM-research sense is the paper-author user-study cohort). |
-| **16a** | Flow of data | ⚠️ | Automated eval: ARIES → 30 test papers (no exclusion diagram). User study: 9 volunteers recruited → 9 analysed (no exclusions noted). |
-| **16b** | Characteristics | ⚠️ | Participant characteristics: NLP / HCI researchers at a "large research organization"; their submitted papers are unpublished ML-related works (inferred from failure-analysis examples). No demographics, seniority, or reviewing experience breakdown. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup analysis). |
-| **16d** | N per analysis | ⚠️ | Automated eval N=30 papers stated; user-study N=9 participants stated. Total comment count per cell (e.g., "comments rated as good by participant i for method j") not tabulated explicitly. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific recall/precision/Jaccard or Good-comment-count numbers. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating; one fixed gpt-4-0613 snapshot used throughout). |
+| **1** | Title | ⚠️ | *"MARG: Multi-Agent Review Generation for Scientific Papers"* `Title, p.1` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Modern large language models (LLMs) face a technical challenge in addition to the reasoning challenges involved in generating reviews: namely, they are limited in the total number of tokens they can effectively reason over at once."* `§1, p.1` |
+| **3b** | Background — target population | ⚠️ | *"by including aspect-specific 'expert' GPT agents to separately assist with generating comments on experiments, clarity, and impact, the method can perform significantly better than when having a lone agent attempt to generate all types of feedback at once"* `§1, p.1` |
+| **4** | Objectives | ✅ | *"We study the ability of LLMs to generate feedback for scientific papers and develop MARG, a feedback generation approach using multiple LLM instances that engage in internal discussion."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"we measure their overlap with real reviews from papers in the ARIES corpus (D'Arcy et al., 2023)."* `§6, p.8` |
+| **5b** | Data points + distribution | ⚠️ | *"we use GPT4 to extract comments from all reviews for a subset of 30 papers and treat this as our test set."* `§6, p.8` — total per-paper real-reviewer comment counts not reported |
+| **5c** | Date range of data | ❌ | Not reported — ARIES paper/reviewer-comment dates and user-study collection window not disclosed |
+| **5d** | Pre-processing / quality checks | ✅ | *"we note that Liang et al. (2023) used a different PDF parsing library (pikepdf) than ours (Grobid), but for consistency with our other baselines we run it with Grobid."* `§5, p.8` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"the input format we use does not include figures or tables (as GPT-4 is a pure language model, it cannot consume this information), and many equations are garbled or incomplete due to parsing limitations."* `§3, p.3` |
+| **6a** | LLM name + version | ✅ | *"We use gpt-4-0613, which has an 8192-token capacity; larger models have been developed but were not available to us while conducting this work."* `§6, p.9` |
+| **6b** | Development process | ✅ | *"To tune prompts for review generation, we performed several hundred rounds of manual iteration on a small set of papers from ARIES (D'Arcy et al.,...)"* `§4.4, p.5` |
+| **6c** | Inference settings / prompting | ⚠️ | *"We use gpt-4-0613, which has an 8192-token capacity"* `§6, p.9` — temperature, top_p, seed, and the alignment-call system message are not explicitly reported |
+| **6d** | Output | ✅ | *"a label for every comment pair (Cgen, Creal) indicating whether the two comments are making the same request."* `§6, p.8` |
+| **6e** | Classification thresholds | ✅ | *"The final output of this stage is the list of comment pairs that were produced by at least two of the five runs — a ratio we heuristically found to work well in preliminary experiments"* `§6, p.8` |
+| **7a** | Quality metrics | ✅ | *"we compare our proposed method to that of Liang et al. (2023) and find that ... our method outperforms the strongest baseline by 6.1 recall points in the automated evaluation and generates 2.2x as many helpful comments per review in the user study."* `Abstract, p.1` |
+| **7b** | Relevance to downstream use | ⚠️ | *"it is relatively easy for a human to recognize and ignore bad comments; thus, it is more important for the system to maximize the number [of good comments]"* `§6.2, p.9` — no measurement of actual paper improvement or time saved |
+| **7c** | Outcome definition | ✅ | *"we attempt to match the generated comments ... with real reviewer comments"* `§6, p.8` |
+| **7d** | Subjective interpretation | ✅ | *"We recruit 9 volunteers from a large research organization to participate in the study."* `§7.1, p.13` |
+| **7e** | Comparison | ✅ | *"We notice that the human baseline actually has a lower recall than some of the LLM baselines, although it has the highest precision."* `§6.3, p.11` |
+| **8a** | Annotation guidelines | ✅ | *"MARG-S was rated as 'way too long' by 6 of the 9 participants (and 'just right' by the other three)"* `§7, p.14` — survey rating categories used directly as the annotation scheme |
+| **8b** | Annotators + IAA | ❌ | Not reported — no inter-annotator agreement statistic reported; each comment is rated by a single participant |
+| **8c** | Annotator background | ✅ | *"We recruit 9 volunteers from a large research organization to participate in the study. All participants are researchers in the fields of natural language processing and human-computer interaction."* `§7.1, p.13` |
+| **9a** | Prompt design | ⚠️ | *"To tune prompts for review generation, we performed several hundred rounds of manual iteration on a small set of papers from ARIES"* `§4.4, p.5` — full prompt text in an appendix not captured in this text extraction |
+| **9b** | Prompt-development data | ✅ | *"we performed several hundred rounds of manual iteration on a small set of papers from ARIES (D'Arcy et al.,...)"* `§4.4, p.5` |
+| **10** | Summarization | ➖ | Not applicable — task is review-comment generation, not summarization |
+| **11** | Instruction tuning / alignment | ➖ | *"larger models have been developed but were not available to us while conducting this work"* `§6, p.9` — off-the-shelf gpt-4-0613 used throughout, no fine-tuning |
+| **12** | Compute | ⚠️ | *"MARG-S has the best recall, it also generates roughly an order of magnitude more tokens than other methods"* `§6.3, p.13` — no GPU/CPU spec or dollar cost reported |
+| **13** | Ethical approval | ❌ | Not reported — no mention of IRB/ethics review for the 9-participant user study |
+| **14a** | Funding | ✅ | *"This work was supported in part by NSF grant IIS-2006851 and the Tencent AI Lab Rhino-Bird Gift Fund."* `Acknowledgments, p.22` |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ⚠️ | *"we measure their overlap with real reviews from papers in the ARIES corpus (D'Arcy et al., 2023)"* `§6, p.8` — ARIES is publicly cited but user-study responses and alignment outputs are not explicitly released |
+| **14f** | Code availability | ✅ | *"1 https://github.com/allenai/marg-reviewer"* `p.1` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"we use GPT4 to extract comments from all reviews for a subset of 30 papers and treat this as our test set."* `§6, p.8` — sampling rule and exclusions not detailed |
+| **16b** | Characteristics | ⚠️ | *"All participants are researchers in the fields of natural language processing and human-computer interaction."* `§7.1, p.13` — no demographics, seniority, or reviewing-experience breakdown |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-subgroup analysis |
+| **16d** | N per analysis | ✅ | *"We recruit 9 volunteers from a large research organization to participate in the study."* `§7.1, p.13` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — one fixed gpt-4-0613 snapshot used throughout |

@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/not-addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
@@ -63,6 +67,8 @@ apaAuthors:
     family: "Whitaker"
 peerReviewStatus: not-checked
 peerReviewNote: "BMJ HCI blocked automated access (403)"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: robertsComparativeStudyChatGPT2023
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f947-796e-bc90-271cd2fe663c
@@ -135,7 +141,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain                                                                   | Rating | Justification                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------ | :----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -153,44 +164,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical short report — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "clinical-appraisal workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Abstracts from a previously published systematic review on implant dentistry (Menne, Pandis & Faggion 2021, *J Periodontol*); selected because the original authors had already scored them against CONSORT-A. |
-| **5b** | Data points + distribution | ⚠️ | 30 RCT abstracts in the implant-dentistry domain. Per-domain distribution of "completely / partially / not reported" labels not provided. |
-| **5c** | Date range of data | ❌ | Publication-year range of the 30 abstracts not reported; ChatGPT inference date not reported (paper accepted Sept 2023 — so before GPT-3.5 deprecation). |
-| **5d** | Pre-processing / quality checks | ⚠️ | Two clinician reviewers independently extracted human scores with ≥80% consensus reconciliation, then one reviewer continued. No pre-processing of the abstracts themselves described (e.g., truncation, formatting). |
-| **5e** | Missing / imbalanced data | ❌ | No discussion of class imbalance per CONSORT-A item, missing items, or refusals/non-responses from ChatGPT. |
-| **6a** | LLM name + version | ⚠️ | "GPT3.5 model" / "ChatGPT3" — no version pin (e.g., gpt-3.5-turbo-0613), no API vs. ChatGPT web-UI clarification, no inference timestamp. |
-| **6b** | Development process | ➖ | No model development; off-the-shelf evaluation only. |
-| **6c** | Inference settings / prompting | ⚠️ | Prompt template shown in Figure 1A (zero-shot, item-by-item CONSORT-A definitions, asks for I_C/I_P/I_N counts and OCS%). Inference parameters (temperature, top_p, system prompt, seed, max tokens, single vs. multi-turn) not reported. |
-| **6d** | Output | ✅ | Per-item label (completely / partially / not reported); aggregated I_C, I_P, I_N counts; OCS out of 15 and OCS%. |
-| **6e** | Classification thresholds | ➖ | Not applicable — categorical 3-level labels with hard scoring rule (1 / 0.5 / 0). |
-| **7a** | Quality metrics | ⚠️ | Bland-Altman mean difference + 95% CI on overall OCS%; per-domain mean absolute difference, Welch's two-sample t-test, Pearson's r. No per-domain accuracy / F1 / Cohen's κ vs. human gold reported. |
-| **7b** | Relevance to downstream | ⚠️ | Discussion proposes integration into medical databases as an abstract-screening widget but no formal downstream-utility analysis (e.g., screening time savings, sensitivity at acceptable specificity). |
-| **7c** | Outcome definition | ✅ | OCS = compliance score against CONSORT-A 15-item abstract reporting checklist; computed identically for human and ChatGPT. Pearson r magnitude bands defined (very weak <0.2, weak 0.2–0.39, etc.). |
-| **7d** | Subjective interpretation | ⚠️ | Human evaluator scoring was reconciled to ≥80% consensus, but inter-rater reliability metrics (κ, ICC) not reported. ChatGPT runs not repeated to assess intra-model variability. |
-| **7e** | Comparison | ✅ | ChatGPT (GPT-3.5) vs. two human clinician reviewers (treated as gold standard). No comparison against GPT-4, other LLMs, or other appraisal tools. |
-| **8a** | Annotation guidelines | ✅ | CONSORT-A definitions for each of the 15 items reproduced verbatim in the prompt (Figure 1A), and used by both humans and ChatGPT. |
-| **8b** | Annotators + IAA | ⚠️ | Two clinician reviewers; reconciliation threshold ≥80% reported. Numeric IAA not reported. After reconciliation, "subsequent data extraction was conducted solely by one reviewer" — so part of the human-gold corpus is single-rater. |
-| **8c** | Annotator background | ⚠️ | Described only as "two clinician reviewers"; specialty, training stage, CONSORT experience not reported. |
-| **9a** | Prompt design | ⚠️ | Single zero-shot prompt shown in full (Figure 1A); no prompt-engineering search, no ablation of prompt components, no few-shot variant tested. |
-| **9b** | Prompt-development data | ❌ | No information on whether the prompt was iterated on a development set; appears to be a single fixed template. |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable — no fine-tuning. |
-| **12** | Compute | ❌ | Not reported. |
-| **13** | Ethical approval | ➖ | Not applicable (uses already-published abstracts; "Ethics approval Not applicable" stated). |
-| **14a** | Funding | ✅ | Swansea University; Welsh Clinical Academic Training Fellowship (SRA, TDD); Paton Masser grant from BAPRAS (SRA); ISW affiliations with Health and Care Research Wales / Scar Free Foundation noted. No award numbers. |
-| **14b** | Conflicts of interest | ✅ | "Competing interests None declared." |
-| **14c** | Protocol | ❌ | Not reported. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ❌ | The 30 abstracts and ChatGPT outputs are not shared; no data-availability statement. |
-| **14f** | Code availability | ❌ | No prompt repository, R-analysis code, or output release; only the prompt screenshot in Figure 1A. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | 30 abstracts evaluated by both humans and ChatGPT; no exclusions mentioned but a flow diagram is not provided. |
-| **16b** | Characteristics | ⚠️ | Only domain (implant dentistry RCTs) and source (Menne et al. 2021) given; no descriptive characteristics of the 30 abstracts (year range, journals, intervention types). |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup analysis). |
-| **16d** | N per analysis | ⚠️ | n=30 abstracts implied for Bland-Altman and per-domain analyses; not stated explicitly per-row in Table 1. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported). |
+| **1** | Title | ✅ | *"Comparative study of ChatGPT and human evaluators on the assessment of medical literature according to recognised reporting standards"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"In the dynamic landscape of medical research, clinicians face the daunting challenge of staying abreast of the latest advancements amid their demanding clinical responsibilities."* `Introduction, p.1` |
+| **3b** | Background — target population | ⚠️ | *"The use of large language models (LLMs) like ChatGPT has the potential to automate this evaluation, thereby aiding clinicians in making informed decisions."* `Introduction, p.1` |
+| **4** | Objectives | ✅ | *"The objective of this study is to compare the proficiency of ChatGPT3, the third iteration of OpenAI's GPT model, in scoring abstracts against human evaluation as the benchmark."* `Introduction, p.1` |
+| **5a** | Data sources | ✅ | *"In this study, we used a previously published paper as the basis of our comparison with ChatGPT. In their study, abstracts from a systematic review on implant dentistry were scored using the Consolidated Standards of Reporting Trials for Abstracts (CONSORT-A) statement by the human authors of the study."* `Methods, p.1` |
+| **5b** | Data points + distribution | ⚠️ | *"across a sample of 30 abstracts"* `Methods, p.1` — per-domain distribution of "completely / partially / not reported" labels not provided |
+| **5c** | Date range of data | ❌ | Not reported |
+| **5d** | Pre-processing / quality checks | ✅ | *"The processes of selection and data extraction were performed independently and in duplicate by two clinician reviewers across a sample of 30 abstracts. Discrepancies were systematically addressed through discussion until a consensus of at least 80% was achieved."* `Methods, p.1` |
+| **5e** | Missing / imbalanced data | ❌ | Not reported |
+| **6a** | LLM name + version | ⚠️ | *"This was performed using the GPT3.5 model."* `Methods, p.1` — no version pin (e.g., gpt-3.5-turbo-0613), no API vs. web-UI clarification, no inference timestamp |
+| **6b** | Development process | ➖ | Not applicable — no model development; off-the-shelf evaluation only |
+| **6c** | Inference settings / prompting | ⚠️ | *"ChatGPT was used to score the same set of abstracts, using a prompt to assess for each domain within the CONSORT-A checklist (figure 1)."* `Methods, p.1` — temperature/top_p/seed/system prompt not stated |
+| **6d** | Output | ✅ | *"An overall compliance score (OCS) was given out of 15, along with an OCS percentage (figure 1B)."* `Methods, p.1` |
+| **6e** | Classification thresholds | ➖ | *"The human evaluators scored each item as fully reported, partially reported or not reported."* `Methods, p.1` — not applicable, categorical labels with no probability thresholding |
+| **7a** | Quality metrics | ✅ | *"Bland-Altman analysis assessed agreement between human and AI-generated OCS percentages. Additional error analysis included mean difference of OCS subscores, Welch's t-test and Pearson's correlation coefficient."* `Abstract, p.1` |
+| **7b** | Relevance to downstream use | ⚠️ | *"Possible applications of ChatGPT include integration within medical databases for abstract evaluation."* `Abstract, p.1` — no formal downstream-utility analysis (e.g., screening time savings, sensitivity at acceptable specificity) |
+| **7c** | Outcome definition | ✅ | *"r, 0-0.19 very weak, 0.2-0.39 weak, 0.40-0.59 moderate, 0.6-0.79 strong and 0.8-1 very strong correlation."* `Methods, p.3` |
+| **7d** | Subjective interpretation | ⚠️ | *"Discrepancies were systematically addressed through discussion until a consensus of at least 80% was achieved."* `Methods, p.1` — no numeric inter-rater reliability (κ/ICC) reported; ChatGPT not re-run to assess intra-model variability |
+| **7e** | Comparison | ✅ | *"This study compares the proficiency of ChatGPT3 against human evaluation in scoring abstracts to determine its potential as a tool for evidence synthesis."* `Abstract, p.1` |
+| **8a** | Annotation guidelines | ✅ | *"The CONSORT-A checklist scores abstract reporting standards based on well-defined definitions for subsections such as trial design, blinding and randomisation."* `Methods, p.1` |
+| **8b** | Annotators + IAA | ⚠️ | *"Subsequent data extraction was conducted solely by one reviewer."* `Methods, p.1` — no quantitative inter-annotator agreement (κ/α) reported |
+| **8c** | Annotator background | ⚠️ | *"performed independently and in duplicate by two clinician reviewers"* `Methods, p.1` — specialty, training stage, and CONSORT experience not reported |
+| **9a** | Prompt design | ⚠️ | *"(A) Example prompt used to generate the OCS as per CONSORT-A criteria."* `Figure 1, p.2` — single zero-shot prompt shown, no ablation or few-shot variant tested |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no model training, fine-tuning, or alignment performed |
+| **12** | Compute | ❌ | Not reported |
+| **13** | Ethical approval | ➖ | *"Ethics approval Not applicable."* `p.4` — not human-subjects research |
+| **14a** | Funding | ✅ | *"The research conducted herein was funded by Swansea University. SRA and TDD are funded by the Welsh Clinical Academic Training Fellowship (no award number). SRA received a Paton Masser grant from the British Association of Plastic, Reconstructive and Aesthetic Surgeons to support this work (no award number)."* `p.4` |
+| **14b** | Conflicts of interest | ✅ | *"Competing interests None declared."* `p.4` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ❌ | Not reported |
+| **14f** | Code availability | ❌ | Not reported |
+| **15** | Patient/public involvement | ➖ | *"Patient consent for publication Not required."* `p.4` — not applicable |
+| **16a** | Flow of data | ⚠️ | *"across a sample of 30 abstracts"* `Methods, p.1` — no exclusions mentioned, no flow diagram provided |
+| **16b** | Characteristics | ⚠️ | *"abstracts from a systematic review on implant dentistry"* `Methods, p.1` — no descriptive characteristics of the 30 abstracts (year range, journals, intervention types) |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ⚠️ | *"across a sample of 30 abstracts"* `Methods, p.1` — n=30 implied throughout but not stated explicitly per-row in Table 1 |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

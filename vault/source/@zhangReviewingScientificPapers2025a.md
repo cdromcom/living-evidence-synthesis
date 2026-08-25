@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/not-addressed
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/not-addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -48,6 +52,8 @@ apaAuthors:
     family: "Abernethy"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: zhangReviewingScientificPapers2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f95d-7879-86c1-70337328c988
@@ -126,7 +132,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -144,44 +155,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | WITHDRARXIV (Rao et al. 2024) — papers withdrawn from arXiv by September 2024, with author retraction comments and well-defined retraction categories. Critical-errors subset filtered + manually curated into WITHDRARXIV-CHECK (n=1,225). |
-| **5b** | Data points + distribution | ✅ | Train n=980 / Test n=245. Test composition: time span 2007–2012 13% / 2013–2018 47% / 2019–2024 40%; subject Math 52% / Physics 29% / CS 15% / Other 4%; median page count 14 (range 2–136); LaTeX source available 88%. Tabulated in Table 1. |
-| **5c** | Date range of data | ⚠️ | Withdrawals through September 2024; retraction-comment time-span buckets reported, but earliest individual paper date and exact date of WITHDRARXIV-CHECK construction not given. API inference run early May 2025. |
-| **5d** | Pre-processing / quality checks | ✅ | Two-stage filter: Gemini 2.5 Flash (`preview-04-17`) screens de-identified retraction comments to retain those clearly specifying the error (n=2,190); manual exclusion of (1) misclassified, (2) different versions of same paper, (3) non-English, (4) template-like reasons, (5) problems not detectable from manuscript alone; redacted theorem names manually corrected. Final n=1,225. |
-| **5e** | Missing / imbalanced data | ⚠️ | Class imbalance not applicable (single positive task — every paper has a known error). For the 12% of test papers without LaTeX source, LaTeX-row results inherit the model's PDF-row prediction (acknowledged). No analysis of how exclusion criteria might bias remaining cases. |
-| **6a** | LLM name + version | ✅ | Checkers: Gemini 2.5 Pro (`preview-05-06`); Gemini 2.5 Flash (`preview-04-17`); OpenAI o3 (`2025-04-16`); o4-mini (`2025-04-16`); Claude 3.7 Sonnet (`20250219`). Judges: Gemini 2.5 Pro (`preview-05-06`) and o3 (`2025-04-16`). All accessed via official APIs in Python. |
-| **6b** | Development process | ➖ | No model development / fine-tuning. Off-the-shelf API models. |
-| **6c** | Inference settings / prompting | ✅ | Appendix A full prompt text provided. Appendix B parameters: Gemini — thinking budget = default (automatic), tools=[], temperature=0, seed=42. o3/o4-mini — reasoning effort defaults to "medium", reasoning summary = "detailed", tools=[], temperature/seed not supported. Claude 3.7 Sonnet — max tokens=16,000, thinking type="enabled", thinking budget=14,000, tools=[], temperature=1 (required for thinking), seed not supported. $k=5$, $n_c=1$. |
-| **6d** | Output | ✅ | JSON list of `{Problem: str, Location: str, Explanation: str}` entries; up to 5 entries per paper; LLM may end list early; locations expressed as page / section / equation number. |
-| **6e** | Classification thresholds | ➖ | Generative free-text task; no probability threshold. Decision rule for "hit" defined elsewhere ($m=2$ judges, both must affirm). |
-| **7a** | Quality metrics | ✅ | Hit Rate at $k$ (HR@k); Mean Hit Rate at $k$ (MHR@k) defined for $n_c>1$; supplementary tracking of average problems identified, Q1, Q3, token usage (input/think/output), and estimated USD cost per paper. |
-| **7b** | Relevance to downstream | ✅ | Authors explicitly frame the use case (LLM as manuscript quality checker, not full reviewer; pre-screening for human reviewers; cost-per-paper used to inform "future work that seeks to apply LLMs to check a larger number of papers"). |
-| **7c** | Outcome definition | ✅ | A "hit" = at least one of the model's $\le 5$ submitted problems exactly matches the gold author-supplied retraction-comment error, as confirmed by majority of LLM judges. |
-| **7d** | Subjective interpretation | ⚠️ | LLM-as-judge replaces human adjudication; majority-vote across 2 judges from different vendors is used to mitigate. No human spot-check of judge accuracy. Authors flag automatic-evaluation inflation as a limitation. |
-| **7e** | Comparison | ✅ | 5 checker models × 2 ingestion approaches = 10 conditions in Table 2. Single-judge vs. dual-judge comparison in Table 3. Concurrent SPOT-A benchmark (Son et al. 2025) discussed as complementary. No statistical-significance test reported. |
-| **8a** | Annotation guidelines | ➖ | No human annotation in this study. The "gold labels" are author-supplied retraction comments; LLM-as-judge prompt (Appendix A) defines the matching criterion. |
-| **8b** | Annotators + IAA | ⚠️ | No human annotators. Inter-judge agreement between Gemini 2.5 Pro and o3 not reported as a κ / agreement statistic; only the per-judge HR@5 in Table 3 + the dual-judge HR@5 in Table 2 are reported, from which agreement could be inferred but is not. |
-| **8c** | Annotator background | ➖ | Not applicable. |
-| **9a** | Prompt design | ✅ | Single fixed simplistic prompt for all checkers (Appendix A). Authors explicitly note the prompt was not customized for the math/physics-rich dataset. Separate fixed prompt for LLM judges with retraction-comment context (Appendix A). |
-| **9b** | Prompt-development data | ❌ | Not described. No mention of using the 980-paper train split for prompt iteration; no held-out development set described. |
-| **10** | Summarization | ➖ | Not a summarization task. |
-| **11** | Instruction tuning / alignment | ➖ | No fine-tuning or alignment performed. |
-| **12** | Compute | ⚠️ | API token usage (input/think/output per paper) and USD cost reported per condition — substitutes for raw GPU/compute reporting. No wall-clock time. |
-| **13** | Ethical approval | ➖ | Not applicable (publicly available arXiv papers; no human subjects). |
-| **14a** | Funding | ❌ | No funding statement. Acknowledgments thank Black Spatula Project members and a research-assistant for API help; "We welcome … funding to further improve this work." |
-| **14b** | Conflicts of interest | ❌ | No COI statement. |
-| **14c** | Protocol | ❌ | No pre-registered protocol or analysis plan. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ⚠️ | "We will publish the WITHDRARXIV-CHECK dataset, model outputs (including thinking outputs if available), and core experiment code … We will update this paper with the link to our public repository in the near future." Promised, not yet released at time of preprint. |
-| **14f** | Code availability | ⚠️ | Same promise as 14e — pending release, no link in preprint. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | WITHDRARXIV critical-errors n=6,018 → Gemini 2.5 Flash filter → 2,190 → manual exclusions (5 categories) + theorem-name correction → WITHDRARXIV-CHECK n=1,225 → 80/20 split → train n=980 (set aside) / test n=245. Narrated in §2.1. |
-| **16b** | Characteristics | ✅ | Table 1 cross-tabulates train vs. test by time span, main subject, page count (median, [min, max]), and LaTeX-availability. |
-| **16c** | Distribution comparison | ⚠️ | Train and test distributions visible side-by-side in Table 1 (similar) but no formal balance test or sub-domain stratified evaluation. |
-| **16d** | N per analysis | ✅ | n=245 papers per cell of Table 2 (every model × ingestion approach uses the full test set; 12% LaTeX-missing fall back to PDF prediction). Table 3 (single-judge HR@5) also n=245. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating; off-the-shelf API inference). |
+| **1** | Title | ✅ | *"Reviewing Scientific Papers for Critical Problems With Reasoning LLMs: Baseline Approaches and Automatic Evaluation"* `Title, p.1` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Recent advancements in the domain intelligence of large language models (LLMs) have fostered interest in utilizing them to aid the peer review process of scientific publication, especially in consideration of the peer review crisis due to the skyrocketing number of paper submissions in recent years"* `§1, p.1` |
+| **3b** | Background — target population | ⚠️ | *"In this work, we consider the identification of critical errors and unsoundness problems that may invalidate the conclusions of a paper, a key sub-task in peer review, as the main goal of an LLM manuscript checker."* `§1, p.2` |
+| **4** | Objectives | ✅ | *"we propose adopting LLMs as manuscript quality checkers. We introduce several baseline approaches and an extendable automatic evaluation framework using top reasoning LLMs as judges to tackle the difficulty of recruiting domain experts for manual evaluation."* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"We utilized WITHDRARXIV [Rao et al., 2024], a large-scale dataset of papers withdrawn from arXiv by September 2024, along with associated retraction comments from authors and well-defined retraction categories."* `§2.1, p.2` |
+| **5b** | Data points + distribution | ✅ | *"Sample size — Train 980 / Test 245 · Main subject: Math 492 (50%)/128 (52%), Physics 256 (26%)/70 (29%), Computer Science 196 (20%)/37 (15%), Others 36 (4%)/10 (4%)"* `Table 1, p.3` |
+| **5c** | Date range of data | ⚠️ | *"a large-scale dataset of papers withdrawn from arXiv by September 2024"* `§2.1, p.2` — exact earliest withdrawal date and dataset-construction date not stated, only decade-scale buckets in Table 1 |
+| **5d** | Pre-processing / quality checks | ✅ | *"de-identified retraction comments were first provided to Gemini 2.5 Flash (preview-04-17) to determine whether each retraction comment clearly specified the error... We also corrected mistakenly redacted theorem names in the retraction comments."* `§2.1, p.2` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"For the small proportion of papers without available LaTeX scripts (Table 1), we resorted to utilizing the problems identified by the same model through the PDF-based approach."* `§2.2, p.3` |
+| **6a** | LLM name + version | ✅ | *"The following reasoning LLMs were tested as paper quality checkers: Google's Gemini 2.5 Pro (preview-05-06) and Gemini 2.5 Flash (preview-04-17); OpenAI's o3 (2025-04-16) and o4-mini (2025-04-16); Anthropic's Claude 3.7 Sonnet (20250219)."* `§2.4, p.4` |
+| **6b** | Development process | ➖ | Not applicable — no model development, fine-tuning, or training performed; off-the-shelf API models used as-is |
+| **6c** | Inference settings / prompting | ✅ | *"Gemini 2.5 Pro and Gemini 2.5 Flash: thinking budget: default (automatic) ... tools: [] temperature: 0 seed: 42 ... o3 and o4-mini: reasoning effort: defaults to \"medium\" ... temperature and seed: not supported ... Claude 3.7 Sonnet: max tokens: 16,000 ... temperature: 1 (required for thinking) seed: not supported"* `Appendix B, p.11` |
+| **6d** | Output | ✅ | *"give me up to {k} most critical problems as a JSON object using the following schema: Entry = {\"Problem\": str, \"Location\": str, \"Explanation\": str}, Return: list[Entry]."* `Appendix A, p.10` |
+| **6e** | Classification thresholds | ➖ | Not applicable — outputs are free-text JSON entries with no probability thresholding; hit / true-positive decisions are majority-vote judge labels |
+| **7a** | Quality metrics | ✅ | *"LLM checkers were primarily evaluated by their hit rates on test papers... we report this metric as the Hit Rate at k (HR@k)."* `§2.3, p.3` |
+| **7b** | Relevance to downstream use | ✅ | *"journal publishers and conference organizers may consider incorporating LLM quality checkers into initial assessments of manuscripts [Bauchner and Rivara, 2024], thereby reducing the burden on reviewers."* `§4, p.7` |
+| **7c** | Outcome definition | ✅ | *"If an LLM checker receives a majority of (or all, for a stricter evaluation) affirmative votes from LLM judges, it is deemed to have made a hit on a paper."* `§2.3, p.3` |
+| **7d** | Subjective interpretation | ⚠️ | *"Considering the daunting cost of recruiting domain experts to manually evaluate LLM-identified scientific errors, we propose an automatic evaluation pipeline to streamline the process."* `§2.3, p.3` — LLM judges substitute for human expert interpretation; no human spot-check of judge accuracy reported |
+| **7e** | Comparison | ✅ | *"A concurrent work on arXiv by Son et al. [2025] also utilizes the WITHDRARXIV dataset for automatic error detection in scientific papers... The two efforts are complementary, and both report the leading performance of o3."* `§4, p.7` |
+| **8a** | Annotation guidelines | ➖ | Not applicable — no human annotation in this study; gold labels are author-supplied retraction comments, and the LLM-judge prompt (Appendix A) defines the matching criterion |
+| **8b** | Annotators + IAA | ⚠️ | Not applicable — no human annotators; inter-judge agreement between Gemini 2.5 Pro and o3 not reported as a κ / agreement statistic |
+| **8c** | Annotator background | ➖ | Not applicable |
+| **9a** | Prompt design | ✅ | *"In our experiments, both approaches utilized the same simplistic, general task instruction (Appendix A)... The prompt was not customized for our dataset that is rich in math and physics papers."* `§2.2, p.3` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no model training, fine-tuning, or alignment performed |
+| **12** | Compute | ⚠️ | *"we recorded token usage to inform future work that seeks to apply LLMs at a larger scale. Average costs of reviewing a paper under each pipeline-LLM combination were estimated based on the standard API pricing of the LLM vendors in June 2025."* `§3, p.4` — no GPU / wall-clock compute reported |
+| **13** | Ethical approval | ➖ | *"In this work, we circumvent this challenge by utilizing publicly available arXiv papers."* `§4, p.7` — no IRB/ethics-committee statement present (not human-subjects research) |
+| **14a** | Funding | ✅ | *"This work is supported by the Ira Kalet and Fred Wolf Endowment Fund from the Department of Biomedical Informatics and Medical Education, University of Washington."* `Acknowledgments and Disclosure of Funding, p.8` |
+| **14b** | Conflicts of interest | ✅ | *"The authors declare no competing interest."* `Acknowledgments and Disclosure of Funding, p.8` |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"Our WITHDRARXIV-CHECK dataset, experiment code, and model outputs (including thinking outputs if available) are available on Github."* `Data Availability, p.8` |
+| **14f** | Code availability | ✅ | *"experiment code, and model outputs (including thinking outputs if available) are available on Github."* `Data Availability, p.8` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"This step resulted in a subset of 2,190 cases. Our manual review further excluded cases that (1) were incorrectly identified during LLM screening... The final dataset, named WITHDRARXIV-CHECK, contains 1,225 cases in total."* `§2.1, p.2` |
+| **16b** | Characteristics | ✅ | *"Dataset characteristics are provided in Table 1."* `Table 1, p.3` |
+| **16c** | Distribution comparison | ⚠️ | *"2007-2012 155 (16%) 32 (13%) · 2013-2018 487 (50%) 114 (47%) · 2019-2024 338 (34%) 99 (40%)"* `Table 1, p.3` — train/test time-span distributions shown side by side but no formal balance test reported |
+| **16d** | N per analysis | ✅ | *"we took k = 5, nc = nj = 1, and m = 2, i.e., each LLM checker was tested once with each paper and was allowed to report up to 5 problems, and 2 LLMs served as judges"* `§2.4, p.4` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/partial
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -48,6 +52,8 @@ apaAuthors:
     family: "Watanabe"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: bougieGenerativeAdversarialReviews2024a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f937-724d-9f43-074dca71227e
@@ -123,7 +129,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -141,44 +152,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | OpenReview submissions for ICLR 2023 (primary), ICLR 2022, and NeurIPS 2023; Beygelzimer et al. (2021) NeurIPS consistency study used for the human F1=0.49 baseline. |
-| **5b** | Data points + distribution | ⚠️ | ICLR 2023 = 3,797 papers, each retrieved by ≥3 reviewers. NeurIPS 23 and ICLR 22 sizes not stated; 1,000-paper evaluation subsets per dataset; remaining ~2,797 ICLR 23 reviews initialise memory. Accept/reject base rates not reported. |
-| **5c** | Date range of data | ❌ | Submission dates not reported; OpenReview snapshot date and GPT-4o/GPT-4o-mini training cutoffs not disclosed. |
-| **5d** | Pre-processing / quality checks | ✅ | Nougat extracts MMD-formatted text from PDFs (preferred over plain-text conversion as in AI-Scientist); Molmo-7b generates figure captions grafted into the manuscript representation; the graph builder runs Acronym Extraction → Core-Element Extraction → Concept Merging → Leiden community detection → community-descriptor summarisation. |
-| **5e** | Missing / imbalanced data | ❌ | Conference accept/reject class imbalance not characterised or addressed; balanced accuracy reported as a partial mitigation but no resampling or weighting discussed. |
-| **6a** | LLM name + version | ✅ | Main agents: GPT-4o-mini (OpenAI, 2024). Ablation backbones: GPT-4o, Mistral-7b Instruct, Llama-3.1 (8b), Llama-3.1 (70b) — open-weight models served via Ollama. Auxiliary: Nougat (PDF→MMD), Molmo-7b (figure captioning), mxbai-embed-large (descriptor embeddings). Judge: GPT-4o. |
-| **6b** | Development process | ✅ | Four-module agent architecture (profile / memory / novelty / review) plus a meta-reviewer; profile module uses contrastive comparison to derive 8 reviewer traits; memory module is community-descriptor-keyed with paper-level and community-level retrieval; review module uses chain-of-thought + multi-round refinement. No fine-tuning ("we use pre-trained LLMs without further finetuning them"). |
-| **6c** | Inference settings / prompting | ⚠️ | Prompt structures formalised (Q_review, Q_novelty, Q_style, Q_check, Q_meta, Q_comp, Q_focus, Q_sum, Q_merge); appendix promised. Decoding parameters (temperature, top_p, seed, max tokens) and exact prompt text not in the main body. |
-| **6d** | Output | ✅ | Per-reviewer numerical scores (soundness, presentation, contribution, overall ∈ {1..10}, confidence), free-text strengths/weaknesses/suggestions, preliminary binary accept/reject; meta-reviewer outputs final ∈ {ACCEPT (ORAL), ACCEPT (POSTER), REJECT}; novelty module outputs s_nov ∈ {1..4} + explanation. |
-| **6e** | Classification thresholds | ✅ | GAR meta-reviewer uses no fixed threshold (synthesises decision). GAR^> applies a fixed score-≥6 threshold ("Weak Accept" in ICLR scale). Final 3-way label collapsed to binary {ACCEPT, REJECT} for evaluation. |
-| **7a** | Quality metrics | ✅ | Balanced Accuracy and F1 score (acceptance prediction); Bradley-Terry coefficients from win matrices (preference); 5-point Likert mean ± SE (human-likeness); Pearson correlation (alignment with human criteria scores in §5.8). |
-| **7b** | Relevance to downstream | ⚠️ | Authors frame downstream use as "early, on-demand" reviewer assistance and explicitly advise against replacement of human reviewers (§6); no formal utility / cost / time-saving analysis. |
-| **7c** | Outcome definition | ✅ | Outcome = official conference accept/reject decision (acceptance task) and human-vs-AI-likeness rating (style task) and pairwise preference among reviewers (BT task). |
-| **7d** | Subjective interpretation | ⚠️ | Five expert human evaluators in §5.2 LLM-vs-human preference and an 11-aspect human annotation in §5.10; no inter-annotator agreement statistics reported for either. |
-| **7e** | Comparison | ✅ | Baselines: AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review, plus Random Decision and Always Reject; human reviewer baseline from Beygelzimer et al. (2021); paired t-tests at p<0.05 (and p<0.002 vs. human). |
-| **8a** | Annotation guidelines | ⚠️ | §5.10 mentions an 11-aspect feedback-comment annotation "following established research" (Birhane et al. 2022; Smith et al. 2022); the rubric and guideline text are not reproduced. |
-| **8b** | Annotators + IAA | ⚠️ | Five expert evaluators participate in §5.2 preference rating; §5.10 uses unnamed human annotators on a randomly sampled subset. No IAA / kappa reported. |
-| **8c** | Annotator background | ❌ | "Five expert evaluators" / "expert human evaluators" — backgrounds, recruitment, and qualifications not described. |
-| **9a** | Prompt design | ⚠️ | Prompts described compositionally (variables and roles defined: Q_comp for contrastive comparison, Q_review for review, Q_novelty, Q_check, Q_meta, etc.); a single example "Prompt Block" shown for community-level retrieval (p. 8); full prompt text deferred to the appendix. |
-| **9b** | Prompt-development data | ❌ | No prompt-tuning protocol or held-out prompt-development split disclosed. |
-| **10** | Summarization | ✅ | Community-Based Descriptor (Q_sum) summarises each Leiden community of the manuscript graph; meta-reviewer also performs summarisation across reviewers' outputs. |
-| **11** | Instruction tuning / alignment | ➖ | "we use pre-trained LLMs without further finetuning them" — no fine-tuning / RLHF performed by the authors. |
-| **12** | Compute | ⚠️ | Llama-3.1 (8b) runs on a single NVIDIA A100 40G ≈20 min per run; results averaged over 20 runs. GPT-4o / GPT-4o-mini accessed via OpenAI API; total token / dollar cost not reported. |
-| **13** | Ethical approval | ➖ | Not applicable — analysis on published / preprint manuscripts; no human-subject clinical data. |
-| **14a** | Funding | ❌ | Not stated in the preprint. (Both authors affiliated with Woven by Toyota.) |
-| **14b** | Conflicts of interest | ❌ | Not stated. |
-| **14c** | Protocol | ❌ | No pre-registered protocol. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ⚠️ | OpenReview is publicly accessible (URL implied); the curated 1,000-paper evaluation subsets and the contrastively-derived persona traits are not released with the preprint. |
-| **14f** | Code availability | ❌ | No code repository link in the v1 preprint; appendix promised for prompts/implementation details. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ⚠️ | ICLR 23: 3,797 → 1,000 evaluation + ~2,797 memory-init. Sampling rule (random / first-N / criteria) and any paper-level exclusions not stated. NeurIPS 23 and ICLR 22 splits implied analogous but not detailed. |
-| **16b** | Characteristics | ⚠️ | Conferences and review-count-per-paper given (≥3); paper topic distribution, length, modality, year-by-year breakdown not reported. |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-subgroup analysis). |
-| **16d** | N per analysis | ✅ | BT preference: 200 papers × 2 reviewers; human-likeness and acceptance: 1,000 papers per dataset × 5 reviewer agents (× 20 runs); §5.4 ablation, §5.7 expertise, §5.11/§5.12 foundation-model variants all on the 1,000-paper subset. |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific BT scores, F1 / Balanced Accuracy, and human-likeness Likert means. |
-| **18** | LLM updating | ➖ | Not applicable — no online learning or model updating reported; future work mentions a "closed-loop, self-improving system" but it is not implemented. |
+| **1** | Title | ⚠️ | *"GENERATIVE ADVERSARIAL REVIEWS: WHEN LLMS BECOME THE CRITIC"* `Title, p.1` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"The peer review process is fundamental to scientific progress, determining which papers meet the quality standards for publication. Yet, the rapid growth of scholarly production and increasing specialization in knowledge areas strain traditional scientific feedback mechanisms."* `Abstract, p.1` |
+| **3b** | Background — target population | ⚠️ | *"GAR is designed to address two key challenges in the peer review process: (1) providing researchers with early-stage, high-quality feedback across several aspects, such as novelty, significance, technical soundness, and clarity, and (2) predicting acceptance likelihood at major conferences."* `§1, p.2` |
+| **4** | Objectives | ✅ | *"We present Generative Agent Reviewers (GAR), a novel framework that simulates peer reviewers through LLM-based agents."* `§1, p.2` |
+| **5a** | Data sources | ✅ | *"We primary conduct the experiments on the ICLR 2023 dataset, which consists of 3,797 papers obtained from Openreview. ... we also conducted experiments on the ICLR 2022, and NeurIPS 2023 Beygelzimer et al. (2021) datasets."* `§5, p.9` |
+| **5b** | Data points + distribution | ⚠️ | *"which consists of 3,797 papers obtained from Openreview. Each paper was retrieved by at least three reviewers."* `§5, p.9` — NeurIPS 23 and ICLR 22 dataset sizes and accept/reject base rates not stated |
+| **5c** | Date range of data | ❌ | Not reported — OpenReview snapshot date and GPT-4o/GPT-4o-mini training cutoffs not disclosed |
+| **5d** | Pre-processing / quality checks | ✅ | *"we utilize Nougat Blecher et al. (2023) to extract the Markdown (MMD) version of each manuscript, maintaining structural and formatting fidelity."* `§5, p.9` |
+| **5e** | Missing / imbalanced data | ❌ | Not reported — conference accept/reject class imbalance is not characterized or addressed anywhere in the text |
+| **6a** | LLM name + version | ✅ | *"All agents are powered by the GPT-4o-mini version of ChatGPT OpenAI et al. (2024). In some experiments, we also use ... GPT-4o OpenAI et al. (2024) and Llama-3.1 (8b and 70b) Grattafiori et al. (2024)."* `§5, p.9` |
+| **6b** | Development process | ✅ | *"Each agent is initialized using real-world datasets and equipped with four core modules: profile, memory, novelty, and review modules."* `§1, p.2` |
+| **6c** | Inference settings / prompting | ⚠️ | *"The prompts and other implementation details can be found in the Appendix."* `§5, p.9` — decoding parameters (temperature/top_p/seed) and full prompt text not in the main body (appendix not present in the cached preprint) |
+| **6d** | Output | ✅ | *"a reviewer r ∈ R, let yrp = 1 denote that reviewer r has reviewer the paper p, and subsequently assigned a score srp with srp ∈ {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}."* `§3, p.4` |
+| **6e** | Classification thresholds | ✅ | *"we set the decision threshold at a score of 6, aligned with the 'Weak Accept' category from ICLR's review standards, and compare this threshold-based reviewers with vanilla GAR."* `§5.3, p.12` |
+| **7a** | Quality metrics | ✅ | *"Table 3 summarizes the performance metrics. Our method outperforms previous state-of-the-art methods, including AI-Scientist (0.54) with an average f1 score of 0.66."* `§5.3, p.11` |
+| **7b** | Relevance to downstream use | ⚠️ | *"By offering early expert-level feedback, typically restricted to a limited group of researchers, GAR democratizes access to transparent and in-depth evaluation."* `Abstract, p.1` — no formal utility, cost, or time-saving analysis |
+| **7c** | Outcome definition | ✅ | *"The final acceptance decision consists of the last review produced at the last round, choosing from the following options: ACCEPT (ORAL), ACCEPT (POSTER), or REJECT."* `§3.4, p.8` |
+| **7d** | Subjective interpretation | ⚠️ | *"five expert evaluators were given 200 papers, each with two anonymous reviews."* `§5.1, p.9` — no inter-annotator agreement statistic reported |
+| **7e** | Comparison | ✅ | *"Human*, Random Decision, Always Reject, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review, GAR, GAR>"* `Table 3, p.12` |
+| **8a** | Annotation guidelines | ⚠️ | *"Human annotation was performed a randomly sampled subset of feedback, following established research in machine learning peer review Birhane et al. (2022); Smith et al. (2022)."* `§5.10, p.16` — rubric/guideline text not reproduced |
+| **8b** | Annotators + IAA | ⚠️ | *"five expert evaluators were given 200 papers, each with two anonymous reviews."* `§5.1, p.9` — no IAA/kappa reported |
+| **8c** | Annotator background | ❌ | Not reported — "five expert evaluators" / "human annotators" backgrounds and recruitment are not described |
+| **9a** | Prompt design | ⚠️ | *"An example prompt block is provided below:"* `§3.3, p.8` — a single example block is shown; full prompt text deferred to an appendix not present in the cached preprint |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ✅ | *"the score, accompanied by a summary of supporting arguments, is formatted into plain text and passed on to subsequent review stages."* `§3.4, p.8` |
+| **11** | Instruction tuning / alignment | ➖ | *"In this work, we use pre-trained LLMs without further finetuning them."* `§3, p.4` |
+| **12** | Compute | ⚠️ | *"For each experimental run with Llama-3.1 (8b), we utilize a single NVIDIA A100 40G GPU. Each run on Llama-3.1 (8b) takes approximately 20 minutes, and all results reported are averaged over 20 independent runs"* `§5, p.9` — GPT-4o/GPT-4o-mini API token/dollar cost not reported |
+| **13** | Ethical approval | ➖ | Not applicable — analysis of published/preprint manuscripts, no human-subject clinical data |
+| **14a** | Funding | ❌ | Not reported |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ❌ | Not reported — no data-release statement or repository link in the cached preprint |
+| **14f** | Code availability | ❌ | Not reported — no code repository link in the cached preprint |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"the remaining reviews (e.g., 2,797 for ICLR 23) in each dataset were utilized to initialize the memory module."* `§5.3, p.11` — sampling rule for the 1,000-paper evaluation subset not stated |
+| **16b** | Characteristics | ⚠️ | *"Each paper was retrieved by at least three reviewers."* `§5, p.9` — topic distribution, length, and modality breakdown not reported |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-subgroup analysis |
+| **16d** | N per analysis | ✅ | *"five expert evaluators were given 200 papers, each with two anonymous reviews."* `§5.1, p.9` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable — no online learning or model updating reported; future work mentions a "closed-loop, self-improving system" but it is not implemented |

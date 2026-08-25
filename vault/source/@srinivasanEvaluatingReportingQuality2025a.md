@@ -17,6 +17,10 @@ tags:
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/unresolved
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -56,6 +60,8 @@ apaAuthors:
     family: "Tatonetti"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: srinivasanEvaluatingReportingQuality2025a
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f950-75f1-a036-5fc27aea2466
@@ -133,7 +139,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -151,44 +162,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | Two data sources: (1) CONSORT-TM evaluation corpus (Kilicoglu et al. 2021) — 50 RCT publications annotated at sentence level for 37 CONSORT items; (2) 21,041 open-access human RCTs from PubMed (1966–2024) for the large-scale analysis. PDFs converted to XML via PyMuPDF; metadata enriched via Semantic Scholar; trial characteristics for n=1,790 subset enriched via ClinicalTrials.gov. |
-| **5b** | Data points + distribution | ✅ | Large-scale corpus: 21,041 articles split across four periods — 1966–1990 (n=2,771), 1990–2000 (n=1,969), 2000–2010 (n=3,765), 2010–2024 (n=10,447). Discipline distribution shown in Fig. 2C. CONSORT-TM corpus: 50 articles, 37 sentence-level item annotations. |
-| **5c** | Date range of data | ✅ | Articles span 1966–2024 (publication dates). Model inference dates not explicitly disclosed; OpenAI training cutoffs not reported. |
-| **5d** | Pre-processing / quality checks | ⚠️ | PDFs converted to XML via PyMuPDF; Semantic Scholar metadata enrichment; ClinicalTrials.gov enrichment for n=1,790 subset. No description of XML-extraction quality checks or text-cleaning steps. Confidence-level filtering used as a downstream quality check (>90% of articles retained). |
-| **5e** | Missing / imbalanced data | ⚠️ | 53,137 → 21,041 articles after PDF-acquisition success (~40% loss). Restriction to open-access PMC introduces obvious sampling bias (acknowledged in Limitations). Class imbalance / per-item base-rate distribution not reported. Five CONSORT items dropped post-hoc because reported in <5% of articles or systematically misclassified (2a, 7b, 3b, 6b, 14b). |
-| **6a** | LLM name + version | ⚠️ | "GPT-4", "GPT-4o", "GPT-4o-mini" referenced; in Table 1 the GPT-4 row is labeled "GPT-4-turbo". Specific dated model snapshots (e.g., gpt-4o-mini-2024-07-18) not given. |
-| **6b** | Development process | ➖ | No model training; zero-shot evaluation only. |
-| **6c** | Inference settings / prompting | ⚠️ | Prompt template shown in Fig. 1A and described verbally (task instruction + article + criterion + definition → JSON output). Inference parameters (temperature, top_p, seed, system prompt, max tokens) not reported. Azure PHI-compliant deployment noted. |
-| **6d** | Output | ✅ | JSON with four fields: Criterion, Rationale (chain-of-thought), Decision (MET / NOT MET), Confidence (Low / Medium / High). |
-| **6e** | Classification thresholds | ✅ | Binary MET / NOT MET classification with self-reported confidence stratification; only High-confidence predictions retained for deployment analysis (>90% of articles). No probability thresholds reported. |
-| **7a** | Quality metrics | ✅ | Accuracy, precision, recall, F1, micro-F1 reported for binary classification (Table 1); confidence-stratified metrics in Table 2; chi-square + Cramer's V for downstream group comparisons; Pearson correlation for citation-impact analysis. |
-| **7b** | Relevance to downstream | ⚠️ | Implicit — authors argue automated CONSORT assessment can power journal-submission tools and per-author feedback; no formal cost / utility / decision-impact analysis. |
-| **7c** | Outcome definition | ✅ | Per-criterion binary MET / NOT MET against CONSORT-TM gold sentence-level annotations for benchmark; per-article CONSORT compliance = mean over 21 retained items for downstream. |
-| **7d** | Subjective interpretation | ✅ | Self-reported model confidence used to filter; 4-expert (1 clinician, 3 data scientists) human validation of GPT-4o-mini outputs on 50 random articles (83.42% Correct, 8.82% Partial, 7.76% Incorrect; combined 92.24% "agreement"). |
-| **7e** | Comparison | ✅ | Three OpenAI models compared head-to-head; baseline = Lan Jiang et al. (2024) zero-shot GPT-4 on the same dataset (F1 0.51 vs. their 0.85–0.89). |
-| **8a** | Annotation guidelines | ⚠️ | CONSORT-TM annotation guidelines not described in this paper (referenced via Kilicoglu et al. 2021). For the 50-article expert validation, the Correct / Partially Correct / Incorrect rubric is not formally defined. |
-| **8b** | Annotators + IAA | ⚠️ | CONSORT-TM: 6 annotators, sentence-level Krippendorff's α = 0.57 reported. Expert validation: 4 experts, no IAA reported (only aggregate Correct/Partial/Incorrect rates). |
-| **8c** | Annotator background | ✅ | Expert validation panel: 1 clinician, 3 data scientists. CONSORT-TM annotator background per Kilicoglu et al. 2021 — not re-described here. |
-| **9a** | Prompt design | ⚠️ | Prompt template shown in Fig. 1A and verbally described (task + article + criterion + definition; chain-of-thought rationale + confidence requested). No description of prompt-engineering iterations, ablations, or alternatives tried. |
-| **9b** | Prompt-development data | ❌ | No prompt-development / dev-set strategy reported. |
-| **10** | Summarization | ➖ | Not applicable. |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable (zero-shot, no fine-tuning). |
-| **12** | Compute | ❌ | Not reported. Only "secure Azure PHI-compliant instance" mentioned; cost / GPU-hours / token counts absent. |
-| **13** | Ethical approval | ➖ | Not applicable (analysis of published articles; no human-subjects data). |
-| **14a** | Funding | ❌ | No funding statement in the preprint as read. |
-| **14b** | Conflicts of interest | ❌ | No COI statement in the preprint as read. |
-| **14c** | Protocol | ❌ | Not reported. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ✅ | Full dataset of 21,041 RCT assessments at github.com/ScienceNLP-Lab/RCT-Transparency and as huggingface dataset apoorvasrinivasan/CONSORT-21K. CONSORT-TM corpus public via the same GitHub repo. |
-| **14f** | Code availability | ⚠️ | Same GitHub repo cited for "complete dataset" but explicit pipeline/code release not separately confirmed in the text. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | 53,137 PubMed open-access RCTs identified → 21,041 full-text PDFs obtained → CONSORT assessment via GPT-4o-mini → confidence-filtered to >90% of articles → expert validation on 50 of these → metadata enrichment (Semantic Scholar; ClinicalTrials.gov for n=1,790) → trend analysis. Shown in Fig. 1B. |
-| **16b** | Characteristics | ✅ | Period bins (n per period); discipline (Scimago); trial phase; lead-sponsor type; FDA-regulated status; data-monitoring-committee presence; serious-adverse-event reporting; mortality reporting; continental region; blinding method (Fig. 3). |
-| **16c** | Distribution comparison | ➖ | Not applicable (no clinical-outcome subgroup comparison; corpus characterization rather than clinical-population comparison). |
-| **16d** | N per analysis | ✅ | Per-period n given; per-discipline groups shown in Fig. 2C; trial-characteristics subset n=1,790 (ClinicalTrials.gov enrichment). |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported). |
+| **1** | Title | ❌ | *"Evaluating the Reporting Quality of 21,041 Randomized Controlled Trial Articles"* `Title` — the title does not disclose that an LLM was used to perform the evaluation |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"Poor reporting is a persistent issue potentially obscuring biases, complicating replication efforts and ultimately undermining the trustworthiness of biomedical science"* `§1, p.2` |
+| **3b** | Background — target population | ⚠️ | *"In this paper, we leverage LLMs to evaluate CONSORT reporting in RCT publications at scale."* `§1, p.2` — target population (RCT publications, journal editors, researchers) named through the paper's stated purpose rather than an explicit population statement |
+| **4** | Objectives | ✅ | *"We demonstrate that GPT-4o-mini used out of the box achieves state-of-the-art performance in evaluating RCT quality (F1 score: 0.85; precision: 0.96)"* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"For model evaluation, we used a previously curated dataset called the CONSORT-TM corpus [Kilicoglu et al., 2021] for this study. It consists of 50 RCT publications annotated at the sentence level with 37 CONSORT checklist items."* `§3.1, p.3` |
+| **5b** | Data points + distribution | ✅ | *"Articles spanned four time periods: 1966-1990 (n = 2,771), 1990-2000 (n = 1,969), 2000-2010 (n = 3,765), and 2010-2024 (n = 10,447)."* `§3.1, p.3` |
+| **5c** | Date range of data | ⚠️ | *"For large-scale analysis, we identified 53,137 open-access human RCTs from PubMed (1966-2024) and successfully obtained 21,041 full-text PDFs."* `§3.1, p.3` — model inference dates and OpenAI training-cutoff dates not stated |
+| **5d** | Pre-processing / quality checks | ✅ | *"PDFs were converted to XML using PyMuPDF and enriched"* `§3.1, p.3` — *"with metadata via Semantic Scholar."* `§3.1, p.4` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"Second, our analysis was limited to open-access articles, which may not be representative of all published RCTs."* `§5, p.9` — the 53,137 → 21,041 loss on PDF acquisition (~40%) is reported as raw counts but the loss itself is not discussed as a possible source of bias beyond the open-access restriction |
+| **6a** | LLM name + version | ⚠️ | *"we consider OpenAI's proprietary models GPT-4, GPT-4o and GPT-4o-mini"* `§3.2, p.4` — Table 1's "GPT-4" row is labeled "GPT-4-turbo"; no dated model snapshots (e.g., gpt-4o-mini-2024-07-18) given |
+| **6b** | Development process | ✅ | *"We choose the zero-shot setting as it offers the simplest path towards real-world deployment - it requires minimal engineering, no data labeling, and it can instantly be adapted to any RCT."* `§3.2, p.4` |
+| **6c** | Inference settings / prompting | ⚠️ | *"SYSTEM_PROMPT = \"You are a highly skilled medical research assistant with extensive knowledge of randomized controlled trials and CONSORT guidelines...\""* `Appendix, p.S-3` — temperature/top_p/seed not disclosed for the evaluation prompts |
+| **6d** | Output | ✅ | *"1. Criterion: The specific criterion being assessed / 2. Rationale: Step-by-step reasoning... / 3. Decision: Output \"MET\"... / 4. Confidence: \"Low\", \"Medium\", or \"High\" confidence"* `§3.2, p.4` |
+| **6e** | Classification thresholds | ✅ | *"Based on this clear performance stratification, we restricted all subsequent analyses to high-confidence predictions only."* `§4.2, p.5` |
+| **7a** | Quality metrics | ✅ | *"The models were assessed based on their performance across standard binary classification metrics, including precision, recall, and both macro and micro F1 scores."* `§3.3, p.4` |
+| **7b** | Relevance to downstream use | ⚠️ | *"Implementing automated pre-submission checks using approaches like ours could provide authors with immediate feedback before peer review, potentially improving reporting quality."* `§5, p.9` — no formal cost/utility/decision-impact analysis |
+| **7c** | Outcome definition | ✅ | *"Output \"MET\" if the patient meets the criterion, or it can be inferred that they meet the criterion with common sense. Output \"NOT MET\" if the patient does not, or it is impossible to assess given the provided information"* `§3.2, p.4` |
+| **7d** | Subjective interpretation | ✅ | *"conducted human validation using four experts (one clinician, three data scientists) who manually evaluated outputs from 50 randomly selected articles as Correct/Partially Correct/Incorrect"* `§3.3, p.4` |
+| **7e** | Comparison | ✅ | *"All GPT models with our prompting scheme substantially outperformed the previous state-of-the-art on CONSORT-TM by over 40%"* `§4.1, p.5` |
+| **8a** | Annotation guidelines | ⚠️ | *"we used a previously curated dataset called the CONSORT-TM corpus [Kilicoglu et al., 2021] for this study"* `§3.1, p.3` — CONSORT-TM's own annotation guidelines not re-described here; the 50-article expert-validation rubric (Correct/Partially Correct/Incorrect) is not formally defined |
+| **8b** | Annotators + IAA | ⚠️ | *"Six annotators independently annotated 30 articles in pairs, and the calculated Krippendorff's α to measure inter-annotator agreement at the sentence level was 0.57."* `§3.1, p.3` — no IAA reported for the 4-expert validation panel |
+| **8c** | Annotator background | ✅ | *"conducted human validation using four experts (one clinician, three data scientists)"* `§3.3, p.4` |
+| **9a** | Prompt design | ⚠️ | *"# Task / Your job is to assess whether the given article meets the specified CONSORT criterion and provide justification for your assessment."* `Appendix, p.S-3` — no description of prompt-engineering iterations, ablations, or alternatives tried |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — *"We choose the zero-shot setting"* `§3.2, p.4`, no fine-tuning performed |
+| **12** | Compute | ⚠️ | *"We run the GPT models via a secure Azure PHI-compliant instance."* `§3.2, p.4` — GPU/token counts and total cost not reported |
+| **13** | Ethical approval | ➖ | Not applicable |
+| **14a** | Funding | ❌ | Not reported |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"The complete dataset of 21,041 RCT assessments has been made publicly available for research purposes here: https://github.com/ScienceNLP-Lab/RCT-Transparency"* `§3.1, p.4` |
+| **14f** | Code availability | ⚠️ | *"The complete dataset of 21,041 RCT assessments has been made publicly available for research purposes here: https://github.com/ScienceNLP-Lab/RCT-Transparency"* `§3.1, p.4` — same repo cited for the dataset; pipeline/evaluation code not separately confirmed |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"For large-scale analysis, we identified 53,137 open-access human RCTs from PubMed (1966-2024) and successfully obtained 21,041 full-text PDFs."* `§3.1, p.3` |
+| **16b** | Characteristics | ✅ | *"Articles spanned four time periods: 1966-1990 (n = 2,771), 1990-2000 (n = 1,969), 2000-2010 (n = 3,765), and 2010-2024 (n = 10,447)."* `§3.1, p.3` |
+| **16c** | Distribution comparison | ➖ | Not applicable |
+| **16d** | N per analysis | ✅ | *"For a subset (n = 1, 790), we extracted NCT numbers and obtained trial characteristics from ClinicalTrials.gov"* `§3.1, p.4` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **18** | LLM updating | ➖ | Not applicable |
