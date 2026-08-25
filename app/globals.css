@@ -191,6 +191,20 @@ h6 {
   letter-spacing: 0.06em;
 }
 
+/* Quote + locator cells (TRIPOD-LLM's "Reported in this study" column and
+   similar): the quote itself is de-emphasized relative to its citekey/page
+   locator, which is a `code` pill by convention (see runbook) — that
+   reversal is deliberate, so a reader scanning down the column sees the
+   *location* markers line up rather than getting pulled into full prose
+   on every row. */
+.prose-node td em {
+  color: var(--color-muted-ink);
+  font-style: italic;
+}
+.prose-node td code {
+  white-space: nowrap;
+}
+
 .prose-node .mermaid {
   margin: 1.2em 0;
   overflow-x: auto;
@@ -220,12 +234,59 @@ h6 {
 }
 
 .callout-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45em;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.75rem;
   letter-spacing: 0.01em;
   color: var(--callout-accent);
   margin-bottom: 0.4em;
+}
+
+.callout-icon {
+  flex-shrink: 0;
+  margin-top: 0.05em;
+}
+
+/* A callout's legend/definition-list content (used for the compliance-icon
+   key at the top of TRIPOD-LLM and Critical Appraisal tables) — a plain
+   paragraph crams "scope sentence + 4-item legend + aside" into one
+   run-on block, which is what made these unskimmable. Render as loose
+   label/value rows instead. */
+.callout-legend {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3em 0.6em;
+  margin: 0.5em 0 0;
+  font-size: 0.8125rem;
+}
+.callout-legend dt {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  color: var(--color-ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.callout-legend dd {
+  margin: 0;
+  color: var(--color-muted-ink);
+}
+
+/* Flat variant for a simple icon+label key (no separate definition column) —
+   the TRIPOD-LLM compliance-icon legend. */
+.callout-legend-flat {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 1.1em;
+  margin: 0.5em 0 0;
+  font-size: 0.8125rem;
+  color: var(--color-ink);
+}
+.callout-legend-flat span.status-icon {
+  margin-right: 0.35em;
 }
 
 /* Each callout type gets its own accent, so "info"/"success"/"warning"/etc.
@@ -246,6 +307,29 @@ h6 {
 }
 .callout-body > p:last-child {
   margin-bottom: 0;
+}
+
+/* Status icons for the 4-level good→bad scale used in the Critical
+   Appraisal and TRIPOD-LLM tables (formerly 🟢🟡🔴 / ✅⚠️❌➖). One shared
+   muted slate hue for all four — shape (solid/half/ring/dash) carries the
+   level, not color, so the tables read as one restrained system instead
+   of a rainbow, and the distinction survives grayscale/print and doesn't
+   rely on red/green hue perception. */
+.status-icon {
+  color: #57534e; /* stone-600 — matches the .callout-note/.callout-quote accent already in use */
+  vertical-align: -2px;
+}
+.status-icon-good {
+  opacity: 1;
+}
+.status-icon-partial {
+  opacity: 0.85;
+}
+.status-icon-bad {
+  opacity: 0.7;
+}
+.status-icon-na {
+  opacity: 0.45;
 }
 
 .mono {

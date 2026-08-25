@@ -5,6 +5,12 @@ import {
   getValiditySignals,
   getIntegritySignals,
   getReportingCompliance,
+  getDataLeakageSignal,
+  getBaselineAdequacy,
+  getTrainDevTestHygiene,
+  getMultipleComparisonsCorrection,
+  getHumanBaselineComparability,
+  getStatisticalPower,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
   REPRODUCIBILITY_RISK_LABELS,
@@ -12,6 +18,9 @@ import {
   INTEGRITY_SIGNAL_LABELS,
   DISCLOSURE_LEVEL_LABELS,
   REPORTING_COMPLIANCE_LABELS,
+  DATA_LEAKAGE_LABELS,
+  RIGOR_CHECK_LABELS,
+  STATISTICAL_POWER_LABELS,
   type GraphNode,
   type TopStandard,
   type TopLevel,
@@ -20,6 +29,7 @@ import {
   type IntegritySignalKind,
   type DisclosureLevel,
   type ReportingCompliance,
+  type StatisticalPowerStatus,
 } from "@/lib/data";
 
 // Transparency is now our own computed measure of adherence to reporting
@@ -52,7 +62,7 @@ function ReportingComplianceBadge({ compliance }: { compliance: ReportingComplia
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${COMPLIANCE_TONE[compliance.level]}`}>
         <ReportingComplianceGlyph />
       </span>
-      TRIPOD-LLM {compliance.pct}% reported
+      TRIPOD-LLM · {compliance.pct}% reported
     </span>
   );
 }
@@ -86,6 +96,27 @@ const RISK_TONE: Record<ReproducibilityRisk, string> = {
   "some-concerns": "bg-amber-500",
   "high-risk": "bg-red-600",
 };
+
+// "not-addressed" (the paper doesn't discuss this at all) is deliberately
+// gray, not red — it's an absence of discussion, not a confirmed problem.
+// Reuses the same gray as TOP's "not-disclosed" ring for the same reason.
+const DATA_LEAKAGE_TONE: Record<ReproducibilityRisk | "not-addressed", string> = {
+  ...RISK_TONE,
+  "not-addressed": "bg-zinc-400",
+};
+
+// Original glyph — two overlapping shapes with a "leak" drip, evoking
+// train/eval data bleeding into each other. No established icon convention
+// found for this (it isn't a TOP or TRIPOD-LLM field).
+function DataLeakageGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M8.5 3.5h9v9a4.5 4.5 0 0 1-9 0v-9Z" />
+      <path d="M8.5 8h9" />
+      <path d="M12 17v2.5c0 1.1-1 2-2.5 2S7 20.6 7 19.5c0-1.4 2.5-3 2.5-3" />
+    </svg>
+  );
+}
 
 function ProtocolGlyph() {
   return (
@@ -250,6 +281,109 @@ function RiskBadge({ label, risk, title, glyph }: { label: string; risk: Reprodu
   );
 }
 
+function DataLeakageBadge({ risk }: { risk: ReproducibilityRisk | "not-addressed" }) {
+  return (
+    <span
+      title={`Data leakage: ${DATA_LEAKAGE_LABELS[risk]}`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    >
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${DATA_LEAKAGE_TONE[risk]}`}>
+        <DataLeakageGlyph />
+      </span>
+      Data Leakage — {DATA_LEAKAGE_LABELS[risk]}
+    </span>
+  );
+}
+
+// Original glyphs for the four new benchmarking-specific Rigor checks — same
+// reasoning as the other original glyphs on this page: no established open-
+// licensed icon convention exists for these (they aren't TOP or TRIPOD-LLM
+// fields, and aren't in Cochrane's RoB2 set either).
+type RigorCheckKind = "baseline-adequacy" | "train-dev-test" | "multiple-comparisons" | "human-baseline";
+
+function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
+  const common = { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
+  switch (kind) {
+    case "baseline-adequacy":
+      // a reference line with a bar rising above it — score measured against a real floor
+      return (
+        <svg {...common}>
+          <path d="M3.5 17h17" />
+          <path d="M8 17V9.5M14 17v-6M19 17V6" />
+        </svg>
+      );
+    case "train-dev-test":
+      // three stacked, separated bands — clean split hygiene
+      return (
+        <svg {...common}>
+          <rect x="4" y="4" width="16" height="4.2" rx="1" />
+          <rect x="4" y="9.9" width="16" height="4.2" rx="1" />
+          <rect x="4" y="15.8" width="16" height="4.2" rx="1" />
+        </svg>
+      );
+    case "multiple-comparisons":
+      // a small grid — many pairwise comparisons at once
+      return (
+        <svg {...common}>
+          <path d="M3.5 9h17M3.5 15h17M9 3.5v17M15 3.5v17" />
+          <rect x="3.5" y="3.5" width="17" height="17" rx="1.5" />
+        </svg>
+      );
+    case "human-baseline":
+      // a person silhouette next to a bar — LLM-vs-human comparison
+      return (
+        <svg {...common}>
+          <circle cx="8.5" cy="7" r="2.5" />
+          <path d="M4.5 18.5c0-3 1.8-5 4-5s4 2 4 5" />
+          <path d="M15.5 18.5V12M19 18.5v-8" />
+        </svg>
+      );
+  }
+}
+
+function RigorCheckBadge({ kind, risk }: { kind: RigorCheckKind; risk: ReproducibilityRisk | "not-addressed" }) {
+  const label = RIGOR_CHECK_LABELS[kind];
+  return (
+    <span
+      title={`${label}: ${DATA_LEAKAGE_LABELS[risk]}`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    >
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${DATA_LEAKAGE_TONE[risk]}`}>
+        <RigorCheckGlyph kind={kind} />
+      </span>
+      {label} — {DATA_LEAKAGE_LABELS[risk]}
+    </span>
+  );
+}
+
+// Statistical Power glyph — a small gauge/dial, distinct from the other
+// Rigor icons since this one only ever appears when a power analysis is
+// actually on record (see getStatisticalPower's doc comment).
+function StatisticalPowerGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4 17a8 8 0 0 1 16 0" />
+      <path d="M12 17l4.5-5.5" />
+      <path d="M4 17h1M19 17h1M12 6.5v1" />
+    </svg>
+  );
+}
+
+function StatisticalPowerBadge({ status }: { status: StatisticalPowerStatus }) {
+  const tone = status === "adequate" ? "bg-emerald-600" : "bg-amber-500";
+  return (
+    <span
+      title={STATISTICAL_POWER_LABELS[status]}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    >
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${tone}`}>
+        <StatisticalPowerGlyph />
+      </span>
+      Statistical Power — {STATISTICAL_POWER_LABELS[status]}
+    </span>
+  );
+}
+
 /** Transparency, Openness, Rigor, Extensibility, and integrity badges for a node. */
 export default function TopBadges({ node }: { node: GraphNode }) {
   const opennessSignals = getTopSignals(node);
@@ -257,13 +391,25 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const repro = getReproducibilityRisk(node);
   const validity = getValiditySignals(node);
   const integrity = getIntegritySignals(node);
+  const dataLeakage = getDataLeakageSignal(node);
+  const baselineAdequacy = getBaselineAdequacy(node);
+  const trainDevTest = getTrainDevTestHygiene(node);
+  const multipleComparisons = getMultipleComparisonsCorrection(node);
+  const humanBaseline = getHumanBaselineComparability(node);
+  const statisticalPower = getStatisticalPower(node);
 
   if (
     !compliance &&
     opennessSignals.length === 0 &&
     !repro &&
     validity.length === 0 &&
-    integrity.length === 0
+    integrity.length === 0 &&
+    !dataLeakage &&
+    !baselineAdequacy &&
+    !trainDevTest &&
+    !multipleComparisons &&
+    !humanBaseline &&
+    !statisticalPower
   )
     return null;
 
@@ -293,7 +439,13 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         </div>
       )}
 
-      {validity.length > 0 && (
+      {(validity.length > 0 ||
+        dataLeakage ||
+        baselineAdequacy ||
+        trainDevTest ||
+        multipleComparisons ||
+        humanBaseline ||
+        statisticalPower) && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Rigor
@@ -308,6 +460,12 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                 glyph={<ValidityGlyph domain={v.domain} />}
               />
             ))}
+            {dataLeakage && <DataLeakageBadge risk={dataLeakage} />}
+            {baselineAdequacy && <RigorCheckBadge kind="baseline-adequacy" risk={baselineAdequacy} />}
+            {trainDevTest && <RigorCheckBadge kind="train-dev-test" risk={trainDevTest} />}
+            {multipleComparisons && <RigorCheckBadge kind="multiple-comparisons" risk={multipleComparisons} />}
+            {humanBaseline && <RigorCheckBadge kind="human-baseline" risk={humanBaseline} />}
+            {statisticalPower && <StatisticalPowerBadge status={statisticalPower} />}
           </div>
         </div>
       )}

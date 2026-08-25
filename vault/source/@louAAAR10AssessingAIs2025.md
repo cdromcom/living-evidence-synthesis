@@ -16,6 +16,11 @@ tags:
   - appraisal/statistical-rigor/high-risk
   - rigor/sample-size-estimation/not-done
   - rigor/study-type/exploratory
+  - rigor/data-leakage/unresolved
+  - rigor/baseline-adequacy/addressed
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
@@ -95,6 +100,8 @@ apaAuthors:
     family: "Yin"
 peerReviewStatus: not-applicable
 peerReviewNote: "Preprint — not peer reviewed"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
 citekey: louAAAR10AssessingAIs2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f946-7c68-bb43-0ad4895ce6b1
@@ -174,7 +181,12 @@ flowchart TD
 
 ## Critical appraisal
 
-> [!info] A risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Each domain gets a rating (🟢 Low risk · 🟡 Some concerns · 🔴 High risk) plus a brief, EVD-grounded justification. The TRIPOD-LLM table below covers *reporting compliance*; this section covers *methodological quality*.
+> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-partial">◐</span> Some concerns</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
 
 | Domain | Rating | Justification |
 | --- | :---: | --- |
@@ -192,44 +204,55 @@ flowchart TD
 
 ## TRIPOD-LLM reporting summary
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Methods items 5a–15 and Results items 16a–18). Compliance icons: ✅ fully reported · ⚠️ partially reported / unclear · ❌ should be reported but not reported · ➖ not applicable to this study. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark — where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
 
-| # | Item | ✓ | Reported in this study |
+| # | Item | ✓ | Quote (location) |
 | --- | --- | :---: | --- |
-| **5a** | Data sources | ✅ | EQINFER: ACL Anthology 2019–2023 papers' arXiv LaTeX sources (1,762 papers). EXPDESIGN: ≥10k arXiv papers from cs.AI/cs.CL/cs.CV (2018–2023) at well-known venues. WEAKNESS: 3,779 ICLR 2023 anonymous OpenReview submissions across 13 tracks. REVIEWCRITIQUE: 100 ICLR papers + 380 reviews reused from Du et al. 2024. |
-| **5b** | Data points + distribution | ✅ | EQINFER: 1,049 positive + 3,147 negative equations from 869 papers (1:3 ratio). EXPDESIGN: 100 instances from 100 papers; avg 5.7 experiments + explanations per paper. WEAKNESS: 993 instances; avg 3.8 reviewers/paper, 4.8 weaknesses/reviewer, 39.1 words/weakness; 13 ICLR tracks balanced. REVIEWCRITIQUE: 11,376 review segments. Score distribution + track distribution shown in Figure 3. |
-| **5c** | Date range of data | ⚠️ | EQINFER source papers 2019–2023 (ACL Anthology); EXPDESIGN papers 2018–2023; WEAKNESS papers from ICLR 2023. Reviewer/training-data cutoffs not given. Inference run dates not disclosed. |
-| **5d** | Pre-processing / quality checks | ✅ | EQINFER: LaTeX cleaning (strip comments, merge cross-referenced .tex files, regex equation extraction); GPT-4 filtering of context-unaligned negatives; expert verification of grammar + semantic distinctness. EXPDESIGN: GPT-4 used to delete sentences potentially leaking experiments from the input (~9.8% sentences deleted). WEAKNESS: GPT-4 extracts verbatim weaknesses from raw reviewer comments (manually checked on 200 cases — ≤1% missed). Papers parsed via VILA + PDFFigures-2.0. |
-| **5e** | Missing / imbalanced data | ⚠️ | EQINFER intentionally 1:3 positive:negative; All-Positive baseline (40% F1) reported. WEAKNESS keeps repeated weaknesses across reviewers (acknowledged to underestimate human ITF-IDF). EXPDESIGN small-N (100) called out as a Limitations bullet. No formal missingness analysis. |
-| **6a** | LLM name + version | ✅ | Closed: gpt-4-1106-preview, gpt-4o-2024-08-06, claude-3-5-sonnet-20240620, gemini-1.5-pro-002, o1-preview-2024-09-12, o3-mini. Open: OLMo-7B, Falcon-40B, Gemma-2-27B, Mistral-7B-Instruct-v0.3, Mixtral-8x22B-Instruct-v0.1, Llama 3.1-70B, Qwen 2.5-72B (with HuggingFace URLs). Plus AI-SCI agent framework (Lu et al. 2024) on GPT-4o. |
-| **6b** | Development process | ✅ | No model fine-tuning. Off-the-shelf inference only; LiteLLM unifies API calls; VLLM unifies open-source endpoints. |
-| **6c** | Inference settings / prompting | ⚠️ | Per-task input lengths fixed (EQINFER: 2,000 words; EXPDESIGN: 2,000 open / 3,000 closed; WEAKNESS: 2,000 open / 3,000 closed via split-combine; multimodal LMMs also tested). Each model run thrice and median taken. Prompt templates in Appendix E (Figures 11–13). Temperature, top_p, seed, and system prompt not reported in main text for the evaluation prompts (only "high temperature" stated for negative-equation synthesis with GPT-4). |
-| **6d** | Output | ✅ | EQINFER: binary {positive, negative} label. EXPDESIGN: free-text experiment list + explanations. WEAKNESS: free-text weakness list. REVIEWCRITIQUE: per-segment {reliable_or_not, explanation} triples or {id, explanation} tuples. |
-| **6e** | Classification thresholds | ➖ | Not applicable — outputs are direct categorical labels or free text; no probability thresholding. |
-| **7a** | Quality metrics | ✅ | EQINFER: F1, Precision, Recall. EXPDESIGN: En-F1, En-Precision, En-Recall (LLM-judged), S-Match (SentenceBERT), ROUGE-L, ROUGE-1; human Acc. ratio. WEAKNESS: S-F1, S-Precision, S-Recall (eqs. 4–5), ITF-IDF (eq. 6). REVIEWCRITIQUE: per-segment Precision/Recall/F1, plus ROUGE-1/2/L and BERTScore on explanations. |
-| **7b** | Relevance to downstream | ⚠️ | All four tasks are framed as proxies for "researcher daily activities," but no downstream-utility analysis (e.g., reviewer time savings, decision-flip analysis) is reported. |
-| **7c** | Outcome definition | ✅ | Each task's outcome is defined task-by-task (binary equation correctness; experiment-list overlap; weakness-list specificity & coverage; per-segment review reliability). Ground truth from human annotators or original-paper authors. |
-| **7d** | Subjective interpretation | ✅ | Human evaluation panels reported (3 annotators on novel-experiment necessity in Table 3; 5 annotators on EXPDESIGN explanation acceptance in Table 5; 40+ AI experts on REVIEWCRITIQUE labels via Du et al. 2024). |
-| **7e** | Comparison | ✅ | Open vs. closed-source LLM comparison across all tasks; baselines include All-Positive (EQINFER), Copy Input (EXPDESIGN), Human Review (WEAKNESS); ablations on context length (Fig. 4–5), split-combine vs. no-split (Table 12), one-by-one vs. whole-list prompting (Table 4), multimodal input (Tables 14–15), AI-SCI agent vs. plain LLM. No formal significance test reported. |
-| **8a** | Annotation guidelines | ✅ | EQINFER expert criteria: grammatical correctness + negative-positive distinctness, with TeXLive compilation check. EXPDESIGN: 2 annotation questions ("What did this experiment do?" / "Why did the paper authors conduct this?") + 3 peer-review criteria. Novel-experiment necessity rubric uses three levels A/B/C. Annotation platform screenshot in Figure 7 (Appendix D). |
-| **8b** | Annotators + IAA | ⚠️ | Numbers reported (10 EXPDESIGN annotators after bidding, 5 PhD-student EQINFER experts, 3 PhD novel-experiment evaluators with disagreement-arbitration, 5 explanation evaluators). Multi-round peer-discussion procedure described but no quantitative IAA (kappa, alpha) reported for any task. |
-| **8c** | Annotator background | ✅ | Annotators required to be senior PhD students with ≥1 peer-reviewed publication at leading AI venues, ≥4 years AI research experience, frequent conference reviewers; 10 EXPDESIGN experts selected via bidding from a larger invited pool. |
-| **9a** | Prompt design | ⚠️ | Prompt templates shown in Appendix E (Figures 11–13). Two prompting strategies (Labeling-All / Select-Deficient) compared for REVIEWCRITIQUE, plus split-combine for WEAKNESS, and one-by-one vs. whole-list for EXPDESIGN. No systematic prompt-engineering search reported. |
-| **9b** | Prompt-development data | ❌ | No held-out prompt-development set or pilot prompts described. |
-| **10** | Summarization | ➖ | Not applicable (no summarization endpoint evaluated as primary outcome). |
-| **11** | Instruction tuning / alignment | ➖ | Not applicable — no model training, fine-tuning, or alignment performed. Off-the-shelf instruct models used. |
-| **12** | Compute | ⚠️ | Open-source inference: 8× NVIDIA A100 GPUs, PyTorch 2.4.0, CUDA 12.1, VLLM. SentenceBERT runs in ~1GB on a single A100. Closed-source API costs/tokens not reported. Total wall-clock not reported. |
-| **13** | Ethical approval | ➖ | Not applicable (no human-subjects clinical/personal data; analysis on published papers and OpenReview comments). Impact Statement included on p. 11. |
-| **14a** | Funding | ❌ | No funding statement found in the paper. |
-| **14b** | Conflicts of interest | ❌ | Not declared. |
-| **14c** | Protocol | ❌ | Not reported. |
-| **14d** | Registration | ➖ | Not applicable (not a clinical study). |
-| **14e** | Data availability | ✅ | Project webpage https://renzelou.github.io/AAAR-1.0/ disclosed; data committed to be released. |
-| **14f** | Code availability | ⚠️ | VLLM (github.com/vllm-project/vllm) and LiteLLM (github.com/BerriAI/litellm) cited as tooling; pylatexenc + NLTK named for preprocessing. Authors' own evaluation code not explicitly linked, but project webpage implies release. |
-| **15** | Patient/public involvement | ➖ | Not applicable. |
-| **16a** | Flow of data | ✅ | EQINFER: 1,762 papers → 3,877 raw equations → after GPT-4 filter + expert exam (27.6% dropped) → 1,049 positive + 3,147 negative from 869 papers. EXPDESIGN: ≥10k arXiv papers → bidding by 10 experts → 100 papers, 10 each → multi-round peer discussion → 100 final instances. WEAKNESS: 3,779 ICLR 2023 submissions → 1,000 sampled (500/500 accept/reject across 13 tracks) → GPT-4 weakness extraction → 993 instances after dropping no-weakness papers. REVIEWCRITIQUE: 100 papers / 380 reviews / 11,376 segments reused from Du et al. 2024. |
-| **16b** | Characteristics | ✅ | Per-task statistics tables: Table 9 (EQINFER input/output lengths), Table 10 (EXPDESIGN context/figure counts), Table 11 (WEAKNESS reviewers, weaknesses, lengths). WEAKNESS score & track distribution in Figure 3 (most papers score 5–8; uniform across 13 tracks; min 33 papers in Infrastructure track). |
-| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison; ICLR accept/reject is a balancing variable in WEAKNESS construction, not an outcome. |
-| **16d** | N per analysis | ✅ | EQINFER: N=4,196 equations evaluated. EXPDESIGN: N=100 instances; novel-experiment human eval N=15 papers × 3 annotators; explanation human eval N=20 papers × 5 annotators. WEAKNESS: N=993 instances. REVIEWCRITIQUE: N=11,376 segments. Median-of-3 runs per model. |
+| **1** | Title | ⚠️ | *"AAAR-1.0: Assessing AI's Potential to Assist Research"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background — context + rationale | ✅ | *"researchers still face demanding, cognitively intensive tasks such as staying current through extensive paper reading, ... conducting rigorous experiments to substantiate claims, and managing an increasing volume of peer reviews."* `§1, p.1` |
+| **3b** | Background — target population | ⚠️ | *"AAAR-1.0 ... is researcher-oriented, mirroring the primary activities that researchers engage in on a daily basis."* `§1, p.1` |
+| **4** | Objectives | ✅ | *"we introduce AAAR-1.0, a benchmark dataset designed to evaluate LLM performance in four fundamental, expertise-intensive research tasks"* `Abstract, p.1` |
+| **5a** | Data sources | ✅ | *"we first obtain the accepted paper list from ACL Anthology, from year 2019 to 2023. Next, we search each paper on arXiv to crawl its LaTeX source"* `§3.1, p.3` |
+| **5b** | Data points + distribution | ✅ | *"# of positive equations: 1,049 · # of negative equations: 3,147 · # of source papers: 869"* `Table 9, p.15` |
+| **5c** | Date range of data | ⚠️ | *"from year 2019 to 2023"* `§3.1, p.3` — model training/pretraining cutoff dates not stated |
+| **5d** | Pre-processing / quality checks | ✅ | *"We then clean the LaTeX sources by deleting all the comments and combining multiple cross-referred .tex files into a main file."* `§3.1, p.3` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"We shed light on two limitations of this work: ... the data size for some tasks, such as ExpDesign, is relatively small"* `§6 Limitations, p.11` |
+| **6a** | LLM name + version | ✅ | *"we use the gpt-4o-2024-08-06, gpt-4-1106-preview, o1-preview-2024-09-12, gemini-1.5-pro-002, and claude-3-5-sonnet-20240620 for the closed-source LLMs"* `Appendix B.2, p.16` |
+| **6b** | Development process | ✅ | *"We use VLLM to unify the inference endpoints of all the above models... We use LiteLLM to unify the API calling for all these LLMs."* `Appendix B.2, p.16` |
+| **6c** | Inference settings / prompting | ⚠️ | *"we run each model thrice during our experiments, selecting the median result from these repeated runs"* `Appendix B.2, p.16` — temperature/top_p/seed/system prompt not stated for the evaluation prompts |
+| **6d** | Output | ✅ | *"we formulate EqInfer ... as a binary inference task"* `§3.1, p.3` |
+| **6e** | Classification thresholds | ➖ | Not applicable — outputs are direct categorical labels or free text, no probability thresholding |
+| **7a** | Quality metrics | ✅ | *"we adopt F1 as the classification criterion... we develop several novel task-specific metrics in addition to the conventional ROUGE"* `§4, p.6` |
+| **7b** | Relevance to downstream use | ❌ | Not reported |
+| **7c** | Outcome definition | ✅ | *"f(.) represents the LLM prompting, where we prompt LLM to decide whether each predicted experiment item (pᵢ) is entailed by the whole ground-truth list (g)"* `§4 Eq.1, p.6` |
+| **7d** | Subjective interpretation | ✅ | *"we randomly sample 15 papers from the ExpDesign and ask 3 experts to manually review the model-generated novel experiments"* `§5.2, p.7` |
+| **7e** | Comparison | ✅ | *"a simple baseline that predicts all equations as positive achieves 40% F1"* `§5.1, p.7` |
+| **8a** | Annotation guidelines | ✅ | *"the annotator has to concisely answer two questions: i) What did this experiment do? ii) Why did the paper authors conduct this experiment?"* `§3.2 ②, p.4` |
+| **8b** | Annotators + IAA | ⚠️ | *"we invite a total of 10 qualified experts to participate in our data collection procedure"* `§3.2 ②, p.4` — no quantitative inter-annotator agreement (κ/α) reported |
+| **8c** | Annotator background | ✅ | *"be a senior Ph.D. student with at least 1 peer-reviewed publication in leading AI venues; ii) have more than 4 years of AI research experience; iii) frequently serve as conference reviewers"* `§3.2 ②, p.4` |
+| **9a** | Prompt design | ✅ | *"we attach all the prompts used in this work, including prompts in data collection and model prediction"* `Appendix E, p.18` |
+| **9b** | Prompt-development data | ❌ | Not reported |
+| **10** | Summarization | ➖ | Not applicable — no summarization endpoint evaluated as a primary outcome |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable — no model training, fine-tuning, or alignment performed |
+| **12** | Compute | ⚠️ | *"we use Pytorch 2.4.0 with CUDA 12.1, and use 8 NVIDIA A100 GPUs for the LLMs inference"* `Appendix B.2, p.16` — closed-source API cost/token counts and total wall-clock not reported |
+| **13** | Ethical approval | ➖ | *"Our study explores whether LLMs can assist human researchers in AI research."* `Impact Statement, p.11` — no IRB/ethics-committee statement present (not human-subjects research) |
+| **14a** | Funding | ❌ | Not reported |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable — not a registered clinical study |
+| **14e** | Data availability | ✅ | *"Project Webpage: https://renzelou.github.io/AAAR-1.0/"* `p.1` |
+| **14f** | Code availability | ⚠️ | *"We use VLLM to unify the inference endpoints... We use LiteLLM to unify the API calling"* `Appendix B.2, p.16` — authors' own evaluation code not explicitly linked |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ✅ | *"After this strict examination, a total of 1,049 pairs are eventually kept (27.6% pairs are filtered)"* `§3.1 ④, p.4` |
+| **16b** | Characteristics | ✅ | *"# of instances: 993 · # of source papers: 993 · ave. # of reviewers per paper: 3.8"* `Table 11, p.17` |
+| **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
+| **16d** | N per analysis | ✅ | *"we randomly select 20 out of 100 papers and ask 5 annotators"* `§5.2 Q3, p.8` |
 | **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
-| **18** | LLM updating | ➖ | Not applicable (no model updating reported; off-the-shelf inference only). |
+| **18** | LLM updating | ➖ | Not applicable — no model updating reported |

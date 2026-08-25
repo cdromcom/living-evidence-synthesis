@@ -111,6 +111,62 @@ cropped screenshots of individual tables and figures from those papers
 (used to ground specific findings) were kept, since that's a much
 narrower, more defensible use than redistributing whole articles.
 
+## Redesigning how a single source page reads
+
+The colorful status icons scattered through each source page's tables
+(green/yellow/red circles, checkmarks, warning signs) were jarring and
+inconsistent with the rest of the site's restrained look, so they were
+replaced with a single muted color where the *shape* (solid dot,
+half-ring, open ring, dash) carries the meaning instead of the color —
+friendlier for colorblind readers too. The "@..." citekey label at the
+top of each page (useful for the maintainer and the AI assistant, not for
+a visitor) was replaced with the paper's real title. A poorly-styled
+info box explaining the TRIPOD-LLM checklist (a reporting-quality
+standard borrowed from clinical research and adapted here for AI
+benchmark papers) was rebuilt as a proper two-column legend, and the
+checklist table itself was filled in with the four items it was missing
+and rewritten so every row shows the exact quoted sentence and page
+number the claim came from, or plainly says "Not reported" if it wasn't
+found — a reader can now spot-check any claim against the source PDF
+directly instead of trusting a paraphrase.
+
+New badges ("chips") were added under the Rigor section for benchmarking
+studies specifically: whether the comparison baseline was adequate,
+whether train/dev/test data was kept properly separate, whether multiple
+statistical comparisons were corrected for, whether an AI's output was
+compared against a human baseline, and — only when a paper actually
+reported one — whether its statistical power analysis was adequate.
+Each page's footer now credits which AI model curated its trust-signal
+analysis and when, and cites the TRIPOD-LLM guideline paper in full.
+This whole treatment was piloted on one source page before being rolled
+out to the rest.
+
+## A second, unrelated multi-hour detour: files that looked fine but weren't
+
+Getting a real, working preview of that pilot page in a browser turned
+into its own investigation. A routine "clear some cache to free up space"
+earlier that day had an unexpected side effect: macOS's iCloud Drive, set
+to "Optimize Mac Storage," had quietly evicted the actual *contents* of
+tens of thousands of project files (mostly deep inside `node_modules`,
+the folder holding all the project's downloaded code libraries) to save
+disk space — while leaving each file looking completely normal from the
+outside (correct name, correct reported size). Only a disk-usage check
+one level deeper revealed they held zero actual bytes until something
+tried to read them, at which point they'd silently re-download.
+
+This produced a chain of very different-looking failures — a build tool
+that ran and exited instantly with no output, then one that started but
+crashed on a totally unrelated piece of code, then a live server that
+booted fine but crashed the instant a page tried to load its stylesheet
+— that all traced back to the same root cause. The last and hardest one
+to find was buried three dependencies deep: the page-styling tool's CSS
+processor, when asked to resolve a file path, was being redirected by
+the JavaScript bundler through an internal "browser-only" file path
+mapping meant for a completely different use case, and that specific
+path happened to be one of the evicted, empty files. Forcing Apple's
+iCloud sync tool to fully re-download the affected folders, file by file,
+finally cleared it and let the page render correctly.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

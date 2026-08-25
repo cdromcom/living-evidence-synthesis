@@ -115,18 +115,22 @@ export function getFiveCs(node: Pick<GraphNode, "tags">): FiveC[] {
  * Level 3 requires independent verification we haven't performed.
  */
 export const TOP_STANDARD_ORDER = [
+  "study-registration",
+  "study-protocol",
   "data-transparency",
   "code-transparency",
-  "study-protocol",
-  "study-registration",
 ] as const;
 export type TopStandard = (typeof TOP_STANDARD_ORDER)[number];
 
+// Labels deliberately drop "Transparency"/"Study" prefixes — these chips
+// render under the "Openness" group header, so the word "Transparency" is
+// redundant/misleading there now that Transparency means something else
+// on this page (TRIPOD-LLM reporting compliance, above).
 export const TOP_STANDARD_LABELS: Record<TopStandard, string> = {
-  "data-transparency": "Data Transparency",
-  "code-transparency": "Analytic Code Transparency",
-  "study-protocol": "Study Protocol",
-  "study-registration": "Study Registration",
+  "data-transparency": "Data",
+  "code-transparency": "Code",
+  "study-protocol": "Protocol",
+  "study-registration": "Registration",
 };
 
 export type TopLevel = "level-2-shared" | "level-1-disclosed" | "not-disclosed" | "not-applicable";
@@ -257,6 +261,100 @@ export function getStudyType(node: Pick<GraphNode, "tags">): StudyType | null {
   if (node.tags.includes("rigor/study-type/exploratory")) return "exploratory";
   if (node.tags.includes("rigor/study-type/confirmatory")) return "confirmatory";
   return null;
+}
+
+/**
+ * Data leakage / train-test contamination risk — is there a chance the
+ * evaluation data (or information about it) reached the model outside the
+ * intended eval channel, via pretraining exposure to the test items
+ * themselves *or* via prompt-development reuse of eval data? Not a TOP or
+ * TRIPOD-LLM field; hand-classified per source this pass by reading each
+ * paper's own Internal Validity row, TRIPOD-LLM item 9b ("prompt-development
+ * data"), and any linked CVT caveat nodes discussing pretraining/training-
+ * corpus overlap. Verified against all 27 sources via two keyword passes
+ * over the full corpus (leakage/contamination/held-out/pretraining-exposure
+ * terms, then a second pass for memorization/cutoff/training-corpus
+ * phrasing) before marking anything `not-addressed` — that value means the
+ * paper doesn't discuss this, not that leakage is absent.
+ */
+export const DATA_LEAKAGE_LABELS: Record<ReproducibilityRisk | "not-addressed", string> = {
+  "low-risk": "Addressed",
+  "some-concerns": "Partially addressed",
+  "high-risk": "Unresolved",
+  "not-addressed": "Not addressed by authors",
+};
+const DATA_LEAKAGE_TAG_TO_RISK: Record<string, ReproducibilityRisk | "not-addressed"> = {
+  addressed: "low-risk",
+  partial: "some-concerns",
+  unresolved: "high-risk",
+  "not-addressed": "not-addressed",
+};
+
+export function getDataLeakageSignal(node: Pick<GraphNode, "tags">): ReproducibilityRisk | "not-addressed" | null {
+  return getRigorCheck(node, "data-leakage");
+}
+
+/**
+ * Shared reader for the "did the paper address X" family of Rigor checks
+ * (data leakage, baseline adequacy, train/dev/test split hygiene, multiple-
+ * comparisons correction, human-baseline comparability). Same tag shape and
+ * 4-level scale as data leakage: `rigor/{key}/{addressed|partial|unresolved|
+ * not-addressed}`. Each is hand-classified per source by reading the paper,
+ * same discipline as data leakage — never inferred from the presence/
+ * absence of other fields.
+ */
+function getRigorCheck(node: Pick<GraphNode, "tags">, key: string): ReproducibilityRisk | "not-addressed" | null {
+  const prefix = `rigor/${key}/`;
+  const tag = node.tags.find((t) => t.startsWith(prefix));
+  if (!tag) return null;
+  const raw = tag.slice(prefix.length);
+  return DATA_LEAKAGE_TAG_TO_RISK[raw] ?? null;
+}
+
+export function getBaselineAdequacy(node: Pick<GraphNode, "tags">) {
+  return getRigorCheck(node, "baseline-adequacy");
+}
+export function getTrainDevTestHygiene(node: Pick<GraphNode, "tags">) {
+  return getRigorCheck(node, "train-dev-test");
+}
+export function getMultipleComparisonsCorrection(node: Pick<GraphNode, "tags">) {
+  return getRigorCheck(node, "multiple-comparisons");
+}
+export function getHumanBaselineComparability(node: Pick<GraphNode, "tags">) {
+  return getRigorCheck(node, "human-baseline");
+}
+
+export const RIGOR_CHECK_LABELS = {
+  "baseline-adequacy": "Baseline Adequacy",
+  "train-dev-test": "Train/Dev/Test Hygiene",
+  "multiple-comparisons": "Multiple-Comparisons Correction",
+  "human-baseline": "Human-Baseline Comparability",
+  "data-leakage": "Data Leakage",
+} as const;
+
+/**
+ * Statistical power (a priori sample-size justification via a power
+ * calculation) — deliberately absent rather than a graded 4-level check
+ * like the others above. Per explicit direction: only render this chip
+ * for a source that actually reports running (or explicitly discussing)
+ * a power analysis; every source that's silent on it gets no chip at all,
+ * not a muted "not-addressed" one — a benchmarking paper with no power
+ * analysis is the norm here, not a flag-worthy gap (see the NIH/NINDS
+ * rigor note above: none of the 27 sources report one). Corpus-checked
+ * before shipping rather than assumed: only add `rigor/statistical-power/
+ * {adequate|inadequate}` to a source's tags if it's actually there.
+ */
+export type StatisticalPowerStatus = "adequate" | "inadequate";
+export const STATISTICAL_POWER_LABELS: Record<StatisticalPowerStatus, string> = {
+  adequate: "Power analysis reported",
+  inadequate: "Power analysis reported but underpowered",
+};
+export function getStatisticalPower(node: Pick<GraphNode, "tags">): StatisticalPowerStatus | null {
+  const prefix = "rigor/statistical-power/";
+  const tag = node.tags.find((t) => t.startsWith(prefix));
+  if (!tag) return null;
+  const raw = tag.slice(prefix.length);
+  return raw === "adequate" || raw === "inadequate" ? raw : null;
 }
 
 /**

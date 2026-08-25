@@ -134,6 +134,46 @@ anyone needing to remember the workaround.
 | Build looked frozen at 0% CPU | Self-inflicted: throttled to 1 core while diagnosing | Removed throttling; verified activity with `sample`, not `ps` |
 | Builds crawling / silently stalling under both webpack and Turbopack | Node version too new for this Next.js version | Pinned Node 22 via a local, non-global install |
 
+### 9. iCloud Drive "Optimize Mac Storage" silently evicting `node_modules` files to zero-byte stubs
+
+**Symptom:** `next dev` exited instantly with code 0 and no output beyond
+preflight warnings, across many attempts (with-lock disabled, sandbox
+on/off, `nohup`+disown, background). Once it did boot, page requests threw
+`TypeError: Cannot read properties of undefined (reading 'createResolver')`
+in `@tailwindcss/node`, and this persisted identically under both system
+Node 25 and the project's pinned Node 22 — ruling out a Node-version ABI
+mismatch, which was the first (wrong) hypothesis.
+
+**Real cause:** this Mac has iCloud Drive's "Optimize Mac Storage" enabled
+for `~/Documents`, which evicts file *contents* to reclaim space while
+leaving the directory entry and logical size intact — `ls`/`stat` report
+the normal size, but `du -k` shows 0 actual disk blocks until something
+faults the file back in. A local cache-clearing pass earlier the same day
+had apparently triggered eviction across a large swath of `node_modules`
+(tens of thousands of files project-wide at the worst point), including:
+the project's own pinned `.node-local/node-v22.14.0-darwin-arm64` binary
+and its bundled npm/`graceful-fs`; `next/dist/cli/next-test.js`; and,
+trickiest to find, `lightningcss`'s `node/*.js` wrapper files and
+`enhanced-resolve/lib/util/*-browser.js` — the latter only loaded because
+Turbopack's Node-code evaluator resolves CSS-processing requires through
+each package's `browser` field, so `require("graceful-fs")` inside
+`enhanced-resolve` was silently redirected to the stubbed
+`graceful-fs-browser.js`.
+
+**Fix:** `brctl download <path>` (Apple's iCloud/bird daemon CLI) forces
+re-materialization; `cat <path>` also works for a single file. `brctl
+status <path>` shows sync state. There's no reliable single command to
+force-materialize an entire tree atomically — the practical approach was
+targeted `brctl download` on suspect directories, verified with a `du -k`
+sweep, repeated for whichever specific file the next error pointed at.
+
+**Lesson:** if `ls`/`stat` look completely normal but a command fails with
+no output, or a required module's export is unexpectedly `undefined`, check
+`du -k` on the specific file(s) in the failing require chain before
+assuming a real code or version bug — especially on a Mac with iCloud
+Drive storage optimization enabled. A `du -k` reading of exactly `0` on a
+file that isn't actually empty is the tell.
+
 ## Diagnostic technique worth keeping
 
 If a build/process looks hung, don't trust `ps` CPU%/RSS alone and don't

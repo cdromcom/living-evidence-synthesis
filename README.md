@@ -193,3 +193,30 @@ recurring:
    If the same class of failure happens 2-3 times in a row, that's a signal
    to change *how* you're diagnosing it (e.g. jump to `sample`/a profiler)
    rather than trying another plausible-sounding config flag.
+
+9. **iCloud Drive "Optimize Mac Storage" can evict `node_modules` files to
+   zero-byte stubs.** `ls`/`stat` still report the correct logical size, so
+   this looks like a genuine code or dependency bug (missing export,
+   silent exit, `undefined` where a module should be). `du -k` on the
+   specific file reports `0` when it's actually a stub; `brctl download
+   <path>` re-materializes it. See `FIXES.md` §9 for the full story — it
+   cost an entire session before being correctly diagnosed.
+
+## Source page design (SRC nodes)
+
+Each `SRC` node page (`vault/source/*.md`) renders trust-signal chips
+(Openness, Rigor, Transparency/TRIPOD-LLM compliance, etc.), muted
+single-color status icons instead of categorical emoji, and — for papers
+with a TRIPOD-LLM appraisal table — a quote-plus-locator citation in the
+final column (`*"quote"* \`§/page\`` or literal `Not reported`) instead of
+a paraphrase. The chip/icon/table styling lives in `lib/markdown.ts`,
+`components/TopBadges.tsx`, and `app/globals.css`; the underlying signals
+are parsed from `tags:` frontmatter (`rigor/*`, `top/*`, `appraisal/*`,
+etc.) by small getters in `lib/data.ts`. Page footers cite the TRIPOD-LLM
+guideline (Gallifant et al. 2025, *Nature Medicine*) and, when present,
+the LLM model/version/date used to curate that page's trust signals
+(`curatedWithModel`/`curatedWithModelDate` frontmatter).
+
+This treatment has been piloted on one source
+(`@louAAAR10AssessingAIs2025.md`, SRC-011) and not yet rolled out to the
+other source files.

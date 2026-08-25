@@ -29,66 +29,182 @@ feeds it.
 
 ## What's on every source page
 
+> **Updated to match the current shipped UI** (`components/TopBadges.tsx`,
+> `components/SourceCredibility.tsx`, `app/nodes/[id]/page.tsx` as of this
+> pass). The badge grouping has been reorganized twice since this doc was
+> first written — see the callout box after the table for what changed and
+> what's now computed but no longer rendered.
+
+| Signal | Where it lives | What it is |
+|---|---|---|
+| [Citation](#citation-componentssourcecitationtsx-libapats) | `components/SourceCitation.tsx`, `lib/apa.ts` | APA 7th-edition reference built from CrossRef/DataCite data |
+| [Transparency — TRIPOD-LLM compliance](#transparency--tripod-llm-reporting-compliance-componentstopbadgestsx) | `components/TopBadges.tsx` | Our own computed % of the TRIPOD-LLM checklist reported, High/Moderate/Low |
+| [Openness — COS TOP Guidelines](#openness--cos-top-guidelines-componentstopbadgestsx) | `components/TopBadges.tsx` | 4 of the COS TOP standards, from each source's TRIPOD-LLM table |
+| [Rigor](#rigor-componentstopbadgestsx) | `components/TopBadges.tsx` | 4 domains from each source's own Critical Appraisal table |
+| [Extensibility](#extensibility-componentstopbadgestsx) | `components/TopBadges.tsx` | Unscored "not yet done" reminders: computational reproduction, direct/indirect replication |
+| [Integrity](#integrity) | TRIPOD-LLM table (13, 14a, 14b) + plagiarism reminder | Ethical approval, funding disclosure, conflicts of interest, plagiarism screening |
+| [Source credibility](#source-credibility-componentssourcecredibilitytsx) | `components/SourceCredibility.tsx` | Altmetric, retraction/critique status, open peer review, PubPeer comment count |
+| [Forensic-metascience checks](#forensic-metascience-checks-on-individual-evidence-claims) | evidence (EVD) node level | F1 consistency, Cohen's κ bounds, CI consistency, % closure, trend monotonicity, cross-node corroboration, model-name spelling, statcheck |
+
+**What changed since this doc was first written:**
+- The original "Transparency" badge (COS TOP Guidelines) was **renamed
+  Openness**, and **Transparency now means something new**: our own
+  computed TRIPOD-LLM reporting-compliance percentage.
+- "Risk of bias" was renamed **Rigor** and **dropped from five domains to
+  four** — Reproducibility is no longer graded/displayed as a 🟢/🟡/🔴 badge
+  in this section (see Extensibility, below).
+- A new **Extensibility** group replaced the graded reproducibility badge
+  with three deliberately *unscored* reminder chips (Computationally
+  Reproduced / Directly Replicated / Indirectly Replicated) — shown when a
+  source has a Reproducibility appraisal on record, but the appraisal's
+  actual risk level is no longer surfaced, only the reminder that this work
+  hasn't been done yet.
+- "Research integrity" was renamed **Integrity** and gained a fourth,
+  unscored **Plagiarism** reminder chip alongside the three original
+  disclosure badges.
+- The **NIH/NINDS study-design-rigor icons** (sample-size estimation,
+  exploratory-vs-confirmatory framing) described in earlier versions of
+  this doc are **no longer rendered anywhere**. The underlying functions
+  (`getSampleSizeEstimation`, `getStudyType` in `lib/data.ts`) and their
+  `rigor/*` tags still exist in the vault and still compute correctly —
+  they're just dead code now, not called from any component. Left as-is
+  rather than deleted in case this section comes back.
+- **Source credibility shrank from ten fields to four.** DOI resolution,
+  author track record, publication type, DOAJ listing, self-citation rate,
+  citation count, and predatory-publisher screening are **still computed
+  and stored in each source's vault frontmatter** (`authorTrackRecord`,
+  `selfCitationRate`, `doajListed`, `citationCount`, `predatoryPublisherFlag`,
+  `pubType`, etc.) — the data pipeline in the Runbook below is unchanged —
+  but `app/nodes/[id]/page.tsx` now explicitly excludes all of them from
+  render (`HANDLED_EXTRA_KEYS`). Only **Altmetric, critique/retraction
+  status, open peer review, and PubPeer comment count** actually appear on
+  the page today, as four mini-cards in a horizontal row. The rest is
+  real, verified data sitting unused in the frontmatter — worth surfacing
+  again, not worth re-deriving.
+- A **Rating chip** (`node.extras.rating`, curator-assigned) now appears in
+  the page header next to the node-type and status badges — not
+  previously documented here.
+
 ### Citation (`components/SourceCitation.tsx`, `lib/apa.ts`)
-A full APA 7th-edition reference — authors, year, sentence-cased title
-(acronyms like GPT-4/LLM/CONSORT preserved, not mangled), italicized
-journal + volume, DOI link — built from CrossRef/DataCite bibliographic
-data pulled per source, not hand-typed.
+- Full APA 7th-edition reference — authors, year, sentence-cased title
+  (acronyms like GPT-4/LLM/CONSORT preserved, not mangled), italicized
+  journal + volume, DOI link.
+- Built from CrossRef/DataCite bibliographic data pulled per source, **not
+  hand-typed**.
 
-### Transparency — COS TOP Guidelines (`components/TopBadges.tsx`)
-Four of the [TOP Guidelines](https://www.cos.io/initiatives/top-guidelines)
-standards, extracted from each source's own TRIPOD-LLM reporting table
-(items 14c/14d/14e/14f, already vault content): **Data Transparency**,
-**Analytic Code Transparency**, **Study Protocol**, **Study Registration**.
-Each gets TOP's own Level 1 (Disclosed) / Level 2 (Shared and Cited)
-language — never Level 3 (Certified), since that requires independent
-verification we haven't done. Badge artwork for Data/Code/Registration
-borrows COS's actual Open Science Badges (Open Data / Open Materials /
-Preregistered — CC BY 4.0, confirmed via cos.io's own license footer,
-downloaded from their OSF file store); shown full-color only at Level 2,
-desaturated otherwise, so nothing implies a badge was earned when it wasn't.
+### Transparency — TRIPOD-LLM reporting compliance (`components/TopBadges.tsx`)
+- Our own computed measure of how much of the TRIPOD-LLM checklist a paper
+  actually reported — did it report what it did, in enough detail to
+  assess and reproduce. **Distinct from Openness (below), which is about
+  whether artifacts were made available, not whether the paper describes
+  its own methods clearly.**
+- Hand-scored per EVD node against the checklist's Methods (5a-15) and
+  Results (16a-18) items, tagged `tripod-llm/compliance/{low|moderate|high}`
+  plus a `tripodLlmPct` percentage field. Verified identical across every
+  EVD derived from the same source for all 27 sources, so the first EVD
+  found is authoritative for the source as a whole.
+- Rendered as a single badge: `TRIPOD-LLM {pct}% reported`, colored by
+  level (High/Moderate/Low).
 
-### Risk of bias (`components/TopBadges.tsx`)
-Construct validity, internal validity, external validity, statistical
-rigor, and reproducibility — the five domains of each source's own
-Critical Appraisal table (🟢/🟡/🔴), surfaced with original icon glyphs
-(no open-licensed icon set exists for these specifically; checked —
-Cochrane's RoB2 iconography is CC BY-NC-ND, which forbids derivatives).
+### Openness — COS TOP Guidelines (`components/TopBadges.tsx`)
+- Four of the [TOP Guidelines](https://www.cos.io/initiatives/top-guidelines)
+  standards, extracted from each source's own TRIPOD-LLM reporting table
+  (items 14c/14d/14e/14f, already vault content): **Data Transparency**,
+  **Analytic Code Transparency**, **Study Protocol**, **Study Registration**.
+- Each gets TOP's own Level 1 (Disclosed) / Level 2 (Shared and Cited)
+  language — **never** Level 3 (Certified), since that requires independent
+  verification we haven't done.
+- Badge artwork for Data/Code/Registration borrows COS's actual Open
+  Science Badges (Open Data / Open Materials / Preregistered — CC BY 4.0,
+  confirmed via cos.io's own license footer, downloaded from their OSF file
+  store); shown full-color only at Level 2, desaturated otherwise, so
+  nothing implies a badge was earned when it wasn't.
 
-### Study design rigor (NIH/NINDS icons)
-Sample-size estimation and exploratory-vs-confirmatory framing, using the
-real NIH/NINDS rigor icon set. Not extracted from a structured field —
-grounded in direct textual evidence checked across the whole corpus before
-tagging anything: every "sample size"/"power analysis" mention in all 27
-sources is a caveat about its *absence*, and none of the 27 are registered,
-protocolled, or claim a confirmatory pre-specified hypothesis.
+### Rigor (`components/TopBadges.tsx`)
+- Construct validity, internal validity, external validity, and
+  statistical rigor — four of the five domains of each source's own
+  Critical Appraisal table (🟢/🟡/🔴). **Reproducibility is the fifth
+  domain and is still computed** (`getReproducibilityRisk`, from the same
+  table's `trust/reproducibility/*` tag) **but its graded value is no
+  longer displayed here** — it now only gates whether the Extensibility
+  section (below) appears at all, unscored.
+- Surfaced with original icon glyphs: no open-licensed icon set exists for
+  these specifically (checked — Cochrane's RoB2 iconography is CC
+  BY-NC-ND, which forbids derivatives).
 
-### Research integrity
-Ethical approval, funding disclosure, conflicts-of-interest disclosure —
-same TRIPOD-LLM table (items 13, 14a, 14b), original glyphs (checked for
-precedent first: ICMJE's COI material is a disclosure form, not an icon
-convention).
+### Extensibility (`components/TopBadges.tsx`)
+- Three gray "?" reminder chips — **Computationally Reproduced**,
+  **Directly Replicated**, **Indirectly Replicated** — shown whenever a
+  source has a Reproducibility-domain appraisal on record.
+- Deliberately unscored and identical for every source that has one,
+  unlike every other badge on the page: this is a to-do list (re-run the
+  analysis ourselves; run the same design with new data; check whether
+  independently-designed studies agree), not a graded signal. Showing a
+  color/level here would imply reproduction work has actually happened
+  when it hasn't.
+
+### Study design rigor (NIH/NINDS icons) — **computed, not currently shown**
+- Sample-size estimation and exploratory-vs-confirmatory framing, using
+  the real NIH/NINDS rigor icon set convention.
+- Not extracted from a structured field — grounded in direct textual
+  evidence checked across the whole corpus before tagging anything: every
+  "sample size"/"power analysis" mention in all 27 sources is a caveat
+  about its *absence*, and none of the 27 are registered, protocolled, or
+  claim a confirmatory pre-specified hypothesis.
+- `getSampleSizeEstimation` / `getStudyType` (`lib/data.ts`) and the
+  underlying `rigor/*` tags are intact and still return correct values —
+  no component currently imports either function, so this doesn't render
+  anywhere on the live page. Noted here rather than deleted since the data
+  and the reasoning behind it are both still good; it just needs a badge
+  slot again.
+
+### Integrity
+- Ethical approval, funding disclosure, conflicts-of-interest disclosure —
+  same TRIPOD-LLM table (items 13, 14a, 14b). (Formerly labeled "Research
+  integrity.")
+- Original glyphs (checked for precedent first: ICMJE's COI material is a
+  disclosure form, not an icon convention).
+- Plus a fourth, unscored **Plagiarism** reminder chip (same gray "?"
+  style as Extensibility) — a not-yet-done reminder to screen the paper's
+  text against other human-authored work, not a graded check.
 
 ### Source credibility (`components/SourceCredibility.tsx`)
+Renders as four mini-cards in a horizontal row. **What's actually on the
+page today:**
+- **Current status** (critique/retraction) — checked live against
+  Crossref's `update-to` relation (Crossref has owned the Retraction Watch
+  database since Sept 2023) or DataCite for arXiv preprints, which has no
+  equivalent registry (marked `not-registered`, not falsely implied clean).
+- **Open peer review** — checked directly against each source's actual
+  landing page (or, where publishers blocked automated access, marked
+  "not independently verified" rather than guessed). Preprints are marked
+  not-applicable by definition. Links out to the published reports when
+  they exist.
+- **PubPeer comment count** — a live count (no comment text, no commenter
+  identities), via the same endpoint PubPeer's own official browser
+  extension uses (`POST pubpeer.com/v3/publications`, read from their
+  open-source extension code). One real finding this surfaced: the Roberts
+  et al. paper has a PubPeer comment on record.
+- **Altmetric attention badge** — the free embeddable widget (no API key;
+  their REST API now requires one as of Nov 2025, the embed badge doesn't).
+  This tracks attention/engagement volume, not sentiment — Altmetric
+  doesn't actually offer a sentiment feature, despite the name sounding
+  like it might.
+
+**Computed and stored, but not currently rendered anywhere on the page**
+(the methodology below is still accurate to how the data was produced —
+`app/nodes/[id]/page.tsx` just explicitly excludes these fields from
+display now; nothing about the pipeline itself changed):
 - **DOI resolution** — every source's real DOI, matched against the
   citekey and verified by comparing the resolved title/authors against
   what we already knew about the paper's content (not just trusted a
   search API's top hit).
-- **Critique status** — checked live against Crossref's `update-to`
-  relation (Crossref has owned the Retraction Watch database since Sept
-  2023) or DataCite for arXiv preprints, which has no equivalent registry
-  (marked `not-registered`, not falsely implied clean).
 - **Author track record** — INSPECT-SR item 1.3 ("do other studies by the
   research team highlight causes for concern"), checked via each author's
   ORCID publication history on Crossref. Only proceeds when an ORCID is on
   record — never plain name search, since a same-named different person's
   retraction misattributed to the real author would be exactly the kind of
   false claim this whole feature is trying to avoid.
-- **PubPeer comment count** — a live count (no comment text, no commenter
-  identities), via the same endpoint PubPeer's own official browser
-  extension uses (`POST pubpeer.com/v3/publications`, read from their
-  open-source extension code). One real finding this surfaced: the Roberts
-  et al. paper has a PubPeer comment on record.
 - **Publication type, DOAJ listing, self-citation rate** — publication
   type from Crossref/DataCite's own type field; DOAJ status from their free
   public API (journal legitimacy signal for open-access venues); self-
@@ -107,15 +223,6 @@ convention).
   reliably index the arXiv DOI namespace (even "Attention Is All You Need"
   returns null there), so a low/zero count would misrepresent real
   citation activity rather than reflect it.
-- **Peer review status** — checked directly against each source's actual
-  landing page (or, where publishers blocked automated access, marked
-  "not independently verified" rather than guessed). Preprints are marked
-  not-applicable by definition.
-- **Altmetric attention badge** — the free embeddable widget (no API key;
-  their REST API now requires one as of Nov 2025, the embed badge doesn't).
-  This tracks attention/engagement volume, not sentiment — Altmetric
-  doesn't actually offer a sentiment feature, despite the name sounding
-  like it might.
 
 ### Forensic-metascience checks on individual evidence claims
 Run against the exact numbers quoted in each EVD (evidence) node, not the
@@ -166,66 +273,35 @@ Publishing an unreliable check is worse than publishing none — a false
 "red flag" misrepresents a real, named paper. Three checks were built,
 tested against real corpus data, and rejected on that basis:
 
-- **GRIM** (does a reported percentage match some integer/N?) — a naive
-  nearest-number pairing produced a clear false positive: "18.02% (552)"
-  in one source's table means *552 is the count 18.02% of 3063
-  represents*, not the denominator. A regex can't reliably tell these
-  apart without reading the sentence.
-- **"Too clean" / terminal-digit roundness** — several sources came back
-  "100% round percentages," which looked like a red flag until checked:
-  their underlying evaluation subsets are N=10 or N=20, where round
-  percentages (100%, 57%, 70%) are a mathematical near-certainty, not a
-  fabrication signal. Classic forensic techniques built for large-sample
-  survey/clinical data have real, demonstrated limits on a small-N
-  ML-benchmark corpus like this one.
-- **GRIMMER/`strait`-style mean+SD+scale-bounds checks** (explored after
-  the R packages `scrutiny` and `tides`/`strait` were suggested) — exactly
-  one mean+SD candidate exists in the whole 77-node evidence corpus. Pulled
-  the actual paper (a public arXiv PDF) to get the scale bounds needed to
-  run the check, and the paper never states them. Not shipped rather than
-  assumed.
+| Check | Why it wasn't shipped |
+|---|---|
+| **GRIM** (does a reported percentage match some integer/N?) | A naive nearest-number pairing produced a clear false positive: "18.02% (552)" in one source's table means *552 is the count 18.02% of 3063 represents*, not the denominator. A regex can't reliably tell these apart without reading the sentence. |
+| **"Too clean" / terminal-digit roundness** | Several sources came back "100% round percentages," which looked like a red flag until checked: their underlying evaluation subsets are N=10 or N=20, where round percentages (100%, 57%, 70%) are a mathematical near-certainty, not a fabrication signal. Classic forensic techniques built for large-sample survey/clinical data have real, demonstrated limits on a small-N ML-benchmark corpus like this one. |
+| **GRIMMER/`strait`-style mean+SD+scale-bounds checks** (explored after the R packages `scrutiny` and `tides`/`strait` were suggested) | Exactly one mean+SD candidate exists in the whole 77-node evidence corpus. Pulled the actual paper (a public arXiv PDF) to get the scale bounds needed to run the check, and the paper never states them. Not shipped rather than assumed. |
 
 Also explicitly out of scope, with reasons on record:
-- **`referencecheck`'s OpenRetractions-based retraction check** — its
-  primary data source (`api.openretractions.com`) doesn't resolve from our
-  build environment, so it silently falls back to the same Crossref
-  retraction data we'd already manually verified for `critiqueStatus`.
-  Re-running it would add no new signal, just a second label for the same
-  underlying fact — not shipped as a separate check for that reason.
-- **Image/text-duplication forensics** (the single most common real
-  retraction-case finding, per Elisabeth Bik's work) — no free API exists;
-  the available tools (Proofig, ImageTwin) are paid B2B products.
-- **PubPeer comment *content*** — only a live count is shown, never the
-  comment text or commenter identities. PubPeer's platform has its own
-  legal/moderation structure built for hosting serious misconduct
-  allegations; republishing that content on a different site would inherit
-  that exposure without the structure.
-- **AI-generated-text detection on the papers' own prose** — explicitly
-  declined. These detectors have a documented, specific failure mode: they
-  flag non-native-English-speaker writing as "AI-generated" at
-  disproportionate rates (Liang et al. 2023), and this corpus's authors are
-  a genuinely international group. OpenAI shut down its own AI-text
-  classifier in 2023 citing low accuracy; no major publisher uses these
-  tools for exactly this reason.
-- **Research Signals** (research-signals.com) — a commercial
-  publisher-integration platform; no public or free-tier API, would
-  require a business relationship to access.
-- **Section-level (title/abstract/intro/results/discussion) consistency
-  checking** — tested and found unreliable: one source's own methodology
-  table uses "Methods"/"Results"/"Discussion" as plain row labels sitting
-  right next to its real (ALL-CAPS) section headers, which a naive header
-  matcher would confuse. This is a reliability problem independent of PDF
-  coverage, so it stays unshipped even now that coverage has improved
-  (below).
+
+| Item | Reason |
+|---|---|
+| **`referencecheck`'s OpenRetractions-based retraction check** | Its primary data source (`api.openretractions.com`) doesn't resolve from our build environment, so it silently falls back to the same Crossref retraction data we'd already manually verified for `critiqueStatus`. Re-running it would add no new signal, just a second label for the same underlying fact — not shipped as a separate check for that reason. |
+| **Image/text-duplication forensics** (the single most common real retraction-case finding, per Elisabeth Bik's work) | No free API exists; the available tools (Proofig, ImageTwin) are paid B2B products. |
+| **PubPeer comment *content*** | Only a live count is shown, never the comment text or commenter identities. PubPeer's platform has its own legal/moderation structure built for hosting serious misconduct allegations; republishing that content on a different site would inherit that exposure without the structure. |
+| **AI-generated-text detection** on the papers' own prose | Explicitly declined. These detectors have a documented, specific failure mode: they flag non-native-English-speaker writing as "AI-generated" at disproportionate rates (Liang et al. 2023), and this corpus's authors are a genuinely international group. OpenAI shut down its own AI-text classifier in 2023 citing low accuracy; no major publisher uses these tools for exactly this reason. |
+| **Research Signals** (research-signals.com) | A commercial publisher-integration platform; no public or free-tier API, would require a business relationship to access. |
+| **Section-level** (title/abstract/intro/results/discussion) **consistency checking** | Tested and found unreliable: one source's own methodology table uses "Methods"/"Results"/"Discussion" as plain row labels sitting right next to its real (ALL-CAPS) section headers, which a naive header matcher would confuse. This is a reliability problem independent of PDF coverage, so it stays unshipped even now that coverage has improved (below). |
 
 ## Data sources, all free/open, none scraped against terms of service
 
-Crossref REST API · DataCite REST API · DOAJ search API · ORCID (via
-Crossref author records) · OpenCitations (via `referencecheck`) · Beall's
-List of predatory publishers (bundled with `referencecheck`) · Center for
-Open Science's Open Science Badges (CC BY 4.0) · PubPeer's own
-public-extension API endpoint · Altmetric's free embeddable badge widget ·
-each source's own vault-curated TRIPOD-LLM and Critical Appraisal tables.
+- Crossref REST API
+- DataCite REST API
+- DOAJ search API
+- ORCID (via Crossref author records)
+- OpenCitations (via `referencecheck`)
+- Beall's List of predatory publishers (bundled with `referencecheck`)
+- Center for Open Science's Open Science Badges (CC BY 4.0)
+- PubPeer's own public-extension API endpoint
+- Altmetric's free embeddable badge widget
+- Each source's own vault-curated TRIPOD-LLM and Critical Appraisal tables
 
 ## Runbook: adding trust signals for a new or updated source
 
@@ -238,6 +314,13 @@ without re-deriving the method from scratch.
 Model-name spelling consistency is *deprioritized* per explicit direction —
 it's a minor signal relative to the others and not worth spending a session
 on unless separately requested. Don't restart it unprompted.
+
+| Step | Do this |
+|---|---|
+| 1 | [DOI-based checks](#1-doi-based-checks--the-default-do-these-first) — highest value, lowest cost, do first |
+| 2 | [Find local PDFs](#2-finding-local-pdfs-for-the-pdf-dependent-checks) for the PDF-dependent checks |
+| 3 | [Corpus-wide completeness audit](#3-corpus-wide-completeness-audit) — catch silent gaps before wrapping up |
+| 4 | [After any vault edit](#4-after-any-vault-edit) — validate, rebuild, spot-check, commit |
 
 ### 1. DOI-based checks — the default, do these first
 

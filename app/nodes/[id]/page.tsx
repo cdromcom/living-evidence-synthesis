@@ -5,6 +5,7 @@ import {
   getNodeById,
   getOutboundEdges,
   getTopSignals,
+  getReportingCompliance,
 } from "@/lib/data";
 import { renderMarkdown } from "@/lib/markdown";
 import NodeTypeBadge from "@/components/NodeTypeBadge";
@@ -30,7 +31,12 @@ export async function generateMetadata({
 }) {
   const { id } = await params;
   const node = getNodeById(id);
-  return { title: node ? `${node.id} — ${node.title}` : "Node not found" };
+  if (!node) return { title: "Node not found" };
+  const titleText =
+    node.type === "SRC" && typeof node.extras.apaTitle === "string" && node.extras.apaTitle
+      ? (node.extras.apaTitle as string)
+      : node.title;
+  return { title: `${node.id} — ${titleText}` };
 }
 
 const EXTRA_LABELS: Record<string, string> = {
@@ -98,7 +104,17 @@ export default async function NodeDetailPage({
     "caveatType",
     "severity",
     "rating",
+    "curatedWithModel",
+    "curatedWithModelDate",
   ]);
+  // SRC nodes are filed under their citekey ("@louAAAR10AssessingAIs2025")
+  // so coding agents and the maintainer can find them by exact match — that's
+  // useful in the vault, but it's not a title. Show the real paper title
+  // (already used by SourceCitation's APA line) to actual page viewers instead.
+  const displayTitle =
+    node.type === "SRC" && typeof node.extras.apaTitle === "string" && node.extras.apaTitle
+      ? (node.extras.apaTitle as string)
+      : node.title;
   const truthValue = node.extras.truthValue as number | undefined;
   const caveatSeverity = node.extras.severity as "low" | "moderate" | "high" | undefined;
   const caveatType = node.extras.caveatType as "author-stated" | "inferred" | undefined;
@@ -113,6 +129,9 @@ export default async function NodeDetailPage({
   const BADGE_ART_STANDARDS = new Set(["data-transparency", "code-transparency", "study-registration"]);
   const hasBadgeArtwork = getTopSignals(node).some((s) => BADGE_ART_STANDARDS.has(s.standard));
   const hasCritiqueStatus = Boolean(node.extras.critiqueStatus);
+  const hasTripodCompliance = node.type === "SRC" && Boolean(getReportingCompliance(node.id));
+  const curatedWithModel = node.extras.curatedWithModel as string | undefined;
+  const curatedWithModelDate = node.extras.curatedWithModelDate as string | undefined;
 
   return (
     <main className="mx-auto max-w-[1400px] px-4 py-10 sm:px-6">
@@ -129,7 +148,7 @@ export default async function NodeDetailPage({
         )}
       </div>
       <h1 className="max-w-3xl text-2xl font-semibold leading-tight text-ink sm:text-3xl">
-        {node.title}
+        {displayTitle}
       </h1>
 
       <SourceCitation node={node} />
@@ -186,27 +205,54 @@ export default async function NodeDetailPage({
         </aside>
       </div>
 
-      {(hasBadgeArtwork || hasCritiqueStatus) && (
+      {(hasBadgeArtwork || hasCritiqueStatus || hasTripodCompliance || curatedWithModel) && (
         <footer className="mx-auto mt-12 max-w-[1400px] space-y-1 border-t border-border pt-3">
           <h2 className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             References
           </h2>
-          {hasBadgeArtwork && (
-            <p className="text-[0.625rem] text-muted-ink">
-              Badge artwork ©{" "}
-              <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
-                Center for Open Science
-              </a>
-              , CC BY 4.0.
-            </p>
-          )}
-          {hasCritiqueStatus && (
-            <p className="text-[0.625rem] text-muted-ink">
-              Retraction/correction status checked against Crossref (which now includes the
-              Retraction Watch database) or DataCite for arXiv preprints, at curation time — not a
-              live guarantee; verify independently before relying on it.
-            </p>
-          )}
+          {/* Footer text is capped at 40% of the page width — these are short
+              attribution/provenance lines, not article copy, and reading the
+              full-width article measure here just looks like an unstyled
+              afterthought. */}
+          <div className="max-w-[40vw] space-y-1">
+            {hasBadgeArtwork && (
+              <p className="text-[0.625rem] text-muted-ink">
+                Badge artwork ©{" "}
+                <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
+                  Center for Open Science
+                </a>
+                , CC BY 4.0.
+              </p>
+            )}
+            {hasCritiqueStatus && (
+              <p className="text-[0.625rem] text-muted-ink">
+                Retraction/correction status checked against Crossref (which now includes the
+                Retraction Watch database) or DataCite for arXiv preprints, at curation time — not a
+                live guarantee; verify independently before relying on it.
+              </p>
+            )}
+            {hasTripodCompliance && (
+              <p className="text-[0.625rem] text-muted-ink">
+                Gallifant, J., Afshar, M., et al.{" "}
+                <a
+                  href="https://www.nature.com/articles/s41591-024-03425-5"
+                  className="underline hover:text-forest"
+                >
+                  (2025). The TRIPOD-LLM reporting guideline for studies using large language
+                  models. <em>Nature Medicine</em>, 31, 60–69.
+                </a>{" "}
+                — Transparency, Openness, and reporting-compliance sections above are scored against
+                this checklist.
+              </p>
+            )}
+            {curatedWithModel && (
+              <p className="text-[0.625rem] text-muted-ink">
+                Trust-signal analysis on this page was curated with {curatedWithModel}
+                {curatedWithModelDate ? `, ${curatedWithModelDate}` : ""} — an AI assistant, not an
+                independent human reviewer; verify anything load-bearing.
+              </p>
+            )}
+          </div>
         </footer>
       )}
     </main>

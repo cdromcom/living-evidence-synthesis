@@ -16,6 +16,91 @@ const CALLOUT_LABELS: Record<string, string> = {
 };
 
 /**
+ * Obsidian renders each callout type with a Lucide icon baked into its own
+ * app chrome — that icon simply doesn't exist on the web (no equivalent
+ * asset ships here), so callouts rendered flat text-only, title but no
+ * glyph. These are small inline SVGs standing in for the missing icons,
+ * one shape per type, colored via `currentColor` so each inherits its
+ * callout's own `--callout-accent` (set in globals.css) automatically.
+ */
+const CALLOUT_ICONS: Record<string, string> = {
+  info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5"/><circle cx="12" cy="8" r="0.75" fill="currentColor" stroke="none"/>',
+  success: '<circle cx="12" cy="12" r="8.5"/><path d="M8 12.3l2.6 2.6L16.5 9"/>',
+  tip: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5.9 1 .9 1.6v.5h5.2v-.5c0-.6.3-1.1.9-1.6A6 6 0 0 0 12 3Z"/>',
+  note: '<path d="M5 4.5h11l3 3V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5.5a1 1 0 0 1 1-1Z"/><path d="M8 10h8M8 14h5"/>',
+  warning: '<path d="M12 3.5 21 19.5H3Z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.3" r="0.75" fill="currentColor" stroke="none"/>',
+  danger: '<circle cx="12" cy="12" r="8.5"/><path d="M9 9l6 6M15 9l-6 6"/>',
+  question: '<circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.3c0-1.5 1.1-2.6 2.5-2.6s2.5 1 2.5 2.3c0 1.6-2.5 1.9-2.5 3.8"/><circle cx="12" cy="17" r="0.75" fill="currentColor" stroke="none"/>',
+  quote: '<path d="M7 8.5c-1.7 0-3 1.3-3 3v1c0 1.7 1.3 3 3 3M7 8.5v7M17 8.5c-1.7 0-3 1.3-3 3v1c0 1.7 1.3 3 3 3M17 8.5v7"/>',
+  abstract: '<path d="M6 4.5h9l3 3V19a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5.5a1 1 0 0 1 1-1Z"/><path d="M8.5 9.5h7M8.5 13h7M8.5 16.5h4"/>',
+  example: '<rect x="4" y="5.5" width="16" height="12" rx="1.5"/><path d="M4 9h16M9 9v8.5"/>',
+};
+
+function calloutIconSvg(type: string): string {
+  const path = CALLOUT_ICONS[type] || CALLOUT_ICONS.note;
+  return `<svg class="callout-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${path}</svg>`;
+}
+
+/**
+ * The Critical-Appraisal and TRIPOD-LLM tables use emoji (🟢🟡🔴 and
+ * ✅⚠️❌➖) as a 4-level good→bad status scale. Full-saturation rainbow
+ * emoji read as loud/inconsistent next to the rest of the page's restrained
+ * palette, and rely on hue alone (a real accessibility problem for
+ * red/green color-blindness — ~8% of men). Swapped for one shared,
+ * single-hue icon family (shape encodes the level, not color): solid dot =
+ * good, half dot = partial/concern, ring = bad, dash = not applicable.
+ * Applies to both emoji sets identically since they're the same underlying
+ * 4-level scale under different glyphs.
+ */
+const STATUS_ICON_MAP: Record<string, { shape: string; level: string }> = {
+  "🟢": { shape: "solid", level: "good" },
+  "✅": { shape: "solid", level: "good" },
+  "🟡": { shape: "half", level: "partial" },
+  "⚠️": { shape: "half", level: "partial" },
+  "🔴": { shape: "ring", level: "bad" },
+  "❌": { shape: "ring", level: "bad" },
+  "➖": { shape: "dash", level: "na" },
+};
+
+const STATUS_SHAPE_SVG: Record<string, string> = {
+  solid: '<circle cx="12" cy="12" r="7.5" fill="currentColor" stroke="none"/>',
+  half: '<circle cx="12" cy="12" r="7.5" fill="none"/><path d="M12 4.5a7.5 7.5 0 0 1 0 15Z" fill="currentColor" stroke="none"/>',
+  ring: '<circle cx="12" cy="12" r="7.5" fill="none"/>',
+  dash: '<path d="M7 12h10"/>',
+};
+
+const STATUS_LEVEL_LABELS: Record<string, string> = {
+  good: "Reported / low risk",
+  partial: "Partial / some concerns",
+  bad: "Not reported / high risk",
+  na: "Not applicable",
+};
+
+function statusIconSvg(shape: string, level: string): string {
+  return (
+    `<svg class="status-icon status-icon-${level}" width="13" height="13" viewBox="0 0 24 24" ` +
+    `stroke="currentColor" stroke-width="2" aria-hidden="true">${STATUS_SHAPE_SVG[shape]}</svg>`
+  );
+}
+
+/**
+ * Replace a bare status emoji sitting alone in a table cell with the muted
+ * icon. Only matches a cell whose *entire* trimmed content is one of the
+ * known glyphs, so emoji used as regular prose elsewhere on the page are
+ * left untouched.
+ */
+function muteStatusIcons(html: string): string {
+  return html.replace(
+    /<td([^>]*)>\s*(🟢|🟡|🔴|✅|⚠️|❌|➖)\s*<\/td>/g,
+    (_m, attrs, glyph) => {
+      const info = STATUS_ICON_MAP[glyph];
+      if (!info) return _m;
+      return `<td${attrs}><span title="${STATUS_LEVEL_LABELS[info.level]}">${statusIconSvg(info.shape, info.level)}</span></td>`;
+    }
+  );
+}
+
+/**
  * Pre-process Obsidian-style callouts (`> [!type] Title` blockquotes) into
  * raw HTML blocks (rendered via marked for their inner content), since
  * marked's default blockquote handling doesn't know about the `[!type]` marker.
@@ -54,9 +139,9 @@ function transformCallouts(md: string): string {
     const titleHtml = title ? (marked.parseInline(title, { async: false }) as string) : "";
     out.push(
       `<div class="callout callout-${escapeAttr(type)}">` +
-        `<div class="callout-title">${escapeHtml(label)}${
+        `<div class="callout-title">${calloutIconSvg(type)}<span>${escapeHtml(label)}${
           title ? `: ${titleHtml}` : ""
-        }</div>` +
+        }</span></div>` +
         `<div class="callout-body">${innerHtml}</div>` +
         `</div>`
     );
@@ -122,5 +207,6 @@ export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
   const withCallouts = transformCallouts(md);
   const rawHtml = marked.parse(withCallouts, { async: false }) as string;
   const withMermaid = activateMermaid(rawHtml);
-  return injectHeadingIds(withMermaid);
+  const withMutedIcons = muteStatusIcons(withMermaid);
+  return injectHeadingIds(withMutedIcons);
 }
