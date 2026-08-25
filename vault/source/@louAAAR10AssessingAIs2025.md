@@ -212,7 +212,7 @@ flowchart TD
 > <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
 > </div>
 
-| # | Item | ✓ | Quote (location) |
+| # | Item | ✓ | Quote |
 | --- | --- | :---: | --- |
 | **1** | Title | ⚠️ | *"AAAR-1.0: Assessing AI's Potential to Assist Research"* `Title` |
 | **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
@@ -254,5 +254,5 @@ flowchart TD
 | **16b** | Characteristics | ✅ | *"# of instances: 993 · # of source papers: 993 · ave. # of reviewers per paper: 3.8"* `Table 11, p.17` |
 | **16c** | Distribution comparison | ➖ | Not applicable — no clinical-outcome subgroup comparison |
 | **16d** | N per analysis | ✅ | *"we randomly select 20 out of 100 papers and ask 5 annotators"* `§5.2 Q3, p.8` |
-| **17** | Performance | (per-EVD) | Reported per-EVD. See each EVD's `## Other Notes`. |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes`. |
 | **18** | LLM updating | ➖ | Not applicable — no model updating reported |

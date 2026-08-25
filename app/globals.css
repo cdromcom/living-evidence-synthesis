@@ -191,15 +191,14 @@ h6 {
   letter-spacing: 0.06em;
 }
 
-/* Quote + locator cells (TRIPOD-LLM's "Reported in this study" column and
-   similar): the quote itself is de-emphasized relative to its citekey/page
-   locator, which is a `code` pill by convention (see runbook) — that
-   reversal is deliberate, so a reader scanning down the column sees the
-   *location* markers line up rather than getting pulled into full prose
-   on every row. */
+/* Quote cells (TRIPOD-LLM's "Quote" column and similar) are authored with
+   markdown emphasis (`*"..."*`) so the quote is visually distinct from its
+   `code`-styled page/section locator, but the quote itself should read as
+   plain black text, not italic/gray — italics there read as uncertainty,
+   which isn't the intent. */
 .prose-node td em {
-  color: var(--color-muted-ink);
-  font-style: italic;
+  color: var(--color-ink);
+  font-style: normal;
 }
 .prose-node td code {
   white-space: nowrap;
@@ -291,9 +290,9 @@ h6 {
 
 /* Each callout type gets its own accent, so "info"/"success"/"warning"/etc.
    actually read as visually distinct boxes instead of one generic style. */
-.callout-info { --callout-accent: #1d4ed8; }
+.callout-info { --callout-accent: #475569; }
 .callout-success { --callout-accent: #047857; }
-.callout-tip { --callout-accent: #7c3aed; }
+.callout-tip { --callout-accent: #57534e; }
 .callout-note { --callout-accent: #475569; }
 .callout-warning { --callout-accent: #b45309; }
 .callout-danger { --callout-accent: #b91c1c; }
@@ -315,9 +314,13 @@ h6 {
    level, not color, so the tables read as one restrained system instead
    of a rainbow, and the distinction survives grayscale/print and doesn't
    rely on red/green hue perception. */
+.prose-node td.status-icon-cell {
+  text-align: center;
+  vertical-align: middle;
+}
 .status-icon {
   color: #57534e; /* stone-600 — matches the .callout-note/.callout-quote accent already in use */
-  vertical-align: -2px;
+  vertical-align: -3px;
 }
 .status-icon-good {
   opacity: 1;

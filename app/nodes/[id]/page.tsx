@@ -214,25 +214,25 @@ export default async function NodeDetailPage({
               attribution/provenance lines, not article copy, and reading the
               full-width article measure here just looks like an unstyled
               afterthought. */}
-          <div className="max-w-[40vw] space-y-1">
+          <ol className="max-w-[40vw] list-decimal space-y-1 pl-4">
             {hasBadgeArtwork && (
-              <p className="text-[0.625rem] text-muted-ink">
+              <li className="text-[0.625rem] text-muted-ink">
                 Badge artwork ©{" "}
                 <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
                   Center for Open Science
                 </a>
                 , CC BY 4.0.
-              </p>
+              </li>
             )}
             {hasCritiqueStatus && (
-              <p className="text-[0.625rem] text-muted-ink">
+              <li className="text-[0.625rem] text-muted-ink">
                 Retraction/correction status checked against Crossref (which now includes the
                 Retraction Watch database) or DataCite for arXiv preprints, at curation time — not a
                 live guarantee; verify independently before relying on it.
-              </p>
+              </li>
             )}
             {hasTripodCompliance && (
-              <p className="text-[0.625rem] text-muted-ink">
+              <li className="text-[0.625rem] text-muted-ink">
                 Gallifant, J., Afshar, M., et al.{" "}
                 <a
                   href="https://www.nature.com/articles/s41591-024-03425-5"
@@ -243,16 +243,16 @@ export default async function NodeDetailPage({
                 </a>{" "}
                 — Transparency, Openness, and reporting-compliance sections above are scored against
                 this checklist.
-              </p>
+              </li>
             )}
             {curatedWithModel && (
-              <p className="text-[0.625rem] text-muted-ink">
+              <li className="text-[0.625rem] text-muted-ink">
                 Trust-signal analysis on this page was curated with {curatedWithModel}
                 {curatedWithModelDate ? `, ${curatedWithModelDate}` : ""} — an AI assistant, not an
                 independent human reviewer; verify anything load-bearing.
-              </p>
+              </li>
             )}
-          </div>
+          </ol>
         </footer>
       )}
     </main>

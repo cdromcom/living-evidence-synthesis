@@ -78,7 +78,7 @@ const STATUS_LEVEL_LABELS: Record<string, string> = {
 
 function statusIconSvg(shape: string, level: string): string {
   return (
-    `<svg class="status-icon status-icon-${level}" width="13" height="13" viewBox="0 0 24 24" ` +
+    `<svg class="status-icon status-icon-${level}" width="19" height="19" viewBox="0 0 24 24" ` +
     `stroke="currentColor" stroke-width="2" aria-hidden="true">${STATUS_SHAPE_SVG[shape]}</svg>`
   );
 }
@@ -95,7 +95,7 @@ function muteStatusIcons(html: string): string {
     (_m, attrs, glyph) => {
       const info = STATUS_ICON_MAP[glyph];
       if (!info) return _m;
-      return `<td${attrs}><span title="${STATUS_LEVEL_LABELS[info.level]}">${statusIconSvg(info.shape, info.level)}</span></td>`;
+      return `<td${attrs} class="status-icon-cell"><span title="${STATUS_LEVEL_LABELS[info.level]}">${statusIconSvg(info.shape, info.level)}</span></td>`;
     }
   );
 }
