@@ -32,13 +32,13 @@ websites with the React library) that turns those notes into:
   force-directed graph library, meaning the nodes physically repel and
   attract each other until they settle into a readable layout) showing
   every note and how it connects to every other note.
-- A page per note, showing its full text plus which other notes point to
+- SRC: A page per note, showing its full text plus which other notes point to
   it and which ones it points to.
-- A handful of short written essays pulling the strongest, most
+- Narratives: A handful of short written essays pulling the strongest, most
   interesting findings together into a normal reading experience, since
   the graph itself is meant to be explored non-linearly.
 
-## The build kept failing, and we had to debug it like a mystery
+## Debugging the failed app build step
 
 Turning the website's source code into an actual running app (a step
 called "building," where the code gets compiled/bundled into something a
@@ -54,7 +54,7 @@ reasons stacked on top of each other:
    *entire* home folder was the project, so it wasted time scanning way
    more files than it needed to.
 3. **The computer's browser was eating all the memory.** Firefox had
-   hundreds of tabs open, competing with the build for the computer's
+   many tabs open, competing with the build for the computer's
    memory and processing power.
 4. **A wrong diagnosis, made worse.** At one point the build looked
    "frozen" (doing nothing). The instinct was to make it use less of the
@@ -65,7 +65,7 @@ reasons stacked on top of each other:
    profiler, a tool that takes a snapshot of exactly which piece of code a
    program is running at a given moment) instead of guessing from a
    "percent busy" number that turned out to be misleading.
-5. **The real, final culprit: a too-new version of Node.** Node
+5. **The real, final culprit: a new version of Node.** Node
    (technically Node.js) is the underlying engine that runs the
    JavaScript-based build tools. The computer had a brand-new version
    installed, newer than what the website framework had been built and
@@ -87,7 +87,7 @@ one-time 6-digit code, no password to remember) and leave a verdict on
 any note; those verdicts are saved for everyone to see on the review
 page.
 
-## Matching the look, and cleaning up the details
+## Matching the look and cleaning up the details
 
 The colors, fonts, and page layout were matched to a reference site the
 owner pointed to as the style target, including a light/dark mode toggle.
@@ -113,12 +113,7 @@ narrower, more defensible use than redistributing whole articles.
 
 ## What's next
 
-The "Contribute" page currently just explains, in words, how someone
-would manually add a new note to the source vault. The next planned step
-is making that page interactive: someone signs in with their GitHub
-account, fills out a short form, and the site automatically creates a
-pull request (a formal, reviewable "please merge my change" request) on
-their behalf, the same way the reference site works. The credentials
-needed for that (a GitHub OAuth app, a way for the site to ask GitHub
-"can this user log in through you?") have been collected and stored, but
-the feature itself hasn't been built yet.
+The "Contribute" page helps someone manually add a new note to the source vault.
+Someone signs in with their GitHub account, fills out a short form, and the site
+automatically creates a pull request (a formal "please merge my change" request)
+on their behalf, the same way the reference site works.
