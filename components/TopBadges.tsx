@@ -55,15 +55,16 @@ function ReportingComplianceGlyph() {
 
 function ReportingComplianceBadge({ compliance }: { compliance: ReportingCompliance }) {
   return (
-    <span
-      title={`TRIPOD-LLM reporting-guideline adherence: ${compliance.pct}% of checklist items (Methods 5a-15, Results 16a-18) fully or partially reported — ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()} compliance. Hand-scored against the checklist, our own computed measure.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    <a
+      href="#tripod-llm-reporting-summary"
+      title={`TRIPOD-LLM reporting-guideline adherence: ${compliance.pct}% of checklist items (Methods 5a-15, Results 16a-18) fully or partially reported: ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()} compliance. Hand-scored against the checklist, our own computed measure. Click to view the table.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${COMPLIANCE_TONE[compliance.level]}`}>
         <ReportingComplianceGlyph />
       </span>
       TRIPOD-LLM · {compliance.pct}% reported
-    </span>
+    </a>
   );
 }
 
@@ -283,15 +284,16 @@ function RiskBadge({ label, risk, title, glyph }: { label: string; risk: Reprodu
 
 function DataLeakageBadge({ risk }: { risk: ReproducibilityRisk | "not-addressed" }) {
   return (
-    <span
-      title={`Data leakage: ${DATA_LEAKAGE_LABELS[risk]}`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    <a
+      href="#qa-data-leakage"
+      title={`Data leakage: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${DATA_LEAKAGE_TONE[risk]}`}>
         <DataLeakageGlyph />
       </span>
-      Data Leakage — {DATA_LEAKAGE_LABELS[risk]}
-    </span>
+      Data Leakage · {DATA_LEAKAGE_LABELS[risk]}
+    </a>
   );
 }
 
@@ -344,15 +346,16 @@ function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
 function RigorCheckBadge({ kind, risk }: { kind: RigorCheckKind; risk: ReproducibilityRisk | "not-addressed" }) {
   const label = RIGOR_CHECK_LABELS[kind];
   return (
-    <span
-      title={`${label}: ${DATA_LEAKAGE_LABELS[risk]}`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    <a
+      href={`#qa-${kind}`}
+      title={`${label}: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${DATA_LEAKAGE_TONE[risk]}`}>
         <RigorCheckGlyph kind={kind} />
       </span>
-      {label} — {DATA_LEAKAGE_LABELS[risk]}
-    </span>
+      {label} · {DATA_LEAKAGE_LABELS[risk]}
+    </a>
   );
 }
 
@@ -372,15 +375,16 @@ function StatisticalPowerGlyph() {
 function StatisticalPowerBadge({ status }: { status: StatisticalPowerStatus }) {
   const tone = status === "adequate" ? "bg-emerald-600" : "bg-amber-500";
   return (
-    <span
-      title={STATISTICAL_POWER_LABELS[status]}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    <a
+      href="#qa-statistical-power"
+      title={`${STATISTICAL_POWER_LABELS[status]}. Click to view the row.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${tone}`}>
         <StatisticalPowerGlyph />
       </span>
-      Statistical Power — {STATISTICAL_POWER_LABELS[status]}
-    </span>
+      Statistical Power · {STATISTICAL_POWER_LABELS[status]}
+    </a>
   );
 }
 
@@ -414,7 +418,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     return null;
 
   return (
-    <div className="mt-3 space-y-3">
+    <div className="mt-3 max-w-[70%] space-y-3">
       {compliance && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
@@ -478,15 +482,15 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             <ReminderBadge
               label="Computationally Reproduced"
-              title="Not yet independently reproduced — reminder to re-run this paper's own analysis/code ourselves and confirm the reported results."
+              title="Not yet independently reproduced: reminder to re-run this paper's own analysis/code ourselves and confirm the reported results."
             />
             <ReminderBadge
               label="Directly Replicated"
-              title="Not yet directly replicated — reminder to run the same study design ourselves (same methods, new data) and compare results."
+              title="Not yet directly replicated: reminder to run the same study design ourselves (same methods, new data) and compare results."
             />
             <ReminderBadge
               label="Indirectly Replicated"
-              title="Not yet indirectly replicated — reminder to check whether independent studies using different methods reach the same conclusion."
+              title="Not yet indirectly replicated: reminder to check whether independent studies using different methods reach the same conclusion."
             />
           </div>
         </div>
@@ -503,7 +507,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             ))}
             <ReminderBadge
               label="Plagiarism"
-              title="Not yet checked — reminder to screen this paper's text against other human-authored work for plagiarism or unattributed overlapping language."
+              title="Not yet checked: reminder to screen this paper's text against other human-authored work for plagiarism or unattributed overlapping language."
             />
           </div>
         </div>

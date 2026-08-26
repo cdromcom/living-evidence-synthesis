@@ -739,7 +739,7 @@ export default function GraphExplorer({
           onClick={() => setShowNodeList((v) => !v)}
           aria-expanded={showNodeList}
           aria-controls="graph-node-list"
-          title="Browse and select nodes as a list — keyboard accessible"
+          title="Browse and select nodes as a list, keyboard accessible"
           className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-muted-surface"
         >
           {showNodeList ? "Hide node list" : "Node list"}
@@ -955,12 +955,12 @@ export default function GraphExplorer({
               <ul className="mt-2 list-disc space-y-1.5 pl-4">
                 <li>Chip color above = node type; dot size = number of connections.</li>
                 <li>
-                  The 5Cs dropdown filters by appraisal (Credibility, Clarity, Creativity, Care, Connectivity) —
+                  The 5Cs dropdown filters by appraisal (Credibility, Clarity, Creativity, Care, Connectivity):
                   most claims and evidence carry one or more; other node types usually don&apos;t.
                 </li>
                 <li>
                   The Trust signals dropdown filters by the same Openness/Rigor/Transparency/Integrity signals
-                  shown on each source page — check any box to show nodes matching at least one.
+                  shown on each source page. Check any box to show nodes matching at least one.
                 </li>
                 <li>Hover a node to highlight it and its direct connections.</li>
                 <li>Click a node to preview it here without leaving the graph.</li>

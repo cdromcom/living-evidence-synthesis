@@ -105,7 +105,7 @@ export default function AboutPage() {
         <h2>What this site is not</h2>
         <p>
           The corpus itself is a static, read-only rendering of a vault
-          export — nothing here is edited in place. The{" "}
+          export: nothing here is edited in place. The{" "}
           <Link href="/contribute" className="text-forest">
             Contribute
           </Link>{" "}
@@ -113,7 +113,7 @@ export default function AboutPage() {
           fork of the source vault, but it doesn&apos;t write to this site or
           merge anything automatically: a human curator still has to review
           and promote the draft before it counts as part of the corpus. This
-          site also makes no LLM API calls of its own — node drafting happens
+          site also makes no LLM API calls of its own: node drafting happens
           offline in the discourse-extraction pipeline, before a PR ever
           reaches here.
         </p>

@@ -134,7 +134,13 @@ export default async function NodeDetailPage({
   const curatedWithModelDate = node.extras.curatedWithModelDate as string | undefined;
 
   return (
-    <main className="mx-auto max-w-[1400px] px-4 py-10 sm:px-6">
+    <main className="py-10">
+      {/* Hero section deliberately matches Header.tsx's own container
+          (mx-auto max-w-6xl px-4 sm:px-6) exactly, so the title/badges line
+          up with the turtle-icon logo above. The wider TOC/article/aside
+          grid and footer below use max-w-[1400px] instead and don't need to
+          match — the aside sidebar's content pushes past 6xl anyway. */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <NodeTypeBadge type={node.type} id={node.id} />
         <StatusBadge status={node.curationStatus} />
@@ -178,8 +184,10 @@ export default async function NodeDetailPage({
           ))}
         </dl>
       )}
+      </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[180px_1fr_240px] lg:items-start">
+      <div className="mx-auto mt-8 max-w-[1400px] px-4 sm:px-6">
+      <div className="grid gap-6 lg:grid-cols-[180px_1fr_240px] lg:items-start">
         {node.type === "SRC" ? (
           <SourceToc items={toc} />
         ) : (
@@ -204,9 +212,10 @@ export default async function NodeDetailPage({
           </div>
         </aside>
       </div>
+      </div>
 
       {(hasBadgeArtwork || hasCritiqueStatus || hasTripodCompliance || curatedWithModel) && (
-        <footer className="mx-auto mt-12 max-w-[1400px] space-y-1 border-t border-border pt-3">
+        <footer className="mx-auto mt-12 max-w-6xl space-y-1 border-t border-border px-4 pt-3 sm:px-6">
           <h2 className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             References
           </h2>
@@ -227,7 +236,7 @@ export default async function NodeDetailPage({
             {hasCritiqueStatus && (
               <li className="text-[0.625rem] text-muted-ink">
                 Retraction/correction status checked against Crossref (which now includes the
-                Retraction Watch database) or DataCite for arXiv preprints, at curation time — not a
+                Retraction Watch database) or DataCite for arXiv preprints, at curation time, not a
                 live guarantee; verify independently before relying on it.
               </li>
             )}
@@ -240,15 +249,15 @@ export default async function NodeDetailPage({
                 >
                   (2025). The TRIPOD-LLM reporting guideline for studies using large language
                   models. <em>Nature Medicine</em>, 31, 60–69.
-                </a>{" "}
-                — Transparency, Openness, and reporting-compliance sections above are scored against
+                </a>{". "}
+                Transparency, Openness, and reporting-compliance sections above are scored against
                 this checklist.
               </li>
             )}
             {curatedWithModel && (
               <li className="text-[0.625rem] text-muted-ink">
                 Trust-signal analysis on this page was curated with {curatedWithModel}
-                {curatedWithModelDate ? `, ${curatedWithModelDate}` : ""} — an AI assistant, not an
+                {curatedWithModelDate ? `, ${curatedWithModelDate}` : ""}, an AI assistant, not an
                 independent human reviewer; verify anything load-bearing.
               </li>
             )}

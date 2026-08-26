@@ -128,7 +128,7 @@ export default function HomePage() {
           {
             href: "/review",
             title: "Review status",
-            body: "Curation-status breakdown per node type and the ✓ ✎ ✗ ⟳ — verdict vocabulary.",
+            body: "Curation-status breakdown per node type, plus the ✓ ✎ ✗ ⟳ verdict vocabulary.",
           },
           {
             href: "/about",

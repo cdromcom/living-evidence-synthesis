@@ -24,14 +24,6 @@ function AltmetricGlyph() {
 
 type CritiqueStatus = "none" | "not-registered" | "correction" | "expression-of-concern" | "retraction";
 
-const CRITIQUE_LABELS: Record<CritiqueStatus, string> = {
-  none: "No corrections or retractions on record",
-  "not-registered": "No retraction registry available for this source",
-  correction: "Correction on record",
-  "expression-of-concern": "Editorial expression of concern on record",
-  retraction: "Retraction on record",
-};
-
 const CRITIQUE_SHORT_LABELS: Record<CritiqueStatus, string> = {
   none: "No corrections/retractions",
   "not-registered": "No retraction registry",
@@ -56,15 +48,9 @@ const CRITIQUE_TEXT: Record<CritiqueStatus, string> = {
   retraction: "text-red-700",
 };
 
-const PEER_REVIEW_LABELS: Record<string, string> = {
-  "not-applicable": "Preprint — not peer reviewed.",
-  "not-found": "Checked; no open peer review reports found.",
-  "not-checked": "Not independently verified (publisher blocked automated access).",
-};
-
 const PEER_REVIEW_SHORT_LABEL: Record<string, string> = {
   "not-applicable": "Not peer reviewed",
-  "not-found": "No open reviews found",
+  "not-found": "None available",
   "not-checked": "Not checked",
 };
 
@@ -161,7 +147,6 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
   const doi = node.extras.doi as string | undefined;
   const sourceUrl = node.extras.sourceUrl as string | undefined;
   const critiqueStatus = node.extras.critiqueStatus as CritiqueStatus | undefined;
-  const critiqueNote = node.extras.critiqueNote as string | undefined;
   const pubpeerCommentCount = node.extras.pubpeerCommentCount as number | undefined;
   const pubpeerUrl = node.extras.pubpeerUrl as string | undefined;
   const peerReviewStatus = node.extras.peerReviewStatus as
@@ -169,7 +154,6 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
     | "not-found"
     | "not-checked"
     | undefined;
-  const peerReviewNote = node.extras.peerReviewNote as string | undefined;
   const peerReviewUrl = node.extras.peerReviewUrl as string | undefined;
 
   if (!doi && !sourceUrl && !critiqueStatus) return null;
@@ -183,10 +167,6 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
         {doi && (
           <MiniCard title="Altmetric" icon={<AltmetricGlyph />}>
             <AltmetricBadge doi={doi} />
-            <p className="mt-1.5 text-[0.625rem] leading-snug text-muted-ink">
-              News, blog, social &amp; policy mentions — volume, not quality. Sentiment analysis of
-              these mentions exists but is an Altmetric Explorer (paid) feature, not shown here.
-            </p>
           </MiniCard>
         )}
 
@@ -195,9 +175,6 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             <span className={`font-semibold ${CRITIQUE_TEXT[critiqueStatus]}`}>
               {CRITIQUE_SHORT_LABELS[critiqueStatus]}
             </span>
-            <p className="mt-1 text-[0.625rem] leading-snug text-muted-ink">
-              {critiqueNote || CRITIQUE_LABELS[critiqueStatus]}
-            </p>
           </MiniCard>
         )}
 
@@ -211,11 +188,6 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
             <span className={`font-semibold ${peerReviewUrl ? "text-emerald-700" : "text-ink/80"}`}>
               {peerReviewUrl ? "Reports available ↗" : PEER_REVIEW_SHORT_LABEL[peerReviewStatus]}
             </span>
-            <p className="mt-1 text-[0.625rem] leading-snug text-muted-ink">
-              {peerReviewUrl
-                ? "Open review reports are published for this paper — view them."
-                : peerReviewNote || PEER_REVIEW_LABELS[peerReviewStatus]}
-            </p>
           </MiniCard>
         )}
 
@@ -231,11 +203,6 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
                 ? `${pubpeerCommentCount} comment${pubpeerCommentCount === 1 ? "" : "s"} ↗`
                 : "No comments found"}
             </span>
-            <p className="mt-1 text-[0.625rem] leading-snug text-muted-ink">
-              {hasPubpeerComments
-                ? "Post-publication discussion flagged on PubPeer — view the thread."
-                : "Checked against PubPeer; no discussion threads found yet."}
-            </p>
           </MiniCard>
         )}
       </div>

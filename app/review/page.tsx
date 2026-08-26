@@ -97,7 +97,7 @@ export default function ReviewPage() {
         </h2>
         <p className="mt-1 max-w-[65ch] text-sm text-muted-ink">
           The spec&apos;s five-state vocabulary for human review of
-          AI-proposed discourse-node content — the same options offered on
+          AI-proposed discourse-node content, the same options offered on
           each node&apos;s review form above.
         </p>
         <ul className="mt-4 space-y-2">

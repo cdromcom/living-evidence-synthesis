@@ -177,7 +177,7 @@ export type ReproducibilityRisk = "low-risk" | "some-concerns" | "high-risk";
 
 export const REPRODUCIBILITY_RISK_LABELS: Record<ReproducibilityRisk, string> = {
   "low-risk": "Low risk",
-  "some-concerns": "Some concerns",
+  "some-concerns": "Some risk",
   "high-risk": "High risk",
 };
 
@@ -190,7 +190,7 @@ export function getReproducibilityRisk(node: Pick<GraphNode, "tags">): Reproduci
 }
 
 /**
- * The other four domains of each SRC file's Critical Appraisal table
+ * The other four domains of each SRC file's Quality Appraisal table
  * (Construct/Internal/External validity, Statistical rigor — same
  * 🟢/🟡/🔴 scale as Reproducibility, and the same `appraisal/*` tag
  * namespace already used per-EVD elsewhere in the vault, just applied here

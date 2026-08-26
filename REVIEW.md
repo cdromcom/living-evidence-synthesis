@@ -40,7 +40,7 @@ feeds it.
 | [Citation](#citation-componentssourcecitationtsx-libapats) | `components/SourceCitation.tsx`, `lib/apa.ts` | APA 7th-edition reference built from CrossRef/DataCite data |
 | [Transparency — TRIPOD-LLM compliance](#transparency--tripod-llm-reporting-compliance-componentstopbadgestsx) | `components/TopBadges.tsx` | Our own computed % of the TRIPOD-LLM checklist reported, High/Moderate/Low |
 | [Openness — COS TOP Guidelines](#openness--cos-top-guidelines-componentstopbadgestsx) | `components/TopBadges.tsx` | 4 of the COS TOP standards, from each source's TRIPOD-LLM table |
-| [Rigor](#rigor-componentstopbadgestsx) | `components/TopBadges.tsx` | 4 domains from each source's own Critical Appraisal table |
+| [Rigor](#rigor-componentstopbadgestsx) | `components/TopBadges.tsx` | 4 domains from each source's own Quality Appraisal table |
 | [Extensibility](#extensibility-componentstopbadgestsx) | `components/TopBadges.tsx` | Unscored "not yet done" reminders: computational reproduction, direct/indirect replication |
 | [Integrity](#integrity) | TRIPOD-LLM table (13, 14a, 14b) + plagiarism reminder | Ethical approval, funding disclosure, conflicts of interest, plagiarism screening |
 | [Source credibility](#source-credibility-componentssourcecredibilitytsx) | `components/SourceCredibility.tsx` | Altmetric, retraction/critique status, open peer review, PubPeer comment count |
@@ -123,7 +123,7 @@ feeds it.
 ### Rigor (`components/TopBadges.tsx`)
 - Construct validity, internal validity, external validity, and
   statistical rigor — four of the five domains of each source's own
-  Critical Appraisal table (🟢/🟡/🔴). **Reproducibility is the fifth
+  Quality Appraisal table (🟢/🟡/🔴). **Reproducibility is the fifth
   domain and is still computed** (`getReproducibilityRisk`, from the same
   table's `trust/reproducibility/*` tag) **but its graded value is no
   longer displayed here** — it now only gates whether the Extensibility
@@ -301,7 +301,7 @@ Also explicitly out of scope, with reasons on record:
 - Center for Open Science's Open Science Badges (CC BY 4.0)
 - PubPeer's own public-extension API endpoint
 - Altmetric's free embeddable badge widget
-- Each source's own vault-curated TRIPOD-LLM and Critical Appraisal tables
+- Each source's own vault-curated TRIPOD-LLM and Quality Appraisal tables
 
 ## Runbook: adding trust signals for a new or updated source
 

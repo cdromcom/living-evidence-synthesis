@@ -185,6 +185,40 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+// Maps a Quality Appraisal table row's bolded domain label to the same
+// slug used by its corresponding top-of-page trust-signal chip (matching
+// the `rigor/<slug>/*` frontmatter tag namespace), so a chip can link
+// straight to `#qa-<slug>` and land on its row.
+const APPRAISAL_ROW_SLUGS: Record<string, string> = {
+  "construct validity": "construct-validity",
+  "internal validity": "internal-validity",
+  "external validity": "external-validity",
+  "statistical rigor": "statistical-rigor",
+  reproducibility: "reproducibility",
+  "data leakage": "data-leakage",
+  "baseline adequacy": "baseline-adequacy",
+  "train/dev/test hygiene": "train-dev-test",
+  "multiple-comparisons correction": "multiple-comparisons",
+  "human-baseline comparability": "human-baseline",
+  "statistical power": "statistical-power",
+};
+
+/**
+ * Tags each row of the "## Quality appraisal" table with a stable
+ * `id="qa-<slug>"` so a top-of-page trust-signal chip can link directly to
+ * its row (`components/TopBadges.tsx`'s badges use the same slugs).
+ */
+function tagAppraisalRows(html: string): string {
+  const section = html.match(/<h2 id="[^"]*">\s*Quality appraisal\s*<\/h2>([\s\S]*?)(?=<h2 |$)/i);
+  if (!section) return html;
+  const [full, body] = section;
+  const taggedBody = body.replace(/<tr>\s*<td>\s*<strong>([^<]+)<\/strong>/g, (rowMatch, label) => {
+    const slug = APPRAISAL_ROW_SLUGS[label.trim().toLowerCase()];
+    return slug ? rowMatch.replace("<tr>", `<tr id="qa-${slug}">`) : rowMatch;
+  });
+  return html.replace(full, full.replace(body, taggedBody));
+}
+
 export type TocItem = { id: string; level: 2 | 3; text: string };
 
 /** Tags every H2/H3 with a stable id and returns a flat outline for a TOC. */
@@ -208,5 +242,6 @@ export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
   const rawHtml = marked.parse(withCallouts, { async: false }) as string;
   const withMermaid = activateMermaid(rawHtml);
   const withMutedIcons = muteStatusIcons(withMermaid);
-  return injectHeadingIds(withMutedIcons);
+  const { html, toc } = injectHeadingIds(withMutedIcons);
+  return { html: tagAppraisalRows(html), toc };
 }

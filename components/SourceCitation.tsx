@@ -45,7 +45,7 @@ export default function SourceCitation({ node }: { node: GraphNode }) {
   }
 
   return (
-    <div className="group relative mb-4 mt-2 rounded-md bg-secondary-surface py-2.5 pl-3 pr-9">
+    <div className="group relative mb-4 mt-2 max-w-[50%] rounded-md bg-secondary-surface py-2.5 pl-3 pr-9">
       <p className="text-sm leading-relaxed text-ink/90">
         {citation.authors} ({citation.year}). {citation.title}.{" "}
         {citation.container && (
