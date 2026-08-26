@@ -36,6 +36,18 @@ roadmap — just a landing spot so these don't get lost between sessions.
   the vault's existing structured-abstract prose uses "34+17." Worth
   picking one and reconciling.
 
+## Corpus growth
+
+- **Update the corpus using the Undermind.ai connector in Claude.** Use
+  Undermind.ai (a research-paper discovery/search tool) via its Claude
+  connector to find new papers relevant to this project's research
+  question (LLMs for scientific peer review / evidence appraisal) and add
+  them to the vault as new sources, following the same extraction +
+  quote-grounded TRIPOD-LLM/Quality-Appraisal pipeline as the existing 27.
+  **Not yet actionable in this session** — no Undermind.ai connector is
+  currently connected/available (checked via tool search, nothing found).
+  Needs the connector added to this Claude session/account first.
+
 ## Deferred by explicit scope decision
 
 - **Full vault-wide em-dash sweep.** ~1,845 em dashes in editorial prose
