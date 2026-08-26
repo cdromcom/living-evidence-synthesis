@@ -134,20 +134,25 @@ flowchart TD
 
 ## Quality appraisal
 
-> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> [!info] Risk-of-bias and validity assessment, synthesized from this paper's discourse-graph nodes and grounded in the same paper this page's top trust-signal chips summarize. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
 > <dl class="callout-legend">
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
 > </dl>
 
-| Domain | Rating | Justification |
+| Domain | Rating | Quote |
 | --- | :---: | --- |
-| **Construct validity** — does the metric actually measure the construct? | 🟡 | The "novelty" label is an averaged 1-to-4 reviewer score collapsed to binary — but reviewer TNS scores are inherently subjective and the authors do not quantify inter-reviewer agreement beyond a max-min ≤1 inclusion rule. Weighted F1 also rewards correct calls on the majority Low-Novelty class, which is not the deployment-relevant case (a triage tool would care more about correctly flagging the rarer High-Novelty papers). |
-| **Internal validity** — could the comparison be biased? | 🔴 | Two structural problems. First, the LLM baselines ran zero-shot at default parameters with no prompt tuning or few-shot examples — see [[CVT - LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment]] — so the headline gap to GPT-4o is not a fair-fight gap. Second, the authors selected the "best checkpoint on test set," which can inflate reported performance vs. selecting on validation. |
-| **External validity** — do findings generalize? | 🔴 | All 2,432 papers come from ICLR 2022, a single venue in a single field — see [[CVT - The novelty prediction dataset was limited to ICLR machine learning conference papers restricting generalizability to other academic domains]]. Novelty vocabulary, reviewer rubrics, and method-section conventions vary widely across disciplines, and the model has never been tested outside ML. The pipeline also requires post-review text (HK), so it cannot be used pre-review. |
-| **Statistical rigor** — appropriate uncertainty + comparisons? | 🟡 | LLM numbers averaged over three runs but no confidence intervals reported. No significance tests on the headline F1 / accuracy comparisons across many model conditions × backbones, and no multiple-comparison correction. The ablation reports point estimates only. Per-class F1 on the rarer High-Novelty class is not broken out. |
-| **Reproducibility** — code, data, determinism? | 🟢 | Annotated corpus and code released at github.com/njust-winchy/method_novelty_predict (TRIPOD-LLM 14e ✅, 14f ✅). ChatGPT used at temperature 0 — partially deterministic — but seed, top_p, system prompt, and exact API call dates are not reported (TRIPOD-LLM 6c ⚠️), so the LLMK summaries cannot be regenerated bit-for-bit. |
+| **Construct validity**: does the metric actually measure the construct? | 🟡 | *"the extremely imbalanced distribution of labels may lead to unfair prediction results. Therefore, in order to avoid this issue, we grouped scores 1 and 2 into one category, and scores 3 and 4 into another category."* `§3.2, p.14` |
+| **Internal validity**: could the comparison be biased? | 🔴 | *"When calling the API, all parameters are default parameters. The experimental results of the LLMs are the averages obtained from three rounds of experiments conducted under zero-shot conditions."* `§5.2, p.20` |
+| **External validity**: do findings generalize? | 🔴 | *"the data we used from ICLR is limited to the field of machine learning, introducing certain constraints to the generalizability of our findings."* `§6.2 Limitation, p.29` |
+| **Statistical rigor**: appropriate uncertainty + comparisons? | 🟡 | *"The results of the LLMs are the averages obtained from three rounds of testing."* `Table 2 note, p.21`, no confidence intervals, significance tests, or multiple-comparison correction reported alongside this |
+| **Reproducibility**: code, data, determinism? | 🟢 | *"The code and dataset for this paper can be accessed at https://github.com/njust-winchy/method_novelty_predict."* `§1, p.6` |
+| **Data leakage**: could models have seen this data pretraining? | 🔴 | Not reported, the paper does not discuss whether ICLR 2022 papers or reviews may have appeared in the ChatGPT/LLM pretraining corpora |
+| **Baseline adequacy**: is there a meaningful floor to beat? | 🟡 | *"We selected the following five PLMs and commonly used LLMs as baselines to fully validate the performance of our method."* `§5.2, p.18` |
+| **Train/dev/test hygiene**: are data splits kept separate? | 🟢 | *"We split our dataset by a ratio of 8:1:1 for training, development and testing."* `§5.1, p.18` |
+| **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, no correction is stated across the many model × input-combination comparisons in Tables 2–4 |
+| **Human-baseline comparability**: is there a human reference point? | 🔴 | Not addressed, peer-reviewer TNS scores are used only as training/gold labels, not evaluated as a separately-run human comparator system |
 
 **Bottom line.** The 10-point F1 gain from fusing human and LLM knowledge is real and the ablation cleanly localizes it to the knowledge-guided module — that part is well demonstrated. But the comparison to LLM baselines is not fair (zero-shot, no tuning), the evaluation lives entirely inside one ML conference, and the headline metric averages over an imbalanced binary collapse of a noisy subjective label. Before this is deployment-ready as a triage tool, it would need at least: a tuned-LLM baseline, evaluation on a non-ICLR venue, and per-class metrics on High-Novelty papers.
 

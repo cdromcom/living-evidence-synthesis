@@ -128,20 +128,25 @@ flowchart TD
 
 ## Quality appraisal
 
-> [!info] Risk-of-bias and validity assessment across five domains, synthesized from this paper's discourse-graph nodes. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+> [!info] Risk-of-bias and validity assessment, synthesized from this paper's discourse-graph nodes and grounded in the same paper this page's top trust-signal chips summarize. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
 > <dl class="callout-legend">
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
 > </dl>
 
-| Domain | Rating | Justification |
+| Domain | Rating | Quote |
 | --- | :---: | --- |
-| **Construct validity** — does the metric actually measure the construct? | 🟡 | Spearman correlation captures *ranking agreement* with the author's self-assessed REF scores, not whether the model would actually be useful in a real REF panel. The author explicitly cautions against using individual scores for peer review or hiring, suggesting only aggregate department-level use — meaning the headline r=0.678 may overstate how deployment-ready the tool is. |
-| **Internal validity** — could the comparison be biased? | 🟡 | Models, prompts, and parameters were held constant across input-format cells, and 30-iteration averaging stabilises estimates. But the closed-source GPT-4o was trained on a corpus that may include the author's own published papers, so part of the correlation could reflect memorisation rather than genuine quality assessment. The author acknowledges he cannot rule this out. |
-| **External validity** — do findings generalize? | 🔴 | All 51 articles come from one author in one subfield (information science), graded by the same author from memory. The single-rater, single-field, self-scored design (see [[CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]]) means we cannot tell whether the abstract-beats-full-text result holds for other authors, other fields, or against external reviewer panels. |
-| **Statistical rigor** — appropriate uncertainty + comparisons? | 🟡 | The author reports correlations across 30 iterations and uses subset-permutation t-distribution intervals for the iteration sweep, which is appropriate. But Table 1's nine cells get no confidence intervals, no significance test for the abstract-vs.-full-text gap, and no multiple-comparison correction across the 9 model-by-input cells. With n=51, a Δr of 0.003 (GPT-4o Abs vs. Trunc) is well within sampling noise. |
-| **Reproducibility** — code, data, determinism? | 🟡 | The conversion script and Webometric Analyst utilities are publicly linked at github.com/MikeThelwall/Python_misc, and the prompt is reproduced in full in Appendix 1. But the 51 article texts and per-article human-plus-model scores are not released, model snapshot IDs are not pinned beyond "July 2024", and temperature=1 makes runs non-deterministic. |
+| **Construct validity**: does the metric actually measure the construct? | 🟡 | *"it should not be used for peer review of conference papers or journal articles and also not for promotion and hiring decisions"* `§5 Conclusion, p.15` |
+| **Internal validity**: could the comparison be biased? | 🟡 | *"ChatGPT might have learned that some of the articles had attracted attention online or were associated with highly regarded journals even if only fed with an article's title and abstract"* `§4 Discussion, p.12` |
+| **External validity**: do findings generalize? | 🔴 | *"This study has many limitations, the most important of which is the restriction to a relatively small number of articles written by single person"* `§4 Discussion, p.12` |
+| **Statistical rigor**: appropriate uncertainty + comparisons? | 🟡 | *"The standard deviation was calculated to estimate confidence intervals for the mean correlation from a single iteration with the t distribution"* `§2.5, p.6` |
+| **Reproducibility**: code, data, determinism? | 🟡 | *"converted to text with PyMuPDF in Python (Convert_academic_pdf_to_jsonl.py in https://github.com/MikeThelwall/Python_misc)"* `§2.1, p.4` |
+| **Data leakage**: could models have seen this data pretraining? | 🔴 | Not reported, the paper never assesses whether the 51 articles (several already published) were present in ChatGPT's pretraining data, though it speculates elsewhere that ChatGPT "might have learned that some of the articles had attracted attention online" |
+| **Baseline adequacy**: is there a meaningful floor to beat? | 🟡 | *"They are nevertheless slightly better than the baseline strategy of assigning all articles the average score (2.75)"* `§3.4, p.11` |
+| **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | *"In machine learning it is typical to use separate development and training sets to allow an AI system to be configured with data that it is not tested on. This was not done in this case"* `§2.2, p.4` |
+| **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, correlations across nine model-by-input cells (Table 1) and seven system-prompt strategies (Figure 4) are compared with no stated correction for multiple testing |
+| **Human-baseline comparability**: is there a human reference point? | 🟡 | *"the author's scores are less relevant than the scores of more independent and less expert (on this topic) senior researchers, who would be the ones forming the evaluations in the most important context"* `§2.1, p.4` |
 
 **Bottom line.** The result that abstracts beat full text — counterintuitive but consistent across three models — is a useful and cheap finding for anyone building LLM-assisted quality-screening tools. But the headline r=0.678 should be read as the upper bound of what a single expert can predict about his own work, not as evidence that ChatGPT can grade research at REF-panel quality. Before this becomes deployment-ready, the experiment needs to repeat on a multi-author, multi-field corpus with independent reviewer panels and pinned model snapshots.
 
