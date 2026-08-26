@@ -40,7 +40,7 @@ feeds it.
 | [Citation](#citation-componentssourcecitationtsx-libapats) | `components/SourceCitation.tsx`, `lib/apa.ts` | APA 7th-edition reference built from CrossRef/DataCite data |
 | [Transparency — TRIPOD-LLM compliance](#transparency--tripod-llm-reporting-compliance-componentstopbadgestsx) | `components/TopBadges.tsx` | Our own computed % of the TRIPOD-LLM checklist reported, High/Moderate/Low |
 | [Openness — COS TOP Guidelines](#openness--cos-top-guidelines-componentstopbadgestsx) | `components/TopBadges.tsx` | 4 of the COS TOP standards, from each source's TRIPOD-LLM table |
-| [Rigor](#rigor-componentstopbadgestsx) | `components/TopBadges.tsx` | 4 domains from each source's own Quality Appraisal table |
+| [Rigor](#rigor-componentstopbadgestsx) | `components/TopBadges.tsx` | 4 methodological-quality domains + up to 6 benchmarking-specific checks, all from each source's own Quality Appraisal table |
 | [Extensibility](#extensibility-componentstopbadgestsx) | `components/TopBadges.tsx` | Unscored "not yet done" reminders: computational reproduction, direct/indirect replication |
 | [Integrity](#integrity) | TRIPOD-LLM table (13, 14a, 14b) + plagiarism reminder | Ethical approval, funding disclosure, conflicts of interest, plagiarism screening |
 | [Source credibility](#source-credibility-componentssourcecredibilitytsx) | `components/SourceCredibility.tsx` | Altmetric, retraction/critique status, open peer review, PubPeer comment count |
@@ -84,6 +84,35 @@ feeds it.
 - A **Rating chip** (`node.extras.rating`, curator-assigned) now appears in
   the page header next to the node-type and status badges — not
   previously documented here.
+- **Quality Appraisal table expanded from 5 to 10-11 rows, and gained a
+  Quote column.** Renamed from "Critical Appraisal." The 5 original
+  methodological-quality domains (Construct/Internal/External validity,
+  Statistical rigor, Reproducibility) are joined by one row per
+  benchmarking-specific Rigor check: **Data Leakage**, **Baseline
+  Adequacy**, **Train/Dev/Test Hygiene**, **Multiple-Comparisons
+  Correction**, **Human-Baseline Comparability**, and (only when a paper
+  actually reports one) **Statistical Power**. Every row's rating is now
+  grounded in a verbatim quote + section/page locator pulled from the
+  actual paper PDF — same discipline as the TRIPOD-LLM table below — not
+  curator-written justification prose. Rolled out to all 27 sources.
+- **TRIPOD-LLM table expanded from 37 to 42 items** (added Title,
+  Abstract, Background×2, Objectives — items 1-4, previously missing)
+  and its final column renamed from "Reported in this study" to "Quote":
+  every row now cites a verbatim quote instead of a paraphrase, with
+  `Not reported`/`Not applicable` where the paper genuinely doesn't say
+  it. Rolled out to all 27 sources.
+- **Rigor and TRIPOD-LLM chips at the top of the page are now links** —
+  clicking one scrolls straight to its corresponding row in the Quality
+  Appraisal table (or the TRIPOD-LLM table's heading), so a reader can go
+  from "here's the rating" to "here's the exact sentence that justifies
+  it" in one click.
+- **SourceCredibility's four mini-cards** (Altmetric, Current Status, Open
+  Peer Review, PubPeer) now show only a title and status line — the
+  longer gray explanatory paragraph under each was removed as clutter.
+  "No open reviews found" now reads **"None available."** The Altmetric
+  card also detects when `badges.altmetric.com` itself is down (it has
+  been intermittently returning 503s, unrelated to any specific paper)
+  and shows **"Unavailable"** instead of silently rendering a blank box.
 
 ### Citation (`components/SourceCitation.tsx`, `lib/apa.ts`)
 - Full APA 7th-edition reference — authors, year, sentence-cased title
@@ -121,13 +150,28 @@ feeds it.
   nothing implies a badge was earned when it wasn't.
 
 ### Rigor (`components/TopBadges.tsx`)
-- Construct validity, internal validity, external validity, and
-  statistical rigor — four of the five domains of each source's own
-  Quality Appraisal table (🟢/🟡/🔴). **Reproducibility is the fifth
-  domain and is still computed** (`getReproducibilityRisk`, from the same
-  table's `trust/reproducibility/*` tag) **but its graded value is no
-  longer displayed here** — it now only gates whether the Extensibility
-  section (below) appears at all, unscored.
+- **Construct validity, internal validity, external validity, and
+  statistical rigor** — four of the five original methodological-quality
+  domains of each source's own Quality Appraisal table (🟢/🟡/🔴).
+  **Reproducibility is the fifth domain and is still computed**
+  (`getReproducibilityRisk`, from the same table's
+  `trust/reproducibility/*` tag) **but its graded value is no longer
+  displayed here** — it now only gates whether the Extensibility section
+  (below) appears at all, unscored.
+- **Six benchmarking-specific checks**, shown when the source has the
+  corresponding tag: **Data Leakage**, **Baseline Adequacy**,
+  **Train/Dev/Test Hygiene**, **Multiple-Comparisons Correction**,
+  **Human-Baseline Comparability**, and **Statistical Power**
+  (`rigor/{data-leakage,baseline-adequacy,train-dev-test,
+  multiple-comparisons,human-baseline,statistical-power}/*` tags).
+  Statistical Power only ever appears when a paper actually reports a
+  power analysis — no tag means no chip, never a muted "not done" badge —
+  per an explicit "if and only if it's sensible for this method" design
+  call. All 27 sources carry the other five checks; only one source
+  (Akyon et al., which reports a post-hoc GPower analysis) currently has
+  a Statistical Power tag.
+- Every chip is a link to its exact row in the Quality Appraisal table
+  below, where the rating is grounded in a verbatim quote from the paper.
 - Surfaced with original icon glyphs: no open-licensed icon set exists for
   these specifically (checked — Cochrane's RoB2 iconography is CC
   BY-NC-ND, which forbids derivatives).
@@ -169,8 +213,10 @@ feeds it.
   text against other human-authored work, not a graded check.
 
 ### Source credibility (`components/SourceCredibility.tsx`)
-Renders as four mini-cards in a horizontal row. **What's actually on the
-page today:**
+Renders as four mini-cards in a horizontal row, each showing only a title
+and a one-line status (no explanatory paragraph — that was cut as
+clutter; the methodology below still describes exactly how each status is
+computed). **What's actually on the page today:**
 - **Current status** (critique/retraction) — checked live against
   Crossref's `update-to` relation (Crossref has owned the Retraction Watch
   database since Sept 2023) or DataCite for arXiv preprints, which has no
@@ -178,8 +224,9 @@ page today:**
 - **Open peer review** — checked directly against each source's actual
   landing page (or, where publishers blocked automated access, marked
   "not independently verified" rather than guessed). Preprints are marked
-  not-applicable by definition. Links out to the published reports when
-  they exist.
+  not-applicable by definition. Shows **"None available"** when checked
+  and nothing was found. Links out to the published reports when they
+  exist.
 - **PubPeer comment count** — a live count (no comment text, no commenter
   identities), via the same endpoint PubPeer's own official browser
   extension uses (`POST pubpeer.com/v3/publications`, read from their
@@ -189,7 +236,10 @@ page today:**
   their REST API now requires one as of Nov 2025, the embed badge doesn't).
   This tracks attention/engagement volume, not sentiment — Altmetric
   doesn't actually offer a sentiment feature, despite the name sounding
-  like it might.
+  like it might. The badge shows **"Unavailable"** if
+  `badges.altmetric.com` itself is unreachable (a probe checks this on
+  every load) — that CDN has been intermittently returning 503s
+  site-wide, unrelated to any specific paper.
 
 **Computed and stored, but not currently rendered anywhere on the page**
 (the methodology below is still accurate to how the data was produced —
@@ -309,6 +359,14 @@ This is the reusable procedure for extending trust-signal coverage —
 whether new sources get added to `vault/source/`, or previously-missing
 PDFs finally sync in. It's written so a future session can follow it
 without re-deriving the method from scratch.
+
+**This covers the DOI/PubPeer/Altmetric/critique-status checks below.**
+For the TRIPOD-LLM and Quality Appraisal tables themselves — the
+verbatim-quote-grounding procedure, the 5-domain-plus-6-Rigor-signal
+table shape, and how new sources fit into the discourse-graph extraction
+pipeline — see the canonical vault's `Skill.md` /
+`Skill-templates.md` at `/Users/ppatel/Documents/living-synthesis/`,
+Step 6.c and Step 4b.
 
 **Current priority**: DOI-based checks (below) over PDF-text-based checks.
 Model-name spelling consistency is *deprioritized* per explicit direction —

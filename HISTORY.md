@@ -167,6 +167,39 @@ path happened to be one of the evicted, empty files. Forcing Apple's
 iCloud sync tool to fully re-download the affected folders, file by file,
 finally cleared it and let the page render correctly.
 
+## Grounding every rating in a quote, not just a curator's word
+
+The "Quality Appraisal" section (renamed from "Critical Appraisal") used
+to be five short paragraphs written by the curator explaining why a
+paper's construct validity, internal validity, and so on were rated
+green, yellow, or red. That was defensible but not checkable: a reader
+had no way to confirm the rating without re-reading the whole paper
+themselves. Every rating now cites the exact sentence, with a page
+number, that justifies it, the same way the TRIPOD-LLM reporting table
+already worked. The table also grew five new rows built specifically for
+benchmarking papers, which the original five academic-methodology
+domains didn't cover well: whether the comparison had a real baseline to
+beat, whether training and test data were kept separate, whether
+statistical comparisons were corrected for testing many things at once,
+whether an AI's output was checked against a human doing the same task,
+and whether the paper leaked data from its evaluation set into what a
+model may have already seen during training. A sixth row, statistical
+power, appears only on the one paper that actually reported a power
+analysis, rather than showing an empty "not done" badge on every page.
+
+The small colored badges at the top of each page that summarize these
+ratings are now clickable: click one and the page jumps straight down to
+the exact table row backing it up, so a skeptical reader never has to
+hunt for where a claim comes from.
+
+This was piloted on one source first, reviewed, then rolled out to the
+other 26 using the same batched, quote-verified approach as the earlier
+TRIPOD-LLM rollout. A mechanical check compared all roughly 1,000
+quotes now on the site against the original paper PDFs and found no
+fabrications, only a handful of PDF-text-extraction quirks (a footnote
+number landing in the middle of a word, that kind of thing) that were
+manually confirmed harmless.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.
