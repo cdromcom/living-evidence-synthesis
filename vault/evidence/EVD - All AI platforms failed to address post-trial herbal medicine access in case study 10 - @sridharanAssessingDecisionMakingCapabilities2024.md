@@ -32,7 +32,15 @@ tripod_llm_pct: 23pct
 
 ### What?
 
-> **Study design:** cross-sectional observational LLM evaluation — failure-mode analysis of a single case study (Case Study 10: Post-Trial Access) within the broader 10-case Sridharan & Sivaramakrishnan benchmark. **Method type:** qualitative comparative assessment of free-text LLM responses by two independent reviewers against the FERCAP/SIDCER handbook + ICH E6 GCP guidelines. **Tools:** Poe Assistant, ChatGPT (GPT-3.5), Google Bard; FERCAP/SIDCER Case Study 10 (Post-Trial Access — herbal medicine scenario). **Dependent variable(s):** binary "addressed / failed to address" the specific GCP rationale that post-trial access need not be provided when product benefits are unestablished. **Independent variable(s) / covariates:** AI platform (3 levels).
+> **Study design:** cross-sectional observational LLM evaluation — failure-mode analysis of a single case study (Case Study 10: Post-Trial Access) within the broader 10-case Sridharan & Sivaramakrishnan benchmark.
+>
+> **Method type:** qualitative comparative assessment of free-text LLM responses by two independent reviewers against the FERCAP/SIDCER handbook + ICH E6 GCP guidelines.
+>
+> **Tools:** Poe Assistant, ChatGPT (GPT-3.5), Google Bard; FERCAP/SIDCER Case Study 10 (Post-Trial Access — herbal medicine scenario).
+>
+> **Dependent variable(s):** binary "addressed / failed to address" the specific GCP rationale that post-trial access need not be provided when product benefits are unestablished.
+>
+> **Independent variable(s) / covariates:** AI platform (3 levels).
 >
 > "An observational study was conducted using three AI platforms in 10 case studies reflecting IRB functions, focusing on creating SOPs. The accuracy of the AI outputs was assessed against good clinical practice (GCP) guidelines." (Sridharan & Sivaramakrishnan, 2024, p. 83)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p1-1.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 23pct
 
 ### Who?
 
-> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5), Google Bard. No human participants. **Sample-size flow:** 1 case study (Case Study 10 of 10) → administered to all 3 platforms → 3 platform-responses analyzed; all 3 failed → 0 / 3 correct. Two human assessors (the two authors) reviewed all responses.
+> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5), Google Bard. No human participants.
+>
+> **Sample-size flow:** 1 case study (Case Study 10 of 10) → administered to all 3 platforms → 3 platform-responses analyzed; all 3 failed → 0 / 3 correct. Two human assessors (the two authors) reviewed all responses.
 >
 > "The AI platforms were prompted with ten case studies with open-ended questions from the FERCAP/SIDCER Handbook of Case Studies on Ethical Issues in Health Research (FERCAP/SIDCER, 2012)" (Sridharan & Sivaramakrishnan, 2024, p. 84)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p2-3.png]]

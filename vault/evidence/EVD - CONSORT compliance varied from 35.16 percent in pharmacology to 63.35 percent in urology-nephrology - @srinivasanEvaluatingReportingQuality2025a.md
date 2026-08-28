@@ -32,7 +32,15 @@ tripod_llm_pct: 50pct
 
 ### What?
 
-> **Study design:** large-scale cross-sectional analysis of CONSORT reporting compliance stratified by medical discipline. **Method type:** automated, zero-shot LLM-based assessment of each RCT against the 25-item CONSORT checklist (21 items retained after excluding items the model could not reliably assess). **Tools:** GPT-4o-mini (OpenAI) deployed on a HIPAA-compliant Azure instance; PyMuPDF for PDF→XML conversion; Semantic Scholar for metadata enrichment; Scimago journal classification for discipline mapping; chi-square tests with Cramer's V effect sizes (Python 3.8, scipy.stats, statsmodels). **Dependent variable:** mean proportion of CONSORT items reported per article, aggregated by discipline. **Independent variable / covariate:** medical discipline (Scimago journal category).
+> **Study design:** large-scale cross-sectional analysis of CONSORT reporting compliance stratified by medical discipline.
+>
+> **Method type:** automated, zero-shot LLM-based assessment of each RCT against the 25-item CONSORT checklist (21 items retained after excluding items the model could not reliably assess).
+>
+> **Tools:** GPT-4o-mini (OpenAI) deployed on a HIPAA-compliant Azure instance; PyMuPDF for PDF→XML conversion; Semantic Scholar for metadata enrichment; Scimago journal classification for discipline mapping; chi-square tests with Cramer's V effect sizes (Python 3.8, scipy.stats, statsmodels).
+>
+> **Dependent variable:** mean proportion of CONSORT items reported per article, aggregated by discipline.
+>
+> **Independent variable / covariate:** medical discipline (Scimago journal category).
 >
 > "We applied our best-performing model to assess CONSORT compliance across 21,041 RCTs. We conducted temporal trend analysis across four publication periods, disciplinary analysis by mapping journals to Scimago categories, and relationships with trial characteristics from ClinicalTrials.gov data." (Srinivasan et al., 2025, p. 4)
 > ![[srinivasanEvaluatingReportingQuality2025a-evd-p4-1.png]]

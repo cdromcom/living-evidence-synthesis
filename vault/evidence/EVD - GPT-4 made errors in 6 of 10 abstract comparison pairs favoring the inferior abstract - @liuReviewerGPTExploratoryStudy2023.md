@@ -32,7 +32,15 @@ tripod_llm_pct: 36pct
 
 ### What?
 
-> **Study design:** controlled adversarial benchmark on 10 hand-constructed abstract pairs where one abstract is, by construction, scientifically superior. **Method type:** zero-shot pairwise selection by GPT-4 with 3 responses per pair; strict any-failure scoring. **Tools:** GPT-4 via ChatGPT (May 3 and May 12 2023 builds); 10 hand-constructed abstract pairs covering 10 distinct intervention types (null-result interpretation, positive-result bias, parameter ranges, lower bounds, upper bounds, prompt injection, bombastic language, algorithm name, buzzwords, author identities). **Dependent variable:** per-pair correctness (✓ if GPT-4 picked the superior abstract, ✗ otherwise). **Independent variables / covariates:** intervention type (10 levels), each instantiated as one pair.
+> **Study design:** controlled adversarial benchmark on 10 hand-constructed abstract pairs where one abstract is, by construction, scientifically superior.
+>
+> **Method type:** zero-shot pairwise selection by GPT-4 with 3 responses per pair; strict any-failure scoring.
+>
+> **Tools:** GPT-4 via ChatGPT (May 3 and May 12 2023 builds); 10 hand-constructed abstract pairs covering 10 distinct intervention types (null-result interpretation, positive-result bias, parameter ranges, lower bounds, upper bounds, prompt injection, bombastic language, algorithm name, buzzwords, author identities).
+>
+> **Dependent variable:** per-pair correctness (✓ if GPT-4 picked the superior abstract, ✗ otherwise).
+>
+> **Independent variables / covariates:** intervention type (10 levels), each instantiated as one pair.
 >
 > "We then tested the LLM's ability to accurately identify the superior abstract in these scenarios." (Liu & Shah, 2023, p. 2)
 > ![[liuReviewerGPTExploratoryStudy2023-evd-p2-1.png]]

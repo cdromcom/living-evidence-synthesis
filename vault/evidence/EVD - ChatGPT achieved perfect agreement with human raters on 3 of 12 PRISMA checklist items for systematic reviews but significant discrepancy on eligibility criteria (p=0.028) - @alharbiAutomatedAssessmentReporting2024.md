@@ -32,7 +32,15 @@ tripod_llm_pct: 30pct
 
 ### What?
 
-> **Study design:** cross-sectional observational study comparing ChatGPT and human reviewer ratings of reporting completeness in published systematic-review (SR) abstracts. **Method type:** zero-/few-shot LLM rating with chain-of-thought prompting; benchmarked against duplicate independent human reviewers. **Tools:** GPT-3.5 (OpenAI free chat interface, accessed 30 May 2024); PRISMA-aligned 12-item abstract checklist; custom Excel data-collection spreadsheet; R v2.4.6.26 (with `gtsummary`) for statistical analysis. **Dependent variables:** per-item dichotomous rating (Yes / No / NA) for each of 12 PRISMA items, summarized as proportion "Reported" per rater group. **Independent variable:** rater identity (ChatGPT vs. human consensus); checklist item.
+> **Study design:** cross-sectional observational study comparing ChatGPT and human reviewer ratings of reporting completeness in published systematic-review (SR) abstracts.
+>
+> **Method type:** zero-/few-shot LLM rating with chain-of-thought prompting; benchmarked against duplicate independent human reviewers.
+>
+> **Tools:** GPT-3.5 (OpenAI free chat interface, accessed 30 May 2024); PRISMA-aligned 12-item abstract checklist; custom Excel data-collection spreadsheet; R v2.4.6.26 (with `gtsummary`) for statistical analysis.
+>
+> **Dependent variables:** per-item dichotomous rating (Yes / No / NA) for each of 12 PRISMA items, summarized as proportion "Reported" per rater group.
+>
+> **Independent variable:** rater identity (ChatGPT vs. human consensus); checklist item.
 >
 > "Similar to the RCT abstracts, two independent reviewers (F.A. and S.A.) evaluated the reporting quality of the systematic review abstracts in duplicate using a checklist aligned with the PRISMA guidelines for abstract reporting. The reviewers consulted the full PRISMA guidelines and provided explanations during the assessment." (Alharbi & Asiri, 2024, p. 3)
 > ![[alharbiAutomatedAssessmentReporting2024-evd-p3-1.png]]
@@ -46,7 +54,11 @@ tripod_llm_pct: 30pct
 
 ### Who?
 
-> **Sample-size flow:** four leading orthodontic journals searched (AJO-DO, JO, EJO, AO) for publications 2018–2022 containing keywords "systematic review", "meta-analysis", "randomized controlled trial", "assigned", "prospective", or "comparative" → full-text screened to confirm true SR designation → random sample of **20 systematic-review abstracts** (5 per journal) selected for analysis (parallel sample of 20 RCTs in companion EVD). All 20 SRs analyzed; no exclusions reported after sampling. **Models:** ChatGPT 3.5 (OpenAI, free version, accessed 30 May 2024) — single LLM, no model comparison. **Human raters:** two reviewers F.A. and S.A. (authors), both Department of Pediatric Dentistry, Prince Sattam Bin Abdulaziz University.
+> **Sample-size flow:** four leading orthodontic journals searched (AJO-DO, JO, EJO, AO) for publications 2018–2022 containing keywords "systematic review", "meta-analysis", "randomized controlled trial", "assigned", "prospective", or "comparative" → full-text screened to confirm true SR designation → random sample of **20 systematic-review abstracts** (5 per journal) selected for analysis (parallel sample of 20 RCTs in companion EVD). All 20 SRs analyzed; no exclusions reported after sampling.
+>
+> **Models:** ChatGPT 3.5 (OpenAI, free version, accessed 30 May 2024) — single LLM, no model comparison.
+>
+> **Human raters:** two reviewers F.A. and S.A. (authors), both Department of Pediatric Dentistry, Prince Sattam Bin Abdulaziz University.
 >
 > "Following the initial search, a random sample of 20 RCTs and 20 systematic reviews was selected for further analysis. This resulted in a balanced representation, with each of the four journals contributing five publications on RCTs and five publications on systematic reviews." (Alharbi & Asiri, 2024, p. 2)
 > ![[alharbiAutomatedAssessmentReporting2024-evd-p2-1.png]]

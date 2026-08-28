@@ -32,7 +32,15 @@ tripod_llm_pct: 39pct
 
 ### What?
 
-> **Study design:** single-case methodological study comparing GPT-4 risk-of-bias judgments against published Cochrane systematic-review judgments on the same primary studies. **Method type:** zero-shot LLM evaluation; reference standard is the Cochrane reviewers' published RoB judgment (no separate de novo human re-rating). **Tools:** OpenAI GPT-4 accessed via ChatGPT Plus (initially Code Interpreter, ultimately copy-pasted Word-converted text); ROBINS-I tool (7 domains: D1 confounding, D2 participant selection, D3 classification of interventions, D4 deviations from intended interventions, D5 missing data, D6 measurement of outcomes, D7 selective reporting, plus Overall); R statistical environment. **Dependent variables:** raw per cent agreement, weighted Cohen's kappa, and Kendall's τ between GPT-4 and Cochrane judgments, computed per ROBINS-I domain and Overall. **Independent variable:** ROBINS-I domain (D1–D7 + Overall).
+> **Study design:** single-case methodological study comparing GPT-4 risk-of-bias judgments against published Cochrane systematic-review judgments on the same primary studies.
+>
+> **Method type:** zero-shot LLM evaluation; reference standard is the Cochrane reviewers' published RoB judgment (no separate de novo human re-rating).
+>
+> **Tools:** OpenAI GPT-4 accessed via ChatGPT Plus (initially Code Interpreter, ultimately copy-pasted Word-converted text); ROBINS-I tool (7 domains: D1 confounding, D2 participant selection, D3 classification of interventions, D4 deviations from intended interventions, D5 missing data, D6 measurement of outcomes, D7 selective reporting, plus Overall); R statistical environment.
+>
+> **Dependent variables:** raw per cent agreement, weighted Cohen's kappa, and Kendall's τ between GPT-4 and Cochrane judgments, computed per ROBINS-I domain and Overall.
+>
+> **Independent variable:** ROBINS-I domain (D1–D7 + Overall).
 >
 > "This study evaluates GPT-4 agreement with human reviewers in assessing the risk of bias using the Risk Of Bias In Non-randomised Studies of Interventions (ROBINS-I) tool and proposes a framework for integrating LLMs into systematic reviews." (Hasan et al., 2024, p. 1)
 > ![[hasanIntegratingLargeLanguage2024-evd-p1-1.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 39pct
 
 ### Who?
 
-> **Models / participants:** GPT-4 (accessed via ChatGPT Plus interface, August 2023; specific GPT-4 version/snapshot not reported) vs. published Cochrane SR reviewers (treated as the reference standard; no de novo independent human re-rating). **Sample-size flow:** Scopus search yielded **98 Cochrane SRs** citing ROBINS-I → **36 SRs** provided full ROBINS-I assessments → after deduplicating studies appearing in multiple SRs, **307 unique non-randomised studies** were finalised as the analytic sample. Each study contributed one GPT-4 judgment per ROBINS-I domain (7 domains + Overall = 8 ordinal judgments per study).
+> **Models / participants:** GPT-4 (accessed via ChatGPT Plus interface, August 2023; specific GPT-4 version/snapshot not reported) vs. published Cochrane SR reviewers (treated as the reference standard; no de novo independent human re-rating).
+>
+> **Sample-size flow:** Scopus search yielded **98 Cochrane SRs** citing ROBINS-I → **36 SRs** provided full ROBINS-I assessments → after deduplicating studies appearing in multiple SRs, **307 unique non-randomised studies** were finalised as the analytic sample. Each study contributed one GPT-4 judgment per ROBINS-I domain (7 domains + Overall = 8 ordinal judgments per study).
 >
 > "The initial search yielded 98 SRs, from which 36 provided full ROBINS-I assessment. After deduplicating studies that appeared in multiple SRs, we finalised our sample with 307 unique individual studies (online supplemental figure; box 1 and box 2)." (Hasan et al., 2024, p. 2)
 > ![[hasanIntegratingLargeLanguage2024-evd-p2-2.png]]

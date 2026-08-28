@@ -34,7 +34,15 @@ tripod_llm_pct: 54pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of Anthropic's Claude 3.7 Sonnet as a scientific-paper quality checker, embedded in the same WITHDRARXIV-CHECK pipeline as the o3 / o4-mini EVDs. **Method type:** zero-shot LLM evaluation under a fixed simplistic prompt. **Tools:** Claude 3.7 Sonnet (`20250219`) accessed via Anthropic API in Python with extended thinking enabled (`thinking type: "enabled"`, `thinking budget: 14,000`, `max tokens: 16,000`, `temperature: 1` — required when thinking is enabled, seed not supported); LLM-as-judge with Gemini 2.5 Pro (`preview-05-06`) and o3 (`2025-04-16`). **Dependent variables:** HR@5; **average / Q1 / Q3 number of problems submitted per paper** (key for this EVD because Q1=0 under PDF means ≥ 25% of submissions were empty); average input/think/output token usage; estimated USD cost per paper. **Independent variables:** paper-ingestion approach (PDF attachment vs. LaTeX script in prompt).
+> **Study design:** cross-sectional benchmark of Anthropic's Claude 3.7 Sonnet as a scientific-paper quality checker, embedded in the same WITHDRARXIV-CHECK pipeline as the o3 / o4-mini EVDs.
+>
+> **Method type:** zero-shot LLM evaluation under a fixed simplistic prompt.
+>
+> **Tools:** Claude 3.7 Sonnet (`20250219`) accessed via Anthropic API in Python with extended thinking enabled (`thinking type: "enabled"`, `thinking budget: 14,000`, `max tokens: 16,000`, `temperature: 1` — required when thinking is enabled, seed not supported); LLM-as-judge with Gemini 2.5 Pro (`preview-05-06`) and o3 (`2025-04-16`).
+>
+> **Dependent variables:** HR@5; **average / Q1 / Q3 number of problems submitted per paper** (key for this EVD because Q1=0 under PDF means ≥ 25% of submissions were empty); average input/think/output token usage; estimated USD cost per paper.
+>
+> **Independent variables:** paper-ingestion approach (PDF attachment vs. LaTeX script in prompt).
 >
 > "When papers are provided as PDFs, Claude 3.7 Sonnet found no problem in 64.9% of test papers, leading to a low hit rate of 16.3%. Interestingly, both its number of identified problems and hit rate increased after switching to LaTeX, suggesting potential obstacles in Anthropic's PDF ingestion pipeline." (Zhang & Abernethy, 2025, p. 3)
 > ![[zhangReviewingScientificPapers2025a-evd-p3-1.png]]

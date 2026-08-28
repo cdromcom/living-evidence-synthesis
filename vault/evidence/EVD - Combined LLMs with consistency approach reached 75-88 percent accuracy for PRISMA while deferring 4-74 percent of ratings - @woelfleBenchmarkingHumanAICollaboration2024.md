@@ -40,21 +40,39 @@ tripod_llm_pct: 67pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of LLM ensembling against a fixed human consensus on three evidence-appraisal tools. **Method type:** consistency-based LLM ensemble — nine assessments per item (across 5 LLMs) combined; only ratings consistent in ≥k of 9 retained, the rest deferred. **Tools:** PRISMA (27 items × 112 systematic reviews), AMSTAR (11 items × 112 systematic reviews), PRECIS-2 (9 domains × 56 RCTs). **Dependent variables:** agreement (% identical) and Cohen's kappa with human consensus on the consistent subset; deferring fraction (% of items below the consistency threshold). **Independent variables:** consistency threshold (5/9, 6/9, 7/9, 8/9, 9/9); appraisal tool (PRISMA / AMSTAR / PRECIS-2).
+> **Study design:** cross-sectional benchmark of LLM ensembling against a fixed human consensus on three evidence-appraisal tools.
+>
+> **Method type:** consistency-based LLM ensemble — nine assessments per item (across 5 LLMs) combined; only ratings consistent in ≥k of 9 retained, the rest deferred.
+>
+> **Tools:** PRISMA (27 items × 112 systematic reviews), AMSTAR (11 items × 112 systematic reviews), PRECIS-2 (9 domains × 56 RCTs).
+>
+> **Dependent variables:** agreement (% identical) and Cohen's kappa with human consensus on the consistent subset; deferring fraction (% of items below the consistency threshold).
+>
+> **Independent variables:** consistency threshold (5/9, 6/9, 7/9, 8/9, 9/9); appraisal tool (PRISMA / AMSTAR / PRECIS-2).
 >
 > "Combining multiple assessments from LLMs in a 'consistency' approach improves performance in biomedical and general contexts beyond using only a single assessment. We combined a total of nine LLM assessments: 2 × Claude-3-Opus, 2 × Claude-2, 1 × GPT-4 (due to high costs), 2 × GPT-3.5, 2 × Mixtral-8x22B." (Woelfle et al., 2024, p. 3)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p3-1.png]]
 
 ### How?
 
-> **Procedure:** Five LLMs (Claude-3-Opus, Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B-instruct-v0.1) were queried via APIs (Anthropic, OpenAI, OpenRouter) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes from the full text, (2) explain reasoning, and (3) assign a per-item rating (no/yes/NA for PRISMA/AMSTAR; ordinal 1–5 or NA for PRECIS-2 with the 1/2 and 4/5 ordinal pairs collapsed for the kappa calculation). Claude-3-Opus received page-level PNG images (multimodal, implicit OCR); the other four models received plain text the authors extracted. Each prompt was run twice (GPT-4 only on 25% of publications due to cost) to estimate intrarater reliability. **For this analysis (combined LLMs):** all nine LLM runs per item were pooled; consistency thresholds of 5/9–9/9 were applied; non-consistent ratings were marked "deferred"; accuracy and weighted κ (ordinal PRECIS-2) were calculated only on consistent responses. **Statistics:** bootstrapping with 1000 publication-level resamples for 95% CIs in R 4.3; quote handling and post-processing in Python 3.11.4 (parasail, rapidfuzz).
+> **Procedure:** Five LLMs (Claude-3-Opus, Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B-instruct-v0.1) were queried via APIs (Anthropic, OpenAI, OpenRouter) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes from the full text, (2) explain reasoning, and (3) assign a per-item rating (no/yes/NA for PRISMA/AMSTAR; ordinal 1–5 or NA for PRECIS-2 with the 1/2 and 4/5 ordinal pairs collapsed for the kappa calculation). Claude-3-Opus received page-level PNG images (multimodal, implicit OCR); the other four models received plain text the authors extracted. Each prompt was run twice (GPT-4 only on 25% of publications due to cost) to estimate intrarater reliability.
+>
+> **For this analysis (combined LLMs):** all nine LLM runs per item were pooled; consistency thresholds of 5/9–9/9 were applied; non-consistent ratings were marked "deferred"; accuracy and weighted κ (ordinal PRECIS-2) were calculated only on consistent responses.
+>
+> **Statistics:** bootstrapping with 1000 publication-level resamples for 95% CIs in R 4.3; quote handling and post-processing in Python 3.11.4 (parasail, rapidfuzz).
 >
 > "All nine LLM assessments were combined using only ratings consistent in a majority of LLM assessments. Responses without such a consistent majority would be deferred to human raters. This approach led to substantial improvements with accuracies ranging from 75% to 88% for PRISMA (while deferring 4%-74% of ratings), from 74% to 89% for AMSTAR (while deferring 6%-84% of ratings), and from 64% to 79% for PRECIS-2 (with deferring fractions from 29% to 88%)." (Woelfle et al., 2024, p. 7)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p7-1.png]]
 
 ### Who?
 
-> **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1) producing 9 assessment runs per item. **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); 27 PRISMA items × 112 = up to 3024 ratings; 11 AMSTAR items × 112 = up to 1232 ratings. PRECIS-2 — 56 RCTs from the PragMeta database; 9 domains × 56 = up to 504 ratings. **Processing failures (excluded from N):** Claude-3-Opus failed on 3/112 (Anthropic content filtering / context); GPT-4 failed on 3/112 (context length); GPT-3.5 failed on 3/112 PRISMA/AMSTAR + 2/56 PRECIS-2; Mixtral failed on 1/112; Claude-2 processed all. **Human comparator:** consensus of 2 human raters per publication (PRISMA/AMSTAR: British pediatric surgeons; PRECIS-2: experienced systematic reviewer + MSc epidemiology student or senior clinical epidemiologist).
+> **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1) producing 9 assessment runs per item.
+>
+> **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); 27 PRISMA items × 112 = up to 3024 ratings; 11 AMSTAR items × 112 = up to 1232 ratings. PRECIS-2 — 56 RCTs from the PragMeta database; 9 domains × 56 = up to 504 ratings.
+>
+> **Processing failures (excluded from N):** Claude-3-Opus failed on 3/112 (Anthropic content filtering / context); GPT-4 failed on 3/112 (context length); GPT-3.5 failed on 3/112 PRISMA/AMSTAR + 2/56 PRECIS-2; Mixtral failed on 1/112; Claude-2 processed all.
+>
+> **Human comparator:** consensus of 2 human raters per publication (PRISMA/AMSTAR: British pediatric surgeons; PRECIS-2: experienced systematic reviewer + MSc epidemiology student or senior clinical epidemiologist).
 >
 > "We selected datasets for which independent ratings from 2 human raters and their consensus were available… For reporting and methodological rigor, we used human assessments of PRISMA and AMSTAR for 112 systematic reviews and meta-analyses in the field of pediatric surgery (data kindly shared by Cullis and colleagues). PRISMA contains 27 items and AMSTAR 11 items… For pragmatism in clinical trial design, we used human ratings of PRECIS-2 for 56 randomized controlled trials within the PragMeta database." (Woelfle et al., 2024, p. 2)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p2-1.png]]

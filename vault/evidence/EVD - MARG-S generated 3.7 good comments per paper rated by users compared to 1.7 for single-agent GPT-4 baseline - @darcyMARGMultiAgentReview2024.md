@@ -38,7 +38,15 @@ tripod_llm_pct: 53pct
 
 ### What?
 
-> **Study design:** within-subjects user study comparing three LLM review-generation methods on participants' own scientific papers. **Method type:** human ratings of LLM-generated review comments via web-based survey, with mixed-effects regression for inferential analysis. **Tools:** GPT-4 (gpt-4-0613, 8k context); MARG-S, LiZCa (Liang et al. 2023), and SARG-B baselines; lme4.glmer + ordinal.clmm in R for mixed-effect logistic and cumulative-link analyses; web survey UI (Figure 4). **Dependent variables:** per-comment rating triple — overall quality (Bad / Neutral / Good), accuracy (Major-inaccuracy / Minor-inaccuracy / Accurate), specificity (Very generic / Generic / Specific / Very specific); per-review length and helpfulness on 5-point scales; total "good" comments per review. **Independent variables / covariates:** review-generation method (3 levels) as fixed effect; participant ID (submission ID) as random effect; specificity and accuracy as additional fixed effects when modelling overall rating.
+> **Study design:** within-subjects user study comparing three LLM review-generation methods on participants' own scientific papers.
+>
+> **Method type:** human ratings of LLM-generated review comments via web-based survey, with mixed-effects regression for inferential analysis.
+>
+> **Tools:** GPT-4 (gpt-4-0613, 8k context); MARG-S, LiZCa (Liang et al. 2023), and SARG-B baselines; lme4.glmer + ordinal.clmm in R for mixed-effect logistic and cumulative-link analyses; web survey UI (Figure 4).
+>
+> **Dependent variables:** per-comment rating triple — overall quality (Bad / Neutral / Good), accuracy (Major-inaccuracy / Minor-inaccuracy / Accurate), specificity (Very generic / Generic / Specific / Very specific); per-review length and helpfulness on 5-point scales; total "good" comments per review.
+>
+> **Independent variables / covariates:** review-generation method (3 levels) as fixed effect; participant ID (submission ID) as random effect; specificity and accuracy as additional fixed effects when modelling overall rating.
 >
 > "We conduct a user study to obtain a more reliable (but more expensive) evaluation compared to the automated metrics. To reduce burden on participants, we only evaluate a subset of methods in the user study: MARG-S (our best method on the automated metrics), LiZCa (baseline from prior work), and SARG-B (the simplest baseline)." (D'Arcy et al., 2024, p. 13)
 > ![[darcyMARGMultiAgentReview2024-evd-p13-1.png]]

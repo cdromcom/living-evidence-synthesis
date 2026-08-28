@@ -37,7 +37,15 @@ tripod_llm_pct: 37pct
 
 ### What?
 
-> **Study design:** LLM-as-a-judge cross-dataset evaluation of review human-likeness. **Method type:** zero-shot prompting of GPT-4o to rate, on a 5-point Likert scale, whether each generated review reads as AI-generated or human-like; means ± standard error reported and significance vs. best baseline marked with an asterisk. **Tools:** GPT-4o evaluator; reviewer agents GAR (GPT-4o-mini backbone in main run), AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review; NeurIPS 2023, ICLR 2022, and ICLR 2023 OpenReview datasets; in §5.11 the same protocol is rerun with GPT-4o, Mistral-7b Instruct, Llama-3.1 (8b), and Llama-3.1 (70b) as GAR backbones. **Dependent variable:** human-likeness score (1 = AI-generated, 5 = human-like). **Independent variables:** reviewer type (5 LLM agents) and conference dataset (NeurIPS / ICLR 22 / ICLR 23); foundation LLM in §5.11.
+> **Study design:** LLM-as-a-judge cross-dataset evaluation of review human-likeness.
+>
+> **Method type:** zero-shot prompting of GPT-4o to rate, on a 5-point Likert scale, whether each generated review reads as AI-generated or human-like; means ± standard error reported and significance vs. best baseline marked with an asterisk.
+>
+> **Tools:** GPT-4o evaluator; reviewer agents GAR (GPT-4o-mini backbone in main run), AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review; NeurIPS 2023, ICLR 2022, and ICLR 2023 OpenReview datasets; in §5.11 the same protocol is rerun with GPT-4o, Mistral-7b Instruct, Llama-3.1 (8b), and Llama-3.1 (70b) as GAR backbones.
+>
+> **Dependent variable:** human-likeness score (1 = AI-generated, 5 = human-like).
+>
+> **Independent variables:** reviewer type (5 LLM agents) and conference dataset (NeurIPS / ICLR 22 / ICLR 23); foundation LLM in §5.11.
 >
 > "Specifically, we collect agent-generated reviews and prompted GPT-4o to evaluate whether these reviews were AI-generated or human-like. A 5-point Likert scale was used, where higher scores indicate a stronger resemblance to human reviewers' style and consistency." (Bougie & Watanabe, 2024, pp. 14–15)
 > ![[bougieGenerativeAdversarialReviews2024a-evd-p14-1.png]]

@@ -36,7 +36,15 @@ tripod_llm_pct: 46pct
 
 ### What?
 
-> **Study design:** within-corpus input-format ablation embedded in a single-author convenience-sample LLM evaluation. **Method type:** repeated zero-shot LLM scoring (30 iterations averaged) under three input-text conditions, with rank-correlation comparison against author REF scores. **Tools:** OpenAI ChatGPT API (GPT-3.5-turbo, GPT-4o, GPT-4o-mini); PyMuPDF + Webometric Analyst for text cleanup; REF 2021 system prompt (Strategy 6, Appendix 1). **Dependent variable:** per-cell Spearman correlation between the 30-iteration mean ChatGPT score and the author's REF score. **Independent variable:** input text format — Title only / Abstract (title+abstract) / Truncated full text (full text minus references, tables, figures, authors, keywords). Held constant within each model row: model identity, system prompt, temperature=1, top_p=1, max_tokens=1000, the 51-article corpus, and the 30-iteration averaging procedure.
+> **Study design:** within-corpus input-format ablation embedded in a single-author convenience-sample LLM evaluation.
+>
+> **Method type:** repeated zero-shot LLM scoring (30 iterations averaged) under three input-text conditions, with rank-correlation comparison against author REF scores.
+>
+> **Tools:** OpenAI ChatGPT API (GPT-3.5-turbo, GPT-4o, GPT-4o-mini); PyMuPDF + Webometric Analyst for text cleanup; REF 2021 system prompt (Strategy 6, Appendix 1).
+>
+> **Dependent variable:** per-cell Spearman correlation between the 30-iteration mean ChatGPT score and the author's REF score.
+>
+> **Independent variable:** input text format — Title only / Abstract (title+abstract) / Truncated full text (full text minus references, tables, figures, authors, keywords). Held constant within each model row: model identity, system prompt, temperature=1, top_p=1, max_tokens=1000, the 51-article corpus, and the 30-iteration averaging procedure.
 >
 > "This article assesses which ChatGPT inputs (full text without tables, figures and references; title and abstract; title only) produce better quality score estimates, and the extent to which scores are affected by ChatGPT models and system prompts." (Thelwall, 2024, p. 1)
 > ![[thelwallEvaluatingResearchQuality2024-evd-p1-1.png]]

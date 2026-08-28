@@ -40,7 +40,15 @@ tripod_llm_pct: 63pct
 
 ### What?
 
-> **Study design:** error-category and domain breakdown of the same SPOT benchmark used in the headline EVD. **Method type:** stratified zero-shot generative error detection — the headline pass@K aggregate disaggregated by the six inductively-derived error categories. **Tools:** SPOT category labels (Equation/Proof, Figure Duplication, Data Inconsistency, Statistical Reporting, Reagent Identity, Experiment Setup) and the same Llama-Parse + GPT-4.1 OCR pipeline; pass@K bootstrap (B = 1000). **Dependent variable:** pass@4 (%) per (model × error category) cell. **Independent variables:** model (the 6 proprietary multimodal LLMs from Table 2); error-category label (n = 6); paper-category label (n = 10 STEM domains, used in the Appendix G breakdown).
+> **Study design:** error-category and domain breakdown of the same SPOT benchmark used in the headline EVD.
+>
+> **Method type:** stratified zero-shot generative error detection — the headline pass@K aggregate disaggregated by the six inductively-derived error categories.
+>
+> **Tools:** SPOT category labels (Equation/Proof, Figure Duplication, Data Inconsistency, Statistical Reporting, Reagent Identity, Experiment Setup) and the same Llama-Parse + GPT-4.1 OCR pipeline; pass@K bootstrap (B = 1000).
+>
+> **Dependent variable:** pass@4 (%) per (model × error category) cell.
+>
+> **Independent variables:** model (the 6 proprietary multimodal LLMs from Table 2); error-category label (n = 6); paper-category label (n = 10 STEM domains, used in the Appendix G breakdown).
 >
 > "Error Types: We derive the six categories in Table 1 inductively from our annotations rather than setting a priori. As we review each error, we group similar cases. This is to capture the true distribution of errors existing in manuscripts. During this process, figure-duplication instances initially overwhelmed the dataset, so we filtered based on severity and paper category to prevent a single type from dominating." (Son et al., 2025, p. 3)
 > ![[sonWhenAICoScientists2025-evd-p3-1.png]]

@@ -3,6 +3,12 @@ import type { TocItem } from "@/lib/markdown";
 /**
  * A persistent outline of a source page's headings, docked in the left
  * margin. Always visible/expanded — no hover or click needed to read it.
+ * Sticky (not fixed): it scrolls normally with the page until it reaches
+ * `top-20`, then holds there so clicking one heading link after another
+ * doesn't require scrolling back up each time — and once you scroll back
+ * up past where the TOC originally sat (e.g. back to the top of the page),
+ * it un-sticks and returns to that original position automatically, since
+ * that's how CSS position:sticky behaves relative to its own container.
  */
 export default function SourceToc({ items }: { items: TocItem[] }) {
   if (items.length === 0) return null;

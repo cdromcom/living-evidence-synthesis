@@ -34,7 +34,15 @@ tripod_llm_pct: 25pct
 
 ### What?
 
-> **Study design:** blind 2 × 2 cross-evaluation (Writer × Evaluator) of academic-paper reviews on a sub-sample of papers from the Reviewer Arena corpus. **Method type:** rubric-based scoring of full reviews on a 0–5 Likert scale (0 = worst / content-free, 5 = best). **Tools:** GPT-4 with full P5 context as the LLM writer and as one of the two evaluators; ICLR 2023 reviewers as the human writer and one of the two evaluators. **Dependent variables (3 rubric items):** (i) "How well does the review explain the score?", (ii) "How well does the review guide the authors to improve the paper?", (iii) "Does the review contain content specific to the paper?". **Independent variables:** review-Writer ∈ {Human, GPT-4 P5} × review-Evaluator ∈ {Human, GPT-4} → 4 cells. The human evaluator is described as "an ICLR 2023 reviewer."
+> **Study design:** blind 2 × 2 cross-evaluation (Writer × Evaluator) of academic-paper reviews on a sub-sample of papers from the Reviewer Arena corpus.
+>
+> **Method type:** rubric-based scoring of full reviews on a 0–5 Likert scale (0 = worst / content-free, 5 = best).
+>
+> **Tools:** GPT-4 with full P5 context as the LLM writer and as one of the two evaluators; ICLR 2023 reviewers as the human writer and one of the two evaluators.
+>
+> **Dependent variables (3 rubric items):** (i) "How well does the review explain the score?", (ii) "How well does the review guide the authors to improve the paper?", (iii) "Does the review contain content specific to the paper?".
+>
+> **Independent variables:** review-Writer ∈ {Human, GPT-4 P5} × review-Evaluator ∈ {Human, GPT-4} → 4 cells. The human evaluator is described as "an ICLR 2023 reviewer."
 >
 > "The human review evaluator assesses reviews written by human reviewers and the LLM, GPT-4 with context P5. The human review writer is an ICLR 2023 reviewer. Table 5 shows the average evaluation results on a randomized sample of 5% of the papers evaluated by human experts." (Tyser et al., 2024, p. 12)
 > ![[tyserAIDrivenReviewSystems2024-evd-p14-1.png]]

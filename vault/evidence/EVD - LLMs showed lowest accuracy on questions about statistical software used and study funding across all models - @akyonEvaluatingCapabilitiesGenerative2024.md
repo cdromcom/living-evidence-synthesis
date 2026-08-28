@@ -33,7 +33,15 @@ tripod_llm_pct: 43pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark, item-level aggregate analysis (mean correct % across all 6 LLMs per STROBE question). **Method type:** descriptive aggregation of per-question accuracy from a 6-LLM × 15-question × 39-article × 10-trial RAG benchmark, with per-question Kruskal-Wallis tests across LLMs. **Tools:** same RAG web app + 6 commercial LLMs as the sibling EVDs; Figure 3 (per-Q correct % across all LLMs) and Table 4 (per-Q × per-LLM medians + Kruskal-Wallis P) reported in Multimedia Appendix 2; SPSS 29.0. **Dependent variable:** mean percentage of correct answers per STROBE question (Q1–Q15) aggregated across all 6 LLMs. **Independent variable:** STROBE question identity (Q1=study design in title/abstract; Q8=statistical software used [7 options]; Q10=flowchart used; Q12=discussion summarizes key results; Q13=limitations discussed; Q15=funding source [2 options]).
+> **Study design:** cross-sectional benchmark, item-level aggregate analysis (mean correct % across all 6 LLMs per STROBE question).
+>
+> **Method type:** descriptive aggregation of per-question accuracy from a 6-LLM × 15-question × 39-article × 10-trial RAG benchmark, with per-question Kruskal-Wallis tests across LLMs.
+>
+> **Tools:** same RAG web app + 6 commercial LLMs as the sibling EVDs; Figure 3 (per-Q correct % across all LLMs) and Table 4 (per-Q × per-LLM medians + Kruskal-Wallis P) reported in Multimedia Appendix 2; SPSS 29.0.
+>
+> **Dependent variable:** mean percentage of correct answers per STROBE question (Q1–Q15) aggregated across all 6 LLMs.
+>
+> **Independent variable:** STROBE question identity (Q1=study design in title/abstract; Q8=statistical software used [7 options]; Q10=flowchart used; Q12=discussion summarizes key results; Q13=limitations discussed; Q15=funding source [2 options]).
 >
 > "When all LLMs are collectively considered, the three questions receiving the highest percentage of correct answers were Q12 (68.31%), Q13 (62.77%), and Q10 (60.52%). Conversely, the three questions with the lowest percentage of correct responses were Q8 (33.52%), Q15 (35.81%), and Q1 (36.48%)." (Akyon et al., 2024, p. 14)
 > ![[akyonEvaluatingCapabilitiesGenerative2024-evd-p14-3.png]]
@@ -47,7 +55,13 @@ tripod_llm_pct: 43pct
 
 ### Who?
 
-> **Models:** all 6 commercial LLMs aggregated — GPT 3.5-Turbo-1106, GPT 4-0613, GPT 4-1106, Claude v1, Palm 2/chat-bison, Gemini pro 1.0. **Articles:** 39 PubMed observational obesity studies (selection: 2996 PubMed hits → 303 after filters → first 50 → 39 after excluding 11 non-observational; Claude v1 capped at 33). **Per-question denominator:** 6 LLMs × 39 articles × 10 trials = ~2340 graded responses per STROBE question (somewhat lower for items where Claude v1 contributed only 33 articles). **Reference standard:** 1 medical professor (pediatric gastroenterology) authored gold answers; 1 epidemiologist (Dr. Hilal Duzel) verified them.
+> **Models:** all 6 commercial LLMs aggregated — GPT 3.5-Turbo-1106, GPT 4-0613, GPT 4-1106, Claude v1, Palm 2/chat-bison, Gemini pro 1.0.
+>
+> **Articles:** 39 PubMed observational obesity studies (selection: 2996 PubMed hits → 303 after filters → first 50 → 39 after excluding 11 non-observational; Claude v1 capped at 33).
+>
+> **Per-question denominator:** 6 LLMs × 39 articles × 10 trials = ~2340 graded responses per STROBE question (somewhat lower for items where Claude v1 contributed only 33 articles).
+>
+> **Reference standard:** 1 medical professor (pediatric gastroenterology) authored gold answers; 1 epidemiologist (Dr. Hilal Duzel) verified them.
 >
 > "In this study, 15 questions selected from the STROBE checklists were posed 10 times each for 39 articles to six different LLMs." (Akyon et al., 2024, p. 12)
 > ![[akyonEvaluatingCapabilitiesGenerative2024-evd-p12-3.png]]

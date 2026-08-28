@@ -33,7 +33,15 @@ tripod_llm_pct: 30pct
 
 ### What?
 
-> **Study design:** cross-sectional observational study comparing ChatGPT and human reviewer ratings of reporting completeness in published RCT abstracts. **Method type:** zero-/few-shot LLM rating with chain-of-thought prompting; benchmarked against duplicate independent human reviewers. **Tools:** GPT-3.5 (OpenAI free chat interface, accessed 30 May 2024); CONSORT for Abstracts (CONSORT-A) 17-item checklist; custom Excel data-collection spreadsheet; R v2.4.6.26 (with `gtsummary`) for statistical analysis. **Dependent variables:** per-item dichotomous rating (Yes / No / NA) for each of 17 CONSORT-A items, summarized as proportion "Reported" per rater group. **Independent variable:** rater identity (ChatGPT vs. human consensus); checklist item.
+> **Study design:** cross-sectional observational study comparing ChatGPT and human reviewer ratings of reporting completeness in published RCT abstracts.
+>
+> **Method type:** zero-/few-shot LLM rating with chain-of-thought prompting; benchmarked against duplicate independent human reviewers.
+>
+> **Tools:** GPT-3.5 (OpenAI free chat interface, accessed 30 May 2024); CONSORT for Abstracts (CONSORT-A) 17-item checklist; custom Excel data-collection spreadsheet; R v2.4.6.26 (with `gtsummary`) for statistical analysis.
+>
+> **Dependent variables:** per-item dichotomous rating (Yes / No / NA) for each of 17 CONSORT-A items, summarized as proportion "Reported" per rater group.
+>
+> **Independent variable:** rater identity (ChatGPT vs. human consensus); checklist item.
 >
 > "This study evaluated the usability of Large Language Models (LLMs), specifically ChatGPT, in assessing the completeness of reporting in orthodontic research abstracts. We focused on two key areas: randomized controlled trials (RCTs) and systematic reviews, using the CONSORT-A and PRISMA guidelines for evaluation." (Alharbi & Asiri, 2024, p. 1)
 > ![[alharbiAutomatedAssessmentReporting2024-evd-p1-1.png]]
@@ -47,7 +55,11 @@ tripod_llm_pct: 30pct
 
 ### Who?
 
-> **Sample-size flow:** four leading orthodontic journals searched (AJO-DO, JO, EJO, AO) for publications 2018–2022 containing keywords "systematic review", "meta-analysis", "randomized controlled trial", "assigned", "prospective", or "comparative" in title/abstract → full-text screened to confirm true RCT/SR designation → random sample of **20 RCT abstracts** (5 per journal) selected for analysis (parallel sample of 20 systematic reviews handled in companion EVD). All 20 RCTs analyzed; no exclusions reported after sampling. **Models:** ChatGPT 3.5 (OpenAI, free version, accessed 30 May 2024) — single LLM, no model comparison. **Human raters:** two reviewers F.A. and S.A. (authors), both Department of Pediatric Dentistry, Prince Sattam Bin Abdulaziz University.
+> **Sample-size flow:** four leading orthodontic journals searched (AJO-DO, JO, EJO, AO) for publications 2018–2022 containing keywords "systematic review", "meta-analysis", "randomized controlled trial", "assigned", "prospective", or "comparative" in title/abstract → full-text screened to confirm true RCT/SR designation → random sample of **20 RCT abstracts** (5 per journal) selected for analysis (parallel sample of 20 systematic reviews handled in companion EVD). All 20 RCTs analyzed; no exclusions reported after sampling.
+>
+> **Models:** ChatGPT 3.5 (OpenAI, free version, accessed 30 May 2024) — single LLM, no model comparison.
+>
+> **Human raters:** two reviewers F.A. and S.A. (authors), both Department of Pediatric Dentistry, Prince Sattam Bin Abdulaziz University.
 >
 > "This cross-sectional observational study investigated the quality of reporting in abstracts of randomized controlled trials (RCTs) and systematic reviews published in four leading orthodontic journals: (1) American Journal of Orthodontics and Dentofacial Orthopedics (AJO-DO), (2) Journal of Orthodontics (JO), (3) European Journal of Orthodontics (EJO), and (4) The Angle Orthodontist (AO). The timeframe included publications published between 2018 and 2022. … Following the initial search, a random sample of 20 RCTs and 20 systematic reviews was selected for further analysis. This resulted in a balanced representation, with each of the four journals contributing five publications on RCTs and five publications on systematic reviews." (Alharbi & Asiri, 2024, p. 2)
 > ![[alharbiAutomatedAssessmentReporting2024-evd-p2-2.png]]

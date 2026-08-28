@@ -34,7 +34,15 @@ tripod_llm_pct: 25pct
 
 ### What?
 
-> **Study design:** cross-sectional pairwise-preference benchmark ("Reviewer Arena") modeled on Chatbot Arena. **Method type:** Bradley-Terry (BT) model fit by logistic regression on a win matrix derived from human pairwise preferences over reviews of the same paper. **Tools:** 5 reviewer "competitors" — Human (OpenReview), GPT-4 Turbo (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), Command R+; in-house Reviewer Arena platform; BT optimization via logistic loss with the constraint ξ₁ = 0 (Listings 1–2, Appendix P). **Dependent variables:** BT coefficient ξ per reviewer; resulting reviewer ranking (Table 1). **Independent variable:** reviewer identity (5 levels). Pairwise comparisons are anonymized so evaluators do not know which review was authored by whom.
+> **Study design:** cross-sectional pairwise-preference benchmark ("Reviewer Arena") modeled on Chatbot Arena.
+>
+> **Method type:** Bradley-Terry (BT) model fit by logistic regression on a win matrix derived from human pairwise preferences over reviews of the same paper.
+>
+> **Tools:** 5 reviewer "competitors" — Human (OpenReview), GPT-4 Turbo (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), Command R+; in-house Reviewer Arena platform; BT optimization via logistic loss with the constraint ξ₁ = 0 (Listings 1–2, Appendix P).
+>
+> **Dependent variables:** BT coefficient ξ per reviewer; resulting reviewer ranking (Table 1).
+>
+> **Independent variable:** reviewer identity (5 levels). Pairwise comparisons are anonymized so evaluators do not know which review was authored by whom.
 >
 > "This work quantifies and ranks reviewers based on observed match outcomes using a win matrix, Bradley-Terry (BT) model coefficients, and logistic regression. The win matrix represents the outcomes of matches between competitors. For N competitors, the matrix W is an N × N matrix where each element wij represents the probability of competitor i winning against competitor j" (Tyser et al., 2024, p. 4)
 > ![[tyserAIDrivenReviewSystems2024-evd-p4-1.png]]

@@ -33,7 +33,15 @@ tripod_llm_pct: 67pct
 
 ### What?
 
-> **Study design:** secondary analysis of pre-existing human rating pairs released alongside the benchmark — i.e., human inter-rater reliability (IRR) characterizing the "gold-standard" the LLMs are evaluated against. **Method type:** pairwise human agreement analysis (rater 1 vs rater 2) on item-level ratings before any consensus discussion. **Tools:** PRISMA (27 items), AMSTAR (11 items), PRECIS-2 (9 domains). **Dependent variables:** raw item-level agreement (% identical) and Cohen's kappa (weighted Cohen's kappa for ordinal PRECIS-2). **Independent variables:** appraisal tool (PRISMA / AMSTAR / PRECIS-2); rater pair (constant within tool).
+> **Study design:** secondary analysis of pre-existing human rating pairs released alongside the benchmark — i.e., human inter-rater reliability (IRR) characterizing the "gold-standard" the LLMs are evaluated against.
+>
+> **Method type:** pairwise human agreement analysis (rater 1 vs rater 2) on item-level ratings before any consensus discussion.
+>
+> **Tools:** PRISMA (27 items), AMSTAR (11 items), PRECIS-2 (9 domains).
+>
+> **Dependent variables:** raw item-level agreement (% identical) and Cohen's kappa (weighted Cohen's kappa for ordinal PRECIS-2).
+>
+> **Independent variables:** appraisal tool (PRISMA / AMSTAR / PRECIS-2); rater pair (constant within tool).
 >
 > "Human inter-rater reliability measured by agreement was 91%, 88%, and 57% and by kappa 0.84, 0.77, nd 0.29 for PRISMA, AMSTAR, and PRECIS-2, respectively." (Woelfle et al., 2024, p. 8)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p8-3.png]]

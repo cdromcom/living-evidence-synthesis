@@ -37,7 +37,15 @@ tripod_llm_pct: 63pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark evaluation of off-the-shelf multimodal LLMs on the SPOT scientific-error-detection dataset. **Method type:** zero-shot generative error detection with structured-JSON output, scored against author-confirmed ground-truth errors. **Tools:** SPOT benchmark (83 manuscripts × 91 errors, 47 source papers, 10 STEM domains); Llama-Parse for PDF→Markdown conversion; GPT-4.1 as LLM-as-judge for match adjudication; pass@K bootstrap estimator (Chen et al. 2021). **Dependent variables:** Precision (%), Recall (%), pass@1 (%), pass@4 (%) — each reported as mean ± std over 8 independent runs per paper. **Independent variables:** model identity (10 multimodal LLMs — 6 proprietary + 4 open-source); paper × error annotation pair; run index (1–8) for bootstrap resampling.
+> **Study design:** cross-sectional benchmark evaluation of off-the-shelf multimodal LLMs on the SPOT scientific-error-detection dataset.
+>
+> **Method type:** zero-shot generative error detection with structured-JSON output, scored against author-confirmed ground-truth errors.
+>
+> **Tools:** SPOT benchmark (83 manuscripts × 91 errors, 47 source papers, 10 STEM domains); Llama-Parse for PDF→Markdown conversion; GPT-4.1 as LLM-as-judge for match adjudication; pass@K bootstrap estimator (Chen et al. 2021).
+>
+> **Dependent variables:** Precision (%), Recall (%), pass@1 (%), pass@4 (%) — each reported as mean ± std over 8 independent runs per paper.
+>
+> **Independent variables:** model identity (10 multimodal LLMs — 6 proprietary + 4 open-source); paper × error annotation pair; run index (1–8) for bootstrap resampling.
 >
 > "We mainly evaluate verification performance through precision, recall, and pass@K. A predicted error is counted as a true positive (TP) only when the model's reported location matches a benchmark annotation and an LLM confirms they indicate the same error." (Son et al., 2025, p. 4)
 > ![[sonWhenAICoScientists2025-evd-p4-3.png]]

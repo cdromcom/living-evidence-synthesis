@@ -219,6 +219,57 @@ function tagAppraisalRows(html: string): string {
   return html.replace(full, full.replace(body, taggedBody));
 }
 
+/**
+ * Wraps every H3 subsection (e.g. Methods Context's What?/How?/Who?) in its
+ * own collapsible <details>, nested inside its parent H2's accordion body.
+ */
+function wrapH3Subsections(html: string): string {
+  const h3Regex = /<h3 id="[^"]*">[\s\S]*?<\/h3>/g;
+  const matches = [...html.matchAll(h3Regex)];
+  if (matches.length === 0) return html;
+  let result = html.slice(0, matches[0].index);
+  for (let i = 0; i < matches.length; i++) {
+    const heading = matches[i][0];
+    const start = matches[i].index! + heading.length;
+    const end = i + 1 < matches.length ? matches[i + 1].index! : html.length;
+    const body = html.slice(start, end);
+    result += `<details class="accordion-section" open><summary>${heading}</summary><div class="accordion-body">${body}</div></details>`;
+  }
+  return result;
+}
+
+/**
+ * Wraps every top-level (H2) section in a collapsible <details>, so long
+ * bodies (Description, Methods Context, Other Notes, Caveats, Supports
+ * Claim(s), ...) can be collapsed independently, and wraps each H2
+ * section's own H3 subsections (e.g. Methods Context's What?/How?/Who?) the
+ * same way. The "Source" section is left alone — it's just the citation
+ * link, not worth collapsing, and users expect it visible immediately.
+ * Sections start open so nothing looks different from before until a reader
+ * chooses to collapse one; the native <details> element also means an
+ * in-page anchor (from the TOC or a chip link) auto-expands a closed
+ * section on navigation, no JS required.
+ */
+function wrapAccordionSections(html: string): string {
+  const h2Regex = /<h2 id="[^"]*">[\s\S]*?<\/h2>/g;
+  const matches = [...html.matchAll(h2Regex)];
+  if (matches.length === 0) return html;
+  let result = html.slice(0, matches[0].index);
+  for (let i = 0; i < matches.length; i++) {
+    const heading = matches[i][0];
+    const start = matches[i].index! + heading.length;
+    const end = i + 1 < matches.length ? matches[i + 1].index! : html.length;
+    const body = wrapH3Subsections(html.slice(start, end));
+    const headingText = stripTags(heading).trim();
+    if (headingText.toLowerCase() === "source") {
+      result += heading + body;
+    } else {
+      result += `<details class="accordion-section" open><summary>${heading}</summary><div class="accordion-body">${body}</div></details>`;
+    }
+  }
+  return result;
+}
+
 export type TocItem = { id: string; level: 2 | 3; text: string };
 
 /** Tags every H2/H3 with a stable id and returns a flat outline for a TOC. */
@@ -243,5 +294,5 @@ export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
   const withMermaid = activateMermaid(rawHtml);
   const withMutedIcons = muteStatusIcons(withMermaid);
   const { html, toc } = injectHeadingIds(withMutedIcons);
-  return { html: tagAppraisalRows(html), toc };
+  return { html: wrapAccordionSections(tagAppraisalRows(html)), toc };
 }

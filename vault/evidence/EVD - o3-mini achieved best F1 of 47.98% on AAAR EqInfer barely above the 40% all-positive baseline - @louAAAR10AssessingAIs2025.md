@@ -36,7 +36,15 @@ tripod_llm_pct: 57pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark evaluation on the new EQINFER task in AAAR-1.0. **Method type:** zero-shot LLM evaluation as binary classification (is the candidate equation correct given paper context?). **Tools:** open-source OLMo-7B, Mistral-7B, Mixtral-8x22B-MoE, Qwen 2.5-72B, Llama 3.1-70B; closed-source Gemini 1.5 Pro, Claude 3.5 Sonnet, GPT-4o (gpt-4o-2024-08-06), o1-preview (o1-preview-2024-09-12), o3-mini; VLLM for open-source inference (PyTorch 2.4.0, CUDA 12.1, 8× A100 GPUs); LiteLLM API wrapper for closed-source. **Dependent variable(s):** binary-classification F1, Precision, Recall. **Independent variable(s) / covariates:** model identity; input context length (100–1,500 words per side, scaling study in Fig. 4); positive/negative equation ratio fixed at 1:3.
+> **Study design:** cross-sectional benchmark evaluation on the new EQINFER task in AAAR-1.0.
+>
+> **Method type:** zero-shot LLM evaluation as binary classification (is the candidate equation correct given paper context?).
+>
+> **Tools:** open-source OLMo-7B, Mistral-7B, Mixtral-8x22B-MoE, Qwen 2.5-72B, Llama 3.1-70B; closed-source Gemini 1.5 Pro, Claude 3.5 Sonnet, GPT-4o (gpt-4o-2024-08-06), o1-preview (o1-preview-2024-09-12), o3-mini; VLLM for open-source inference (PyTorch 2.4.0, CUDA 12.1, 8× A100 GPUs); LiteLLM API wrapper for closed-source.
+>
+> **Dependent variable(s):** binary-classification F1, Precision, Recall.
+>
+> **Independent variable(s) / covariates:** model identity; input context length (100–1,500 words per side, scaling study in Fig. 4); positive/negative equation ratio fixed at 1:3.
 >
 > "For EQINFER, we adopt F1 as the classification criterion." (Lou et al., 2025, p. 6)
 > ![[louAAAR10AssessingAIs2025-evd-p6-4.png]]

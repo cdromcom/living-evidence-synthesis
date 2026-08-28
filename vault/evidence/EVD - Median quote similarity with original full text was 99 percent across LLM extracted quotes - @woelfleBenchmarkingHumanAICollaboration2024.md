@@ -32,21 +32,33 @@ tripod_llm_pct: 67pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of LLM extractive-quoting fidelity on the same evidence-appraisal workload used to compute accuracy. **Method type:** automated string-similarity scoring of LLM-extracted quotes against the source publication's full text. **Tools:** parasail (SIMD pairwise sequence alignment) and rapidfuzz (Levenshtein-based string similarity) in Python 3.11.4. **Dependent variable:** median % similarity (0–100) between each LLM-extracted quote and the closest matching span in the source publication. **Independent variables:** LLM (5 levels); appraisal tool (PRISMA / AMSTAR / PRECIS-2); whether the quote came from the requested full text vs the prompt's briefing material.
+> **Study design:** cross-sectional benchmark of LLM extractive-quoting fidelity on the same evidence-appraisal workload used to compute accuracy.
+>
+> **Method type:** automated string-similarity scoring of LLM-extracted quotes against the source publication's full text.
+>
+> **Tools:** parasail (SIMD pairwise sequence alignment) and rapidfuzz (Levenshtein-based string similarity) in Python 3.11.4.
+>
+> **Dependent variable:** median % similarity (0–100) between each LLM-extracted quote and the closest matching span in the source publication.
+>
+> **Independent variables:** LLM (5 levels); appraisal tool (PRISMA / AMSTAR / PRECIS-2); whether the quote came from the requested full text vs the prompt's briefing material.
 >
 > "All prompts required the LLMs to 'extract 1-3 relevant quotes from the full text' per item. For PRISMA (27 items), a median of 14 quotes (range 5-17) were provided per publication, 0.5 quotes/item. For AMSTAR (11 items), a median of 7 quotes (range 4-8) were provided per publication, 0.6 quotes/item. For PRECIS-2 (9 domains), a median of 10 quotes (range 9-10) were provided per publication, 1 quote/domain." (Woelfle et al., 2024, p. 8)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p8-5.png]]
 
 ### How?
 
-> **Procedure:** Five LLMs (Claude-3-Opus, Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B-instruct-v0.1) were queried via APIs (Anthropic, OpenAI, OpenRouter) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes from the full text, (2) explain reasoning, and (3) assign a per-item rating. Claude-3-Opus received page-level PNG images (multimodal); the other four received plain text. **For this analysis (quote similarity):** every extracted quote string was matched against the source publication using parasail for pairwise alignment and rapidfuzz for Levenshtein-based string similarity; per-quote percentage similarity scored. Median across all extracted quotes (and per-LLM/per-tool subsets) reported in Supplementary Table 3. Authors flagged a sub-population of quotes that came from the prompt's briefing files (e.g., the PRECIS Toolkit page or Loudon 2015 reference) rather than the target full text — for those, similarity to the target is mechanically low.
+> **Procedure:** Five LLMs (Claude-3-Opus, Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B-instruct-v0.1) were queried via APIs (Anthropic, OpenAI, OpenRouter) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes from the full text, (2) explain reasoning, and (3) assign a per-item rating. Claude-3-Opus received page-level PNG images (multimodal); the other four received plain text.
+>
+> **For this analysis (quote similarity):** every extracted quote string was matched against the source publication using parasail for pairwise alignment and rapidfuzz for Levenshtein-based string similarity; per-quote percentage similarity scored. Median across all extracted quotes (and per-LLM/per-tool subsets) reported in Supplementary Table 3. Authors flagged a sub-population of quotes that came from the prompt's briefing files (e.g., the PRECIS Toolkit page or Loudon 2015 reference) rather than the target full text — for those, similarity to the target is mechanically low.
 >
 > "API querying, extraction of ratings, fixing minor formatting issues, and quantification of quote accuracy were performed in Python 3.11.4 using the parasail and rapidfuzz libraries." (Woelfle et al., 2024, p. 5)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p5-4.png]]
 
 ### Who?
 
-> **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1) producing quote outputs. **Datasets / sample-size flow:** PRISMA — 112 systematic reviews × ~14 quotes/publication ≈ ~1,500 quotes per LLM run (target 27 items × 0.5 quotes/item). AMSTAR — 112 reviews × ~7 quotes ≈ ~780 quotes per LLM run (11 items × 0.6 quotes/item). PRECIS-2 — 56 RCTs × ~10 quotes ≈ ~560 quotes per LLM run (9 domains × 1 quote). Multiplied by ~9 LLM runs across the ensemble (some failures: Claude-3-Opus 3/112; GPT-4 3/112; GPT-3.5 3/112 PRISMA-AMSTAR + 2/56 PRECIS-2; Mixtral 1/112).
+> **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1) producing quote outputs.
+>
+> **Datasets / sample-size flow:** PRISMA — 112 systematic reviews × ~14 quotes/publication ≈ ~1,500 quotes per LLM run (target 27 items × 0.5 quotes/item). AMSTAR — 112 reviews × ~7 quotes ≈ ~780 quotes per LLM run (11 items × 0.6 quotes/item). PRECIS-2 — 56 RCTs × ~10 quotes ≈ ~560 quotes per LLM run (9 domains × 1 quote). Multiplied by ~9 LLM runs across the ensemble (some failures: Claude-3-Opus 3/112; GPT-4 3/112; GPT-3.5 3/112 PRISMA-AMSTAR + 2/56 PRECIS-2; Mixtral 1/112).
 >
 > "Claude-3-Opus, Claude-2, and Mixtral-8x22B sometimes quoted from the provided briefings instead of the full text to be assessed, which was not part of the instructions, while GPT-4 and GPT-3.5 rarely did this." (Woelfle et al., 2024, p. 8)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p8-6.png]]

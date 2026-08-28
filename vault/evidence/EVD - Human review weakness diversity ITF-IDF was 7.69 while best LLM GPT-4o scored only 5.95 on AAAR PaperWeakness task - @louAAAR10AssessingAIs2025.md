@@ -36,7 +36,15 @@ tripod_llm_pct: 57pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark evaluation on the new WEAKNESS task in AAAR-1.0. **Method type:** zero-shot LLM evaluation, comparing LLM-generated weakness lists against multi-reviewer ground-truth weakness lists using a novel diversity metric. **Tools:** SentenceBERT (Reimers, 2019, all-mpnet-base-v2) for similarity scoring; closed-source GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, o1-preview, o3-mini; open-source OLMo-7B, Mistral-7B, Mixtral-8x22B-MoE, Llama 3.1-70B, Qwen 2.5-72B; AI-SCI agent framework (Lu et al., 2024) on GPT-4o backbone. **Dependent variable(s):** ITF-IDF (Inverse-Term-Frequency × Inverse-Document-Frequency) weakness-diversity score; also S-F1, S-Precision, S-Recall against multi-reviewer gold weakness lists. **Independent variable(s) / covariates:** model identity; prompting input strategy (split-combine vs. no-split); window size; AI-SCI agentic prompting vs. plain LLM.
+> **Study design:** cross-sectional benchmark evaluation on the new WEAKNESS task in AAAR-1.0.
+>
+> **Method type:** zero-shot LLM evaluation, comparing LLM-generated weakness lists against multi-reviewer ground-truth weakness lists using a novel diversity metric.
+>
+> **Tools:** SentenceBERT (Reimers, 2019, all-mpnet-base-v2) for similarity scoring; closed-source GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, o1-preview, o3-mini; open-source OLMo-7B, Mistral-7B, Mixtral-8x22B-MoE, Llama 3.1-70B, Qwen 2.5-72B; AI-SCI agent framework (Lu et al., 2024) on GPT-4o backbone.
+>
+> **Dependent variable(s):** ITF-IDF (Inverse-Term-Frequency × Inverse-Document-Frequency) weakness-diversity score; also S-F1, S-Precision, S-Recall against multi-reviewer gold weakness lists.
+>
+> **Independent variable(s) / covariates:** model identity; prompting input strategy (split-combine vs. no-split); window size; AI-SCI agentic prompting vs. plain LLM.
 >
 > "Inspired by the classic TF-IDF, we propose a novel review diversity metric: ITF-IDF = (1/w) Σ_j ((1/m_j) Σ_i log(m_j / O_i^j)) × log(w / R_i^j)) ... Oj_i calculates the intra-paper occurrence frequency of pj_i; Rj_i is the 'soft' number of papers that also contain the pj_i ... Oj_i measures informativeness, and Rj_i measures specificity. The complete ITF-IDF consider both aspects and reflects the overall weakness diversity." (Lou et al., 2025, p. 6)
 > ![[louAAAR10AssessingAIs2025-evd-p6-3.png]]

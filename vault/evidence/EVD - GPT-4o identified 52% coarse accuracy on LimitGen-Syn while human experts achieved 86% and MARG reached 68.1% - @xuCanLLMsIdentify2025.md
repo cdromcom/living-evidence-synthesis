@@ -35,7 +35,15 @@ tripod_llm_pct: 70pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark evaluation of LLM-based and agent-based systems against a synthetic perturbation-based benchmark with a human-expert ceiling. **Method type:** zero-shot generation followed by automated coarse-grained classification by GPT-4o judge plus a parallel human evaluation. **Tools:** LIMITGEN-Syn benchmark (1,000 perturbed examples derived from 500 NLP arXiv papers); evaluated systems = GPT-4o, GPT-4o-mini, Llama-3.3-70B, Qwen-2.5-72B, and the MARG multi-agent system (D'Arcy et al. 2024) instantiated with GPT-4o-mini agents; GPT-4o as automated judge. **Dependent variable(s):** coarse-grained accuracy (proportion of papers where at least one generated limitation correctly matches the intended perturbed subtype) under both automated (GPT-4o classifier) and human evaluation; fine-grained 0–5 score on relatedness/specificity. **Independent variable(s):** system identity (5 LLM/agent systems vs. human baseline); evaluation modality (automated vs. human, n=100 sample).
+> **Study design:** cross-sectional benchmark evaluation of LLM-based and agent-based systems against a synthetic perturbation-based benchmark with a human-expert ceiling.
+>
+> **Method type:** zero-shot generation followed by automated coarse-grained classification by GPT-4o judge plus a parallel human evaluation.
+>
+> **Tools:** LIMITGEN-Syn benchmark (1,000 perturbed examples derived from 500 NLP arXiv papers); evaluated systems = GPT-4o, GPT-4o-mini, Llama-3.3-70B, Qwen-2.5-72B, and the MARG multi-agent system (D'Arcy et al. 2024) instantiated with GPT-4o-mini agents; GPT-4o as automated judge.
+>
+> **Dependent variable(s):** coarse-grained accuracy (proportion of papers where at least one generated limitation correctly matches the intended perturbed subtype) under both automated (GPT-4o classifier) and human evaluation; fine-grained 0–5 score on relatedness/specificity.
+>
+> **Independent variable(s):** system identity (5 LLM/agent systems vs. human baseline); evaluation modality (automated vs. human, n=100 sample).
 >
 > "We evaluate the performance of 4 frontier LLMs across two distinct categories in our benchmark: (1) Proprietary LLMs, including GPT-4o and GPT-4o-mini (OpenAI, 2024); and (2) Open-source LLMs, including Llama-3.3-70B (AI@Meta, 2024), Qwen2.5-72B (Yang et al., 2024). We require each model to generate the most significant limitations for an aspect of a paper. In the LIMITGEN-Syn experiments, we measure whether models identify the single most prominent limitation in each paper within their top three generated limitations, ensuring a fair comparison across systems." (Xu et al., 2025, p. 6)
 > ![[xuCanLLMsIdentify2025-evd-p7-1.png]]

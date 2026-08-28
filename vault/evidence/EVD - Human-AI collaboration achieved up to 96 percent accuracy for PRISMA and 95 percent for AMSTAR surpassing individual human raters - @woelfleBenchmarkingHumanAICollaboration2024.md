@@ -39,20 +39,40 @@ tripod_llm_pct: 67pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of human–AI collaboration vs an individual second human rater on the same evidence-appraisal workload. **Method type:** human-rater-1 + single LLM ensemble — items where the human and the LLM agree are accepted; items where they disagree are deferred to a (hypothetical) second human rater. **Tools:** PRISMA (27 items × 112 reviews), AMSTAR (11 items × 112 reviews), PRECIS-2 (9 domains × 56 RCTs); 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4 / GPT-3.5 / Mixtral-8x22B) generate 10 possible human–AI pairs. **Dependent variables:** accuracy (% identical to human consensus) on the non-deferred subset; Cohen's kappa (weighted for PRECIS-2); deferring fraction. **Independent variables:** LLM partner; appraisal tool; comparison anchor — paper compares against single human-rater accuracy of 89% (PRISMA), 89% (AMSTAR), 75% (PRECIS-2).
+> **Study design:** cross-sectional benchmark of human–AI collaboration vs an individual second human rater on the same evidence-appraisal workload.
+>
+> **Method type:** human-rater-1 + single LLM ensemble — items where the human and the LLM agree are accepted; items where they disagree are deferred to a (hypothetical) second human rater.
+>
+> **Tools:** PRISMA (27 items × 112 reviews), AMSTAR (11 items × 112 reviews), PRECIS-2 (9 domains × 56 RCTs); 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4 / GPT-3.5 / Mixtral-8x22B) generate 10 possible human–AI pairs.
+>
+> **Dependent variables:** accuracy (% identical to human consensus) on the non-deferred subset; Cohen's kappa (weighted for PRECIS-2); deferring fraction.
+>
+> **Independent variables:** LLM partner; appraisal tool; comparison anchor — paper compares against single human-rater accuracy of 89% (PRISMA), 89% (AMSTAR), 75% (PRECIS-2).
 >
 > "Human−AI collaboration resulted in the best accuracies from 89% to 96% for PRISMA (25/35% deferred), 91%−95% for AMSTAR (27/30% deferred), and 80%−86% for PRECIS-2 (76/71% deferred)." (Woelfle et al., 2024, p. 1)
 
 ### How?
 
-> **Procedure:** Five LLMs (Claude-3-Opus, Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B-instruct-v0.1) were queried via APIs (Anthropic, OpenAI, OpenRouter) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes, (2) explain reasoning, and (3) assign a per-item rating (no/yes/NA for PRISMA/AMSTAR; ordinal 1–5 or NA for PRECIS-2). Claude-3-Opus received page-level PNG images (multimodal); the other four received plain text. Each prompt was run twice (GPT-4 only on 25% of publications). **For this analysis (human–AI collaboration):** ratings of human rater 1 were combined with each individual LLM's rating; items where human-1 and the LLM matched were compared to human consensus to compute accuracy/kappa, and items where they disagreed were classified as "deferred to a second human rater." This generates 10 possible human–AI pairs (rater-1 × {2 runs each of Opus, Claude-2, GPT-3.5, Mixtral; 1 run of GPT-4 due to cost}). **Statistics:** 1000-resample publication-level bootstrap 95% CIs in R 4.3; statistical superiority over single-human-rater accuracy declared when CIs of paired and single-rater accuracy did not overlap.
+> **Procedure:** Five LLMs (Claude-3-Opus, Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B-instruct-v0.1) were queried via APIs (Anthropic, OpenAI, OpenRouter) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes, (2) explain reasoning, and (3) assign a per-item rating (no/yes/NA for PRISMA/AMSTAR; ordinal 1–5 or NA for PRECIS-2). Claude-3-Opus received page-level PNG images (multimodal); the other four received plain text. Each prompt was run twice (GPT-4 only on 25% of publications).
+>
+> **For this analysis (human–AI collaboration):** ratings of human rater 1 were combined with each individual LLM's rating; items where human-1 and the LLM matched were compared to human consensus to compute accuracy/kappa, and items where they disagreed were classified as "deferred to a second human rater." This generates 10 possible human–AI pairs (rater-1 × {2 runs each of Opus, Claude-2, GPT-3.5, Mixtral; 1 run of GPT-4 due to cost}).
+>
+> **Statistics:** 1000-resample publication-level bootstrap 95% CIs in R 4.3; statistical superiority over single-human-rater accuracy declared when CIs of paired and single-rater accuracy did not overlap.
 >
 > "We combined ratings of individual human raters with individual LLM ratings for each of the three tools. Items where the LLM aligned with the human rater were compared to human consensus. Inconsistent items were considered uncertain and thus 'deferred to a second human rater'. In a practical application of this approach, the first and second human rater would then have to go through their normal consensus process." (Woelfle et al., 2024, p. 5)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p4-1.png]]
 
 ### Who?
 
-> **Models:** 5 LLMs paired with human rater 1 → 10 possible pairs (Opus×2, Claude-2×2, GPT-4×1, GPT-3.5×2, Mixtral×2). **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); PRECIS-2 — 56 RCTs (PragMeta database). **Human rater 1:** experienced reviewer (British pediatric surgeon for PRISMA/AMSTAR; experienced systematic reviewer and metaresearcher for PRECIS-2). **Processing failures:** Claude-3-Opus 3/112; GPT-4 3/112; GPT-3.5 3/112 PRISMA-AMSTAR + 2/56 PRECIS-2; Mixtral 1/112; Claude-2 processed all. **Significance:** for PRISMA and AMSTAR, 8 of 10 collaboration pairs led to significantly more accurate responses than human rater 1 or 2 alone; for PRECIS-2, only 1 of 10 (Human-1 + GPT-3.5).
+> **Models:** 5 LLMs paired with human rater 1 → 10 possible pairs (Opus×2, Claude-2×2, GPT-4×1, GPT-3.5×2, Mixtral×2).
+>
+> **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); PRECIS-2 — 56 RCTs (PragMeta database).
+>
+> **Human rater 1:** experienced reviewer (British pediatric surgeon for PRISMA/AMSTAR; experienced systematic reviewer and metaresearcher for PRECIS-2).
+>
+> **Processing failures:** Claude-3-Opus 3/112; GPT-4 3/112; GPT-3.5 3/112 PRISMA-AMSTAR + 2/56 PRECIS-2; Mixtral 1/112; Claude-2 processed all.
+>
+> **Significance:** for PRISMA and AMSTAR, 8 of 10 collaboration pairs led to significantly more accurate responses than human rater 1 or 2 alone; for PRECIS-2, only 1 of 10 (Human-1 + GPT-3.5).
 >
 > "Human−AI collaboration with Claude-3-Opus, Claude-2, GPT-3.5, and Mixtral-8x22B led to significantly more accurate responses than either human rater 1 or 2 alone (8 of 10 possible human−AI pairs)." (Woelfle et al., 2024, p. 8)
 

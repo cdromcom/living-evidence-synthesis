@@ -37,7 +37,15 @@ tripod_llm_pct: 62pct
 
 ### What?
 
-> **Study design:** robustness / consistency sub-analysis of the same LLM elicitation experiment (cross-condition reliability). **Method type:** Cohen's kappa (κ) and percent-agreement on per-variable confounder designations across (a) direct vs. indirect prompting, (b) reasoning vs. no-reasoning prompts, (c) standard vs. alternate multiple-choice option ordering, and within-variable SD across the 10 repeat calls. **Tools:** Cohen's κ; per-variable categorization into "always (100%) / never (0%) / mixed" confounder; figures 5–8. **Dependent variables:** Cohen's κ; % of variables receiving identical designation across methods; within-variable SD across iterations; share of variables flipping between 0% and 100% solely on option order. **Independent variables:** model (Claude 3.5 / GPT-4o / GPT-o1); prompt-pair compared (direct↔indirect; reasoning↔no-reasoning; standard↔alternate option order); whether the Non-Confounders subgroup is included.
+> **Study design:** robustness / consistency sub-analysis of the same LLM elicitation experiment (cross-condition reliability).
+>
+> **Method type:** Cohen's kappa (κ) and percent-agreement on per-variable confounder designations across (a) direct vs. indirect prompting, (b) reasoning vs. no-reasoning prompts, (c) standard vs. alternate multiple-choice option ordering, and within-variable SD across the 10 repeat calls.
+>
+> **Tools:** Cohen's κ; per-variable categorization into "always (100%) / never (0%) / mixed" confounder; figures 5–8.
+>
+> **Dependent variables:** Cohen's κ; % of variables receiving identical designation across methods; within-variable SD across iterations; share of variables flipping between 0% and 100% solely on option order.
+>
+> **Independent variables:** model (Claude 3.5 / GPT-4o / GPT-o1); prompt-pair compared (direct↔indirect; reasoning↔no-reasoning; standard↔alternate option order); whether the Non-Confounders subgroup is included.
 >
 > "In order to assess the consistency of LLM responses we also use several variants on the prompts. First, we attempt a 'no-reasoning' version of the prompts… Second, we modify the direct prompt and change the order of the options to 'A. Not sure. B. Not a confounding variable. C. A confounding variable' to check whether the LLM responses are sensitive to the shuffling of the options, as in Nori et al. (2023)." (Huntington-Klein & Murray, 2024, p. 6)
 > ![[huntington-kleinLLMsActRepositories2024-evd-p6-1.png]]

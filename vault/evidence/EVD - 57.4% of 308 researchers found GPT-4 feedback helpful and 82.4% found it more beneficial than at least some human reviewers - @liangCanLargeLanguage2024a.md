@@ -34,7 +34,15 @@ tripod_llm_pct: 55pct
 
 ### What?
 
-> **Study design:** prospective user-study survey nested in an LLM scientific-feedback platform. **Method type:** self-reported 5-point Likert ratings of LLM feedback. **Tools:** Gradio-based web demo (public URL); GPT-4 feedback pipeline (single-pass prompt over parsed PDF, ScienceBeam parser, 6,500-token prompt budget); 6-page survey (~15–20 min, $20 compensation per respondent). **Dependent variables:** (i) absolute helpfulness rating ("Highly Unhelpful" → "Highly Helpful", 5 levels) and (ii) comparative benefit vs. human reviewer feedback ("Much Less Helpful Than Most" → "Much More Helpful Than Most", 5 levels). **Independent variables / covariates:** participant career stage, years of publishing experience, professional status (subgroup analyses in Supp. Figs. 3–4).
+> **Study design:** prospective user-study survey nested in an LLM scientific-feedback platform.
+>
+> **Method type:** self-reported 5-point Likert ratings of LLM feedback.
+>
+> **Tools:** Gradio-based web demo (public URL); GPT-4 feedback pipeline (single-pass prompt over parsed PDF, ScienceBeam parser, 6,500-token prompt budget); 6-page survey (~15–20 min, $20 compensation per respondent).
+>
+> **Dependent variables:** (i) absolute helpfulness rating ("Highly Unhelpful" → "Highly Helpful", 5 levels) and (ii) comparative benefit vs. human reviewer feedback ("Much Less Helpful Than Most" → "Much More Helpful Than Most", 5 levels).
+>
+> **Independent variables / covariates:** participant career stage, years of publishing experience, professional status (subgroup analyses in Supp. Figs. 3–4).
 >
 > "Participants were surveyed about the extent to which they found the LLM feedback helpful in improving their work or understanding of a subject. The majority responded positively, with over 50.3% considering the feedback to be helpful, and 7.1% considering it to be very helpful (Fig. 4a)." (Liang et al., 2024, p. 5)
 > ![[liangCanLargeLanguage2024a-evd-p5-1.png]]

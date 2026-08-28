@@ -32,7 +32,15 @@ tripod_llm_pct: 42pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of LLM risk-of-bias assessments against expert human consensus. **Method type:** zero-shot prompting of four general-purpose LLMs via public web interfaces, scored against a two-expert consensus reference. **Tools:** ChatGPT 4o (OpenAI), x.AI Grok 3, Gemini 2.0 Flash (Google), DeepSeek V3 — all via public web UIs; QUADAS-2 instrument (Whiting et al. 2011) covering four domains (patient selection, index test, reference standard, flow and timing) with 11 signaling questions per article. **Dependent variable:** correctness of each LLM signaling-question assessment (binary: correct = answer matches human consensus AND argument is correct). **Independent variables / covariates:** LLM identity (4 levels); QUADAS-2 domain (4 levels); signaling question (11 levels); article (10 diagnostic-accuracy studies).
+> **Study design:** cross-sectional benchmark of LLM risk-of-bias assessments against expert human consensus.
+>
+> **Method type:** zero-shot prompting of four general-purpose LLMs via public web interfaces, scored against a two-expert consensus reference.
+>
+> **Tools:** ChatGPT 4o (OpenAI), x.AI Grok 3, Gemini 2.0 Flash (Google), DeepSeek V3 — all via public web UIs; QUADAS-2 instrument (Whiting et al. 2011) covering four domains (patient selection, index test, reference standard, flow and timing) with 11 signaling questions per article.
+>
+> **Dependent variable:** correctness of each LLM signaling-question assessment (binary: correct = answer matches human consensus AND argument is correct).
+>
+> **Independent variables / covariates:** LLM identity (4 levels); QUADAS-2 domain (4 levels); signaling question (11 levels); article (10 diagnostic-accuracy studies).
 >
 > "Four artificial intelligence generative large language models were used with their public web-based interfaces, for the AI assessment: ChatGPT 4o model, X.AI Grok 3 model, Gemini 2.0 flash model, and the DeepSeek V3 model." (Leucuta et al., 2025, p. 3)
 > ![[leucutaRiskBiasAssessment2025-evd-p3-1.png]]

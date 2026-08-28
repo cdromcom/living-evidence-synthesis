@@ -4,7 +4,6 @@ import {
   getInboundEdges,
   getNodeById,
   getOutboundEdges,
-  getTopSignals,
   getReportingCompliance,
 } from "@/lib/data";
 import { renderMarkdown } from "@/lib/markdown";
@@ -106,6 +105,8 @@ export default async function NodeDetailPage({
     "rating",
     "curatedWithModel",
     "curatedWithModelDate",
+    "appraisalOverall",
+    "tripodLlmPct",
   ]);
   // SRC nodes are filed under their citekey ("@louAAAR10AssessingAIs2025")
   // so coding agents and the maintainer can find them by exact match — that's
@@ -122,24 +123,26 @@ export default async function NodeDetailPage({
   const extraEntries = Object.entries(node.extras).filter(
     ([k, v]) => v !== undefined && v !== null && v !== "" && !HANDLED_EXTRA_KEYS.has(k)
   );
-  // OSF/COS badge artwork (data-transparency, code-transparency, study-registration
-  // borrow real CC BY 4.0 badge images — see TopBadges.tsx's BADGE_IMAGE) requires
-  // attribution, surfaced as a References footnote at the bottom of the page instead
-  // of inline next to the badges.
-  const BADGE_ART_STANDARDS = new Set(["data-transparency", "code-transparency", "study-registration"]);
-  const hasBadgeArtwork = getTopSignals(node).some((s) => BADGE_ART_STANDARDS.has(s.standard));
   const hasCritiqueStatus = Boolean(node.extras.critiqueStatus);
-  const hasTripodCompliance = node.type === "SRC" && Boolean(getReportingCompliance(node.id));
+  const hasTripodCompliance = Boolean(getReportingCompliance(node.id));
   const curatedWithModel = node.extras.curatedWithModel as string | undefined;
   const curatedWithModelDate = node.extras.curatedWithModelDate as string | undefined;
+  const hasReferences = Boolean(hasCritiqueStatus || hasTripodCompliance || curatedWithModel);
+  const hasDates = Boolean(node.created || node.updated);
+  const showFooter = hasReferences || hasDates;
+  const tocItems = hasReferences ? [...toc, { id: "references", level: 2 as const, text: "References" }] : toc;
 
   return (
     <main className="py-10">
-      {/* Hero section deliberately matches Header.tsx's own container
-          (mx-auto max-w-6xl px-4 sm:px-6) exactly, so the title/badges line
-          up with the turtle-icon logo above. The wider TOC/article/aside
-          grid and footer below use max-w-[1400px] instead and don't need to
-          match — the aside sidebar's content pushes past 6xl anyway. */}
+      {/* Hero section and the footer below both use Header.tsx's own
+          container (mx-auto max-w-6xl px-4 sm:px-6) exactly, so the title
+          and the References heading line up with the turtle-icon logo
+          above. The TOC/article/aside grid is wider (max-w-[1560px]) to fit
+          the TOC and aside columns, but 1560 = 1152 (6xl) + 2 * 204
+          (TOC's 180px + the 24px gap before the article) is chosen so the
+          *article* column — not the grid container itself — lines up with
+          that same left edge once the viewport is wide enough for both
+          containers to sit at their full max-width. */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <NodeTypeBadge type={node.type} id={node.id} />
@@ -158,11 +161,6 @@ export default async function NodeDetailPage({
       </h1>
 
       <SourceCitation node={node} />
-
-      <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-ink">
-        {node.created && <span>Created {formatDate(node.created)}</span>}
-        {node.updated && <span>Updated {formatDate(node.updated)}</span>}
-      </div>
 
       {typeof truthValue === "number" && (
         <div className="mt-3">
@@ -186,17 +184,17 @@ export default async function NodeDetailPage({
       )}
       </div>
 
-      <div className="mx-auto mt-8 max-w-[1400px] px-4 sm:px-6">
+      <div className="mx-auto mt-8 max-w-[1560px] px-4 sm:px-6">
       <div className="grid gap-6 lg:grid-cols-[180px_1fr_240px] lg:items-start">
-        {node.type === "SRC" ? (
-          <SourceToc items={toc} />
+        {tocItems.length > 0 ? (
+          <SourceToc items={tocItems} />
         ) : (
           <div className="hidden lg:block" aria-hidden />
         )}
 
         <NodeArticle html={html} />
 
-        <aside className="space-y-8 lg:sticky lg:top-20">
+        <aside className="space-y-8">
           <ReviewWidget nodeId={node.id} />
           <div>
             <h2 className="mb-2 border-b border-border pb-1.5 text-xs font-semibold uppercase tracking-wide text-ink/70">
@@ -214,54 +212,56 @@ export default async function NodeDetailPage({
       </div>
       </div>
 
-      {(hasBadgeArtwork || hasCritiqueStatus || hasTripodCompliance || curatedWithModel) && (
-        <footer className="mx-auto mt-12 max-w-6xl space-y-1 border-t border-border px-4 pt-3 sm:px-6">
-          <h2 className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
-            References
-          </h2>
-          {/* Footer text is capped at 40% of the page width — these are short
-              attribution/provenance lines, not article copy, and reading the
-              full-width article measure here just looks like an unstyled
-              afterthought. */}
-          <ol className="max-w-[40vw] list-decimal space-y-1 pl-4">
-            {hasBadgeArtwork && (
-              <li className="text-[0.625rem] text-muted-ink">
-                Badge artwork ©{" "}
-                <a href="https://www.cos.io/initiatives/badges" className="underline hover:text-forest">
-                  Center for Open Science
-                </a>
-                , CC BY 4.0.
-              </li>
-            )}
-            {hasCritiqueStatus && (
-              <li className="text-[0.625rem] text-muted-ink">
-                Retraction/correction status checked against Crossref (which now includes the
-                Retraction Watch database) or DataCite for arXiv preprints, at curation time, not a
-                live guarantee; verify independently before relying on it.
-              </li>
-            )}
-            {hasTripodCompliance && (
-              <li className="text-[0.625rem] text-muted-ink">
-                Gallifant, J., Afshar, M., et al.{" "}
-                <a
-                  href="https://www.nature.com/articles/s41591-024-03425-5"
-                  className="underline hover:text-forest"
-                >
-                  (2025). The TRIPOD-LLM reporting guideline for studies using large language
-                  models. <em>Nature Medicine</em>, 31, 60–69.
-                </a>{". "}
-                Transparency, Openness, and reporting-compliance sections above are scored against
-                this checklist.
-              </li>
-            )}
-            {curatedWithModel && (
-              <li className="text-[0.625rem] text-muted-ink">
-                Trust-signal analysis on this page was curated with {curatedWithModel}
-                {curatedWithModelDate ? `, ${curatedWithModelDate}` : ""}, an AI assistant, not an
-                independent human reviewer; verify anything load-bearing.
-              </li>
-            )}
-          </ol>
+      {showFooter && (
+        <footer id="references" className="mx-auto mt-12 max-w-6xl space-y-2 border-t border-border px-4 pt-3 sm:px-6">
+          {hasDates && (
+            <div className="flex flex-wrap gap-3 text-xs text-muted-ink">
+              {node.created && <span>Created {formatDate(node.created)}</span>}
+              {node.updated && <span>Updated {formatDate(node.updated)}</span>}
+            </div>
+          )}
+
+          {hasReferences && (
+            <div className="space-y-1">
+              <h2 className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+                References
+              </h2>
+              {/* Footer text is capped at 40% of the page width — these are short
+                  attribution/provenance lines, not article copy, and reading the
+                  full-width article measure here just looks like an unstyled
+                  afterthought. */}
+              <ol className="max-w-[40vw] list-decimal space-y-1 pl-4">
+                {hasCritiqueStatus && (
+                  <li className="text-[0.625rem] text-muted-ink">
+                    Retraction/correction status checked against Crossref (which now includes the
+                    Retraction Watch database) or DataCite for arXiv preprints, at curation time, not a
+                    live guarantee; verify independently before relying on it.
+                  </li>
+                )}
+                {hasTripodCompliance && (
+                  <li className="text-[0.625rem] text-muted-ink">
+                    Gallifant, J., Afshar, M., et al.{" "}
+                    <a
+                      href="https://www.nature.com/articles/s41591-024-03425-5"
+                      className="underline hover:text-forest"
+                    >
+                      (2025). The TRIPOD-LLM reporting guideline for studies using large language
+                      models. <em>Nature Medicine</em>, 31, 60–69.
+                    </a>{". "}
+                    Transparency, Openness, and reporting-compliance sections above are scored against
+                    this checklist.
+                  </li>
+                )}
+                {curatedWithModel && (
+                  <li className="text-[0.625rem] text-muted-ink">
+                    Trust-signal analysis on this page was curated with {curatedWithModel}
+                    {curatedWithModelDate ? `, ${curatedWithModelDate}` : ""}, an AI assistant, not an
+                    independent human reviewer; verify anything load-bearing.
+                  </li>
+                )}
+              </ol>
+            </div>
+          )}
         </footer>
       )}
     </main>

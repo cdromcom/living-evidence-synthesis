@@ -33,7 +33,15 @@ tripod_llm_pct: 43pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of GPT 4-0613 (one of 6 commercial LLMs) against an expert STROBE-checklist gold standard. **Method type:** RAG zero-shot QA with low-temperature (T=0.1) repeated sampling, then Kruskal-Wallis pairwise comparison against the next-best LLM. **Tools:** custom RAG web app (LanceDB + text-ada-embedding-002 + cosine retrieval); GPT 4-0613 (OpenAI, dated 13 June 2023, training cutoff September 2021); 15 STROBE-derived questions; SPSS 29.0. **Dependent variable:** percentage of GPT 4-0613 responses (out of 5850 question-answer pairs) judged correct against the medical professor's gold-standard answers. **Independent variable / covariate of interest:** model identity (GPT 4-0613 vs. comparator LLMs); article-publication date relative to GPT 4-0613's Sep-2021 knowledge cutoff (28/39 articles published pre-cutoff).
+> **Study design:** cross-sectional benchmark of GPT 4-0613 (one of 6 commercial LLMs) against an expert STROBE-checklist gold standard.
+>
+> **Method type:** RAG zero-shot QA with low-temperature (T=0.1) repeated sampling, then Kruskal-Wallis pairwise comparison against the next-best LLM.
+>
+> **Tools:** custom RAG web app (LanceDB + text-ada-embedding-002 + cosine retrieval); GPT 4-0613 (OpenAI, dated 13 June 2023, training cutoff September 2021); 15 STROBE-derived questions; SPSS 29.0.
+>
+> **Dependent variable:** percentage of GPT 4-0613 responses (out of 5850 question-answer pairs) judged correct against the medical professor's gold-standard answers.
+>
+> **Independent variable / covariate of interest:** model identity (GPT 4-0613 vs. comparator LLMs); article-publication date relative to GPT 4-0613's Sep-2021 knowledge cutoff (28/39 articles published pre-cutoff).
 >
 > "Using this benchmark pipeline, we compared the answers of the generative AI tools, which are ChatGPT 3.5-turbo 1106 (11th June version), ChatGPT 4-0613 (6th November version), ChatGPT 4-1106 (11th June version), Palm 2 (chat-bison), Claude v1, Gemini pro with the benchmark in 15 questions for 39 medical research articles (Table 2)." (Akyon et al., 2024, p. 12)
 > ![[akyonEvaluatingCapabilitiesGenerative2024-evd-p12-2.png]]
@@ -47,7 +55,9 @@ tripod_llm_pct: 43pct
 
 ### Who?
 
-> **Model:** GPT 4-0613 (OpenAI; dated 13 June 2023; training cutoff September 2021). No fine-tuning. **Articles (sample-size flow):** PubMed obesity-in-title search 19 Dec 2023 → **2996** → eligibility filter → **303** → first **50** selected → 11 excluded as non-observational → **39 analyzed**. Of those 39, **28 (71.8%)** were published before the GPT 4-0613 cutoff; the other 11 articles (28.2%) were published after the cutoff and could not have been seen in training. **No human evaluators for this EVD** — performance scored against gold answers from one medical professor (validated by an epidemiologist). 39 articles × 15 questions × 10 trials = **5850 QA pairs** for GPT 4-0613.
+> **Model:** GPT 4-0613 (OpenAI; dated 13 June 2023; training cutoff September 2021). No fine-tuning.
+>
+> **Articles (sample-size flow):** PubMed obesity-in-title search 19 Dec 2023 → **2996** → eligibility filter → **303** → first **50** selected → 11 excluded as non-observational → **39 analyzed**. Of those 39, **28 (71.8%)** were published before the GPT 4-0613 cutoff; the other 11 articles (28.2%) were published after the cutoff and could not have been seen in training. **No human evaluators for this EVD** — performance scored against gold answers from one medical professor (validated by an epidemiologist). 39 articles × 15 questions × 10 trials = **5850 QA pairs** for GPT 4-0613.
 >
 > "Of the 39 articles analyzed, 28 (71.8%) were published before the training data cutoff date for GPT-3.5-turbo and GPT-4-0613, while all 39 articles (100%) were published before the cutoff date for GPT-4-1106." (Akyon et al., 2024, p. 14)
 > ![[akyonEvaluatingCapabilitiesGenerative2024-evd-p14-2.png]]

@@ -32,7 +32,15 @@ tripod_llm_pct: 35pct
 
 ### What?
 
-> **Study design:** observational cross-sectional pilot evaluation of LLM-generated ICDs (no human subjects). **Method type:** single-prompt LLM generation followed by checklist-based human rating against the US HHS OHRP informed-consent checklist. **Tools:** Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0; HHS informed-consent regulations / checklist (https://www.hhs.gov/ohrp/regulations-and-policy/guidance/checklists). **Dependent variable(s):** presence/absence of each "fundamental element" of the ICD (study procedures, benefits, risks, statement of consent, study site, critical adverse-event information, jargon usage, word count). **Independent variable(s) / covariates:** LLM identity (4 levels) × case scenario (7 levels) × ICD element.
+> **Study design:** observational cross-sectional pilot evaluation of LLM-generated ICDs (no human subjects).
+>
+> **Method type:** single-prompt LLM generation followed by checklist-based human rating against the US HHS OHRP informed-consent checklist.
+>
+> **Tools:** Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0; HHS informed-consent regulations / checklist (https://www.hhs.gov/ohrp/regulations-and-policy/guidance/checklists).
+>
+> **Dependent variable(s):** presence/absence of each "fundamental element" of the ICD (study procedures, benefits, risks, statement of consent, study site, critical adverse-event information, jargon usage, word count).
+>
+> **Independent variable(s) / covariates:** LLM identity (4 levels) × case scenario (7 levels) × ICD element.
 >
 > "A separate query was posed to the LLMs for conceiving ICDs for each of the seven case scenarios as follows: 'Below is the summary of a research proposal. Can you generate an ICD for the study participants?' The output generated for this query was independently evaluated by the authors, and a consensus was reached using the checklist for informed consent from the US Department of Health and Human Services." (Sridharan & Sivaramakrishnan, 2025, p. 127)
 > ![[sridharanLeveragingArtificialIntelligence2025-evd-p2-3.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 35pct
 
 ### Who?
 
-> **Models / participants:** 4 LLMs — Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0 — generating ICDs; no human subjects. **Sample-size flow:** FERCAP–SIDCER handbook → 7 prototypical case scenarios → 28 ICDs generated (4 LLMs × 7 cases) → all 28 evaluated against the HHS checklist; none excluded. All 28 ICDs were within the recommended 1250-word ceiling.
+> **Models / participants:** 4 LLMs — Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0 — generating ICDs; no human subjects.
+>
+> **Sample-size flow:** FERCAP–SIDCER handbook → 7 prototypical case scenarios → 28 ICDs generated (4 LLMs × 7 cases) → all 28 evaluated against the HHS checklist; none excluded. All 28 ICDs were within the recommended 1250-word ceiling.
 >
 > "Four AI platforms were evaluated as follows: 1. Google Bard… 2. ChatGPT 3.5… 3. Claude-Instant-100k… 4. ChatGPT 4.0…" (Sridharan & Sivaramakrishnan, 2025, p. 127)
 > ![[sridharanLeveragingArtificialIntelligence2025-evd-p2-5.png]]

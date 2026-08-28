@@ -33,7 +33,15 @@ tripod_llm_pct: 43pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of multiple commercial LLMs against an expert-derived gold standard on a STROBE-checklist comprehension task (methodological-research design). **Method type:** Retrieval-Augmented Generation (RAG) zero-shot question answering with low-temperature (T=0.1) repeated sampling. **Tools:** custom RAG web application (LanceDB vector store + OpenAI text-ada-embedding-002 embeddings + cosine-similarity retrieval); 6 LLMs (GPT 3.5-turbo-1106, GPT 4-0613, GPT 4-1106, Claude v1, Palm 2/chat-bison, Gemini pro 1.0); 15 STROBE-derived questions (13 yes/no + 2 multiple-choice); SPSS 29.0 for statistics. **Dependent variable(s):** percentage of "correct" responses per LLM (across 5,850 question-answer pairs per LLM, 4,950 for Claude v1) judged against the medical professor's gold-standard answers. **Independent variable(s):** LLM identity (6 levels); STROBE question (Q1–Q15); article (39 levels); repetition (10 trials per question per article).
+> **Study design:** cross-sectional benchmark of multiple commercial LLMs against an expert-derived gold standard on a STROBE-checklist comprehension task (methodological-research design).
+>
+> **Method type:** Retrieval-Augmented Generation (RAG) zero-shot question answering with low-temperature (T=0.1) repeated sampling.
+>
+> **Tools:** custom RAG web application (LanceDB vector store + OpenAI text-ada-embedding-002 embeddings + cosine-similarity retrieval); 6 LLMs (GPT 3.5-turbo-1106, GPT 4-0613, GPT 4-1106, Claude v1, Palm 2/chat-bison, Gemini pro 1.0); 15 STROBE-derived questions (13 yes/no + 2 multiple-choice); SPSS 29.0 for statistics.
+>
+> **Dependent variable(s):** percentage of "correct" responses per LLM (across 5,850 question-answer pairs per LLM, 4,950 for Claude v1) judged against the medical professor's gold-standard answers.
+>
+> **Independent variable(s):** LLM identity (6 levels); STROBE question (Q1–Q15); article (39 levels); repetition (10 trials per question per article).
 >
 > "Using this benchmark pipeline, we compared the answers of several generative AI tools (Chat-GPT 3.5-turbo, chat-GPT-4, Palm, Claude v1, Gemini pro) with the golden standard for 50 medical research articles from PUBMED. The experienced medical professor's answers to these questions are assigned as the golden standard." (Akyon et al., 2024, p. 6)
 > ![[akyonEvaluatingCapabilitiesGenerative2024-evd-p3-1.png]]
@@ -47,7 +55,11 @@ tripod_llm_pct: 43pct
 
 ### Who?
 
-> **Models:** 6 commercial LLMs — GPT 3.5-turbo-1106 (OpenAI, cutoff Sep 2021); GPT 4-0613 (OpenAI, cutoff Sep 2021); GPT 4-1106 (OpenAI, cutoff Apr 2023); Claude v1 (Anthropic, cutoff not stated); Palm 2/chat-bison (Google, cutoff not stated); Gemini pro 1.0 (Google, cutoff not stated). **Articles (sample-size flow):** PubMed "obesity"-in-title search 19 Dec 2023 → **2996 hits** → English + free full-text + human + last 5 years → **303 hits** → first **50** → 11 excluded as non-observational → **39 analyzed** (Claude v1 limited to 33 due to access restrictions). For 39 articles × 15 questions × 10 trials = **5850 QA pairs per LLM** (4950 for Claude v1). **Reference standard:** 1 experienced medical professor specialized in pediatric gastroenterology answered all 15 questions per article; 1 epidemiologist (Dr. Hilal Duzel) verified the answers.
+> **Models:** 6 commercial LLMs — GPT 3.5-turbo-1106 (OpenAI, cutoff Sep 2021); GPT 4-0613 (OpenAI, cutoff Sep 2021); GPT 4-1106 (OpenAI, cutoff Apr 2023); Claude v1 (Anthropic, cutoff not stated); Palm 2/chat-bison (Google, cutoff not stated); Gemini pro 1.0 (Google, cutoff not stated).
+>
+> **Articles (sample-size flow):** PubMed "obesity"-in-title search 19 Dec 2023 → **2996 hits** → English + free full-text + human + last 5 years → **303 hits** → first **50** → 11 excluded as non-observational → **39 analyzed** (Claude v1 limited to 33 due to access restrictions). For 39 articles × 15 questions × 10 trials = **5850 QA pairs per LLM** (4950 for Claude v1).
+>
+> **Reference standard:** 1 experienced medical professor specialized in pediatric gastroenterology answered all 15 questions per article; 1 epidemiologist (Dr. Hilal Duzel) verified the answers.
 >
 > "Using this benchmark pipeline, we compared the answers of the generative AI tools, which are ChatGPT 3.5-turbo 1106 (11th June version), ChatGPT 4-0613 (6th November version), ChatGPT 4-1106 (11th June version), Palm 2 (chat-bison), Claude v1, Gemini pro with the benchmark in 15 questions for 39 medical research articles (Table 2). In this study, 15 questions selected from the STROBE checklists were posed 10 times each for 39 articles to six different LLMs." (Akyon et al., 2024, p. 12)
 > ![[akyonEvaluatingCapabilitiesGenerative2024-evd-p12-1.png]]

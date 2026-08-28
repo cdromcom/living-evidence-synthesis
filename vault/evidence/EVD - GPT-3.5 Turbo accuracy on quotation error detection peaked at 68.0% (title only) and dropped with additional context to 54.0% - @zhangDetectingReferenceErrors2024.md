@@ -33,7 +33,15 @@ tripod_llm_pct: 46pct
 
 ### What?
 
-> **Study design:** zero-shot LLM evaluation on a held-out, expert-annotated quotation-error benchmark (cross-sectional). **Method type:** zero-shot prompted classification with retrieval-augmented context, plus a proprietary RAG (OpenAI Assistant API) variant. **Tools:** OpenAI gpt-3.5-turbo-0125; GROBID (PDF parsing); LlamaIndex (chunking + embedding retrieval); OpenAI Assistant API (PDF RAG); OpenAI Python API. **Dependent variable(s):** per-class accuracy (Unsubstantiated / Partially substantiated / Fully substantiated) and overall label accuracy. **Independent variable(s) / covariates:** reference-information setting (4 levels: Title; Title+Abstract; Title+Abstract+Excerpts; Title+PDF Assistant).
+> **Study design:** zero-shot LLM evaluation on a held-out, expert-annotated quotation-error benchmark (cross-sectional).
+>
+> **Method type:** zero-shot prompted classification with retrieval-augmented context, plus a proprietary RAG (OpenAI Assistant API) variant.
+>
+> **Tools:** OpenAI gpt-3.5-turbo-0125; GROBID (PDF parsing); LlamaIndex (chunking + embedding retrieval); OpenAI Assistant API (PDF RAG); OpenAI Python API.
+>
+> **Dependent variable(s):** per-class accuracy (Unsubstantiated / Partially substantiated / Fully substantiated) and overall label accuracy.
+>
+> **Independent variable(s) / covariates:** reference-information setting (4 levels: Title; Title+Abstract; Title+Abstract+Excerpts; Title+PDF Assistant).
 >
 > "Three LLMs in OpenAI's GPT family were evaluated in the experiment: gpt-3.5-turbo-0125, gpt-4-0125-preview, and gpt-4o-2024-05-13. LLMs were prompted to respond with a JSON object containing a predicted label and an explanation for their selection. All LLM experiments were conducted using OpenAI's Python API with temperature set to 0. Model performance was measured by label accuracy." (Zhang & Abernethy, 2024, p. 3)
 > ![[zhangDetectingReferenceErrors2024-evd-p3-1.png]]
@@ -51,7 +59,9 @@ tripod_llm_pct: 46pct
 >
 > **Sample-size flow (statement-reference pairs):** sourced from 3 channels — (1) prior citation-verification studies that shared annotated datasets or traceable examples → 163 (65.2%); (2) PubPeer comments cross-referenced with Retraction Watch retractions (2022–2023) for "concerns or issues about referencing or attributions" → 80 (32.0%); (3) PubMed corrections / errata / corrigenda → 7 (2.8%). Three inclusion criteria: digital versions findable via search engines; reference is a journal article (PDF text-extractable); cited statement uniquely identifiable in the citing article. **Final analyzed N = 250 statement-reference pairs.**
 >
-> **Label distribution:** 112 Unsubstantiated (44.8%), 14 Partially substantiated (5.6%), 124 Fully substantiated (49.6%). **Domain mix:** Biology/Medicine 85 (34.0%), Chemistry/Material Science 57 (22.8%), Physics 26 (10.4%), Social Science 26 (10.4%), Earth/Environmental Science 24 (9.6%), Engineering 17 (6.8%), Computer Science 15 (6.0%).
+> **Label distribution:** 112 Unsubstantiated (44.8%), 14 Partially substantiated (5.6%), 124 Fully substantiated (49.6%).
+>
+> **Domain mix:** Biology/Medicine 85 (34.0%), Chemistry/Material Science 57 (22.8%), Physics 26 (10.4%), Social Science 26 (10.4%), Earth/Environmental Science 24 (9.6%), Engineering 17 (6.8%), Computer Science 15 (6.0%).
 >
 > "Statement-reference pairs in the dataset were collected through the following channels: (1) 163 (65.2%) pairs are from previous citation verification studies that either provided traceable examples of quotation errors or shared annotated datasets… (2) 80 (32.0%) pairs are from PubPeer, a platform for researchers to leave comments on others' publications… (3) 7 (2.8%) pairs are from corrections, errata, and corrigenda available in the PubMed database." (Zhang & Abernethy, 2024, p. 7)
 > ![[zhangDetectingReferenceErrors2024-evd-p7-1.png]]

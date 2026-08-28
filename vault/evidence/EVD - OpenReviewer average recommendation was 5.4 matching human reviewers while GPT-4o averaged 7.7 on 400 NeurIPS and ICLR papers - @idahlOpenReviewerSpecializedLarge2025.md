@@ -34,7 +34,15 @@ tripod_llm_pct: 56pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark comparing one fine-tuned LLM (OpenReviewer) against four general-purpose LLM baselines on a held-out peer-review test set. **Method type:** automatic metric (mean recommendation rating with standard deviation) compared against human-reviewer reference distribution. **Tools:** Llama-OpenReviewer-8B (full-finetune of Llama-3.1-8B-Instruct on ~79K filtered ICLR/NeurIPS reviews via axolotl + Deepspeed ZeRO-3 + Flash Attention V2 + LIGER kernel); Llama-3.1-8B-Instruct, Llama-3.1-70B-Instruct, Claude-3.5-Sonnet (Oct. 22), GPT-4o (2024-11-20); vLLM serving for OpenReviewer/Llama and OpenRouter for Claude/GPT-4o; Marker for PDF→markdown. **Dependent variable:** average recommendation rating (normalized to 1=strong reject … 10=strong accept) ± SD per model. **Independent variable:** model identity (5 LLMs + human reviewer reference).
+> **Study design:** cross-sectional benchmark comparing one fine-tuned LLM (OpenReviewer) against four general-purpose LLM baselines on a held-out peer-review test set.
+>
+> **Method type:** automatic metric (mean recommendation rating with standard deviation) compared against human-reviewer reference distribution.
+>
+> **Tools:** Llama-OpenReviewer-8B (full-finetune of Llama-3.1-8B-Instruct on ~79K filtered ICLR/NeurIPS reviews via axolotl + Deepspeed ZeRO-3 + Flash Attention V2 + LIGER kernel); Llama-3.1-8B-Instruct, Llama-3.1-70B-Instruct, Claude-3.5-Sonnet (Oct. 22), GPT-4o (2024-11-20); vLLM serving for OpenReviewer/Llama and OpenRouter for Claude/GPT-4o; Marker for PDF→markdown.
+>
+> **Dependent variable:** average recommendation rating (normalized to 1=strong reject … 10=strong accept) ± SD per model.
+>
+> **Independent variable:** model identity (5 LLMs + human reviewer reference).
 
 > "While OpenReviewer matches the human reviewers with an average recommendation of 5.4 out of 10, the baseline LLMs produce average recommendations of 6.9 and higher, topped by Llama-3.1-8B-Instruct with an average recommendation of 8.1, which would lead to an "accept" for most of the papers in the test dataset." (Idahl & Ahmadi, 2025, p. 4)
 > ![[idahlOpenReviewerSpecializedLarge2025-evd-p4-1.png]]

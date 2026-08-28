@@ -115,6 +115,13 @@ h6 {
   max-width: 100%;
 }
 
+/* H3s are always sub-questions/subsections nested under a parent H2
+   (e.g. Methods Context's What?/How?/Who?) — indent them one level so the
+   nesting reads visually, not just via font size. */
+.prose-node h3 {
+  margin-left: 1.5em;
+}
+
 .prose-node p {
   margin: 0.9em 0;
 }
@@ -138,6 +145,19 @@ h6 {
 }
 
 .prose-node strong {
+  font-weight: 600;
+}
+
+/* Authors bold structured labels inside quoted excerpts (e.g. blockquote
+   "**Study design:** ..." lines under Methods Context) to mark up the
+   source's own structure — that's worth keeping. The same markdown habit
+   creeping into plain paragraph prose just reads as noisy emphasis, so
+   only headings and quotes stay bold; plain-paragraph bold is flattened
+   back to normal weight. */
+.prose-node p strong {
+  font-weight: inherit;
+}
+.prose-node blockquote strong {
   font-weight: 600;
 }
 
@@ -218,7 +238,7 @@ h6 {
   border-left: 3px solid var(--color-border);
   padding-left: 1em;
   margin: 1em 0;
-  color: var(--color-muted-ink);
+  color: var(--color-ink);
 }
 
 .callout {
@@ -333,6 +353,45 @@ h6 {
 }
 .status-icon-na {
   opacity: 0.45;
+}
+
+/* Collapsible top-level sections (Description, Methods Context, Other Notes,
+   Caveats, Supports Claim(s), ...) — native <details>/<summary> so an
+   in-page anchor into a closed section auto-expands it, no JS needed. */
+.prose-node .accordion-section {
+  margin-top: 1.6em;
+}
+.prose-node .accordion-section > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  cursor: pointer;
+  list-style: none;
+}
+.prose-node .accordion-section > summary::-webkit-details-marker {
+  display: none;
+}
+.prose-node .accordion-section > summary::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.5em;
+  height: 0.5em;
+  margin-top: 0.5em;
+  border-right: 2px solid var(--color-muted-ink);
+  border-bottom: 2px solid var(--color-muted-ink);
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+}
+.prose-node .accordion-section:not([open]) > summary::before {
+  transform: rotate(-45deg);
+  margin-top: 0.2em;
+}
+.prose-node .accordion-section > summary h2,
+.prose-node .accordion-section > summary h3 {
+  margin: 0;
+}
+.prose-node .accordion-body > :first-child {
+  margin-top: 0.6em;
 }
 
 .mono {

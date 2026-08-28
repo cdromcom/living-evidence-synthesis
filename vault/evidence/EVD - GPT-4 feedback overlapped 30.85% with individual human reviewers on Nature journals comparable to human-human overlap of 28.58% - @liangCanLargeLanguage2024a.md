@@ -38,7 +38,15 @@ tripod_llm_pct: 55pct
 
 ### What?
 
-> **Study design:** retrospective benchmark of LLM-generated review comments against human peer-review comments on already-published papers. **Method type:** automated two-stage extract-then-match pipeline (GPT-4 extractive summarization → GPT-4 semantic matching), with hit-rate as the overlap metric and a controlled human-vs-human baseline. **Tools:** OpenAI GPT-4 (zero-shot, single pass over PDF, ~6,500 tokens of parsed input from ScienceBeam); 4-section structured-feedback prompt; comment-extraction prompt (Supp. Fig. 13); semantic-matching prompt with 5–10 similarity scale, retaining only matches rated ≥ 7 ("Strongly Related"); Nature website + OpenReview API for source data. **Dependent variables:** pairwise hit rate = |A∩B|/|A| between GPT-4 comments (set A) and a single human reviewer's comments (set B); also Szymkiewicz–Simpson, Jaccard, and Sørensen–Dice as robustness metrics. **Independent variables / covariates:** comparison condition (GPT-4 vs human reviewer; human vs human with N controlled to GPT-4's comment count); journal and Nature root category; ICLR decision outcome (Oral / Spotlight / Poster / Reject / Withdrawn) for the parallel ICLR analysis.
+> **Study design:** retrospective benchmark of LLM-generated review comments against human peer-review comments on already-published papers.
+>
+> **Method type:** automated two-stage extract-then-match pipeline (GPT-4 extractive summarization → GPT-4 semantic matching), with hit-rate as the overlap metric and a controlled human-vs-human baseline.
+>
+> **Tools:** OpenAI GPT-4 (zero-shot, single pass over PDF, ~6,500 tokens of parsed input from ScienceBeam); 4-section structured-feedback prompt; comment-extraction prompt (Supp. Fig. 13); semantic-matching prompt with 5–10 similarity scale, retaining only matches rated ≥ 7 ("Strongly Related"); Nature website + OpenReview API for source data.
+>
+> **Dependent variables:** pairwise hit rate = |A∩B|/|A| between GPT-4 comments (set A) and a single human reviewer's comments (set B); also Szymkiewicz–Simpson, Jaccard, and Sørensen–Dice as robustness metrics.
+>
+> **Independent variables / covariates:** comparison condition (GPT-4 vs human reviewer; human vs human with N controlled to GPT-4's comment count); journal and Nature root category; ICLR decision outcome (Oral / Spotlight / Poster / Reject / Withdrawn) for the parallel ICLR analysis.
 >
 > "When comparing LLM feedback with comments from each individual reviewer, approximately one third (30.85%) of GPT-4 raised comments overlapped with comments from an individual reviewer (Fig. 2a). The degree of overlap between two human reviewers was similar (28.58%), after controlling for the number of comments (Methods)." (Liang et al., 2024, p. 3)
 > ![[liangCanLargeLanguage2024a-evd-p3-3.png]]

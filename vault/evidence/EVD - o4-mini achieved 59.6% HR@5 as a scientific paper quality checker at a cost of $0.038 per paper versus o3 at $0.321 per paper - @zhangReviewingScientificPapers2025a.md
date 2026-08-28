@@ -33,7 +33,15 @@ tripod_llm_pct: 54pct
 
 ### What?
 
-> **Study design:** cross-sectional cost–performance benchmark of OpenAI o-series reasoning LLMs as paper quality checkers, embedded in the same WITHDRARXIV-CHECK evaluation framework as the o3 EVD. **Method type:** zero-shot LLM evaluation under a fixed prompt; no fine-tuning. **Tools:** OpenAI o4-mini (`2025-04-16`, reasoning effort = medium) vs. OpenAI o3 (`2025-04-16`, reasoning effort = medium), accessed via OpenAI API in Python; LLM-as-judge pipeline with Gemini 2.5 Pro (`preview-05-06`) and o3. **Dependent variables:** Hit Rate at k=5 (HR@5), average input/think/output token usage, and **estimated USD cost per paper** computed from token usage at OpenAI API pricing in early May 2025. **Independent variables:** checker model (o4-mini vs. o3) × paper-ingestion approach (PDF attachment vs. LaTeX script in prompt).
+> **Study design:** cross-sectional cost–performance benchmark of OpenAI o-series reasoning LLMs as paper quality checkers, embedded in the same WITHDRARXIV-CHECK evaluation framework as the o3 EVD.
+>
+> **Method type:** zero-shot LLM evaluation under a fixed prompt; no fine-tuning.
+>
+> **Tools:** OpenAI o4-mini (`2025-04-16`, reasoning effort = medium) vs. OpenAI o3 (`2025-04-16`, reasoning effort = medium), accessed via OpenAI API in Python; LLM-as-judge pipeline with Gemini 2.5 Pro (`preview-05-06`) and o3.
+>
+> **Dependent variables:** Hit Rate at k=5 (HR@5), average input/think/output token usage, and **estimated USD cost per paper** computed from token usage at OpenAI API pricing in early May 2025.
+>
+> **Independent variables:** checker model (o4-mini vs. o3) × paper-ingestion approach (PDF attachment vs. LaTeX script in prompt).
 >
 > "Average costs of reviewing a paper under each pipeline-LLM combination were estimated based on API pricing at the time of our experiments in early May 2025… Considering the high cost of o3, o4-mini seems to be the most cost-effective choice for this task." (Zhang & Abernethy, 2025, p. 3)
 > ![[zhangReviewingScientificPapers2025a-evd-p3-6.png]]

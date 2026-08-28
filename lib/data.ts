@@ -511,24 +511,49 @@ export const REPORTING_COMPLIANCE_LABELS: Record<ReportingComplianceLevel, strin
 
 export type ReportingCompliance = { level: ReportingComplianceLevel; pct: number };
 
+function readReportingCompliance(node: Pick<GraphNode, "tags" | "extras">): ReportingCompliance | null {
+  const levelTag = node.tags.find((t) => t.startsWith("tripod-llm/compliance/"));
+  const pctRaw = node.extras.tripodLlmPct as string | undefined;
+  if (!levelTag || !pctRaw) return null;
+  const level = levelTag.slice("tripod-llm/compliance/".length) as ReportingComplianceLevel;
+  const pct = parseInt(pctRaw, 10);
+  if (Number.isNaN(pct)) return null;
+  return { level, pct };
+}
+
 /**
- * TRIPOD-LLM reporting-guideline adherence for a source — our own computed
- * measure, hand-scored against the checklist per EVD (tripod-llm/compliance/*
- * tag + tripod_llm_pct field) and repeated identically across every EVD
- * derivedFrom the same source (verified consistent across all 27 sources),
- * so the first one found is authoritative for the source as a whole.
+ * TRIPOD-LLM reporting-guideline adherence — our own computed measure,
+ * hand-scored against the checklist per EVD (tripod-llm/compliance/* tag +
+ * tripod_llm_pct field). Checks the node's own tags first (the EVD case),
+ * then falls back to scanning inbound derivedFrom edges (the SRC case: the
+ * score is repeated identically across every EVD derivedFrom the same
+ * source — verified consistent across all 27 sources — so the first one
+ * found is authoritative for the source as a whole).
  */
-export function getReportingCompliance(srcId: string): ReportingCompliance | null {
-  const evdIds = ALL_EDGES.filter((e) => e.type === "derivedFrom" && e.to === srcId).map((e) => e.from);
+export function getReportingCompliance(nodeId: string): ReportingCompliance | null {
+  const own = nodeById.get(nodeId);
+  if (own) {
+    const ownCompliance = readReportingCompliance(own);
+    if (ownCompliance) return ownCompliance;
+  }
+  const evdIds = ALL_EDGES.filter((e) => e.type === "derivedFrom" && e.to === nodeId).map((e) => e.from);
   for (const id of evdIds) {
     const evd = nodeById.get(id);
     if (!evd) continue;
-    const levelTag = evd.tags.find((t) => t.startsWith("tripod-llm/compliance/"));
-    const pctRaw = evd.extras.tripodLlmPct as string | undefined;
-    if (!levelTag || !pctRaw) continue;
-    const level = levelTag.slice("tripod-llm/compliance/".length) as ReportingComplianceLevel;
-    const pct = parseInt(pctRaw, 10);
-    if (!Number.isNaN(pct)) return { level, pct };
+    const compliance = readReportingCompliance(evd);
+    if (compliance) return compliance;
   }
   return null;
+}
+
+/**
+ * The SRC node an EVD/CLM/CVT node was derived from, via its outbound
+ * derivedFrom edge. Used to inherit paper-level signals (Openness,
+ * Integrity, Rigor sub-checks) that live on the source rather than the
+ * individual excerpt.
+ */
+export function getParentSource(nodeId: string): GraphNode | null {
+  const edge = ALL_EDGES.find((e) => e.type === "derivedFrom" && e.from === nodeId);
+  if (!edge) return null;
+  return nodeById.get(edge.to) ?? null;
 }

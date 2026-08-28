@@ -32,7 +32,15 @@ tripod_llm_pct: 73pct
 
 ### What?
 
-> **Study design:** inter-annotator reliability sub-study nested within the Sarol corpus annotation. **Method type:** pairwise Cohen's kappa (κ) averaged across all annotator pairs, computed at the **sentence level** for all three annotation tasks. **Tools:** Cohen's κ; brat annotation export. **Dependent variable:** pairwise κ for each task. **Independent variables:** task type (citation-context identification / evidence-sentence identification / citation-accuracy classification); annotation phase (1 vs. 2); the eight-class label scheme used during IAA.
+> **Study design:** inter-annotator reliability sub-study nested within the Sarol corpus annotation.
+>
+> **Method type:** pairwise Cohen's kappa (κ) averaged across all annotator pairs, computed at the **sentence level** for all three annotation tasks.
+>
+> **Tools:** Cohen's κ; brat annotation export.
+>
+> **Dependent variable:** pairwise κ for each task.
+>
+> **Independent variables:** task type (citation-context identification / evidence-sentence identification / citation-accuracy classification); annotation phase (1 vs. 2); the eight-class label scheme used during IAA.
 >
 > "We calculated pairwise inter-annotator agreement for each task: citation context identification, evidence segment identification, and citation accuracy classification. The first 30 reference articles (phases one and two) were included in calculation. Cohen's kappa (κ) was used for all tasks, and the average pairwise agreement between annotators was calculated. For citation context and evidence segment identification, agreement was calculated at the sentence level. If an evidence segment annotation was at the paragraph or section level, all sentences in the paragraph/section are included as evidence sentences." (Sarol et al., 2024, p. 4)
 > ![[sarolAssessingCitationIntegrity2024-evd-p3-3.png]]

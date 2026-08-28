@@ -19,7 +19,7 @@ appraisal_overall: L2-M2-H1
 tripod_llm_pct: 73pct
 ---
 
-## Source2
+## Source
 
 [[@sarolAssessingCitationIntegrity2024]]
 
@@ -36,7 +36,15 @@ tripod_llm_pct: 73pct
 
 ### What?
 
-> **Study design:** descriptive corpus-annotation study (cross-sectional). **Method type:** manual annotation of citation-accuracy labels with multi-phase reconciliation. **Tools:** brat annotation tool (Stenetorp et al. 2012); custom 8-label citation-accuracy scheme adapted from Luo et al. (2013) and Jergas & Baethge (2015). **Dependent variable:** per-citation accuracy label (8 fine-grained classes — ACCURATE plus 3 MAJOR + 4 MINOR error types — and the collapsed MAJOR/MINOR groupings). **Independent variables / covariates:** reference-article type (primary research vs. review); error severity (major vs. minor).
+> **Study design:** descriptive corpus-annotation study (cross-sectional).
+>
+> **Method type:** manual annotation of citation-accuracy labels with multi-phase reconciliation.
+>
+> **Tools:** brat annotation tool (Stenetorp et al. 2012); custom 8-label citation-accuracy scheme adapted from Luo et al. (2013) and Jergas & Baethge (2015).
+>
+> **Dependent variable:** per-citation accuracy label (8 fine-grained classes — ACCURATE plus 3 MAJOR + 4 MINOR error types — and the collapsed MAJOR/MINOR groupings).
+>
+> **Independent variables / covariates:** reference-article type (primary research vs. review); error severity (major vs. minor).
 >
 > "Our citation accuracy classification is based on and extends prior quotation error classifications (Luo et al. 2013, Jergas and Baethge 2015). These schemes distinguish major and minor errors, and provide further subcategories. In our classification, CONTRADICT, IRRELEVANT, and NOT_SUBSTANTIATE are major error categories and OVERSIMPLIFY, MISQUOTE, and INDIRECT minor error categories. In this work, we propose an additional minor error category, ETIQUETTE, and extend the definition of INDIRECT." (Sarol et al., 2024, p. 3)
 > ![[sarolAssessingCitationIntegrity2024-evd-p3-1.png]]

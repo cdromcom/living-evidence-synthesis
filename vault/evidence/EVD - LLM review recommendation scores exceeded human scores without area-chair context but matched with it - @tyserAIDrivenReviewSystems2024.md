@@ -34,7 +34,15 @@ tripod_llm_pct: 25pct
 
 ### What?
 
-> **Study design:** prospective context-ablation study comparing GPT-4-generated reviews to human OpenReview reviews on the same papers, across 5 progressively augmented prompt contexts (P1–P5). **Method type:** within-paper score comparison; per-condition mean and standard deviation reported across 5 review dimensions. **Tools:** GPT-4 (used as the underlying reviewer LLM throughout the OpenReviewer pipeline); ICLR / NeurIPS conference review form, reviewer guide, code of ethics, code of conduct, area chair guidelines, and prior-year reviewer statistics as augmentation documents. **Dependent variables:** review subscores — Correctness, Technical Novelty & Significance, Empirical Novelty & Significance, **Overall Recommendation**, Confidence — each averaged across the corpus per condition (Figure 14). **Independent variable:** prompt context condition (Human, P1, P2, P3, P4, P5). Each Pₖ is a strict superset of Pₖ₋₁: P1 = paper text (P) + review form (RF); P2 adds reviewer guide (RG); P3 adds code of ethics (CE) + code of conduct (CC); P4 adds area chair guidelines (AC); P5 adds prior-year statistics (S).
+> **Study design:** prospective context-ablation study comparing GPT-4-generated reviews to human OpenReview reviews on the same papers, across 5 progressively augmented prompt contexts (P1–P5).
+>
+> **Method type:** within-paper score comparison; per-condition mean and standard deviation reported across 5 review dimensions.
+>
+> **Tools:** GPT-4 (used as the underlying reviewer LLM throughout the OpenReviewer pipeline); ICLR / NeurIPS conference review form, reviewer guide, code of ethics, code of conduct, area chair guidelines, and prior-year reviewer statistics as augmentation documents.
+>
+> **Dependent variables:** review subscores — Correctness, Technical Novelty & Significance, Empirical Novelty & Significance, **Overall Recommendation**, Confidence — each averaged across the corpus per condition (Figure 14).
+>
+> **Independent variable:** prompt context condition (Human, P1, P2, P3, P4, P5). Each Pₖ is a strict superset of Pₖ₋₁: P1 = paper text (P) + review form (RF); P2 adds reviewer guide (RG); P3 adds code of ethics (CE) + code of conduct (CC); P4 adds area chair guidelines (AC); P5 adds prior-year statistics (S).
 >
 > "Figure 14 shows the average and standard deviation scores of the human reviewers and LLM review for paper correctness, technical novelty and significance, empirical novelty and significance, overall recommendation score, and confidence. P1, P2, P3, P4, P5 ablate the increasing documents used in the GPT-4 context prompt." (Tyser et al., 2024, p. 10)
 > ![[tyserAIDrivenReviewSystems2024-evd-p13-1.png]]

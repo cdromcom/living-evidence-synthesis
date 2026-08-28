@@ -35,7 +35,15 @@ tripod_llm_pct: 55pct
 
 ### What?
 
-> **Study design:** null-model permutation / shuffling experiment to test whether GPT-4's overlap with human reviews could be explained by generic-feedback applicability. **Method type:** within-stratum random reassignment of LLM feedback across papers, run through the same extract-then-match pipeline used in the main overlap analysis. **Tools:** same GPT-4 feedback pipeline; same Stage 1 + Stage 2 GPT-4 extract/match pipeline (extraction F1 = 0.968, matching F1 = 0.824); shuffling stratified by (journal × Nature root category) for Nature, and by conference year (ICLR 2022 / ICLR 2023) for ICLR. **Dependent variable:** pairwise hit rate between shuffled-LLM and human reviewer comments, contrasted against the unshuffled overlap from the main analysis. **Independent variables:** condition = {real LLM feedback, shuffled LLM feedback}; dataset = {Nature, ICLR}.
+> **Study design:** null-model permutation / shuffling experiment to test whether GPT-4's overlap with human reviews could be explained by generic-feedback applicability.
+>
+> **Method type:** within-stratum random reassignment of LLM feedback across papers, run through the same extract-then-match pipeline used in the main overlap analysis.
+>
+> **Tools:** same GPT-4 feedback pipeline; same Stage 1 + Stage 2 GPT-4 extract/match pipeline (extraction F1 = 0.968, matching F1 = 0.824); shuffling stratified by (journal × Nature root category) for Nature, and by conference year (ICLR 2022 / ICLR 2023) for ICLR.
+>
+> **Dependent variable:** pairwise hit rate between shuffled-LLM and human reviewer comments, contrasted against the unshuffled overlap from the main analysis.
+>
+> **Independent variables:** condition = {real LLM feedback, shuffled LLM feedback}; dataset = {Nature, ICLR}.
 >
 > "Is it possible that LLM merely generates generic feedback applicable to multiple papers? A potential null model is that LLM mostly produces generic feedback applicable to many papers. To test this hypothesis, we performed a shuffling experiment aimed at verifying the specificity and relevance of LLM generated feedback." (Liang et al., 2024, p. 4)
 > ![[liangCanLargeLanguage2024a-evd-p4-1.png]]

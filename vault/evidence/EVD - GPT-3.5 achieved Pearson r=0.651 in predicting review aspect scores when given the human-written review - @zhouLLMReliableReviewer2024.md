@@ -36,21 +36,35 @@ tripod_llm_pct: 43pct
 
 ### What?
 
-> **Study design:** zero-/few-shot LLM evaluation against an existing peer-review benchmark (PeerRead ICLR-2017), no model training. **Method type:** prompted aspect-score prediction; the model is given a human-written review and asked to output an integer 1–5 for each of 8 review aspects. **Tools:** OpenAI GPT-3.5-turbo-0613 (and GPT-3.5-16k for the long-input "given paper" condition); PeerRead ICLR-2017 subset; baseline = "most-frequent score" per aspect; comparison metrics computed against gold human aspect scores. **Dependent variables:** accuracy, absolute difference |diff|, Pearson, Spearman, and Kendall's tau correlations between predicted and gold aspect scores (averaged across aspects in Table 1; per-aspect in Table 2). **Independent variables:** input type (review vs. paper components), prompting style (zero-shot / few-shot / MCQ-style), and content extraction method (abstract / whole paper / selected sections / abstract+sections).
+> **Study design:** zero-/few-shot LLM evaluation against an existing peer-review benchmark (PeerRead ICLR-2017), no model training.
+>
+> **Method type:** prompted aspect-score prediction; the model is given a human-written review and asked to output an integer 1–5 for each of 8 review aspects.
+>
+> **Tools:** OpenAI GPT-3.5-turbo-0613 (and GPT-3.5-16k for the long-input "given paper" condition); PeerRead ICLR-2017 subset; baseline = "most-frequent score" per aspect; comparison metrics computed against gold human aspect scores.
+>
+> **Dependent variables:** accuracy, absolute difference |diff|, Pearson, Spearman, and Kendall's tau correlations between predicted and gold aspect scores (averaged across aspects in Table 1; per-aspect in Table 2).
+>
+> **Independent variables:** input type (review vs. paper components), prompting style (zero-shot / few-shot / MCQ-style), and content extraction method (abstract / whole paper / selected sections / abstract+sections).
 >
 > "For the task of aspect score prediction, we use the ICLR-2017 subset of the PeerRead dataset (Kang et al., 2018). This subset contains 1.3k manually annotated aspect scores (ranging from 1 to 5 inclusive) for 427 official reviews from ICLR-2017 conference." (Zhou et al., 2024, p. 9341)
 > ![[zhouLLMReliableReviewer2024-evd-p2-1.png]]
 
 ### How?
 
-> **Procedure:** (1) Construct a prompt prefacing the model as "a professional reviewer in computer science and machine learning" and asking it to "predict the review score in several aspects" on a 1–5 scale (system prompt verbatim in Appendix A.1). (2) Run two settings: **Setting 1 — Given Review:** model receives a human-written review and predicts aspect scores; tested zero-shot, few-shot (5 in-context examples), and MCQ-style (each score has an explicit verbal criterion). **Setting 2 — Given Paper:** model receives only the abstract / whole paper / selected sections / abstract+sections, and predicts the same scores. (3) For few-shot, the demonstration examples use "most frequent score" per aspect (justified in Section 3.2 against "all-1" and "all-5" alternatives, Table 3). (4) Inference parameters: GPT-3.5-turbo-0613 / GPT-3.5-16k version 0613, **temperature 0.3** ("If not specially marked, all models are of version 0613 with temperature 0.3"). (5) Compute average accuracy, |diff|, Pearson, Spearman, Kendall's tau across the 8 aspects (Table 1), and per-aspect correlations (Table 2). Aspects flagged "not discussed" by the review are excluded for that aspect.
+> **Procedure:** (1) Construct a prompt prefacing the model as "a professional reviewer in computer science and machine learning" and asking it to "predict the review score in several aspects" on a 1–5 scale (system prompt verbatim in Appendix A.1). (2) Run two settings:
+>
+> **Setting 1 — Given Review:** model receives a human-written review and predicts aspect scores; tested zero-shot, few-shot (5 in-context examples), and MCQ-style (each score has an explicit verbal criterion).
+>
+> **Setting 2 — Given Paper:** model receives only the abstract / whole paper / selected sections / abstract+sections, and predicts the same scores. (3) For few-shot, the demonstration examples use "most frequent score" per aspect (justified in Section 3.2 against "all-1" and "all-5" alternatives, Table 3). (4) Inference parameters: GPT-3.5-turbo-0613 / GPT-3.5-16k version 0613, **temperature 0.3** ("If not specially marked, all models are of version 0613 with temperature 0.3"). (5) Compute average accuracy, |diff|, Pearson, Spearman, Kendall's tau across the 8 aspects (Table 1), and per-aspect correlations (Table 2). Aspects flagged "not discussed" by the review are excluded for that aspect.
 >
 > "We conduct experiments under two different settings: (1) given human-written review, predict aspect scores; (2) given (part of) the research paper, predict scores." (Zhou et al., 2024, p. 9342)
 > ![[zhouLLMReliableReviewer2024-evd-p3-1.png]]
 
 ### Who?
 
-> **Models / participants:** GPT-3.5-turbo-0613 and GPT-3.5-turbo-16k-0613 (OpenAI; closed-source; training corpora and dates undisclosed). No human raters in this EVD beyond the gold annotators that produced the PeerRead labels. **Sample-size flow for this EVD:** PeerRead ICLR-2017 subset → **427 official reviews** of ICLR-2017 papers, **1.3k manually annotated aspect scores** on a 1–5 scale across 8 aspects (Recommendation, Substance, Appropriateness, Comparison, Soundness, Originality, Clarity, Impact). All 427 reviews used for evaluation in Setting 1; the "only given abstract" sub-experiment in Table 3 was run on **100 randomly chosen examples** to control cost. No exclusions reported for the headline 0.651 number.
+> **Models / participants:** GPT-3.5-turbo-0613 and GPT-3.5-turbo-16k-0613 (OpenAI; closed-source; training corpora and dates undisclosed). No human raters in this EVD beyond the gold annotators that produced the PeerRead labels.
+>
+> **Sample-size flow for this EVD:** PeerRead ICLR-2017 subset → **427 official reviews** of ICLR-2017 papers, **1.3k manually annotated aspect scores** on a 1–5 scale across 8 aspects (Recommendation, Substance, Appropriateness, Comparison, Soundness, Originality, Clarity, Impact). All 427 reviews used for evaluation in Setting 1; the "only given abstract" sub-experiment in Table 3 was run on **100 randomly chosen examples** to control cost. No exclusions reported for the headline 0.651 number.
 >
 > "This subset contains 1.3k manually annotated aspect scores (ranging from 1 to 5 inclusive) for 427 official reviews from ICLR-2017 conference." (Zhou et al., 2024, p. 9341)
 > ![[zhouLLMReliableReviewer2024-evd-p2-2.png]]

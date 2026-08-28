@@ -32,7 +32,15 @@ tripod_llm_pct: 50pct
 
 ### What?
 
-> **Study design:** large-scale cross-sectional CONSORT-item-level prevalence analysis. **Method type:** zero-shot LLM binary (MET / NOT MET) classification per CONSORT item, then per-item reporting rate computed across the corpus. **Tools:** GPT-4o-mini (OpenAI) on Azure PHI-compliant instance; PyMuPDF for PDF→XML; CONSORT 2010 25-item checklist (21 items retained after excluding 2a Background, 7b interim analyses, 3b protocol changes, 6b changes to outcomes, 14b reasons for termination). **Dependent variable:** per-item proportion of articles where the criterion was MET. **Independent variable / covariate:** CONSORT item identity (focus here on item 8a randomization sequence generation, item 9 allocation concealment, item 24 protocol access — three methodologically critical items).
+> **Study design:** large-scale cross-sectional CONSORT-item-level prevalence analysis.
+>
+> **Method type:** zero-shot LLM binary (MET / NOT MET) classification per CONSORT item, then per-item reporting rate computed across the corpus.
+>
+> **Tools:** GPT-4o-mini (OpenAI) on Azure PHI-compliant instance; PyMuPDF for PDF→XML; CONSORT 2010 25-item checklist (21 items retained after excluding 2a Background, 7b interim analyses, 3b protocol changes, 6b changes to outcomes, 14b reasons for termination).
+>
+> **Dependent variable:** per-item proportion of articles where the criterion was MET.
+>
+> **Independent variable / covariate:** CONSORT item identity (focus here on item 8a randomization sequence generation, item 9 allocation concealment, item 24 protocol access — three methodologically critical items).
 >
 > "We analyzed reporting patterns across CONSORT section categories (Title & Abstract, Introduction, Methods, Results, Discussion, Other Information) and assessed reporting quality variation by trial phase, funding source, FDA status, geographic location, safety monitoring, and adverse event reporting." (Srinivasan et al., 2025, p. 4)
 > ![[srinivasanEvaluatingReportingQuality2025a-evd-p4-5.png]]

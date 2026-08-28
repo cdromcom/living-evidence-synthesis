@@ -35,7 +35,15 @@ tripod_llm_pct: 67pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of LLM efficiency (cost & wall-clock latency) on the same evidence-appraisal workload used to compute accuracy. **Method type:** observational logging of API-billed cost and response time per publication. **Tools:** 5 LLM APIs (Anthropic for Claude-3-Opus & Claude-2; OpenAI for GPT-4 & GPT-3.5; OpenRouter for Mixtral-8x22B). **Dependent variables:** median cost per publication (USD, IQR) and median response time per publication. **Independent variables:** LLM (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B); appraisal tool (PRISMA / AMSTAR / PRECIS-2 — costs aggregated across all three).
+> **Study design:** cross-sectional benchmark of LLM efficiency (cost & wall-clock latency) on the same evidence-appraisal workload used to compute accuracy.
+>
+> **Method type:** observational logging of API-billed cost and response time per publication.
+>
+> **Tools:** 5 LLM APIs (Anthropic for Claude-3-Opus & Claude-2; OpenAI for GPT-4 & GPT-3.5; OpenRouter for Mixtral-8x22B).
+>
+> **Dependent variables:** median cost per publication (USD, IQR) and median response time per publication.
+>
+> **Independent variables:** LLM (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B); appraisal tool (PRISMA / AMSTAR / PRECIS-2 — costs aggregated across all three).
 >
 > "Mixtral-8x22B was the most affordable model with a median of $1.20 per 100 papers and GPT-4 the most expensive one with a median of $115.00. Model response speeds were ranging from ∼10 seconds (GPT-3.5) to 2 minutes (GPT-4) per paper." (Woelfle et al., 2024, p. 8)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p8-1.png]]
@@ -49,7 +57,11 @@ tripod_llm_pct: 67pct
 
 ### Who?
 
-> **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1) — 9 total assessment runs per item across the ensemble. **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); PRECIS-2 — 56 RCTs from the PragMeta database. **Processing failures:** Claude-3-Opus failed on 3/112 publications (content filtering / overly long); GPT-4 failed on 3/112 (context length); GPT-3.5 failed on 3/112 PRISMA/AMSTAR and 2/56 PRECIS-2; Mixtral failed on 1/112; Claude-2 processed all. Cost per publication was computed only on successfully processed publications.
+> **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1) — 9 total assessment runs per item across the ensemble.
+>
+> **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); PRECIS-2 — 56 RCTs from the PragMeta database.
+>
+> **Processing failures:** Claude-3-Opus failed on 3/112 publications (content filtering / overly long); GPT-4 failed on 3/112 (context length); GPT-3.5 failed on 3/112 PRISMA/AMSTAR and 2/56 PRECIS-2; Mixtral failed on 1/112; Claude-2 processed all. Cost per publication was computed only on successfully processed publications.
 >
 > "All application programming interface (API) queries were performed with minimal randomness ('temperature' 0) to allow the highest possible intrarater reliability." (Woelfle et al., 2024, p. 5)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p5-2.png]]

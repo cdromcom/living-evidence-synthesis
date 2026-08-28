@@ -32,7 +32,15 @@ tripod_llm_pct: 23pct
 
 ### What?
 
-> **Study design:** cross-sectional observational LLM evaluation — generative-output coverage assessment. **Method type:** prompt-elicited SOP drafting by three LLMs, with each output qualitatively compared against two reference institutional SOP corpora by two independent authors. **Tools:** Poe Assistant, ChatGPT (GPT-3.5), Google Bard; Mayo Clinic IRB Policy Manual (2023) and Harvard Longwood Medical Area Standard Operating Procedures (2023) as reference SOPs; ICH E6 GCP guidelines for normative checks. **Dependent variable(s):** (a) presence of fundamental SOP sections (purpose, scope, definitions, procedures, responsibilities); (b) per-topic content differences between platforms (Table 2 rows). **Independent variable(s) / covariates:** AI platform (3 levels); SOP topic (16 prompted IRB-related tasks).
+> **Study design:** cross-sectional observational LLM evaluation — generative-output coverage assessment.
+>
+> **Method type:** prompt-elicited SOP drafting by three LLMs, with each output qualitatively compared against two reference institutional SOP corpora by two independent authors.
+>
+> **Tools:** Poe Assistant, ChatGPT (GPT-3.5), Google Bard; Mayo Clinic IRB Policy Manual (2023) and Harvard Longwood Medical Area Standard Operating Procedures (2023) as reference SOPs; ICH E6 GCP guidelines for normative checks.
+>
+> **Dependent variable(s):** (a) presence of fundamental SOP sections (purpose, scope, definitions, procedures, responsibilities); (b) per-topic content differences between platforms (Table 2 rows).
+>
+> **Independent variable(s) / covariates:** AI platform (3 levels); SOP topic (16 prompted IRB-related tasks).
 >
 > "In addition, we used specific prompts (Electronic Supplementary Material 2) of the AI platforms to generate the SOPs for IRBs related to the following tasks" (Sridharan & Sivaramakrishnan, 2024, p. 84)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p2-1.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 23pct
 
 ### Who?
 
-> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5, OpenAI), Google Bard. No human participants. **Sample-size flow:** 16 SOP topics prompted → administered to all 3 platforms → 48 platform × topic SOP drafts produced and reviewed. Reference corpora: 2 institutional SOP sets (Mayo Clinic, Harvard Longwood). Two human reviewers (the two paper authors).
+> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5, OpenAI), Google Bard. No human participants.
+>
+> **Sample-size flow:** 16 SOP topics prompted → administered to all 3 platforms → 48 platform × topic SOP drafts produced and reviewed. Reference corpora: 2 institutional SOP sets (Mayo Clinic, Harvard Longwood). Two human reviewers (the two paper authors).
 >
 > "The following three AI platforms were used in this study: • Poe Assistant©… • ChatGPT©: This language model is based on the GPT-3.5 architecture developed by OpenAI… • Google Bard©: Bard is a transformer-based large language model" (Sridharan & Sivaramakrishnan, 2024, p. 84)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p2-2.png]]

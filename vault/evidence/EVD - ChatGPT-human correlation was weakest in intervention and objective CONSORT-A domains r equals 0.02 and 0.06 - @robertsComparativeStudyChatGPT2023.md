@@ -33,7 +33,15 @@ tripod_llm_pct: 26pct
 
 ### What?
 
-> **Study design:** cross-sectional method-comparison study; per-domain linear-association sub-analysis. **Method type:** zero-shot LLM evaluation against human consensus, with Pearson correlation as a complementary agreement measure to mean-difference. **Tools:** OpenAI ChatGPT GPT-3.5 (no version pin); CONSORT-A 15-item abstract reporting checklist; R v4.1.1; Pearson's r interpreted by author-defined magnitude bands (very weak <0.2, weak 0.2–0.39, moderate 0.40–0.59, strong 0.6–0.79, very strong 0.8–1). **Dependent variable:** Pearson's r between human and ChatGPT subscores per CONSORT-A domain. **Independent variable:** CONSORT-A domain.
+> **Study design:** cross-sectional method-comparison study; per-domain linear-association sub-analysis.
+>
+> **Method type:** zero-shot LLM evaluation against human consensus, with Pearson correlation as a complementary agreement measure to mean-difference.
+>
+> **Tools:** OpenAI ChatGPT GPT-3.5 (no version pin); CONSORT-A 15-item abstract reporting checklist; R v4.1.1; Pearson's r interpreted by author-defined magnitude bands (very weak <0.2, weak 0.2–0.39, moderate 0.40–0.59, strong 0.6–0.79, very strong 0.8–1).
+>
+> **Dependent variable:** Pearson's r between human and ChatGPT subscores per CONSORT-A domain.
+>
+> **Independent variable:** CONSORT-A domain.
 >
 > "the Pearson's correlation coefficient provides information on the strength and direction of the linear relationship between the two sets of scores. This provided complementary information on the agreement between ChatGPT and human evaluator. The Pearson's correlation coefficient was interpreted based on magnitude: r, 0–0.19 very weak, 0.2–0.39 weak, 0.40–0.59 moderate, 0.6–0.79 strong and 0.8–1 very strong correlation." (Roberts et al., 2023, p. 3)
 > ![[robertsComparativeStudyChatGPT2023-evd-p3-4.png]]

@@ -31,7 +31,15 @@ tripod_llm_pct: 42pct
 
 ### What?
 
-> **Study design:** qualitative reasoning-error analysis nested within the Leucuta et al. cross-sectional QUADAS-2 LLM benchmark. **Method type:** investigator-driven thematic categorization of LLM rationales judged incorrect (either wrong answer, or correct answer with wrong reasoning) against a two-expert consensus reference; errors grouped by QUADAS-2 domain and signaling question. **Tools:** QUADAS-2 instrument (4 domains, 11 signaling questions); responses from ChatGPT 4o, x.AI Grok 3, Gemini 2.0 Flash, DeepSeek V3 collected via public web UIs; Supplementary Table S1 (per-article reasoning errors). **Dependent variable:** qualitative error type / theme per signaling question. **Independent variables / covariates:** QUADAS-2 domain; signaling question; LLM identity (errors aggregated across the four models rather than disaggregated).
+> **Study design:** qualitative reasoning-error analysis nested within the Leucuta et al. cross-sectional QUADAS-2 LLM benchmark.
+>
+> **Method type:** investigator-driven thematic categorization of LLM rationales judged incorrect (either wrong answer, or correct answer with wrong reasoning) against a two-expert consensus reference; errors grouped by QUADAS-2 domain and signaling question.
+>
+> **Tools:** QUADAS-2 instrument (4 domains, 11 signaling questions); responses from ChatGPT 4o, x.AI Grok 3, Gemini 2.0 Flash, DeepSeek V3 collected via public web UIs; Supplementary Table S1 (per-article reasoning errors).
+>
+> **Dependent variable:** qualitative error type / theme per signaling question.
+>
+> **Independent variables / covariates:** QUADAS-2 domain; signaling question; LLM identity (errors aggregated across the four models rather than disaggregated).
 >
 > "For each article and each signaling question, we qualitatively evaluated the reasoning errors made by the LLMs. We then synthesized these errors by QUADAS-2 domain." (Leucuta et al., 2025, p. 10)
 > ![[leucutaRiskBiasAssessment2025-evd-p10-1.png]]

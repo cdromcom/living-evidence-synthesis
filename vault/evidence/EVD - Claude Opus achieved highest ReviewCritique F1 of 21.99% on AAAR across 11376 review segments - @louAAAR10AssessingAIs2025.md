@@ -36,7 +36,15 @@ tripod_llm_pct: 57pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark evaluation (re-using REVIEWCRITIQUE dataset from Du et al. 2024). **Method type:** zero-shot LLM evaluation on per-segment binary classification (deficient vs. non-deficient). **Tools:** closed-source LLMs gpt-4-1106-preview, claude-3-5-sonnet-20240620 (paper labels best result as "Claude Opus" in Table 7), gemini-1.5-pro-002; open-source Llama3-8B, Llama3-70B, Qwen2-72B; LiteLLM API wrapper; VLLM for open-source inference. **Dependent variable(s):** per-segment Precision / Recall / F1 (binary classification of review-segment reliability), plus ROUGE-1/2/L and BERTScore for the deficiency-explanation generation. **Independent variable(s) / covariates:** prompting strategy (Labeling-All vs. Select-Deficient) and ensembling rule across the two prompts (Both "No" vs. Either "No"); model identity (open vs. closed source).
+> **Study design:** cross-sectional benchmark evaluation (re-using REVIEWCRITIQUE dataset from Du et al. 2024).
+>
+> **Method type:** zero-shot LLM evaluation on per-segment binary classification (deficient vs. non-deficient).
+>
+> **Tools:** closed-source LLMs gpt-4-1106-preview, claude-3-5-sonnet-20240620 (paper labels best result as "Claude Opus" in Table 7), gemini-1.5-pro-002; open-source Llama3-8B, Llama3-70B, Qwen2-72B; LiteLLM API wrapper; VLLM for open-source inference.
+>
+> **Dependent variable(s):** per-segment Precision / Recall / F1 (binary classification of review-segment reliability), plus ROUGE-1/2/L and BERTScore for the deficiency-explanation generation.
+>
+> **Independent variable(s) / covariates:** prompting strategy (Labeling-All vs. Select-Deficient) and ensembling rule across the two prompts (Both "No" vs. Either "No"); model identity (open vs. closed source).
 >
 > "For REVIEWCRITIQUE, we use F1 score as the classification metric; while for the deficiency explanation, we use ROUGE (Lin, 2004) and BERTScore (Zhang et al., 2020) to reflect how well the model-generated explanation aligns with the expert's annotation." (Lou et al., 2025, p. 6)
 > ![[louAAAR10AssessingAIs2025-evd-p6-1.png]]

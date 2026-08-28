@@ -32,7 +32,15 @@ tripod_llm_pct: 50pct
 
 ### What?
 
-> **Study design:** zero-shot LLM benchmark on the CONSORT-TM evaluation corpus (Kilicoglu et al. 2021), with a downstream human-expert validation sub-study. **Method type:** zero-shot prompting of OpenAI GPT models to perform binary (MET / NOT MET) classification of each CONSORT criterion against full RCT text. **Tools:** OpenAI GPT-4 (GPT-4-turbo), GPT-4o, GPT-4o-mini accessed via a HIPAA-compliant Azure instance; JSON-structured prompt template; comparison baseline = Lan Jiang et al. (2024) zero-shot GPT-4 result on the same corpus. **Dependent variables:** binary-classification accuracy, precision, recall, F1, micro-F1 per model. **Independent variable:** model identity (GPT-4-turbo / GPT-4o / GPT-4o-mini); fixed prompt template across models.
+> **Study design:** zero-shot LLM benchmark on the CONSORT-TM evaluation corpus (Kilicoglu et al. 2021), with a downstream human-expert validation sub-study.
+>
+> **Method type:** zero-shot prompting of OpenAI GPT models to perform binary (MET / NOT MET) classification of each CONSORT criterion against full RCT text.
+>
+> **Tools:** OpenAI GPT-4 (GPT-4-turbo), GPT-4o, GPT-4o-mini accessed via a HIPAA-compliant Azure instance; JSON-structured prompt template; comparison baseline = Lan Jiang et al. (2024) zero-shot GPT-4 result on the same corpus.
+>
+> **Dependent variables:** binary-classification accuracy, precision, recall, F1, micro-F1 per model.
+>
+> **Independent variable:** model identity (GPT-4-turbo / GPT-4o / GPT-4o-mini); fixed prompt template across models.
 >
 > "We evaluated the ability of our LLMs to determine whether an RCT article met or did not meet a set of inclusion criteria for each of the 25 CONSORT items. The models were assessed based on their performance across standard binary classification metrics, including precision, recall, and both macro and micro F1 scores." (Srinivasan et al., 2025, p. 4)
 > ![[srinivasanEvaluatingReportingQuality2025a-evd-p4-3.png]]

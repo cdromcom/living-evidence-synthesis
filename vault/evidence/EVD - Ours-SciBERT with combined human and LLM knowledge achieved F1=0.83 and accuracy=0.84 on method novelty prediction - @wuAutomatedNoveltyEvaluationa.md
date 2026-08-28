@@ -35,7 +35,15 @@ tripod_llm_pct: 53pct
 
 ### What?
 
-> **Study design:** Cross-sectional supervised-learning benchmark on the authors' newly constructed ICLR 2022 method-novelty corpus, framed as a binary classification task (Method Novelty Prediction, MNP). **Method type:** Knowledge-fusion model combining a fine-tuned PLM text encoder with a knowledge-guided sparse-attention module that integrates human peer-review sentences and LLM-generated method summaries. **Tools:** SciBERT text encoder (Beltagy et al. 2019); ChatGPT (gpt-3.5-turbo, temperature 0, default parameters) for LLM-generated method summaries (LLMK); aspect annotation model from Yuan et al. (2022) for extracting novelty-related sentences (HK) from review reports; Sparsemax-based Sparse-Attention layer (Martins & Astudillo 2016); Self-Attention Reduction (SAR) prediction head; Adam optimizer (Kingma & Ba 2014); GROBID and S2ORC parsing tools for PDF-to-text extraction; V100 / RTX 4090 GPU. Baselines: BERT, RoBERTa, SciBERT, XLNet, ALBERT, plus zero-shot LLMs (LLaMA-3.1-8B, ChatGPT, GPT-4o, Claude-3.5-sonnet). **Dependent variables:** Weighted F1 and Accuracy on the test split. **Independent variables:** Input combination ({HK + Method Text}, {HK + LLMK}, individual {HK / MT / LLMK}); model class (proposed Ours-* knowledge-fusion vs. baseline PLM/LLM); PLM backbone (BERT / RoBERTa / SciBERT / XLNet / ALBERT).
+> **Study design:** Cross-sectional supervised-learning benchmark on the authors' newly constructed ICLR 2022 method-novelty corpus, framed as a binary classification task (Method Novelty Prediction, MNP).
+>
+> **Method type:** Knowledge-fusion model combining a fine-tuned PLM text encoder with a knowledge-guided sparse-attention module that integrates human peer-review sentences and LLM-generated method summaries.
+>
+> **Tools:** SciBERT text encoder (Beltagy et al. 2019); ChatGPT (gpt-3.5-turbo, temperature 0, default parameters) for LLM-generated method summaries (LLMK); aspect annotation model from Yuan et al. (2022) for extracting novelty-related sentences (HK) from review reports; Sparsemax-based Sparse-Attention layer (Martins & Astudillo 2016); Self-Attention Reduction (SAR) prediction head; Adam optimizer (Kingma & Ba 2014); GROBID and S2ORC parsing tools for PDF-to-text extraction; V100 / RTX 4090 GPU. Baselines: BERT, RoBERTa, SciBERT, XLNet, ALBERT, plus zero-shot LLMs (LLaMA-3.1-8B, ChatGPT, GPT-4o, Claude-3.5-sonnet).
+>
+> **Dependent variables:** Weighted F1 and Accuracy on the test split.
+>
+> **Independent variables:** Input combination ({HK + Method Text}, {HK + LLMK}, individual {HK / MT / LLMK}); model class (proposed Ours-* knowledge-fusion vs. baseline PLM/LLM); PLM backbone (BERT / RoBERTa / SciBERT / XLNet / ALBERT).
 >
 > "We adopt Accuracy and Weighted F1 as the evaluation metrics for our dataset to evaluate the performance of the model." (Wu et al., 2024, p. 1460)
 > ![[wuAutomatedNoveltyEvaluationa-evd-p9-1.png]]
@@ -49,7 +57,9 @@ tripod_llm_pct: 53pct
 
 ### Who?
 
-> **Models / participants:** Five PLM baselines (BERT, RoBERTa, SciBERT, XLNet, ALBERT) and four zero-shot LLMs (LLaMA-3.1-8B, ChatGPT gpt-3.5-turbo-0125, GPT-4o, Claude-3.5-sonnet-all) evaluated against the proposed Ours-{BERT, RoBERTa, SciBERT, XLNet, ALBERT} knowledge-fusion variants. **Sample-size flow:** 3,376 ICLR 2022 papers crawled from OpenReview → after rule-based methodology-section extraction and TNS-score aggregation → 2,432 instances retained (papers with reviewer TNS disagreement >1 were removed). Class distribution by TNS: TNS=1 (n=51), TNS=2 (n=1,374), TNS=3 (n=936), TNS=4 (n=71); collapsed to Low Novelty (TNS 1-2; n=1,425) vs. High Novelty (TNS 3-4; n=1,007). Split 8:1:1 → train ≈ 1,945 / val ≈ 243 / test ≈ 244. No human evaluators in this EVD; reported numbers are the F1/Accuracy of Ours-SciBERT with HK+LLMK inputs on the held-out test set.
+> **Models / participants:** Five PLM baselines (BERT, RoBERTa, SciBERT, XLNet, ALBERT) and four zero-shot LLMs (LLaMA-3.1-8B, ChatGPT gpt-3.5-turbo-0125, GPT-4o, Claude-3.5-sonnet-all) evaluated against the proposed Ours-{BERT, RoBERTa, SciBERT, XLNet, ALBERT} knowledge-fusion variants.
+>
+> **Sample-size flow:** 3,376 ICLR 2022 papers crawled from OpenReview → after rule-based methodology-section extraction and TNS-score aggregation → 2,432 instances retained (papers with reviewer TNS disagreement >1 were removed). Class distribution by TNS: TNS=1 (n=51), TNS=2 (n=1,374), TNS=3 (n=936), TNS=4 (n=71); collapsed to Low Novelty (TNS 1-2; n=1,425) vs. High Novelty (TNS 3-4; n=1,007). Split 8:1:1 → train ≈ 1,945 / val ≈ 243 / test ≈ 244. No human evaluators in this EVD; reported numbers are the F1/Accuracy of Ours-SciBERT with HK+LLMK inputs on the held-out test set.
 >
 > "Following all the aforementioned preprocessing steps, the final dataset consists of 2432 instances." (Wu et al., 2024, p. 1458)
 > ![[wuAutomatedNoveltyEvaluationa-evd-p7-1.png]]

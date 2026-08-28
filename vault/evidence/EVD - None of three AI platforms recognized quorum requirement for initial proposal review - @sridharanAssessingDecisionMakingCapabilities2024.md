@@ -32,7 +32,15 @@ tripod_llm_pct: 23pct
 
 ### What?
 
-> **Study design:** cross-sectional observational LLM evaluation — single-topic failure-mode analysis nested in the broader 16-SOP Sridharan & Sivaramakrishnan benchmark. **Method type:** prompt-elicited SOP draft per platform, qualitatively reviewed by two independent authors against Mayo Clinic and Harvard Longwood reference SOPs and ICH E6 GCP. **Tools:** Poe Assistant, ChatGPT (GPT-3.5), Google Bard; Mayo Clinic IRB Policy Manual; Harvard Longwood Medical Area SOPs. **Dependent variable(s):** binary "mentions quorum requirement / does not" coding for the SOP on management of initial protocol submissions to IRB. **Independent variable(s) / covariates:** AI platform (3 levels).
+> **Study design:** cross-sectional observational LLM evaluation — single-topic failure-mode analysis nested in the broader 16-SOP Sridharan & Sivaramakrishnan benchmark.
+>
+> **Method type:** prompt-elicited SOP draft per platform, qualitatively reviewed by two independent authors against Mayo Clinic and Harvard Longwood reference SOPs and ICH E6 GCP.
+>
+> **Tools:** Poe Assistant, ChatGPT (GPT-3.5), Google Bard; Mayo Clinic IRB Policy Manual; Harvard Longwood Medical Area SOPs.
+>
+> **Dependent variable(s):** binary "mentions quorum requirement / does not" coding for the SOP on management of initial protocol submissions to IRB.
+>
+> **Independent variable(s) / covariates:** AI platform (3 levels).
 >
 > "Management of initial protocol submissions to IRB" (Sridharan & Sivaramakrishnan, 2024, p. 84)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p2-4.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 23pct
 
 ### Who?
 
-> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5), Google Bard. No human participants. **Sample-size flow:** 1 SOP topic (initial review of proposals) → administered to all 3 platforms → 3 platform-drafts analyzed; 0 / 3 mentioned the quorum requirement. Two human reviewers (the two paper authors).
+> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5), Google Bard. No human participants.
+>
+> **Sample-size flow:** 1 SOP topic (initial review of proposals) → administered to all 3 platforms → 3 platform-drafts analyzed; 0 / 3 mentioned the quorum requirement. Two human reviewers (the two paper authors).
 >
 > "Two authors independently assessed the outputs of SOPs and compared them with the IRB SOPs from the Mayo Clinic (IRB Mayo Clinic, 2023) and Harvard Medical School (Harvard Longwood Medical Area Standard Operating Procedures, 2023)." (Sridharan & Sivaramakrishnan, 2024, p. 85)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p3-4.png]]

@@ -1,4 +1,5 @@
-import Image from "next/image";
+import ExpandableChipRow from "@/components/ExpandableChipRow";
+import CollapsibleSignalBlock from "@/components/CollapsibleSignalBlock";
 import {
   getTopSignals,
   getReproducibilityRisk,
@@ -11,6 +12,7 @@ import {
   getMultipleComparisonsCorrection,
   getHumanBaselineComparability,
   getStatisticalPower,
+  getParentSource,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
   REPRODUCIBILITY_RISK_LABELS,
@@ -32,15 +34,34 @@ import {
   type StatisticalPowerStatus,
 } from "@/lib/data";
 
+// One color vocabulary for every chip on this page, so a color always means
+// the same thing no matter which signal it's attached to: gray = not
+// applicable / unclear (no judgment implied), red = absent or a real
+// problem, gold = partially met / some concern, green = fully met / no
+// issues found.
+type Tone = "green" | "gold" | "red" | "gray";
+const TONE_BG: Record<Tone, string> = {
+  green: "bg-emerald-600",
+  gold: "bg-amber-500",
+  red: "bg-red-600",
+  gray: "bg-zinc-400",
+};
+const TONE_RING: Record<Tone, string> = {
+  green: "border-emerald-600",
+  gold: "border-amber-500",
+  red: "border-red-600",
+  gray: "border-zinc-300",
+};
+
 // Transparency is now our own computed measure of adherence to reporting
 // guidelines (TRIPOD-LLM) — did the paper report what it did, in enough
 // detail to assess and reproduce. Openness covers all four COS TOP
 // Guidelines standards (data, code, protocol, registration) — did the
 // authors make the underlying artifacts and commitments openly available.
-const COMPLIANCE_TONE: Record<ReportingCompliance["level"], string> = {
-  high: "bg-emerald-600",
-  moderate: "bg-amber-500",
-  low: "bg-red-600",
+const COMPLIANCE_TONE: Record<ReportingCompliance["level"], Tone> = {
+  high: "green",
+  moderate: "gold",
+  low: "red",
 };
 
 function ReportingComplianceGlyph() {
@@ -60,7 +81,7 @@ function ReportingComplianceBadge({ compliance }: { compliance: ReportingComplia
       title={`TRIPOD-LLM reporting-guideline adherence: ${compliance.pct}% of checklist items (Methods 5a-15, Results 16a-18) fully or partially reported: ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()} compliance. Hand-scored against the checklist, our own computed measure. Click to view the table.`}
       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${COMPLIANCE_TONE[compliance.level]}`}>
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[COMPLIANCE_TONE[compliance.level]]}`}>
         <ReportingComplianceGlyph />
       </span>
       TRIPOD-LLM · {compliance.pct}% reported
@@ -68,42 +89,35 @@ function ReportingComplianceBadge({ compliance }: { compliance: ReportingComplia
   );
 }
 
-// Center for Open Science's actual Open Science Badge artwork
-// (cos.io/initiatives/badges, CC BY 4.0 — "free to use with attribution").
-// OSF doesn't have a distinct "Open Code" badge, so Analytic Code
-// Transparency borrows the Open Materials badge (materials explicitly
-// includes code/software in OSF's own definition). Study Registration
-// borrows the Preregistered badge image, but the tooltip always uses our
-// own "Study Registration" TOP-standard language, not "preregistered" —
-// item 14d in the source data means "was this study registered at all,"
-// not the stricter "registered before data collection" that badge name
-// implies. There's no official OSF badge for Study Protocol, so that one
-// keeps an original glyph.
-const BADGE_IMAGE: Partial<Record<TopStandard, { src: string; alt: string }>> = {
-  "data-transparency": { src: "/badges/osf-open-data.png", alt: "Open Data badge" },
-  "code-transparency": { src: "/badges/osf-open-materials.png", alt: "Open Materials badge" },
-  "study-registration": { src: "/badges/osf-preregistered.png", alt: "Preregistered badge" },
+// level-2-shared = fully met (green), level-1-disclosed = partially met
+// (gold), not-disclosed = the standard was never addressed at all — that's
+// an absence, not just unclear (red), not-applicable = doesn't apply to
+// this study (gray).
+const TOP_LEVEL_TONE: Record<TopLevel, Tone> = {
+  "level-2-shared": "green",
+  "level-1-disclosed": "gold",
+  "not-disclosed": "red",
+  "not-applicable": "gray",
 };
 
-const LEVEL_RING: Record<TopLevel, string> = {
-  "level-2-shared": "border-emerald-600",
-  "level-1-disclosed": "border-amber-500",
-  "not-disclosed": "border-zinc-300",
-  "not-applicable": "border-zinc-200",
+const DISCLOSURE_TONE: Record<DisclosureLevel, Tone> = {
+  disclosed: "green",
+  partial: "gold",
+  "not-disclosed": "red",
+  "not-applicable": "gray",
 };
 
-const RISK_TONE: Record<ReproducibilityRisk, string> = {
-  "low-risk": "bg-emerald-600",
-  "some-concerns": "bg-amber-500",
-  "high-risk": "bg-red-600",
+const RISK_TONE: Record<ReproducibilityRisk, Tone> = {
+  "low-risk": "green",
+  "some-concerns": "gold",
+  "high-risk": "red",
 };
 
-// "not-addressed" (the paper doesn't discuss this at all) is deliberately
-// gray, not red — it's an absence of discussion, not a confirmed problem.
-// Reuses the same gray as TOP's "not-disclosed" ring for the same reason.
-const DATA_LEAKAGE_TONE: Record<ReproducibilityRisk | "not-addressed", string> = {
+// "not-addressed" (the paper doesn't discuss this at all) reads as unclear,
+// not a confirmed problem, so it stays gray rather than red.
+const DATA_LEAKAGE_TONE: Record<ReproducibilityRisk | "not-addressed", Tone> = {
   ...RISK_TONE,
-  "not-addressed": "bg-zinc-400",
+  "not-addressed": "gray",
 };
 
 // Original glyph — two overlapping shapes with a "leak" drip, evoking
@@ -119,14 +133,49 @@ function DataLeakageGlyph() {
   );
 }
 
-function ProtocolGlyph() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <rect x="5" y="4" width="14" height="17" rx="2" />
-      <path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1Z" />
-      <path d="M8.5 12h7M8.5 16h5" />
-    </svg>
-  );
+// Original glyphs for the four Openness (TOP) standards — one recognizable
+// shape per standard, matched to its own tone color below rather than the
+// real OSF/COS badge artwork (which is fixed-color raster art and can't
+// take on our green/gold/red/gray scale).
+function StandardGlyph({ standard }: { standard: TopStandard }) {
+  const common = { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
+  switch (standard) {
+    case "study-protocol":
+      // clipboard — the study's pre-specified plan
+      return (
+        <svg {...common}>
+          <rect x="5" y="4" width="14" height="17" rx="2" />
+          <path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1Z" />
+          <path d="M8.5 12h7M8.5 16h5" />
+        </svg>
+      );
+    case "study-registration":
+      // ribbon seal — a claim staked and certified before results were known
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="10" r="6.5" />
+          <path d="M9 15.5 7.5 21l4.5-2.5 4.5 2.5-1.5-5.5" />
+          <path d="M9.3 10 11 11.8l3.7-4" />
+        </svg>
+      );
+    case "data-transparency":
+      // database cylinder — the underlying data made shareable
+      return (
+        <svg {...common}>
+          <ellipse cx="12" cy="6" rx="7.5" ry="3" />
+          <path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6" />
+          <path d="M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3" />
+        </svg>
+      );
+    case "code-transparency":
+      // angle brackets — the analysis code made shareable
+      return (
+        <svg {...common}>
+          <path d="M9 7 4 12l5 5" />
+          <path d="M15 7l5 5-5 5" />
+        </svg>
+      );
+  }
 }
 
 // Original glyphs for the four validity domains — no established open-
@@ -208,16 +257,13 @@ function IntegrityGlyph({ kind }: { kind: IntegritySignalKind }) {
 }
 
 function IntegrityBadge({ kind, level }: { kind: IntegritySignalKind; level: DisclosureLevel }) {
-  const earned = level === "disclosed";
   return (
     <span
       title={`${INTEGRITY_SIGNAL_LABELS[kind]}: ${DISCLOSURE_LEVEL_LABELS[level]}`}
       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
     >
       <span
-        className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${
-          earned ? "bg-emerald-600" : level === "partial" ? "bg-amber-500" : "bg-zinc-400"
-        }`}
+        className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DISCLOSURE_TONE[level]]}`}
       >
         <IntegrityGlyph kind={kind} />
       </span>
@@ -227,28 +273,16 @@ function IntegrityBadge({ kind, level }: { kind: IntegritySignalKind; level: Dis
 }
 
 function StandardBadge({ standard, level }: { standard: TopStandard; level: TopLevel }) {
-  const img = BADGE_IMAGE[standard];
-  // Only the official OSF badge criterion ("shared and cited in a trusted
-  // repository") gets the full-color mark — anything less is shown
-  // desaturated so we're never implying a badge was earned when it wasn't.
-  const earned = level === "level-2-shared";
+  const tone = TOP_LEVEL_TONE[level];
 
   return (
     <span
       title={`${TOP_STANDARD_LABELS[standard]}: ${TOP_LEVEL_LABELS[level]}`}
-      className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 ${LEVEL_RING[level]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 ${TONE_RING[tone]}`}
     >
-      {img ? (
-        <Image src={img.src} alt={img.alt} width={16} height={17.6} className={earned ? "" : "opacity-40 grayscale"} />
-      ) : (
-        <span
-          className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${
-            earned ? "bg-emerald-600" : level === "level-1-disclosed" ? "bg-amber-500" : "bg-zinc-400"
-          }`}
-        >
-          <ProtocolGlyph />
-        </span>
-      )}
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
+        <StandardGlyph standard={standard} />
+      </span>
       {TOP_STANDARD_LABELS[standard]}
     </span>
   );
@@ -265,7 +299,7 @@ function ReminderGlyph() {
 function ReminderBadge({ label, title }: { label: string; title: string }) {
   return (
     <span title={title} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80">
-      <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-zinc-400 text-white">
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG.gray}`}>
         <ReminderGlyph />
       </span>
       {label}
@@ -276,7 +310,7 @@ function ReminderBadge({ label, title }: { label: string; title: string }) {
 function RiskBadge({ label, risk, title, glyph }: { label: string; risk: ReproducibilityRisk; title: string; glyph: React.ReactNode }) {
   return (
     <span title={title} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80">
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${RISK_TONE[risk]}`}>{glyph}</span>
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[RISK_TONE[risk]]}`}>{glyph}</span>
       {label}
     </span>
   );
@@ -289,7 +323,7 @@ function DataLeakageBadge({ risk }: { risk: ReproducibilityRisk | "not-addressed
       title={`Data leakage: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${DATA_LEAKAGE_TONE[risk]}`}>
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DATA_LEAKAGE_TONE[risk]]}`}>
         <DataLeakageGlyph />
       </span>
       Data Leakage · {DATA_LEAKAGE_LABELS[risk]}
@@ -351,7 +385,7 @@ function RigorCheckBadge({ kind, risk }: { kind: RigorCheckKind; risk: Reproduci
       title={`${label}: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${DATA_LEAKAGE_TONE[risk]}`}>
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DATA_LEAKAGE_TONE[risk]]}`}>
         <RigorCheckGlyph kind={kind} />
       </span>
       {label} · {DATA_LEAKAGE_LABELS[risk]}
@@ -373,7 +407,7 @@ function StatisticalPowerGlyph() {
 }
 
 function StatisticalPowerBadge({ status }: { status: StatisticalPowerStatus }) {
-  const tone = status === "adequate" ? "bg-emerald-600" : "bg-amber-500";
+  const tone = TONE_BG[status === "adequate" ? "green" : "red"];
   return (
     <a
       href="#qa-statistical-power"
@@ -390,35 +424,49 @@ function StatisticalPowerBadge({ status }: { status: StatisticalPowerStatus }) {
 
 /** Transparency, Openness, Rigor, Extensibility, and integrity badges for a node. */
 export default function TopBadges({ node }: { node: GraphNode }) {
-  const opennessSignals = getTopSignals(node);
+  // Openness, Integrity, and the newer Rigor sub-checks (data leakage,
+  // baseline adequacy, etc.) describe the paper's own practices/methodology,
+  // not an individual excerpt — so on an EVD page they're read off the
+  // parent SRC via its derivedFrom edge instead of the EVD's own (empty)
+  // tags. Transparency and the validity-domain checks stay per-node below.
+  const parentSource = node.type === "EVD" ? getParentSource(node.id) : null;
+  const signalSource = parentSource ?? node;
+  const opennessSignals = getTopSignals(signalSource);
   const compliance = getReportingCompliance(node.id);
   const repro = getReproducibilityRisk(node);
   const validity = getValiditySignals(node);
-  const integrity = getIntegritySignals(node);
-  const dataLeakage = getDataLeakageSignal(node);
-  const baselineAdequacy = getBaselineAdequacy(node);
-  const trainDevTest = getTrainDevTestHygiene(node);
-  const multipleComparisons = getMultipleComparisonsCorrection(node);
-  const humanBaseline = getHumanBaselineComparability(node);
-  const statisticalPower = getStatisticalPower(node);
+  const integrity = getIntegritySignals(signalSource);
+  const dataLeakage = getDataLeakageSignal(signalSource);
+  const baselineAdequacy = getBaselineAdequacy(signalSource);
+  const trainDevTest = getTrainDevTestHygiene(signalSource);
+  const multipleComparisons = getMultipleComparisonsCorrection(signalSource);
+  const humanBaseline = getHumanBaselineComparability(signalSource);
+  const statisticalPower = getStatisticalPower(signalSource);
 
-  if (
-    !compliance &&
-    opennessSignals.length === 0 &&
-    !repro &&
-    validity.length === 0 &&
-    integrity.length === 0 &&
-    !dataLeakage &&
-    !baselineAdequacy &&
-    !trainDevTest &&
-    !multipleComparisons &&
-    !humanBaseline &&
-    !statisticalPower
-  )
+  const hasRigor =
+    validity.length > 0 ||
+    Boolean(dataLeakage) ||
+    Boolean(baselineAdequacy) ||
+    Boolean(trainDevTest) ||
+    Boolean(multipleComparisons) ||
+    Boolean(humanBaseline) ||
+    Boolean(statisticalPower);
+
+  if (!compliance && opennessSignals.length === 0 && !repro && !hasRigor && integrity.length === 0)
     return null;
 
+  const summary = [
+    compliance && "Transparency",
+    opennessSignals.length > 0 && "Openness",
+    hasRigor && "Rigor",
+    repro && "Extensibility",
+    integrity.length > 0 && "Integrity",
+  ]
+    .filter(Boolean)
+    .join(" · ");
+
   return (
-    <div className="mt-3 max-w-[70%] space-y-3">
+    <CollapsibleSignalBlock summary={summary}>
       {compliance && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
@@ -443,18 +491,12 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         </div>
       )}
 
-      {(validity.length > 0 ||
-        dataLeakage ||
-        baselineAdequacy ||
-        trainDevTest ||
-        multipleComparisons ||
-        humanBaseline ||
-        statisticalPower) && (
+      {hasRigor && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Rigor
           </p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+          <ExpandableChipRow>
             {validity.map((v) => (
               <RiskBadge
                 key={v.domain}
@@ -470,7 +512,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             {multipleComparisons && <RigorCheckBadge kind="multiple-comparisons" risk={multipleComparisons} />}
             {humanBaseline && <RigorCheckBadge kind="human-baseline" risk={humanBaseline} />}
             {statisticalPower && <StatisticalPowerBadge status={statisticalPower} />}
-          </div>
+          </ExpandableChipRow>
         </div>
       )}
 
@@ -479,7 +521,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Extensibility
           </p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+          <ExpandableChipRow>
             <ReminderBadge
               label="Computationally Reproduced"
               title="Not yet independently reproduced: reminder to re-run this paper's own analysis/code ourselves and confirm the reported results."
@@ -492,7 +534,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
               label="Indirectly Replicated"
               title="Not yet indirectly replicated: reminder to check whether independent studies using different methods reach the same conclusion."
             />
-          </div>
+          </ExpandableChipRow>
         </div>
       )}
 
@@ -512,6 +554,6 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           </div>
         </div>
       )}
-    </div>
+    </CollapsibleSignalBlock>
   );
 }

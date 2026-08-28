@@ -35,7 +35,15 @@ tripod_llm_pct: 73pct
 
 ### What?
 
-> **Study design:** few-shot LLM evaluation against the Sarol annotated corpus (no model training). **Method type:** 4-shot in-context learning with explicit chain-of-thought reasoning request. **Tools:** OpenAI GPT-3.5-turbo-0613 and GPT-4 (closed-source, API access); same BM25+MonoT5 retrieval pipeline used to supply evidence sentences. **Dependent variables:** per-class F1 (ACCURATE / NOT_ACCURATE / IRRELEVANT), micro-F1, macro-F1; per-class recall (notably 0.90 ACCURATE recall for GPT-4). **Independent variables:** model identity (GPT-3.5-turbo-0613 vs. GPT-4); evaluation under a fixed 4-shot prompt template (no prompt-engineering search reported in main text).
+> **Study design:** few-shot LLM evaluation against the Sarol annotated corpus (no model training).
+>
+> **Method type:** 4-shot in-context learning with explicit chain-of-thought reasoning request.
+>
+> **Tools:** OpenAI GPT-3.5-turbo-0613 and GPT-4 (closed-source, API access); same BM25+MonoT5 retrieval pipeline used to supply evidence sentences.
+>
+> **Dependent variables:** per-class F1 (ACCURATE / NOT_ACCURATE / IRRELEVANT), micro-F1, macro-F1; per-class recall (notably 0.90 ACCURATE recall for GPT-4).
+>
+> **Independent variables:** model identity (GPT-3.5-turbo-0613 vs. GPT-4); evaluation under a fixed 4-shot prompt template (no prompt-engineering search reported in main text).
 >
 > "Generative large language models (LLMs) have been shown to be competitive for various NLP tasks when the task is specified by a natural language instruction (i.e. prompt) along with a few examples of the task (in-context learning) (Brown et al. 2020). Prompting the model to reason about the steps to arrive at a conclusion is shown to further improve performance for complex reasoning tasks (Wei et al. 2022). We evaluated two LLMs from OpenAI (GPT-3.5-turbo-0613 and GPT-4) for citation accuracy classification." (Sarol et al., 2024, p. 4)
 > ![[sarolAssessingCitationIntegrity2024-evd-p4-2.png]]

@@ -33,7 +33,15 @@ tripod_llm_pct: 26pct
 
 ### What?
 
-> **Study design:** cross-sectional method-comparison study, per-domain breakdown of LLM vs. human gold-standard scores. **Method type:** zero-shot LLM evaluation against human consensus on each of 14 CONSORT-A domains. **Tools:** OpenAI ChatGPT GPT-3.5 (no version pin); CONSORT-A 15-item abstract reporting checklist (Moher et al. 2010); R v4.1.1. **Dependent variable:** mean absolute difference in per-domain OCS subscore (each item scored 0 / 0.5 / 1 by both human and ChatGPT) plus per-domain Welch's two-sample t-test p-value and Pearson's r. **Independent variable:** CONSORT-A domain (14 rows: trial design, participants, intervention, objective, outcome [methods], randomisation, blinding, number randomly assigned, number analysed, outcome [reporting], harms, conclusion, trial registration, funding).
+> **Study design:** cross-sectional method-comparison study, per-domain breakdown of LLM vs. human gold-standard scores.
+>
+> **Method type:** zero-shot LLM evaluation against human consensus on each of 14 CONSORT-A domains.
+>
+> **Tools:** OpenAI ChatGPT GPT-3.5 (no version pin); CONSORT-A 15-item abstract reporting checklist (Moher et al. 2010); R v4.1.1.
+>
+> **Dependent variable:** mean absolute difference in per-domain OCS subscore (each item scored 0 / 0.5 / 1 by both human and ChatGPT) plus per-domain Welch's two-sample t-test p-value and Pearson's r.
+>
+> **Independent variable:** CONSORT-A domain (14 rows: trial design, participants, intervention, objective, outcome [methods], randomisation, blinding, number randomly assigned, number analysed, outcome [reporting], harms, conclusion, trial registration, funding).
 >
 > "Error analysis revealed small mean differences between human evaluation and ChatGPT in most domains (table 1). The mean difference in absolute OCS was highest for the 'conclusion' domain (0.764, 95% CI: 0.186, 0.280), indicating that ChatGPT differed the most from human evaluators in this domain." (Roberts et al., 2023, pp. 3–4)
 > ![[robertsComparativeStudyChatGPT2023-evd-p3-2.png]]

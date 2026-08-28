@@ -34,7 +34,15 @@ tripod_llm_pct: 41pct
 
 ### What?
 
-> **Study design:** ablation study within the Idea Novelty Checker pipeline (component-removal benchmark, focused on the "not novel" decision class). **Method type:** lesion experiments — each ablation removes or replaces a single retrieval/re-ranking stage and measures the resulting drop in not-novel-class accuracy. **Tools:** Idea Novelty Checker pipeline (Semantic Scholar Search API + Snippet API; SPECTER-2 embeddings; facet-based RankGPT re-ranker); novelty evaluator switched to **o3-mini** for this ablation; **gpt-4o** retained for re-ranking (Step 2). **Dependent variable:** accuracy of predicting "not novel" on the 58-item ablation set (single-class accuracy, not full binary classification metrics). **Independent variable:** ablation condition — (i) Complete System; (ii) Relevance RankGPT (general-relevance prompt instead of facet-based); (iii) Embedding Filtering only (no LLM re-ranker); (iv) Snippet Retrieval only (no embedding filter, no re-ranker); (v) Keyword Retrieval only.
+> **Study design:** ablation study within the Idea Novelty Checker pipeline (component-removal benchmark, focused on the "not novel" decision class).
+>
+> **Method type:** lesion experiments — each ablation removes or replaces a single retrieval/re-ranking stage and measures the resulting drop in not-novel-class accuracy.
+>
+> **Tools:** Idea Novelty Checker pipeline (Semantic Scholar Search API + Snippet API; SPECTER-2 embeddings; facet-based RankGPT re-ranker); novelty evaluator switched to **o3-mini** for this ablation; **gpt-4o** retained for re-ranking (Step 2).
+>
+> **Dependent variable:** accuracy of predicting "not novel" on the 58-item ablation set (single-class accuracy, not full binary classification metrics).
+>
+> **Independent variable:** ablation condition — (i) Complete System; (ii) Relevance RankGPT (general-relevance prompt instead of facet-based); (iii) Embedding Filtering only (no LLM re-ranker); (iv) Snippet Retrieval only (no embedding filter, no re-ranker); (v) Keyword Retrieval only.
 >
 > "To assess the contribution of each component in our novelty checker, we conducted ablation studies using 58 ideas (comprising 13 'not novel' instances from our test set and 45 NLP papers from the literature). For this experiment, we focus on the 'not novel' cases, since the ideas labeled novel in expert-labeled test data can vary with different retrieved paper sets." (Shahid et al., 2025, p. 6)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p6-4.png]]

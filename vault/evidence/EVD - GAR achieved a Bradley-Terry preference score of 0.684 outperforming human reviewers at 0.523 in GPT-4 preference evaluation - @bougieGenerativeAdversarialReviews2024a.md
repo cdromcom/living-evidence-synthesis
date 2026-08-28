@@ -34,7 +34,15 @@ tripod_llm_pct: 37pct
 
 ### What?
 
-> **Study design:** pairwise-preference benchmark of LLM-generated vs. human peer reviews using an LLM-as-a-judge protocol. **Method type:** Bradley-Terry (BT) ranking estimated from forced-choice pairwise comparisons; GPT-4o serves as the automatic preference judge. **Tools:** GPT-4o evaluator; the GAR framework (graph-based manuscript representation + profile/memory/novelty/review modules) backed by GPT-4o-mini; baseline reviewer agents AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review; the OpenReview ICLR 2023 dataset. **Dependent variable:** BT coefficient (ξ) per reviewer type, anchored at ξ=0 for ReviewerGPT, derived from the win matrix. **Independent variable:** reviewer type (six levels — GAR, Human, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review).
+> **Study design:** pairwise-preference benchmark of LLM-generated vs. human peer reviews using an LLM-as-a-judge protocol.
+>
+> **Method type:** Bradley-Terry (BT) ranking estimated from forced-choice pairwise comparisons; GPT-4o serves as the automatic preference judge.
+>
+> **Tools:** GPT-4o evaluator; the GAR framework (graph-based manuscript representation + profile/memory/novelty/review modules) backed by GPT-4o-mini; baseline reviewer agents AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review; the OpenReview ICLR 2023 dataset.
+>
+> **Dependent variable:** BT coefficient (ξ) per reviewer type, anchored at ξ=0 for ReviewerGPT, derived from the win matrix.
+>
+> **Independent variable:** reviewer type (six levels — GAR, Human, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review).
 >
 > "Therefore, this experiment measures and ranks reviewers based on match outcomes, using a win matrix, coefficients from the Bradley-Terry (BT) model, and logistic regression." (Bougie & Watanabe, 2024, p. 10)
 > ![[bougieGenerativeAdversarialReviews2024a-evd-p10-1.png]]

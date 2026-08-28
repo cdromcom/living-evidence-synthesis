@@ -38,7 +38,15 @@ tripod_llm_pct: 55pct
 
 ### What?
 
-> **Study design:** retrospective comparative content analysis of LLM vs. human peer-review comments. **Method type:** human aspect-coding of GPT-4 and human reviewer comments against an 11-aspect schema, with log-frequency-ratio comparison. **Tools:** GPT-4 feedback pipeline (zero-shot, single-pass, 4-section structured prompt); GPT-4 extractive summarization to convert raw feedback into JSON-keyed comment lists; the authors' 11-aspect annotation schema (Novelty, Implications of the Research, Add experiments on more datasets, Add ablation experiments, Clarity and Presentation, Ethical Aspects, Algorithm Efficiency, Reproducibility, Comparison to Previous Studies, Theoretical Soundness, Missing Citations). **Dependent variable:** per-aspect log frequency ratio log(freq_LLM / freq_human) (Fig. 3). **Independent variables:** comment source (LLM vs. human reviewer); aspect category.
+> **Study design:** retrospective comparative content analysis of LLM vs. human peer-review comments.
+>
+> **Method type:** human aspect-coding of GPT-4 and human reviewer comments against an 11-aspect schema, with log-frequency-ratio comparison.
+>
+> **Tools:** GPT-4 feedback pipeline (zero-shot, single-pass, 4-section structured prompt); GPT-4 extractive summarization to convert raw feedback into JSON-keyed comment lists; the authors' 11-aspect annotation schema (Novelty, Implications of the Research, Add experiments on more datasets, Add ablation experiments, Clarity and Presentation, Ethical Aspects, Algorithm Efficiency, Reproducibility, Comparison to Previous Studies, Theoretical Soundness, Missing Citations).
+>
+> **Dependent variable:** per-aspect log frequency ratio log(freq_LLM / freq_human) (Fig. 3).
+>
+> **Independent variables:** comment source (LLM vs. human reviewer); aspect category.
 >
 > "Fig. 3 presents the relative frequency of each of the 11 aspects of comments raised by humans and LLM. LLM comments on the implications of research 7.27 times more frequently than humans do. Conversely, LLM is 10.69 times less likely to comment on novelty compared to human reviewers." (Liang et al., 2024, p. 5)
 > ![[liangCanLargeLanguage2024a-evd-p5-2.png]]

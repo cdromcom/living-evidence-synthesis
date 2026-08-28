@@ -36,7 +36,15 @@ tripod_llm_pct: 46pct
 
 ### What?
 
-> **Study design:** single-author, single-field convenience-sample LLM evaluation (post-publication research-quality scoring). **Method type:** zero-shot LLM scoring against the UK REF 2021 1*–4* quality scale, with 30 independent API calls per article averaged into a per-article model score. **Tools:** OpenAI ChatGPT API (GPT-3.5-turbo, GPT-4o, GPT-4o-mini); REF 2021 Main Panel D guidelines (information science) as the system prompt; Webometric Analyst utilities for PDF cleanup, score extraction, and correlation analysis. **Dependent variable:** Spearman rank correlation between the 30-iteration mean ChatGPT score and the author's REF self-evaluation score across the 51 articles. **Independent variables / covariates:** model identity (3.5-turbo / 4o / 4o-mini); input format (title only / title+abstract / truncated full text); number of iterations averaged (1–30); system-prompt strategy (Strategies 0–6).
+> **Study design:** single-author, single-field convenience-sample LLM evaluation (post-publication research-quality scoring).
+>
+> **Method type:** zero-shot LLM scoring against the UK REF 2021 1*–4* quality scale, with 30 independent API calls per article averaged into a per-article model score.
+>
+> **Tools:** OpenAI ChatGPT API (GPT-3.5-turbo, GPT-4o, GPT-4o-mini); REF 2021 Main Panel D guidelines (information science) as the system prompt; Webometric Analyst utilities for PDF cleanup, score extraction, and correlation analysis.
+>
+> **Dependent variable:** Spearman rank correlation between the 30-iteration mean ChatGPT score and the author's REF self-evaluation score across the 51 articles.
+>
+> **Independent variables / covariates:** model identity (3.5-turbo / 4o / 4o-mini); input format (title only / title+abstract / truncated full text); number of iterations averaged (1–30); system-prompt strategy (Strategies 0–6).
 >
 > "The overall research design was to run a series of experiments guided by the research questions on a set of 51 articles with quality scores, using the ChatGPT API environment. For each experiment, the ChatGPT completion requests were carried out consecutively and then repeated a further 29 times to give 30 scores for each article." (Thelwall, 2024, p. 3)
 > ![[thelwallEvaluatingResearchQuality2024-evd-p3-2.png]]

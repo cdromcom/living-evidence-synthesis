@@ -35,7 +35,15 @@ tripod_llm_pct: 73pct
 
 ### What?
 
-> **Study design:** NLP model benchmark on the Sarol annotated corpus (within-paper held-out evaluation). **Method type:** supervised fine-tuning of a claim-verification model with retrieval-augmented evidence selection. **Tools:** MultiVerS (Wadden et al. 2022) — a Longformer-based (Beltagy et al. 2020) claim-verification model — initially fine-tuned on HealthVER (Sarrouti et al. 2021) and then on the Sarol training split; BM25 (Robertson & Zaragoza 2009) for first-pass sentence retrieval; MonoT5 (Nogueira et al. 2020) reranker; PubMedBERT (Gu et al. 2021) for the citation-context baseline. **Dependent variables:** per-class F1 (ACCURATE / NOT_ACCURATE / IRRELEVANT), micro-F1, macro-F1; sentence-retrieval Recall@{1,5,10,20} and MRR. **Independent variables:** evidence-retrieval condition (title+abstract baseline, top-5, top-10, top-20, top-20 + annotated evidence, oracle gold-evidence, oracle gold-context+evidence); citance vs. fine-tuned PubMedBERT for citation-context selection; query type for retrieval (citance only / gold context / gold context + intervening sentences).
+> **Study design:** NLP model benchmark on the Sarol annotated corpus (within-paper held-out evaluation).
+>
+> **Method type:** supervised fine-tuning of a claim-verification model with retrieval-augmented evidence selection.
+>
+> **Tools:** MultiVerS (Wadden et al. 2022) — a Longformer-based (Beltagy et al. 2020) claim-verification model — initially fine-tuned on HealthVER (Sarrouti et al. 2021) and then on the Sarol training split; BM25 (Robertson & Zaragoza 2009) for first-pass sentence retrieval; MonoT5 (Nogueira et al. 2020) reranker; PubMedBERT (Gu et al. 2021) for the citation-context baseline.
+>
+> **Dependent variables:** per-class F1 (ACCURATE / NOT_ACCURATE / IRRELEVANT), micro-F1, macro-F1; sentence-retrieval Recall@{1,5,10,20} and MRR.
+>
+> **Independent variables:** evidence-retrieval condition (title+abstract baseline, top-5, top-10, top-20, top-20 + annotated evidence, oracle gold-evidence, oracle gold-context+evidence); citance vs. fine-tuned PubMedBERT for citation-context selection; query type for retrieval (citance only / gold context / gold context + intervening sentences).
 >
 > "We report standard evaluation metrics, precision, recall, and their harmonic mean, F1 score, for citation context identification and accuracy classification tasks. For citation accuracy classification, we report both micro- and macro-averaged results. We assess whether the performance differences between the baseline MultiVerS model and the other models are statistically significant using McNemar's test." (Sarol et al., 2024, p. 5)
 > ![[sarolAssessingCitationIntegrity2024-evd-p5-2.png]]

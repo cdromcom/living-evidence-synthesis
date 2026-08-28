@@ -34,7 +34,15 @@ tripod_llm_pct: 70pct
 
 ### What?
 
-> **Study design:** within-system pre/post benchmark comparison of LLM and multi-agent systems with vs. without a RAG augmentation pipeline, evaluated on the same LIMITGEN-Syn (1,000 perturbed examples) and LIMITGEN-Human (1,000 examples from ICLR 2025) benchmarks. **Method type:** zero-shot limitation generation augmented by retrieved external context, scored by GPT-4o automated judge plus human evaluation. **Tools:** Semantic Scholar Recommendation and Relevance APIs; GPT-4o-mini as reranker; same evaluated systems as the primary EVD (GPT-4o, GPT-4o-mini, Llama-3.3-70B, Qwen-2.5-72B, MARG); GPT-4o as automated coarse-grained classifier. **Dependent variable(s):** Δ in coarse-grained accuracy (LIMITGEN-Syn) and Δ in fine-grained 0–5 score (both subsets); for LIMITGEN-Human, also Δ in Jaccard overlap with ground-truth limitations and Δ in human-rated faithfulness/soundness/importance. **Independent variable(s):** RAG on vs. RAG off (within-system); also RAG retrieval setting (top-3 reranked vs. top-5 reranked vs. last-5 of 18 retrieved) ablated on LIMITGEN-Human (Table 5).
+> **Study design:** within-system pre/post benchmark comparison of LLM and multi-agent systems with vs. without a RAG augmentation pipeline, evaluated on the same LIMITGEN-Syn (1,000 perturbed examples) and LIMITGEN-Human (1,000 examples from ICLR 2025) benchmarks.
+>
+> **Method type:** zero-shot limitation generation augmented by retrieved external context, scored by GPT-4o automated judge plus human evaluation.
+>
+> **Tools:** Semantic Scholar Recommendation and Relevance APIs; GPT-4o-mini as reranker; same evaluated systems as the primary EVD (GPT-4o, GPT-4o-mini, Llama-3.3-70B, Qwen-2.5-72B, MARG); GPT-4o as automated coarse-grained classifier.
+>
+> **Dependent variable(s):** Δ in coarse-grained accuracy (LIMITGEN-Syn) and Δ in fine-grained 0–5 score (both subsets); for LIMITGEN-Human, also Δ in Jaccard overlap with ground-truth limitations and Δ in human-rated faithfulness/soundness/importance.
+>
+> **Independent variable(s):** RAG on vs. RAG off (within-system); also RAG retrieval setting (top-3 reranked vs. top-5 reranked vs. last-5 of 18 retrieved) ablated on LIMITGEN-Human (Table 5).
 >
 > "we enhanced the evaluated systems' capabilities by incorporating the RAG module, a method proven effective for knowledge-intensive tasks (Lewis et al., 2020; Shi et al., 2024), to ground limitation generation in the related literature. This method enables the LLMs to retrieve and consider related works when evaluating limitations in the given research paper." (Xu et al., 2025, p. 7)
 > ![[xuCanLLMsIdentify2025-evd-p7-2.png]]

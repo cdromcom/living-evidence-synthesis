@@ -36,7 +36,15 @@ tripod_llm_pct: 41pct
 
 ### What?
 
-> **Study design:** comparative few-shot LLM evaluation — head-to-head benchmark of an external novelty-checker prompt (AI Scientist; Lu et al.) against the Idea Novelty Checker on the same expert-annotated test set. **Method type:** prompt-only swap (the AI Scientist prompt was lifted from its paper reviewer module and run on a fixed set of input idea + top-10 retrieved papers). **Tools:** AI Scientist's novelty-evaluation prompt (originally designed for use with the Semantic Scholar API and an iterative search loop); same gpt-4o backbone where applicable; AI Researcher (Si et al.) included as a third comparison system, evaluated with both gpt-4o and Claude-3.5-Sonnet. **Dependent variables:** binary novelty classification metrics on the 32-idea test set — accuracy, precision, recall, F1, Cohen's κ vs. expert labels. **Independent variables:** novelty-checker system identity (Idea Novelty Checker vs. AI Scientist vs. AI Researcher); for AI Researcher, backbone LLM (gpt-4o vs. Claude-3.5-Sonnet).
+> **Study design:** comparative few-shot LLM evaluation — head-to-head benchmark of an external novelty-checker prompt (AI Scientist; Lu et al.) against the Idea Novelty Checker on the same expert-annotated test set.
+>
+> **Method type:** prompt-only swap (the AI Scientist prompt was lifted from its paper reviewer module and run on a fixed set of input idea + top-10 retrieved papers).
+>
+> **Tools:** AI Scientist's novelty-evaluation prompt (originally designed for use with the Semantic Scholar API and an iterative search loop); same gpt-4o backbone where applicable; AI Researcher (Si et al.) included as a third comparison system, evaluated with both gpt-4o and Claude-3.5-Sonnet.
+>
+> **Dependent variables:** binary novelty classification metrics on the 32-idea test set — accuracy, precision, recall, F1, Cohen's κ vs. expert labels.
+>
+> **Independent variables:** novelty-checker system identity (Idea Novelty Checker vs. AI Scientist vs. AI Researcher); for AI Researcher, backbone LLM (gpt-4o vs. Claude-3.5-Sonnet).
 >
 > "In addition to these baselines, we also compare our novelty checker 'prompt' with that of AI Scientist (Lu et al.) (different from its paper reviewer) and AI Researcher (Si et al.) on the same test set of ideas and fixed top 10 papers. We compare only the prompts to assess novelty of these two approaches with ours, rather than the entire system, because the test set containing the novelty judgments by experts were based on a fixed set of the 10 most relevant papers for each idea." (Shahid et al., 2025, p. 5)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p5-1.png]]

@@ -32,7 +32,15 @@ tripod_llm_pct: 35pct
 
 ### What?
 
-> **Study design:** within-LLM comparison of single-prompt vs. multiple-prompt outputs in the same observational cross-sectional pilot. **Method type:** structured side-by-side rater assessment of LLM outputs against expected key responses in two prompting conditions. **Tools:** Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0; FERCAP–SIDCER handbook; HHS ICD checklist. **Dependent variable(s):** identification (yes/no/partial) of placebo-arm suitability, risk-mitigation strategies, and potential risks to participants per case; additional ethical issues newly raised under multi-prompt. **Independent variable(s) / covariates:** prompting condition (single vs. multiple, within-LLM); LLM identity (4); case scenario (7).
+> **Study design:** within-LLM comparison of single-prompt vs. multiple-prompt outputs in the same observational cross-sectional pilot.
+>
+> **Method type:** structured side-by-side rater assessment of LLM outputs against expected key responses in two prompting conditions.
+>
+> **Tools:** Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0; FERCAP–SIDCER handbook; HHS ICD checklist.
+>
+> **Dependent variable(s):** identification (yes/no/partial) of placebo-arm suitability, risk-mitigation strategies, and potential risks to participants per case; additional ethical issues newly raised under multi-prompt.
+>
+> **Independent variable(s) / covariates:** prompting condition (single vs. multiple, within-LLM); LLM identity (4); case scenario (7).
 >
 > "We compared the responses of the LLMs with a single prompt containing all of the queries together and multiple prompts in which each query was posted one by one, such as engaging in a series of dialogue." (Sridharan & Sivaramakrishnan, 2025, p. 127)
 > ![[sridharanLeveragingArtificialIntelligence2025-evd-p2-6.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 35pct
 
 ### Who?
 
-> **Models / participants:** 4 LLMs (Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0); no human participants. **Sample-size flow:** 7 FERCAP–SIDCER case scenarios → 4 × 7 = 28 LLM-case cells per prompting condition → all 28 evaluated under both single and multiple prompts (56 cells total); none excluded.
+> **Models / participants:** 4 LLMs (Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0); no human participants.
+>
+> **Sample-size flow:** 7 FERCAP–SIDCER case scenarios → 4 × 7 = 28 LLM-case cells per prompting condition → all 28 evaluated under both single and multiple prompts (56 cells total); none excluded.
 >
 > "Four AI platforms were evaluated as follows: 1. Google Bard… 2. ChatGPT 3.5… 3. Claude-Instant-100k… 4. ChatGPT 4.0… Seven case studies were selected from the FERCAP–SIDCER handbook of case studies on ethical issues in health research." (Sridharan & Sivaramakrishnan, 2025, p. 127)
 > ![[sridharanLeveragingArtificialIntelligence2025-evd-p2-7.png]]

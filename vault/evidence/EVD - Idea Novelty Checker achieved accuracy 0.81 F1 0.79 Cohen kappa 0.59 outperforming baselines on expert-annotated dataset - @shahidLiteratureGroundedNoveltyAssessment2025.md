@@ -36,7 +36,15 @@ tripod_llm_pct: 41pct
 
 ### What?
 
-> **Study design:** few-shot LLM evaluation against an expert-annotated novelty-classification corpus (within-paper held-out test split). **Method type:** retrieval-augmented generation (RAG) with two-stage retrieve-then-rerank, plus 15-shot in-context learning for the final novelty classifier. **Tools:** Semantic Scholar Search API + Snippet API for candidate retrieval; SPECTER-2 (Cohan et al.) embeddings for similarity filtering; RankGPT (Sun et al.) for facet-based LLM re-ranking; GPT-4o ("gpt-4o", inference Aug–Sep 2024) for keyword extraction (LLM_query), re-ranking (LLM_rankgpt), and novelty evaluation (LLM_novelty); brat-style expert annotation. **Dependent variables:** binary novelty classification metrics on a 32-idea test set — accuracy, precision, recall, F1, and Cohen's κ vs. expert labels. **Independent variables / covariates:** prompting strategy (zero-shot, DSPy, TextGRAD, OpenReview-derived in-context examples, expert-labeled in-context examples); presence/absence of "most relevant papers", "class" label, and "reasoning" in the in-context examples; number of in-context examples (n_examples; best = 15).
+> **Study design:** few-shot LLM evaluation against an expert-annotated novelty-classification corpus (within-paper held-out test split).
+>
+> **Method type:** retrieval-augmented generation (RAG) with two-stage retrieve-then-rerank, plus 15-shot in-context learning for the final novelty classifier.
+>
+> **Tools:** Semantic Scholar Search API + Snippet API for candidate retrieval; SPECTER-2 (Cohan et al.) embeddings for similarity filtering; RankGPT (Sun et al.) for facet-based LLM re-ranking; GPT-4o ("gpt-4o", inference Aug–Sep 2024) for keyword extraction (LLM_query), re-ranking (LLM_rankgpt), and novelty evaluation (LLM_novelty); brat-style expert annotation.
+>
+> **Dependent variables:** binary novelty classification metrics on a 32-idea test set — accuracy, precision, recall, F1, and Cohen's κ vs. expert labels.
+>
+> **Independent variables / covariates:** prompting strategy (zero-shot, DSPy, TextGRAD, OpenReview-derived in-context examples, expert-labeled in-context examples); presence/absence of "most relevant papers", "class" label, and "reasoning" in the in-context examples; number of in-context examples (n_examples; best = 15).
 >
 > "We evaluated multiple baselines to benchmark our novelty assessment approach. First, we employed a zero-shot prompt as a straightforward baseline, and further refined this manually written prompt using Anthropic's prompt generator. We also applied popular prompt optimization techniques such as DSPy (Khattab et al.) and TextGRAD (Yuksekgonul et al.), which optimize the prompt instructions using a train/validation split created from formative study data." (Shahid et al., 2025, p. 5)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p5-2.png]]

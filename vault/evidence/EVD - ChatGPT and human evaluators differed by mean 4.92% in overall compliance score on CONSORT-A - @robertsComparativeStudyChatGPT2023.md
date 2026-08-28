@@ -34,7 +34,15 @@ tripod_llm_pct: 26pct
 
 ### What?
 
-> **Study design:** cross-sectional method-comparison / agreement study (LLM vs. human gold standard). **Method type:** zero-shot LLM evaluation against human consensus scores. **Tools:** OpenAI ChatGPT (described as "GPT3.5 model" / "ChatGPT3"; no version pin or inference timestamp); CONSORT-A 15-item abstract reporting checklist (Moher et al. 2010); R v4.1.1 for statistics. **Dependent variable:** overall compliance score (OCS, 0–15) and OCS percentage per abstract; agreement quantified via Bland-Altman mean difference and 95% limits of agreement. **Independent variables / covariates:** evaluator (human consensus vs. ChatGPT) per the same 30 abstracts.
+> **Study design:** cross-sectional method-comparison / agreement study (LLM vs. human gold standard).
+>
+> **Method type:** zero-shot LLM evaluation against human consensus scores.
+>
+> **Tools:** OpenAI ChatGPT (described as "GPT3.5 model" / "ChatGPT3"; no version pin or inference timestamp); CONSORT-A 15-item abstract reporting checklist (Moher et al. 2010); R v4.1.1 for statistics.
+>
+> **Dependent variable:** overall compliance score (OCS, 0–15) and OCS percentage per abstract; agreement quantified via Bland-Altman mean difference and 95% limits of agreement.
+>
+> **Independent variables / covariates:** evaluator (human consensus vs. ChatGPT) per the same 30 abstracts.
 >
 > "We compared ChatGPT's scoring of implant dentistry abstracts with human evaluators using the Consolidated Standards of Reporting Trials for Abstracts reporting standards checklist, yielding an overall compliance score (OCS). Bland-Altman analysis assessed agreement between human and AI-generated OCS percentages." (Roberts et al., 2023, p. 1)
 > ![[robertsComparativeStudyChatGPT2023-evd-p1-1.png]]

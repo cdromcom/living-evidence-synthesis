@@ -32,7 +32,15 @@ tripod_llm_pct: 23pct
 
 ### What?
 
-> **Study design:** cross-sectional observational study evaluating LLMs as IRB members. **Method type:** qualitative comparative assessment of free-text LLM responses against gold-standard ethics references; two independent reviewers. **Tools:** three AI platforms (Poe Assistant, ChatGPT [GPT-3.5], Google Bard); FERCAP/SIDCER Handbook of Case Studies on Ethical Issues in Health Research as the case-study source and partial gold standard; ICH E6 GCP guidelines as the second gold standard. **Dependent variable(s):** binary "stated / not stated" coding of whether each AI platform addressed each ethical sub-issue in each case study (per Table 1 domains, e.g., reporting of an event, suggesting expedited review, identifying drug definition, quantifying participant risk). **Independent variable(s) / covariates:** AI platform (3 levels); case study (10 levels: Role of REC; Emergency Room Research; Scientific Soundness; COI; Healthy Volunteers; Observational Study; Behavioral Research; Traditional Medicine; Recruitment & Informed Consent; Post-Trial Access).
+> **Study design:** cross-sectional observational study evaluating LLMs as IRB members.
+>
+> **Method type:** qualitative comparative assessment of free-text LLM responses against gold-standard ethics references; two independent reviewers.
+>
+> **Tools:** three AI platforms (Poe Assistant, ChatGPT [GPT-3.5], Google Bard); FERCAP/SIDCER Handbook of Case Studies on Ethical Issues in Health Research as the case-study source and partial gold standard; ICH E6 GCP guidelines as the second gold standard.
+>
+> **Dependent variable(s):** binary "stated / not stated" coding of whether each AI platform addressed each ethical sub-issue in each case study (per Table 1 domains, e.g., reporting of an event, suggesting expedited review, identifying drug definition, quantifying participant risk).
+>
+> **Independent variable(s) / covariates:** AI platform (3 levels); case study (10 levels: Role of REC; Emergency Room Research; Scientific Soundness; COI; Healthy Volunteers; Observational Study; Behavioral Research; Traditional Medicine; Recruitment & Informed Consent; Post-Trial Access).
 >
 > "The present work represents a cross-sectional, observational study that was carried out during September to November 2023." (Sridharan & Sivaramakrishnan, 2024, p. 84)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p2-5.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 23pct
 
 ### Who?
 
-> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5 architecture, OpenAI), and Google Bard. No human participants; the units of analysis are AI responses to case-study prompts. **Sample-size flow:** 10 case studies sourced from FERCAP/SIDCER handbook → all 10 administered to each of 3 platforms → 30 platform × case-study response sets analyzed. No exclusions reported. The two assessors are the two paper authors (KS, GS).
+> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5 architecture, OpenAI), and Google Bard. No human participants; the units of analysis are AI responses to case-study prompts.
+>
+> **Sample-size flow:** 10 case studies sourced from FERCAP/SIDCER handbook → all 10 administered to each of 3 platforms → 30 platform × case-study response sets analyzed. No exclusions reported. The two assessors are the two paper authors (KS, GS).
 >
 > "Two authors independently assessed the AI outputs, and the veracity was verified using the FERCAP/SIDCER handbook and the ICH E6 GCP guidelines (FERCAP/SIDCER Handbook, 2012; ICH E6, 2023)." (Sridharan & Sivaramakrishnan, 2024, p. 84)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p2-7.png]]

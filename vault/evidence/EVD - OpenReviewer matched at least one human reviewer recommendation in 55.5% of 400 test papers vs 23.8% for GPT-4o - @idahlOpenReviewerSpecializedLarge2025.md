@@ -34,7 +34,15 @@ tripod_llm_pct: 56pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark comparing one fine-tuned LLM (OpenReviewer) against four general-purpose LLM baselines on a held-out peer-review test set. **Method type:** automatic alignment metrics — Exact Match rate (EM) and Average Error — against human reviewer recommendations. **Tools:** Llama-OpenReviewer-8B (Llama-3.1-8B-Instruct full-finetuned on ≈79K filtered ICLR/NeurIPS reviews); Llama-3.1-8B-Instruct, Llama-3.1-70B-Instruct, Claude-3.5-Sonnet (Oct. 22), GPT-4o (2024-11-20); vLLM serving for OpenReviewer/Llama and OpenRouter for Claude/GPT-4o. **Dependent variables:** EM (% of generated reviews whose recommendation exactly matches at least one human reviewer's recommendation on the 1–10 scale) and Avg. Error ± SD (mean absolute distance between the generated recommendation and the human reviewers' average recommendation, on the 1–10 scale). **Independent variable:** model identity (5 LLMs).
+> **Study design:** cross-sectional benchmark comparing one fine-tuned LLM (OpenReviewer) against four general-purpose LLM baselines on a held-out peer-review test set.
+>
+> **Method type:** automatic alignment metrics — Exact Match rate (EM) and Average Error — against human reviewer recommendations.
+>
+> **Tools:** Llama-OpenReviewer-8B (Llama-3.1-8B-Instruct full-finetuned on ≈79K filtered ICLR/NeurIPS reviews); Llama-3.1-8B-Instruct, Llama-3.1-70B-Instruct, Claude-3.5-Sonnet (Oct. 22), GPT-4o (2024-11-20); vLLM serving for OpenReviewer/Llama and OpenRouter for Claude/GPT-4o.
+>
+> **Dependent variables:** EM (% of generated reviews whose recommendation exactly matches at least one human reviewer's recommendation on the 1–10 scale) and Avg. Error ± SD (mean absolute distance between the generated recommendation and the human reviewers' average recommendation, on the 1–10 scale).
+>
+> **Independent variable:** model identity (5 LLMs).
 
 > "To measure how well the recommendation of a generated review matches the recommendations of the human reviewers, we check whether it exactly matches one of the human reviewers' recommendations. Additionally, we measure the average absolute distance between the generated review's recommendation and the human reviewers' average recommendations. For this, we normalize the recommendation scores to a scale from 1 (strong reject) to 10 (strong accept)." (Idahl & Ahmadi, 2025, p. 4)
 > ![[idahlOpenReviewerSpecializedLarge2025-evd-p4-4.png]]

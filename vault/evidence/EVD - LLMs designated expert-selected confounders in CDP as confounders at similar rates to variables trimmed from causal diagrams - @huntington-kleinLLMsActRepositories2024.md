@@ -34,7 +34,15 @@ tripod_llm_pct: 62pct
 
 ### What?
 
-> **Study design:** ground-truth-anchored LLM benchmark on a single causal-inference case study (Coronary Drug Project). **Method type:** zero/few-shot multiple-choice LLM elicitation of confounder status, compared against expert-curated confounder sets from three published studies. **Tools:** GPT-4o and Claude 3.5-Sonnet (via `openai` and `anthropic` Python packages, temperature 0.7, 10 calls per prompt) plus GPT-o1-preview (single call, temperature not user-controlled); CDP confounder lists from CDPRG (1980), Murray & Hernán (2016), and Debertin et al. (2024). **Dependent variable:** share of variables in each expert category designated as a confounder by the LLM (averaged over 10 iterations for GPT-4o / Claude). **Independent variables / covariates:** confounder category (Original / Added in 2016 / Expert-Added / Final Expert DAG / Trimmed / Non-Confounders); LLM model; prompting method (direct vs. indirect, with reasoning).
+> **Study design:** ground-truth-anchored LLM benchmark on a single causal-inference case study (Coronary Drug Project).
+>
+> **Method type:** zero/few-shot multiple-choice LLM elicitation of confounder status, compared against expert-curated confounder sets from three published studies.
+>
+> **Tools:** GPT-4o and Claude 3.5-Sonnet (via `openai` and `anthropic` Python packages, temperature 0.7, 10 calls per prompt) plus GPT-o1-preview (single call, temperature not user-controlled); CDP confounder lists from CDPRG (1980), Murray & Hernán (2016), and Debertin et al. (2024).
+>
+> **Dependent variable:** share of variables in each expert category designated as a confounder by the LLM (averaged over 10 iterations for GPT-4o / Claude).
+>
+> **Independent variables / covariates:** confounder category (Original / Added in 2016 / Expert-Added / Final Expert DAG / Trimmed / Non-Confounders); LLM model; prompting method (direct vs. indirect, with reasoning).
 >
 > "Our general approach to checking LLM capabilities to designate variables as confounders involves taking a set of confounders identified by experts, and for each having the LLM designate whether or not it is a confounder." (Huntington-Klein & Murray, 2024, p. 4)
 > ![[huntington-kleinLLMsActRepositories2024-evd-p4-1.png]]

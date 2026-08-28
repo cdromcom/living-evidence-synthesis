@@ -32,7 +32,15 @@ tripod_llm_pct: 35pct
 
 ### What?
 
-> **Study design:** observational cross-sectional pilot study (no human subjects; LLM-output evaluation). **Method type:** structured single-prompt querying of four general-purpose chatbots against a fixed set of validated ethics case studies, with two-rater human adjudication. **Tools:** Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0; FERCAP–SIDCER handbook of case studies on ethical issues in health research (first edition, 2012); US HHS Office for Human Research Protections (OHRP) informed-consent checklist. **Dependent variable(s):** binary judgement of whether the LLM identified each expected ethical issue (study design appropriateness, eligibility criteria, vulnerability issues, risk–benefit assessment, placebo justification, ICD content) per case. **Independent variable(s) / covariates:** LLM identity (4 levels) × case scenario (7 levels).
+> **Study design:** observational cross-sectional pilot study (no human subjects; LLM-output evaluation).
+>
+> **Method type:** structured single-prompt querying of four general-purpose chatbots against a fixed set of validated ethics case studies, with two-rater human adjudication.
+>
+> **Tools:** Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0; FERCAP–SIDCER handbook of case studies on ethical issues in health research (first edition, 2012); US HHS Office for Human Research Protections (OHRP) informed-consent checklist.
+>
+> **Dependent variable(s):** binary judgement of whether the LLM identified each expected ethical issue (study design appropriateness, eligibility criteria, vulnerability issues, risk–benefit assessment, placebo justification, ICD content) per case.
+>
+> **Independent variable(s) / covariates:** LLM identity (4 levels) × case scenario (7 levels).
 >
 > "The present study was conducted as an observational, cross-sectional design between October and November 2023." (Sridharan & Sivaramakrishnan, 2025, p. 126)
 > ![[sridharanLeveragingArtificialIntelligence2025-evd-p1-1.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 35pct
 
 ### Who?
 
-> **Models / participants:** 4 LLMs evaluated — Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0 (the last paid; the first three free at evaluation time). No human participants. **Sample-size flow:** FERCAP–SIDCER handbook (case-study count not stated) → 7 prototypical cases selected covering allergic-rhinitis nasal irrigation (case 1), Tourette dose optimisation (2), measles vaccine route (3), Phase II vitamin X in oncology (4), oral iron chelation in MDS (5), IPV intervention (6), pesticide exposure (7) → all 7 analysed. Each of the 4 LLMs returned a response to every query for every case (28 LLM-case cells; no exclusions reported).
+> **Models / participants:** 4 LLMs evaluated — Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0 (the last paid; the first three free at evaluation time). No human participants.
+>
+> **Sample-size flow:** FERCAP–SIDCER handbook (case-study count not stated) → 7 prototypical cases selected covering allergic-rhinitis nasal irrigation (case 1), Tourette dose optimisation (2), measles vaccine route (3), Phase II vitamin X in oncology (4), oral iron chelation in MDS (5), IPV intervention (6), pesticide exposure (7) → all 7 analysed. Each of the 4 LLMs returned a response to every query for every case (28 LLM-case cells; no exclusions reported).
 >
 > "Four AI platforms were evaluated as follows: 1. Google Bard… 2. ChatGPT 3.5… 3. Claude-Instant-100k… 4. ChatGPT 4.0… Seven case studies were selected from the FERCAP–SIDCER handbook of case studies on ethical issues in health research published by the Forum for Ethical Review Committees in the Asian and Western Pacific Region (FERCAP) and the Strategic Initiative for Developing Capacity in Ethical Review (SIDCER)." (Sridharan & Sivaramakrishnan, 2025, p. 127)
 > ![[sridharanLeveragingArtificialIntelligence2025-evd-p2-2.png]]

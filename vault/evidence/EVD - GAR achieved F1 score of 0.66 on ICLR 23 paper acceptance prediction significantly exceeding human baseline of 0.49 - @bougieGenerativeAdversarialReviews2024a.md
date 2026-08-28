@@ -34,7 +34,15 @@ tripod_llm_pct: 37pct
 
 ### What?
 
-> **Study design:** classification benchmark of LLM reviewer agents against ground-truth conference acceptance decisions, repeated across three OpenReview datasets. **Method type:** binary {ACCEPT, REJECT} prediction at the paper level — GAR's meta-reviewer aggregates individual reviews into a final decision; the GAR^> variant instead applies a fixed score threshold of 6 (ICLR "Weak Accept"). **Tools:** GAR pipeline (graph-paper representation + 3–6 reviewer agents + meta-reviewer) backed by GPT-4o-mini; baselines AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review; trivial baselines (Random Decision, Always Reject); Nougat for PDF→Markdown extraction; Molmo-7b for figure ingestion. **Dependent variables:** Balanced Accuracy and F1 score per dataset, mean ± SE over 20 runs. **Independent variables:** reviewer system (7 levels), dataset (NeurIPS 23 / ICLR 22 / ICLR 23), decision rule (meta-reviewer vs. threshold-at-6).
+> **Study design:** classification benchmark of LLM reviewer agents against ground-truth conference acceptance decisions, repeated across three OpenReview datasets.
+>
+> **Method type:** binary {ACCEPT, REJECT} prediction at the paper level — GAR's meta-reviewer aggregates individual reviews into a final decision; the GAR^> variant instead applies a fixed score threshold of 6 (ICLR "Weak Accept").
+>
+> **Tools:** GAR pipeline (graph-paper representation + 3–6 reviewer agents + meta-reviewer) backed by GPT-4o-mini; baselines AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review; trivial baselines (Random Decision, Always Reject); Nougat for PDF→Markdown extraction; Molmo-7b for figure ingestion.
+>
+> **Dependent variables:** Balanced Accuracy and F1 score per dataset, mean ± SE over 20 runs.
+>
+> **Independent variables:** reviewer system (7 levels), dataset (NeurIPS 23 / ICLR 22 / ICLR 23), decision rule (meta-reviewer vs. threshold-at-6).
 >
 > "To evaluate the effectiveness of our LLM-powered review system, we compared its decisions against a ground truth dataset comprised of 1,000 papers from the NeurIPS 23, ICLR 22, and ICLR 23 submissions. The remaining reviews (e.g., 2,797 for ICLR 23) in each dataset were utilized to initialize the memory module." (Bougie & Watanabe, 2024, p. 11)
 > ![[bougieGenerativeAdversarialReviews2024a-evd-p11-2.png]]

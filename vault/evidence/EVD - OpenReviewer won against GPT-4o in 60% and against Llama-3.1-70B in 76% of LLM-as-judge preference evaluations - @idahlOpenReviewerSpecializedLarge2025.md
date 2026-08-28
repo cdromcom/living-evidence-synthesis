@@ -34,7 +34,15 @@ tripod_llm_pct: 56pct
 
 ### What?
 
-> **Study design:** arena-style pairwise preference evaluation (LLM-as-a-judge) — for each paper, an LLM judge compares OpenReviewer's review against one baseline LLM's review using the human "expert" reviews as ground truth. **Method type:** GPT-4o-as-judge classification into {Review A wins, Review B wins, Tie} per pairwise comparison. **Tools:** GPT-4o (2024-11-20) as judge with custom system + user prompt (Figures 5–6) that includes the human expert reviews and asks the judge to compare per-section alignment (soundness, presentation, contribution, strengths, weaknesses, questions, rating); A/B labels delimited with XML tags; reviews compared per-section before final decision. **Dependent variable:** win rate (% of 400 papers where OpenReviewer is judged the better-aligned review against each baseline). **Independent variable:** baseline-model identity (4 baselines).
+> **Study design:** arena-style pairwise preference evaluation (LLM-as-a-judge) — for each paper, an LLM judge compares OpenReviewer's review against one baseline LLM's review using the human "expert" reviews as ground truth.
+>
+> **Method type:** GPT-4o-as-judge classification into {Review A wins, Review B wins, Tie} per pairwise comparison.
+>
+> **Tools:** GPT-4o (2024-11-20) as judge with custom system + user prompt (Figures 5–6) that includes the human expert reviews and asks the judge to compare per-section alignment (soundness, presentation, contribution, strengths, weaknesses, questions, rating); A/B labels delimited with XML tags; reviews compared per-section before final decision.
+>
+> **Dependent variable:** win rate (% of 400 papers where OpenReviewer is judged the better-aligned review against each baseline).
+>
+> **Independent variable:** baseline-model identity (4 baselines).
 
 > "We run an arena-style preference evaluation with an LLM-as-a-judge setup to measure whether OpenReviewer produces better reviews than the other LLMs. This is similar to MT bench (Zheng et al., 2023) and AlpacaEval (Li et al., 2023b), which use an LLM-as-a-judge to evaluate the quality of instruction-tuned language models and chatbots." (Idahl & Ahmadi, 2025, p. 4)
 > ![[idahlOpenReviewerSpecializedLarge2025-evd-p4-7.png]]

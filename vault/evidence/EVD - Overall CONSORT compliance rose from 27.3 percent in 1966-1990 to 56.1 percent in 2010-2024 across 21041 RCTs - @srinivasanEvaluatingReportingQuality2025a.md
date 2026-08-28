@@ -33,7 +33,15 @@ tripod_llm_pct: 50pct
 
 ### What?
 
-> **Study design:** large-scale cross-sectional + temporal-trend analysis of CONSORT reporting compliance across nearly six decades of open-access RCTs. **Method type:** zero-shot LLM-based per-criterion classification, then aggregated to mean compliance per article and averaged across four publication periods. **Tools:** GPT-4o-mini (OpenAI) on Azure PHI-compliant instance; PyMuPDF (PDF→XML); Semantic Scholar metadata enrichment; Python 3.8 with scipy.stats and statsmodels for chi-square tests and Cramer's V effect sizes; 95% confidence intervals for mean compliance per period. **Dependent variable:** mean proportion of CONSORT items reported per article. **Independent variable:** publication period (1966–1990 / 1990–2000 / 2000–2010 / 2010–2024).
+> **Study design:** large-scale cross-sectional + temporal-trend analysis of CONSORT reporting compliance across nearly six decades of open-access RCTs.
+>
+> **Method type:** zero-shot LLM-based per-criterion classification, then aggregated to mean compliance per article and averaged across four publication periods.
+>
+> **Tools:** GPT-4o-mini (OpenAI) on Azure PHI-compliant instance; PyMuPDF (PDF→XML); Semantic Scholar metadata enrichment; Python 3.8 with scipy.stats and statsmodels for chi-square tests and Cramer's V effect sizes; 95% confidence intervals for mean compliance per period.
+>
+> **Dependent variable:** mean proportion of CONSORT items reported per article.
+>
+> **Independent variable:** publication period (1966–1990 / 1990–2000 / 2000–2010 / 2010–2024).
 >
 > "Statistical significance was evaluated using chi-square tests for categorical comparisons and Pearson correlation for continuous relationships, with effect sizes calculated using Cramer's V. All analyses were performed using Python 3.8 with scipy.stats and statsmodels packages." (Srinivasan et al., 2025, p. 5)
 > ![[srinivasanEvaluatingReportingQuality2025a-evd-p5-1.png]]

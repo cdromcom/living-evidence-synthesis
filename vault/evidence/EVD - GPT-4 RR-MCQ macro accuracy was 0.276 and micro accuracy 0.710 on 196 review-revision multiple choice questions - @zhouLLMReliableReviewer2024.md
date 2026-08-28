@@ -36,21 +36,39 @@ tripod_llm_pct: 43pct
 
 ### What?
 
-> **Study design:** zero-/few-shot LLM evaluation on a newly constructed benchmark (RR-MCQ), with the LLM as the system under test rather than the rater. **Method type:** two-step prompted multiple-choice question answering — (1) section-selection step, then (2) answer-prediction step over A/B/C/D options where one or more options can be correct. **Tools:** OpenAI **GPT-3.5-turbo-0613** and **GPT-4-0613**; the authors' own RR-MCQ dataset (released at huggingface.co/datasets/zhouruiyang/RR-MCQ); inputs drawn from full ICLR-2023 papers and their review-rebuttal forum threads. **Dependent variables:** **macro accuracy** (a question is correct only if the predicted option set exactly equals the gold option set), **micro accuracy** (each of the 4 options is treated as a binary True/False decision), plus per-class precision, recall, F1, and per-aspect breakdowns (soundness, clarity, empirical, method, explain, add, no-need, need; Table 8). **Independent variables:** model identity for each of the two pipeline steps (GPT-3.5→GPT-3.5, GPT-4→GPT-3.5, GPT-4→GPT-4); review-aspect / content-aspect / ability / extra-info label categories.
+> **Study design:** zero-/few-shot LLM evaluation on a newly constructed benchmark (RR-MCQ), with the LLM as the system under test rather than the rater.
+>
+> **Method type:** two-step prompted multiple-choice question answering — (1) section-selection step, then (2) answer-prediction step over A/B/C/D options where one or more options can be correct.
+>
+> **Tools:** OpenAI **GPT-3.5-turbo-0613** and **GPT-4-0613**; the authors' own RR-MCQ dataset (released at huggingface.co/datasets/zhouruiyang/RR-MCQ); inputs drawn from full ICLR-2023 papers and their review-rebuttal forum threads.
+>
+> **Dependent variables:** **macro accuracy** (a question is correct only if the predicted option set exactly equals the gold option set), **micro accuracy** (each of the 4 options is treated as a binary True/False decision), plus per-class precision, recall, F1, and per-aspect breakdowns (soundness, clarity, empirical, method, explain, add, no-need, need; Table 8).
+>
+> **Independent variables:** model identity for each of the two pipeline steps (GPT-3.5→GPT-3.5, GPT-4→GPT-3.5, GPT-4→GPT-4); review-aspect / content-aspect / ability / extra-info label categories.
 >
 > "Our RR-MCQ dataset is targeted for a more specific and in-depth assessment. For example, can models evaluate the soundness of argumentation? Can they integrate domain knowledge and the paper together? Can they give complicated suggestions, such as important experiments to do?" (Zhou et al., 2024, p. 9345)
 > ![[zhouLLMReliableReviewer2024-evd-p6-1.png]]
 
 ### How?
 
-> **Procedure:** (1) **Dataset construction (4 steps):** select 55 reviews from 14 ICLR-2023 papers with sufficient comment-response posts; align comment-response into a single argument; identify the main topic and skip controversial arguments; transform into a 4-option MCQ "without adding new contents" (wrong options are negations or come from irrelevant parts of the same discussion); label the assessed aspects. (2) **Labelling:** two experienced graduate students annotate aspect labels along 4 dimensions (review aspect, content aspect, ability, if-need-info-from-other-papers); 86/788 labels (10.9%) had initial disagreement, resolved by discussion. (3) **Two-step inference (Appendix A.3 prompts):** Step 1 — given the question and section headings, model selects useful sections (system prompt: "you will be given a multiple choice question and the headings of a research paper… select sections that are useful to answer the question"). Step 2 — given the selected sections, model answers the MCQ ("you should select one or more answer choices from A, B, C, D"). (4) **Option order randomly shuffled** during evaluation. (5) Three pipeline configurations evaluated: GPT-3.5→GPT-3.5, GPT-4→GPT-3.5, **GPT-4→GPT-4** (Table 7). (6) Inference parameters carry over from Section 3 ("If not specially marked, all models are of version 0613 with temperature 0.3"). (7) Top 2 most-numerous labels per category reported in Table 8 detailed results.
+> **Procedure:** (1)
+>
+> **Dataset construction (4 steps):** select 55 reviews from 14 ICLR-2023 papers with sufficient comment-response posts; align comment-response into a single argument; identify the main topic and skip controversial arguments; transform into a 4-option MCQ "without adding new contents" (wrong options are negations or come from irrelevant parts of the same discussion); label the assessed aspects. (2)
+>
+> **Labelling:** two experienced graduate students annotate aspect labels along 4 dimensions (review aspect, content aspect, ability, if-need-info-from-other-papers); 86/788 labels (10.9%) had initial disagreement, resolved by discussion. (3)
+>
+> **Two-step inference (Appendix A.3 prompts):** Step 1 — given the question and section headings, model selects useful sections (system prompt: "you will be given a multiple choice question and the headings of a research paper… select sections that are useful to answer the question"). Step 2 — given the selected sections, model answers the MCQ ("you should select one or more answer choices from A, B, C, D"). (4) **Option order randomly shuffled** during evaluation. (5) Three pipeline configurations evaluated: GPT-3.5→GPT-3.5, GPT-4→GPT-3.5, **GPT-4→GPT-4** (Table 7). (6) Inference parameters carry over from Section 3 ("If not specially marked, all models are of version 0613 with temperature 0.3"). (7) Top 2 most-numerous labels per category reported in Table 8 detailed results.
 >
 > "We test both GPT-3.5-turbo-0613 and GPT-4-0613 on our MCQ data. The two-step generation method is similar to that of Section 4: the model selects useful sections based on the given question, then the selected contents are input into the model to predict multiple-choice answers. Note that our multiple-choice questions may have more than one correct answer." (Zhou et al., 2024, p. 9346)
 > ![[zhouLLMReliableReviewer2024-evd-p7-2.png]]
 
 ### Who?
 
-> **Models / participants:** GPT-3.5-turbo-0613 and GPT-4-0613 (OpenAI; closed-source). **Annotators:** two experienced graduate students in the domain. **Sample-size flow for this EVD:** ICLR-2023 conference → 14 papers with sufficient comment-response posts in the peer-review forum → 55 reviews selected → manually distilled into **196 multiple-choice questions** (4 options each). **788 aspect labels** assigned across the 196 questions (4 label-category dimensions × 196 questions = 784 expected, paper reports 788). 86/788 (10.9%) labels disagreed at first; final labels via consensus discussion. All 196 MCQs evaluated by all three pipeline configurations; no exclusions reported.
+> **Models / participants:** GPT-3.5-turbo-0613 and GPT-4-0613 (OpenAI; closed-source).
+>
+> **Annotators:** two experienced graduate students in the domain.
+>
+> **Sample-size flow for this EVD:** ICLR-2023 conference → 14 papers with sufficient comment-response posts in the peer-review forum → 55 reviews selected → manually distilled into **196 multiple-choice questions** (4 options each). **788 aspect labels** assigned across the 196 questions (4 label-category dimensions × 196 questions = 784 expected, paper reports 788). 86/788 (10.9%) labels disagreed at first; final labels via consensus discussion. All 196 MCQs evaluated by all three pipeline configurations; no exclusions reported.
 >
 > "To construct the MCQ test dataset, we select 55 reviews from 14 papers with sufficient comment-response posts in the peer review forum from the ICLR-2023 conference." (Zhou et al., 2024, p. 9345)
 > ![[zhouLLMReliableReviewer2024-evd-p6-2.png]]

@@ -32,7 +32,15 @@ tripod_llm_pct: 36pct
 
 ### What?
 
-> **Study design:** cross-sectional zero-shot LLM evaluation against hand-labeled ground truth. **Method type:** majority-vote (3 responses) GPT-4 prompting on each {checklist question, paper-section} pair, scored against manual labels by a CS graduate student. **Tools:** GPT-4 (8k context, OpenAI API `gpt-4` model, accessed 5/20/23–5/23/23, default `temperature=1.0`, `top_p=1.0`); NeurIPS 2022 author-checklist (16 of 18 questions); paper sections from OpenReview NeurIPS 2022 (accepted + opt-in rejected). **Dependent variable:** GPT-4 majority-vote accuracy across 119 pairs vs. hand-labeled ground truth (Yes / No / N/A). **Independent variables / covariates:** checklist-question category (5 categories); paper.
+> **Study design:** cross-sectional zero-shot LLM evaluation against hand-labeled ground truth.
+>
+> **Method type:** majority-vote (3 responses) GPT-4 prompting on each {checklist question, paper-section} pair, scored against manual labels by a CS graduate student.
+>
+> **Tools:** GPT-4 (8k context, OpenAI API `gpt-4` model, accessed 5/20/23–5/23/23, default `temperature=1.0`, `top_p=1.0`); NeurIPS 2022 author-checklist (16 of 18 questions); paper sections from OpenReview NeurIPS 2022 (accepted + opt-in rejected).
+>
+> **Dependent variable:** GPT-4 majority-vote accuracy across 119 pairs vs. hand-labeled ground truth (Yes / No / N/A).
+>
+> **Independent variables / covariates:** checklist-question category (5 categories); paper.
 >
 > "We queried GPT-4 for three responses per {question, paper} pair, taking the majority vote as the answer and evaluating its correctness against the ground truth label. If all three responses were different, we marked the answer as incorrect. In Table 2 we provide the results for our checklist experiment. We found that compared to the hand-labeled ground truth, GPT-4 achieves 86.6% accuracy across 119 examples." (Liu & Shah, 2023, p. 28)
 > ![[liuReviewerGPTExploratoryStudy2023-evd-p28-1.png]]

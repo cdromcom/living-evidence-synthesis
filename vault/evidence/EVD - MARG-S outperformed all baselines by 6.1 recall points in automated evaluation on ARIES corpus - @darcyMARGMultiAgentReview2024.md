@@ -38,7 +38,15 @@ tripod_llm_pct: 53pct
 
 ### What?
 
-> **Study design:** held-out automated benchmark of LLM-generated peer-review comments against gold human-reviewer comments. **Method type:** GPT-4-as-judge alignment evaluation with two-stage matching (many-many candidate generation + pairwise relatedness/specificity scoring), aggregated into recall, precision, and pseudo-Jaccard metrics. **Tools:** GPT-4 (gpt-4-0613, 8192-token capacity) for both review generation and alignment scoring; Grobid for PDF parsing; ARIES corpus (D'Arcy et al. 2023) as the source of (paper, real-reviewer-comment) pairs; comparison methods MARG-S, MARG-TP, SARG-B, SARG-TP, LiZCa (Liang et al. 2023), plus MARG-S ablations (no-refinement, experiments-only, clarity-only, impact-only) and a Human baseline. **Dependent variables:** Recall (|C_gen ⃗∩ C_real| / |C_real|), Precision (|C_gen ⃖∩ C_real| / |C_gen|), pseudo-Jaccard (intersection / (|C_gen|+|C_real|−intersection)), and average comments per review. **Independent variables / covariates:** review-generation method; matching-threshold settings (relatedness ∈ {medium, high}; relative specificity ∈ {less, same, more}) — ablated for MARG-S vs. LiZCa in Figure 3.
+> **Study design:** held-out automated benchmark of LLM-generated peer-review comments against gold human-reviewer comments.
+>
+> **Method type:** GPT-4-as-judge alignment evaluation with two-stage matching (many-many candidate generation + pairwise relatedness/specificity scoring), aggregated into recall, precision, and pseudo-Jaccard metrics.
+>
+> **Tools:** GPT-4 (gpt-4-0613, 8192-token capacity) for both review generation and alignment scoring; Grobid for PDF parsing; ARIES corpus (D'Arcy et al. 2023) as the source of (paper, real-reviewer-comment) pairs; comparison methods MARG-S, MARG-TP, SARG-B, SARG-TP, LiZCa (Liang et al. 2023), plus MARG-S ablations (no-refinement, experiments-only, clarity-only, impact-only) and a Human baseline.
+>
+> **Dependent variables:** Recall (|C_gen ⃗∩ C_real| / |C_real|), Precision (|C_gen ⃖∩ C_real| / |C_gen|), pseudo-Jaccard (intersection / (|C_gen|+|C_real|−intersection)), and average comments per review.
+>
+> **Independent variables / covariates:** review-generation method; matching-threshold settings (relatedness ∈ {medium, high}; relative specificity ∈ {less, same, more}) — ablated for MARG-S vs. LiZCa in Figure 3.
 >
 > "To automatically evaluate the quality of generated reviews, we measure their overlap with real reviews from papers in the ARIES corpus (D'Arcy et al., 2023). That is, we attempt to match the generated comments to comments extracted from real (human-written) reviews. Because ARIES only has comment annotations for a small set of reviews, we use GPT to extract comments from all reviews for a subset of 30 papers and treat this as our test set." (D'Arcy et al., 2024, p. 9)
 > ![[darcyMARGMultiAgentReview2024-evd-p8-1.png]]

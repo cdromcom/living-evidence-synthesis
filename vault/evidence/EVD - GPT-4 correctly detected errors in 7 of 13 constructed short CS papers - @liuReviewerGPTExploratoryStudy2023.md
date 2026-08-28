@@ -35,7 +35,15 @@ tripod_llm_pct: 36pct
 
 ### What?
 
-> **Study design:** controlled benchmark on a hand-constructed adversarial corpus (13 short CS papers each containing one deliberately inserted error). **Method type:** zero-shot / one-shot LLM error detection with majority-vote scoring across 3 responses × 3 prompt strategies. **Tools:** GPT-4 accessed through ChatGPT (May 3 and May 12 2023 builds); 3 prompt templates (`Prompt-Direct`, `Prompt-OneShot`, `Prompt-Parts`); inference settings not reported (ChatGPT defaults). **Dependent variable:** per-paper detection success — checkmark if any of the 3 responses for a given prompt detected the error; "Overall" checkmark if any response across any prompt detected it. **Independent variables / covariates:** prompt strategy (Direct vs. OneShot vs. Parts); paper topic (13 topics: bias/fairness, regression, sorting × 2, noisy pairwise comparisons × 2, classification, game theory, error-correcting codes, optimization, clustering, distinguishing styles × 2).
+> **Study design:** controlled benchmark on a hand-constructed adversarial corpus (13 short CS papers each containing one deliberately inserted error).
+>
+> **Method type:** zero-shot / one-shot LLM error detection with majority-vote scoring across 3 responses × 3 prompt strategies.
+>
+> **Tools:** GPT-4 accessed through ChatGPT (May 3 and May 12 2023 builds); 3 prompt templates (`Prompt-Direct`, `Prompt-OneShot`, `Prompt-Parts`); inference settings not reported (ChatGPT defaults).
+>
+> **Dependent variable:** per-paper detection success — checkmark if any of the 3 responses for a given prompt detected the error; "Overall" checkmark if any response across any prompt detected it.
+>
+> **Independent variables / covariates:** prompt strategy (Direct vs. OneShot vs. Parts); paper topic (13 topics: bias/fairness, regression, sorting × 2, noisy pairwise comparisons × 2, classification, game theory, error-correcting codes, optimization, clustering, distinguishing styles × 2).
 >
 > "we deliberately inserted an error, encompassing mathematical mistakes to conceptual fallacies. We then asked the LLM to identify if there are any errors in the short paper." (Liu & Shah, 2023, p. 4)
 > ![[liuReviewerGPTExploratoryStudy2023-evd-p4-1.png]]

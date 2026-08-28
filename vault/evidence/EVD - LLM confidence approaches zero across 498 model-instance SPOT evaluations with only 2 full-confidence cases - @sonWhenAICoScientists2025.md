@@ -36,7 +36,15 @@ tripod_llm_pct: 63pct
 
 ### What?
 
-> **Study design:** post-hoc calibration sub-analysis nested in the SPOT benchmark evaluation. **Method type:** unbiased per-error confidence estimation derived from the same 8-run pass@K resampling protocol — i.e., self-estimated confidence is computed from observed run-level success rates, NOT from model-reported probabilities or verbalised confidence. **Tools:** the pass@K bootstrap estimator (Appendix C); kernel density estimation; scatter visualisation against pass@4 (Figure 4 right). **Dependent variable:** mean self-estimated confidence (%) per (model × instance) pair, defined as $\hat{p}_{i,g} = 1 - \binom{n - c_{i,g}}{K} / \binom{n}{K}$ aggregated across ground-truth errors. **Independent variables:** model identity (n = 6 proprietary multimodal); paper × annotated-error pair (n = 83 papers contributing 91 annotations); error category (used as scatter-marker shape).
+> **Study design:** post-hoc calibration sub-analysis nested in the SPOT benchmark evaluation.
+>
+> **Method type:** unbiased per-error confidence estimation derived from the same 8-run pass@K resampling protocol — i.e., self-estimated confidence is computed from observed run-level success rates, NOT from model-reported probabilities or verbalised confidence.
+>
+> **Tools:** the pass@K bootstrap estimator (Appendix C); kernel density estimation; scatter visualisation against pass@4 (Figure 4 right).
+>
+> **Dependent variable:** mean self-estimated confidence (%) per (model × instance) pair, defined as $\hat{p}_{i,g} = 1 - \binom{n - c_{i,g}}{K} / \binom{n}{K}$ aggregated across ground-truth errors.
+>
+> **Independent variables:** model identity (n = 6 proprietary multimodal); paper × annotated-error pair (n = 83 papers contributing 91 annotations); error category (used as scatter-marker shape).
 >
 > "Alongside pass@4, calibration indicates how much we should trust a model's predictions. In error detection, where false positives can incur substantial time and labor, knowing when to trust a model is crucial. For each error category, we assess calibration by comparing the model's actual performance, measured as its average pass@4 rate, with its self-estimated confidence." (Son et al., 2025, p. 6)
 > ![[sonWhenAICoScientists2025-evd-p6-1.png]]

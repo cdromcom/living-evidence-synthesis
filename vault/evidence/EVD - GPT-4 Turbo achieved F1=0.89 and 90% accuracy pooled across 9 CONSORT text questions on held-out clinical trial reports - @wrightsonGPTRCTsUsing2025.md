@@ -32,7 +32,15 @@ tripod_llm_pct: 64pct
 
 ### What?
 
-> **Study design:** exploratory retrospective cross-sectional benchmark of a closed-source LLM against human-labeled CONSORT-adherence ground truth from a published systematic review. **Method type:** zero-shot generative question-answering with prompt-engineered system + user prompts (no fine-tuning of the GPT-4 model — authors explicitly note GPT-4 fine-tuning was unavailable to them at the time). **Tools:** OpenAI GPT-4 Turbo (temperature=0.2, Top P=0.2, response capped at 512 tokens); R 4.3.2 + Python 3.8.17 for analysis; Schulz et al. 2020 sports-medicine CONSORT-adherence dataset as ground truth. **Dependent variables:** F1-score (primary); classification accuracy (%) with 95% Clopper–Pearson CIs (secondary), pooled across all 9 text-analysis questions × all TEST papers, and reported per-question (Table 2). **Independent variables / covariates:** the 9 CONSORT reporting-guideline items (study hypotheses; primary outcome; sample size; eligibility; randomisation implementation; randomisation methods; allocation/enrolment roles; blinding; standardised effect sizes & CIs); paper section (Introduction / Method / Results, used as the stratification variable for the train/test split).
+> **Study design:** exploratory retrospective cross-sectional benchmark of a closed-source LLM against human-labeled CONSORT-adherence ground truth from a published systematic review.
+>
+> **Method type:** zero-shot generative question-answering with prompt-engineered system + user prompts (no fine-tuning of the GPT-4 model — authors explicitly note GPT-4 fine-tuning was unavailable to them at the time).
+>
+> **Tools:** OpenAI GPT-4 Turbo (temperature=0.2, Top P=0.2, response capped at 512 tokens); R 4.3.2 + Python 3.8.17 for analysis; Schulz et al. 2020 sports-medicine CONSORT-adherence dataset as ground truth.
+>
+> **Dependent variables:** F1-score (primary); classification accuracy (%) with 95% Clopper–Pearson CIs (secondary), pooled across all 9 text-analysis questions × all TEST papers, and reported per-question (Table 2).
+>
+> **Independent variables / covariates:** the 9 CONSORT reporting-guideline items (study hypotheses; primary outcome; sample size; eligibility; randomisation implementation; randomisation methods; allocation/enrolment roles; blinding; standardised effect sizes & CIs); paper section (Introduction / Method / Results, used as the stratification variable for the train/test split).
 >
 > "For the GPT-4 analysis, we used the following hyperparameter settings: temperature=0.2 and Top P=0.2. Unfortunately, at the time of this analysis, we did not have access to fine-tune the GPT-4 model. Model tuning in our study was achieved through iterative 'prompt engineering'." (Wrightson et al., 2025, p. 4)
 > ![[wrightsonGPTRCTsUsing2025-evd-p4-3.png]]
@@ -46,7 +54,9 @@ tripod_llm_pct: 64pct
 
 ### Who?
 
-> **Models / participants:** the system under test is OpenAI **GPT-4 Turbo** (closed-source; OpenAI training data and exact snapshot date not disclosed by the authors). No human raters in this EVD beyond Schulz et al.'s pre-existing labels. **Sample-size flow (text analysis):** Schulz et al. 2020 base set = 160 peer-reviewed sports-medicine clinical trial papers from 2020 → restrict to full-text-available PMC/EPUB/PDF and exclude extraction errors → **113 papers** retained → for each paper, 9 (text, question) pairs constructed (n=113 for items 1, 9; n=108 for items 2–8 because some papers lacked relevant sections; per-item totals in Table 1) → split 80/20 TRAIN/TEST stratified by paper section; the **20% TEST split is the analysis set** for the headline F1 = 0.89 (no validation set; "we did not create a validation data set because of the relatively low number of training examples"). The pooled-confusion matrix in Figure 1 contains 198 cells (84 true-YES, 7 false-NO, 94 true-NO, 13 false-YES).
+> **Models / participants:** the system under test is OpenAI **GPT-4 Turbo** (closed-source; OpenAI training data and exact snapshot date not disclosed by the authors). No human raters in this EVD beyond Schulz et al.'s pre-existing labels.
+>
+> **Sample-size flow (text analysis):** Schulz et al. 2020 base set = 160 peer-reviewed sports-medicine clinical trial papers from 2020 → restrict to full-text-available PMC/EPUB/PDF and exclude extraction errors → **113 papers** retained → for each paper, 9 (text, question) pairs constructed (n=113 for items 1, 9; n=108 for items 2–8 because some papers lacked relevant sections; per-item totals in Table 1) → split 80/20 TRAIN/TEST stratified by paper section; the **20% TEST split is the analysis set** for the headline F1 = 0.89 (no validation set; "we did not create a validation data set because of the relatively low number of training examples"). The pooled-confusion matrix in Figure 1 contains 198 cells (84 true-YES, 7 false-NO, 94 true-NO, 13 false-YES).
 >
 > "We used a subsample of the dataset provided by Schulz et al. In their systematic review, Schulz et al analysed the reporting practices, including items from the CONSORT checklist, of 160 peer-reviewed scientific papers published in sports medicine journals in 2020 … We extracted all papers from the Schulz et al dataset that were available in full-text machine-readable format … Papers were removed from analysis if (a) the text extraction contained errors or (b) the electronic file was inaccessible." (Wrightson et al., 2025, p. 2)
 > ![[wrightsonGPTRCTsUsing2025-evd-p2-2.png]]

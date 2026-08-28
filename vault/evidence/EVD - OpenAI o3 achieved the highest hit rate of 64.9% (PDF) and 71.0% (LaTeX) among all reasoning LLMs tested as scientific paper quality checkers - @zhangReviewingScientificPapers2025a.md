@@ -34,7 +34,15 @@ tripod_llm_pct: 54pct
 
 ### What?
 
-> **Study design:** cross-sectional benchmark of reasoning LLMs as paper quality checkers on a withdrawn-from-arXiv evaluation set, with an LLM-as-judge automatic evaluation pipeline. **Method type:** zero-shot LLM evaluation under a fixed simplistic prompt; no fine-tuning. **Tools:** OpenAI o3 (`2025-04-16`, reasoning effort = medium) accessed via OpenAI API in Python; WITHDRARXIV-CHECK evaluation set derived from WITHDRARXIV (Rao et al. 2024); two LLM judges (Gemini 2.5 Pro `preview-05-06` and o3 `2025-04-16`). **Dependent variables:** Hit Rate at k=5 (HR@5; share of test papers for which the checker submits at least one problem that majority-vote LLM judges accept as an exact match to the gold retraction-comment error), average / Q1 / Q3 number of problems identified, average input/think/output token usage, and estimated USD cost per paper. **Independent variables / covariates:** paper-ingestion approach (PDF attachment vs. LaTeX script in prompt); checker model identity (held to o3 for this EVD; Gemini 2.5 Pro/Flash, o4-mini, Claude 3.7 Sonnet for comparison); judge identity (Gemini 2.5 Pro vs. o3, with majority-of-2 fusion).
+> **Study design:** cross-sectional benchmark of reasoning LLMs as paper quality checkers on a withdrawn-from-arXiv evaluation set, with an LLM-as-judge automatic evaluation pipeline.
+>
+> **Method type:** zero-shot LLM evaluation under a fixed simplistic prompt; no fine-tuning.
+>
+> **Tools:** OpenAI o3 (`2025-04-16`, reasoning effort = medium) accessed via OpenAI API in Python; WITHDRARXIV-CHECK evaluation set derived from WITHDRARXIV (Rao et al. 2024); two LLM judges (Gemini 2.5 Pro `preview-05-06` and o3 `2025-04-16`).
+>
+> **Dependent variables:** Hit Rate at k=5 (HR@5; share of test papers for which the checker submits at least one problem that majority-vote LLM judges accept as an exact match to the gold retraction-comment error), average / Q1 / Q3 number of problems identified, average input/think/output token usage, and estimated USD cost per paper.
+>
+> **Independent variables / covariates:** paper-ingestion approach (PDF attachment vs. LaTeX script in prompt); checker model identity (held to o3 for this EVD; Gemini 2.5 Pro/Flash, o4-mini, Claude 3.7 Sonnet for comparison); judge identity (Gemini 2.5 Pro vs. o3, with majority-of-2 fusion).
 >
 > "Each LLM judge independently evaluates an LLM quality checker's problem submissions one by one for $n_j$ ($j$ for judge) times to determine whether they contain an exact match to the gold error description from the authors… If an LLM quality checker receives a majority of (or all, for a stricter evaluation) affirmative votes from LLM judges, it is deemed to have made a hit on the paper. LLM quality checkers were primarily evaluated by their hit rates on test papers." (Zhang & Abernethy, 2025, p. 3)
 > ![[zhangReviewingScientificPapers2025a-evd-p3-4.png]]
