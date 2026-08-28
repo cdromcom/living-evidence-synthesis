@@ -22,6 +22,7 @@ tags:
   - rigor/multiple-comparisons/not-addressed
   - rigor/human-baseline/partial
   - rigor/statistical-power/adequate
+  - rigor/confidence-intervals/not-addressed
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/disclosed

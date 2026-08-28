@@ -11,6 +11,7 @@ import {
   getTrainDevTestHygiene,
   getMultipleComparisonsCorrection,
   getHumanBaselineComparability,
+  getConfidenceIntervals,
   getStatisticalPower,
   getParentSource,
   TOP_STANDARD_LABELS,
@@ -335,7 +336,7 @@ function DataLeakageBadge({ risk }: { risk: ReproducibilityRisk | "not-addressed
 // reasoning as the other original glyphs on this page: no established open-
 // licensed icon convention exists for these (they aren't TOP or TRIPOD-LLM
 // fields, and aren't in Cochrane's RoB2 set either).
-type RigorCheckKind = "baseline-adequacy" | "train-dev-test" | "multiple-comparisons" | "human-baseline";
+type RigorCheckKind = "baseline-adequacy" | "train-dev-test" | "multiple-comparisons" | "human-baseline" | "confidence-intervals";
 
 function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
   const common = { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
@@ -372,6 +373,14 @@ function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
           <circle cx="8.5" cy="7" r="2.5" />
           <path d="M4.5 18.5c0-3 1.8-5 4-5s4 2 4 5" />
           <path d="M15.5 18.5V12M19 18.5v-8" />
+        </svg>
+      );
+    case "confidence-intervals":
+      // an error bar — whisker caps around a point estimate
+      return (
+        <svg {...common}>
+          <path d="M12 4v16M7.5 4h9M7.5 20h9" />
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
         </svg>
       );
   }
@@ -441,6 +450,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const trainDevTest = getTrainDevTestHygiene(signalSource);
   const multipleComparisons = getMultipleComparisonsCorrection(signalSource);
   const humanBaseline = getHumanBaselineComparability(signalSource);
+  const confidenceIntervals = getConfidenceIntervals(signalSource);
   const statisticalPower = getStatisticalPower(signalSource);
 
   const hasRigor =
@@ -450,6 +460,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     Boolean(trainDevTest) ||
     Boolean(multipleComparisons) ||
     Boolean(humanBaseline) ||
+    Boolean(confidenceIntervals) ||
     Boolean(statisticalPower);
 
   if (!compliance && opennessSignals.length === 0 && !repro && !hasRigor && integrity.length === 0)
@@ -511,6 +522,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             {trainDevTest && <RigorCheckBadge kind="train-dev-test" risk={trainDevTest} />}
             {multipleComparisons && <RigorCheckBadge kind="multiple-comparisons" risk={multipleComparisons} />}
             {humanBaseline && <RigorCheckBadge kind="human-baseline" risk={humanBaseline} />}
+            {confidenceIntervals && <RigorCheckBadge kind="confidence-intervals" risk={confidenceIntervals} />}
             {statisticalPower && <StatisticalPowerBadge status={statisticalPower} />}
           </ExpandableChipRow>
         </div>

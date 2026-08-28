@@ -201,6 +201,7 @@ const APPRAISAL_ROW_SLUGS: Record<string, string> = {
   "multiple-comparisons correction": "multiple-comparisons",
   "human-baseline comparability": "human-baseline",
   "statistical power": "statistical-power",
+  "confidence intervals": "confidence-intervals",
 };
 
 /**

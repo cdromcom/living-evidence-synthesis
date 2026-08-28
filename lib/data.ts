@@ -323,6 +323,9 @@ export function getMultipleComparisonsCorrection(node: Pick<GraphNode, "tags">) 
 export function getHumanBaselineComparability(node: Pick<GraphNode, "tags">) {
   return getRigorCheck(node, "human-baseline");
 }
+export function getConfidenceIntervals(node: Pick<GraphNode, "tags">) {
+  return getRigorCheck(node, "confidence-intervals");
+}
 
 export const RIGOR_CHECK_LABELS = {
   "baseline-adequacy": "Baseline Adequacy",
@@ -330,6 +333,7 @@ export const RIGOR_CHECK_LABELS = {
   "multiple-comparisons": "Multiple-Comparisons Correction",
   "human-baseline": "Human-Baseline Comparability",
   "data-leakage": "Data Leakage",
+  "confidence-intervals": "Confidence Intervals",
 } as const;
 
 /**

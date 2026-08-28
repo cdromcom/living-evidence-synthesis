@@ -21,6 +21,7 @@ tags:
   - rigor/train-dev-test/not-addressed
   - rigor/multiple-comparisons/partial
   - rigor/human-baseline/addressed
+  - rigor/confidence-intervals/addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
