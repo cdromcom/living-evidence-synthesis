@@ -25,7 +25,11 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/addressed
+  - top/code-check/addressed
+  - transparency/effect-size/not-addressed
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/not-addressed
 doi: 10.1093/bioinformatics/btae420
 nameConsistency: consistent
 citationCount: 4

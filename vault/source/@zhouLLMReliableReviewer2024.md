@@ -25,7 +25,11 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/partial
+  - top/code-check/not-addressed
+  - transparency/effect-size/partial
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/addressed
 sourceUrl: https://aclanthology.org/2024.lrec-main.816/
 doi: 10.63317/48d359hjdvog
 citationCount: 26

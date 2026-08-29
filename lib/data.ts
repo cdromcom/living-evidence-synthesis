@@ -295,20 +295,32 @@ export function getDataLeakageSignal(node: Pick<GraphNode, "tags">): Reproducibi
 }
 
 /**
- * Shared reader for the "did the paper address X" family of Rigor checks
- * (data leakage, baseline adequacy, train/dev/test split hygiene, multiple-
- * comparisons correction, human-baseline comparability). Same tag shape and
- * 4-level scale as data leakage: `rigor/{key}/{addressed|partial|unresolved|
+ * Shared reader for the "did the paper address X" family of checks (data
+ * leakage, baseline adequacy, train/dev/test split hygiene, multiple-
+ * comparisons correction, human-baseline comparability, confidence
+ * intervals, effect sizes, exact p-values, spin) — same 4-level scale
+ * everywhere: `{namespace}/{key}/{addressed|partial|unresolved|
  * not-addressed}`. Each is hand-classified per source by reading the paper,
- * same discipline as data leakage — never inferred from the presence/
- * absence of other fields.
+ * never inferred from the presence/absence of other fields. Namespace
+ * defaults to `rigor` (the original family) but is parameterized so
+ * Transparency- and Integrity-side checks can reuse the same reader/tag
+ * vocabulary instead of duplicating it.
  */
-function getRigorCheck(node: Pick<GraphNode, "tags">, key: string): ReproducibilityRisk | "not-addressed" | null {
-  const prefix = `rigor/${key}/`;
+function getTaggedCheck(
+  node: Pick<GraphNode, "tags">,
+  key: string,
+  namespace: string = "rigor"
+): ReproducibilityRisk | "not-addressed" | null {
+  const prefix = `${namespace}/${key}/`;
   const tag = node.tags.find((t) => t.startsWith(prefix));
   if (!tag) return null;
   const raw = tag.slice(prefix.length);
   return DATA_LEAKAGE_TAG_TO_RISK[raw] ?? null;
+}
+
+// Retained under its original name for existing call sites/readability.
+function getRigorCheck(node: Pick<GraphNode, "tags">, key: string) {
+  return getTaggedCheck(node, key, "rigor");
 }
 
 export function getBaselineAdequacy(node: Pick<GraphNode, "tags">) {
@@ -326,6 +338,49 @@ export function getHumanBaselineComparability(node: Pick<GraphNode, "tags">) {
 export function getConfidenceIntervals(node: Pick<GraphNode, "tags">) {
   return getRigorCheck(node, "confidence-intervals");
 }
+export function getPromptEngineering(node: Pick<GraphNode, "tags">) {
+  return getRigorCheck(node, "prompt-engineering");
+}
+export function getChanceCorrectedMetrics(node: Pick<GraphNode, "tags">) {
+  return getRigorCheck(node, "chance-corrected-metrics");
+}
+export function getEffectSizeReporting(node: Pick<GraphNode, "tags">) {
+  return getTaggedCheck(node, "effect-size", "transparency");
+}
+export function getExactPValues(node: Pick<GraphNode, "tags">) {
+  return getTaggedCheck(node, "exact-p-values", "transparency");
+}
+export function getSpinSignal(node: Pick<GraphNode, "tags">) {
+  return getTaggedCheck(node, "spin", "integrity");
+}
+/**
+ * Theorizing — does the paper's discussion/conclusion scope its
+ * theoretical or causal claims to what the evidence actually supports, or
+ * does it reach beyond the data (unwarranted generalization, causal
+ * language from a correlational/small-sample result, broad implications
+ * not tested)? Same 4-level scale and hand-classification discipline as
+ * Spin, just aimed at interpretive overreach rather than result framing.
+ */
+export function getTheorizing(node: Pick<GraphNode, "tags">) {
+  return getTaggedCheck(node, "theorizing", "integrity");
+}
+export function getRepositoryCheck(node: Pick<GraphNode, "tags">) {
+  return getTaggedCheck(node, "repository-check", "top");
+}
+export function getCodeCheck(node: Pick<GraphNode, "tags">) {
+  return getTaggedCheck(node, "code-check", "top");
+}
+
+// Repository/Code Check reuse the same addressed/partial/unresolved/
+// not-addressed tag vocabulary as the other checks above, but read oddly
+// with the generic "Addressed"/"Unresolved" wording for a link-liveness
+// check — this gives them their own live/dead phrasing instead.
+export const REPO_CHECK_LABELS: Record<ReproducibilityRisk | "not-addressed", string> = {
+  "low-risk": "Live",
+  "some-concerns": "Partially reachable",
+  "high-risk": "Dead link",
+  "not-addressed": "No repository claimed",
+};
 
 export const RIGOR_CHECK_LABELS = {
   "baseline-adequacy": "Baseline Adequacy",
@@ -334,6 +389,15 @@ export const RIGOR_CHECK_LABELS = {
   "human-baseline": "Human-Baseline Comparability",
   "data-leakage": "Data Leakage",
   "confidence-intervals": "Confidence Intervals",
+  "effect-size": "Effect Size",
+  "exact-p-values": "Exact p-Values",
+  spin: "Non-Significant Result Spin",
+  "repository-check": "Data Repo Check",
+  "code-check": "Code Check",
+  statcheck: "Statistical Consistency",
+  "prompt-engineering": "Prompt Engineering",
+  "chance-corrected-metrics": "Chance-Corrected Metrics",
+  theorizing: "Theorizing",
 } as const;
 
 /**
@@ -501,8 +565,35 @@ export function getForensicSignalsForSource(srcId: string): ForensicSignal[] {
   return out;
 }
 
-export function getStatcheckStatus(node: Pick<GraphNode, "tags">): "not-applicable" | null {
-  return node.tags.includes("integrity/statcheck/not-applicable") ? "not-applicable" : null;
+export type StatisticalConsistencyStatus = "consistent" | "issues-found" | "not-applicable";
+export const STATISTICAL_CONSISTENCY_LABELS: Record<StatisticalConsistencyStatus, string> = {
+  consistent: "Consistent",
+  "issues-found": "Issues found",
+  "not-applicable": "Not applicable",
+};
+
+/**
+ * Statistical Consistency ("statcheck") — did an independent recheck of the
+ * paper's own reported numbers (recomputed CIs, kappa bounds, closure/
+ * monotonicity of tables) turn up anything that doesn't add up? Prefers an
+ * explicit `integrity/statcheck/*` tag on the source itself (an override,
+ * e.g. for a purely qualitative paper with nothing to recompute); otherwise
+ * derives a verdict from the `forensic/*` tags already authored per EVD
+ * (`getForensicSignalsForSource`) — any non-clean result across any derived
+ * EVD marks the whole source "issues-found".
+ */
+export function getStatisticalConsistency(
+  node: Pick<GraphNode, "id" | "tags">
+): StatisticalConsistencyStatus | null {
+  const explicit = node.tags.find((t) => t.startsWith("integrity/statcheck/"));
+  if (explicit) {
+    const raw = explicit.slice("integrity/statcheck/".length);
+    if (raw === "consistent" || raw === "issues-found" || raw === "not-applicable") return raw;
+  }
+  const forensics = getForensicSignalsForSource(node.id);
+  if (forensics.length === 0) return null;
+  const CLEAN_RESULTS = new Set(["consistent", "in-bounds"]);
+  return forensics.some((f) => !CLEAN_RESULTS.has(f.result)) ? "issues-found" : "consistent";
 }
 
 export type ReportingComplianceLevel = "low" | "moderate" | "high";

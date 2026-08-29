@@ -25,7 +25,13 @@ tags:
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/addressed
+  - top/code-check/addressed
+  - transparency/effect-size/not-addressed
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/not-addressed
+  - rigor/prompt-engineering/addressed
+  - rigor/chance-corrected-metrics/not-addressed
 doi: 10.1056/AIoa2400196
 nameConsistency: consistent
 citationCount: 159

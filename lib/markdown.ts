@@ -221,6 +221,24 @@ function tagAppraisalRows(html: string): string {
 }
 
 /**
+ * Tags each row of the "## TRIPOD-LLM reporting summary" table with a
+ * stable `id="tripod-<item>"` (e.g. `tripod-14d`, `tripod-9a`) so a
+ * top-of-page trust-signal chip (Registration, Protocol, Data/Code Repo
+ * Check, Ethical Approval, Funding, COI, Prompt Engineering) can link
+ * straight to its own checklist row instead of just the table's heading.
+ */
+function tagTripodRows(html: string): string {
+  const section = html.match(/<h2 id="[^"]*">\s*TRIPOD-LLM reporting summary\s*<\/h2>([\s\S]*?)(?=<h2 |$)/i);
+  if (!section) return html;
+  const [full, body] = section;
+  const taggedBody = body.replace(/<tr>\s*<td>\s*<strong>([^<]+)<\/strong>/g, (rowMatch, item) => {
+    const slug = item.trim().toLowerCase();
+    return rowMatch.replace("<tr>", `<tr id="tripod-${slug}">`);
+  });
+  return html.replace(full, full.replace(body, taggedBody));
+}
+
+/**
  * Wraps every H3 subsection (e.g. Methods Context's What?/How?/Who?) in its
  * own collapsible <details>, nested inside its parent H2's accordion body.
  */
@@ -295,5 +313,5 @@ export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
   const withMermaid = activateMermaid(rawHtml);
   const withMutedIcons = muteStatusIcons(withMermaid);
   const { html, toc } = injectHeadingIds(withMutedIcons);
-  return { html: wrapAccordionSections(tagAppraisalRows(html)), toc };
+  return { html: wrapAccordionSections(tagTripodRows(tagAppraisalRows(html))), toc };
 }

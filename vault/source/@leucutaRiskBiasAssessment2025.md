@@ -25,7 +25,13 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/not-addressed
+  - top/code-check/not-addressed
+  - transparency/effect-size/not-addressed
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/addressed
+  - rigor/prompt-engineering/addressed
+  - rigor/chance-corrected-metrics/not-addressed
 doi: 10.3390/diagnostics15121451
 citationCount: 3
 citationCountSource: OpenCitations

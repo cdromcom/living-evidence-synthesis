@@ -4394,7 +4394,13 @@
         "integrity/ethical-approval/disclosed",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/partial",
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -4492,7 +4498,13 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/partial",
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -4570,7 +4582,13 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -4643,7 +4661,13 @@
         "integrity/ethical-approval/not-disclosed",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/addressed",
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -4726,7 +4750,13 @@
         "integrity/ethical-approval/disclosed",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/partial",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/addressed"
       ],
       "created": null,
       "updated": null,
@@ -4848,7 +4878,13 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/addressed"
       ],
       "created": null,
       "updated": null,
@@ -4921,7 +4957,13 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -4994,7 +5036,13 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5081,7 +5129,13 @@
         "integrity/ethical-approval/disclosed",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5207,7 +5261,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5280,7 +5338,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5433,7 +5495,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/addressed",
+        "transparency/exact-p-values/addressed",
+        "integrity/spin/partial"
       ],
       "created": null,
       "updated": null,
@@ -5527,7 +5593,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5619,7 +5689,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5712,7 +5786,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5831,7 +5909,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5908,7 +5990,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5984,7 +6070,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/addressed",
+        "transparency/exact-p-values/partial",
+        "integrity/spin/addressed"
       ],
       "created": null,
       "updated": null,
@@ -6071,7 +6161,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6139,7 +6233,11 @@
         "integrity/ethical-approval/partial",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6262,7 +6360,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/partial",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/addressed"
       ],
       "created": null,
       "updated": null,
@@ -6359,7 +6461,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/addressed"
       ],
       "created": null,
       "updated": null,
@@ -6452,7 +6558,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6533,7 +6643,11 @@
         "integrity/ethical-approval/partial",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6621,7 +6735,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/addressed",
+        "top/code-check/addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/addressed"
       ],
       "created": null,
       "updated": null,
@@ -6694,7 +6812,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/not-disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/not-addressed",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/not-addressed",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/addressed"
       ],
       "created": null,
       "updated": null,
@@ -6767,7 +6889,11 @@
         "integrity/ethical-approval/not-applicable",
         "integrity/funding-disclosure/disclosed",
         "integrity/coi-disclosure/not-disclosed",
-        "integrity/statcheck/not-applicable"
+        "top/repository-check/partial",
+        "top/code-check/not-addressed",
+        "transparency/effect-size/partial",
+        "transparency/exact-p-values/not-addressed",
+        "integrity/spin/addressed"
       ],
       "created": null,
       "updated": null,

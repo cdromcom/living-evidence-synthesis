@@ -25,7 +25,11 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/addressed
+  - top/code-check/addressed
+  - transparency/effect-size/addressed
+  - transparency/exact-p-values/partial
+  - integrity/spin/addressed
 doi: 10.1101/2025.03.06.25323528
 nameConsistency: consistent
 citationCount: 2

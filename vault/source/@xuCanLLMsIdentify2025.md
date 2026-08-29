@@ -25,7 +25,11 @@ tags:
   - integrity/ethical-approval/partial
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/not-disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/addressed
+  - top/code-check/addressed
+  - transparency/effect-size/not-addressed
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/not-addressed
 doi: 10.48550/arXiv.2507.02694
 nameConsistency: consistent
 predatoryPublisherFlag: false

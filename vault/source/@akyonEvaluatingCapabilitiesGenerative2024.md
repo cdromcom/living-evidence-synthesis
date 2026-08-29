@@ -26,7 +26,13 @@ tags:
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/not-addressed
+  - top/code-check/not-addressed
+  - transparency/effect-size/not-addressed
+  - transparency/exact-p-values/partial
+  - integrity/spin/not-addressed
+  - rigor/prompt-engineering/partial
+  - rigor/chance-corrected-metrics/not-addressed
 doi: 10.2196/59258
 nameConsistency: inconsistent-formatting
 nameConsistencyNote: "GPT-4-0613 family: 'GPT 4-0613' / 'GPT-4-0613' / 'ChatGPT 4-0613' used interchangeably throughout the results section for the same model"

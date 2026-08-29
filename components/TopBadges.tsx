@@ -1,4 +1,4 @@
-import ExpandableChipRow from "@/components/ExpandableChipRow";
+import ChipRows from "@/components/ChipRows";
 import CollapsibleSignalBlock from "@/components/CollapsibleSignalBlock";
 import {
   getTopSignals,
@@ -13,6 +13,13 @@ import {
   getHumanBaselineComparability,
   getConfidenceIntervals,
   getStatisticalPower,
+  getPromptEngineering,
+  getChanceCorrectedMetrics,
+  getTheorizing,
+  getSpinSignal,
+  getStatisticalConsistency,
+  getRepositoryCheck,
+  getCodeCheck,
   getParentSource,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
@@ -23,6 +30,8 @@ import {
   REPORTING_COMPLIANCE_LABELS,
   DATA_LEAKAGE_LABELS,
   RIGOR_CHECK_LABELS,
+  REPO_CHECK_LABELS,
+  STATISTICAL_CONSISTENCY_LABELS,
   STATISTICAL_POWER_LABELS,
   type GraphNode,
   type TopStandard,
@@ -33,6 +42,7 @@ import {
   type DisclosureLevel,
   type ReportingCompliance,
   type StatisticalPowerStatus,
+  type StatisticalConsistencyStatus,
 } from "@/lib/data";
 
 // One color vocabulary for every chip on this page, so a color always means
@@ -257,11 +267,24 @@ function IntegrityGlyph({ kind }: { kind: IntegritySignalKind }) {
   }
 }
 
+// Ethical approval, Funding disclosure, and Conflicts of interest are
+// literally TRIPOD-LLM items 13/14a/14b — link straight to that row.
+const INTEGRITY_HREF: Partial<Record<IntegritySignalKind, string>> = {
+  "ethical-approval": "#tripod-13",
+  "funding-disclosure": "#tripod-14a",
+  "coi-disclosure": "#tripod-14b",
+};
+
 function IntegrityBadge({ kind, level }: { kind: IntegritySignalKind; level: DisclosureLevel }) {
+  const href = INTEGRITY_HREF[kind];
+  const Tag = href ? "a" : "span";
   return (
-    <span
-      title={`${INTEGRITY_SIGNAL_LABELS[kind]}: ${DISCLOSURE_LEVEL_LABELS[level]}`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80"
+    <Tag
+      href={href}
+      title={href ? `${INTEGRITY_SIGNAL_LABELS[kind]}: ${DISCLOSURE_LEVEL_LABELS[level]}. Click to view the row.` : `${INTEGRITY_SIGNAL_LABELS[kind]}: ${DISCLOSURE_LEVEL_LABELS[level]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
+        href ? " transition-colors hover:border-forest/50" : ""
+      }`}
     >
       <span
         className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DISCLOSURE_TONE[level]]}`}
@@ -269,23 +292,37 @@ function IntegrityBadge({ kind, level }: { kind: IntegritySignalKind; level: Dis
         <IntegrityGlyph kind={kind} />
       </span>
       {INTEGRITY_SIGNAL_LABELS[kind]}
-    </span>
+    </Tag>
   );
 }
 
+// Registration and Protocol are literally TRIPOD-LLM items 14d/14c — link
+// straight to that checklist row. Data/Code transparency aren't rendered as
+// their own chips any more (superseded by Data Repo Check/Code Check), so
+// no entries are needed for them here.
+const TOP_STANDARD_HREF: Partial<Record<TopStandard, string>> = {
+  "study-registration": "#tripod-14d",
+  "study-protocol": "#tripod-14c",
+};
+
 function StandardBadge({ standard, level }: { standard: TopStandard; level: TopLevel }) {
   const tone = TOP_LEVEL_TONE[level];
+  const href = TOP_STANDARD_HREF[standard];
+  const Tag = href ? "a" : "span";
 
   return (
-    <span
-      title={`${TOP_STANDARD_LABELS[standard]}: ${TOP_LEVEL_LABELS[level]}`}
-      className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 ${TONE_RING[tone]}`}
+    <Tag
+      href={href}
+      title={href ? `${TOP_STANDARD_LABELS[standard]}: ${TOP_LEVEL_LABELS[level]}. Click to view the row.` : `${TOP_STANDARD_LABELS[standard]}: ${TOP_LEVEL_LABELS[level]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase ${TONE_RING[tone]}${
+        href ? " transition-colors hover:border-forest/50" : ""
+      }`}
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
         <StandardGlyph standard={standard} />
       </span>
       {TOP_STANDARD_LABELS[standard]}
-    </span>
+    </Tag>
   );
 }
 
@@ -299,7 +336,7 @@ function ReminderGlyph() {
 
 function ReminderBadge({ label, title }: { label: string; title: string }) {
   return (
-    <span title={title} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80">
+    <span title={title} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase">
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG.gray}`}>
         <ReminderGlyph />
       </span>
@@ -308,12 +345,31 @@ function ReminderBadge({ label, title }: { label: string; title: string }) {
   );
 }
 
-function RiskBadge({ label, risk, title, glyph }: { label: string; risk: ReproducibilityRisk; title: string; glyph: React.ReactNode }) {
+function RiskBadge({
+  label,
+  risk,
+  title,
+  glyph,
+  href,
+}: {
+  label: string;
+  risk: ReproducibilityRisk;
+  title: string;
+  glyph: React.ReactNode;
+  href?: string;
+}) {
+  const Tag = href ? "a" : "span";
   return (
-    <span title={title} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80">
+    <Tag
+      href={href}
+      title={href ? `${title}. Click to view the row.` : title}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
+        href ? " transition-colors hover:border-forest/50" : ""
+      }`}
+    >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[RISK_TONE[risk]]}`}>{glyph}</span>
       {label}
-    </span>
+    </Tag>
   );
 }
 
@@ -322,12 +378,12 @@ function DataLeakageBadge({ risk }: { risk: ReproducibilityRisk | "not-addressed
     <a
       href="#qa-data-leakage"
       title={`Data leakage: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DATA_LEAKAGE_TONE[risk]]}`}>
         <DataLeakageGlyph />
       </span>
-      Data Leakage · {DATA_LEAKAGE_LABELS[risk]}
+      Data Leakage
     </a>
   );
 }
@@ -336,7 +392,37 @@ function DataLeakageBadge({ risk }: { risk: ReproducibilityRisk | "not-addressed
 // reasoning as the other original glyphs on this page: no established open-
 // licensed icon convention exists for these (they aren't TOP or TRIPOD-LLM
 // fields, and aren't in Cochrane's RoB2 set either).
-type RigorCheckKind = "baseline-adequacy" | "train-dev-test" | "multiple-comparisons" | "human-baseline" | "confidence-intervals";
+type RigorCheckKind =
+  | "baseline-adequacy"
+  | "train-dev-test"
+  | "multiple-comparisons"
+  | "human-baseline"
+  | "confidence-intervals"
+  | "effect-size"
+  | "exact-p-values"
+  | "spin"
+  | "repository-check"
+  | "code-check"
+  | "statcheck"
+  | "prompt-engineering"
+  | "chance-corrected-metrics"
+  | "theorizing";
+
+// Where each Rigor sub-check's chip should navigate — the Quality Appraisal
+// table row when one exists (`qa-<kind>`, tagged by lib/markdown.ts's
+// tagAppraisalRows), the TRIPOD-LLM checklist row when the check *is*
+// literally one of its items (prompt-engineering = item 9a), or omitted
+// entirely when no real anchor exists yet, so the chip renders as a plain
+// span rather than a link to nowhere.
+const RIGOR_CHECK_HREF: Partial<Record<RigorCheckKind, string>> = {
+  "baseline-adequacy": "#qa-baseline-adequacy",
+  "train-dev-test": "#qa-train-dev-test",
+  "multiple-comparisons": "#qa-multiple-comparisons",
+  "human-baseline": "#qa-human-baseline",
+  "prompt-engineering": "#tripod-9a",
+  "repository-check": "#tripod-14e",
+  "code-check": "#tripod-14f",
+};
 
 function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
   const common = { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
@@ -383,22 +469,133 @@ function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
           <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
         </svg>
       );
+    case "effect-size":
+      // a delta — the standard symbol for a magnitude of difference
+      return (
+        <svg {...common}>
+          <path d="M12 4 20.5 19.5h-17Z" />
+        </svg>
+      );
+    case "exact-p-values":
+      // a magnifying glass over a decimal point — precise, not thresholded
+      return (
+        <svg {...common}>
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="M15.3 15.3 20 20" />
+          <circle cx="10.5" cy="10.5" r="0.75" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "spin":
+      // a looping arrow — reframing/re-spinning the same result
+      return (
+        <svg {...common}>
+          <path d="M5 12a7 7 0 0 1 12-5" />
+          <path d="M17 3.5V7h-3.5" />
+          <path d="M19 12a7 7 0 0 1-12 5" />
+          <path d="M7 20.5V17h3.5" />
+        </svg>
+      );
+    case "repository-check":
+      // a link — the repository URL itself resolving or not
+      return (
+        <svg {...common}>
+          <path d="M10 14 14 10" />
+          <path d="M11.5 6.5 14 4a3.5 3.5 0 0 1 5 5l-2.5 2.5" />
+          <path d="M12.5 17.5 10 20a3.5 3.5 0 0 1-5-5l2.5-2.5" />
+        </svg>
+      );
+    case "code-check":
+      // a terminal prompt — code actually runnable, not just linked
+      return (
+        <svg {...common}>
+          <rect x="3.5" y="4.5" width="17" height="15" rx="1.5" />
+          <path d="M7 9.5 10.5 12 7 14.5" />
+          <path d="M12.5 14.5h4.5" />
+        </svg>
+      );
+    case "statcheck":
+      // an equals sign with a checkmark — an independently recomputed number
+      // that does (or doesn't) match what the paper reported
+      return (
+        <svg {...common}>
+          <path d="M5 9.5h9M5 14.5h9" />
+          <path d="M16 15.5l2.2 2.2L22 13.5" />
+        </svg>
+      );
+    case "prompt-engineering":
+      // a chat bubble with a slider/tune mark — the prompt itself as a
+      // deliberately engineered input, not just "we called the API"
+      return (
+        <svg {...common}>
+          <path d="M4 5.5h16v10.5H9.5L6 19.5v-3.5H4Z" />
+          <path d="M8 10.5h2M8 10.5v-2M13 10.5h3M17 8h-2M17 8v2.5" />
+        </svg>
+      );
+    case "chance-corrected-metrics":
+      // a die face — the chance-level baseline a corrected metric adjusts against
+      return (
+        <svg {...common}>
+          <rect x="4" y="4" width="16" height="16" rx="3" />
+          <circle cx="8.5" cy="8.5" r="1.1" fill="currentColor" stroke="none" />
+          <circle cx="15.5" cy="8.5" r="1.1" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none" />
+          <circle cx="8.5" cy="15.5" r="1.1" fill="currentColor" stroke="none" />
+          <circle cx="15.5" cy="15.5" r="1.1" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "theorizing":
+      // a thought bubble — the interpretive/theoretical leap made from a result
+      return (
+        <svg {...common}>
+          <path d="M6 5.5h12a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-6l-3.5 3v-3H6a3 3 0 0 1-3-3v-4a3 3 0 0 1 3-3Z" />
+          <circle cx="9" cy="10.5" r="0.75" fill="currentColor" stroke="none" />
+          <circle cx="12.5" cy="10.5" r="0.75" fill="currentColor" stroke="none" />
+          <circle cx="16" cy="10.5" r="0.75" fill="currentColor" stroke="none" />
+        </svg>
+      );
   }
 }
 
-function RigorCheckBadge({ kind, risk }: { kind: RigorCheckKind; risk: ReproducibilityRisk | "not-addressed" }) {
+function RigorCheckBadge({
+  kind,
+  risk,
+  levelLabels = DATA_LEAKAGE_LABELS,
+}: {
+  kind: RigorCheckKind;
+  risk: ReproducibilityRisk | "not-addressed";
+  levelLabels?: Record<ReproducibilityRisk | "not-addressed", string>;
+}) {
   const label = RIGOR_CHECK_LABELS[kind];
+  const href = RIGOR_CHECK_HREF[kind];
+  const Tag = href ? "a" : "span";
   return (
-    <a
-      href={`#qa-${kind}`}
-      title={`${label}: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
+    <Tag
+      href={href}
+      title={href ? `${label}: ${levelLabels[risk]}. Click to view the row.` : `${label}: ${levelLabels[risk]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
+        href ? " transition-colors hover:border-forest/50" : ""
+      }`}
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DATA_LEAKAGE_TONE[risk]]}`}>
         <RigorCheckGlyph kind={kind} />
       </span>
-      {label} · {DATA_LEAKAGE_LABELS[risk]}
-    </a>
+      {label}
+    </Tag>
+  );
+}
+
+function StatisticalConsistencyBadge({ status }: { status: StatisticalConsistencyStatus }) {
+  const tone: Tone = status === "consistent" ? "green" : status === "issues-found" ? "red" : "gray";
+  return (
+    <span
+      title={`Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity).`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase"
+    >
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
+        <RigorCheckGlyph kind="statcheck" />
+      </span>
+      Statistic Accuracy
+    </span>
   );
 }
 
@@ -420,13 +617,13 @@ function StatisticalPowerBadge({ status }: { status: StatisticalPowerStatus }) {
   return (
     <a
       href="#qa-statistical-power"
-      title={`${STATISTICAL_POWER_LABELS[status]}. Click to view the row.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
+      title={`Statistical Power: ${STATISTICAL_POWER_LABELS[status]}. Click to view the row.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${tone}`}>
         <StatisticalPowerGlyph />
       </span>
-      Statistical Power · {STATISTICAL_POWER_LABELS[status]}
+      Statistical Power
     </a>
   );
 }
@@ -440,7 +637,14 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   // tags. Transparency and the validity-domain checks stay per-node below.
   const parentSource = node.type === "EVD" ? getParentSource(node.id) : null;
   const signalSource = parentSource ?? node;
-  const opennessSignals = getTopSignals(signalSource);
+  // Registration/Protocol disclosure level is distinct from whether the
+  // claimed data/code repo actually resolves — but the old Data/Code
+  // disclosure-level chips duplicated what Data Repo Check/Code Check now
+  // say more usefully (an actual liveness check, not just a disclosure
+  // level), so only the two non-redundant TOP standards render here.
+  const opennessSignals = getTopSignals(signalSource).filter(
+    (s) => s.standard === "study-registration" || s.standard === "study-protocol"
+  );
   const compliance = getReportingCompliance(node.id);
   const repro = getReproducibilityRisk(node);
   const validity = getValiditySignals(node);
@@ -452,7 +656,21 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const humanBaseline = getHumanBaselineComparability(signalSource);
   const confidenceIntervals = getConfidenceIntervals(signalSource);
   const statisticalPower = getStatisticalPower(signalSource);
+  const promptEngineering = getPromptEngineering(signalSource);
+  const chanceCorrectedMetrics = getChanceCorrectedMetrics(signalSource);
+  // Spin / Statistical Consistency / Repository & Code Check describe the
+  // paper's own overall reporting practice, not one extracted finding —
+  // same "paper-level, read via signalSource" reasoning as Openness/
+  // Integrity/Rigor sub-checks above.
+  const spin = getSpinSignal(signalSource);
+  const theorizing = getTheorizing(signalSource);
+  const statisticalConsistency = getStatisticalConsistency(signalSource);
+  const repositoryCheck = getRepositoryCheck(signalSource);
+  const codeCheck = getCodeCheck(signalSource);
 
+  const hasTransparency = Boolean(compliance);
+  const hasOpenness = opennessSignals.length > 0 || Boolean(repositoryCheck) || Boolean(codeCheck);
+  const hasIntegrity = integrity.length > 0;
   const hasRigor =
     validity.length > 0 ||
     Boolean(dataLeakage) ||
@@ -461,44 +679,137 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     Boolean(multipleComparisons) ||
     Boolean(humanBaseline) ||
     Boolean(confidenceIntervals) ||
-    Boolean(statisticalPower);
+    Boolean(statisticalPower) ||
+    Boolean(promptEngineering) ||
+    Boolean(chanceCorrectedMetrics) ||
+    Boolean(statisticalConsistency) ||
+    Boolean(spin) ||
+    Boolean(theorizing);
 
-  if (!compliance && opennessSignals.length === 0 && !repro && !hasRigor && integrity.length === 0)
-    return null;
+  if (!hasTransparency && !hasOpenness && !repro && !hasRigor && !hasIntegrity) return null;
 
   const summary = [
-    compliance && "Transparency",
-    opennessSignals.length > 0 && "Openness",
+    hasTransparency && "Transparency",
+    hasOpenness && "Openness",
     hasRigor && "Rigor",
     repro && "Extensibility",
-    integrity.length > 0 && "Integrity",
+    hasIntegrity && "Integrity",
   ]
     .filter(Boolean)
     .join(" · ");
 
+  const opennessChips = [
+    ...opennessSignals.map((s) => <StandardBadge key={s.standard} standard={s.standard} level={s.level} />),
+    repositoryCheck && (
+      <RigorCheckBadge key="repository-check" kind="repository-check" risk={repositoryCheck} levelLabels={REPO_CHECK_LABELS} />
+    ),
+    codeCheck && (
+      <RigorCheckBadge key="code-check" kind="code-check" risk={codeCheck} levelLabels={REPO_CHECK_LABELS} />
+    ),
+  ].filter(Boolean);
+
+  // Rigor is organized into 5 labeled subrows rather than one flat/expandable
+  // list: Validity (the 4 appraisal-domain risk verdicts), Design (how the
+  // study/experiment was set up — splits, baselines, leakage, prompting),
+  // Analyses (statistical methods applied to the results), Reporting
+  // (whether the paper's own numbers check out), and Interpretation (how
+  // results were framed/theorized once in). Each renders only if it has at
+  // least one chip for this node.
+  const validityChips = validity.map((v) => (
+    <RiskBadge
+      key={v.domain}
+      label={VALIDITY_DOMAIN_LABELS[v.domain]}
+      risk={v.risk}
+      title={`${VALIDITY_DOMAIN_LABELS[v.domain]}: ${REPRODUCIBILITY_RISK_LABELS[v.risk]}`}
+      glyph={<ValidityGlyph domain={v.domain} />}
+      href={`#qa-${v.domain}`}
+    />
+  ));
+
+  const designChips = [
+    baselineAdequacy && <RigorCheckBadge key="baseline-adequacy" kind="baseline-adequacy" risk={baselineAdequacy} />,
+    trainDevTest && <RigorCheckBadge key="train-dev-test" kind="train-dev-test" risk={trainDevTest} />,
+    humanBaseline && <RigorCheckBadge key="human-baseline" kind="human-baseline" risk={humanBaseline} />,
+    dataLeakage && <DataLeakageBadge key="data-leakage" risk={dataLeakage} />,
+    promptEngineering && (
+      <RigorCheckBadge key="prompt-engineering" kind="prompt-engineering" risk={promptEngineering} />
+    ),
+  ].filter(Boolean);
+
+  const analysesChips = [
+    confidenceIntervals && (
+      <RigorCheckBadge key="confidence-intervals" kind="confidence-intervals" risk={confidenceIntervals} />
+    ),
+    statisticalPower && <StatisticalPowerBadge key="statistical-power" status={statisticalPower} />,
+    multipleComparisons && (
+      <RigorCheckBadge key="multiple-comparisons" kind="multiple-comparisons" risk={multipleComparisons} />
+    ),
+    chanceCorrectedMetrics && (
+      <RigorCheckBadge key="chance-corrected-metrics" kind="chance-corrected-metrics" risk={chanceCorrectedMetrics} />
+    ),
+  ].filter(Boolean);
+
+  const reportingChips = [
+    statisticalConsistency && <StatisticalConsistencyBadge key="statcheck" status={statisticalConsistency} />,
+  ].filter(Boolean);
+
+  const interpretationChips = [
+    spin && <RigorCheckBadge key="spin" kind="spin" risk={spin} />,
+    theorizing && <RigorCheckBadge key="theorizing" kind="theorizing" risk={theorizing} />,
+  ].filter(Boolean);
+
+  const rigorGroups: [string, React.ReactNode[]][] = [
+    ["Validity", validityChips],
+    ["Design", designChips],
+    ["Analyses", analysesChips],
+    ["Reporting", reportingChips],
+    ["Interpretation", interpretationChips],
+  ];
+
+  const extensibilityChips = [
+    <ReminderBadge
+      key="computationally-reproduced"
+      label="Computationally Reproduced"
+      title="Not yet independently reproduced: reminder to re-run this paper's own analysis/code ourselves and confirm the reported results."
+    />,
+    <ReminderBadge
+      key="directly-replicated"
+      label="Directly Replicated"
+      title="Not yet directly replicated: reminder to run the same study design ourselves (same methods, new data) and compare results."
+    />,
+    <ReminderBadge
+      key="indirectly-replicated"
+      label="Indirectly Replicated"
+      title="Not yet indirectly replicated: reminder to check whether independent studies using different methods reach the same conclusion."
+    />,
+  ];
+
+  const integrityChips = [
+    ...integrity.map((s) => <IntegrityBadge key={s.kind} kind={s.kind} level={s.level} />),
+    <ReminderBadge
+      key="plagiarism"
+      label="Plagiarism"
+      title="Not yet checked: reminder to screen this paper's text against other human-authored work for plagiarism or unattributed overlapping language."
+    />,
+  ];
+
   return (
     <CollapsibleSignalBlock summary={summary}>
-      {compliance && (
+      {hasTransparency && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Transparency
           </p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            <ReportingComplianceBadge compliance={compliance} />
-          </div>
+          <ChipRows chips={[compliance && <ReportingComplianceBadge key="tripod-llm" compliance={compliance} />].filter(Boolean)} />
         </div>
       )}
 
-      {opennessSignals.length > 0 && (
+      {hasOpenness && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Openness
           </p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            {opennessSignals.map((s) => (
-              <StandardBadge key={s.standard} standard={s.standard} level={s.level} />
-            ))}
-          </div>
+          <ChipRows chips={opennessChips} />
         </div>
       )}
 
@@ -507,24 +818,19 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Rigor
           </p>
-          <ExpandableChipRow>
-            {validity.map((v) => (
-              <RiskBadge
-                key={v.domain}
-                label={VALIDITY_DOMAIN_LABELS[v.domain]}
-                risk={v.risk}
-                title={`${VALIDITY_DOMAIN_LABELS[v.domain]}: ${REPRODUCIBILITY_RISK_LABELS[v.risk]}`}
-                glyph={<ValidityGlyph domain={v.domain} />}
-              />
-            ))}
-            {dataLeakage && <DataLeakageBadge risk={dataLeakage} />}
-            {baselineAdequacy && <RigorCheckBadge kind="baseline-adequacy" risk={baselineAdequacy} />}
-            {trainDevTest && <RigorCheckBadge kind="train-dev-test" risk={trainDevTest} />}
-            {multipleComparisons && <RigorCheckBadge kind="multiple-comparisons" risk={multipleComparisons} />}
-            {humanBaseline && <RigorCheckBadge kind="human-baseline" risk={humanBaseline} />}
-            {confidenceIntervals && <RigorCheckBadge kind="confidence-intervals" risk={confidenceIntervals} />}
-            {statisticalPower && <StatisticalPowerBadge status={statisticalPower} />}
-          </ExpandableChipRow>
+          <div className="mt-1.5 space-y-2">
+            {rigorGroups.map(
+              ([label, chips]) =>
+                chips.length > 0 && (
+                  <div key={label}>
+                    <p className="text-[0.625rem] font-medium uppercase tracking-wide text-muted-ink/70">
+                      {label}
+                    </p>
+                    <div className="mt-1 flex flex-wrap items-center gap-1.5">{chips}</div>
+                  </div>
+                )
+            )}
+          </div>
         </div>
       )}
 
@@ -533,37 +839,16 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Extensibility
           </p>
-          <ExpandableChipRow>
-            <ReminderBadge
-              label="Computationally Reproduced"
-              title="Not yet independently reproduced: reminder to re-run this paper's own analysis/code ourselves and confirm the reported results."
-            />
-            <ReminderBadge
-              label="Directly Replicated"
-              title="Not yet directly replicated: reminder to run the same study design ourselves (same methods, new data) and compare results."
-            />
-            <ReminderBadge
-              label="Indirectly Replicated"
-              title="Not yet indirectly replicated: reminder to check whether independent studies using different methods reach the same conclusion."
-            />
-          </ExpandableChipRow>
+          <ChipRows chips={extensibilityChips} />
         </div>
       )}
 
-      {integrity.length > 0 && (
+      {hasIntegrity && (
         <div>
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Integrity
           </p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            {integrity.map((s) => (
-              <IntegrityBadge key={s.kind} kind={s.kind} level={s.level} />
-            ))}
-            <ReminderBadge
-              label="Plagiarism"
-              title="Not yet checked: reminder to screen this paper's text against other human-authored work for plagiarism or unattributed overlapping language."
-            />
-          </div>
+          <ChipRows chips={integrityChips} />
         </div>
       )}
     </CollapsibleSignalBlock>

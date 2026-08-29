@@ -25,7 +25,11 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/addressed
+  - top/code-check/addressed
+  - transparency/effect-size/partial
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/addressed
 doi: 10.1016/j.jclinepi.2024.111533
 citationCount: 22
 citationCountSource: EuropePMC

@@ -25,7 +25,13 @@ tags:
   - integrity/ethical-approval/disclosed
   - integrity/funding-disclosure/disclosed
   - integrity/coi-disclosure/disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/not-addressed
+  - top/code-check/not-addressed
+  - transparency/effect-size/addressed
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/partial
+  - rigor/prompt-engineering/addressed
+  - rigor/chance-corrected-metrics/addressed
 doi: 10.1136/bmjebm-2023-112597
 citationCount: 60
 citationCountSource: OpenCitations

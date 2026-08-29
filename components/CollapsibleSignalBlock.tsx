@@ -25,7 +25,7 @@ export default function CollapsibleSignalBlock({
         onClick={() => setExpanded((e) => !e)}
         className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
       >
-        {expanded ? "Hide signals" : `Show signals: ${summary}`}
+        {expanded ? "Hide Quality Signals" : `Show Quality Signals: ${summary}`}
       </button>
       {expanded && <div className="mt-2 space-y-3">{children}</div>}
     </div>

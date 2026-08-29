@@ -25,7 +25,13 @@ tags:
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
   - integrity/coi-disclosure/not-disclosed
-  - integrity/statcheck/not-applicable
+  - top/repository-check/addressed
+  - top/code-check/addressed
+  - transparency/effect-size/addressed
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/addressed
+  - rigor/prompt-engineering/addressed
+  - rigor/chance-corrected-metrics/addressed
 doi: 10.48550/arXiv.2412.10635
 nameConsistency: consistent
 predatoryPublisherFlag: false
