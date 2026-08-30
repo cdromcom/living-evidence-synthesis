@@ -5265,7 +5265,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5342,7 +5344,9 @@
         "top/code-check/not-addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5499,7 +5503,9 @@
         "top/code-check/not-addressed",
         "transparency/effect-size/addressed",
         "transparency/exact-p-values/addressed",
-        "integrity/spin/partial"
+        "integrity/spin/partial",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5597,7 +5603,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/addressed"
       ],
       "created": null,
       "updated": null,
@@ -5693,7 +5701,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/addressed"
       ],
       "created": null,
       "updated": null,
@@ -5790,7 +5800,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5913,7 +5925,9 @@
         "top/code-check/not-addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -5994,7 +6008,9 @@
         "top/code-check/not-addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6074,7 +6090,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/addressed",
         "transparency/exact-p-values/partial",
-        "integrity/spin/addressed"
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6165,7 +6183,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6237,7 +6257,9 @@
         "top/code-check/not-addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6364,7 +6386,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/partial",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/addressed"
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/addressed"
       ],
       "created": null,
       "updated": null,
@@ -6465,7 +6489,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/addressed"
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6562,7 +6588,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6647,7 +6675,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/not-addressed"
+        "integrity/spin/not-addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/partial"
       ],
       "created": null,
       "updated": null,
@@ -6739,7 +6769,9 @@
         "top/code-check/addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/addressed"
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6816,7 +6848,9 @@
         "top/code-check/not-addressed",
         "transparency/effect-size/not-addressed",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/addressed"
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/partial",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,
@@ -6893,7 +6927,9 @@
         "top/code-check/not-addressed",
         "transparency/effect-size/partial",
         "transparency/exact-p-values/not-addressed",
-        "integrity/spin/addressed"
+        "integrity/spin/addressed",
+        "rigor/prompt-engineering/addressed",
+        "rigor/chance-corrected-metrics/not-addressed"
       ],
       "created": null,
       "updated": null,

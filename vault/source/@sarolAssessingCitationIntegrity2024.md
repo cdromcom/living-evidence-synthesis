@@ -30,6 +30,8 @@ tags:
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
   - integrity/spin/not-addressed
+  - rigor/prompt-engineering/addressed
+  - rigor/chance-corrected-metrics/addressed
 doi: 10.1093/bioinformatics/btae420
 nameConsistency: consistent
 citationCount: 4

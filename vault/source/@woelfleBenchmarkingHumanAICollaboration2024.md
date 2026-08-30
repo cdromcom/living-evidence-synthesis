@@ -30,6 +30,8 @@ tags:
   - transparency/effect-size/partial
   - transparency/exact-p-values/not-addressed
   - integrity/spin/addressed
+  - rigor/prompt-engineering/partial
+  - rigor/chance-corrected-metrics/addressed
 doi: 10.1016/j.jclinepi.2024.111533
 citationCount: 22
 citationCountSource: EuropePMC

@@ -30,6 +30,8 @@ tags:
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
   - integrity/spin/not-addressed
+  - rigor/prompt-engineering/addressed
+  - rigor/chance-corrected-metrics/partial
 doi: 10.48550/arXiv.2507.02694
 nameConsistency: consistent
 predatoryPublisherFlag: false
