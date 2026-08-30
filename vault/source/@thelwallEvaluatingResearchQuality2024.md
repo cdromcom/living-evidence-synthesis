@@ -32,6 +32,7 @@ tags:
   - integrity/spin/not-addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2408.06752
 nameConsistency: consistent
 predatoryPublisherFlag: false
@@ -157,6 +158,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🟡 | *"The standard deviation was calculated to estimate confidence intervals for the mean correlation from a single iteration with the t distribution."* `§2.5, p.6` — an interval is derived, but only for the single-iteration sub-analysis, via an ad hoc method (t-distribution over permutation subsets) rather than a standard CI on the headline correlations |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — model-quality agreement is assessed via Spearman correlation and mean absolute difference against citation/journal-rank proxies, not a chance-corrected statistic |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing framework is applied to the headline correlations, so there is no null finding to spin |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"If the Strategy 3 specific part (defining significance, rigour, originality) is removed from Strategy 6 then this performs slightly worse than strategy 6... so the full instructions seem to be the optimal choice."* `p.10` |
 
 **Bottom line.** The result that abstracts beat full text — counterintuitive but consistent across three models — is a useful and cheap finding for anyone building LLM-assisted quality-screening tools. But the headline r=0.678 should be read as the upper bound of what a single expert can predict about his own work, not as evidence that ChatGPT can grade research at REF-panel quality. Before this becomes deployment-ready, the experiment needs to repeat on a multi-author, multi-field corpus with independent reviewer panels and pinned model snapshots.
 

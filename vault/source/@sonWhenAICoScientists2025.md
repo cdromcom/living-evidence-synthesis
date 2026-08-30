@@ -32,6 +32,7 @@ tags:
   - integrity/spin/not-addressed
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2505.11855
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
@@ -187,6 +188,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — Precision/Recall/pass@K figures carry no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — evaluation uses only Precision, Recall, and pass@K; no chance-corrected statistic is computed |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing is performed on model-performance comparisons, so there is no null finding to spin |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Table 3: Multi-modality ablation for 13 models... The right panel shows performance on the text-only subset of SPOT... removing all instances from the figure-duplication and any data-inconsistency category."* `p.7` — a named ablation removing visual/figure inputs and re-measuring recall/pass@4 |
 
 **Bottom line.** SPOT is a careful benchmark and the head-to-head design is fair, but the conclusion that "no current model is dependable for academic error verification" rests on a sample of 91 errors that lean toward author-acknowledged, locatable, math-heavy mistakes. The single-digit precision and near-zero calibration are striking enough that the directional claim — frontier LLMs are not yet trustworthy auto-reviewers — likely survives any reasonable expansion of the benchmark. Before any deployment, the field needs a larger SPOT-like corpus that includes contested errors, balanced error categories, and an inter-rater statistic between the LLM judge and human experts.
 

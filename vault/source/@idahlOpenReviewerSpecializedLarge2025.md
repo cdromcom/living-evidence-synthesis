@@ -32,6 +32,7 @@ tags:
   - integrity/spin/addressed
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/not-addressed
 doi: 10.48550/arXiv.2412.11948
 nameConsistency: consistent
 predatoryPublisherFlag: false
@@ -157,6 +158,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — the average-error and win-rate gaps between OpenReviewer and baselines are reported as point estimates with no interval `Table 1-2, p.4-5` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — evaluation uses Exact Match (%) and average recommendation error `Table 1, p.4`, not a chance-corrected statistic |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"OpenReviewer won against Llama-3.1-70B 76% of the time... against GPT-4o itself 60%."* `p.5` — the narrowest, weakest-looking margin (60% against the judge model itself) is reported alongside the strongest one, not omitted |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported — OpenReviewer is compared end-to-end against baseline LLMs; no component of its own training/pipeline (fine-tuning data, system prompt) is removed or varied and re-measured |
 
 **Bottom line.** OpenReviewer's headline result — that a small, peer-review-fine-tuned 8-billion-parameter model lands on the human recommendation distribution while general-purpose chatbots inflate by 1.5 to 2.7 points on a 10-point scale — is concrete, and the supervised fine-tune is the obvious explanation given that the base model on its own gives the most inflated reviews. But two unresolved issues stop this from being deployment-ready as a pre-submission feedback tool: the entire evaluation is in-domain (ICLR + NeurIPS only), and the comparisons lack formal uncertainty estimates. A reader should take the recommendation-alignment finding seriously as a proof-of-concept while treating any "OpenReviewer is better" framing as restricted to two AI conferences.
 

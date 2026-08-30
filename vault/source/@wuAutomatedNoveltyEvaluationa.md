@@ -32,6 +32,7 @@ tags:
   - integrity/spin/not-addressed
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.1002/asi.70005
 citationCount: 3
 citationCountSource: OpenCitations
@@ -163,6 +164,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — *"the results of the LLMs are the averages obtained from three rounds of testing"* `Table 2 note, p.21` gives a point estimate with no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — only F1 and accuracy are reported (Tables 2-4); no chance-corrected statistic appears anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing is performed on the paper's own results, so there is no null finding to spin |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"To better understand the effectiveness of each component of our method, we have done an ablation study as shown in Table 4... We systematically removed three components, namely, Self-Attention Reduction, Knowledge Guided, and Self Attention, to examine their individual impacts on the model."* `p.1463, §5.4` |
 
 **Bottom line.** The 10-point F1 gain from fusing human and LLM knowledge is real and the ablation cleanly localizes it to the knowledge-guided module — that part is well demonstrated. But the comparison to LLM baselines is not fair (zero-shot, no tuning), the evaluation lives entirely inside one ML conference, and the headline metric averages over an imbalanced binary collapse of a noisy subjective label. Before this is deployment-ready as a triage tool, it would need at least: a tuned-LLM baseline, evaluation on a non-ICLR venue, and per-class metrics on High-Novelty papers.
 

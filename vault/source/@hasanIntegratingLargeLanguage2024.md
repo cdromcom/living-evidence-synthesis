@@ -32,6 +32,7 @@ tags:
   - integrity/spin/partial
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/addressed
+  - rigor/ablation-experiments/not-addressed
 doi: 10.1136/bmjebm-2023-112597
 citationCount: 60
 citationCountSource: OpenCitations
@@ -184,6 +185,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — *"Kappa coefficient was low across all domains."* `Results, p.2`, three agreement statistics (raw %, weighted kappa, Kendall's τ) are reported as point estimates with no interval on any of them |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟢 | *"Kappa coefficient was low across all domains."* `Results, p.2` — weighted Cohen's kappa (accounting for chance and partial credit) is reported alongside raw percent agreement and Kendall's tau, at 0.13 overall |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟡 | The Discussion frames the overall result as "fair" agreement based on Kendall's τ=0.35, but the paper's own weighted Cohen's kappa for the same comparison is only 0.13 — "slight" by the authors' own stated scale — and the more favorable of the two metrics is the one that reaches the headline framing `Results, p.2; Discussion, p.4` |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported — the case study runs GPT-4 once against Cochrane human judgements; no pipeline component (prompting method, data-entry method) is deliberately varied and re-measured within the study |
 
 **Bottom line.** GPT-4 reaches a fair but uneven level of agreement with Cochrane reviewers on ROBINS-I — strong enough to consider as an extra independent reviewer in a human-in-the-loop workflow, nowhere near strong enough to replace one. The biggest threats to the result are not the headline numbers themselves but the unprespecified prompt pipeline, the missing GPT-4 snapshot and inference settings, and the absence of a held-out evaluation set; before this approach could be deployed, those would all need to be fixed and the experiment rerun against a frozen, named GPT-4 version with confidence intervals on every reported statistic.
 

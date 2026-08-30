@@ -32,6 +32,7 @@ tags:
   - integrity/spin/addressed
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2411.06101
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
@@ -158,6 +159,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — the 70.0% overall accuracy headline and per-condition accuracy figures carry no interval; the paper's own Discussion flags this gap directly, calling for "confidence intervals, a larger and more diverse benchmark" before the model-by-context comparison should be treated as settled `Discussion, p.5` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — only accuracy by class and overall accuracy are reported `Table 3`; no chance-corrected statistic appears anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"Provision of more information or the Assistant pipeline did not necessarily improve LLM performance, especially for GPT-3.5 Turbo which performed much better on Fully substantiated cases in the title-only setting than with more information."* `p.3` — a counter-intuitive negative result stated plainly |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"To investigate the impact of information completeness, LLMs were tested in 3 settings with different amounts of information from the reference: (1) With only the title... (2) With both the title and abstract... (3) With the title, abstract, and excerpts provided."* `p.3, §3` |
 
 **Bottom line.** GPT-4 Turbo with retrieved excerpts hits 70.0% overall accuracy on a 250-pair benchmark — promising as a research signal, but well short of what a journal-screening pipeline would need. The two largest gaps to deployment are the small, narrow-domain corpus and the lack of any uncertainty estimates on the model-by-context comparisons; before treating "more context helps GPT-4 but hurts GPT-3.5" as a settled finding, a reader should want confidence intervals, a larger and more diverse benchmark, and disclosure of the OpenAI training-cutoff dates relative to the cited papers.
 

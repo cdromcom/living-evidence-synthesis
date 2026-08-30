@@ -32,6 +32,7 @@ tags:
   - integrity/spin/partial
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/not-addressed
 doi: 10.1136/bmjhci-2023-100830
 nameConsistency: consistent
 citationCount: 31
@@ -171,6 +172,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — only Pearson's r and Welch's t-test are used to assess agreement, not a chance-corrected statistic |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟡 | The abstract's conclusion ("LLMs like ChatGPT can help automate appraisal of medical literature") oversells what the paper's own per-domain table shows: several domains have weak-to-negligible correlation (e.g. Objective r=0.06, p<0.001; Number analysed r=0.04, p=0.434 — not significant), and even the "strongest" correlations (r=0.32–0.34) are conventionally weak-to-moderate `Abstract, p.1; Table 1, p.2` |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🔴 | *"The reported 95% CI on the Bland-Altman mean difference is printed as '(0.62%, 0.37%)'"* — the lower bound exceeds the upper bound, an internally inconsistent interval and likely typesetting/sign error `Abstract, p.1` |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported — the paper's pipeline (a single zero-shot ChatGPT prompt scored against CONSORT-A) has no component removed or varied and re-measured; only the human-vs-ChatGPT end comparison is reported |
 
 **Bottom line.** The headline finding — a 4.92-percentage-point average gap between ChatGPT and humans — overstates how well ChatGPT actually mirrors human judgement. The per-domain Pearson r values show ChatGPT and humans hitting similar averages by picking the same modal label, not by tracking which abstracts are well-reported, and on the binary "conclusion" item the model and humans disagree a lot. Before this approach is deployment-ready, the authors would need a model-version pin, released data and code, prompt-engineering ablations, GPT-4 or current-frontier replication, and validation outside implant-dentistry abstracts.
 

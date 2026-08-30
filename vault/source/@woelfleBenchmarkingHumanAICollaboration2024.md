@@ -32,6 +32,7 @@ tags:
   - integrity/spin/addressed
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.1016/j.jclinepi.2024.111533
 citationCount: 22
 citationCountSource: EuropePMC
@@ -188,6 +189,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟢 | *"Human inter-rater reliability measured by agreement was 91%, 88%, and 57% and by kappa 0.84, 0.77, and 0.29 for PRISMA, AMSTAR, and PRECIS-2, respectively."* `§3.2, p.8`, with Cohen's kappa reported for every LLM-vs-human comparison throughout Table 2-3 |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"Individual LLMs performed significantly worse than humans for all three evidence appraisal tools."* `pp.8-9`, and *"For PRECIS-2, there was still substantial improvement in accuracy but statistically significant in only 1 of 10 collaboration-pairs"* — the weak PRECIS-2 result is not reframed as a success |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | The paper's kappa values (0.84 PRISMA, 0.77 AMSTAR, 0.29 PRECIS-2) fall within the valid 0–1 range and are internally consistent with the paper's own stated agreement-level bands `§3.2, p.8` |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"By consecutively increasing the consistency threshold from ≥5/9 to finally 9/9, accuracies and deferring fractions increased gradually."* `pp.6-7` — a systematic variation of the ensemble agreement-threshold parameter with re-measured accuracy/deferring fraction |
 
 **Bottom line.** The strongest result here, that a single human paired with one LLM matches or beats two humans on PRISMA and AMSTAR, is methodologically credible within the pediatric-surgery dataset and the specific model snapshots tested. Before treating this as a deployable workflow, two things need to follow: a prospective replication on freshly-rated papers (to neutralize web-contamination concerns) and a real time-on-task measurement (to confirm the "spared work" actually translates into wall-clock savings rather than just deferred decisions). The PRECIS-2 results, by contrast, are not yet ready for any deployment claim: the underlying task is too noisy even for human experts.
 

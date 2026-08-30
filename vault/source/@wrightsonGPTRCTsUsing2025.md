@@ -32,6 +32,7 @@ tags:
   - integrity/spin/addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.1136/bmjopen-2024-088735
 citationCount: 9
 citationCountSource: OpenCitations
@@ -174,6 +175,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🟢 | *"the accuracy of the base model was low (F1-score=0.63, accuracy (95% CI) = 64% (57% to 71%)). Fine-tuning the model improved accuracy (F1-score=0.84, accuracy (95% CI) = 83% (77% to 88%))."* (Wrightson et al., 2025, p. 5), with 95% Clopper–Pearson CIs reported for every accuracy figure in the paper |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — only F1-score and accuracy (with 95% CI) are reported throughout; no kappa or MCC appears anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"asked the harder follow-up... it scored only 57% accuracy (95% CI 39% to 73%) with F1 = 0.58"* `p.6`, reported directly alongside the model's strong 100%-accuracy result on the easier sub-task, not minimized |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"The Llama 2 model accuracy was initially poor (F1-score=0.63, accuracy (95% CI) = 64% (57% to 71%)) and improved with fine-tuning (F1-score=0.84, accuracy (95% CI) = 83% (77% to 88%))."* (Abstract, p. 1) — base vs. fine-tuned model isolates the fine-tuning component's contribution |
 
 **Bottom line.** The headline "GPT-4 Turbo at 90% accuracy" is real on this dataset, and fine-tuning a 70-billion-parameter open-source model on GPT-4 outputs is a credible path to closing most of the closed-source gap (F1 0.84 vs. 0.89). But the per-item breakdown, the section-stratified split, the single-specialty corpus, and the n=20 image sub-study all push this paper into "promising proof-of-concept" rather than "deployment-ready." Before any journal could trust an LLM for CONSORT screening, this design needs cross-specialty validation, a paper-level (not section-level) split, and per-item performance thresholds for the items that actually matter to reviewers.
 

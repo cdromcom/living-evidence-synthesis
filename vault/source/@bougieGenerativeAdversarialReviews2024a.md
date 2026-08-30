@@ -32,6 +32,7 @@ tags:
   - integrity/spin/not-addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2412.10415
 nameConsistency: consistent
 predatoryPublisherFlag: false
@@ -158,6 +159,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — Balanced Accuracy and F1 are reported as point estimates only, with no interval `Table 3, p.9` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — Balanced Accuracy and F1 are reported against a "Random Decision" baseline row for context, but no chance-corrected statistic (e.g. kappa/MCC) is computed `Table 3, p.9` |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no null/negative finding about the paper's own proposed method (GAR) requires spinning; baseline weaknesses are stated plainly as a point of comparison, not something GAR itself needs to explain away |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Table 4: Ablation study of GAR on three datasets... Line 6 highlights the performance without memory module."* `p.12` — a "GAR (w/o memory)" condition is directly compared against full GAR |
 
 **Bottom line.** GAR is the strongest reviewer-agent benchmark to date and convincingly outperforms prior LLM reviewer systems on three independent tasks. But the two largest claims — beating humans on accept/reject prediction and on review preference — rest on a same-family LLM judge and on test conferences likely seen in pretraining; either could account for a meaningful share of the gap. Before treating GAR as deployment-ready, future work needs: a held-out test set published *after* the model snapshot date, an out-of-family judge (or all-human judging), released code and prompts, and a downstream utility study (do real authors find GAR's feedback useful and accurate?).
 

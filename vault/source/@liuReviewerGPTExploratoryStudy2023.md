@@ -32,6 +32,7 @@ tags:
   - integrity/spin/not-addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/partial
 doi: 10.48550/arXiv.2306.00622
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
@@ -153,6 +154,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — accuracy/hit-rate percentages across constructed test cases carry no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — results are reported as raw accuracy/hit-rate percentages across constructed test cases |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no statistical tests are run on the paper's own results, so there is no null/non-significant finding to potentially spin |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟡 | Three prompting strategies (Prompt-Direct, Prompt-OneShot, Prompt-Parts) are compared per task with per-response performance tabulated `Table 1, p.4-6` — a prompt-variant comparison, not a systematic ablation of a pipeline/system component |
 
 **Bottom line.** This is an exploratory pilot, framed as such — it shows GPT-4 can plausibly help with the most structured reviewing subtask (checklist verification at 87%, or 93% if you exclude figure-only items) while failing at the least structured one (picking the better abstract, where it lands below chance under strict scoring). The numbers are too small and too domain-restricted to support deployment decisions, but the failure modes (prompt injection, positive-result bias, algorithm-name effects) are concrete enough to inform what guardrails any future reviewer-assistant tool would need.
 

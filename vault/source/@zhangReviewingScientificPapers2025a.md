@@ -32,6 +32,7 @@ tags:
   - integrity/spin/addressed
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2505.23824
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
@@ -162,6 +163,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — only hit rate / mean hit rate at k are reported `Table 2-3`; no chance-corrected statistic appears anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"Claude 3.7 Sonnet found no problem in 64.9% of test papers, leading to a low hit rate of 16.3%."* `p.3`, and the authors explicitly disqualified Claude from the judge pool as a result — no attempt to soften or omit this negative result |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | Reported hit-rate figures decrease monotonically as expected between the single-judge and stricter dual-judge-fusion conditions (e.g. o3's single-judge HR@5 of 72.7–80.4% falling to a lower dual-judge headline of 64.9–71.0%), with no internal inconsistency `p.3` |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"we evaluated the PDF-based approach and the LaTeX-based approach in this work"*, with Table 2 reporting hit rates for both input-format conditions per model — *"After switching to LaTeX, hit rates of Gemini models slightly decreased... In contrast, the hit rates of o-series models increased."* `pp.2-3` |
 
 **Bottom line.** The paper makes a clean, well-instrumented case that today's reasoning LLMs — especially OpenAI's o3 and o4-mini — can flag the *specific* author-stated retraction error on roughly 60–70% of withdrawn math and physics papers, with o4-mini delivering nearly o3's accuracy at one-eighth the cost. The result that holds up cleanly is the cost–performance frontier within the OpenAI o-series. The result that does *not* hold up cleanly is "reasoning LLMs are viable manuscript quality checkers" in general: the test bed is overwhelmingly formal-sciences, the false-positive rate is unmeasured, no open-source models are tested, and the Claude PDF result is more a story about Anthropic's PDF pipeline than about reasoning capability. Before deployment in a real journal-screening workflow, future work needs precision/recall on a domain-balanced corpus, open-source comparators, and a head-to-head against expert human reviewers on the same papers.
 

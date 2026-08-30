@@ -33,6 +33,7 @@ tags:
   - integrity/spin/not-addressed
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/not-addressed
 doi: 10.2196/59258
 nameConsistency: inconsistent-formatting
 nameConsistencyNote: "GPT-4-0613 family: 'GPT 4-0613' / 'GPT-4-0613' / 'ChatGPT 4-0613' used interchangeably throughout the results section for the same model"
@@ -185,6 +186,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — the six-model STROBE comparison uses Kruskal-Wallis and chi-square significance tests only; no confidence interval accompanies the per-model accuracy figures `Statistical Analysis, p.13` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — model comparisons use raw percent-correct scores with chi-square/Kruskal-Wallis significance tests, not a chance-corrected agreement statistic `Statistical Analysis, p.13` |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — GPT 4-0613's worst-performer result (44.1%) is stated plainly in the abstract alongside the top performer, with no apparent reframing |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported — comparisons are only across six different LLMs on the same benchmark; no pipeline component (e.g., RAG vs. no-RAG, prompt variants) is removed or varied and re-measured |
 
 **Bottom line.** The headline ranking — GPT 3.5-Turbo at the top, GPT 4-0613 at the bottom — is real but not interpretable as a comprehension ranking, because training-data coverage, access restrictions, and a single-expert gold standard all confound the comparison. The most defensible finding is the item-level pattern: across all six models, discussion-section items are easy and technical-detail items are hard, which is consistent with how LLMs handle interpretive vs. extractive tasks generally. Before any LLM here is fit for STROBE-style screening at scale, the field needs a multi-expert gold standard, matched training-cutoff models, public code, and confidence intervals on accuracy.
 

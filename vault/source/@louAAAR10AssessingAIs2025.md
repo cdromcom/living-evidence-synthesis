@@ -32,6 +32,7 @@ tags:
   - integrity/spin/not-addressed
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2410.22394
 nameConsistency: consistent
 predatoryPublisherFlag: false
@@ -210,6 +211,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — *"selecting the median result from these repeated runs"* `Appendix B.2, p.16` reports a point estimate with no interval around it |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — all metrics are F1/precision/recall/S-Match/ROUGE/ITF-IDF; no kappa or MCC is reported anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no formal significance tests are run; the informal "not significant" performance-gap claim ("the best LLM on this task only obtains 47.98%") is stated plainly, not spun `p.7` |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"D.4 Multi-Modal Input Ablation. We post the multi-modal ablation study of ExpDesign and Weakness in Table 14 and Table 15."* `p.18` — figure/table inputs are removed and the effect measured; Table 4 and Table 12 test additional prompting/input-processing variants |
 
 **Bottom line.** AAAR-1.0 is a useful, deliberately hard benchmark that puts a clear ceiling on what current LLMs can do as automatic AI-paper reviewers; the headline numbers (47.98% F1 on equation correctness, 5.95 ITF-IDF on weaknesses versus 7.69 for humans, 21.99% F1 on flagging deficient review segments) all say the same thing: not deployment-ready. The two biggest threats to the conclusions are external validity (a single subfield, text-only inputs) and the unresolved data-leakage question; until both are addressed with held-out post-cutoff evaluations and figure-aware tasks, the absolute numbers should be read as upper bounds rather than honest estimates of LLM ability.
 

@@ -32,6 +32,7 @@ tags:
   - integrity/spin/not-addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/partial
+  - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2507.02694
 nameConsistency: consistent
 predatoryPublisherFlag: false
@@ -168,6 +169,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟡 | *"The two human raters agreed strongly with each other (Cohen's kappa = 0.833, where 1.0 means perfect agreement and 0 means chance)."* `§4.1, p.5–6` — kappa validates the benchmark's own ground truth, but the LLM systems' own performance is scored via Accuracy/Fine-grained score/Jaccard instead, not a chance-corrected statistic |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no formal significance test underlies the paper's headline comparison; the blunt framing of its own main finding ("GPT-4o can only identify about half of the limitations that humans consider very obvious") is plain, not spun, but falls outside this check's addressed/not-addressed distinction absent a formal test `§4.2, p.6` |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | The reported Cohen's kappa (0.833 for LimitGen-Syn; 0.772/0.735/0.717 for LimitGen-Human) falls within the valid 0–1 range `§4.1, p.5–6` |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"The results, as shown in Table 5, demonstrate that providing a broader set of relevant papers, as in the standard RAG method with the top 5 papers, improves the LLM's performance in generating accurate limitations compared to using only the top 3 or the last 5 retrieved papers."* `p.7, §6.2` |
 
 **Bottom line.** LIMITGEN is a well-designed benchmark with a credible human ceiling, and its central finding — RAG helps but does not close a roughly 22-point gap to human reviewers — is robust to the LLM-judge concern thanks to the 0.96 correlation with human evaluation. The result is not deployment-ready as a standalone reviewer: even the best system (MARG + RAG) still misses roughly one in five obvious flaws and the benchmark itself excludes most non-AI domains. The most actionable improvements would be confidence intervals on the headline numbers and a substantially larger out-of-domain evaluation before generalizing to biomedical or social-science peer review.
 

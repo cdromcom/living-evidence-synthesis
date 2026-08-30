@@ -32,6 +32,7 @@ tags:
   - integrity/spin/addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
 sourceUrl: https://aclanthology.org/2024.lrec-main.816/
 doi: 10.63317/48d359hjdvog
 citationCount: 26
@@ -157,6 +158,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — accuracy, |diff|, and precision/recall/F1 figures carry no interval; only a binary p>0.05 gray-out convention is used for significance `Table 2 caption, p.3` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — only accuracy, |diff|, precision/recall/F1, and Pearson/Spearman/Kendall's-tau correlation are reported; no kappa or MCC appears anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"we conclude that they are not naturally reliable automatic reviewers because their error rate is still not sufficiently low"* (Abstract, p.9347) — the negative result is the headline conclusion, not downplayed |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"We take into consideration the influence of prompt style and content extraction methods... For Setting 1, we try zero-shot / few-shot, direct scoring / multiple-choice style scoring, and different example distributions."* `p.2, §3.2`, with Table 1 reporting accuracy/Pearson/Spearman/Kendall for each variant |
 
 **Bottom line.** The paper makes a defensible negative claim: an off-the-shelf GPT-4, prompted in plausible ways, hits roughly 28% on the reasoning-heavy reviewer questions that the authors built RR-MCQ to capture. That number is hard to spin into a deployment story. The headline weakness is sample scope — only 14 ICLR papers and one model family — so before treating this as a closed verdict, the field needs the same experiment scaled across more venues, more disciplines, and current model snapshots (GPT-4o, Claude 3.5+, open-weights long-context models).
 

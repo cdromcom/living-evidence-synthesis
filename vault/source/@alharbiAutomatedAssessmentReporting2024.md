@@ -32,6 +32,7 @@ tags:
   - integrity/spin/addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/not-addressed
 doi: 10.3390/app142210323
 nameConsistency: consistent
 citationCount: 3
@@ -160,6 +161,7 @@ flowchart TD
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — Fisher's exact/chi-square tests are used per item with no accompanying interval on the agreement percentages `§3.1, p.4` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — item-level agreement is assessed via Fisher's exact/chi-square tests on raw Yes/No/NA categories, not kappa or another chance-corrected statistic |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"The alignment between human and ChatGPT ratings was lower for the remaining seven items, with statistically significant discrepancies identified for two items: randomization and recruitment details."* `§3.1, p.4` — the divergence is stated plainly, not downplayed |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported — only RCT-vs-systematic-review checklist comparisons and item-level accuracy are reported; no pipeline component is removed or varied and re-measured |
 
 **Bottom line.** The paper's headline pattern — that ChatGPT matches humans on surface items but over-credits abstracts on methodological ones — is plausible and consistent with related work, but the evidence here is weak: a tiny single-specialty sample, a self-rating author panel, no agreement statistic, no multiple-comparison correction, and a non-reproducible chat-GUI pipeline. Treat this as a hypothesis-generating pilot rather than a benchmark. To be deployment-ready, future work needs paired per-abstract agreement (kappa or similar), API access with logged inference parameters, blinded external raters, and a sample large enough to support a multiple-comparison-corrected per-item analysis.
 
