@@ -163,6 +163,9 @@ flowchart TD
 | **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | Not reported, no data-split concept applies or is discussed for the fixed case-study/SOP prompt set |
 | **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, three platforms × 10 cases × 16 SOP topics are compared narratively with no stated correction |
 | **Human-baseline comparability**: is there a human reference point? | 🔴 | Not reported, the two author-reviewers judge AI outputs against published references but no independent human-authored response is scored under the same rubric |
+| **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — no quantitative metric of any kind is computed, so no interval is possible |
+| **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — comparisons are purely qualitative "stated/not stated" judgments (Table 1-2), with no statistic computed at all |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing is performed at all, so there is no null finding to spin |
 
 **Bottom line.** The paper is best read as a case-report-style proof of concept: three popular chatbots can produce plausible IRB outputs but quietly drop high-stakes details (the quorum rule, the conditional post-trial-access logic). Before any of these tools is used to prescreen real protocols, the field needs a quantitative rubric, blinded inter-rater agreement, larger and more diverse case banks, and tests against current frontier models — none of which this study provides.
 

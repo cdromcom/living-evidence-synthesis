@@ -15,7 +15,7 @@ import {
   getStatisticalPower,
   getPromptEngineering,
   getChanceCorrectedMetrics,
-  getTheorizing,
+  getAblationExperiments,
   getSpinSignal,
   getStatisticalConsistency,
   getRepositoryCheck,
@@ -406,7 +406,7 @@ type RigorCheckKind =
   | "statcheck"
   | "prompt-engineering"
   | "chance-corrected-metrics"
-  | "theorizing";
+  | "ablation-experiments";
 
 // Where each Rigor sub-check's chip should navigate — the Quality Appraisal
 // table row when one exists (`qa-<kind>`, tagged by lib/markdown.ts's
@@ -422,6 +422,10 @@ const RIGOR_CHECK_HREF: Partial<Record<RigorCheckKind, string>> = {
   "prompt-engineering": "#tripod-9a",
   "repository-check": "#tripod-14e",
   "code-check": "#tripod-14f",
+  "confidence-intervals": "#qa-confidence-intervals",
+  "chance-corrected-metrics": "#qa-chance-corrected-metrics",
+  spin: "#qa-spin",
+  "ablation-experiments": "#qa-ablation-experiments",
 };
 
 function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
@@ -543,14 +547,13 @@ function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
           <circle cx="15.5" cy="15.5" r="1.1" fill="currentColor" stroke="none" />
         </svg>
       );
-    case "theorizing":
-      // a thought bubble — the interpretive/theoretical leap made from a result
+    case "ablation-experiments":
+      // a component removed from a row — isolating one part's contribution
       return (
         <svg {...common}>
-          <path d="M6 5.5h12a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-6l-3.5 3v-3H6a3 3 0 0 1-3-3v-4a3 3 0 0 1 3-3Z" />
-          <circle cx="9" cy="10.5" r="0.75" fill="currentColor" stroke="none" />
-          <circle cx="12.5" cy="10.5" r="0.75" fill="currentColor" stroke="none" />
-          <circle cx="16" cy="10.5" r="0.75" fill="currentColor" stroke="none" />
+          <rect x="3" y="9" width="5" height="6" rx="1" />
+          <rect x="16" y="9" width="5" height="6" rx="1" />
+          <path d="M8 12h2.5M15.5 12H13M11 9v6" strokeDasharray="1.5 2" />
         </svg>
       );
   }
@@ -587,15 +590,16 @@ function RigorCheckBadge({
 function StatisticalConsistencyBadge({ status }: { status: StatisticalConsistencyStatus }) {
   const tone: Tone = status === "consistent" ? "green" : status === "issues-found" ? "red" : "gray";
   return (
-    <span
-      title={`Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity).`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase"
+    <a
+      href="#qa-statistic-accuracy"
+      title={`Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity). Click to view the row.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
     >
       <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
         <RigorCheckGlyph kind="statcheck" />
       </span>
       Statistic Accuracy
-    </span>
+    </a>
   );
 }
 
@@ -663,7 +667,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   // same "paper-level, read via signalSource" reasoning as Openness/
   // Integrity/Rigor sub-checks above.
   const spin = getSpinSignal(signalSource);
-  const theorizing = getTheorizing(signalSource);
+  const ablationExperiments = getAblationExperiments(signalSource);
   const statisticalConsistency = getStatisticalConsistency(signalSource);
   const repositoryCheck = getRepositoryCheck(signalSource);
   const codeCheck = getCodeCheck(signalSource);
@@ -684,7 +688,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     Boolean(chanceCorrectedMetrics) ||
     Boolean(statisticalConsistency) ||
     Boolean(spin) ||
-    Boolean(theorizing);
+    Boolean(ablationExperiments);
 
   if (!hasTransparency && !hasOpenness && !repro && !hasRigor && !hasIntegrity) return null;
 
@@ -734,6 +738,9 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     promptEngineering && (
       <RigorCheckBadge key="prompt-engineering" kind="prompt-engineering" risk={promptEngineering} />
     ),
+    ablationExperiments && (
+      <RigorCheckBadge key="ablation-experiments" kind="ablation-experiments" risk={ablationExperiments} />
+    ),
   ].filter(Boolean);
 
   const analysesChips = [
@@ -755,7 +762,6 @@ export default function TopBadges({ node }: { node: GraphNode }) {
 
   const interpretationChips = [
     spin && <RigorCheckBadge key="spin" kind="spin" risk={spin} />,
-    theorizing && <RigorCheckBadge key="theorizing" kind="theorizing" risk={theorizing} />,
   ].filter(Boolean);
 
   const rigorGroups: [string, React.ReactNode[]][] = [

@@ -202,6 +202,10 @@ const APPRAISAL_ROW_SLUGS: Record<string, string> = {
   "human-baseline comparability": "human-baseline",
   "statistical power": "statistical-power",
   "confidence intervals": "confidence-intervals",
+  "chance-corrected metrics": "chance-corrected-metrics",
+  "statistic accuracy": "statistic-accuracy",
+  "non-significant result spin": "spin",
+  "ablation experiment(s)": "ablation-experiments",
 };
 
 /**

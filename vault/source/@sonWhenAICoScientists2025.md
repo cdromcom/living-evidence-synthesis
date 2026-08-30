@@ -184,6 +184,9 @@ flowchart TD
 | **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | Not reported, SPOT is an evaluation-only benchmark with no held-out tuning split described |
 | **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, 13 models × 6 error categories × multiple metrics are compared with no stated correction |
 | **Human-baseline comparability**: is there a human reference point? | 🟡 | *"A domain expert evaluated each paper, either a researcher with relevant publications or a PhD-trained postdoc in the field. Reviewers are provided the LLM-flagged 'errors' from o3 and Gemini 2.5 Pro alongside the official withdrawal notices."* `§4, p.7` |
+| **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — Precision/Recall/pass@K figures carry no interval |
+| **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — evaluation uses only Precision, Recall, and pass@K; no chance-corrected statistic is computed |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing is performed on model-performance comparisons, so there is no null finding to spin |
 
 **Bottom line.** SPOT is a careful benchmark and the head-to-head design is fair, but the conclusion that "no current model is dependable for academic error verification" rests on a sample of 91 errors that lean toward author-acknowledged, locatable, math-heavy mistakes. The single-digit precision and near-zero calibration are striking enough that the directional claim — frontier LLMs are not yet trustworthy auto-reviewers — likely survives any reasonable expansion of the benchmark. Before any deployment, the field needs a larger SPOT-like corpus that includes contested errors, balanced error categories, and an inter-rater statistic between the LLM judge and human experts.
 

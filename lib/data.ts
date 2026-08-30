@@ -354,15 +354,15 @@ export function getSpinSignal(node: Pick<GraphNode, "tags">) {
   return getTaggedCheck(node, "spin", "integrity");
 }
 /**
- * Theorizing — does the paper's discussion/conclusion scope its
- * theoretical or causal claims to what the evidence actually supports, or
- * does it reach beyond the data (unwarranted generalization, causal
- * language from a correlational/small-sample result, broad implications
- * not tested)? Same 4-level scale and hand-classification discipline as
- * Spin, just aimed at interpretive overreach rather than result framing.
+ * Ablation Experiment(s) — does the paper isolate a component's
+ * contribution by removing/varying it and re-measuring (a prompt
+ * component, a pipeline stage, a training-data slice, a model variant),
+ * rather than only reporting end-to-end numbers? A design-time choice, so
+ * lives in Rigor > Design alongside prompt engineering / baseline
+ * adequacy, not Integrity.
  */
-export function getTheorizing(node: Pick<GraphNode, "tags">) {
-  return getTaggedCheck(node, "theorizing", "integrity");
+export function getAblationExperiments(node: Pick<GraphNode, "tags">) {
+  return getTaggedCheck(node, "ablation-experiments", "rigor");
 }
 export function getRepositoryCheck(node: Pick<GraphNode, "tags">) {
   return getTaggedCheck(node, "repository-check", "top");
@@ -397,7 +397,7 @@ export const RIGOR_CHECK_LABELS = {
   statcheck: "Statistical Consistency",
   "prompt-engineering": "Prompt Engineering",
   "chance-corrected-metrics": "Chance-Corrected Metrics",
-  theorizing: "Theorizing",
+  "ablation-experiments": "Ablation Experiment(s)",
 } as const;
 
 /**

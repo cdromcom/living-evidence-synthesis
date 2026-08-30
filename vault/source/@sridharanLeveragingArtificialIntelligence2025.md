@@ -157,6 +157,9 @@ flowchart TD
 | **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | Not reported, no data-split concept applies or is discussed for the fixed seven-case query set |
 | **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, four chatbots × seven cases × two prompting conditions are compared narratively with no stated correction |
 | **Human-baseline comparability**: is there a human reference point? | 🟡 | *"A short description of key responses expected from the LLMs for each case scenario is provided in table 1."* `p.127`, an expert-authored reference standard, though not a live human performing the task alongside the models |
+| **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported — no inter-rater agreement statistic or quantitative metric is computed, so no interval is possible |
+| **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — comparisons are purely qualitative "identified/not identified" judgments (Tables 2-4), with no statistic computed at all |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing is performed at all, so there is no null finding to spin |
 
 **Bottom line.** This is a useful exploratory pilot — it demonstrates that off-the-shelf chatbots can produce structurally complete IRB-style answers and ICD drafts on teaching cases, and that splitting prompts apart helps. It is not evidence that any of these tools are ready to pre-screen real proposals. Before the result is deployment-ready, the authors (or a follow-up) would need to test on a larger, real-proposal sample with blinded expert raters, report inter-rater agreement and per-chatbot quantitative metrics, and pin model versions and inference settings so the comparison can be reproduced.
 
