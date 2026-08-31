@@ -21,8 +21,6 @@ import {
   INTEGRITY_SIGNAL_ORDER,
   INTEGRITY_SIGNAL_LABELS,
   getIntegritySignals,
-  DATA_LEAKAGE_LABELS,
-  REPO_CHECK_LABELS,
   getRepositoryCheck,
   getCodeCheck,
   getBaselineAdequacy,
@@ -36,9 +34,7 @@ import {
   getChanceCorrectedMetrics,
   getSpinSignal,
   getStatisticalPower,
-  STATISTICAL_POWER_LABELS,
   getStatisticalConsistency,
-  STATISTICAL_CONSISTENCY_LABELS,
 } from "@/lib/data";
 import {
   NODE_TYPE_COLOR_VAR,
@@ -143,14 +139,12 @@ type TrustSignalOption = { key: string; label: string; group: string; test: (n: 
 // compliance), and Integrity (disclosures). Extensibility is deliberately
 // left out: those are unscored "not done yet" reminders, not real signals
 // to filter by.
-const RISK_LEVELS = ["low-risk", "some-concerns", "high-risk"] as const;
-
 // The "did the paper address X" family of rigor checks (Step 6/6.b in the
-// extraction Skill) — all read the same 4-level addressed/partial/
-// unresolved/not-addressed tag scale, so a single generator produces three
-// filter checkboxes (skipping "not-addressed": absence isn't a positive
-// signal worth filtering for) per check, grouped the same way the Evidence
-// Quality table groups its columns.
+// extraction Skill) — one checkbox per chip, labeled with exactly the
+// chip's own on-page text (no colon/sublabel: the chip itself never shows
+// its risk level as text either, only as the badge's dot color), testing
+// the same "was this handled well" positive condition the pre-existing
+// Openness/Integrity filters below already use.
 const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: GraphNode) => ReproducibilityRisk | "not-addressed" | null }[] = [
   { id: "data-repo-check", label: "Data Repo Check", group: "Openness", getter: getRepositoryCheck },
   { id: "code-check", label: "Code Check", group: "Openness", getter: getCodeCheck },
@@ -176,32 +170,30 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
         (s) => s.standard === standard && (s.level === "level-1-disclosed" || s.level === "level-2-shared")
       ),
   })),
-  ...RIGOR_CHECK_DEFS.flatMap((def) =>
-    RISK_LEVELS.map((risk) => ({
-      key: `check:${def.id}:${risk}`,
-      label: `${def.label}: ${(def.group === "Openness" ? REPO_CHECK_LABELS : DATA_LEAKAGE_LABELS)[risk]}`,
-      group: def.group,
-      test: (n: GraphNode) => def.getter(n) === risk,
-    }))
-  ),
+  ...RIGOR_CHECK_DEFS.map((def) => ({
+    key: `check:${def.id}`,
+    label: def.label,
+    group: def.group,
+    test: (n: GraphNode) => def.getter(n) === "low-risk",
+  })),
   ...(["low-risk", "some-concerns", "high-risk"] as ReproducibilityRisk[]).map((risk) => ({
     key: `rigor:${risk}`,
     label: REPRODUCIBILITY_RISK_LABELS[risk],
     group: "Rigor — Validity",
     test: (n: GraphNode) => getValiditySignals(n).some((v) => v.risk === risk),
   })),
-  ...(["adequate", "inadequate"] as const).map((status) => ({
-    key: `statistical-power:${status}`,
-    label: STATISTICAL_POWER_LABELS[status],
+  {
+    key: "statistical-power",
+    label: "Statistical Power",
     group: "Rigor — Analyses",
-    test: (n: GraphNode) => getStatisticalPower(n) === status,
-  })),
-  ...(["consistent", "issues-found"] as const).map((status) => ({
-    key: `statistic-accuracy:${status}`,
-    label: `Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}`,
+    test: (n: GraphNode) => getStatisticalPower(n) === "adequate",
+  },
+  {
+    key: "statistic-accuracy",
+    label: "Statistic Accuracy",
     group: "Rigor — Reporting",
-    test: (n: GraphNode) => getStatisticalConsistency(n) === status,
-  })),
+    test: (n: GraphNode) => getStatisticalConsistency(n) === "consistent",
+  },
   ...(["high", "moderate", "low"] as ReportingComplianceLevel[]).map((level) => ({
     key: `reporting:${level}`,
     label: `${REPORTING_COMPLIANCE_LABELS[level]} reporting`,
