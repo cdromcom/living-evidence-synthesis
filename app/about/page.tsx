@@ -118,6 +118,23 @@ export default function AboutPage() {
           reaches here.
         </p>
       </section>
+
+      <p className="mt-10 border-t border-border pt-4 text-xs leading-relaxed text-muted-ink">
+        Extraction &amp; synthesis via Claude Code
+        <br />
+        Method adapted from{" "}
+        <a
+          href="https://github.com/oasisresearchlab/language-and-health-open-synthesis"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors hover:text-ink"
+        >
+          OASIS Research Lab
+        </a>
+        &apos;s discourse-extraction spec
+        <br />
+        Live, sign-in-gated review layer for accuracy checks (Supabase).
+      </p>
     </main>
   );
 }

@@ -50,23 +50,6 @@ export default function Footer() {
             <GithubIcon className="h-3.5 w-3.5" />
             Methodology source
           </a>
-          <p className="mt-2 text-xs leading-relaxed sm:text-right">
-            Extraction &amp; synthesis via Claude Code
-            <br />
-            Method adapted from{" "}
-            <a
-              href="https://github.com/oasisresearchlab/language-and-health-open-synthesis"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-ink"
-            >
-              OASIS Research Lab
-            </a>
-            &apos;s discourse-extraction spec
-          </p>
-          <p className="text-xs">
-            Live, sign-in-gated review layer for accuracy checks (Supabase).
-          </p>
         </div>
       </div>
     </footer>

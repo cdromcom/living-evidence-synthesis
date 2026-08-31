@@ -1,4 +1,4 @@
-import { getNodesByType, getParentSource } from "@/lib/data";
+import { getNodesByType, getParentSource, getEvidencePatternsForEvd } from "@/lib/data";
 import { QUALITY_COLUMNS } from "@/lib/qualityColumns";
 import EvidenceQualityTable, { type QualityRow } from "@/components/EvidenceQualityTable";
 
@@ -13,7 +13,8 @@ export default function EvidenceQualityPage() {
     const values = Object.fromEntries(
       QUALITY_COLUMNS.map((c) => [c.id, c.value(evd, signalSource)])
     );
-    return { evdId: evd.id, evdTitle: evd.title, srcId: src?.id ?? null, values };
+    const eps = getEvidencePatternsForEvd(evd.id).map((ep) => ({ id: ep.id, title: ep.title }));
+    return { evdId: evd.id, evdTitle: evd.title, srcId: src?.id ?? null, eps, values };
   });
 
   return (
@@ -22,8 +23,9 @@ export default function EvidenceQualityPage() {
       <p className="mt-1 max-w-[70ch] text-sm text-muted-ink">
         One row per Evidence node ({evds.length} total). Transparency and the four
         Validity domains are judged per finding; every other column is a signal about
-        the source paper as a whole, inherited from its parent Source. Add or remove
-        columns below, or export the current view. Click any Evidence or Source cell
+        the source paper as a whole, inherited from its parent Source. Sort any column
+        by clicking its header, filter with the search box, add or remove columns, and
+        export the current view. Click any Evidence, Source, or Evidence Pattern cell
         to open its full page.
       </p>
 

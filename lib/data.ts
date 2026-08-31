@@ -652,3 +652,10 @@ export function getParentSource(nodeId: string): GraphNode | null {
   if (!edge) return null;
   return nodeById.get(edge.to) ?? null;
 }
+
+/** Evidence Patterns this EVD instantiates, via its outbound `instantiates` edges. */
+export function getEvidencePatternsForEvd(evdId: string): GraphNode[] {
+  return ALL_EDGES.filter((e) => e.type === "instantiates" && e.from === evdId)
+    .map((e) => nodeById.get(e.to))
+    .filter((n): n is GraphNode => Boolean(n));
+}
