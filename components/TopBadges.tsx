@@ -85,10 +85,10 @@ function ReportingComplianceGlyph() {
   );
 }
 
-function ReportingComplianceBadge({ compliance }: { compliance: ReportingCompliance }) {
+function ReportingComplianceBadge({ compliance, linkBase = "" }: { compliance: ReportingCompliance; linkBase?: string }) {
   return (
     <a
-      href="#tripod-llm-reporting-summary"
+      href={`${linkBase}#tripod-llm-reporting-summary`}
       title={`TRIPOD-LLM reporting-guideline adherence: ${compliance.pct}% of checklist items (Methods 5a-15, Results 16a-18) fully or partially reported: ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()} compliance. Hand-scored against the checklist, our own computed measure. Click to view the table.`}
       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
     >
@@ -275,8 +275,8 @@ const INTEGRITY_HREF: Partial<Record<IntegritySignalKind, string>> = {
   "coi-disclosure": "#tripod-14b",
 };
 
-function IntegrityBadge({ kind, level }: { kind: IntegritySignalKind; level: DisclosureLevel }) {
-  const href = INTEGRITY_HREF[kind];
+function IntegrityBadge({ kind, level, linkBase = "" }: { kind: IntegritySignalKind; level: DisclosureLevel; linkBase?: string }) {
+  const href = INTEGRITY_HREF[kind] && `${linkBase}${INTEGRITY_HREF[kind]}`;
   const Tag = href ? "a" : "span";
   return (
     <Tag
@@ -305,9 +305,9 @@ const TOP_STANDARD_HREF: Partial<Record<TopStandard, string>> = {
   "study-protocol": "#tripod-14c",
 };
 
-function StandardBadge({ standard, level }: { standard: TopStandard; level: TopLevel }) {
+function StandardBadge({ standard, level, linkBase = "" }: { standard: TopStandard; level: TopLevel; linkBase?: string }) {
   const tone = TOP_LEVEL_TONE[level];
-  const href = TOP_STANDARD_HREF[standard];
+  const href = TOP_STANDARD_HREF[standard] && `${linkBase}${TOP_STANDARD_HREF[standard]}`;
   const Tag = href ? "a" : "span";
 
   return (
@@ -373,10 +373,10 @@ function RiskBadge({
   );
 }
 
-function DataLeakageBadge({ risk }: { risk: ReproducibilityRisk | "not-addressed" }) {
+function DataLeakageBadge({ risk, linkBase = "" }: { risk: ReproducibilityRisk | "not-addressed"; linkBase?: string }) {
   return (
     <a
-      href="#qa-data-leakage"
+      href={`${linkBase}#qa-data-leakage`}
       title={`Data leakage: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
     >
@@ -563,13 +563,15 @@ function RigorCheckBadge({
   kind,
   risk,
   levelLabels = DATA_LEAKAGE_LABELS,
+  linkBase = "",
 }: {
   kind: RigorCheckKind;
   risk: ReproducibilityRisk | "not-addressed";
   levelLabels?: Record<ReproducibilityRisk | "not-addressed", string>;
+  linkBase?: string;
 }) {
   const label = RIGOR_CHECK_LABELS[kind];
-  const href = RIGOR_CHECK_HREF[kind];
+  const href = RIGOR_CHECK_HREF[kind] && `${linkBase}${RIGOR_CHECK_HREF[kind]}`;
   const Tag = href ? "a" : "span";
   return (
     <Tag
@@ -587,11 +589,11 @@ function RigorCheckBadge({
   );
 }
 
-function StatisticalConsistencyBadge({ status }: { status: StatisticalConsistencyStatus }) {
+function StatisticalConsistencyBadge({ status, linkBase = "" }: { status: StatisticalConsistencyStatus; linkBase?: string }) {
   const tone: Tone = status === "consistent" ? "green" : status === "issues-found" ? "red" : "gray";
   return (
     <a
-      href="#qa-statistic-accuracy"
+      href={`${linkBase}#qa-statistic-accuracy`}
       title={`Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity). Click to view the row.`}
       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
     >
@@ -616,11 +618,11 @@ function StatisticalPowerGlyph() {
   );
 }
 
-function StatisticalPowerBadge({ status }: { status: StatisticalPowerStatus }) {
+function StatisticalPowerBadge({ status, linkBase = "" }: { status: StatisticalPowerStatus; linkBase?: string }) {
   const tone = TONE_BG[status === "adequate" ? "green" : "red"];
   return (
     <a
-      href="#qa-statistical-power"
+      href={`${linkBase}#qa-statistical-power`}
       title={`Statistical Power: ${STATISTICAL_POWER_LABELS[status]}. Click to view the row.`}
       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
     >
@@ -641,6 +643,14 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   // tags. Transparency and the validity-domain checks stay per-node below.
   const parentSource = node.type === "EVD" ? getParentSource(node.id) : null;
   const signalSource = parentSource ?? node;
+  // EVD pages don't render their own Quality Appraisal/TRIPOD-LLM tables —
+  // only the parent SRC page does — so every chip's anchor link must point
+  // at the SRC page's URL when this is an EVD, regardless of whether the
+  // chip's underlying value came from the EVD's own tags or the parent's
+  // (validity/compliance are read per-node above; openness/integrity/rigor
+  // sub-checks are inherited; either way the *table row* only exists on
+  // the SRC page).
+  const linkBase = parentSource ? `/nodes/${parentSource.id}` : "";
   // Registration/Protocol disclosure level is distinct from whether the
   // claimed data/code repo actually resolves — but the old Data/Code
   // disclosure-level chips duplicated what Data Repo Check/Code Check now
@@ -703,12 +713,26 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     .join(" · ");
 
   const opennessChips = [
-    ...opennessSignals.map((s) => <StandardBadge key={s.standard} standard={s.standard} level={s.level} />),
+    ...opennessSignals.map((s) => (
+      <StandardBadge key={s.standard} standard={s.standard} level={s.level} linkBase={linkBase} />
+    )),
     repositoryCheck && (
-      <RigorCheckBadge key="repository-check" kind="repository-check" risk={repositoryCheck} levelLabels={REPO_CHECK_LABELS} />
+      <RigorCheckBadge
+        key="repository-check"
+        kind="repository-check"
+        risk={repositoryCheck}
+        levelLabels={REPO_CHECK_LABELS}
+        linkBase={linkBase}
+      />
     ),
     codeCheck && (
-      <RigorCheckBadge key="code-check" kind="code-check" risk={codeCheck} levelLabels={REPO_CHECK_LABELS} />
+      <RigorCheckBadge
+        key="code-check"
+        kind="code-check"
+        risk={codeCheck}
+        levelLabels={REPO_CHECK_LABELS}
+        linkBase={linkBase}
+      />
     ),
   ].filter(Boolean);
 
@@ -726,42 +750,72 @@ export default function TopBadges({ node }: { node: GraphNode }) {
       risk={v.risk}
       title={`${VALIDITY_DOMAIN_LABELS[v.domain]}: ${REPRODUCIBILITY_RISK_LABELS[v.risk]}`}
       glyph={<ValidityGlyph domain={v.domain} />}
-      href={`#qa-${v.domain}`}
+      href={`${linkBase}#qa-${v.domain}`}
     />
   ));
 
   const designChips = [
-    baselineAdequacy && <RigorCheckBadge key="baseline-adequacy" kind="baseline-adequacy" risk={baselineAdequacy} />,
-    trainDevTest && <RigorCheckBadge key="train-dev-test" kind="train-dev-test" risk={trainDevTest} />,
-    humanBaseline && <RigorCheckBadge key="human-baseline" kind="human-baseline" risk={humanBaseline} />,
-    dataLeakage && <DataLeakageBadge key="data-leakage" risk={dataLeakage} />,
+    baselineAdequacy && (
+      <RigorCheckBadge key="baseline-adequacy" kind="baseline-adequacy" risk={baselineAdequacy} linkBase={linkBase} />
+    ),
+    trainDevTest && (
+      <RigorCheckBadge key="train-dev-test" kind="train-dev-test" risk={trainDevTest} linkBase={linkBase} />
+    ),
+    humanBaseline && (
+      <RigorCheckBadge key="human-baseline" kind="human-baseline" risk={humanBaseline} linkBase={linkBase} />
+    ),
+    dataLeakage && <DataLeakageBadge key="data-leakage" risk={dataLeakage} linkBase={linkBase} />,
     promptEngineering && (
-      <RigorCheckBadge key="prompt-engineering" kind="prompt-engineering" risk={promptEngineering} />
+      <RigorCheckBadge key="prompt-engineering" kind="prompt-engineering" risk={promptEngineering} linkBase={linkBase} />
     ),
     ablationExperiments && (
-      <RigorCheckBadge key="ablation-experiments" kind="ablation-experiments" risk={ablationExperiments} />
+      <RigorCheckBadge
+        key="ablation-experiments"
+        kind="ablation-experiments"
+        risk={ablationExperiments}
+        linkBase={linkBase}
+      />
     ),
   ].filter(Boolean);
 
   const analysesChips = [
     confidenceIntervals && (
-      <RigorCheckBadge key="confidence-intervals" kind="confidence-intervals" risk={confidenceIntervals} />
+      <RigorCheckBadge
+        key="confidence-intervals"
+        kind="confidence-intervals"
+        risk={confidenceIntervals}
+        linkBase={linkBase}
+      />
     ),
-    statisticalPower && <StatisticalPowerBadge key="statistical-power" status={statisticalPower} />,
+    statisticalPower && (
+      <StatisticalPowerBadge key="statistical-power" status={statisticalPower} linkBase={linkBase} />
+    ),
     multipleComparisons && (
-      <RigorCheckBadge key="multiple-comparisons" kind="multiple-comparisons" risk={multipleComparisons} />
+      <RigorCheckBadge
+        key="multiple-comparisons"
+        kind="multiple-comparisons"
+        risk={multipleComparisons}
+        linkBase={linkBase}
+      />
     ),
     chanceCorrectedMetrics && (
-      <RigorCheckBadge key="chance-corrected-metrics" kind="chance-corrected-metrics" risk={chanceCorrectedMetrics} />
+      <RigorCheckBadge
+        key="chance-corrected-metrics"
+        kind="chance-corrected-metrics"
+        risk={chanceCorrectedMetrics}
+        linkBase={linkBase}
+      />
     ),
   ].filter(Boolean);
 
   const reportingChips = [
-    statisticalConsistency && <StatisticalConsistencyBadge key="statcheck" status={statisticalConsistency} />,
+    statisticalConsistency && (
+      <StatisticalConsistencyBadge key="statcheck" status={statisticalConsistency} linkBase={linkBase} />
+    ),
   ].filter(Boolean);
 
   const interpretationChips = [
-    spin && <RigorCheckBadge key="spin" kind="spin" risk={spin} />,
+    spin && <RigorCheckBadge key="spin" kind="spin" risk={spin} linkBase={linkBase} />,
   ].filter(Boolean);
 
   const rigorGroups: [string, React.ReactNode[]][] = [
@@ -791,7 +845,9 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   ];
 
   const integrityChips = [
-    ...integrity.map((s) => <IntegrityBadge key={s.kind} kind={s.kind} level={s.level} />),
+    ...integrity.map((s) => (
+      <IntegrityBadge key={s.kind} kind={s.kind} level={s.level} linkBase={linkBase} />
+    )),
     <ReminderBadge
       key="plagiarism"
       label="Plagiarism"
@@ -806,7 +862,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
             Transparency
           </p>
-          <ChipRows chips={[compliance && <ReportingComplianceBadge key="tripod-llm" compliance={compliance} />].filter(Boolean)} />
+          <ChipRows chips={[compliance && <ReportingComplianceBadge key="tripod-llm" compliance={compliance} linkBase={linkBase} />].filter(Boolean)} />
         </div>
       )}
 
@@ -832,7 +888,11 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                     <p className="text-[0.625rem] font-medium uppercase tracking-wide text-muted-ink/70">
                       {label}
                     </p>
-                    <div className="mt-1 flex flex-wrap items-center gap-1.5">{chips}</div>
+                    {label === "Design" ? (
+                      <ChipRows chips={chips} />
+                    ) : (
+                      <div className="mt-1 flex flex-wrap items-center gap-1.5">{chips}</div>
+                    )}
                   </div>
                 )
             )}
