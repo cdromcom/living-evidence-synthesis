@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
-import type { GraphNode, GraphEdge, NodeType, FiveC, ReproducibilityRisk, ReportingComplianceLevel } from "@/lib/data";
+import type { GraphNode, GraphEdge, NodeType, FiveC, ReproducibilityRisk } from "@/lib/data";
 import {
   NODE_TYPE_ORDER,
   NODE_TYPE_LABELS,
@@ -13,9 +13,9 @@ import {
   getNodeById,
   TOP_STANDARD_LABELS,
   getTopSignals,
-  REPRODUCIBILITY_RISK_LABELS,
+  VALIDITY_DOMAIN_ORDER,
+  VALIDITY_DOMAIN_LABELS,
   getValiditySignals,
-  REPORTING_COMPLIANCE_LABELS,
   getReportingCompliance,
   INTEGRITY_SIGNAL_ORDER,
   INTEGRITY_SIGNAL_LABELS,
@@ -182,11 +182,15 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
     group: def.group,
     test: (n: GraphNode) => def.getter(n) === "low-risk",
   })),
-  ...(["low-risk", "some-concerns", "high-risk"] as ReproducibilityRisk[]).map((risk) => ({
-    key: `rigor:${risk}`,
-    label: REPRODUCIBILITY_RISK_LABELS[risk],
+  // One checkbox per Validity domain — matches the four separate chips
+  // (Construct validity, Internal validity, External validity, Statistical
+  // rigor) actually shown under Rigor > Validity on SRC pages, rather than
+  // three generic risk-level buckets aggregated across all four.
+  ...VALIDITY_DOMAIN_ORDER.map((domain) => ({
+    key: `validity:${domain}`,
+    label: VALIDITY_DOMAIN_LABELS[domain],
     group: "Rigor — Validity",
-    test: (n: GraphNode) => getValiditySignals(n).some((v) => v.risk === risk),
+    test: (n: GraphNode) => getValiditySignals(n).some((v) => v.domain === domain && v.risk === "low-risk"),
   })),
   {
     key: "statistical-power",
@@ -200,12 +204,27 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
     group: "Rigor — Reporting",
     test: (n: GraphNode) => getStatisticalConsistency(n) === "consistent",
   },
-  ...(["high", "moderate", "low"] as ReportingComplianceLevel[]).map((level) => ({
-    key: `reporting:${level}`,
-    label: `${REPORTING_COMPLIANCE_LABELS[level]} reporting`,
+  // Ranges match the actual tripod-llm/compliance/* classification rule
+  // used to hand-score every source (Skill-references.md): high >=80%,
+  // moderate 60-79%, low <60%.
+  {
+    key: "reporting:low",
+    label: "low reporting — <60%",
     group: "Transparency",
-    test: (n: GraphNode) => getReportingCompliance(n.id)?.level === level,
-  })),
+    test: (n: GraphNode) => getReportingCompliance(n.id)?.level === "low",
+  },
+  {
+    key: "reporting:moderate",
+    label: "moderate reporting — 60–79%",
+    group: "Transparency",
+    test: (n: GraphNode) => getReportingCompliance(n.id)?.level === "moderate",
+  },
+  {
+    key: "reporting:high",
+    label: "high reporting — ≥80%",
+    group: "Transparency",
+    test: (n: GraphNode) => getReportingCompliance(n.id)?.level === "high",
+  },
   ...INTEGRITY_SIGNAL_ORDER.map((kind) => ({
     key: `integrity:${kind}`,
     label: INTEGRITY_SIGNAL_LABELS[kind],
@@ -288,7 +307,11 @@ function CheckboxDropdown({
               <ul className="space-y-0.5">
                 {opts.map((o) => (
                   <li key={o.key}>
-                    <label className="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-xs text-ink/80 hover:bg-muted-surface">
+                    <label
+                      className={`flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-xs text-ink/80 hover:bg-muted-surface${
+                        group ? " lowercase" : ""
+                      }`}
+                    >
                       <input
                         type="checkbox"
                         checked={selected.has(o.key)}
