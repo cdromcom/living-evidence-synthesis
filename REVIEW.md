@@ -87,7 +87,7 @@ feeds it.
 - **Quality Appraisal table expanded from 5 to 10-11 rows, and gained a
   Quote column.** Renamed from "Critical Appraisal." The 5 original
   methodological-quality domains (Construct/Internal/External validity,
-  Statistical rigor, Reproducibility) are joined by one row per
+  Statistical conclusion validity, Reproducibility) are joined by one row per
   benchmarking-specific Rigor check: **Data Leakage**, **Baseline
   Adequacy**, **Train/Dev/Test Hygiene**, **Multiple-Comparisons
   Correction**, **Human-Baseline Comparability**, and (only when a paper
@@ -151,7 +151,7 @@ feeds it.
 
 ### Rigor (`components/TopBadges.tsx`)
 - **Construct validity, internal validity, external validity, and
-  statistical rigor** — four of the five original methodological-quality
+  statistical conclusion validity** — four of the five original methodological-quality
   domains of each source's own Quality Appraisal table (🟢/🟡/🔴).
   **Reproducibility is the fifth domain and is still computed**
   (`getReproducibilityRisk`, from the same table's

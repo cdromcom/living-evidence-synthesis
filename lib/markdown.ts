@@ -193,7 +193,7 @@ const APPRAISAL_ROW_SLUGS: Record<string, string> = {
   "construct validity": "construct-validity",
   "internal validity": "internal-validity",
   "external validity": "external-validity",
-  "statistical rigor": "statistical-rigor",
+  "statistical conclusion validity": "statistical-rigor",
   reproducibility: "reproducibility",
   "data leakage": "data-leakage",
   "baseline adequacy": "baseline-adequacy",

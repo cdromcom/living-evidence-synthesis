@@ -208,7 +208,7 @@ export const VALIDITY_DOMAIN_LABELS: Record<ValidityDomain, string> = {
   "construct-validity": "Construct validity",
   "internal-validity": "Internal validity",
   "external-validity": "External validity",
-  "statistical-rigor": "Statistical rigor",
+  "statistical-rigor": "Statistical conclusion validity",
 };
 
 export type ValiditySignal = { domain: ValidityDomain; risk: ReproducibilityRisk };
