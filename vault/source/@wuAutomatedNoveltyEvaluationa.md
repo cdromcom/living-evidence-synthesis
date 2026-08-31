@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - top/code-quality-fair/1
   - dg/source
   - trust/reproducibility/low-risk
   - top/study-protocol/not-disclosed
@@ -165,6 +166,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — only F1 and accuracy are reported (Tables 2-4); no chance-corrected statistic appears anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing is performed on the paper's own results, so there is no null finding to spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"To better understand the effectiveness of each component of our method, we have done an ablation study as shown in Table 4... We systematically removed three components, namely, Self-Attention Reduction, Knowledge Guided, and Self Attention, to examine their individual impacts on the model."* `p.1463, §5.4` |
+| **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/njust-winchy/method_novelty_predict: **1/5** — open repository only — no license, package-registry listing, citation metadata, or quality-checklist badge. |
 
 **Bottom line.** The 10-point F1 gain from fusing human and LLM knowledge is real and the ablation cleanly localizes it to the knowledge-guided module — that part is well demonstrated. But the comparison to LLM baselines is not fair (zero-shot, no tuning), the evaluation lives entirely inside one ML conference, and the headline metric averages over an imbalanced binary collapse of a noisy subjective label. Before this is deployment-ready as a triage tool, it would need at least: a tuned-LLM baseline, evaluation on a non-ICLR venue, and per-class metrics on High-Novelty papers.
 

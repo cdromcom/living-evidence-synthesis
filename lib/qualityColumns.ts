@@ -18,6 +18,7 @@ import {
   getSpinSignal,
   getIntegritySignals,
   getAiWritingCheck,
+  getCodeQualityFair,
   VALIDITY_DOMAIN_ORDER,
   VALIDITY_DOMAIN_LABELS,
   REPRODUCIBILITY_RISK_LABELS,
@@ -269,6 +270,18 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
     group: "Integrity",
     defaultVisible: false,
     value: (_evd, src) => riskCell(getAiWritingCheck(src), AI_WRITING_CHECK_LABELS),
+  },
+  {
+    id: "code-quality-fair",
+    label: "Code Quality",
+    group: "Openness",
+    defaultVisible: false,
+    value: (_evd, src) => {
+      const score = getCodeQualityFair(src);
+      if (score === null) return null;
+      const tone: Tone = score >= 4 ? "green" : score >= 2 ? "gold" : "red";
+      return { text: `${score}/5`, tone };
+    },
   },
 ];
 

@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - top/code-quality-fair/2
   - dg/source
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
@@ -201,6 +202,7 @@ flowchart TD
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no formal significance-testing framework is used on the main LLM-vs-human comparisons, so there is no statistically null/non-significant finding to spin; the paper's own limitations are stated plainly in the Discussion `p.7` |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | *"The near-floor shuffled overlap (0.43% pairwise / 1.13% global on Nature; 3.91% pairwise on ICLR) rejects the 'GPT-4 produces generic boilerplate' null at P < 0.0001 in both datasets."* — the reported overlap statistics decrease monotonically as expected under the shuffle-control design, with no internal inconsistency `Fig. 2a` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"we performed a shuffling experiment aimed at verifying the specificity and relevance of LLM generated feedback... the pairwise overlap decreased from 30.85% to 0.43% after shuffling."* `p.4` — isolates whether feedback is paper-specific by deliberately breaking that association and re-measuring overlap |
+| **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/Weixin-Liang/LLM-scientific-feedback: **2/5** — open repository + license — no package-registry listing, citation metadata, or quality-checklist badge. |
 
 **Bottom line.** This is the single most-cited piece of evidence that general-purpose LLM peer review is in the same ballpark as human peer review at scale, and the methodological backbone — controlled human baselines, a shuffling null, a multi-stage validated pipeline, and a real user study — is solid. But the headline "comparable overlap" hides a substantive aspect skew (GPT-4 misses novelty almost entirely) and the test bed excludes the rejected and weak papers where pre-submission feedback would matter most. Read this paper as evidence that GPT-4 is a credible *complement* to human review, not as evidence that it could replace one.
 

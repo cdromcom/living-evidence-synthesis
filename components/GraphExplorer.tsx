@@ -37,6 +37,7 @@ import {
   getChanceCorrectedMetrics,
   getSpinSignal,
   getAiWritingCheck,
+  getCodeQualityFair,
   getStatisticalPower,
   getStatisticalConsistency,
 } from "@/lib/data";
@@ -187,6 +188,12 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
     group: def.group,
     test: (n: GraphNode) => def.getter(n) === "low-risk",
   })),
+  {
+    key: "code-quality-fair",
+    label: "Code Quality",
+    group: "Openness",
+    test: (n: GraphNode) => (getCodeQualityFair(n) ?? 0) >= 3,
+  },
   // One checkbox per Validity domain — matches the four separate chips
   // (Construct validity, Internal validity, External validity, Statistical
   // rigor) actually shown under Rigor > Validity on SRC pages, rather than

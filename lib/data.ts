@@ -469,6 +469,28 @@ export function getCodeCheck(node: Pick<GraphNode, "tags">) {
   return getTaggedCheck(node, "code-check", "top");
 }
 
+/**
+ * Code Quality — FAIR-software compliance of a source's released code
+ * repository, per the fair-software.eu 5-criteria checklist (open
+ * repository, license, package-registry listing, citation metadata,
+ * quality-checklist badge), computed via the `howfairis` tool (2026-08).
+ * Distinct from Data/Code Check above (which only ask "does the link
+ * work"): this asks "does the repo follow baseline open-source-software
+ * hygiene." Only supports GitHub/GitLab repos (howfairis's own
+ * limitation) — silent (no tag) for sources with no code, or code hosted
+ * elsewhere (HuggingFace, OSF), same "not yet checked" convention as
+ * Statistical Power.
+ */
+export type CodeQualityScore = 0 | 1 | 2 | 3 | 4 | 5;
+const CODE_QUALITY_TAG_PREFIX = "top/code-quality-fair/";
+
+export function getCodeQualityFair(node: Pick<GraphNode, "tags">): CodeQualityScore | null {
+  const tag = node.tags.find((t) => t.startsWith(CODE_QUALITY_TAG_PREFIX));
+  if (!tag) return null;
+  const n = Number(tag.slice(CODE_QUALITY_TAG_PREFIX.length));
+  return Number.isInteger(n) && n >= 0 && n <= 5 ? (n as CodeQualityScore) : null;
+}
+
 // Repository/Code Check reuse the same addressed/partial/unresolved/
 // not-addressed tag vocabulary as the other checks above, but read oddly
 // with the generic "Addressed"/"Unresolved" wording for a link-liveness

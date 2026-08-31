@@ -237,3 +237,23 @@ other trust signal, and cited with the paper's own Pangram dashboard link
 rather than a quote from the paper (see `getAiWritingCheck` in
 `lib/data.ts`). Pangram's AI-*image* detector is a research preview with
 no documented stable API and is not used here.
+
+### Code Quality (howfairis)
+
+Since 2026-08, every source whose data-availability statement links to a
+GitHub or GitLab repository gets that repo checked against the
+[fair-software.eu](https://fair-software.eu) 5-criteria checklist — open
+repository, license, package-registry listing (PyPI/npm/Conda/etc.),
+citation metadata (CITATION.cff/Zenodo), and a quality-checklist badge —
+via [`howfairis`](https://github.com/fair-software/howfairis), a local
+CLI tool requiring no API key. This is a different question from the
+existing Data Repo Check/Code Check chips (which only ask "does the
+link still resolve"): Code Quality asks whether the repo follows
+baseline open-source-software hygiene once you're there. As of 2026-08,
+13 of 27 sources have a GitHub/GitLab repo to check (the rest host code
+on HuggingFace/OSF, which howfairis doesn't support, or release no code
+at all) — every one of the 13 scored 1/5 or 2/5, with none reaching a
+package-registry listing, citation file, or quality badge. Tagged
+`top/code-quality-fair/{0-5}` on the source (see `getCodeQualityFair` in
+`lib/data.ts`), surfaced as a "Code Quality N/5" chip/row/column
+alongside every other trust signal.

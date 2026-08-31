@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - top/code-quality-fair/2
   - dg/source
   - trust/reproducibility/low-risk
   - top/study-protocol/not-disclosed
@@ -176,6 +177,7 @@ flowchart TD
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance tests are run on the model comparisons; McNemar's test is applied appropriately where used, with no apparent reframing |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | The paper's Cohen's kappa values (0.18–0.31 across annotation phases) fall within the valid 0–1 range, and the reported table totals are internally consistent with the stated per-label counts `Table 1, p.5` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | Table 4 systematically varies the evidence-retrieval input (title+abstract, top-5/10/20 sentences, +annotated evidence, oracle) and reports the resulting F1 for each variant, isolating the retrieval component's contribution `p.6` |
+| **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/ScienceNLP-Lab/Citation-Integrity: **2/5** — open repository + license — no package-registry listing, citation metadata, or quality-checklist badge. |
 
 **Bottom line.** The supervised pipeline (MultiVerS top-20, F1 = 0.43 on NOT_ACCURATE) is currently the strongest option for citation-integrity screening, but neither it nor GPT-4 reaches a precision/recall profile that would survive deployment in a real journal-screening workflow. The most actionable improvement is better evidence-sentence retrieval: the oracle gap of 0.43 → 0.57 on the NOT_ACCURATE class shows where future work should focus.
 

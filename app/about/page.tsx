@@ -147,6 +147,18 @@ export default function AboutPage() {
         (model v3.3.2), run against specific sources&apos; full PDF text —
         see each flagged source&apos;s Quality Appraisal table for the
         per-source result and dashboard link.
+        <br />
+        Code Quality signal (since 2026-08) via{" "}
+        <a
+          href="https://github.com/fair-software/howfairis"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors hover:text-ink"
+        >
+          howfairis
+        </a>{" "}
+        (fair-software.eu criteria), run against each source&apos;s released
+        GitHub/GitLab code repository, where one exists.
       </p>
     </main>
   );

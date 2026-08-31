@@ -449,6 +449,30 @@ time (training a small model) to attempt responsibly; the full audit,
 including which repos were checked and why each one was or wasn't
 usable, is saved in the vault's `misc/` for whoever picks this up next.
 
+## A FAIRness check for code, not just data
+
+After exploring whether F-UJI (the FAIR-*data* assessment tool) could
+score the datasets behind this corpus's sources — blocked by needing
+either a self-hosted instance or a working browser session, neither
+available at the time — found a much more practical analog for the
+*code* side specifically: `howfairis`, a small local tool implementing
+the "FAIR for Research Software" checklist (open repository, license,
+package-registry listing, citation metadata, quality-checklist badge).
+No API keys, no Docker, just a pip install, and it ran cleanly against
+every GitHub-hosted repo in the corpus.
+
+Ran it across all 13 sources whose code lives on GitHub (the rest host
+on HuggingFace, OSF, or don't release code at all — outside what this
+particular tool can check). The result was strikingly uniform: every
+single one scored either 1/5 (just "the repo exists and is public") or
+2/5 (that, plus a license file) — not one had a package-registry
+listing, a citation file, or a quality badge. Added as a new "Code
+Quality" chip (green/gold/red by score, distinct from the existing Data
+Repo Check/Code Check chips, which only ask "does the link still
+work" — this asks whether the repo follows baseline open-source
+hygiene), with the same chip/Quality-table-column/graph-filter
+treatment every other signal on this site gets.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

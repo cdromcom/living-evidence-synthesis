@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - top/code-quality-fair/2
   - dg/source
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
@@ -168,6 +169,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — evaluation uses recall, precision, and Jaccard overlap on generated comments, not a chance-corrected agreement statistic |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"The good-comment gap over SARG-B was significant per-comment (Barnard's exact test, p=0.02) but not significant per-user (paired t-test, p=0.12)."* `§7, p.14` — the non-significant per-user result is reported alongside the significant one, not hidden |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"MARG-S ablations: Among the sub-reviewers of MARG-S, the impact-focused model tends to produce the best results."* `p.6`, with Table 2 reporting "no refinement," "experiments-only," "clarity-only," and "impact-only" variants against the full MARG-S system |
+| **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/allenai/marg-reviewer: **2/5** — open repository + license — no package-registry listing, citation metadata, or quality-checklist badge. |
 
 **Bottom line.** MARG-S delivers a real, user-validated improvement on a hard task — multi-agent collaboration roughly doubles the rate of useful comments compared to a one-shot GPT-4 prompt, and the specificity gain is large and statistically robust. But the evidence base is narrow: 9 same-organization NLP researchers rating their own papers with one deprecated model snapshot, evaluated against an admitted lower-bound proxy. Before treating MARG-style multi-agent review as a settled win, future work needs broader user pools, head-to-head testing against newer models, evaluation on papers outside ML, and a deployment-aware cost-quality study given the 167x token overhead vs. LiZCa.
 

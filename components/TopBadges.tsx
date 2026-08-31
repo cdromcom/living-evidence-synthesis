@@ -20,6 +20,7 @@ import {
   getStatisticalConsistency,
   getRepositoryCheck,
   getCodeCheck,
+  getCodeQualityFair,
   getAiWritingCheck,
   getParentSource,
   TOP_STANDARD_LABELS,
@@ -45,6 +46,7 @@ import {
   type ReportingCompliance,
   type StatisticalPowerStatus,
   type StatisticalConsistencyStatus,
+  type CodeQualityScore,
 } from "@/lib/data";
 
 // One color vocabulary for every chip on this page, so a color always means
@@ -648,6 +650,35 @@ function StatisticalPowerBadge({ status, linkBase = "" }: { status: StatisticalP
   );
 }
 
+// Code Quality glyph — a small braces/brackets mark, distinct from the
+// repository-liveness glyphs since this measures the repo's own hygiene
+// (license, citation metadata, registry listing) rather than whether the
+// link resolves.
+function CodeQualityGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M8 4L3 12l5 8" />
+      <path d="M16 4l5 8-5 8" />
+    </svg>
+  );
+}
+
+function CodeQualityBadge({ score, linkBase = "" }: { score: CodeQualityScore; linkBase?: string }) {
+  const tone: Tone = score >= 4 ? "green" : score >= 2 ? "gold" : "red";
+  return (
+    <a
+      href={`${linkBase}#qa-code-quality-fair`}
+      title={`Code Quality: ${score}/5 (fair-software.eu criteria via howfairis). Click to view the row.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+    >
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
+        <CodeQualityGlyph />
+      </span>
+      Code Quality {score}/5
+    </a>
+  );
+}
+
 /** Transparency, Openness, Rigor, Extensibility, and integrity badges for a node. */
 export default function TopBadges({ node }: { node: GraphNode }) {
   // Openness, Integrity, and the newer Rigor sub-checks (data leakage,
@@ -695,10 +726,12 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const statisticalConsistency = getStatisticalConsistency(signalSource);
   const repositoryCheck = getRepositoryCheck(signalSource);
   const codeCheck = getCodeCheck(signalSource);
+  const codeQualityFair = getCodeQualityFair(signalSource);
   const aiWritingCheck = getAiWritingCheck(signalSource);
 
   const hasTransparency = Boolean(compliance);
-  const hasOpenness = opennessSignals.length > 0 || Boolean(repositoryCheck) || Boolean(codeCheck);
+  const hasOpenness =
+    opennessSignals.length > 0 || Boolean(repositoryCheck) || Boolean(codeCheck) || codeQualityFair !== null;
   const hasIntegrity = integrity.length > 0 || Boolean(aiWritingCheck);
   const hasRigor =
     validity.length > 0 ||
@@ -748,6 +781,9 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         levelLabels={REPO_CHECK_LABELS}
         linkBase={linkBase}
       />
+    ),
+    codeQualityFair !== null && (
+      <CodeQualityBadge key="code-quality-fair" score={codeQualityFair} linkBase={linkBase} />
     ),
   ].filter(Boolean);
 

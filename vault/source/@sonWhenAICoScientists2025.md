@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - top/code-quality-fair/1
   - integrity/ai-writing-check/addressed
   - dg/source
   - trust/reproducibility/some-concerns
@@ -191,6 +192,7 @@ flowchart TD
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing is performed on model-performance comparisons, so there is no null finding to spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Table 3: Multi-modality ablation for 13 models... The right panel shows performance on the text-only subset of SPOT... removing all instances from the figure-duplication and any data-inconsistency category."* `p.7` — a named ablation removing visual/figure inputs and re-measuring recall/pass@4 |
 | **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Data Repo Check returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is primarily human-written, with a small amount of AI content detected"* (2.9% AI-generated, 1.4% AI-assisted). [Dashboard](https://www.pangram.com/history/41ee0a70-99f1-48dc-a022-c5801b235f74) |
+| **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/guijinSON/SPOT: **1/5** — open repository only — no license, package-registry listing, citation metadata, or quality-checklist badge. |
 
 **Bottom line.** SPOT is a careful benchmark and the head-to-head design is fair, but the conclusion that "no current model is dependable for academic error verification" rests on a sample of 91 errors that lean toward author-acknowledged, locatable, math-heavy mistakes. The single-digit precision and near-zero calibration are striking enough that the directional claim — frontier LLMs are not yet trustworthy auto-reviewers — likely survives any reasonable expansion of the benchmark. Before any deployment, the field needs a larger SPOT-like corpus that includes contested errors, balanced error categories, and an inter-rater statistic between the LLM judge and human experts.
 

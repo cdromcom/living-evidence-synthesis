@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - top/code-quality-fair/2
   - dg/source
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
@@ -171,6 +172,7 @@ flowchart TD
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"though the very small effect sizes indicate limited practical significance"* `p.9`, and *"the proportion of variance explained was modest"* `p.14` — the paper explicitly guards against overselling its own statistically-significant trend results |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | *"The mean compliance rate increased from 27.3% (95% CI: 27.0-27.6%)..."* (Srinivasan et al., 2025, p. 6) — each reported interval is correctly ordered and consistent with its point estimate across all four periods in Table 2 |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported — Table 1 compares three end-to-end GPT variants and Table 2 stratifies by confidence level, but neither removes/varies a single pipeline component to isolate its contribution — model-comparison and post-hoc filtering, not ablation |
+| **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/ScienceNLP-Lab/RCT-Transparency: **2/5** — open repository + license — no package-registry listing, citation metadata, or quality-checklist badge. |
 
 **Bottom line.** GPT-4o-mini's CONSORT-TM performance (F1 = 0.85, precision = 0.96, climbing to F1 = 0.95 on High-confidence predictions) is genuinely impressive and credibly state-of-the-art for zero-shot CONSORT scoring — that result is the paper's strongest contribution and is robust enough to inform a "warn the author at submission" tool. The epidemiological story (six-decade trend, disciplinary spread, critical-item gaps) is more fragile: it rests on a presence-not-accuracy metric applied to an open-access subset, so the absolute compliance numbers should be read as lower bounds with substantial measurement noise rather than precise prevalence estimates. Before deployment as a reject-decision aid, the tool would need a stricter metric that distinguishes mentioned from adequately described, plus a calibration study on closed-access journals.
 
