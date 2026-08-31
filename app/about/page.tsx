@@ -134,6 +134,19 @@ export default function AboutPage() {
         &apos;s discourse-extraction spec
         <br />
         Live, sign-in-gated review layer for accuracy checks (Supabase).
+        <br />
+        AI Writing Check signal (since 2026-08) via{" "}
+        <a
+          href="https://www.pangram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors hover:text-ink"
+        >
+          Pangram
+        </a>{" "}
+        (model v3.3.2), run against specific sources&apos; full PDF text —
+        see each flagged source&apos;s Quality Appraisal table for the
+        per-source result and dashboard link.
       </p>
     </main>
   );

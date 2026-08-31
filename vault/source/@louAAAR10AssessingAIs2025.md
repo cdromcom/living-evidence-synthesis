@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - integrity/ai-writing-check/addressed
   - dg/source
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
@@ -212,6 +213,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — all metrics are F1/precision/recall/S-Match/ROUGE/ITF-IDF; no kappa or MCC is reported anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no formal significance tests are run; the informal "not significant" performance-gap claim ("the best LLM on this task only obtains 47.98%") is stated plainly, not spun `p.7` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"D.4 Multi-Modal Input Ablation. We post the multi-modal ablation study of ExpDesign and Weakness in Table 14 and Table 15."* `p.18` — figure/table inputs are removed and the effect measured; Table 4 and Table 12 test additional prompting/input-processing variants |
+| **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Code Check returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/51d58239-8e43-43c4-9d61-00ad4267bf95) |
 
 **Bottom line.** AAAR-1.0 is a useful, deliberately hard benchmark that puts a clear ceiling on what current LLMs can do as automatic AI-paper reviewers; the headline numbers (47.98% F1 on equation correctness, 5.95 ITF-IDF on weaknesses versus 7.69 for humans, 21.99% F1 on flagging deficient review segments) all say the same thing: not deployment-ready. The two biggest threats to the conclusions are external validity (a single subfield, text-only inputs) and the unresolved data-leakage question; until both are addressed with held-out post-cutoff evaluations and figure-aware tasks, the absolute numbers should be read as upper bounds rather than honest estimates of LLM ability.
 

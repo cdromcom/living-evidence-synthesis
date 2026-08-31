@@ -341,6 +341,28 @@ lives in Supabase, separate from this repo, the schema file now also
 carries the exact migration SQL needed to widen the database's
 verdict check constraint on any already-provisioned instance.
 
+## Widening the AI Writing Check to a second trigger
+
+The AI Writing Check signal (a Pangram AI-text-detection recheck of a
+paper's own prose) had only ever run on the two papers whose own
+reported statistics didn't add up. Added a second, independent trigger:
+any source whose Data Repo Check and/or Code Check came back "No
+repository claimed" — if a paper's data/code transparency can't be
+verified at all, checking whether its writing itself looks AI-generated
+is a reasonable extra scrutiny pass. Fourteen more sources qualified.
+Rather than repeat the earlier one-request-per-paper approach, this
+batch switched to Pangram's actual bulk upload endpoint — one HTTP
+request carrying all fourteen PDFs instead of fourteen separate ones —
+and the checking script now skips (and doesn't re-bill) any paper that
+already has a result on file, so re-running it later only processes
+genuinely new papers. Two of the fourteen came back flagged (roughly
+13% and 14% AI-generated text respectively, per Pangram's own "primarily
+human-written, with some AI-generated and AI-assisted content" verdict);
+the other twelve came back clean. The site's About page footer and the
+repo README now both disclose the Pangram model version and the date
+this signal went into use, alongside the existing Claude Code/Supabase
+provenance notes.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

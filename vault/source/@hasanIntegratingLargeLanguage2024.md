@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - integrity/ai-writing-check/addressed
   - dg/source
   - trust/reproducibility/high-risk
   - top/study-protocol/not-disclosed
@@ -186,6 +187,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟢 | *"Kappa coefficient was low across all domains."* `Results, p.2` — weighted Cohen's kappa (accounting for chance and partial credit) is reported alongside raw percent agreement and Kendall's tau, at 0.13 overall |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟡 | The Discussion frames the overall result as "fair" agreement based on Kendall's τ=0.35, but the paper's own weighted Cohen's kappa for the same comparison is only 0.13 — "slight" by the authors' own stated scale — and the more favorable of the two metrics is the one that reaches the headline framing `Results, p.2; Discussion, p.4` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported — the case study runs GPT-4 once against Cochrane human judgements; no pipeline component (prompting method, data-entry method) is deliberately varied and re-measured within the study |
+| **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Data Repo Check and Code Check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/304a37af-644b-40db-b922-69463a883810) |
 
 **Bottom line.** GPT-4 reaches a fair but uneven level of agreement with Cochrane reviewers on ROBINS-I — strong enough to consider as an extra independent reviewer in a human-in-the-loop workflow, nowhere near strong enough to replace one. The biggest threats to the result are not the headline numbers themselves but the unprespecified prompt pipeline, the missing GPT-4 snapshot and inference settings, and the absence of a held-out evaluation set; before this approach could be deployed, those would all need to be fixed and the experiment rerun against a frozen, named GPT-4 version with confidence intervals on every reported statistic.
 

@@ -220,3 +220,20 @@ the LLM model/version/date used to curate that page's trust signals
 This treatment has been piloted on one source
 (`@louAAAR10AssessingAIs2025.md`, SRC-011) and not yet rolled out to the
 other source files.
+
+### AI Writing Check (Pangram)
+
+Since 2026-08, sources meeting either of two triggers — a "Statistic
+Accuracy: Issues found" verdict, or a Data Repo Check / Code Check of "No
+repository claimed" — also get an independent AI-generated-text recheck of
+their own full PDF prose via [Pangram](https://www.pangram.com) (model
+v3.3.2, bulk file-upload endpoint), run from `misc/scripts/pangram_check.py`
+in the vault repo. This is not a full-corpus sweep and is unrelated to the
+TOP "AI disclosure" transparency signal (whether authors *say* they used
+AI) — it's a forensic check of whether the prose itself reads as
+AI-generated. Results are tagged `integrity/ai-writing-check/*` on the
+source, surfaced as an "AI Writing Check" chip/row/column alongside every
+other trust signal, and cited with the paper's own Pangram dashboard link
+rather than a quote from the paper (see `getAiWritingCheck` in
+`lib/data.ts`). Pangram's AI-*image* detector is a research preview with
+no documented stable API and is not used here.

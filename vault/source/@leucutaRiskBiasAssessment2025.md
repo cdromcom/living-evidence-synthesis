@@ -4,6 +4,7 @@ status: seed
 keywords: ""
 rating: 3
 tags:
+  - integrity/ai-writing-check/addressed
   - dg/source
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
@@ -172,6 +173,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — per-domain accuracy is reported as raw counts/percentages `Table 2-3, p.9`, not a chance-corrected statistic |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"a 73% mean accuracy with systematic blind spots on study-design judgment is not safe to run unsupervised... not yet a substitute for expert clinical and methodological judgment."* `Discussion, p.?` — the limitation is stated as a direct conclusion, not softened |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported — four LLMs are compared against human QUADAS-2 assessments and against each other; no component of any single model's own pipeline is varied and re-measured |
+| **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Data Repo Check and Code Check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/f2ce3917-e5ba-4e1b-a56f-52ea094bc91d) |
 
 **Bottom line.** This is a careful, transparent snapshot of how four free chatbots perform at one slice of risk-of-bias appraisal, and the qualitative error analysis is the paper's most durable contribution — it names specific reasoning failures (consecutive sampling under case-control, exclusion-stage confusion) that any future LLM-for-systematic-review tool will need to fix. The headline 72.95% accuracy should not be taken as a benchmark for LLM capability, because the small sample, single prompt, and free-tier model versions all push the estimate toward a lower bound. Before a result like this is deployment-ready, a real evaluation would need many more articles, multiple prompts per model, frozen API model snapshots, confidence intervals, and a domain-level risk-of-bias verdict scored against an inter-rater statistic — not just a percent-correct table.
 
