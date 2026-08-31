@@ -200,6 +200,55 @@ fabrications, only a handful of PDF-text-extraction quirks (a footnote
 number landing in the middle of a word, that kind of thing) that were
 manually confirmed harmless.
 
+## Trimming the chip clutter and standardizing how findings get titled
+
+The row of small colored badges ("chips") at the top of every source and
+evidence page had grown large enough to feel like a wall of noise rather
+than a quick-scan summary. Two small, deliberately low-risk fixes: the
+toggle that expands the full chip block used to spell out every category
+it contained ("Show Quality Signals: Transparency · Openness · Rigor ·
+Extensibility · Integrity"); that list was dropped from the visible label
+(kept only for screen readers) and replaced with a plain "Show/Hide
+Quality Signals" plus a small arrow icon that flips direction when
+expanded. Separately, the Rigor section's "Design" row of chips was
+reorganized into five clearly labeled sub-groups (Validity, Design,
+Analyses, Reporting, Interpretation) instead of one long unlabeled run,
+and the "Prompt Engineering" chip was pinned to always start a second row
+within Design rather than landing wherever it happened to fit depending
+on screen width.
+
+A separate, unrelated task: looking across every research-question title
+an AI first drafted versus the version a human curator actually kept
+across all 27 papers revealed a consistent set of edits the curator kept
+making by hand — preferred terms ("research reports" over vaguer
+phrasing, "LLMs" as the standard short form), a consistent way of framing
+a question in terms of *degree* rather than yes/no, and a recurring table
+shape for questions about a capability with several dimensions. Those
+patterns were written back into the extraction instructions so future
+AI-drafted titles start closer to what the curator would keep, instead of
+the curator re-deriving the same edits paper after paper.
+
+## A single page to audit quality signals across every finding at once
+
+Every quality signal (Transparency, the four Validity domains, and every
+Rigor/Openness/Integrity chip) previously only existed scattered across
+104 separate node pages — there was no way to see, say, "which findings
+are missing a stated baseline" without opening pages one at a time. A new
+Evidence Quality page gives one table with a row per Evidence node (77
+total) and a column per signal, piloted first on a handful of rows before
+scaling to the full set. Any of the roughly two dozen possible signal
+columns can be added or removed, any column can be sorted, a text filter
+narrows by evidence/source/pattern, and the whole view exports to
+Markdown, CSV, or Excel. A later pass added a leftmost column for
+cross-paper Evidence Patterns (so sorting clusters findings that feed the
+same pattern together), made the Source column optional and hidden by
+default, dropped all color-coding from the cell text in favor of plain
+type, and combined what had been three separate export buttons into one
+dropdown. The site-wide footer's build-provenance note (who curated it,
+what method it follows, how the review layer works) moved to the bottom
+of the About page, leaving the footer itself just a set of navigation
+links.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.
