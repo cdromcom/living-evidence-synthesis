@@ -773,7 +773,11 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         linkBase={linkBase}
       />
     ),
-    codeCheck && (
+    // Code Quality (howfairis) implies the code repo was successfully
+    // reached and analyzed, which already subsumes "is the link live" —
+    // showing both chips would be redundant, so Code Check only renders
+    // when there's no Code Quality score to fall back on.
+    codeCheck && codeQualityFair === null && (
       <RigorCheckBadge
         key="code-check"
         kind="code-check"

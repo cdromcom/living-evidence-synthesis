@@ -504,6 +504,17 @@ want a license declared in a specific machine-readable property, not
 just visible to a human reader, so this reads as a tooling quirk worth
 a caveat rather than a real finding that none of these have a license.
 
+## Dropping a redundant chip
+
+Once a source has a Code Quality score, its Code Check chip (which only
+ever asked "does the code link still resolve") is redundant — reaching
+a repo well enough to score its FAIR-software compliance already
+implies the link is live. Code Check now only renders when there's no
+Code Quality score to fall back on, on both source and evidence pages.
+The underlying data, the Quality Appraisal table row, and the Evidence
+Quality/graph-filter entries for Code Check are untouched — this is
+purely about not showing two chips that say the same thing.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.
