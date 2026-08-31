@@ -395,6 +395,32 @@ distinguishing the paper's own prose from the GPT-4-generated review
 examples it quotes in its own appendix. The remaining prioritized
 sources are still pending more credits.
 
+## A quick, free complement to the paid AI-writing check
+
+Pangram costs real money per paper, so as a free, local sanity check in
+the meantime, ran a simple keyword-frequency scan across all 27 source
+PDFs for a hand-picked list of words associated with AI-generated
+writing ("load-bearing," "quietly," "silently," "verdict," "drift," and
+similar terms flagged by an external AI-writing-tropes reference).
+Extracted each PDF's full text locally (PyMuPDF, no API calls) and
+counted whole-word matches per paper, normalized by each paper's word
+count so a 35,000-word paper isn't unfairly flagged next to an 8,000-word
+one just for being longer.
+
+The results needed an honest caveat, not just a leaderboard: the
+highest-scoring words in raw counts — "signal," "surface," "genuine,"
+"clean" — are ordinary technical vocabulary in ML/statistics papers
+("signal" in a detection sense, "clean data," and so on), not
+meaningful AI-writing tells on their own. The more genuinely distinctive
+words from the reference list — "load-bearing," "quietly," "silently,"
+"blocker," "handoff," "verdict," "drift" — scored zero across the entire
+corpus. One paper (Son et al. 2025) stood out with a noticeably higher
+rate (1.07 hits per 1,000 words) than the rest, worth a manual look if
+this check is ever repeated with a more carefully curated word list.
+Script and raw results saved to the vault's `misc/` for reproducibility,
+not wired into the site itself — this was a one-off exploratory check,
+not a recurring per-paper signal like the AI Writing Check above.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.
