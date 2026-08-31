@@ -26,7 +26,8 @@
     "react-force-graph-2d": "^1.29.1",
     "referencecheck": "github:giladfeldman/referencecheck#v0.1.1",
     "server-only": "^0.0.1",
-    "tsx": "^4.23.12"
+    "tsx": "^4.23.12",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
