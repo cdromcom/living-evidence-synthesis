@@ -363,6 +363,38 @@ repo README now both disclose the Pangram model version and the date
 this signal went into use, alongside the existing Claude Code/Supabase
 provenance notes.
 
+## Upgrading to Pangram 4 and recovering from a lost job
+
+Widening the AI Writing Check to the full corpus meant a real methodology
+question: should already-checked sources be redone on Pangram's newest
+model? Pangram 4 (released July 2026, "our most powerful and accurate AI
+detector to date") isn't used by default — the file-upload endpoint used
+so far doesn't support choosing a model at all, so getting Pangram 4
+meant switching to Pangram's genuine asynchronous Bulk API and extracting
+each PDF's text locally first.
+
+That switch surfaced two real-world rough edges. First, a full-corpus
+run failed outright with "insufficient credits" — Pangram 4 costs more
+per request than Pangram 3, and the account's balance didn't cover all
+27 sources at once. Re-scoping to a smaller, prioritized subset (sources
+with two or more high-risk validity domains *and* low TRIPOD-LLM
+reporting compliance — the sources where an extra integrity check
+matters most) still weren't enough. Second, one submission actually
+succeeded and got billed, then the checking script crashed on a
+transient server error while polling for the result, losing track of
+the job's ID with no way to retrieve it back from the API.
+
+Both gaps got fixed at the source: the script now prints and logs every
+bulk job's ID the moment it's created, retries transient errors instead
+of crashing on the first one, and supports resuming a known job ID
+without re-submitting (so a network hiccup never means paying twice).
+The specific lost job was recovered by finding its ID directly in the
+Pangram account dashboard and resuming from there — one source (SRC-010,
+Liu & Shah 2023) got its AI Writing Check result this way, correctly
+distinguishing the paper's own prose from the GPT-4-generated review
+examples it quotes in its own appendix. The remaining prioritized
+sources are still pending more credits.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

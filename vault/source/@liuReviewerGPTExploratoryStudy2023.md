@@ -5,6 +5,7 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - integrity/ai-writing-check/addressed
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
   - top/study-registration/not-applicable
@@ -155,6 +156,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — results are reported as raw accuracy/hit-rate percentages across constructed test cases |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no statistical tests are run on the paper's own results, so there is no null/non-significant finding to potentially spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟡 | Three prompting strategies (Prompt-Direct, Prompt-OneShot, Prompt-Parts) are compared per task with per-response performance tabulated `Table 1, p.4-6` — a prompt-variant comparison, not a systematic ablation of a pipeline/system component |
+| **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source has 2+ high-risk validity domains and low TRIPOD-LLM reporting compliance. Pangram v4.0 AI-text detector (Bulk API job `blk_67300368bbd040638643bc4a30458fb3`): *"We believe this text is mainly human-written, with some AI content."* (8.6% AI-generated, 0% AI-assisted) — the flagged spans coincide with the paper's own Appendix (sample GPT-4-generated peer reviews the authors quote as worked examples of their prompting method), not the authors' own prose |
 
 **Bottom line.** This is an exploratory pilot, framed as such — it shows GPT-4 can plausibly help with the most structured reviewing subtask (checklist verification at 87%, or 93% if you exclude figure-only items) while failing at the least structured one (picking the better abstract, where it lands below chance under strict scoring). The numbers are too small and too domain-restricted to support deployment decisions, but the failure modes (prompt injection, positive-result bias, algorithm-name effects) are concrete enough to inform what guardrails any future reviewer-assistant tool would need.
 
