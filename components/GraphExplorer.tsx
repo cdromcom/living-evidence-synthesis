@@ -11,7 +11,6 @@ import {
   FIVE_C_LABELS,
   getFiveCs,
   getNodeById,
-  TOP_STANDARD_ORDER,
   TOP_STANDARD_LABELS,
   getTopSignals,
   REPRODUCIBILITY_RISK_LABELS,
@@ -160,8 +159,15 @@ const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: 
   { id: "spin", label: "Non-Significant Result Spin", group: "Rigor — Interpretation", getter: getSpinSignal },
 ];
 
+// Only Registration and Protocol get their own filter checkboxes here — Data
+// and Code transparency have a newer, more specific equivalent already below
+// (Data Repo Check / Code Check, which test whether the claimed repo link is
+// actually live, not just whether it was disclosed), so a bare "Data"/"Code"
+// checkbox would just duplicate those.
+const OPENNESS_FILTER_STANDARDS = ["study-registration", "study-protocol"] as const;
+
 const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
-  ...TOP_STANDARD_ORDER.map((standard) => ({
+  ...OPENNESS_FILTER_STANDARDS.map((standard) => ({
     key: `top:${standard}`,
     label: TOP_STANDARD_LABELS[standard],
     group: "Openness",
