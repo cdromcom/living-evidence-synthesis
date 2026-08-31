@@ -473,6 +473,37 @@ work" — this asks whether the repo follows baseline open-source
 hygiene), with the same chip/Quality-table-column/graph-filter
 treatment every other signal on this site gets.
 
+## Rounding out Code Quality, and a look at the four non-GitHub sources
+
+Found a fourteenth checkable repository — Zhang et al. 2024's code was
+linked only through a PDF hyperlink annotation, not as plain visible
+text, so the earlier extraction pass missed it. Folded it into the
+existing Code Quality signal: 2/5, the same "repository plus license,
+nothing else" profile every other checked source has shown so far.
+
+Separately, ran a different tool — FAIR-Checker, a semantic-web-based
+FAIR assessor — against the four sources that host code somewhere
+`howfairis` can't reach (GitHub/GitLab only): two OSF projects
+(Huntington-Klein & Murray 2024, Wrightson et al. 2025) and two
+HuggingFace pages (Idahl & Ahmadi 2025's model, Zhou et al. 2024's
+dataset). This is a one-off exploratory look, not wired into the site
+as a signal — its 0-2-per-metric scale isn't directly comparable to
+`howfairis`'s 0-5 scale, and its checks lean on whatever structured
+metadata a platform happens to auto-populate as much as on anything a
+researcher actually did.
+
+Results: both OSF projects scored identically well (16 of 24 possible
+points) — persistent IDs, provenance, and shared vocabularies all
+present, likely reflecting OSF's own metadata scaffolding as much as
+deliberate curation. The two HuggingFace pages scored far lower and
+apart from each other: the dataset card (9/24) carried noticeably more
+structured metadata than the bare model card (4/24). One pattern held
+across all four: every single one scored zero on "metadata includes
+license," even the two well-scoring OSF projects — the tool appears to
+want a license declared in a specific machine-readable property, not
+just visible to a human reader, so this reads as a tooling quirk worth
+a caveat rather than a real finding that none of these have a license.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

@@ -5,6 +5,7 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - top/code-quality-fair/2
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
   - top/study-registration/not-applicable
@@ -160,6 +161,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported — only accuracy by class and overall accuracy are reported `Table 3`; no chance-corrected statistic appears anywhere |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"Provision of more information or the Assistant pipeline did not necessarily improve LLM performance, especially for GPT-3.5 Turbo which performed much better on Fully substantiated cases in the title-only setting than with more information."* `p.3` — a counter-intuitive negative result stated plainly |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"To investigate the impact of information completeness, LLMs were tested in 3 settings with different amounts of information from the reference: (1) With only the title... (2) With both the title and abstract... (3) With the title, abstract, and excerpts provided."* `p.3, §3` |
+| **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/tianmai-zhang/ReferenceErrorDetection: **2/5** — open repository + license — no package-registry listing, citation metadata, or quality-checklist badge. |
 
 **Bottom line.** GPT-4 Turbo with retrieved excerpts hits 70.0% overall accuracy on a 250-pair benchmark — promising as a research signal, but well short of what a journal-screening pipeline would need. The two largest gaps to deployment are the small, narrow-domain corpus and the lack of any uncertainty estimates on the model-by-context comparisons; before treating "more context helps GPT-4 but hurts GPT-3.5" as a settled finding, a reader should want confidence intervals, a larger and more diverse benchmark, and disclosure of the OpenAI training-cutoff dates relative to the cited papers.
 
