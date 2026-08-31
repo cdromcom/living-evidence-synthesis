@@ -30,6 +30,7 @@ tags:
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
   - integrity/spin/not-addressed
+  - integrity/ai-writing-check/addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
@@ -176,6 +177,7 @@ flowchart TD
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟢 | *"The experts achieved a moderate agreement (Cohen's Kappa = 0.64)."* `§3, p.3`, and Table 1 reports Cohen's kappa (0.59 for the full pipeline, 0.05 for AI Scientist, 0.52 for AI Researcher) as the primary model-comparison metric |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable — no significance testing is performed on the paper's own results, so there is no null finding to spin |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🔴 | Table 1's AI Scientist row reports Accuracy=0.47, Precision=0.55, Recall=0.53, F1=0.44 (Shahid et al., 2025, p. 7) — recomputing F1 from the stated precision/recall (2PR/(P+R) ≈ 0.54) does not match the reported F1 of 0.44 |
+| **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because the Statistic Accuracy check above flagged an inconsistency. Pangram v3.3.2 AI-text detector: *"We believe that this document is primarily human-written, with a small amount of AI-assisted content detected"* (0% AI-generated, 4.4% AI-assisted, 1/27 segments AI-assisted). [Dashboard](https://www.pangram.com/history/63224e20-bbc6-40c6-80fe-937c422d2650) |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%"* — the re-ranker component is removed and the resulting performance drop measured directly |
 
 **Bottom line.** The Idea Novelty Checker is a well-engineered RAG pipeline and the ablation cleanly shows that LLM-based re-ranking — especially facet-based — is the load-bearing component. But the headline 0.81 accuracy is built on 32 ideas labeled by the same two authors who built the in-context examples, with no confidence intervals or significance tests, so the "13% higher than prior systems" claim should be read as a promising signal rather than evidence of deployable novelty assessment. Before this is ready for use in a real idea-triage workflow, future work needs an independent expert panel, a larger and cross-domain test set, and reported uncertainty on every metric.

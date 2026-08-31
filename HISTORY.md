@@ -269,6 +269,30 @@ sitting alongside it. Verified in the browser that an obscure combination
 ("Data Repo Check: Live") narrows the graph to exactly the one matching
 node.
 
+## A targeted AI-writing recheck for the two papers with shaky numbers
+
+Two of the 27 papers had already been flagged by an earlier, independent
+check: their own reported statistics didn't add up when recomputed (a
+confidence interval printed with its bounds reversed in one; an F1 score
+that doesn't follow from the paper's own precision and recall in the
+other). A finding like that raises a broader question worth checking:
+is anything else about this paper's own writing suspect? Using Pangram
+(a commercial AI-text-detection service), both papers' full PDF text was
+run through an independent AI-generated-writing check — a narrow,
+targeted follow-up on just the two flagged papers, not a sweep of the
+whole corpus. Both came back clean: Pangram's own verdict was "fully
+human-written" for one and "primarily human-written, with a small amount
+of AI-assisted content" for the other. That result — a new "AI Writing
+Check" signal — was wired in exactly like every other trust signal on the
+site: a chip on the source and evidence pages, a row in the Quality
+Appraisal table (this one citing the tool's own dashboard link rather
+than a quote from the paper, since it's an external check on the prose
+rather than something the paper itself says), a column in the Evidence
+Quality table, and a checkbox in the graph view's filter. Pangram also
+offers AI-generated-*image* detection, but that side of their product is
+still a research preview with no stable, documented API, so it was left
+for later.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

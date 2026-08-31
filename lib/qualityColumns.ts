@@ -17,11 +17,13 @@ import {
   getStatisticalConsistency,
   getSpinSignal,
   getIntegritySignals,
+  getAiWritingCheck,
   VALIDITY_DOMAIN_ORDER,
   VALIDITY_DOMAIN_LABELS,
   REPRODUCIBILITY_RISK_LABELS,
   DATA_LEAKAGE_LABELS,
   REPO_CHECK_LABELS,
+  AI_WRITING_CHECK_LABELS,
   TOP_LEVEL_LABELS,
   DISCLOSURE_LEVEL_LABELS,
   STATISTICAL_POWER_LABELS,
@@ -260,6 +262,13 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
       if (!s) return null;
       return { text: DISCLOSURE_LEVEL_LABELS[s.level], tone: DISCLOSURE_TONE[s.level] };
     },
+  },
+  {
+    id: "ai-writing-check",
+    label: "AI Writing Check",
+    group: "Integrity",
+    defaultVisible: false,
+    value: (_evd, src) => riskCell(getAiWritingCheck(src), AI_WRITING_CHECK_LABELS),
   },
 ];
 

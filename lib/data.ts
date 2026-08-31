@@ -354,6 +354,24 @@ export function getSpinSignal(node: Pick<GraphNode, "tags">) {
   return getTaggedCheck(node, "spin", "integrity");
 }
 /**
+ * AI Writing Check — an independent Pangram (pangram.com) AI-text-detection
+ * recheck of the paper's own prose, distinct from the TOP "AI disclosure"
+ * transparency signal (whether authors *say* they used AI to write). Silent
+ * unless actually run: as of 2026-08 only sources whose Statistic Accuracy
+ * check flagged an issue ("issues-found") have been checked, as a broader
+ * integrity recheck prompted by that flag — absence of this tag means "not
+ * yet checked," not "clean." See misc/scripts/pangram_check.py in the vault.
+ */
+export function getAiWritingCheck(node: Pick<GraphNode, "tags">) {
+  return getTaggedCheck(node, "ai-writing-check", "integrity");
+}
+export const AI_WRITING_CHECK_LABELS: Record<ReproducibilityRisk | "not-addressed", string> = {
+  "low-risk": "Human-written",
+  "some-concerns": "AI-assisted",
+  "high-risk": "AI-generated",
+  "not-addressed": "Not checked",
+};
+/**
  * Ablation Experiment(s) — does the paper isolate a component's
  * contribution by removing/varying it and re-measuring (a prompt
  * component, a pipeline stage, a training-data slice, a model variant),
@@ -398,6 +416,7 @@ export const RIGOR_CHECK_LABELS = {
   "prompt-engineering": "Prompt Engineering",
   "chance-corrected-metrics": "Chance-Corrected Metrics",
   "ablation-experiments": "Ablation Experiment(s)",
+  "ai-writing-check": "AI Writing Check",
 } as const;
 
 /**

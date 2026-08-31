@@ -20,6 +20,7 @@ import {
   getStatisticalConsistency,
   getRepositoryCheck,
   getCodeCheck,
+  getAiWritingCheck,
   getParentSource,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
@@ -31,6 +32,7 @@ import {
   DATA_LEAKAGE_LABELS,
   RIGOR_CHECK_LABELS,
   REPO_CHECK_LABELS,
+  AI_WRITING_CHECK_LABELS,
   STATISTICAL_CONSISTENCY_LABELS,
   STATISTICAL_POWER_LABELS,
   type GraphNode,
@@ -406,7 +408,8 @@ type RigorCheckKind =
   | "statcheck"
   | "prompt-engineering"
   | "chance-corrected-metrics"
-  | "ablation-experiments";
+  | "ablation-experiments"
+  | "ai-writing-check";
 
 // Where each Rigor sub-check's chip should navigate — the Quality Appraisal
 // table row when one exists (`qa-<kind>`, tagged by lib/markdown.ts's
@@ -426,6 +429,7 @@ const RIGOR_CHECK_HREF: Partial<Record<RigorCheckKind, string>> = {
   "chance-corrected-metrics": "#qa-chance-corrected-metrics",
   spin: "#qa-spin",
   "ablation-experiments": "#qa-ablation-experiments",
+  "ai-writing-check": "#qa-ai-writing-check",
 };
 
 function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
@@ -524,6 +528,16 @@ function RigorCheckGlyph({ kind }: { kind: RigorCheckKind }) {
         <svg {...common}>
           <path d="M5 9.5h9M5 14.5h9" />
           <path d="M16 15.5l2.2 2.2L22 13.5" />
+        </svg>
+      );
+    case "ai-writing-check":
+      // lines of prose with a magnifying glass over them — an independent
+      // tool scanning the paper's own text for signs of AI generation
+      return (
+        <svg {...common}>
+          <path d="M4 6h11M4 10h8M4 14h6" />
+          <circle cx="17" cy="15" r="3.2" />
+          <path d="M19.5 17.5L22 20" />
         </svg>
       );
     case "prompt-engineering":
@@ -681,10 +695,11 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const statisticalConsistency = getStatisticalConsistency(signalSource);
   const repositoryCheck = getRepositoryCheck(signalSource);
   const codeCheck = getCodeCheck(signalSource);
+  const aiWritingCheck = getAiWritingCheck(signalSource);
 
   const hasTransparency = Boolean(compliance);
   const hasOpenness = opennessSignals.length > 0 || Boolean(repositoryCheck) || Boolean(codeCheck);
-  const hasIntegrity = integrity.length > 0;
+  const hasIntegrity = integrity.length > 0 || Boolean(aiWritingCheck);
   const hasRigor =
     validity.length > 0 ||
     Boolean(dataLeakage) ||
@@ -848,12 +863,21 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     ...integrity.map((s) => (
       <IntegrityBadge key={s.kind} kind={s.kind} level={s.level} linkBase={linkBase} />
     )),
+    aiWritingCheck && (
+      <RigorCheckBadge
+        key="ai-writing-check"
+        kind="ai-writing-check"
+        risk={aiWritingCheck}
+        levelLabels={AI_WRITING_CHECK_LABELS}
+        linkBase={linkBase}
+      />
+    ),
     <ReminderBadge
       key="plagiarism"
       label="Plagiarism"
       title="Not yet checked: reminder to screen this paper's text against other human-authored work for plagiarism or unattributed overlapping language."
     />,
-  ];
+  ].filter(Boolean);
 
   return (
     <CollapsibleSignalBlock summary={summary}>

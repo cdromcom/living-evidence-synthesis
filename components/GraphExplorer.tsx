@@ -32,6 +32,7 @@ import {
   getMultipleComparisonsCorrection,
   getChanceCorrectedMetrics,
   getSpinSignal,
+  getAiWritingCheck,
   getStatisticalPower,
   getStatisticalConsistency,
 } from "@/lib/data";
@@ -232,6 +233,12 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
     test: (n: GraphNode) =>
       getIntegritySignals(n).some((s) => s.kind === kind && (s.level === "disclosed" || s.level === "partial")),
   })),
+  {
+    key: "check:ai-writing-check",
+    label: "AI Writing Check",
+    group: "Integrity",
+    test: (n: GraphNode) => getAiWritingCheck(n) === "low-risk",
+  },
 ];
 
 /** A dropdown filter — a labeled toggle button that opens a grouped list of square checkboxes. */
