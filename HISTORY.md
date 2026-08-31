@@ -421,6 +421,34 @@ Script and raw results saved to the vault's `misc/` for reproducibility,
 not wired into the site itself — this was a one-off exploratory check,
 not a recurring per-paper signal like the AI Writing Check above.
 
+## The strongest check yet: recomputing results from a paper's own data
+
+Every forensic check on this site so far worked from numbers already
+printed in a paper — recomputing an F1 from its own stated precision and
+recall, checking whether a confidence interval's bounds are in the right
+order. There's a stronger check above that: go get the paper's own
+released dataset and recompute its headline result completely from
+scratch. Audited all 27 sources for where that's actually possible
+without cheating by re-running an LLM ourselves (which would test
+today's models, not verify the paper's original claim) — most either
+don't release the raw data behind their number, or their code requires
+live LLM calls to produce it. Two sources had genuinely usable raw data:
+Liu & Shah's ReviewerGPT paper had a spreadsheet with every checklist
+item's ground truth and GPT-4 correctness already recorded, and
+recomputing the overall figure gave 86.55% against their stated
+86.6% — a match, tagged directly on that finding with a new
+"reproduction-check" signal (the same forensic-tag family the other
+consistency checks already use, just a stronger variant). Woelfle et
+al.'s PRISMA/AMSTAR benchmark also had real per-model, per-item data,
+but the recomputed accuracy ranges came out systematically higher than
+what the paper reports — logged as an open, unresolved discrepancy
+rather than forced into a false match. A handful of other sources have
+real data but need either a dedicated read of exact methodology
+(disambiguating how a reported statistic was derived) or real compute
+time (training a small model) to attempt responsibly; the full audit,
+including which repos were checked and why each one was or wasn't
+usable, is saved in the vault's `misc/` for whoever picks this up next.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

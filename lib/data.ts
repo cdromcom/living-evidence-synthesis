@@ -631,8 +631,22 @@ export function getCurationStatusMatrix(): Record<
  * see scripts' commit history for what was tried and dropped (a naive GRIM
  * — percentage-vs-denominator — check produced false positives from
  * ambiguous "X% (N)" prose and was not published).
+ *
+ * `reproduction-check` (added 2026-08) is a stronger variant: instead of
+ * recomputing from numbers already printed in the paper, it recomputes the
+ * EVD's headline statistic from the paper's own *released raw data*
+ * (results: match | mismatch | partial), where doing so was computationally
+ * feasible without re-running an LLM or retraining a model — see
+ * misc/reproducibility_triage_*.md in the vault for the full audit of which
+ * sources were attempted and why others were blocked.
  */
-export type ForensicCheckKind = "f1-check" | "kappa-check" | "ci-check" | "closure-check" | "monotonicity-check";
+export type ForensicCheckKind =
+  | "f1-check"
+  | "kappa-check"
+  | "ci-check"
+  | "closure-check"
+  | "monotonicity-check"
+  | "reproduction-check";
 export type ForensicSignal = { kind: ForensicCheckKind; result: string; evdId: string; evdTitle: string };
 
 const FORENSIC_TAG_PREFIX = "forensic/";
@@ -646,7 +660,14 @@ export function getForensicSignalsForEvd(node: Pick<GraphNode, "tags" | "id" | "
     if (slash === -1) continue;
     const kind = rest.slice(0, slash);
     const result = rest.slice(slash + 1);
-    if (kind === "f1-check" || kind === "kappa-check" || kind === "ci-check" || kind === "closure-check" || kind === "monotonicity-check") {
+    if (
+      kind === "f1-check" ||
+      kind === "kappa-check" ||
+      kind === "ci-check" ||
+      kind === "closure-check" ||
+      kind === "monotonicity-check" ||
+      kind === "reproduction-check"
+    ) {
       out.push({ kind, result, evdId: node.id, evdTitle: node.title });
     }
   }
@@ -691,7 +712,7 @@ export function getStatisticalConsistency(
   }
   const forensics = getForensicSignalsForSource(node.id);
   if (forensics.length === 0) return null;
-  const CLEAN_RESULTS = new Set(["consistent", "in-bounds"]);
+  const CLEAN_RESULTS = new Set(["consistent", "in-bounds", "match"]);
   return forensics.some((f) => !CLEAN_RESULTS.has(f.result)) ? "issues-found" : "consistent";
 }
 

@@ -3,6 +3,7 @@ NodeFormality: ReadyForInternal
 aliases:
 tags:
   - task/reporting-compliance-checking
+  - forensic/reproduction-check/match
   - appraisal/construct-validity/some-concerns
   - appraisal/internal-validity/some-concerns
   - appraisal/external-validity/high-risk
@@ -89,6 +90,17 @@ tripod_llm_pct: 36pct
 | Accuracy excluding figure-only items | 92.8% |
 | Per-paper accuracy range (Table 2, 15 papers) | 0.57 – 1.00 |
 | Per-question accuracy range (Table 2, 16 items) | 0.63 – 1.00 |
+
+## Reproduction check
+
+> [!success] Analytic reproducibility: MATCH (2026-08)
+> Independently recomputed from the authors' own released raw data
+> (`labels.xlsx`, github.com/niharshah/ReviewerGPT2023) rather than from
+> the paper's stated numbers: summing the spreadsheet's own per-paper
+> "total accurate" / "total" columns gives 206/238 = **86.55%**, against
+> the paper's stated **86.6%** — an exact match within rounding. No LLM
+> re-run was needed; the per-pair correctness was already recorded in the
+> released file.
 
 ## Caveats
 
