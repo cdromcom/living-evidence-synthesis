@@ -3,6 +3,7 @@ NodeFormality: draft
 TruthValue: 0.7
 aliases:
 tags:
+  - task/decision-judgment
   - 5c/credibility
   - 5c/creativity
   - ep/strength/4-papers

@@ -293,6 +293,39 @@ offers AI-generated-*image* detection, but that side of their product is
 still a research preview with no stable, documented API, so it was left
 for later.
 
+## Separating "how trustworthy is this study" from "what is this finding about"
+
+A collaborator's advisor pointed out a real conceptual gap: the graph
+view's "Trust signals" filter lets someone ask "show me sources rated
+high-risk on construct validity," but it can't answer a different,
+more useful question — "across the whole corpus, what does the
+evidence say about how good LLMs actually are at *doing* construct-
+validity assessment?" Those sound alike but aren't: one rates a study's
+own quality, the other asks about a capability being tested. Answering
+the second question needed something that didn't exist yet: a tag on
+every finding saying which evaluative task it's actually about (risk-
+of-bias assessment, novelty assessment, citation-integrity checking,
+and so on), independent of how rigorous that finding's source study is.
+
+Also renamed "Statistical rigor" to "Statistical conclusion validity"
+across every chip, dropdown, and Quality Appraisal table row (a more
+precise, established term) while working through this.
+
+Built a hierarchy of sixteen such evaluative-task categories, organized
+under the site's existing five-Cs framework (Credibility, Clarity,
+Creativity, Care, Connectivity) plus a sixth "Cross-cutting" bucket for
+findings that are really about the evaluator's general behavior across
+tasks (prompt sensitivity, cost, fine-tuning effects) rather than one
+specific task. Every one of the 129 Evidence/Claim/Pattern nodes in the
+corpus was then classified against that hierarchy — reusing each node's
+own already quote-grounded finding statement as justification rather
+than re-reading source PDFs — and the full classification was shown for
+review before anything was written to a file. A new "Evaluative task"
+filter on the graph view now lets someone check "risk-of-bias
+assessment" and see exactly the handful of findings across the corpus
+that are about that capability, regardless of which paper they came
+from or how well-conducted that paper was.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

@@ -3,13 +3,17 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
-import type { GraphNode, GraphEdge, NodeType, FiveC, ReproducibilityRisk } from "@/lib/data";
+import type { GraphNode, GraphEdge, NodeType, FiveC, ReproducibilityRisk, EvaluativeTask } from "@/lib/data";
 import {
   NODE_TYPE_ORDER,
   NODE_TYPE_LABELS,
   FIVE_C_ORDER,
   FIVE_C_LABELS,
   getFiveCs,
+  TASK_ORDER,
+  TASK_LABELS,
+  TASK_GROUPS,
+  getEvaluativeTasks,
   getNodeById,
   TOP_STANDARD_LABELS,
   getTopSignals,
@@ -367,6 +371,11 @@ export default function GraphExplorer({
   // whichever trust-signal checkboxes (Openness/Rigor/Transparency/Integrity)
   // are selected — see TRUST_SIGNAL_OPTIONS.
   const [trustSignalFilter, setTrustSignalFilter] = useState<Set<string>>(new Set());
+  // Same empty-set-means-inactive convention — which evaluative task
+  // (risk-of-bias assessment, novelty assessment, etc.) a finding is
+  // ABOUT, as distinct from the Trust signals filter above (which rates
+  // how trustworthy the source study itself is).
+  const [taskFilter, setTaskFilter] = useState<Set<EvaluativeTask>>(new Set());
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState(false);
@@ -407,7 +416,8 @@ export default function GraphExplorer({
             (statusFilter === "all" || n.curationStatus === statusFilter) &&
             (fiveCFilter.size === 0 || getFiveCs(n).some((c) => fiveCFilter.has(c))) &&
             (trustSignalFilter.size === 0 ||
-              TRUST_SIGNAL_OPTIONS.filter((o) => trustSignalFilter.has(o.key)).some((o) => o.test(n)))
+              TRUST_SIGNAL_OPTIONS.filter((o) => trustSignalFilter.has(o.key)).some((o) => o.test(n))) &&
+            (taskFilter.size === 0 || getEvaluativeTasks(n).some((t) => taskFilter.has(t)))
         )
         .map((n) => n.id)
     );
@@ -430,7 +440,7 @@ export default function GraphExplorer({
       .filter((e) => visibleIds.has(e.from) && visibleIds.has(e.to))
       .map((e) => ({ source: e.from, target: e.to, type: e.type }));
     return { nodes: fgNodes, links: fgLinks };
-  }, [nodes, edges, typeFilter, statusFilter, fiveCFilter, trustSignalFilter]);
+  }, [nodes, edges, typeFilter, statusFilter, fiveCFilter, trustSignalFilter, taskFilter]);
 
   // Adjacency, built once per filtered graph — powers both hover/selection
   // highlighting and focus (ego-network) mode.
@@ -545,6 +555,16 @@ export default function GraphExplorer({
       const next = new Set(prev);
       if (next.has(key)) next.delete(key);
       else next.add(key);
+      return next;
+    });
+  }
+
+  function toggleTask(t: EvaluativeTask) {
+    hasAutoFittedRef.current = false;
+    setTaskFilter((prev) => {
+      const next = new Set(prev);
+      if (next.has(t)) next.delete(t);
+      else next.add(t);
       return next;
     });
   }
@@ -794,6 +814,16 @@ export default function GraphExplorer({
             setTrustSignalFilter(new Set());
           }}
         />
+        <CheckboxDropdown
+          label="Evaluative task"
+          options={TASK_ORDER.map((t) => ({ key: t, label: TASK_LABELS[t], group: TASK_GROUPS[t] }))}
+          selected={taskFilter}
+          onToggle={(key) => toggleTask(key as EvaluativeTask)}
+          onClear={() => {
+            hasAutoFittedRef.current = false;
+            setTaskFilter(new Set());
+          }}
+        />
         <span className="mx-1 h-4 w-px bg-border" />
         <select
           value={statusFilter}
@@ -822,6 +852,8 @@ export default function GraphExplorer({
             setTypeFilter(new Set(NODE_TYPE_ORDER));
             setStatusFilter("all");
             setFiveCFilter(new Set());
+            setTrustSignalFilter(new Set());
+            setTaskFilter(new Set());
           }}
           className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-muted-surface"
         >
@@ -1053,6 +1085,11 @@ export default function GraphExplorer({
                 <li>
                   The Trust signals dropdown filters by the same Openness/Rigor/Transparency/Integrity signals
                   shown on each source page. Check any box to show nodes matching at least one.
+                </li>
+                <li>
+                  The Evaluative task dropdown is different: it filters Evidence/Claim/Pattern nodes by
+                  what capability the finding is <em>about</em> (e.g. risk-of-bias assessment, novelty
+                  assessment) &mdash; not by how trustworthy that finding is.
                 </li>
                 <li>Hover a node to highlight it and its direct connections.</li>
                 <li>Click a node to preview it here without leaving the graph.</li>

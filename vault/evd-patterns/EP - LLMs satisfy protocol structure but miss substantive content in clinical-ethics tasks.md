@@ -3,6 +3,7 @@ NodeFormality: draft
 TruthValue: 0.75
 aliases:
 tags:
+  - task/ethics-irb-review
   - 5c/care
   - ep/strength/2-papers
   - ep/scope/cross-paper

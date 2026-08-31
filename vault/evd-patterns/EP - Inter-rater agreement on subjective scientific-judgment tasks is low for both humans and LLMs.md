@@ -3,6 +3,7 @@ NodeFormality: draft
 TruthValue: 0.75
 aliases:
 tags:
+  - task/rare-class-reliability
   - 5c/credibility
   - ep/strength/3-papers
   - ep/scope/cross-paper

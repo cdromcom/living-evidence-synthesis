@@ -3,6 +3,7 @@ NodeFormality: ReadyForInternal
 TruthValue: 0.5
 aliases:
 tags:
+  - task/novelty-assessment
   - 5c/creativity
   - 5c/credibility
 created: 2026-04-17

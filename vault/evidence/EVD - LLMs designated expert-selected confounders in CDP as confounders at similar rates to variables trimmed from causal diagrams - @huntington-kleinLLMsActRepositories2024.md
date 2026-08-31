@@ -2,6 +2,7 @@
 NodeFormality: ReadyForInternal
 aliases:
 tags:
+  - task/causal-inference-judgment
   - appraisal/construct-validity/low-risk
   - appraisal/internal-validity/some-concerns
   - appraisal/external-validity/high-risk

@@ -3,6 +3,7 @@ NodeFormality: ReadyForInternal
 TruthValue: 0.5
 aliases:
 tags:
+  - task/review-generation
   - 5c/clarity
   - 5c/creativity
   - 5c/credibility

@@ -2,6 +2,7 @@
 NodeFormality: ReadyForInternal
 aliases:
 tags:
+  - task/citation-integrity-checking
   - appraisal/construct-validity/some-concerns
   - appraisal/internal-validity/low-risk
   - appraisal/external-validity/high-risk

@@ -3,6 +3,7 @@ NodeFormality: draft
 TruthValue: 0.7
 aliases:
 tags:
+  - task/modality-limitation
   - 5c/credibility
   - ep/strength/2-papers
   - ep/scope/cross-paper

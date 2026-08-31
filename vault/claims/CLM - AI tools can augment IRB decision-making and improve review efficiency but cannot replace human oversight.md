@@ -3,6 +3,7 @@ NodeFormality: ReadyForInternal
 TruthValue: 0.5
 aliases:
 tags:
+  - task/ethics-irb-review
   - 5c/care
   - 5c/clarity
   - 5c/creativity

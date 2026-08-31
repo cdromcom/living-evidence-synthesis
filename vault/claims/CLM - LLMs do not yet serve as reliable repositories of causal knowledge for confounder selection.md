@@ -3,6 +3,7 @@ NodeFormality: ReadyForInternal
 TruthValue: 0.5
 aliases:
 tags:
+  - task/causal-inference-judgment
   - 5c/credibility
 created: 2026-04-17
 updated: 2026-04-29

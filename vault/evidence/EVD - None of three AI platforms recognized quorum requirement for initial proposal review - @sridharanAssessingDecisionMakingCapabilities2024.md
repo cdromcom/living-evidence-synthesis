@@ -2,6 +2,7 @@
 NodeFormality: ReadyForInternal
 aliases:
 tags:
+  - task/ethics-irb-review
   - appraisal/construct-validity/high-risk
   - appraisal/internal-validity/some-concerns
   - appraisal/external-validity/high-risk

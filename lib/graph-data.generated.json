@@ -457,6 +457,7 @@
       "shortLabel": "A structured protocol for integrating LLMs into systematic reviews must specify rationale…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity",
         "5c/credibility"
       ],
@@ -476,6 +477,7 @@
       "shortLabel": "Abstracts are the optimal input for LLM-based research quality assessment outperforming f…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/decision-judgment",
         "5c/credibility"
       ],
       "created": "2026-04-17T00:00:00.000Z",
@@ -494,6 +496,7 @@
       "shortLabel": "AI tools can augment IRB decision-making and improve review efficiency but cannot replace…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "5c/care",
         "5c/clarity",
         "5c/creativity",
@@ -515,6 +518,7 @@
       "shortLabel": "Citation quotation errors are subtle and currently challenging for NLP models to identify…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/citation-integrity-checking",
         "5c/connectivity",
         "5c/credibility"
       ],
@@ -534,6 +538,7 @@
       "shortLabel": "Combining human reviewer knowledge with LLM-generated method summaries improves automated…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/novelty-assessment",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -554,6 +559,7 @@
       "shortLabel": "Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/decision-judgment",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -574,6 +580,7 @@
       "shortLabel": "Current LLMs fall far short of requirements for dependable AI-assisted academic error ver…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "5c/credibility"
       ],
       "created": "2026-04-17T00:00:00.000Z",
@@ -592,6 +599,7 @@
       "shortLabel": "Expert-annotated in-context examples significantly improve LLM novelty classification acc…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/novelty-assessment",
         "5c/creativity"
       ],
       "created": "2026-04-17T00:00:00.000Z",
@@ -610,6 +618,7 @@
       "shortLabel": "Facet-based LLM re-ranking is critical for identifying the most relevant papers for novel…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/novelty-assessment",
         "5c/creativity",
         "5c/credibility"
       ],
@@ -629,6 +638,7 @@
       "shortLabel": "General-purpose LLMs produce overly positive peer review recommendations that do not refl…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/decision-judgment",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -649,6 +659,7 @@
       "shortLabel": "Human-AI collaboration outperforms individual LLMs and can match or exceed human rater ac…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity",
         "5c/credibility"
       ],
@@ -668,6 +679,7 @@
       "shortLabel": "LLM performance on structured checklist tasks varies substantially by item type with simp…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity",
         "5c/credibility"
       ],
@@ -687,6 +699,7 @@
       "shortLabel": "LLM review quality is comparable to human review quality when provided with sufficient co…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -707,6 +720,7 @@
       "shortLabel": "LLM-based peer review agents equipped with memory and persona modules can match or exceed…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/review-generation",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -727,6 +741,7 @@
       "shortLabel": "LLM-generated scientific feedback is paper-specific and not merely generic boilerplate",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -747,6 +762,7 @@
       "shortLabel": "LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet subst…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity",
         "5c/credibility"
       ],
@@ -766,6 +782,7 @@
       "shortLabel": "LLMs can achieve state-of-the-art CONSORT compliance assessment performance through zero-…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity",
         "5c/credibility"
       ],
@@ -785,6 +802,7 @@
       "shortLabel": "LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy app…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity",
         "5c/credibility"
       ],
@@ -804,6 +822,7 @@
       "shortLabel": "LLMs can help automate appraisal of medical literature for reporting standard compliance",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity"
       ],
       "created": "2026-04-17T00:00:00.000Z",
@@ -822,6 +841,7 @@
       "shortLabel": "LLMs cannot reliably identify scientific paper limitations at the level of human expert r…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/error-detection",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -842,6 +862,7 @@
       "shortLabel": "LLMs do not yet serve as reliable repositories of causal knowledge for confounder selecti…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/causal-inference-judgment",
         "5c/credibility"
       ],
       "created": "2026-04-17T00:00:00.000Z",
@@ -860,6 +881,7 @@
       "shortLabel": "LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/decision-judgment",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -880,6 +902,7 @@
       "shortLabel": "More capable GPT-class LLMs can detect quotation errors in scientific papers without fine…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/citation-integrity-checking",
         "5c/connectivity",
         "5c/credibility"
       ],
@@ -899,6 +922,7 @@
       "shortLabel": "Multi-agent LLM systems produce more specific and helpful scientific paper feedback than…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -919,6 +943,7 @@
       "shortLabel": "Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks th…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "5c/care",
         "5c/clarity",
         "5c/creativity",
@@ -940,6 +965,7 @@
       "shortLabel": "Proprietary reasoning models substantially outperform open-source models on scientific er…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "5c/credibility"
       ],
       "created": "2026-04-17T00:00:00.000Z",
@@ -958,6 +984,7 @@
       "shortLabel": "RAG augmentation improves LLM limitation identification by grounding generation in domain…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "5c/credibility"
       ],
       "created": "2026-04-17T00:00:00.000Z",
@@ -976,6 +1003,7 @@
       "shortLabel": "RCT reporting quality has improved substantially over decades but critical methodological…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity",
         "5c/credibility"
       ],
@@ -995,6 +1023,7 @@
       "shortLabel": "Reasoning LLMs substantially outperform non-reasoning models at identifying critical scie…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "5c/credibility"
       ],
       "created": "2026-04-17T00:00:00.000Z",
@@ -1013,6 +1042,7 @@
       "shortLabel": "Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorabl…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/decision-judgment",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -1033,6 +1063,7 @@
       "shortLabel": "Targeted question prompting elicits substantially better LLM performance than open-ended…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "5c/clarity",
         "5c/creativity",
         "5c/credibility"
@@ -1053,6 +1084,7 @@
       "shortLabel": "39.18% of 3063 annotated biomedical citation instances contained accuracy errors",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/citation-integrity-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -1081,6 +1113,7 @@
       "shortLabel": "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -1110,6 +1143,7 @@
       "shortLabel": "AI platforms drafted SOPs covering fundamental sections with variations across platforms",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1137,6 +1171,7 @@
       "shortLabel": "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/novelty-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -1166,6 +1201,7 @@
       "shortLabel": "All AI platforms failed to address post-trial herbal medicine access in case study 10",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1193,6 +1229,7 @@
       "shortLabel": "All four LLMs answered all seven IRB ethics case queries with homogeneous responses",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1220,6 +1257,7 @@
       "shortLabel": "All four LLMs included fundamental ICD elements for all seven case scenarios",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1247,6 +1285,7 @@
       "shortLabel": "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accu…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/citation-integrity-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -1274,6 +1313,7 @@
       "shortLabel": "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items fo…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -1301,6 +1341,7 @@
       "shortLabel": "ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist i…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -1328,6 +1369,7 @@
       "shortLabel": "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSOR…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1356,6 +1398,7 @@
       "shortLabel": "ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1383,6 +1426,7 @@
       "shortLabel": "ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r e…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1410,6 +1454,7 @@
       "shortLabel": "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit ra…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1438,6 +1483,7 @@
       "shortLabel": "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segm…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1467,6 +1513,7 @@
       "shortLabel": "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while d…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1495,6 +1542,7 @@
       "shortLabel": "CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1522,6 +1570,7 @@
       "shortLabel": "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONS…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -1549,6 +1598,7 @@
       "shortLabel": "Full text input produced lower Spearman correlations than abstracts for all three ChatGPT…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/decision-judgment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1576,6 +1626,7 @@
       "shortLabel": "GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/some-concerns",
@@ -1605,6 +1656,7 @@
       "shortLabel": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly o…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/some-concerns",
@@ -1634,6 +1686,7 @@
       "shortLabel": "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceed…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/decision-judgment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/some-concerns",
@@ -1663,6 +1716,7 @@
       "shortLabel": "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist quest…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -1691,6 +1745,7 @@
       "shortLabel": "GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STRO…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -1719,6 +1774,7 @@
       "shortLabel": "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1748,6 +1804,7 @@
       "shortLabel": "GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and drop…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/citation-integrity-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1775,6 +1832,7 @@
       "shortLabel": "GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/risk-of-bias-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/some-concerns",
@@ -1802,6 +1860,7 @@
       "shortLabel": "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1829,6 +1888,7 @@
       "shortLabel": "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/citation-integrity-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -1856,6 +1916,7 @@
       "shortLabel": "GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x les…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/novelty-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -1885,6 +1946,7 @@
       "shortLabel": "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1912,6 +1974,7 @@
       "shortLabel": "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1940,6 +2003,7 @@
       "shortLabel": "GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals compa…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -1969,6 +2033,7 @@
       "shortLabel": "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -1996,6 +2061,7 @@
       "shortLabel": "GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision mul…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2025,6 +2091,7 @@
       "shortLabel": "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/citation-integrity-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2052,6 +2119,7 @@
       "shortLabel": "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on h…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -2079,6 +2147,7 @@
       "shortLabel": "GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -2108,6 +2177,7 @@
       "shortLabel": "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing par…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -2135,6 +2205,7 @@
       "shortLabel": "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information sci…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/decision-judgment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2162,6 +2233,7 @@
       "shortLabel": "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% an…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2190,6 +2262,7 @@
       "shortLabel": "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-th…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2217,6 +2290,7 @@
       "shortLabel": "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2246,6 +2320,7 @@
       "shortLabel": "Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 o…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2275,6 +2350,7 @@
       "shortLabel": "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for A…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2303,6 +2379,7 @@
       "shortLabel": "Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baseli…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/novelty-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -2332,6 +2409,7 @@
       "shortLabel": "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR vers…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2360,6 +2438,7 @@
       "shortLabel": "Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotat…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/citation-integrity-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -2388,6 +2467,7 @@
       "shortLabel": "LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 ful…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/low-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2415,6 +2495,7 @@
       "shortLabel": "LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/causal-inference-judgment",
         "appraisal/construct-validity/low-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2443,6 +2524,7 @@
       "shortLabel": "LLM review recommendation scores exceeded human scores without area-chair context but mat…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/decision-judgment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -2472,6 +2554,7 @@
       "shortLabel": "LLM reviews scored comparably to human reviews on all three expert evaluation criteria",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -2501,6 +2584,7 @@
       "shortLabel": "LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain includ…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/risk-of-bias-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -2528,6 +2612,7 @@
       "shortLabel": "LLMs designated expert-selected confounders in CDP as confounders at similar rates to var…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/causal-inference-judgment",
         "appraisal/construct-validity/low-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2555,6 +2640,7 @@
       "shortLabel": "LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in si…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2582,6 +2668,7 @@
       "shortLabel": "LLMs showed lowest accuracy on questions about statistical software used and study fundin…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -2610,6 +2697,7 @@
       "shortLabel": "MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-ag…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2639,6 +2727,7 @@
       "shortLabel": "MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES c…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2668,6 +2757,7 @@
       "shortLabel": "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/risk-of-bias-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -2695,6 +2785,7 @@
       "shortLabel": "Median quote similarity with original full text was 99 percent across LLM extracted quotes",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/extraction-fidelity",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2723,6 +2814,7 @@
       "shortLabel": "None of three AI platforms recognized quorum requirement for initial proposal review",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2750,6 +2842,7 @@
       "shortLabel": "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplica…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/low-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2777,6 +2870,7 @@
       "shortLabel": "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/low-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2804,6 +2898,7 @@
       "shortLabel": "o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive base…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2833,6 +2928,7 @@
       "shortLabel": "o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2860,6 +2956,7 @@
       "shortLabel": "OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reason…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2888,6 +2985,7 @@
       "shortLabel": "OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o average…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/decision-judgment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2917,6 +3015,7 @@
       "shortLabel": "OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test pape…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/decision-judgment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2946,6 +3045,7 @@
       "shortLabel": "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge p…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/decision-judgment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -2975,6 +3075,7 @@
       "shortLabel": "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/novelty-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -3002,6 +3103,7 @@
       "shortLabel": "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-20…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -3030,6 +3132,7 @@
       "shortLabel": "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming p…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/review-generation",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/low-risk",
         "appraisal/external-validity/high-risk",
@@ -3060,6 +3163,7 @@
       "shortLabel": "RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percen…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/error-detection",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -3087,6 +3191,7 @@
       "shortLabel": "Randomization sequence generation reported in only 9.7 percent and allocation concealment…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/reporting-compliance-checking",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -3114,6 +3219,7 @@
       "shortLabel": "Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66%…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/novelty-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -3141,6 +3247,7 @@
       "shortLabel": "Removing the knowledge-guided module from the novelty prediction model dropped accuracy f…",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/novelty-assessment",
         "appraisal/construct-validity/some-concerns",
         "appraisal/internal-validity/high-risk",
         "appraisal/external-validity/high-risk",
@@ -3168,6 +3275,7 @@
       "shortLabel": "Three AI platforms responded correctly to all 10 IRB case study queries",
       "curationStatus": "Reviewed",
       "tags": [
+        "task/ethics-irb-review",
         "appraisal/construct-validity/high-risk",
         "appraisal/internal-validity/some-concerns",
         "appraisal/external-validity/high-risk",
@@ -7013,6 +7121,7 @@
       "shortLabel": "Adding more input context can degrade rather than improve LLM performance on structured t…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/prompt-sensitivity",
         "5c/credibility",
         "ep/strength/2-papers",
         "ep/scope/cross-paper"
@@ -7033,6 +7142,7 @@
       "shortLabel": "Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 perce…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/credibility",
         "5c/clarity",
         "ep/strength/4-papers",
@@ -7054,6 +7164,7 @@
       "shortLabel": "Aggregate-level LLM-human agreement masks near-zero per-paper correlation",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/aggregate-vs-instance-validity",
         "5c/credibility",
         "ep/strength/3-papers",
         "ep/scope/cross-paper"
@@ -7074,6 +7185,7 @@
       "shortLabel": "Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks w…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/error-detection",
         "5c/credibility",
         "ep/strength/3-papers",
         "ep/scope/cross-paper"
@@ -7094,6 +7206,7 @@
       "shortLabel": "General-purpose LLMs systematically over-rate papers compared to human reviewers",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/decision-judgment",
         "5c/credibility",
         "5c/creativity",
         "ep/strength/3-papers",
@@ -7115,6 +7228,7 @@
       "shortLabel": "Human-AI collaboration outperforms either alone on structured appraisal tasks",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/credibility",
         "5c/clarity",
         "ep/strength/2-papers",
@@ -7136,6 +7250,7 @@
       "shortLabel": "Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/rare-class-reliability",
         "5c/credibility",
         "ep/strength/3-papers",
         "ep/scope/cross-paper"
@@ -7156,6 +7271,7 @@
       "shortLabel": "LLM confidence calibration on scientific-error tasks is poor with extreme distributions",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/error-detection",
         "5c/credibility",
         "ep/strength/3-papers",
         "ep/scope/cross-paper"
@@ -7176,6 +7292,7 @@
       "shortLabel": "LLM cost-effectiveness varies by orders of magnitude with smaller specialized models ofte…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/cost-scalability",
         "5c/credibility",
         "ep/strength/3-papers",
         "ep/scope/cross-paper"
@@ -7196,6 +7313,7 @@
       "shortLabel": "LLM peer-review systems can predict paper acceptance and preference at near-human accuracy",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/decision-judgment",
         "5c/credibility",
         "5c/creativity",
         "ep/strength/4-papers",
@@ -7217,6 +7335,7 @@
       "shortLabel": "LLM performance varies substantially with prompt design making prompt engineering load-be…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/prompt-sensitivity",
         "5c/credibility",
         "ep/strength/4-papers",
         "ep/scope/cross-paper"
@@ -7237,6 +7356,7 @@
       "shortLabel": "LLM-generated peer review feedback is paper-specific not generic boilerplate",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/review-generation",
         "5c/credibility",
         "5c/creativity",
         "ep/strength/2-papers",
@@ -7258,6 +7378,7 @@
       "shortLabel": "LLMs achieve high accuracy on structured presence-absence checklist verification",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/clarity",
         "5c/credibility",
         "ep/strength/3-papers",
@@ -7279,6 +7400,7 @@
       "shortLabel": "LLMs collapse on the rare deployment-critical class even when aggregate metrics look reas…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/rare-class-reliability",
         "5c/credibility",
         "ep/strength/5-papers",
         "ep/scope/cross-paper"
@@ -7299,6 +7421,7 @@
       "shortLabel": "LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/ethics-irb-review",
         "5c/care",
         "ep/strength/2-papers",
         "ep/scope/cross-paper"
@@ -7319,6 +7442,7 @@
       "shortLabel": "Per-item LLM-human agreement varies sharply by item type",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/reporting-compliance-checking",
         "5c/credibility",
         "5c/clarity",
         "ep/strength/5-papers",
@@ -7340,6 +7464,7 @@
       "shortLabel": "RAG and few-shot prompting improve LLM performance but rarely close the human gap",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/prompt-sensitivity",
         "5c/credibility",
         "5c/creativity",
         "ep/strength/3-papers",
@@ -7361,6 +7486,7 @@
       "shortLabel": "Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/error-detection",
         "5c/credibility",
         "ep/strength/3-papers",
         "ep/scope/cross-paper"
@@ -7381,6 +7507,7 @@
       "shortLabel": "Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/fine-tuning-effect",
         "5c/credibility",
         "5c/clarity",
         "ep/strength/4-papers",
@@ -7402,6 +7529,7 @@
       "shortLabel": "Text-only LLMs underperform on tasks where figures or tables carry primary information",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/modality-limitation",
         "5c/credibility",
         "ep/strength/2-papers",
         "ep/scope/cross-paper"
@@ -7422,6 +7550,7 @@
       "shortLabel": "Users find LLM-generated peer-review feedback substantively helpful at rates comparable t…",
       "curationStatus": "Initial AI draft",
       "tags": [
+        "task/review-generation",
         "5c/credibility",
         "5c/creativity",
         "ep/strength/4-papers",

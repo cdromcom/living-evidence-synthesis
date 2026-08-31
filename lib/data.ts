@@ -107,6 +107,86 @@ export function getFiveCs(node: Pick<GraphNode, "tags">): FiveC[] {
 }
 
 /**
+ * Evaluative Task taxonomy — what research-evaluation capability a finding
+ * is *about* (e.g. "risk-of-bias assessment", "novelty assessment"), as
+ * distinct from the appraisal/* tags above (which rate how trustworthy the
+ * *source study itself* is). Only EVD/CLM/EP nodes carry these, since only
+ * they represent a specific finding about LLM performance on some task.
+ * Grouped by the 5C branch each leaf belongs to, with a sixth "Cross-cutting"
+ * bucket for findings about the evaluator's general behavior (prompt
+ * sensitivity, cost, fine-tuning) rather than one specific evaluative task —
+ * added 2026-08 per advisor feedback distinguishing "how good is this study"
+ * from "what does the evidence say about LLMs doing X".
+ */
+export const TASK_ORDER = [
+  "risk-of-bias-assessment",
+  "reporting-compliance-checking",
+  "causal-inference-judgment",
+  "decision-judgment",
+  "error-detection",
+  "review-generation",
+  "extraction-fidelity",
+  "novelty-assessment",
+  "ethics-irb-review",
+  "citation-integrity-checking",
+  "prompt-sensitivity",
+  "fine-tuning-effect",
+  "cost-scalability",
+  "modality-limitation",
+  "rare-class-reliability",
+  "aggregate-vs-instance-validity",
+] as const;
+export type EvaluativeTask = (typeof TASK_ORDER)[number];
+
+export const TASK_LABELS: Record<EvaluativeTask, string> = {
+  "risk-of-bias-assessment": "Risk-of-bias assessment",
+  "reporting-compliance-checking": "Reporting-guideline compliance checking",
+  "causal-inference-judgment": "Causal-inference / study-design judgment",
+  "decision-judgment": "Holistic decision judgment",
+  "error-detection": "Error, flaw & limitation detection",
+  "review-generation": "Review-comment generation & feedback quality",
+  "extraction-fidelity": "Structured-summary / extraction fidelity",
+  "novelty-assessment": "Novelty / contribution assessment",
+  "ethics-irb-review": "Research-ethics / IRB review",
+  "citation-integrity-checking": "Citation-accuracy / reference-integrity checking",
+  "prompt-sensitivity": "Prompt-sensitivity",
+  "fine-tuning-effect": "Fine-tuning effect",
+  "cost-scalability": "Cost / scalability",
+  "modality-limitation": "Modality limitation",
+  "rare-class-reliability": "Rare-class / statistical reliability",
+  "aggregate-vs-instance-validity": "Aggregate-vs-instance validity",
+};
+
+export const TASK_GROUPS: Record<EvaluativeTask, string> = {
+  "risk-of-bias-assessment": "Credibility",
+  "reporting-compliance-checking": "Credibility",
+  "causal-inference-judgment": "Credibility",
+  "decision-judgment": "Credibility",
+  "error-detection": "Credibility",
+  "review-generation": "Credibility",
+  "extraction-fidelity": "Clarity",
+  "novelty-assessment": "Creativity",
+  "ethics-irb-review": "Care",
+  "citation-integrity-checking": "Connectivity",
+  "prompt-sensitivity": "Cross-cutting",
+  "fine-tuning-effect": "Cross-cutting",
+  "cost-scalability": "Cross-cutting",
+  "modality-limitation": "Cross-cutting",
+  "rare-class-reliability": "Cross-cutting",
+  "aggregate-vs-instance-validity": "Cross-cutting",
+};
+
+const TASK_TAG_PREFIX = "task/";
+
+export function getEvaluativeTasks(node: Pick<GraphNode, "tags">): EvaluativeTask[] {
+  const known: readonly string[] = TASK_ORDER;
+  return node.tags
+    .filter((t) => t.startsWith(TASK_TAG_PREFIX))
+    .map((t) => t.slice(TASK_TAG_PREFIX.length))
+    .filter((t): t is EvaluativeTask => known.includes(t));
+}
+
+/**
  * COS TOP (Transparency and Openness Promotion) Guidelines standards,
  * https://www.cos.io/initiatives/top-guidelines — the four covered here are
  * derived from data already authored in each SRC file's own TRIPOD-LLM

@@ -2,6 +2,7 @@
 NodeFormality: draft
 aliases:
 tags:
+  - task/decision-judgment
   - appraisal/construct-validity/some-concerns
   - appraisal/internal-validity/high-risk
   - appraisal/external-validity/high-risk

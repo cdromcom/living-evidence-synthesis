@@ -3,6 +3,7 @@ NodeFormality: draft
 TruthValue: 0.8
 aliases:
 tags:
+  - task/reporting-compliance-checking
   - 5c/clarity
   - 5c/credibility
   - ep/strength/3-papers
