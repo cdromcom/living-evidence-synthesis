@@ -249,6 +249,26 @@ what method it follows, how the review layer works) moved to the bottom
 of the About page, leaving the footer itself just a set of navigation
 links.
 
+## Catching up the graph view's filter to the full chip catalog
+
+The graph view has always had a "Trust signals" filter dropdown for
+narrowing the 232-node force-directed graph down to nodes matching a
+particular Openness/Rigor/Transparency/Integrity signal, but it had been
+built against an earlier, smaller version of the chip catalog and never
+kept in sync as new chips were added over time (the Design/Analyses/
+Reporting/Interpretation Rigor subrows, the Data/Code repository-liveness
+checks). It was quietly missing more than a dozen of the signals now
+shown on every source and evidence page. Brought it up to full parity
+with the current chip catalog (the same one the Evidence Quality table's
+column picker draws from): every rigor check that reads on a
+addressed/partially-addressed/unresolved scale now gets its own three
+filter checkboxes, statistical power and statistic-accuracy got their own
+options, and the old single "Rigor" group was split into "Rigor —
+Validity" so it reads consistently against the four new Rigor subrows
+sitting alongside it. Verified in the browser that an obscure combination
+("Data Repo Check: Live") narrows the graph to exactly the one matching
+node.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

@@ -21,6 +21,24 @@ import {
   INTEGRITY_SIGNAL_ORDER,
   INTEGRITY_SIGNAL_LABELS,
   getIntegritySignals,
+  DATA_LEAKAGE_LABELS,
+  REPO_CHECK_LABELS,
+  getRepositoryCheck,
+  getCodeCheck,
+  getBaselineAdequacy,
+  getTrainDevTestHygiene,
+  getHumanBaselineComparability,
+  getDataLeakageSignal,
+  getPromptEngineering,
+  getAblationExperiments,
+  getConfidenceIntervals,
+  getMultipleComparisonsCorrection,
+  getChanceCorrectedMetrics,
+  getSpinSignal,
+  getStatisticalPower,
+  STATISTICAL_POWER_LABELS,
+  getStatisticalConsistency,
+  STATISTICAL_CONSISTENCY_LABELS,
 } from "@/lib/data";
 import {
   NODE_TYPE_COLOR_VAR,
@@ -117,11 +135,37 @@ const SUMMARY_SECTION_BY_TYPE: Partial<Record<NodeType, RegExp>> = {
 
 type TrustSignalOption = { key: string; label: string; group: string; test: (n: GraphNode) => boolean };
 
-// Mirrors the four trust-signal groups shown on each SRC page (TopBadges.tsx)
-// — Openness (COS TOP standards), Rigor (validity-domain risk), Transparency
-// (TRIPOD-LLM reporting compliance), and Integrity (disclosures). Extensibility
-// is deliberately left out: those are unscored "not done yet" reminders, not
-// real signals to filter by.
+// Mirrors every trust-signal chip shown on each SRC/EVD page (TopBadges.tsx
+// + lib/qualityColumns.ts, the same catalog the Evidence Quality table's
+// column picker draws from) — Openness (COS TOP standards + repo/code
+// liveness checks), the five Rigor subrows (Validity, Design, Analyses,
+// Reporting, Interpretation), Transparency (TRIPOD-LLM reporting
+// compliance), and Integrity (disclosures). Extensibility is deliberately
+// left out: those are unscored "not done yet" reminders, not real signals
+// to filter by.
+const RISK_LEVELS = ["low-risk", "some-concerns", "high-risk"] as const;
+
+// The "did the paper address X" family of rigor checks (Step 6/6.b in the
+// extraction Skill) — all read the same 4-level addressed/partial/
+// unresolved/not-addressed tag scale, so a single generator produces three
+// filter checkboxes (skipping "not-addressed": absence isn't a positive
+// signal worth filtering for) per check, grouped the same way the Evidence
+// Quality table groups its columns.
+const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: GraphNode) => ReproducibilityRisk | "not-addressed" | null }[] = [
+  { id: "data-repo-check", label: "Data Repo Check", group: "Openness", getter: getRepositoryCheck },
+  { id: "code-check", label: "Code Check", group: "Openness", getter: getCodeCheck },
+  { id: "baseline-adequacy", label: "Baseline Adequacy", group: "Rigor — Design", getter: getBaselineAdequacy },
+  { id: "train-dev-test", label: "Train/Dev/Test Hygiene", group: "Rigor — Design", getter: getTrainDevTestHygiene },
+  { id: "human-baseline", label: "Human-Baseline Comparability", group: "Rigor — Design", getter: getHumanBaselineComparability },
+  { id: "data-leakage", label: "Data Leakage", group: "Rigor — Design", getter: getDataLeakageSignal },
+  { id: "prompt-engineering", label: "Prompt Engineering", group: "Rigor — Design", getter: getPromptEngineering },
+  { id: "ablation-experiments", label: "Ablation Experiment(s)", group: "Rigor — Design", getter: getAblationExperiments },
+  { id: "confidence-intervals", label: "Confidence Intervals", group: "Rigor — Analyses", getter: getConfidenceIntervals },
+  { id: "multiple-comparisons", label: "Multiple-Comparisons Correction", group: "Rigor — Analyses", getter: getMultipleComparisonsCorrection },
+  { id: "chance-corrected-metrics", label: "Chance-Corrected Metrics", group: "Rigor — Analyses", getter: getChanceCorrectedMetrics },
+  { id: "spin", label: "Non-Significant Result Spin", group: "Rigor — Interpretation", getter: getSpinSignal },
+];
+
 const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
   ...TOP_STANDARD_ORDER.map((standard) => ({
     key: `top:${standard}`,
@@ -132,11 +176,31 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
         (s) => s.standard === standard && (s.level === "level-1-disclosed" || s.level === "level-2-shared")
       ),
   })),
+  ...RIGOR_CHECK_DEFS.flatMap((def) =>
+    RISK_LEVELS.map((risk) => ({
+      key: `check:${def.id}:${risk}`,
+      label: `${def.label}: ${(def.group === "Openness" ? REPO_CHECK_LABELS : DATA_LEAKAGE_LABELS)[risk]}`,
+      group: def.group,
+      test: (n: GraphNode) => def.getter(n) === risk,
+    }))
+  ),
   ...(["low-risk", "some-concerns", "high-risk"] as ReproducibilityRisk[]).map((risk) => ({
     key: `rigor:${risk}`,
     label: REPRODUCIBILITY_RISK_LABELS[risk],
-    group: "Rigor",
+    group: "Rigor — Validity",
     test: (n: GraphNode) => getValiditySignals(n).some((v) => v.risk === risk),
+  })),
+  ...(["adequate", "inadequate"] as const).map((status) => ({
+    key: `statistical-power:${status}`,
+    label: STATISTICAL_POWER_LABELS[status],
+    group: "Rigor — Analyses",
+    test: (n: GraphNode) => getStatisticalPower(n) === status,
+  })),
+  ...(["consistent", "issues-found"] as const).map((status) => ({
+    key: `statistic-accuracy:${status}`,
+    label: `Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}`,
+    group: "Rigor — Reporting",
+    test: (n: GraphNode) => getStatisticalConsistency(n) === status,
   })),
   ...(["high", "moderate", "low"] as ReportingComplianceLevel[]).map((level) => ({
     key: `reporting:${level}`,
