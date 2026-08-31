@@ -14,7 +14,7 @@ export const supabase = supabaseConfigured
     })
   : null;
 
-export type Verdict = "correct" | "edit" | "wrong" | "missing" | "na";
+export type Verdict = "correct" | "edit" | "edit-major" | "edit-minor" | "wrong" | "missing" | "na";
 
 export type NodeReview = {
   id: string;

@@ -19,6 +19,8 @@
 
   --color-verdict-correct: #10b981;
   --color-verdict-edit: #f59e0b;
+  --color-verdict-edit-major: #ea580c;
+  --color-verdict-edit-minor: #fbbf24;
   --color-verdict-wrong: #f43f5e;
   --color-verdict-missing: #8b5cf6;
 
@@ -72,6 +74,8 @@
 
   --color-verdict-correct: var(--color-verdict-correct);
   --color-verdict-edit: var(--color-verdict-edit);
+  --color-verdict-edit-major: var(--color-verdict-edit-major);
+  --color-verdict-edit-minor: var(--color-verdict-edit-minor);
   --color-verdict-wrong: var(--color-verdict-wrong);
   --color-verdict-missing: var(--color-verdict-missing);
 

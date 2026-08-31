@@ -84,9 +84,9 @@ export default function AboutPage() {
           <Link href="/review" className="text-forest">
             review dashboard
           </Link>{" "}
-          for the current status breakdown and the five-state review-verdict
-          vocabulary (✓ correct · ✎ edit · ✗ wrong · ⟳ missing · — n/a) the spec
-          uses for field-level review.
+          for the current status breakdown and the review-verdict vocabulary
+          (✓ correct · ✎ edit, further split into major/minor issues · ✗ wrong
+          · ⟳ missing · — n/a) the spec uses for field-level review.
         </p>
         <h2>Edges</h2>
         <p>

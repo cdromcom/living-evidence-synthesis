@@ -66,6 +66,21 @@ export const VERDICT_VOCAB = [
     description: "Substantially right, but a human reviewer revised wording, scope, or polarity.",
   },
   {
+    symbol: "✎",
+    key: "edit-major",
+    label: "Edit: Major issues",
+    color: "var(--color-verdict-edit-major)",
+    description:
+      "Substantially right, but needs a significant revision (e.g. scope, polarity, or a key number) before it's trustworthy.",
+  },
+  {
+    symbol: "✎",
+    key: "edit-minor",
+    label: "Edit: Minor issues",
+    color: "var(--color-verdict-edit-minor)",
+    description: "Accurate, but a human reviewer made a small wording/polish edit that doesn't change its meaning.",
+  },
+  {
     symbol: "✗",
     key: "wrong",
     label: "Wrong",

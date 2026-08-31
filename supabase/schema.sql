@@ -11,9 +11,10 @@ create table if not exists node_reviews (
   reviewer_email text not null default auth.email(),  -- denormalized for easy export
   node_id        text not null,          -- e.g. "CLM-014", "EVD-062"
   dimension      text not null default 'overall',
-  -- ✓ correct · ✎ edit · ✗ wrong · ⟳ missing · — n/a  (node-spec.md vocabulary)
-  verdict        text not null check (verdict in ('correct', 'edit', 'wrong', 'missing', 'na')),
-  proposed       text,                   -- the corrected value / proposed diff, if verdict = 'edit'
+  -- ✓ correct · ✎ edit · ✎ edit-major · ✎ edit-minor · ✗ wrong · ⟳ missing · — n/a
+  -- (node-spec.md vocabulary, extended 2026-08 to split "edit" by severity)
+  verdict        text not null check (verdict in ('correct', 'edit', 'edit-major', 'edit-minor', 'wrong', 'missing', 'na')),
+  proposed       text,                   -- the corrected value / proposed diff, if verdict starts with 'edit'
   note           text,
   created_at     timestamptz not null default now(),
   updated_at     timestamptz not null default now()
@@ -65,3 +66,18 @@ drop policy if exists auth_delete_own on node_reviews;
 create policy auth_delete_own on node_reviews
   for delete to authenticated
   using (reviewer_id = auth.uid());
+
+-- ── Migration (2026-08): split "edit" by severity ───────────────────────────
+-- If node_reviews already exists from an earlier run of this file, the
+-- `create table if not exists` above is a no-op and its CHECK constraint
+-- won't pick up the new verdict values automatically — run this once against
+-- the live database (Supabase SQL editor) to widen it:
+--
+--   alter table node_reviews drop constraint node_reviews_verdict_check;
+--   alter table node_reviews add constraint node_reviews_verdict_check
+--     check (verdict in ('correct', 'edit', 'edit-major', 'edit-minor', 'wrong', 'missing', 'na'));
+--
+-- (Postgres auto-names the constraint node_reviews_verdict_check for a table
+-- created via this script; confirm the actual name first with
+-- `select conname from pg_constraint where conrelid = 'node_reviews'::regclass;`
+-- if it was created some other way.)

@@ -326,6 +326,21 @@ assessment" and see exactly the handful of findings across the corpus
 that are about that capability, regardless of which paper they came
 from or how well-conducted that paper was.
 
+## Splitting "Edit" into major and minor issues
+
+The review form's five-state verdict vocabulary (correct / edit / wrong
+/ missing / n/a) treated every edit the same, whether a reviewer fixed
+a typo or rewrote a finding's core claim. Added two new, more specific
+verdicts — "Edit: Major issues" and "Edit: Minor issues" — alongside
+the original "Edit" rather than replacing it, so any reviews already
+submitted with the plain "Edit" verdict keep rendering correctly. Both
+new states get their own color (a stronger orange for major, a lighter
+amber for minor) and show the same "proposed correction" text box the
+original Edit verdict already had. Since the actual review database
+lives in Supabase, separate from this repo, the schema file now also
+carries the exact migration SQL needed to widen the database's
+verdict check constraint on any already-provisioned instance.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

@@ -120,7 +120,7 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
             ))}
           </div>
 
-          {verdict === "edit" && (
+          {(verdict === "edit" || verdict === "edit-major" || verdict === "edit-minor") && (
             <textarea
               value={proposed}
               onChange={(e) => setProposed(e.target.value)}
