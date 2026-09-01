@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { supabase, supabaseConfigured } from "@/lib/supabase";
+import { authRedirectOrigin, supabase, supabaseConfigured } from "@/lib/supabase";
 
 export default function LoginPage() {
   return (
@@ -28,7 +28,13 @@ function LoginForm() {
     if (!supabase) return;
     setBusy(true);
     setStatus(null);
-    const { error } = await supabase.auth.signInWithOtp({ email });
+    // The email carries both a 6-digit code (the form below) and a link, so
+    // `emailRedirectTo` decides where the link half lands. Without it Supabase
+    // uses the project's one Site URL for everybody — see authRedirectOrigin.
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: `${authRedirectOrigin()}${next}` },
+    });
     setBusy(false);
     if (error) {
       setStatus(error.message);

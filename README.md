@@ -126,6 +126,26 @@ Setup (once):
 3. Authentication → Providers → Email → enable, with signups allowed.
 4. Project Settings → API → copy the Project URL + anon public key into
    `.env.local` (see `.env.example`).
+5. Authentication → Emails → **Magic Link** template → make sure it contains
+   `{{ .Token }}`. Supabase's stock template only has `{{ .ConfirmationURL }}`
+   (a link), but `/login` asks for a 6-digit code — with the stock template
+   that form has nothing to type into it. Keeping both in the template lets a
+   reviewer use either half:
+
+   ```html
+   <h2>Sign in to the review site</h2>
+   <p>Your code:</p>
+   <p style="font-size:24px;letter-spacing:4px"><strong>{{ .Token }}</strong></p>
+   <p>Or <a href="{{ .ConfirmationURL }}">click here to sign in</a>.</p>
+   ```
+
+6. Authentication → URL Configuration → add every origin the site runs on
+   (`http://localhost:3000`, the production domain) to **Redirect URLs**.
+   `signInWithOtp` sends an explicit `emailRedirectTo` built from
+   `NEXT_PUBLIC_SITE_URL` or the browser's origin; Supabase honours it only if
+   it matches this allow-list, and otherwise silently falls back to the single
+   **Site URL** — which is how a deployed site ends up mailing everyone a link
+   to `http://localhost:3000`.
 
 Each reviewer's verdict (✓ correct · ✎ edit · ✗ wrong · ⟳ missing · — n/a,
 per `node-spec.md`'s vocabulary) is one row in `node_reviews`, submitted from
