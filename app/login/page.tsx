@@ -110,17 +110,21 @@ function LoginForm() {
       ) : (
         <form onSubmit={verifyCode} className="mt-6 space-y-3">
           <label className="block text-sm font-medium" htmlFor="code">
-            6-digit code
+            8-digit code
           </label>
+          {/* Length is Supabase's mailer_otp_length (8 here, not the stock 6);
+              if that project setting changes, change this copy with it. */}
           <input
             id="code"
             type="text"
             inputMode="numeric"
+            autoComplete="one-time-code"
+            maxLength={8}
             required
             autoFocus
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            placeholder="123456"
+            placeholder="12345678"
             className="mono w-full rounded-md border border-border bg-card px-3 py-2 text-lg tracking-widest text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
           />
           <div className="flex gap-2">
