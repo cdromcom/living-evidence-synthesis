@@ -45,7 +45,7 @@ flowchart TB
 
         subgraph review["Accuracy review"]
             reviewwidget["ReviewWidget /\nLiveReviewPanel"]
-            supabase[("Supabase\nPostgres + magic-link auth")]
+            supabase[("Supabase\nPostgres + email-code auth")]
             reviewwidget <-->|"row-level security"| supabase
         end
 
@@ -60,6 +60,7 @@ flowchart TB
     end
 
     apiroutes <-->|"OAuth + fork/commit/PR"| github[("GitHub API")]
+    supabase -->|"sign-in codes\n(custom SMTP required)"| brevo[("Brevo SMTP")]
 
     browser(["Visitor's browser"]) --> pages
 
@@ -68,7 +69,7 @@ flowchart TB
     classDef live fill:#F1F8E9,stroke:#2E7D32,color:#1B5E20;
     class zotero,apis,maintainer offline;
     class md,json store;
-    class supabase,github,pages,reviewwidget,contributeform,apiroutes live;
+    class supabase,github,brevo,pages,reviewwidget,contributeform,apiroutes live;
 ```
 
 - **Curation** produces the trust-signal fields documented in
@@ -86,11 +87,12 @@ flowchart TB
 - **Runtime** is where the only two *live*, per-visitor features happen,
   each isolated from the other: Supabase handles sign-in and stores
   accuracy-review verdicts (client talks to Supabase directly, gated by
-  Postgres row-level security); GitHub OAuth handles the "Contribute a
-  node" flow through server-only API routes, so the OAuth client secret
-  never reaches the browser. Both degrade gracefully to "hidden/disabled"
-  if their environment variables aren't set — the 232 static node pages
-  work with neither configured.
+  Postgres row-level security, with sign-in codes delivered over custom
+  SMTP rather than Supabase's test-only built-in sender); GitHub OAuth
+  handles the "Contribute a node" flow through server-only API routes, so
+  the OAuth client secret never reaches the browser. Both degrade
+  gracefully to "hidden/disabled" if their environment variables aren't
+  set — the 232 static node pages work with neither configured.
 
 ## Getting started
 
@@ -120,32 +122,89 @@ model: **open sign-in**. Any email can request a one-time code and start
 reviewing; there's no invite-only roster (see `supabase/schema.sql` for the
 alternative if you want to lock it down later).
 
+The email carries both halves of a sign-in: an 8-digit code to type into
+`/login`, and a link to click. Either works.
+
+```mermaid
+sequenceDiagram
+    actor R as Reviewer
+    participant App as Browser at /login
+    participant SB as Supabase Auth
+    participant SMTP as Brevo SMTP
+
+    R->>App: enters email, "Send code"
+    App->>SB: signInWithOtp({ email, emailRedirectTo })
+    Note over SB: emailRedirectTo is honoured only if it matches uri_allow_list
+    Note over SB: otherwise it is silently swapped for the single Site URL
+    SB->>SMTP: render the Magic Link template
+    SMTP->>R: 8-digit {{ .Token }} + {{ .ConfirmationURL }}
+    alt types the code
+        R->>App: enters the 8 digits
+        App->>SB: verifyOtp({ email, token, type: "email" })
+    else clicks the link
+        R->>App: lands on emailRedirectTo with #access_token=...
+        App->>SB: detectSessionInUrl consumes the URL fragment
+    end
+    SB-->>App: session
+    App-->>R: signed in, sent on to /review
+```
+
 Setup (once):
 1. Create a project at [supabase.com](https://supabase.com).
 2. SQL Editor → run `supabase/schema.sql`.
 3. Authentication → Providers → Email → enable, with signups allowed.
 4. Project Settings → API → copy the Project URL + anon public key into
    `.env.local` (see `.env.example`).
-5. Authentication → Emails → **Magic Link** template → make sure it contains
-   `{{ .Token }}`. Supabase's stock template only has `{{ .ConfirmationURL }}`
-   (a link), but `/login` asks for a 6-digit code — with the stock template
-   that form has nothing to type into it. Keeping both in the template lets a
-   reviewer use either half:
+5. **Configure custom SMTP — this is not optional.** Authentication → Emails →
+   SMTP Settings, pointed at any transactional provider (this project uses
+   Brevo's free tier: `smtp-relay.brevo.com`, port `587`, and note the
+   Management API wants `smtp_port` as a *string*, not a number). Until you
+   do, step 6 fails with:
+
+   > Email template modification is not available for free tier projects using
+   > the default email provider. Please upgrade your plan or configure a custom
+   > SMTP provider.
+
+   Supabase's built-in email sender is test-only and rate-limited to a couple
+   of messages an hour, so this is needed for real reviewers regardless.
+6. Authentication → Emails → **Magic Link** template → make sure it contains
+   `{{ .Token }}`. The stock template only has `{{ .ConfirmationURL }}` (a
+   link), but `/login` asks for a code, so with the stock template that form
+   has nothing to type into it. Keeping both placeholders lets a reviewer use
+   whichever half they prefer:
 
    ```html
    <h2>Sign in to the review site</h2>
-   <p>Your code:</p>
-   <p style="font-size:24px;letter-spacing:4px"><strong>{{ .Token }}</strong></p>
+   <p>Enter this code on the sign-in page:</p>
+   <p style="font-size:28px;letter-spacing:6px"><strong>{{ .Token }}</strong></p>
    <p>Or <a href="{{ .ConfirmationURL }}">click here to sign in</a>.</p>
    ```
 
-6. Authentication → URL Configuration → add every origin the site runs on
-   (`http://localhost:3000`, the production domain) to **Redirect URLs**.
-   `signInWithOtp` sends an explicit `emailRedirectTo` built from
-   `NEXT_PUBLIC_SITE_URL` or the browser's origin; Supabase honours it only if
-   it matches this allow-list, and otherwise silently falls back to the single
-   **Site URL** — which is how a deployed site ends up mailing everyone a link
-   to `http://localhost:3000`.
+   The code's length is the project's `mailer_otp_length` (**8** here, not
+   Supabase's stock 6). `app/login/page.tsx` hard-codes that length in its
+   label, placeholder and `maxLength` — change both together or the form will
+   describe a code that never arrives.
+7. Authentication → URL Configuration:
+   - **Redirect URLs** — add every origin the site runs on, as both the bare
+     origin and a `/**` wildcard (`http://localhost:3000`,
+     `http://localhost:3000/**`, and the same pair for production).
+     `signInWithOtp` sends an explicit `emailRedirectTo` built from
+     `NEXT_PUBLIC_SITE_URL` or the browser's origin, and Supabase honours it
+     only if it matches this list. An empty list is not a no-op: it means
+     *every* redirect silently falls back to Site URL.
+   - **Site URL** — the public production address. On Vercel, take care to use
+     the alias that is actually reachable without logging in
+     (`living-evidence-synthesis.vercel.app`), not the team-suffixed or
+     per-deployment hostnames, which sit behind Vercel's SSO wall and will show
+     reviewers a Vercel login screen.
+
+   To check both without sending an email, hand `/auth/v1/verify` a junk token
+   and read where it redirects — an allow-listed `redirect_to` is echoed back,
+   anything else reveals the current Site URL:
+
+   ```bash
+   curl -sD - -o /dev/null "$SUPABASE_URL/auth/v1/verify?token=junk&type=magiclink&redirect_to=https%3A%2F%2Fexample.com" | grep -i '^location:'
+   ```
 
 Each reviewer's verdict (✓ correct · ✎ edit · ✗ wrong · ⟳ missing · — n/a,
 per `node-spec.md`'s vocabulary) is one row in `node_reviews`, submitted from
