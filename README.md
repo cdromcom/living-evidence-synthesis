@@ -257,3 +257,32 @@ package-registry listing, citation file, or quality badge. Tagged
 `top/code-quality-fair/{0-5}` on the source (see `getCodeQualityFair` in
 `lib/data.ts`), surfaced as a "Code Quality N/5" chip/row/column
 alongside every other trust signal.
+
+### Data Quality (FAIR-Checker, hybrid-scored)
+
+Since 2026-08, every source with a checkable, released dataset gets a
+"Data Quality" score on a 0-24 scale, via
+[FAIR-Checker](https://fair-checker.france-bioinformatique.fr) (a
+semantic-web/schema.org-based FAIR assessor, 12 metrics scored 0-2 each).
+Unlike Code Quality, FAIR-Checker's REST API works against any platform —
+GitHub, OSF, HuggingFace — on one consistent scale, which is why it was
+chosen over `howfairis` for this signal. But a raw FAIR-Checker score is
+uninformative for GitHub-hosted data: GitHub pages carry none of the
+schema.org metadata the tool looks for, so every GitHub-hosted dataset
+tested flatlined at an identical 4/24 regardless of actual content. To
+keep the scale meaningful across platforms, GitHub/GitLab-hosted datasets
+get a documented **+2 top-up** if the repo has a real LICENSE file — reusing
+the license-detection result already computed for Code Quality, since
+`howfairis` reads repo content directly in a way FAIR-Checker's
+page-metadata approach cannot. OSF and HuggingFace datasets, which do carry
+real structured metadata, keep their native FAIR-Checker score unchanged.
+As of 2026-08, 14 of 27 sources have a checkable dataset: two OSF projects
+scored 16/24, two HuggingFace dataset cards scored 9/24, and ten
+GitHub-hosted datasets split between 4/24 (no license) and 6/24 (license
+present). Full per-source breakdown in `misc/data_quality_2026-08.md` in
+the vault. Tagged `top/data-quality-fair/{0-24}` on the source (see
+`getDataQualityFair` in `lib/data.ts`), surfaced as a "Data Quality N/24"
+chip/row/column alongside every other trust signal; the older Data Repo
+Check chip (which only asks "does the link still resolve") is hidden
+wherever a Data Quality score already exists, on the same precedent as
+Code Check/Code Quality.

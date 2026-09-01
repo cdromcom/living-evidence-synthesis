@@ -19,6 +19,7 @@ import {
   getIntegritySignals,
   getAiWritingCheck,
   getCodeQualityFair,
+  getDataQualityFair,
   VALIDITY_DOMAIN_ORDER,
   VALIDITY_DOMAIN_LABELS,
   REPRODUCIBILITY_RISK_LABELS,
@@ -281,6 +282,18 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
       if (score === null) return null;
       const tone: Tone = score >= 4 ? "green" : score >= 2 ? "gold" : "red";
       return { text: `${score}/5`, tone };
+    },
+  },
+  {
+    id: "data-quality-fair",
+    label: "Data Quality",
+    group: "Openness",
+    defaultVisible: false,
+    value: (_evd, src) => {
+      const score = getDataQualityFair(src);
+      if (score === null) return null;
+      const tone: Tone = score >= 16 ? "green" : score >= 8 ? "gold" : "red";
+      return { text: `${score}/24`, tone };
     },
   },
 ];

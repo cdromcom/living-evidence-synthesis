@@ -38,6 +38,7 @@ import {
   getSpinSignal,
   getAiWritingCheck,
   getCodeQualityFair,
+  getDataQualityFair,
   getStatisticalPower,
   getStatisticalConsistency,
 } from "@/lib/data";
@@ -193,6 +194,13 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
     label: "Code Quality",
     group: "Openness",
     test: (n: GraphNode) => (getCodeQualityFair(n) ?? 0) >= 3,
+  },
+  {
+    key: "data-quality-fair",
+    label: "Data Quality",
+    group: "Openness",
+    // Same ~60%-of-scale "meets baseline" bar as Code Quality's >=3/5.
+    test: (n: GraphNode) => (getDataQualityFair(n) ?? 0) >= 15,
   },
   // One checkbox per Validity domain — matches the four separate chips
   // (Construct validity, Internal validity, External validity, Statistical

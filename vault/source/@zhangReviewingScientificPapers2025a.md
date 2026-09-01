@@ -7,6 +7,7 @@ tags:
   - top/code-quality-fair/2
   - integrity/ai-writing-check/addressed
   - dg/source
+  - top/data-quality-fair/6
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
   - top/study-registration/not-applicable
@@ -168,6 +169,7 @@ flowchart TD
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"we evaluated the PDF-based approach and the LaTeX-based approach in this work"*, with Table 2 reporting hit rates for both input-format conditions per model — *"After switching to LaTeX, hit rates of Gemini models slightly decreased... In contrast, the hit rates of o-series models increased."* `pp.2-3` |
 | **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Data Repo Check and Code Check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/153df094-7481-4582-901a-075c6a6714f7) |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/tianmai-zhang/WithdrarXiv-Check: **2/5** — open repository + license — no package-registry listing, citation metadata, or quality-checklist badge. |
+| **Data Quality**: is the released dataset FAIR? | 🔴 | FAIR-Checker (12 semantic-web metrics, 0-2 each) against https://github.com/tianmai-zhang/WithdrarXiv-Check: **6/24** — includes a +2 top-up for having a real license file, since FAIR-Checker can't see repo content on GitHub pages. |
 
 **Bottom line.** The paper makes a clean, well-instrumented case that today's reasoning LLMs — especially OpenAI's o3 and o4-mini — can flag the *specific* author-stated retraction error on roughly 60–70% of withdrawn math and physics papers, with o4-mini delivering nearly o3's accuracy at one-eighth the cost. The result that holds up cleanly is the cost–performance frontier within the OpenAI o-series. The result that does *not* hold up cleanly is "reasoning LLMs are viable manuscript quality checkers" in general: the test bed is overwhelmingly formal-sciences, the false-positive rate is unmeasured, no open-source models are tested, and the Claude PDF result is more a story about Anthropic's PDF pipeline than about reasoning capability. Before deployment in a real journal-screening workflow, future work needs precision/recall on a domain-balanced corpus, open-source comparators, and a head-to-head against expert human reviewers on the same papers.
 

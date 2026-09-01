@@ -159,6 +159,22 @@ export default function AboutPage() {
         </a>{" "}
         (fair-software.eu criteria), run against each source&apos;s released
         GitHub/GitLab code repository, where one exists.
+        <br />
+        Data Quality signal (since 2026-08) via{" "}
+        <a
+          href="https://fair-checker.france-bioinformatique.fr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors hover:text-ink"
+        >
+          FAIR-Checker
+        </a>{" "}
+        (12 semantic-web FAIR metrics), run against each source&apos;s
+        released dataset, where one exists. GitHub/GitLab-hosted datasets get
+        a documented +2 top-up for having a real license file, since
+        FAIR-Checker cannot see repo content directly on those pages — see
+        each source&apos;s Quality Appraisal table for the exact score and
+        method.
       </p>
     </main>
   );

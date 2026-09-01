@@ -208,6 +208,7 @@ const APPRAISAL_ROW_SLUGS: Record<string, string> = {
   "ablation experiment(s)": "ablation-experiments",
   "ai writing check": "ai-writing-check",
   "code quality": "code-quality-fair",
+  "data quality": "data-quality-fair",
 };
 
 /**

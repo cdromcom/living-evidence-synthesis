@@ -6,6 +6,7 @@ rating: 3
 tags:
   - integrity/ai-writing-check/addressed
   - dg/source
+  - top/data-quality-fair/9
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
   - top/study-registration/not-applicable
@@ -161,6 +162,7 @@ flowchart TD
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"we conclude that they are not naturally reliable automatic reviewers because their error rate is still not sufficiently low"* (Abstract, p.9347) — the negative result is the headline conclusion, not downplayed |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"We take into consideration the influence of prompt style and content extraction methods... For Setting 1, we try zero-shot / few-shot, direct scoring / multiple-choice style scoring, and different example distributions."* `p.2, §3.2`, with Table 1 reporting accuracy/Pearson/Spearman/Kendall for each variant |
 | **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Code Check returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/cbb16985-4582-4eb8-8736-2347bfcd99cf) |
+| **Data Quality**: is the released dataset FAIR? | 🟡 | FAIR-Checker (12 semantic-web metrics, 0-2 each) against https://huggingface.co/datasets/zhouruiyang/RR-MCQ: **9/24**. |
 
 **Bottom line.** The paper makes a defensible negative claim: an off-the-shelf GPT-4, prompted in plausible ways, hits roughly 28% on the reasoning-heavy reviewer questions that the authors built RR-MCQ to capture. That number is hard to spin into a deployment story. The headline weakness is sample scope — only 14 ICLR papers and one model family — so before treating this as a closed verdict, the field needs the same experiment scaled across more venues, more disciplines, and current model snapshots (GPT-4o, Claude 3.5+, open-weights long-context models).
 

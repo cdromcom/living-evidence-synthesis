@@ -5,6 +5,7 @@ keywords: ""
 rating: 3
 tags:
   - dg/source
+  - top/data-quality-fair/16
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
   - top/study-registration/not-applicable
@@ -159,6 +160,7 @@ flowchart TD
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"LLMs exhibit mediocre performance in identifying confounders... LLM judgment on confounder status is highly inconsistent... LLMs do not yet have the ability to automate the reporting of causal links."* `Abstract, p.1` — a candid, unspun negative headline |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | Cohen's kappa values reported for cross-prompt/cross-method agreement (0.13–0.41) were independently recomputed and fall within the valid 0–1 range `Results, p.14` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"we attempt a 'no-reasoning' version of the prompts, in which the LLMs are told they are an expert... and then given the question without any example tasks."* `p.6` — reasoning, prompt-directness, and option-order are each isolated and re-measured via Cohen's kappa (Figs. 1-2) |
+| **Data Quality**: is the released dataset FAIR? | 🟢 | FAIR-Checker (12 semantic-web metrics, 0-2 each) against https://osf.io/spzbu/: **16/24**. |
 
 **Bottom line.** The headline finding — that GPT-4o and Claude flag expert-rejected variables as confounders at 65 to 74 percent rates and flip 16 percent of their answers on option-order alone — is methodologically credible and lands the central claim cleanly. The biggest open question is generalization: a single famous case study, deliberately chosen because it is in the training data, is the easiest possible test, and the models still fail it. Before any researcher acts on an LLM's confounder shortlist in practice, this benchmark would need to be replicated on causal questions where the answer is *not* already documented online.
 

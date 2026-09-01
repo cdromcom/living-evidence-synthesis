@@ -6,6 +6,7 @@ rating: 3
 tags:
   - top/code-quality-fair/1
   - dg/source
+  - top/data-quality-fair/4
   - trust/reproducibility/some-concerns
   - top/study-protocol/not-disclosed
   - top/study-registration/not-applicable
@@ -181,6 +182,7 @@ flowchart TD
 | **AI Writing Check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because the Statistic Accuracy check above flagged an inconsistency. Pangram v3.3.2 AI-text detector: *"We believe that this document is primarily human-written, with a small amount of AI-assisted content detected"* (0% AI-generated, 4.4% AI-assisted, 1/27 segments AI-assisted). [Dashboard](https://www.pangram.com/history/63224e20-bbc6-40c6-80fe-937c422d2650) |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%"* — the re-ranker component is removed and the resulting performance drop measured directly |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/simra-shahid/idea_novelty_checker: **1/5** — open repository only — no license, package-registry listing, citation metadata, or quality-checklist badge. |
+| **Data Quality**: is the released dataset FAIR? | 🔴 | FAIR-Checker (12 semantic-web metrics, 0-2 each) against https://github.com/simra-shahid/idea_novelty_checker: **4/24**. |
 
 **Bottom line.** The Idea Novelty Checker is a well-engineered RAG pipeline and the ablation cleanly shows that LLM-based re-ranking — especially facet-based — is the load-bearing component. But the headline 0.81 accuracy is built on 32 ideas labeled by the same two authors who built the in-context examples, with no confidence intervals or significance tests, so the "13% higher than prior systems" claim should be read as a promising signal rather than evidence of deployable novelty assessment. Before this is ready for use in a real idea-triage workflow, future work needs an independent expert panel, a larger and cross-domain test set, and reported uncertainty on every metric.
 

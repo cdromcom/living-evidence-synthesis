@@ -515,6 +515,44 @@ The underlying data, the Quality Appraisal table row, and the Evidence
 Quality/graph-filter entries for Code Check are untouched — this is
 purely about not showing two chips that say the same thing.
 
+## Extending FAIR-Checker into a real Data Quality signal
+
+Code Quality asks whether a repo's *code* follows FAIR-software practice.
+The natural next question — is the *data* itself FAIR? — needed a different
+tool, since `howfairis` only understands source-code repos. FAIR-Checker (the
+semantic-web assessor used exploratorily in the last round) is the one tool
+that already worked against every platform this corpus's datasets live on
+(GitHub, OSF, HuggingFace), so it became the base for a real "Data Quality"
+chip — but its raw scores turned out to have the same problem `howfairis`
+was built to avoid: every GitHub-hosted dataset flatlined at an identical,
+uninformative 4/24, because GitHub pages carry none of the schema.org
+metadata FAIR-Checker looks for. Ten of the fourteen otherwise-checkable
+datasets in this corpus live on GitHub, so a raw score would have been
+meaningless for most of them.
+
+The fix: a documented hybrid, not a single-tool number. GitHub/GitLab-hosted
+datasets get FAIR-Checker's raw score topped up +2 if the repo has a real
+license file — reusing the license-detection result already computed for
+Code Quality, since `howfairis` reads a repo's actual content in a way
+FAIR-Checker's page-metadata approach can't. OSF and HuggingFace datasets,
+which do carry real structured metadata, keep their native FAIR-Checker
+score unchanged. Scored all 14 sources with a checkable dataset this way —
+two OSF projects at a strong 16/24, two HuggingFace dataset cards at a
+middling 9/24, and the ten GitHub-hosted datasets split between 4/24 (no
+license) and 6/24 (license present, +2 topup). Two of the repo URLs and one
+HuggingFace link were only findable through a PDF's hyperlink-annotation
+layer, not its visible text — the same recovery technique used for the
+fourteenth Code Quality repo last round.
+
+Added the "Data Quality" chip with the same treatment every signal here
+gets (chip, Quality Appraisal table row, Evidence Quality column, graph
+filter), and — following the same precedent as Code Check — the older
+"Data Repo Check" chip (which only ever asked "does the data link still
+resolve") now stays hidden wherever a Data Quality score already exists,
+since reaching a dataset well enough to FAIR-score it already implies the
+link is live. Full per-source breakdown and methodology notes live in
+`misc/data_quality_2026-08.md` in the vault.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

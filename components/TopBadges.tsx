@@ -21,6 +21,7 @@ import {
   getRepositoryCheck,
   getCodeCheck,
   getCodeQualityFair,
+  getDataQualityFair,
   getAiWritingCheck,
   getParentSource,
   TOP_STANDARD_LABELS,
@@ -47,6 +48,7 @@ import {
   type StatisticalPowerStatus,
   type StatisticalConsistencyStatus,
   type CodeQualityScore,
+  type DataQualityScore,
 } from "@/lib/data";
 
 // One color vocabulary for every chip on this page, so a color always means
@@ -679,6 +681,35 @@ function CodeQualityBadge({ score, linkBase = "" }: { score: CodeQualityScore; l
   );
 }
 
+// Data Quality glyph — a small database/cylinder mark, distinct from the
+// code-braces glyph above since this measures the dataset's own FAIRness
+// rather than the code repo's software hygiene.
+function DataQualityGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <ellipse cx="12" cy="6" rx="8" ry="3" />
+      <path d="M4 6v12c0 1.66 3.58 3 8 3s8-1.34 8-3V6" />
+      <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3" />
+    </svg>
+  );
+}
+
+function DataQualityBadge({ score, linkBase = "" }: { score: DataQualityScore; linkBase?: string }) {
+  const tone: Tone = score >= 16 ? "green" : score >= 8 ? "gold" : "red";
+  return (
+    <a
+      href={`${linkBase}#qa-data-quality-fair`}
+      title={`Data Quality: ${score}/24 (FAIR-Checker; GitHub/GitLab-hosted data gets a +2 top-up if the repo has a real license file, since FAIR-Checker can't see repo content directly). Click to view the row.`}
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+    >
+      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
+        <DataQualityGlyph />
+      </span>
+      Data Quality {score}/24
+    </a>
+  );
+}
+
 /** Transparency, Openness, Rigor, Extensibility, and integrity badges for a node. */
 export default function TopBadges({ node }: { node: GraphNode }) {
   // Openness, Integrity, and the newer Rigor sub-checks (data leakage,
@@ -727,11 +758,16 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const repositoryCheck = getRepositoryCheck(signalSource);
   const codeCheck = getCodeCheck(signalSource);
   const codeQualityFair = getCodeQualityFair(signalSource);
+  const dataQualityFair = getDataQualityFair(signalSource);
   const aiWritingCheck = getAiWritingCheck(signalSource);
 
   const hasTransparency = Boolean(compliance);
   const hasOpenness =
-    opennessSignals.length > 0 || Boolean(repositoryCheck) || Boolean(codeCheck) || codeQualityFair !== null;
+    opennessSignals.length > 0 ||
+    Boolean(repositoryCheck) ||
+    Boolean(codeCheck) ||
+    codeQualityFair !== null ||
+    dataQualityFair !== null;
   const hasIntegrity = integrity.length > 0 || Boolean(aiWritingCheck);
   const hasRigor =
     validity.length > 0 ||
@@ -764,7 +800,10 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     ...opennessSignals.map((s) => (
       <StandardBadge key={s.standard} standard={s.standard} level={s.level} linkBase={linkBase} />
     )),
-    repositoryCheck && (
+    // Data Quality (FAIR-Checker) implies the data link was successfully
+    // reached and assessed, which already subsumes "is the link live" —
+    // same redundancy logic as Code Check vs. Code Quality above.
+    repositoryCheck && dataQualityFair === null && (
       <RigorCheckBadge
         key="repository-check"
         kind="repository-check"
@@ -772,6 +811,9 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         levelLabels={REPO_CHECK_LABELS}
         linkBase={linkBase}
       />
+    ),
+    dataQualityFair !== null && (
+      <DataQualityBadge key="data-quality-fair" score={dataQualityFair} linkBase={linkBase} />
     ),
     // Code Quality (howfairis) implies the code repo was successfully
     // reached and analyzed, which already subsumes "is the link live" —

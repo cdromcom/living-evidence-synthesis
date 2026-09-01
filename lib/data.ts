@@ -491,6 +491,32 @@ export function getCodeQualityFair(node: Pick<GraphNode, "tags">): CodeQualitySc
   return Number.isInteger(n) && n >= 0 && n <= 5 ? (n as CodeQualityScore) : null;
 }
 
+/**
+ * Data Quality — FAIRness of a source's released dataset, on a 0-24 scale
+ * (FAIR-Checker's 12 semantic-web metrics, 0-2 each), computed 2026-08.
+ * Unlike Code Quality (howfairis, GitHub/GitLab-only), this covers every
+ * platform a source's data happens to live on (GitHub, OSF, HuggingFace)
+ * on one consistent scale — but FAIR-Checker alone can't see inside a
+ * plain GitHub repo (GitHub pages carry none of the schema.org/JSON-LD
+ * metadata the tool looks for), so every GitHub-hosted dataset would
+ * otherwise flatline at the same score (2 for having a URL + 2 for HTTPS,
+ * nothing else) regardless of actual repo content. For GitHub/GitLab
+ * sources, the score is topped up +2 if the repo has a real LICENSE file
+ * (per howfairis, which reads repo content directly rather than page
+ * metadata) — a deliberate, documented hybrid, not a raw single-tool
+ * score. See misc/data_quality_2026-08.md in the vault for exactly which
+ * sources got the license top-up and why.
+ */
+export type DataQualityScore = number; // 0-24
+const DATA_QUALITY_TAG_PREFIX = "top/data-quality-fair/";
+
+export function getDataQualityFair(node: Pick<GraphNode, "tags">): DataQualityScore | null {
+  const tag = node.tags.find((t) => t.startsWith(DATA_QUALITY_TAG_PREFIX));
+  if (!tag) return null;
+  const n = Number(tag.slice(DATA_QUALITY_TAG_PREFIX.length));
+  return Number.isInteger(n) && n >= 0 && n <= 24 ? n : null;
+}
+
 // Repository/Code Check reuse the same addressed/partial/unresolved/
 // not-addressed tag vocabulary as the other checks above, but read oddly
 // with the generic "Addressed"/"Unresolved" wording for a link-liveness
