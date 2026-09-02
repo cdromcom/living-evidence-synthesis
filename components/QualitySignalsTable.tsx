@@ -47,7 +47,7 @@ function Rows({ rows }: { rows: SignalRow[] }) {
                 name
               )}
             </th>
-            <td className="py-[3px] align-baseline">
+            <td className="py-[3px] text-right align-baseline">
               <span className="inline-flex items-baseline gap-1.5">
                 <span
                   className={`mt-[0.32rem] inline-block h-[7px] w-[7px] shrink-0 rounded-full ${TONE_BG[row.tone]}`}
