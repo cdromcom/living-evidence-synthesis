@@ -297,6 +297,47 @@ function renderFigureEmbeds(html: string): string {
 }
 
 /**
+ * Collapses the long verbatim quotes inside Methods Context.
+ *
+ * These run to a median of ~336 characters and there are several per subsection,
+ * so they crowd out the curator's own summary of the method — which is the part
+ * a reader is usually there for. Collapsed, each shows its opening words and its
+ * citation, and expands on click. Only quotes past `MIN` collapse; a short one
+ * costs nothing to leave in place.
+ *
+ * Scoped to Methods Context deliberately: a quote in Description is doing
+ * different work (it *is* the evidence) and should stay visible.
+ */
+function collapseLongQuotes(html: string): string {
+  const MIN = 200;
+  const section = html.match(
+    /<h2 id="[^"]*">\s*Methods Context\s*<\/h2>([\s\S]*?)(?=<h2 |$)/i
+  );
+  if (!section) return html;
+  const [full, body] = section;
+
+  const collapsed = body.replace(/<p>(&quot;|“)([\s\S]*?)<\/p>/g, (whole, openQuote, rest) => {
+    const plain = stripTags(`${openQuote}${rest}`).replace(/&quot;/g, '"').trim();
+    if (plain.length < MIN) return whole;
+    // Split the trailing attribution — "(Author, Year, p. N)" — off the preview,
+    // so the summary says who is being quoted without opening the quote.
+    const citeMatch = plain.match(/(\([^()]*\d{4}[^()]*\))\s*$/);
+    const cite = citeMatch ? citeMatch[1] : "";
+    const words = plain.slice(0, 90).replace(/\s+\S*$/, "");
+    return (
+      `<details class="quote-collapse">` +
+      `<summary><span class="quote-preview">${escapeHtml(words)}…</span>` +
+      (cite ? `<span class="quote-cite">${escapeHtml(cite)}</span>` : "") +
+      `</summary>` +
+      `<div class="quote-collapse-body">${whole}</div>` +
+      `</details>`
+    );
+  });
+
+  return html.replace(full, full.replace(body, collapsed));
+}
+
+/**
  * Promotes an italic line sitting directly above a table into that table's
  * `<caption>`.
  *
@@ -488,5 +529,6 @@ export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
   const withCaptions = promoteTableCaptions(withFigures);
   const withFieldLists = renderFieldLists(withCaptions);
   const { html, toc } = injectHeadingIds(withFieldLists);
-  return { html: wrapAccordionSections(tagTripodRows(tagAppraisalRows(html))), toc };
+  const withQuotes = collapseLongQuotes(html);
+  return { html: wrapAccordionSections(tagTripodRows(tagAppraisalRows(withQuotes))), toc };
 }

@@ -39,7 +39,7 @@ tripod_llm_pct: 54pct
 >
 > **Method type:** zero-shot LLM evaluation under a fixed simplistic prompt.
 >
-> **Tools:** Claude 3.7 Sonnet (`20250219`) accessed via Anthropic API in Python with extended thinking enabled (`thinking type: "enabled"`, `thinking budget: 14,000`, `max tokens: 16,000`, `temperature: 1` — required when thinking is enabled, seed not supported); LLM-as-judge with Gemini 2.5 Pro (`preview-05-06`) and o3 (`2025-04-16`).
+> **Tools:** Claude 3.7 Sonnet (`20250219`) accessed via Anthropic API in Python with extended thinking enabled (`thinking type: "enabled"`, `thinking budget: 14,000`, `max tokens: 16,000`, `temperature: 1`, required when thinking is enabled; seed not supported); LLM-as-judge with Gemini 2.5 Pro (`preview-05-06`) and o3 (`2025-04-16`).
 >
 > **Dependent variables:** HR@5; **average / Q1 / Q3 number of problems submitted per paper** (key for this EVD because Q1=0 under PDF means ≥ 25% of submissions were empty); average input/think/output token usage; estimated USD cost per paper.
 >
@@ -59,18 +59,18 @@ tripod_llm_pct: 54pct
 
 > **Models / participants:** no human subjects. The model under test is **Claude 3.7 Sonnet (`20250219`)** with extended thinking enabled. Comparison checkers in Table 2 are Gemini 2.5 Pro / Flash and o3 / o4-mini (medium). LLM judges are Gemini 2.5 Pro and o3 (Claude was disqualified from the judge pool).
 >
-> **Sample-size flow (papers):** WITHDRARXIV critical-errors candidates n=6,018 → Gemini 2.5 Flash filter → 2,190 → manual exclusions → WITHDRARXIV-CHECK n=1,225 → 80/20 split → **test n=245**. Test composition: Math 52% / Physics 29% / CS 15% / Other 4%; median 14 pages (range 2–136); LaTeX source available for 216/245 (88%) — for the 12% without LaTeX, the LaTeX-row results inherit the PDF-row prediction.
+> **Sample-size flow (papers):** WITHDRARXIV critical-errors candidates n=6,018 → Gemini 2.5 Flash filter → 2,190 → manual exclusions → WITHDRARXIV-CHECK n=1,225 → 80/20 split → **test n=245**. Test composition: Math 52% / Physics 29% / CS 15% / Other 4%; median 14 pages (range 2–136); LaTeX source available for 216/245 (88%). For the 12% without LaTeX, the LaTeX-row results inherit the PDF-row prediction.
 >
 > "Each LLM quality checker was tested $n_c$ ($c$ for checker) times with each paper in consideration of potential variations in outputs… For the small proportion of papers without available LaTeX scripts (Table 1), we resorted to the problems identified by the same model through the PDF-based approach." (Zhang & Abernethy, 2025, p. 2)
 > ![[zhangReviewingScientificPapers2025a-evd-p3-3.png]]
 
 ## Other Notes
 
-- **PDF-pipeline pathology:** Claude's input token usage for PDF was 43,357 — 9.3× higher than Gemini's 4,678 and 2.6× higher than o3's 16,594. After switching to LaTeX, input tokens dropped to 28,284 (still highest among the 5 checkers but in-family). Authors attribute this to Anthropic's per-page extracted-text + page-image PDF representation.
-- **Hit rate doubled under LaTeX (16.3% → 33.1%) and average problems submitted rose from 1.6 to 3.4**, with Q1 rising from 0 to 1 — direct evidence that the empty-submission problem is PDF-specific.
-- Single-judge HR@5 (Table 3) for Claude as checker: PDF — Gemini-judge 21.6%, o3-judge 19.2%; LaTeX — Gemini-judge 44.5%, o3-judge 40.8%.
+- **PDF-pipeline pathology:** Claude's input token usage for PDF was 43,357, 9.3× higher than Gemini's 4,678 and 2.6× higher than o3's 16,594. After switching to LaTeX, input tokens dropped to 28,284 (still highest among the 5 checkers but in-family). Authors attribute this to Anthropic's per-page extracted-text + page-image PDF representation.
+- **Hit rate doubled under LaTeX (16.3% → 33.1%) and average problems submitted rose from 1.6 to 3.4**, with Q1 rising from 0 to 1: direct evidence that the empty-submission problem is PDF-specific.
+- Single-judge HR@5 (Table 3) for Claude as checker: PDF (Gemini-judge 21.6%, o3-judge 19.2%); LaTeX (Gemini-judge 44.5%, o3-judge 40.8%).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance): EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
 
 *Figures reproduced from Zhang & Abernethy (2025), Tables 2 and 3, pp. 3–4. Single-judge rows are from Table 3; the rest from Table 2.*
 | Condition | HR@5 | Avg. # problems (Q1, Q3) | Input tok | Think tok | Output tok | $/paper |

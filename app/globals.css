@@ -505,3 +505,45 @@ h6 {
   font-size: 0.6875rem;
   color: var(--color-muted-ink);
 }
+
+/* ---------------------------------------------------------------------------
+   Verbatim quotes inside Methods Context run to a few hundred characters each,
+   several per subsection, and crowd out the curator's own summary. Collapsed to
+   their opening words plus citation; the full quote is one click away.
+   --------------------------------------------------------------------------- */
+.prose-node .quote-collapse {
+  margin: 0.7em 0;
+}
+.prose-node .quote-collapse > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.35rem 0.6rem;
+  border-left: 2px solid var(--color-border);
+  font-size: 0.8125rem;
+  color: var(--color-muted-ink);
+  transition: border-color 0.12s, color 0.12s;
+}
+.prose-node .quote-collapse > summary::-webkit-details-marker {
+  display: none;
+}
+.prose-node .quote-collapse > summary:hover {
+  border-left-color: var(--color-forest);
+  color: var(--color-ink);
+}
+.prose-node .quote-collapse[open] > summary {
+  border-left-color: var(--color-forest);
+}
+.prose-node .quote-preview {
+  font-style: italic;
+}
+.prose-node .quote-cite {
+  font-size: 0.6875rem;
+  white-space: nowrap;
+}
+.prose-node .quote-collapse-body > p {
+  margin: 0.4em 0 0.2em;
+}
