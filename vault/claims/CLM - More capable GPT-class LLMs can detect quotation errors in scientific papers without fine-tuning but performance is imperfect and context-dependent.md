@@ -36,7 +36,7 @@ nodeID: 019ddb4e-6b9e-7442-938a-0920fa082173
 
 ### Supporting Evidence
 
-> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim — verify before citing)
+> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
 - [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
 

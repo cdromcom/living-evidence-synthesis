@@ -50,14 +50,14 @@ tripod_llm_pct: 70pct
 
 ### How?
 
-> **Procedure:** (1) For each examined paper, look up its Semantic Scholar ID; if available, fetch up to 20 recommended papers from the Recommendation API; if unavailable, prompt GPT-4o to generate a query from the paper's abstract and use the Relevance API instead — top-3 results become seed papers and each seed yields 5 additional recommendations, producing a pool of 18 candidates. (2) GPT-4o-mini reranks the 18 candidates by abstract similarity to the input paper; top-5 are kept. (3) Because of context-window limits, GPT-4o-mini extracts content related to methodology, experimental design, result analysis, and literature review from each retained paper; the extracted snippets are concatenated and supplied as additional context to the limitation-generation prompt. For MARG, the expert agent issues the retrieval and refines the leader's draft limitations using the retrieved evidence. (4) Re-run the same coarse-grained automated evaluation pipeline (GPT-4o classifier on top-3 generated limitations) and the human evaluation (100-sample subset for LIMITGEN-Human) on each system with RAG enabled, and report the Δ vs. the no-RAG row.
+> **Procedure:** (1) For each examined paper, look up its Semantic Scholar ID; if available, fetch up to 20 recommended papers from the Recommendation API; if unavailable, prompt GPT-4o to generate a query from the paper's abstract and use the Relevance API instead, top-3 results become seed papers and each seed yields 5 additional recommendations, producing a pool of 18 candidates. (2) GPT-4o-mini reranks the 18 candidates by abstract similarity to the input paper; top-5 are kept. (3) Because of context-window limits, GPT-4o-mini extracts content related to methodology, experimental design, result analysis, and literature review from each retained paper; the extracted snippets are concatenated and supplied as additional context to the limitation-generation prompt. For MARG, the expert agent issues the retrieval and refines the leader's draft limitations using the retrieved evidence. (4) Re-run the same coarse-grained automated evaluation pipeline (GPT-4o classifier on top-3 generated limitations) and the human evaluation (100-sample subset for LIMITGEN-Human) on each system with RAG enabled, and report the Δ vs. the no-RAG row.
 >
 > "Specifically, the retrieval process leverages the Semantic Scholar API and adapts based on the input paper's availability in the database. If the paper is available the database, we use its Semantic Scholar ID to fetch at most 20 recommended papers via the recommendation API… These retrieved papers are then reranked by GPT-4o-mini, which assesses the similarity between the input paper and the candidates. The top 5 papers are selected." (Xu et al., 2025, p. 7)
 > ![[xuCanLLMsIdentify2025-evd-p7-3.png]]
 
 ### Who?
 
-> **Models evaluated with RAG (LIMITGEN-Syn):** GPT-4o, GPT-4o-mini, Llama-3.3-70B, Qwen-2.5-72B, MARG — same 5 systems as the primary benchmark, each scored both with and without the RAG module on the identical 1,000-example LIMITGEN-Syn set.
+> **Models evaluated with RAG (LIMITGEN-Syn):** GPT-4o, GPT-4o-mini, Llama-3.3-70B, Qwen-2.5-72B, MARG, same 5 systems as the primary benchmark, each scored both with and without the RAG module on the identical 1,000-example LIMITGEN-Syn set.
 >
 > **LIMITGEN-Human cohort (used for the RAG-setting ablation in Table 5):** 1,000 examples sampled from 9,844 ICLR 2025 submissions; for the RAG-setting ablation, 100 examples from LIMITGEN-Human are randomly sampled and run through GPT-4o-mini under three retrieval settings (top-3 reranked, top-5 reranked, last-5).
 >
@@ -71,10 +71,10 @@ tripod_llm_pct: 70pct
 - Human accuracy (86.0%) still greatly exceeds GPT-4o + RAG (64.2% coarse on LIMITGEN-Syn). RAG meaningfully helps but does not close the human–LLM gap.
 - The RAG pipeline used here is deliberately simple (Semantic Scholar API + GPT-4o-mini rerank + concatenated extract); the authors explicitly note "this study does not explore advanced RAG techniques" (Limitations section, p. 10).
 - LIMITGEN-Human Jaccard scores are very low across the board (best with RAG: GPT-4o = 18.8%; MARG = 17.7%) because MARG and LLMs generate far more limitation comments than the ICLR ground truth contains.
-- RAG-setting ablation (Table 5, GPT-4o-mini on 100 LIMITGEN-Human examples) shows top-5 reranked gives the best fine-grained gain (+0.05) but even "last-5 of 18" still helps faithfulness/soundness modestly — i.e., RAG benefits are partly robust to retrieval relevance.
+- RAG-setting ablation (Table 5, GPT-4o-mini on 100 LIMITGEN-Human examples) shows top-5 reranked gives the best fine-grained gain (+0.05) but even "last-5 of 18" still helps faithfulness/soundness modestly, i.e., RAG benefits are partly robust to retrieval relevance.
 - User study on 32 examples in biomedical and computer-network domains (Table 6) replicates the RAG benefit out-of-domain (e.g., GPT-4o biomedical accuracy 31.3% → 50.0% with RAG).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting summary]].
 
 | System (LIMITGEN-Syn) | Coarse Acc. base → +RAG (Δ) | Fine (0–5) base → +RAG (Δ) | Human Acc. base → +RAG (Δ) |
 | --- | :---: | :---: | :---: |

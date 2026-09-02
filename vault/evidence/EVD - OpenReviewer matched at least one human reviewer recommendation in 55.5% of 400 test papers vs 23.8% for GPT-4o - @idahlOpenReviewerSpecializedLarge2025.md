@@ -37,7 +37,7 @@ tripod_llm_pct: 56pct
 
 > **Study design:** cross-sectional benchmark comparing one fine-tuned LLM (OpenReviewer) against four general-purpose LLM baselines on a held-out peer-review test set.
 >
-> **Method type:** automatic alignment metrics — Exact Match rate (EM) and Average Error — against human reviewer recommendations.
+> **Method type:** automatic alignment metrics, Exact Match rate (EM) and Average Error, against human reviewer recommendations.
 >
 > **Tools:** Llama-OpenReviewer-8B (Llama-3.1-8B-Instruct full-finetuned on ≈79K filtered ICLR/NeurIPS reviews); Llama-3.1-8B-Instruct, Llama-3.1-70B-Instruct, Claude-3.5-Sonnet (Oct. 22), GPT-4o (2024-11-20); vLLM serving for OpenReviewer/Llama and OpenRouter for Claude/GPT-4o.
 >
@@ -67,10 +67,10 @@ tripod_llm_pct: 56pct
 ## Other Notes
 
 - The recommendation scores were normalized to a scale from 1 (strong reject) to 10 (strong accept) so that ICLR (typically 1–10) and NeurIPS (typically 1–10 or 1–6 depending on year/aspect) ratings are comparable.
-- EM is a strict metric — being off by 1 point still counts as a miss — so it co-moves with the Avg. Error metric in the same direction.
+- EM is a strict metric, being off by 1 point still counts as a miss, so it co-moves with the Avg. Error metric in the same direction.
 - No statistical-significance test (e.g., bootstrap CI, paired test) is reported for EM or Avg. Error differences between models.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting summary]].
 
 | Model                                    |  EM (%)  | Avg. Error (1–10 scale) ± SD |
 | ---------------------------------------- | :------: | :--------------------------: |

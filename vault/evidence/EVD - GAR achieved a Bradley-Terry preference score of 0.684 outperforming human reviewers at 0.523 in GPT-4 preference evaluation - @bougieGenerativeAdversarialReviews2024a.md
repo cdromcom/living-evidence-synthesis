@@ -43,7 +43,7 @@ tripod_llm_pct: 37pct
 >
 > **Dependent variable:** BT coefficient (ξ) per reviewer type, anchored at ξ=0 for ReviewerGPT, derived from the win matrix.
 >
-> **Independent variable:** reviewer type (six levels — GAR, Human, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review).
+> **Independent variable:** reviewer type (six levels: GAR, Human, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review).
 >
 > "Therefore, this experiment measures and ranks reviewers based on match outcomes, using a win matrix, coefficients from the Bradley-Terry (BT) model, and logistic regression." (Bougie & Watanabe, 2024, p. 10)
 > ![[bougieGenerativeAdversarialReviews2024a-evd-p10-1.png]]
@@ -57,7 +57,7 @@ tripod_llm_pct: 37pct
 
 ### Who?
 
-> **Models / participants:** six reviewer types — five LLM-based agents (GAR, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review, all powered by GPT-4o-mini in the main experiment) plus one Human reviewer slot drawn from OpenReview. The judge is GPT-4o; in §5.2 the judges are five expert human evaluators.
+> **Models / participants:** six reviewer types, five LLM-based agents (GAR, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review, all powered by GPT-4o-mini in the main experiment) plus one Human reviewer slot drawn from OpenReview. The judge is GPT-4o; in §5.2 the judges are five expert human evaluators.
 >
 > **Sample-size flow:** ICLR 2023 dataset = 3,797 OpenReview papers (each retrieved by ≥3 reviewers) → 200 papers sampled for the LLM-vs-human preference experiment → each paper compared by two randomly assigned reviewers from the six types → win matrix populated over all observed pairwise matches → BT coefficients estimated for all 6 reviewers.
 >
@@ -68,7 +68,7 @@ tripod_llm_pct: 37pct
 
 The win matrix (Figure 2, p. 10) shows GAR winning 77% of matchups against AI-Review, 65% vs. ReviewerGPT, 80% vs. OpenReviewer, 62% vs. AI-Scientist, and 56% vs. Human; humans won 64% vs. AI-Review and 74% vs. OpenReviewer in the same matrix. The §5.2 human-evaluator replication (Table 2) preserves the GAR > Human > AI-Scientist ordering.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting summary]].
 
 | Reviewer | BT score (GPT-4o judge) | BT score (human judges, §5.2) |
 | --- | :---: | :---: |

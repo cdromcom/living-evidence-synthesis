@@ -55,7 +55,7 @@ tripod_llm_pct: 35pct
 
 ### Who?
 
-> **Models / participants:** 4 LLMs evaluated — Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0 (the last paid; the first three free at evaluation time). No human participants.
+> **Models / participants:** 4 LLMs evaluated, Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0 (the last paid; the first three free at evaluation time). No human participants.
 >
 > **Sample-size flow:** FERCAP–SIDCER handbook (case-study count not stated) → 7 prototypical cases selected covering allergic-rhinitis nasal irrigation (case 1), Tourette dose optimisation (2), measles vaccine route (3), Phase II vitamin X in oncology (4), oral iron chelation in MDS (5), IPV intervention (6), pesticide exposure (7) → all 7 analysed. Each of the 4 LLMs returned a response to every query for every case (28 LLM-case cells; no exclusions reported).
 >
@@ -67,7 +67,7 @@ tripod_llm_pct: 35pct
 - "Failure-to-identify" patterns are domain-specific rather than model-specific in the single-prompt condition: only Claude-Instant-100k flagged the need for first-time-procedure observation in case 1; only ChatGPT 3.5 identified researcher risk in case 6 (IPV); only ChatGPT 3.5 and Google Bard flagged the need for separate consent for biological samples in case 7.
 - Several "homogeneous" failures are shared across all four models (e.g., none caught the inappropriate non-randomised design in case 4; none flagged the school-site coercion risk in case 3).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting summary]].
 
 | Domain (single-prompt) | ChatGPT 4.0 | Google Bard | ChatGPT 3.5 | Claude-Instant-100k |
 | --- | :---: | :---: | :---: | :---: |

@@ -31,7 +31,7 @@ nodeID: 019ddb4e-6b8d-778c-8eca-3e56632e4dc7
 
 ### Supporting Evidence
 
-> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim — verify before citing)
+> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
 - [[EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024]]
 

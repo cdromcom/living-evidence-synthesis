@@ -42,13 +42,13 @@ tripod_llm_pct: 67pct
 
 > **Study design:** cross-sectional benchmark of human–AI collaboration vs an individual second human rater on the same evidence-appraisal workload.
 >
-> **Method type:** human-rater-1 + single LLM ensemble — items where the human and the LLM agree are accepted; items where they disagree are deferred to a (hypothetical) second human rater.
+> **Method type:** human-rater-1 + single LLM ensemble, items where the human and the LLM agree are accepted; items where they disagree are deferred to a (hypothetical) second human rater.
 >
 > **Tools:** PRISMA (27 items × 112 reviews), AMSTAR (11 items × 112 reviews), PRECIS-2 (9 domains × 56 RCTs); 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4 / GPT-3.5 / Mixtral-8x22B) generate 10 possible human–AI pairs.
 >
 > **Dependent variables:** accuracy (% identical to human consensus) on the non-deferred subset; Cohen's kappa (weighted for PRECIS-2); deferring fraction.
 >
-> **Independent variables:** LLM partner; appraisal tool; comparison anchor — paper compares against single human-rater accuracy of 89% (PRISMA), 89% (AMSTAR), 75% (PRECIS-2).
+> **Independent variables:** LLM partner; appraisal tool; comparison anchor, paper compares against single human-rater accuracy of 89% (PRISMA), 89% (AMSTAR), 75% (PRECIS-2).
 >
 > "Human−AI collaboration resulted in the best accuracies from 89% to 96% for PRISMA (25/35% deferred), 91%−95% for AMSTAR (27/30% deferred), and 80%−86% for PRECIS-2 (76/71% deferred)." (Woelfle et al., 2024, p. 1)
 
@@ -67,7 +67,7 @@ tripod_llm_pct: 67pct
 
 > **Models:** 5 LLMs paired with human rater 1 → 10 possible pairs (Opus×2, Claude-2×2, GPT-4×1, GPT-3.5×2, Mixtral×2).
 >
-> **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); PRECIS-2 — 56 RCTs (PragMeta database).
+> **Datasets / sample-size flow:** PRISMA & AMSTAR, 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); PRECIS-2, 56 RCTs (PragMeta database).
 >
 > **Human rater 1:** experienced reviewer (British pediatric surgeon for PRISMA/AMSTAR; experienced systematic reviewer and metaresearcher for PRECIS-2).
 >
@@ -80,9 +80,9 @@ tripod_llm_pct: 67pct
 ## Other Notes
 
 - "Best accuracy" in the abstract refers to the upper bound across the 10 collaboration pairs; the paired numbers in parentheses (e.g., "25/35% deferred") report the deferring fractions of those two best-performing pairs (typically GPT-4 and Claude-3-Opus for PRISMA/AMSTAR).
-- For PRISMA + Claude-3-Opus, accepting 96% accuracy spares the second human rater 65% of responses — i.e., 1 wrong response per ~25 spared. For AMSTAR, accepting 95% accuracy spares 70% — 1 wrong per ~20 spared. For PRECIS-2, accepting 86% accuracy spares only 29% — 1 wrong per ~7 spared.
+- For PRISMA + Claude-3-Opus, accepting 96% accuracy spares the second human rater 65% of responses, i.e., 1 wrong response per ~25 spared. For AMSTAR, accepting 95% accuracy spares 70%, 1 wrong per ~20 spared. For PRECIS-2, accepting 86% accuracy spares only 29%, 1 wrong per ~7 spared.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
 
 | Pair (Human rater 1 + …) | Accuracy (95% CI) | Cohen's kappa (95% CI) | Deferring fraction (95% CI) |
 | --- | --- | --- | --- |

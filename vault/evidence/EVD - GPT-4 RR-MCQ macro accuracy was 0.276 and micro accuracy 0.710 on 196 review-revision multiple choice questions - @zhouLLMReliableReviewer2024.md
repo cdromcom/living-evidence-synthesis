@@ -39,7 +39,7 @@ tripod_llm_pct: 43pct
 
 > **Study design:** zero-/few-shot LLM evaluation on a newly constructed benchmark (RR-MCQ), with the LLM as the system under test rather than the rater.
 >
-> **Method type:** two-step prompted multiple-choice question answering — (1) section-selection step, then (2) answer-prediction step over A/B/C/D options where one or more options can be correct.
+> **Method type:** two-step prompted multiple-choice question answering, (1) section-selection step, then (2) answer-prediction step over A/B/C/D options where one or more options can be correct.
 >
 > **Tools:** OpenAI **GPT-3.5-turbo-0613** and **GPT-4-0613**; the authors' own RR-MCQ dataset (released at huggingface.co/datasets/zhouruiyang/RR-MCQ); inputs drawn from full ICLR-2023 papers and their review-rebuttal forum threads.
 >
@@ -58,7 +58,7 @@ tripod_llm_pct: 43pct
 >
 > **Labelling:** two experienced graduate students annotate aspect labels along 4 dimensions (review aspect, content aspect, ability, if-need-info-from-other-papers); 86/788 labels (10.9%) had initial disagreement, resolved by discussion. (3)
 >
-> **Two-step inference (Appendix A.3 prompts):** Step 1 — given the question and section headings, model selects useful sections (system prompt: "you will be given a multiple choice question and the headings of a research paper… select sections that are useful to answer the question"). Step 2 — given the selected sections, model answers the MCQ ("you should select one or more answer choices from A, B, C, D"). (4) **Option order randomly shuffled** during evaluation. (5) Three pipeline configurations evaluated: GPT-3.5→GPT-3.5, GPT-4→GPT-3.5, **GPT-4→GPT-4** (Table 7). (6) Inference parameters carry over from Section 3 ("If not specially marked, all models are of version 0613 with temperature 0.3"). (7) Top 2 most-numerous labels per category reported in Table 8 detailed results.
+> **Two-step inference (Appendix A.3 prompts):** Step 1, given the question and section headings, model selects useful sections (system prompt: "you will be given a multiple choice question and the headings of a research paper… select sections that are useful to answer the question"). Step 2, given the selected sections, model answers the MCQ ("you should select one or more answer choices from A, B, C, D"). (4) **Option order randomly shuffled** during evaluation. (5) Three pipeline configurations evaluated: GPT-3.5→GPT-3.5, GPT-4→GPT-3.5, **GPT-4→GPT-4** (Table 7). (6) Inference parameters carry over from Section 3 ("If not specially marked, all models are of version 0613 with temperature 0.3"). (7) Top 2 most-numerous labels per category reported in Table 8 detailed results.
 >
 > "We test both GPT-3.5-turbo-0613 and GPT-4-0613 on our MCQ data. The two-step generation method is similar to that of Section 4: the model selects useful sections based on the given question, then the selected contents are input into the model to predict multiple-choice answers. Note that our multiple-choice questions may have more than one correct answer." (Zhou et al., 2024, p. 9346)
 > ![[zhouLLMReliableReviewer2024-evd-p7-2.png]]
@@ -78,7 +78,7 @@ tripod_llm_pct: 43pct
 
 Macro accuracy (0.276) means only ~28% of questions were answered completely correctly. The task requires both logic reasoning and domain knowledge.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting summary]].
 
 | Pipeline (step1 → step2) | Macro acc ↑ | Macro prec | Macro recall | Macro F1 | Micro acc ↑ | Micro prec | Micro recall | Micro F1 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |

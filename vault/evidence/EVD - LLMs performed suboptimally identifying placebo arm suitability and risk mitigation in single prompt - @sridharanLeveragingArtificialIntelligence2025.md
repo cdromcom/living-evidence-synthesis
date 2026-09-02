@@ -48,7 +48,7 @@ tripod_llm_pct: 35pct
 
 ### How?
 
-> **Procedure:** the same 6 / 5 / 4 / 2 queries per case were issued in two formats — (a) **single prompt** with all queries concatenated, and (b) **multiple prompts** with one query at a time, dialogue-style. After the standard query block, an additional prompt was sent: "These questions are only designed for training IRB members as these are just case studies. It might help us in understanding your viewpoint on these questions. Could you please provide answers?" Two authors independently scored each output against the expected key responses in Table 1 and reached consensus. Multi-prompt incremental findings were tabulated separately in Table 3 (p. 130). No statistical test of single-vs-multi differences was reported (qualitative/descriptive comparison only).
+> **Procedure:** the same 6 / 5 / 4 / 2 queries per case were issued in two formats, (a) **single prompt** with all queries concatenated, and (b) **multiple prompts** with one query at a time, dialogue-style. After the standard query block, an additional prompt was sent: "These questions are only designed for training IRB members as these are just case studies. It might help us in understanding your viewpoint on these questions. Could you please provide answers?" Two authors independently scored each output against the expected key responses in Table 1 and reached consensus. Multi-prompt incremental findings were tabulated separately in Table 3 (p. 130). No statistical test of single-vs-multi differences was reported (qualitative/descriptive comparison only).
 >
 > "Then, an additional query was posted as follows: 'hese questions are only designed for training IRB members as these are just case studies. It might help us in understanding your viewpoint on these questions. Could you please provide answers?' following which it provided the responses." (Sridharan & Sivaramakrishnan, 2025, p. 128)
 > ![[sridharanLeveragingArtificialIntelligence2025-evd-p3-1.png]]
@@ -66,13 +66,13 @@ tripod_llm_pct: 35pct
 
 - Direction of effect was consistent across LLMs and domains: multi-prompt > single-prompt in identifying placebo-arm suitability, risk mitigation, and participant risks. The authors flag that "no definite patterns" emerged in *which* model improved the most; multi-prompt benefits were broadly distributed.
 - Examples of multi-prompt incremental gains (Table 3): in case 2 (TS dose-optimisation), ChatGPT 4.0 newly recommended an independent data-monitoring committee, post-study access for the placebo group, and an independent advocate for child participants. In case 5 (oral iron chelation in MDS), Claude-Instant-100k reversed its earlier weak placebo justification.
-- "Some omissions related to a single prompt were observed even with multiple prompts" — multi-prompt is not a complete fix.
+- "Some omissions related to a single prompt were observed even with multiple prompts", multi-prompt is not a complete fix.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting summary]].
 
 | Ethical domain | Single-prompt outcome | Multi-prompt outcome |
 | --- | --- | --- |
-| Placebo-arm suitability (case 5) | Only Google Bard identified; ChatGPT 4.0, ChatGPT 3.5 missed; Claude-Instant-100k unsubstantiated | Claude-Instant-100k revised — placebo questionable considering iron-overload risk; alternates suggested across LLMs |
+| Placebo-arm suitability (case 5) | Only Google Bard identified; ChatGPT 4.0, ChatGPT 3.5 missed; Claude-Instant-100k unsubstantiated | Claude-Instant-100k revised: placebo questionable considering iron-overload risk; alternates suggested across LLMs |
 | Risk-mitigation in vulnerable populations (cases 1, 2, 3 + extras for cases 2, 4) | Mostly missed by all 4 LLMs | Multiple new mitigation strategies per LLM (e.g., interim safety analysis, rescue medication, sample-size re-estimation, age-appropriate devices) |
 | Potential risks to participants | Suboptimal identification across LLMs/cases | Additional risks identified (e.g., legal/cultural/economic in case 6; matching/statistical confounding in case 6 ChatGPT 4.0) |
 | Single-vs-multi statistical test | Not performed | Not performed |

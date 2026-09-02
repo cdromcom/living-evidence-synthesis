@@ -27,7 +27,7 @@ nodeID: 019ddb4e-6ba2-73d9-b25e-61080e85c82e
 
 ### Supporting Evidence
 
-> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim — verify before citing)
+> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
 - [[EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology - @srinivasanEvaluatingReportingQuality2025a]]
 

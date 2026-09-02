@@ -29,7 +29,7 @@ tripod_llm_pct: 26pct
 > "Bland-Altman analysis revealed a mean difference of 4.92% (95% CI 0.62%, 0.37%) in OCS between human evaluation and ChatGPT." (Roberts et al., 2023, p. 3)
 >
 > ![[robertsComparativeStudyChatGPT2023-evd-p3-1.png]]
-> [Screenshot: Figure 2 (Bland-Altman plot) and Table 1, p. 3 — error analysis of ChatGPT CONSORT-A OCS subscores. Extract with: pdftoppm -f 3 -l 3 -r 250 -png "<pdf_path>" "robertsComparativeChatGPT2023-fig2table1-p3"]
+> [Screenshot: Figure 2 (Bland-Altman plot) and Table 1, p. 3, error analysis of ChatGPT CONSORT-A OCS subscores. Extract with: pdftoppm -f 3 -l 3 -r 250 -png "<pdf_path>" "robertsComparativeChatGPT2023-fig2table1-p3"]
 
 ## Methods Context
 
@@ -50,7 +50,7 @@ tripod_llm_pct: 26pct
 
 ### How?
 
-> **Procedure:** (1) Re-use of 30 implant-dentistry RCT abstracts previously CONSORT-A-scored by Menne, Pandis & Faggion (2021). (2) Two clinician reviewers re-scored the same 30 abstracts independently and in duplicate; discrepancies reconciled through discussion until ≥80% consensus, after which one reviewer continued solo data extraction. (3) For each abstract, ChatGPT (GPT-3.5) was prompted with a fixed zero-shot template — Figure 1A — containing the full CONSORT-A item definitions, asked to label each of the 15 items as completely / partially / not reported, then to compute OCS = (1·I_C) + (0.5·I_P) + (0·I_N) and OCS% = OCS/15·100. (4) Bland-Altman analysis on the 30 paired OCS% values; per-domain mean absolute difference, Welch's two-sample t-test, and Pearson's r as supporting analyses. P<0.001 was the significance threshold; statistics in R v4.1.1.
+> **Procedure:** (1) Re-use of 30 implant-dentistry RCT abstracts previously CONSORT-A-scored by Menne, Pandis & Faggion (2021). (2) Two clinician reviewers re-scored the same 30 abstracts independently and in duplicate; discrepancies reconciled through discussion until ≥80% consensus, after which one reviewer continued solo data extraction. (3) For each abstract, ChatGPT (GPT-3.5) was prompted with a fixed zero-shot template, Figure 1A, containing the full CONSORT-A item definitions, asked to label each of the 15 items as completely / partially / not reported, then to compute OCS = (1·I_C) + (0.5·I_P) + (0·I_N) and OCS% = OCS/15·100. (4) Bland-Altman analysis on the 30 paired OCS% values; per-domain mean absolute difference, Welch's two-sample t-test, and Pearson's r as supporting analyses. P<0.001 was the significance threshold; statistics in R v4.1.1.
 >
 > "Bland-Altman analysis was used to evaluate the overall agreement between human and ChatGPT-generated OCS percentage. For error analysis, the mean difference of the absolute OCS subscores, Welch's two-sample t-test and Pearson's correlation coefficient were undertaken… Statistical analysis was done in R (V.4.1.1). P<0.001 was deemed statistically significant." (Roberts et al., 2023, p. 3)
 > ![[robertsComparativeStudyChatGPT2023-evd-p3-7.png]]
@@ -66,16 +66,16 @@ tripod_llm_pct: 26pct
 
 ## Other Notes
 
-- The 95% CI on the Bland-Altman mean difference is reported in the paper as "(0.62%, 0.37%)" — the lower bound exceeds the upper bound, indicating a likely typesetting/sign error (probably should read "−0.62%, ±… %" or similar limits-of-agreement values). The point estimate of 4.92% is consistent across abstract, results, and figure caption.
-- Interpretation: a 4.92 percentage-point mean difference on a 100-point OCS scale corresponds to roughly 0.74 of a single CONSORT-A item — small in aggregate but driven by large per-domain divergences (see the conclusion-domain EVD).
-- Per-paper Pearson r is not reported — only per-domain r values appear in Table 1.
+- The 95% CI on the Bland-Altman mean difference is reported in the paper as "(0.62%, 0.37%)", the lower bound exceeds the upper bound, indicating a likely typesetting/sign error (probably should read "−0.62%, ±… %" or similar limits-of-agreement values). The point estimate of 4.92% is consistent across abstract, results, and figure caption.
+- Interpretation: a 4.92 percentage-point mean difference on a 100-point OCS scale corresponds to roughly 0.74 of a single CONSORT-A item, small in aggregate but driven by large per-domain divergences (see the conclusion-domain EVD).
+- Per-paper Pearson r is not reported, only per-domain r values appear in Table 1.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
 
 | Agreement metric (overall OCS%) | Value |
 | --- | --- |
 | Bland-Altman mean difference (Human OCS% − ChatGPT OCS%) | **4.92%** |
-| Reported 95% CI (as printed) | (0.62%, 0.37%) — likely typesetting error |
+| Reported 95% CI (as printed) | (0.62%, 0.37%): likely typesetting error |
 | n (paired abstracts) | 30 |
 | Significance threshold used | p<0.001 |
 

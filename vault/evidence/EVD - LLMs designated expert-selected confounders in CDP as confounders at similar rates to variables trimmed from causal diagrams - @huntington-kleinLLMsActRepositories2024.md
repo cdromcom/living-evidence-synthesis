@@ -50,14 +50,14 @@ tripod_llm_pct: 62pct
 
 ### How?
 
-> **Procedure:** (1) Build a 172-variable candidate pool by unioning confounder lists from CDPRG (1980), Murray & Hernán (2016), and Debertin et al. (2024), plus 60 expert-rejected "Non-Confounders." (2) For each variable, query the LLM with a fixed system prompt ("You are a bot that specializes in causal inference in medical contexts…") plus three worked examples (SES / hormone-replacement, low-dose aspirin / ACE inhibitors, vitamin D / headache) and one CDP question of the form "the variable ({confounder}) is… A. Not a confounding variable B. A confounding variable C. Not sure." Ask the LLM to reason step-by-step and give a final letter. (3) Run each prompt 10 times for GPT-4o and Claude 3.5-Sonnet (1× for GPT-o1-preview). (4) For the *indirect* method, replace the single direct question with two separate causal-effect questions — variable→adherence and variable→mortality — and label as confounder only if both return "A" or "B." (5) Aggregate to per-variable share-confounder, then average within each expert category and report by model × method (Table 1, Figs 1–2).
+> **Procedure:** (1) Build a 172-variable candidate pool by unioning confounder lists from CDPRG (1980), Murray & Hernán (2016), and Debertin et al. (2024), plus 60 expert-rejected "Non-Confounders." (2) For each variable, query the LLM with a fixed system prompt ("You are a bot that specializes in causal inference in medical contexts…") plus three worked examples (SES / hormone-replacement, low-dose aspirin / ACE inhibitors, vitamin D / headache) and one CDP question of the form "the variable ({confounder}) is… A. Not a confounding variable B. A confounding variable C. Not sure." Ask the LLM to reason step-by-step and give a final letter. (3) Run each prompt 10 times for GPT-4o and Claude 3.5-Sonnet (1× for GPT-o1-preview). (4) For the *indirect* method, replace the single direct question with two separate causal-effect questions, variable→adherence and variable→mortality, and label as confounder only if both return "A" or "B." (5) Aggregate to per-variable share-confounder, then average within each expert category and report by model × method (Table 1, Figs 1–2).
 >
 > "We take several different approaches to designing prompts to query LLMs about whether a given variable is a confounder in this context. First, we distinguish between a 'direct' prompting approach and an 'indirect' prompting approach." (Huntington-Klein & Murray, 2024, p. 4)
 > ![[huntington-kleinLLMsActRepositories2024-evd-p4-2.png]]
 
 ### Who?
 
-> **Models:** GPT-4o, Claude 3.5-Sonnet, GPT-o1-preview (all generalist models; medical-specialist LLMs explicitly excluded — see paper's rationale on p. 5).
+> **Models:** GPT-4o, Claude 3.5-Sonnet, GPT-o1-preview (all generalist models; medical-specialist LLMs explicitly excluded; see paper's rationale on p. 5).
 >
 > **Variables (sample-size flow):** CDPRG (1980) Original set ∪ Murray & Hernán (2016) Added-in-2016 ∪ Debertin et al. (2024) Expert-Added / Final Expert DAG / Trimmed sets → 112 expert-considered variables; plus 60 hand-curated Non-Confounders (administrative variables / drug side-effects / general physical-exam findings / sub-study-only measurements) → **172 potential confounders** total. No variables excluded.
 >
@@ -70,9 +70,9 @@ tripod_llm_pct: 62pct
 
 LLM confounder designation was highly inconsistent across prompts and models. Cohen's kappa between direct and indirect methods ranged from 0.16 (GPT-o1) to 0.24 (GPT-4o), indicating poor agreement.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting summary]].
 
-Direct method (with reasoning) — share of variables designated as confounder, averaged over 10 iterations:
+Direct method (with reasoning), share of variables designated as confounder, averaged over 10 iterations:
 
 | Variable category | Claude 3.5 | GPT-4o | GPT-o1 |
 | --- | :---: | :---: | :---: |
@@ -83,7 +83,7 @@ Direct method (with reasoning) — share of variables designated as confounder, 
 | **Trimmed (expert-rejected)** | **79% at 100%** | **89% at 100%** | **95% at 100%** |
 | **Non-Confounders** | **40% at 100%** | **40% at 100%** | **73% at 100%** |
 
-Indirect method (with reasoning) — share at 100% confounder:
+Indirect method (with reasoning), share at 100% confounder:
 
 | Variable category | Claude 3.5 | GPT-4o | GPT-o1 |
 | --- | :---: | :---: | :---: |
@@ -94,12 +94,12 @@ Indirect method (with reasoning) — share at 100% confounder:
 
 | Aggregate (paper text) | Value |
 | --- | --- |
-| Direct, Claude 3.5 — Is confounder | 59.9% |
-| Direct, GPT-4o — Is confounder | 71.9% |
-| Direct, GPT-o1 — Is confounder | 58.7% |
-| Indirect, Claude 3.5 — Is confounder | 89.5% |
-| Indirect, GPT-4o — Is confounder | 81.9% |
-| Indirect, GPT-o1 — Is confounder | 93.6% |
+| Direct, Claude 3.5: Is confounder | 59.9% |
+| Direct, GPT-4o: Is confounder | 71.9% |
+| Direct, GPT-o1: Is confounder | 58.7% |
+| Indirect, Claude 3.5: Is confounder | 89.5% |
+| Indirect, GPT-4o: Is confounder | 81.9% |
+| Indirect, GPT-o1: Is confounder | 93.6% |
 | Final Expert DAG (indirect, all models) | ≈70% |
 
 ## Caveats

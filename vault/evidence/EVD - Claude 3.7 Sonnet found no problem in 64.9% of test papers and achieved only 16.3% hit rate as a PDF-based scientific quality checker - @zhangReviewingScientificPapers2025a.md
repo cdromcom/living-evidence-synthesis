@@ -75,8 +75,8 @@ tripod_llm_pct: 54pct
 *Figures reproduced from Zhang & Abernethy (2025), Tables 2 and 3, pp. 3–4. Single-judge rows are from Table 3; the rest from Table 2.*
 | Condition | HR@5 | Avg. # problems (Q1, Q3) | Input tok | Think tok | Output tok | $/paper |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Claude 3.7 Sonnet — PDF** | **16.3%** | **1.6 (0, 4)** | **43,357** | 1,630 | 311 | $0.159 |
-| Claude 3.7 Sonnet — LaTeX | 33.1% | 3.4 (1, 5) | 28,284 | 2,701 | 515 | $0.133 |
+| **Claude 3.7 Sonnet: PDF** | **16.3%** | **1.6 (0, 4)** | **43,357** | 1,630 | 311 | $0.159 |
+| Claude 3.7 Sonnet: LaTeX | 33.1% | 3.4 (1, 5) | 28,284 | 2,701 | 515 | $0.133 |
 | Single-judge HR@5 (Gemini 2.5 Pro judge / PDF) | 21.6% | — | — | — | — | — |
 | Single-judge HR@5 (o3 judge / PDF) | 19.2% | — | — | — | — | — |
 | Single-judge HR@5 (Gemini 2.5 Pro judge / LaTeX) | 44.5% | — | — | — | — | — |

@@ -27,7 +27,7 @@ nodeID: 019ddb4e-6b8e-7498-94f8-c6632a324f81
 
 ### Supporting Evidence
 
-> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim — verify before citing)
+> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
 - [[EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]]
 

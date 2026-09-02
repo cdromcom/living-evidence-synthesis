@@ -58,7 +58,7 @@ tripod_llm_pct: 30pct
 
 > **Sample-size flow:** four leading orthodontic journals searched (AJO-DO, JO, EJO, AO) for publications 2018–2022 containing keywords "systematic review", "meta-analysis", "randomized controlled trial", "assigned", "prospective", or "comparative" in title/abstract → full-text screened to confirm true RCT/SR designation → random sample of **20 RCT abstracts** (5 per journal) selected for analysis (parallel sample of 20 systematic reviews handled in companion EVD). All 20 RCTs analyzed; no exclusions reported after sampling.
 >
-> **Models:** ChatGPT 3.5 (OpenAI, free version, accessed 30 May 2024) — single LLM, no model comparison.
+> **Models:** ChatGPT 3.5 (OpenAI, free version, accessed 30 May 2024), single LLM, no model comparison.
 >
 > **Human raters:** two reviewers F.A. and S.A. (authors), both Department of Pediatric Dentistry, Prince Sattam Bin Abdulaziz University.
 >
@@ -68,10 +68,10 @@ tripod_llm_pct: 30pct
 ## Other Notes
 
 - Item 8 (randomization): ChatGPT reported 100% (20/20) of abstracts as reporting randomization details; humans rated only 55% (11/20) as reporting (p=0.001).
-- Item 11 (recruitment status): ChatGPT reported 100% (20/20) as reporting; humans rated 0% (0/20) as applicable — humans flagged all 20 as NA (p<0.001). This is a systematic misclassification of the NA category, not a borderline disagreement.
+- Item 11 (recruitment status): ChatGPT reported 100% (20/20) as reporting; humans rated 0% (0/20) as applicable, humans flagged all 20 as NA (p<0.001). This is a systematic misclassification of the NA category, not a borderline disagreement.
 - ChatGPT systematically over-reports: in 14 of 17 items, ChatGPT's "Reported" proportion ≥ humans'.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting summary]].
 
 | CONSORT-A item | ChatGPT Reported | Human Reported | Fisher p |
 | --- | :---: | :---: | :---: |

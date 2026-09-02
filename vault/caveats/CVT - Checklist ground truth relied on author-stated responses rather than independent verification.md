@@ -32,7 +32,7 @@ The ground truth labels for checklist verification were based on the authors' ow
 >
 > ![[liuReviewerGPTExploratoryStudy2023-quote-checklistGT-p2.png]]
 >
-> [Inferred: Ground truth derived from author self-reports introduces circularity — the benchmark may measure agreement with author self-assessment rather than with an objective standard of compliance.]
+> [Inferred: Ground truth derived from author self-reports introduces circularity; the benchmark may measure agreement with author self-assessment rather than with an objective standard of compliance.]
 
 ### Applies To
 

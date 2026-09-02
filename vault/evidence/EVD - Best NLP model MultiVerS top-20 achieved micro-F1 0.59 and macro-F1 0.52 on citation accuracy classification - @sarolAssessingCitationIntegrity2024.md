@@ -40,7 +40,7 @@ tripod_llm_pct: 73pct
 >
 > **Method type:** supervised fine-tuning of a claim-verification model with retrieval-augmented evidence selection.
 >
-> **Tools:** MultiVerS (Wadden et al. 2022) — a Longformer-based (Beltagy et al. 2020) claim-verification model — initially fine-tuned on HealthVER (Sarrouti et al. 2021) and then on the Sarol training split; BM25 (Robertson & Zaragoza 2009) for first-pass sentence retrieval; MonoT5 (Nogueira et al. 2020) reranker; PubMedBERT (Gu et al. 2021) for the citation-context baseline.
+> **Tools:** MultiVerS (Wadden et al. 2022), a Longformer-based (Beltagy et al. 2020) claim-verification model, initially fine-tuned on HealthVER (Sarrouti et al. 2021) and then on the Sarol training split; BM25 (Robertson & Zaragoza 2009) for first-pass sentence retrieval; MonoT5 (Nogueira et al. 2020) reranker; PubMedBERT (Gu et al. 2021) for the citation-context baseline.
 >
 > **Dependent variables:** per-class F1 (ACCURATE / NOT_ACCURATE / IRRELEVANT), micro-F1, macro-F1; sentence-retrieval Recall@{1,5,10,20} and MRR.
 >
@@ -51,14 +51,14 @@ tripod_llm_pct: 73pct
 
 ### How?
 
-> **Procedure:** (1) Citation-context selection — citance is used directly (PubMedBERT fine-tuned for sentence-level binary context classification did not beat this baseline). (2) Evidence-sentence retrieval — BM25 retrieves the top 60 sentences from the reference article, MonoT5 reranks them, and the top-k (k=5/10/20) become the evidence input. (3) Accuracy classification — citance + evidence sentences fed into MultiVerS via Longformer encoder; three-way classification head (ACC / N_ACC / IRR) trained on Sarol training split after the HealthVER fine-tuning warm-start. The rationale-sentence classifier inherited from MultiVerS was disabled by setting its loss weight to 0 (preliminary experiments showed it hurt performance). Significance vs. baseline tested with McNemar's test.
+> **Procedure:** (1) Citation-context selection, citance is used directly (PubMedBERT fine-tuned for sentence-level binary context classification did not beat this baseline). (2) Evidence-sentence retrieval, BM25 retrieves the top 60 sentences from the reference article, MonoT5 reranks them, and the top-k (k=5/10/20) become the evidence input. (3) Accuracy classification, citance + evidence sentences fed into MultiVerS via Longformer encoder; three-way classification head (ACC / N_ACC / IRR) trained on Sarol training split after the HealthVER fine-tuning warm-start. The rationale-sentence classifier inherited from MultiVerS was disabled by setting its loss weight to 0 (preliminary experiments showed it hurt performance). Significance vs. baseline tested with McNemar's test.
 >
 > "we leveraged a state-of-the-art claim verification model, MultiVerS (Wadden et al. 2022). For our baseline experiments, we used our training set to fine-tune the MultiVerS model trained on HealthVER (Sarrouti et al. 2021)." (Sarol et al., 2024, p. 4)
 > ![[sarolAssessingCitationIntegrity2024-evd-p4-1.png]]
 
 ### Who?
 
-> **Models (sample of conditions evaluated):** MultiVerS-baseline (title+abstract evidence); MultiVerS-top-5 / -top-10 / -top-20 (BM25+MonoT5 retrieved); MultiVerS-top-20+annotated evidence (training-only augmentation); two oracles — gold-evidence and gold-context+gold-evidence; baseline citance-only context vs. fine-tuned PubMedBERT context. Comparison models in the same table: GPT-3.5-turbo-0613 and GPT-4 (in-context learning, top-5 evidence).
+> **Models (sample of conditions evaluated):** MultiVerS-baseline (title+abstract evidence); MultiVerS-top-5 / -top-10 / -top-20 (BM25+MonoT5 retrieved); MultiVerS-top-20+annotated evidence (training-only augmentation); two oracles, gold-evidence and gold-context+gold-evidence; baseline citance-only context vs. fine-tuned PubMedBERT context. Comparison models in the same table: GPT-3.5-turbo-0613 and GPT-4 (in-context learning, top-5 evidence).
 >
 > **Evaluation data flow:** 100 PMC-OA reference articles → 3063 annotated citation instances → split into training and held-out evaluation sets (split sizes not reported in main text). Same corpus and label space as EVDs on prevalence and IAA.
 >
@@ -72,7 +72,7 @@ tripod_llm_pct: 73pct
 - Differences across MultiVerS retrieval conditions were not statistically significant from the title+abstract baseline. Difference between best MultiVerS (top-20) and GPT-4 was significant (McNemar p≤.05).
 - Oracle conditions show the ceiling: gold context + gold evidence reached 0.75/0.78 (micro/macro-F1), illustrating how much further evidence-retrieval improvements could plausibly push the supervised pipeline.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting summary]].
 
 | Condition | Micro-F1 | Macro-F1 | ACC F1 | N_ACC F1 | IRR F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |

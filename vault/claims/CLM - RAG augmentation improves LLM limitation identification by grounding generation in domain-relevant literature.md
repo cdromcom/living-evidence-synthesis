@@ -31,7 +31,7 @@ nodeID: 019ddb4e-6ba1-725a-a256-887daa773d94
 
 ### Supporting Evidence
 
-> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim — verify before citing)
+> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
 - [[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
 

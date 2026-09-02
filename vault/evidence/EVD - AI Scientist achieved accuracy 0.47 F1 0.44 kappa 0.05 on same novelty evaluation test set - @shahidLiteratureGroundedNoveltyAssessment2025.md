@@ -31,19 +31,19 @@ tripod_llm_pct: 41pct
 >
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p6-1.png]]
 > AI Scientist results from Table 1: Accuracy=0.47, Precision=0.55, Recall=0.53, F1=0.44, Cohen's Kappa=0.05. (Shahid et al., 2025, p. 7)
-> [Screenshot: Table 1, p. 7 — "Other Novelty Checkers" section]
+> [Screenshot: Table 1, p. 7, "Other Novelty Checkers" section]
 
 ## Methods Context
 
 ### What?
 
-> **Study design:** comparative few-shot LLM evaluation — head-to-head benchmark of an external novelty-checker prompt (AI Scientist; Lu et al.) against the Idea Novelty Checker on the same expert-annotated test set.
+> **Study design:** comparative few-shot LLM evaluation, head-to-head benchmark of an external novelty-checker prompt (AI Scientist; Lu et al.) against the Idea Novelty Checker on the same expert-annotated test set.
 >
 > **Method type:** prompt-only swap (the AI Scientist prompt was lifted from its paper reviewer module and run on a fixed set of input idea + top-10 retrieved papers).
 >
 > **Tools:** AI Scientist's novelty-evaluation prompt (originally designed for use with the Semantic Scholar API and an iterative search loop); same gpt-4o backbone where applicable; AI Researcher (Si et al.) included as a third comparison system, evaluated with both gpt-4o and Claude-3.5-Sonnet.
 >
-> **Dependent variables:** binary novelty classification metrics on the 32-idea test set — accuracy, precision, recall, F1, Cohen's κ vs. expert labels.
+> **Dependent variables:** binary novelty classification metrics on the 32-idea test set, accuracy, precision, recall, F1, Cohen's κ vs. expert labels.
 >
 > **Independent variables:** novelty-checker system identity (Idea Novelty Checker vs. AI Scientist vs. AI Researcher); for AI Researcher, backbone LLM (gpt-4o vs. Claude-3.5-Sonnet).
 >
@@ -61,7 +61,7 @@ tripod_llm_pct: 41pct
 
 > **Models / systems compared:** **AI Scientist** (Lu et al.) novelty-evaluation prompt; **AI Researcher** (Si et al.) novelty-evaluation prompt evaluated with both gpt-4o and Claude-3.5-Sonnet; **Idea Novelty Checker** (this paper) with the best gpt-4o + 15 expert-labeled in-context-example configuration.
 >
-> **Test data flow:** identical to the main Idea Novelty Checker evaluation — formative-study pool of 51 ideas (34 Scideator + 17 OpenReview ICLR'22/NeurIPS'23) → 67 binary-consensus-labeled ideas (39 novel / 28 not novel) → balanced split → **32-idea held-out test set** scored against expert gold labels.
+> **Test data flow:** identical to the main Idea Novelty Checker evaluation, formative-study pool of 51 ideas (34 Scideator + 17 OpenReview ICLR'22/NeurIPS'23) → 67 binary-consensus-labeled ideas (39 novel / 28 not novel) → balanced split → **32-idea held-out test set** scored against expert gold labels.
 >
 > **No human evaluators in the loop** for the comparison; all metrics are automatic against the expert labels.
 >
@@ -74,7 +74,7 @@ tripod_llm_pct: 41pct
 - Cohen's κ of **0.05** indicates near-chance agreement with expert labels; AI Researcher (gpt-4o) reaches κ=0.52, much closer to the Idea Novelty Checker (κ=0.59).
 - AI Researcher's performance is highly backbone-sensitive: gpt-4o reaches F1=0.75, but Claude-3.5-Sonnet drops to F1=0.56 / κ=0.19.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting summary]].
 
 | System (backbone) | Accuracy | Precision | Recall | F1 | Cohen's κ |
 | --- | :---: | :---: | :---: | :---: | :---: |

@@ -58,7 +58,7 @@ tripod_llm_pct: 43pct
 
 > **Model:** GPT 4-0613 (OpenAI; dated 13 June 2023; training cutoff September 2021). No fine-tuning.
 >
-> **Articles (sample-size flow):** PubMed obesity-in-title search 19 Dec 2023 → **2996** → eligibility filter → **303** → first **50** selected → 11 excluded as non-observational → **39 analyzed**. Of those 39, **28 (71.8%)** were published before the GPT 4-0613 cutoff; the other 11 articles (28.2%) were published after the cutoff and could not have been seen in training. **No human evaluators for this EVD** — performance scored against gold answers from one medical professor (validated by an epidemiologist). 39 articles × 15 questions × 10 trials = **5850 QA pairs** for GPT 4-0613.
+> **Articles (sample-size flow):** PubMed obesity-in-title search 19 Dec 2023 → **2996** → eligibility filter → **303** → first **50** selected → 11 excluded as non-observational → **39 analyzed**. Of those 39, **28 (71.8%)** were published before the GPT 4-0613 cutoff; the other 11 articles (28.2%) were published after the cutoff and could not have been seen in training. **No human evaluators for this EVD**, performance scored against gold answers from one medical professor (validated by an epidemiologist). 39 articles × 15 questions × 10 trials = **5850 QA pairs** for GPT 4-0613.
 >
 > "Of the 39 articles analyzed, 28 (71.8%) were published before the training data cutoff date for GPT-3.5-turbo and GPT-4-0613, while all 39 articles (100%) were published before the cutoff date for GPT-4-1106." (Akyon et al., 2024, p. 14)
 > ![[akyonEvaluatingCapabilitiesGenerative2024-evd-p14-2.png]]
@@ -67,7 +67,7 @@ tripod_llm_pct: 43pct
 
 The authors discuss that compression techniques used in developing newer model versions (e.g., quantization, pruning) may have inadvertently compromised performance of GPT 4-0613 relative to GPT 3.5-turbo despite being a newer model generation.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting summary]].
 
 | Metric | GPT 4-0613 | (Comparator) Gemini pro 1.0 | (Top) GPT 3.5-Turbo-1106 |
 | --- | :---: | :---: | :---: |

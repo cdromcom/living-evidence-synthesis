@@ -71,7 +71,7 @@ tripod_llm_pct: 53pct
 - LLaMA-3.1 was the only LLM whose performance improved when moving from HK+MT to HK+LLMK; other LLMs declined or stayed flat, suggesting LLM-summarized inputs help only smaller-parameter PLMs.
 - ALBERT showed the largest absolute gain from the knowledge-fusion framework (0.52 → 0.76 F1 with the Ours-ALBERT variant).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wuAutomatedNoveltyEvaluationa#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wuAutomatedNoveltyEvaluationa#TRIPOD-LLM reporting summary]].
 
 | Model (HK + LLMK input) | Weighted F1 | Accuracy |
 | --- | :---: | :---: |
@@ -90,8 +90,8 @@ tripod_llm_pct: 53pct
 | Sub-task | Result |
 | --- | --- |
 | Best PLM with HK+MT (no LLMK) | GPT-4o-style: SciBERT F1 0.70 / Acc 0.71; GPT-4o F1 0.73 / Acc 0.73 |
-| Best individual input — HK alone | SciBERT F1 0.71 / Acc 0.71 (best PLM); Claude F1 0.69 / Acc 0.69 |
-| Best individual input — MT or LLMK alone | All models F1 ≤ 0.56 — single inputs are far weaker than HK+LLMK fusion |
+| Best individual input: HK alone | SciBERT F1 0.71 / Acc 0.71 (best PLM); Claude F1 0.69 / Acc 0.69 |
+| Best individual input: MT or LLMK alone | All models F1 ≤ 0.56: single inputs are far weaker than HK+LLMK fusion |
 
 ## Caveats
 

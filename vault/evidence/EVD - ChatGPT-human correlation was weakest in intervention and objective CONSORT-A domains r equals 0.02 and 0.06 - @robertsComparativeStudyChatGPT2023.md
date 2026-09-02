@@ -49,7 +49,7 @@ tripod_llm_pct: 26pct
 
 ### How?
 
-> **Procedure:** for each of the 14 CONSORT-A domains in Table 1, compute Pearson's r between the 30 paired (human-consensus, ChatGPT) item-level scores (each on the 0 / 0.5 / 1 scale). Significance evaluated against P<0.001 threshold using R v4.1.1. ChatGPT scoring used the single zero-shot prompt template in Figure 1A (CONSORT-A item definitions provided up front, model labels each item completely / partially / not reported). Note that the authors apply "strong" to r=0.32–0.34 in the prose despite their own magnitude bands classifying these as "weak" (0.2–0.39) — readers should rely on the numeric r values rather than the prose label.
+> **Procedure:** for each of the 14 CONSORT-A domains in Table 1, compute Pearson's r between the 30 paired (human-consensus, ChatGPT) item-level scores (each on the 0 / 0.5 / 1 scale). Significance evaluated against P<0.001 threshold using R v4.1.1. ChatGPT scoring used the single zero-shot prompt template in Figure 1A (CONSORT-A item definitions provided up front, model labels each item completely / partially / not reported). Note that the authors apply "strong" to r=0.32–0.34 in the prose despite their own magnitude bands classifying these as "weak" (0.2–0.39), readers should rely on the numeric r values rather than the prose label.
 >
 > "ChatGPT was used to score the same set of abstracts, using a prompt to assess for each domain within the CONSORT-A checklist (figure 1)." (Roberts et al., 2023, p. 3)
 > ![[robertsComparativeStudyChatGPT2023-evd-p3-5.png]]
@@ -65,11 +65,11 @@ tripod_llm_pct: 26pct
 
 ## Other Notes
 
-- By the authors' own magnitude bands, no domain reached "moderate" agreement (r ≥ 0.40) except trial design (r=0.49), blinding (r=0.44) — both with p>0.05 (0.054 and 0.091), so neither is significantly different from zero. The two domains the authors call "strong" in prose ('harms' r=0.32; 'trial registration' r=0.34) are formally "weak" by their own bands.
+- By the authors' own magnitude bands, no domain reached "moderate" agreement (r ≥ 0.40) except trial design (r=0.49), blinding (r=0.44), both with p>0.05 (0.054 and 0.091), so neither is significantly different from zero. The two domains the authors call "strong" in prose ('harms' r=0.32; 'trial registration' r=0.34) are formally "weak" by their own bands.
 - Most domains have r values in the very-weak range (<0.2): intervention 0.02, number analysed 0.04, objective 0.06, conclusion 0.06, randomisation 0.11, outcome (methods) 0.14, outcome (reporting) 0.15, funding 0.21, participants 0.26.
 - The combination of low Pearson r and small mean differences (e.g., intervention r=0.02 with mean diff only 0.057) suggests ChatGPT and humans are agreeing on the modal label by chance rather than tracking the same per-abstract signal.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
 
 | CONSORT-A domain | Pearson r | p-value | Author band | Notes |
 | --- | :---: | :---: | --- | --- |

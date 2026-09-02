@@ -44,23 +44,23 @@ tripod_llm_pct: 67pct
 >
 > **Dependent variables:** median cost per publication (USD, IQR) and median response time per publication.
 >
-> **Independent variables:** LLM (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B); appraisal tool (PRISMA / AMSTAR / PRECIS-2 — costs aggregated across all three).
+> **Independent variables:** LLM (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B); appraisal tool (PRISMA / AMSTAR / PRECIS-2, costs aggregated across all three).
 >
 > "Mixtral-8x22B was the most affordable model with a median of $1.20 per 100 papers and GPT-4 the most expensive one with a median of $115.00. Model response speeds were ranging from ∼10 seconds (GPT-3.5) to 2 minutes (GPT-4) per paper." (Woelfle et al., 2024, p. 8)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p8-1.png]]
 
 ### How?
 
-> **Procedure:** Five LLMs were queried via APIs (Anthropic, OpenAI, OpenRouter for Mixtral) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes from the full text, (2) explain reasoning, and (3) assign a per-item rating (no/yes/NA for PRISMA/AMSTAR; ordinal 1–5 or NA for PRECIS-2). Claude-3-Opus received page-level PNG images (multimodal); the other four models received plain text. Each prompt was run twice (GPT-4 only on 25% due to cost). API-billed cost (USD) and wall-clock response time per publication were logged at query time (August 2023–April 2024 depending on model — see Table 1). Median + IQR computed across publications per LLM. Quote handling and post-processing in Python 3.11.4 (parasail, rapidfuzz); statistical analysis and visualisation in R 4.3 with 1000-resample publication-level bootstrap CIs for accuracy outcomes.
+> **Procedure:** Five LLMs were queried via APIs (Anthropic, OpenAI, OpenRouter for Mixtral) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes from the full text, (2) explain reasoning, and (3) assign a per-item rating (no/yes/NA for PRISMA/AMSTAR; ordinal 1–5 or NA for PRECIS-2). Claude-3-Opus received page-level PNG images (multimodal); the other four models received plain text. Each prompt was run twice (GPT-4 only on 25% due to cost). API-billed cost (USD) and wall-clock response time per publication were logged at query time (August 2023–April 2024 depending on model; see Table 1). Median + IQR computed across publications per LLM. Quote handling and post-processing in Python 3.11.4 (parasail, rapidfuzz); statistical analysis and visualisation in R 4.3 with 1000-resample publication-level bootstrap CIs for accuracy outcomes.
 >
 > "API querying, extraction of ratings, fixing minor formatting issues, and quantification of quote accuracy were performed in Python 3.11.4 using the parasail and rapidfuzz libraries. Statistical analyses and visualizations were performed in R 4.3." (Woelfle et al., 2024, p. 5)
 > ![[woelfleBenchmarkingHumanAICollaboration2024-evd-p5-1.png]]
 
 ### Who?
 
-> **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1) — 9 total assessment runs per item across the ensemble.
+> **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1), 9 total assessment runs per item across the ensemble.
 >
-> **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); PRECIS-2 — 56 RCTs from the PragMeta database.
+> **Datasets / sample-size flow:** PRISMA & AMSTAR, 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); PRECIS-2, 56 RCTs from the PragMeta database.
 >
 > **Processing failures:** Claude-3-Opus failed on 3/112 publications (content filtering / overly long); GPT-4 failed on 3/112 (context length); GPT-3.5 failed on 3/112 PRISMA/AMSTAR and 2/56 PRECIS-2; Mixtral failed on 1/112; Claude-2 processed all. Cost per publication was computed only on successfully processed publications.
 >
@@ -72,7 +72,7 @@ tripod_llm_pct: 67pct
 - GPT-4 cost reflects gpt-4-32k-0613, queried September 2023. Newer GPT-4 versions released after this study may have lower per-token costs.
 - Rarely, API rate limits required a break until the end of the day to continue calling Claude-3-Opus, Claude-2, and GPT-4.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
 
 | Model (version) | Median cost / publication (IQR) | Cost per 100 publications (median) | Median response time / publication |
 | --- | --- | --- | --- |

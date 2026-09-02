@@ -50,7 +50,7 @@ tripod_llm_pct: 54pct
 
 ### How?
 
-> **Procedure:** (1) Build the WITHDRARXIV-CHECK dataset by filtering WITHDRARXIV with Gemini 2.5 Flash (`preview-04-17`) on de-identified retraction comments to retain only cases that clearly specify the error (n=2,190), then manually exclude (a) misclassified, (b) different-version-of-same-paper, (c) non-English, (d) template-like ("crucial sign error in equation 1") cases that dominated early years, (e) problems unlikely to be detectable from the manuscript alone, and correct redacted theorem names — final n=1,225. (2) Random 80/20 train/test split → 245 test papers. (3) For each test paper, prompt o3 once ($n_c=1$) with the simplistic Appendix A instruction asking for up to $k=5$ critical errors as a JSON list (`Problem`, `Location`, `Explanation`); ingest the paper as PDF attachment (top-half block) or LaTeX script in prompt (bottom-half block); temperature/seed not supported for o3, reasoning effort = "medium", reasoning summary = "detailed", no tools/web. (4) Each problem submission is independently judged once ($n_j=1$) by Gemini 2.5 Pro and by o3, each shown the original retraction comment and asked "Did my colleague find exactly the same problem?" Yes/No. (5) Under $m=2$ judges, both must vote Yes for a hit. (6) HR@5 = (papers with ≥ 1 confirmed hit)/245. (7) Per-paper cost estimated from recorded token usage at early-May-2025 OpenAI pricing.
+> **Procedure:** (1) Build the WITHDRARXIV-CHECK dataset by filtering WITHDRARXIV with Gemini 2.5 Flash (`preview-04-17`) on de-identified retraction comments to retain only cases that clearly specify the error (n=2,190), then manually exclude (a) misclassified, (b) different-version-of-same-paper, (c) non-English, (d) template-like ("crucial sign error in equation 1") cases that dominated early years, (e) problems unlikely to be detectable from the manuscript alone, and correct redacted theorem names, final n=1,225. (2) Random 80/20 train/test split → 245 test papers. (3) For each test paper, prompt o3 once ($n_c=1$) with the simplistic Appendix A instruction asking for up to $k=5$ critical errors as a JSON list (`Problem`, `Location`, `Explanation`); ingest the paper as PDF attachment (top-half block) or LaTeX script in prompt (bottom-half block); temperature/seed not supported for o3, reasoning effort = "medium", reasoning summary = "detailed", no tools/web. (4) Each problem submission is independently judged once ($n_j=1$) by Gemini 2.5 Pro and by o3, each shown the original retraction comment and asked "Did my colleague find exactly the same problem?" Yes/No. (5) Under $m=2$ judges, both must vote Yes for a hit. (6) HR@5 = (papers with ≥ 1 confirmed hit)/245. (7) Per-paper cost estimated from recorded token usage at early-May-2025 OpenAI pricing.
 >
 > "In this work, we took $k=5$, $n_c=1$, $n_j=1$, and $m=2$, i.e., each LLM quality checker was tested once with each paper and was instructed to report up to 5 problems, and 2 LLMs served as judges, each judging a problem submission once… We set model temperature to 0 and fixed the decoding seed if possible to minimize answer variability, although reasoning models may still have inherent uncertainty. Reasoning effort or thinking budget was kept as the default or automatic setting if applicable. LLMs were not given access to any tools, including web search." (Zhang & Abernethy, 2025, p. 3)
 > ![[zhangReviewingScientificPapers2025a-evd-p3-5.png]]
@@ -61,22 +61,22 @@ tripod_llm_pct: 54pct
 >
 > **Sample-size flow (papers):** WITHDRARXIV "factual/methodological/other critical errors" category n=6,018 candidate withdrawn arXiv papers → Gemini 2.5 Flash filter on de-identified retraction comments → 2,190 with clearly-specified errors → manual exclusion of misclassified / duplicate-version / non-English / template / not-manuscript-detectable cases (+ theorem-name de-redaction) → **WITHDRARXIV-CHECK n=1,225** → random 80/20 split → train n=980 (set aside, not used here), **test n=245**.
 >
-> **Test-set composition (n=245):** time span 2007–2012 13% / 2013–2018 47% / 2019–2024 40%; main subject Math 52% / Physics 29% / CS 15% / Other 4%; median page count 14 (range 2–136); LaTeX source available for 216/245 (88%) — papers without LaTeX source fall back to the PDF-approach result.
+> **Test-set composition (n=245):** time span 2007–2012 13% / 2013–2018 47% / 2019–2024 40%; main subject Math 52% / Physics 29% / CS 15% / Other 4%; median page count 14 (range 2–136); LaTeX source available for 216/245 (88%), papers without LaTeX source fall back to the PDF-approach result.
 >
 > "We utilized WITHDRARXIV (Rao et al., 2024), a large-scale dataset of papers withdrawn from arXiv by September 2024, along with associated retraction comments from authors and well-defined retraction categories. The most common retraction category, 'factual/methodological/other critical errors in manuscript', contains 6,018 candidate cases with critical errors that would potentially invalidate study conclusions… The final dataset, named WITHDRARXIV-CHECK, contains 1,225 cases. We randomly sampled 20% of the dataset (245 cases) as the test set for evaluation experiments." (Zhang & Abernethy, 2025, p. 2)
 > ![[zhangReviewingScientificPapers2025a-evd-p2-1.png]]
 
 ## Other Notes
 
-- o3's HR@5 jumped from 64.9% (PDF) to 71.0% (LaTeX), suggesting OpenAI o-series models received specialized LaTeX training. Single-judge HR@5s (Table 3): Gemini-2.5-Pro judge 72.7% (PDF) / 75.5% (LaTeX); o3 judge 75.5% (PDF) / 80.4% (LaTeX) — both-judges-affirm fusion drops these to 64.9% / 71.0%, demonstrating resistance of multi-judge approach to inflation.
-- o3 used markedly fewer thinking tokens than the Gemini family (3,152 vs. 14,228 for Gemini 2.5 Pro under PDF), yet achieved the highest HR — "potentially overthinking behavior did not result in higher hit rates."
+- o3's HR@5 jumped from 64.9% (PDF) to 71.0% (LaTeX), suggesting OpenAI o-series models received specialized LaTeX training. Single-judge HR@5s (Table 3): Gemini-2.5-Pro judge 72.7% (PDF) / 75.5% (LaTeX); o3 judge 75.5% (PDF) / 80.4% (LaTeX), both-judges-affirm fusion drops these to 64.9% / 71.0%, demonstrating resistance of multi-judge approach to inflation.
+- o3 used markedly fewer thinking tokens than the Gemini family (3,152 vs. 14,228 for Gemini 2.5 Pro under PDF), yet achieved the highest HR, "potentially overthinking behavior did not result in higher hit rates."
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
 
 | Condition | HR@5 | Avg. # problems (Q1, Q3) | Input tok | Think tok | Output tok | $/paper |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **o3 (medium) — PDF** | **64.9%** | 4.8 (5, 5) | 16,594 | 3,152 | 729 | $0.321 |
-| **o3 (medium) — LaTeX** | **71.0%** | 4.8 (5, 5) | 21,990 | 3,156 | 927 | $0.383 |
+| **o3 (medium): PDF** | **64.9%** | 4.8 (5, 5) | 16,594 | 3,152 | 729 | $0.321 |
+| **o3 (medium): LaTeX** | **71.0%** | 4.8 (5, 5) | 21,990 | 3,156 | 927 | $0.383 |
 | Single-judge HR@5 (Gemini 2.5 Pro judge / PDF) | 72.7% | — | — | — | — | — |
 | Single-judge HR@5 (o3 judge / PDF) | 75.5% | — | — | — | — | — |
 | Single-judge HR@5 (Gemini 2.5 Pro judge / LaTeX) | 75.5% | — | — | — | — | — |

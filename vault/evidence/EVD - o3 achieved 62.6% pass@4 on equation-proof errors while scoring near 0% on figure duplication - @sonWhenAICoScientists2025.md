@@ -43,7 +43,7 @@ tripod_llm_pct: 63pct
 
 > **Study design:** error-category and domain breakdown of the same SPOT benchmark used in the headline EVD.
 >
-> **Method type:** stratified zero-shot generative error detection — the headline pass@K aggregate disaggregated by the six inductively-derived error categories.
+> **Method type:** stratified zero-shot generative error detection, the headline pass@K aggregate disaggregated by the six inductively-derived error categories.
 >
 > **Tools:** SPOT category labels (Equation/Proof, Figure Duplication, Data Inconsistency, Statistical Reporting, Reagent Identity, Experiment Setup) and the same Llama-Parse + GPT-4.1 OCR pipeline; pass@K bootstrap (B = 1000).
 >
@@ -56,7 +56,7 @@ tripod_llm_pct: 63pct
 
 ### How?
 
-> **Procedure:** identical evaluation pipeline as the headline EVD — same Generation Prompt, same temperature 0.6 / top-p 0.95 sampling, same 8 independent runs per (model × paper) pair, same GPT-4.1 LLM-as-judge match adjudication. After scoring, true-positive / annotation totals are partitioned by the error-category label of each annotation, and pass@K is recomputed within each category by bootstrap-resampling K runs from the 8 (B = 1000 repetitions, K ∈ {1, 2, 4}). The full per-category × per-model matrix appears in Tables 4–13 of Appendix G; Figure 4 right panel projects mean confidence against pass@4 with marker shape encoding the error type.
+> **Procedure:** identical evaluation pipeline as the headline EVD, same Generation Prompt, same temperature 0.6 / top-p 0.95 sampling, same 8 independent runs per (model × paper) pair, same GPT-4.1 LLM-as-judge match adjudication. After scoring, true-positive / annotation totals are partitioned by the error-category label of each annotation, and pass@K is recomputed within each category by bootstrap-resampling K runs from the 8 (B = 1000 repetitions, K ∈ {1, 2, 4}). The full per-category × per-model matrix appears in Tables 4–13 of Appendix G; Figure 4 right panel projects mean confidence against pass@4 with marker shape encoding the error type.
 >
 > "For each pass@K we draw K runs without replacement from the eight, repeat this resampling B = 1000 times, and report the mean and standard deviation of the resulting bootstrap distribution for K ∈ {1, 4}." (Son et al., 2025, p. 5)
 > ![[sonWhenAICoScientists2025-evd-p5-1.png]]
@@ -78,7 +78,7 @@ tripod_llm_pct: 63pct
 - GPT-4.1 (non-thinking) outperforms reasoning models on figure duplication, suggesting test-time reasoning effort is mis-allocated for visual tasks.
 - Statistical Reporting (n = 4) is o3's strongest category at 88.4% pass@4 but the small denominator means high variance.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
 
 | Error category (n) | o3 pass@4 | GPT-4.1 pass@4 | Gemini-2.5-Pro pass@4 | Claude-3.7:Think pass@4 |
 | --- | :---: | :---: | :---: | :---: |

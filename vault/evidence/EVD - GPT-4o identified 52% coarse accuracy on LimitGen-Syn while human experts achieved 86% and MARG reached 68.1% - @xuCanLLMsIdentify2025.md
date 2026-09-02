@@ -51,7 +51,7 @@ tripod_llm_pct: 70pct
 
 ### How?
 
-> **Procedure:** (1) Build LIMITGEN-Syn — collect 1,408 NLP arXiv papers (Mar 1 – May 31, 2024), parse with `s2orc-doc2json`, filter to 500 high-quality experimental papers; for each paper apply human-expert-selected perturbations across 11 limitation subtypes (e.g., remove preprocessing details, replace appropriate dataset with inappropriate one) using GPT-4o as the perturbation engine, with human validation revising 112 of 1,000 examples. (2) Each evaluated system is prompted to generate the most significant limitations for a target aspect of the perturbed paper. For MARG, a leader/worker/expert agent triple coordinates over GPT-4o-mini agents. (3) Coarse-grained automated evaluation: GPT-4o classifies whether any of the system's top-3 generated limitations matches the intended subtype; "a sample is deemed correct in the coarse-grained evaluation if at least one generated limitation accurately matches the subtype." (4) Parallel human evaluation: 100 examples sampled from LIMITGEN-Syn; two expert annotators (Annotators 1 and 6, both with NLP/AI publications) independently solve them blind to system identity and the human baseline accuracy is reported (86.0%). (5) Reliability: 50 fixed instances assessed by two annotators yielded Cohen's κ = 0.833 on LIMITGEN-Syn, and a fine-grained-vs-accuracy correlation of 0.96.
+> **Procedure:** (1) Build LIMITGEN-Syn, collect 1,408 NLP arXiv papers (Mar 1 – May 31, 2024), parse with `s2orc-doc2json`, filter to 500 high-quality experimental papers; for each paper apply human-expert-selected perturbations across 11 limitation subtypes (e.g., remove preprocessing details, replace appropriate dataset with inappropriate one) using GPT-4o as the perturbation engine, with human validation revising 112 of 1,000 examples. (2) Each evaluated system is prompted to generate the most significant limitations for a target aspect of the perturbed paper. For MARG, a leader/worker/expert agent triple coordinates over GPT-4o-mini agents. (3) Coarse-grained automated evaluation: GPT-4o classifies whether any of the system's top-3 generated limitations matches the intended subtype; "a sample is deemed correct in the coarse-grained evaluation if at least one generated limitation accurately matches the subtype." (4) Parallel human evaluation: 100 examples sampled from LIMITGEN-Syn; two expert annotators (Annotators 1 and 6, both with NLP/AI publications) independently solve them blind to system identity and the human baseline accuracy is reported (86.0%). (5) Reliability: 50 fixed instances assessed by two annotators yielded Cohen's κ = 0.833 on LIMITGEN-Syn, and a fine-grained-vs-accuracy correlation of 0.96.
 >
 > "For LIMITGEN-Syn, we use GPT-4o to classify the generated limitations and assess whether they correctly identify the intended subtype. Accuracy is used as the evaluation metric: a sample is deemed correct in the coarse-grained evaluation if at least one generated limitation accurately matches the subtype." (Xu et al., 2025, p. 5)
 > ![[xuCanLLMsIdentify2025-evd-p6-1.png]]
@@ -70,11 +70,11 @@ tripod_llm_pct: 70pct
 ## Other Notes
 
 - MARG here refers to the multi-agent system adapted from D'Arcy et al. (2024), instantiated with GPT-4o-mini chat agents in three roles (leader, worker, expert).
-- RAG augmentation lifts GPT-4o coarse accuracy from 52.0% to 64.2% (+12.2 pp) — still ~22 pp below the 86% human ceiling. See companion EVD on RAG.
+- RAG augmentation lifts GPT-4o coarse accuracy from 52.0% to 64.2% (+12.2 pp), still ~22 pp below the 86% human ceiling. See companion EVD on RAG.
 - Cohen's κ between the two LIMITGEN-Syn evaluators = 0.833 (high agreement); automated-vs-accuracy correlation = 0.96 supports use of GPT-4o as judge.
 - Human-evaluation accuracy column (45.9% for GPT-4o, 82.0% for Human) is computed on the 100-example sample and is systematically lower than coarse automated accuracy on the full set.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting summary]].
 
 | System | Coarse Acc. (auto, %) | Fine (0–5) | Human-eval Acc. (%) |
 | --- | :---: | :---: | :---: |

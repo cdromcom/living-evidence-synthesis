@@ -35,7 +35,7 @@ tripod_llm_pct: 56pct
 
 ### What?
 
-> **Study design:** arena-style pairwise preference evaluation (LLM-as-a-judge) — for each paper, an LLM judge compares OpenReviewer's review against one baseline LLM's review using the human "expert" reviews as ground truth.
+> **Study design:** arena-style pairwise preference evaluation (LLM-as-a-judge), for each paper, an LLM judge compares OpenReviewer's review against one baseline LLM's review using the human "expert" reviews as ground truth.
 >
 > **Method type:** GPT-4o-as-judge classification into {Review A wins, Review B wins, Tie} per pairwise comparison.
 >
@@ -57,7 +57,7 @@ tripod_llm_pct: 56pct
 
 ### Who?
 
-> **Models / participants:** 4 baselines compared head-to-head against OpenReviewer (Llama-3.1-8B-Instruct, Llama-3.1-70B-Instruct, Claude-3.5-Sonnet, GPT-4o 2024-11-20). Judge: GPT-4o (2024-11-20) — note that GPT-4o judges its own reviews against OpenReviewer.
+> **Models / participants:** 4 baselines compared head-to-head against OpenReviewer (Llama-3.1-8B-Instruct, Llama-3.1-70B-Instruct, Claude-3.5-Sonnet, GPT-4o 2024-11-20). Judge: GPT-4o (2024-11-20); note that GPT-4o judges its own reviews against OpenReviewer.
 >
 > **Sample-size flow:** Same 400 held-out NeurIPS 2024 + ICLR 2025 papers as the EM/Error EVD. For each paper, 4 pairwise judgments are produced (one per baseline) → 1,600 judge calls total. Expert reviews per paper are the original OpenReview human reviewer comments.
 
@@ -66,11 +66,11 @@ tripod_llm_pct: 56pct
 
 ## Other Notes
 
-- Win rates: Llama-3.1-8B-Instruct 70%, Llama-3.1-70B-Instruct 76%, Claude-3.5-Sonnet 69%, GPT-4o 60%. The OpenReviewer-vs-GPT-4o pairing is the only one where the judge is the same model as the baseline being compared — a known LLM-as-judge self-preference confound. OpenReviewer still wins (60%), but the margin is the smallest.
+- Win rates: Llama-3.1-8B-Instruct 70%, Llama-3.1-70B-Instruct 76%, Claude-3.5-Sonnet 69%, GPT-4o 60%. The OpenReviewer-vs-GPT-4o pairing is the only one where the judge is the same model as the baseline being compared, a known LLM-as-judge self-preference confound. OpenReviewer still wins (60%), but the margin is the smallest.
 - Authors acknowledge: "While human judgments could be more meaningful, they are expensive to obtain as, in our case, they would require annotators to be trained reviewers and study each paper in great detail."
 - No order-randomization, position-bias correction, or judge-model-diversity check is reported.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting summary]].
 
 | OpenReviewer vs. baseline (judge: GPT-4o 2024-11-20) | OpenReviewer wins | Tie | OpenReviewer loses |
 | --- | :---: | :---: | :---: |

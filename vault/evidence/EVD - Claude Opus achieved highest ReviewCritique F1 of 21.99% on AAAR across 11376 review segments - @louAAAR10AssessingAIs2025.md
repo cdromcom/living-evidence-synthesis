@@ -52,14 +52,14 @@ tripod_llm_pct: 57pct
 
 ### How?
 
-> **Procedure:** Each long human review was split into sentence-level segments (viewpoints). Two prompting strategies were applied per model: (i) **Labeling-All** — supply all indexed segments and require the LLM to output a list of {id, reliable_or_not, explanation} triples; (ii) **Select-Deficient** — supply all indexed segments and require the LLM to output only the {id, explanation} tuples it believes are deficient. Outputs from both prompts were then ensembled with two rules: **Both "No"** (segment is deficient only if both prompts label it deficient) and **Either "No"** (deficient if either prompt does). Per-segment Precision / Recall / F1 against gold deficient labels were computed for each (model × prompt-strategy) cell of Table 7; each model was run three times and the median result reported.
+> **Procedure:** Each long human review was split into sentence-level segments (viewpoints). Two prompting strategies were applied per model: (i) **Labeling-All**, supply all indexed segments and require the LLM to output a list of {id, reliable_or_not, explanation} triples; (ii) **Select-Deficient**, supply all indexed segments and require the LLM to output only the {id, explanation} tuples it believes are deficient. Outputs from both prompts were then ensembled with two rules: **Both "No"** (segment is deficient only if both prompts label it deficient) and **Either "No"** (deficient if either prompt does). Per-segment Precision / Recall / F1 against gold deficient labels were computed for each (model × prompt-strategy) cell of Table 7; each model was run three times and the median result reported.
 >
 > "As individual review comments are split into multiple smaller segments (sentences), in order to avoid the performance variance that comes from the prompting, we follow Du et al. (2024) to utilize two prompting strategies. i) Labeling-All: given everything necessary including a list of indexed review segments, require the LLM to output a list of triples, like {id, reliable or not, explanation}. ii) Select-Deficient: Given everything necessary including a list of indexed review segments, require the LLM to output a list of tuples, {id, explanation}, when it believes the 'id' corresponds to a deficient segment." (Lou et al., 2025, p. 10)
 > ![[louAAAR10AssessingAIs2025-evd-p10-2.png]]
 
 ### Who?
 
-> **Models / participants:** 6 LLMs evaluated — closed-source GPT-4 (gpt-4-1106-preview), Claude Opus (Table 7 column reports the Anthropic Claude family), Gemini 1.5 Pro (gemini-1.5-pro-002); open-source Llama3-8B, Llama3-70B, Qwen2-72B. No human subjects in the LLM evaluation step; the underlying dataset was annotated by 40+ AI experts in Du et al. 2024.
+> **Models / participants:** 6 LLMs evaluated, closed-source GPT-4 (gpt-4-1106-preview), Claude Opus (Table 7 column reports the Anthropic Claude family), Gemini 1.5 Pro (gemini-1.5-pro-002); open-source Llama3-8B, Llama3-70B, Qwen2-72B. No human subjects in the LLM evaluation step; the underlying dataset was annotated by 40+ AI experts in Du et al. 2024.
 >
 > **Sample-size flow (REVIEWCRITIQUE corpus reused from Du et al. 2024):** ICLR initial submissions crawled from OpenReview → 100 papers retained, with 380 human reviews → each review split into sentence-level segments → **11,376 review segments (viewpoints) used as evaluation instances**, each labeled deficient/non-deficient by senior AI researchers with detailed human explanations.
 >
@@ -70,19 +70,19 @@ tripod_llm_pct: 57pct
 
 Despite being the best model, Claude Opus F1=21.99% is very low in absolute terms, indicating the task is highly challenging. Recall scores are consistently higher than precision across all models, suggesting LLMs over-predict deficiency.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting summary]].
 
 | Model × prompt strategy | Precision / Recall / F1 (%) |
 | --- | --- |
-| **Claude Opus — Either "No" (best overall)** | **16.94 / 42.12 / 21.99** |
-| Claude Opus — Labeling-All | 16.86 / 34.26 / 20.35 |
-| Claude Opus — Select-Deficient | 17.69 / 26.61 / 18.71 |
-| Claude Opus — Both "No" | 17.14 / 18.70 / 15.78 |
-| GPT-4 — Either "No" (best for GPT-4) | 14.72 / 47.68 / 20.66 |
-| Gemini 1.5 — Either "No" (best for Gemini) | 14.46 / 50.37 / 20.34 |
-| Llama3-70B — Either "No" (best open-source) | 12.46 / 50.02 / 18.43 |
-| Qwen2-72B — Either "No" | 10.49 / 43.00 / 15.16 |
-| Llama3-8B — Both "No" (best for 8B) | 11.37 / 21.27 / 12.46 |
+| **Claude Opus: Either "No" (best overall)** | **16.94 / 42.12 / 21.99** |
+| Claude Opus: Labeling-All | 16.86 / 34.26 / 20.35 |
+| Claude Opus: Select-Deficient | 17.69 / 26.61 / 18.71 |
+| Claude Opus: Both "No" | 17.14 / 18.70 / 15.78 |
+| GPT-4: Either "No" (best for GPT-4) | 14.72 / 47.68 / 20.66 |
+| Gemini 1.5: Either "No" (best for Gemini) | 14.46 / 50.37 / 20.34 |
+| Llama3-70B: Either "No" (best open-source) | 12.46 / 50.02 / 18.43 |
+| Qwen2-72B: Either "No" | 10.49 / 43.00 / 15.16 |
+| Llama3-8B: Both "No" (best for 8B) | 11.37 / 21.27 / 12.46 |
 | All-segments-deficient naive baseline | not reported |
 
 ## Caveats

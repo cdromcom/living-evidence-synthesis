@@ -47,14 +47,14 @@ tripod_llm_pct: 53pct
 >
 > **Dependent variables:** Recall (|C_gen ⃗∩ C_real| / |C_real|), Precision (|C_gen ⃖∩ C_real| / |C_gen|), pseudo-Jaccard (intersection / (|C_gen|+|C_real|−intersection)), and average comments per review.
 >
-> **Independent variables / covariates:** review-generation method; matching-threshold settings (relatedness ∈ {medium, high}; relative specificity ∈ {less, same, more}) — ablated for MARG-S vs. LiZCa in Figure 3.
+> **Independent variables / covariates:** review-generation method; matching-threshold settings (relatedness ∈ {medium, high}; relative specificity ∈ {less, same, more}), ablated for MARG-S vs. LiZCa in Figure 3.
 >
 > "To automatically evaluate the quality of generated reviews, we measure their overlap with real reviews from papers in the ARIES corpus (D'Arcy et al., 2023). That is, we attempt to match the generated comments to comments extracted from real (human-written) reviews. Because ARIES only has comment annotations for a small set of reviews, we use GPT to extract comments from all reviews for a subset of 30 papers and treat this as our test set." (D'Arcy et al., 2024, p. 9)
 > ![[darcyMARGMultiAgentReview2024-evd-p8-1.png]]
 
 ### How?
 
-> **Procedure:** (1) parse each PDF with Grobid and split into 4096-token paragraph-aligned chunks given to worker agents; (2) generate a review with each method (paper-level, with all baselines re-run on Grobid output for consistency); (3) extract comments from real reviews using a GPT prompt instructed to focus only on actionable feedback and ignore style/grammar; (4) **many-many matching stage** — feed all generated and real comments to GPT-4 and ask it to output all matching pairs; do five passes with randomly permuted comment / review order, keep pairs produced by ≥2 of the 5 runs; (5) **pairwise stage** — for each candidate pair, prompt GPT-4 to output a relatedness label (none / weak / medium / high) and a relative-specificity label (less / same / more); (6) declare a match when relatedness ∈ {medium, high} AND relative specificity ∈ {same, more}; (7) compute Recall, Precision, pseudo-Jaccard per (generated, real) review pair and macro-average over the 30 test papers; (8) sweep matching thresholds for MARG-S and LiZCa to produce Figure 3 heatmaps; (9) report average input + generated tokens per paper as a cost proxy (Table 4).
+> **Procedure:** (1) parse each PDF with Grobid and split into 4096-token paragraph-aligned chunks given to worker agents; (2) generate a review with each method (paper-level, with all baselines re-run on Grobid output for consistency); (3) extract comments from real reviews using a GPT prompt instructed to focus only on actionable feedback and ignore style/grammar; (4) **many-many matching stage**, feed all generated and real comments to GPT-4 and ask it to output all matching pairs; do five passes with randomly permuted comment / review order, keep pairs produced by ≥2 of the 5 runs; (5) **pairwise stage**, for each candidate pair, prompt GPT-4 to output a relatedness label (none / weak / medium / high) and a relative-specificity label (less / same / more); (6) declare a match when relatedness ∈ {medium, high} AND relative specificity ∈ {same, more}; (7) compute Recall, Precision, pseudo-Jaccard per (generated, real) review pair and macro-average over the 30 test papers; (8) sweep matching thresholds for MARG-S and LiZCa to produce Figure 3 heatmaps; (9) report average input + generated tokens per paper as a cost proxy (Table 4).
 >
 > "we begin with a 'many-many' matching stage that efficiently compares the full set of comments in both reviews and identifies possibly-matching pairs, followed by a more accurate (but more expensive) pairwise stage that examines the candidate pairs to produce a final list... To be considered a match, a comment pair must have 'medium' or 'high' relatedness, and the generated comment must have 'same' or 'more' specificity compared to the human comment." (D'Arcy et al., 2024, p. 9)
 > ![[darcyMARGMultiAgentReview2024-evd-p8-2.png]]
@@ -63,19 +63,19 @@ tripod_llm_pct: 53pct
 
 > **Models / data:** GPT-4 (gpt-4-0613, 8k context window) used for both generation and alignment scoring across all conditions. No human ratings in this evaluation.
 >
-> **Sample-size flow:** ARIES corpus (D'Arcy et al. 2023) → subset of **30 test papers** with associated real reviewer comments → 11 method conditions evaluated on all 30 papers (5 main methods + 4 MARG-S ablations + Human baseline). Number of extracted real-reviewer comments per paper not reported in main text. Per-paper averages of generated comments range from 4.0 (LiZCa) to 19.8 (MARG-S) — see Table 2.
+> **Sample-size flow:** ARIES corpus (D'Arcy et al. 2023) → subset of **30 test papers** with associated real reviewer comments → 11 method conditions evaluated on all 30 papers (5 main methods + 4 MARG-S ablations + Human baseline). Number of extracted real-reviewer comments per paper not reported in main text. Per-paper averages of generated comments range from 4.0 (LiZCa) to 19.8 (MARG-S); see Table 2.
 >
 > "we use GPT to extract comments from all reviews for a subset of 30 papers and treat this as our test set." (D'Arcy et al., 2024, p. 9)
 > ![[darcyMARGMultiAgentReview2024-evd-p8-3.png]]
 
 ## Other Notes
 
-- MARG-S generates ~5× the comments of LiZCa (19.8 vs. 4.0), driving lower precision/Jaccard despite higher recall. The authors explicitly argue recall matters more because users can filter bad comments — but in practice high comment volume may overwhelm authors.
-- The Human-Human baseline has lower recall (9.42) than MARG-S (15.84) but the highest precision (12.00) — consistent with Liang et al. 2023's finding that Human-Human agreement is lower than LiZCa-Human agreement.
-- Cost: MARG-S consumes 1,236,344 input tokens and 51,255 generated tokens per paper on average — roughly 9× MARG-TP and 167× LiZCa.
-- Threshold sensitivity (Figure 3): at "high" relatedness × "more" specificity MARG-S recall drops to 8.6 and LiZCa to 3.1 — both methods lose recall under stricter matching but MARG-S degrades less.
+- MARG-S generates ~5× the comments of LiZCa (19.8 vs. 4.0), driving lower precision/Jaccard despite higher recall. The authors explicitly argue recall matters more because users can filter bad comments, but in practice high comment volume may overwhelm authors.
+- The Human-Human baseline has lower recall (9.42) than MARG-S (15.84) but the highest precision (12.00), consistent with Liang et al. 2023's finding that Human-Human agreement is lower than LiZCa-Human agreement.
+- Cost: MARG-S consumes 1,236,344 input tokens and 51,255 generated tokens per paper on average, roughly 9× MARG-TP and 167× LiZCa.
+- Threshold sensitivity (Figure 3): at "high" relatedness × "more" specificity MARG-S recall drops to 8.6 and LiZCa to 3.1, both methods lose recall under stricter matching but MARG-S degrades less.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting summary]].
 
 | Method | Recall | Precision | Jaccard | # comments / paper |
 | --- | --- | --- | --- | --- |

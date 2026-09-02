@@ -23,7 +23,7 @@ severity: moderate
 
 ### Limitation
 
-SPOT exclusively includes errors that were explicitly acknowledged by the original authors (via errata or retraction). This selection criterion means the benchmark may not represent the full distribution of errors in scientific manuscripts — subtle or contested errors that authors did not formally acknowledge are excluded, potentially making the benchmark easier than real-world error detection.
+SPOT exclusively includes errors that were explicitly acknowledged by the original authors (via errata or retraction). This selection criterion means the benchmark may not represent the full distribution of errors in scientific manuscripts, subtle or contested errors that authors did not formally acknowledge are excluded, potentially making the benchmark easier than real-world error detection.
 
 ### Supporting Quote
 

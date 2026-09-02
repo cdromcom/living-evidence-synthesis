@@ -39,7 +39,7 @@ tripod_llm_pct: 25pct
 >
 > **Method type:** Bradley-Terry (BT) model fit by logistic regression on a win matrix derived from human pairwise preferences over reviews of the same paper.
 >
-> **Tools:** 5 reviewer "competitors" — Human (OpenReview), GPT-4 Turbo (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), Command R+; in-house Reviewer Arena platform; BT optimization via logistic loss with the constraint ξ₁ = 0 (Listings 1–2, Appendix P).
+> **Tools:** 5 reviewer "competitors", Human (OpenReview), GPT-4 Turbo (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), Command R+; in-house Reviewer Arena platform; BT optimization via logistic loss with the constraint ξ₁ = 0 (Listings 1–2, Appendix P).
 >
 > **Dependent variables:** BT coefficient ξ per reviewer; resulting reviewer ranking (Table 1).
 >
@@ -59,7 +59,7 @@ tripod_llm_pct: 25pct
 
 > **Reviewers compared (5):** Human (OpenReview reviewers of ICLR/NeurIPS papers), GPT-4 Turbo (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), Command R+. LLM reviews generated under the full P5 context (paper + review form + reviewer guide + code of ethics + code of conduct + area chair guidelines + previous year statistics).
 >
-> **Papers (sample-size flow):** open-access source venues — ICLR 2024 (7,404 papers), ICLR 2023 (4,955), NeurIPS 2023 (12,345), NeurIPS 2022 (10,411), and open-access Nature journals (Table 3, Appendix B) → **150 papers sampled** for the Reviewer Arena evaluation. Each paper assigned 2 of 5 reviewers at random.
+> **Papers (sample-size flow):** open-access source venues, ICLR 2024 (7,404 papers), ICLR 2023 (4,955), NeurIPS 2023 (12,345), NeurIPS 2022 (10,411), and open-access Nature journals (Table 3, Appendix B) → **150 papers sampled** for the Reviewer Arena evaluation. Each paper assigned 2 of 5 reviewers at random.
 >
 > **Human evaluators:** 5 expert evaluators (the paper does not further characterize their background, discipline, or recruitment). A second pass uses **GPT-4 Turbo as the evaluator** (Table 2) for autoevaluation via PPI++.
 >
@@ -68,11 +68,11 @@ tripod_llm_pct: 25pct
 
 ## Other Notes
 
-- GPT-4 Turbo wins under both judging regimes — human evaluators (BT score 0.558, Table 1) and GPT-4 Turbo as evaluator (BT score 0.179, Table 2) — but the gap to Human collapses in the autoeval (0.179 vs. 0.119) and the LLM rankings of weaker models reorder substantially (Command R+ falls from rank 3 under humans to rank 5 under GPT-4 Turbo).
+- GPT-4 Turbo wins under both judging regimes, human evaluators (BT score 0.558, Table 1) and GPT-4 Turbo as evaluator (BT score 0.179, Table 2), but the gap to Human collapses in the autoeval (0.179 vs. 0.119) and the LLM rankings of weaker models reorder substantially (Command R+ falls from rank 3 under humans to rank 5 under GPT-4 Turbo).
 - The BT model imposes ξ₁ = 0 for identifiability; ranks are relative, not absolute.
 - The 5-evaluator pool is small and the paper does not report per-evaluator agreement, so the human-preference ranking has a wide implicit confidence interval that the BT score does not display.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting summary]].
 
 | Rank | Reviewer | BT score (human evaluators) | BT score (GPT-4 Turbo evaluator) |
 | :---: | --- | :---: | :---: |

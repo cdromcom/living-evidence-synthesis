@@ -58,9 +58,9 @@ tripod_llm_pct: 55pct
 
 ### Who?
 
-> **Source data:** identical to the main overlap EVD — **3,096 Nature accepted papers / 8,745 human reviews** across 15 Nature family journals (Jan 2022 – Jun 2023, post-GPT-4-cutoff); **1,709 ICLR papers / 6,505 human reviews** (ICLR 2022 + 2023, all decision categories).
+> **Source data:** identical to the main overlap EVD, **3,096 Nature accepted papers / 8,745 human reviews** across 15 Nature family journals (Jan 2022 – Jun 2023, post-GPT-4-cutoff); **1,709 ICLR papers / 6,505 human reviews** (ICLR 2022 + 2023, all decision categories).
 >
-> **No new annotators or human subjects** introduced for this experiment — the shuffle reuses the same pipeline, datasets, and validation runs as the main overlap analysis.
+> **No new annotators or human subjects** introduced for this experiment, the shuffle reuses the same pipeline, datasets, and validation runs as the main overlap analysis.
 >
 > "For papers published in the Nature family, the LLM-generated feedback for a given paper was randomly paired with human feedback for a different paper from the same journal and Nature root category. These categories included physical sciences, earth and environmental sciences, biological sciences, health sciences, and scientific community and society. If a paper was classified under multiple categories, the shuffle algorithm paired it with another paper that spanned the same categories. For the ICLR dataset, we compared human feedback for a paper with LLM feedback for a different paper, randomly selected from the same conference year, either ICLR 2022 or ICLR 2023." (Liang et al., 2024, p. 9)
 > ![[liangCanLargeLanguage2024a-evd-p9-1.png]]
@@ -68,17 +68,17 @@ tripod_llm_pct: 55pct
 ## Other Notes
 
 - The near-floor shuffled overlap (0.43% pairwise / 1.13% global on Nature; 3.91% pairwise on ICLR) rejects the "GPT-4 produces generic boilerplate" null at ****P < 0.0001 in both datasets.
-- The shuffled control was within stratum (same journal + same Nature category, or same ICLR year), so the drop is not attributable to topic-distribution mismatch — only to paper-specificity.
+- The shuffled control was within stratum (same journal + same Nature category, or same ICLR year), so the drop is not attributable to topic-distribution mismatch, only to paper-specificity.
 - Note: the original quote in the Description fixed a typo ("A significant decreased" → "the pairwise overlap significantly decreased") to match the verbatim source text.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
 
 | Dataset | Real LLM hit rate | Shuffled LLM hit rate | Drop | Sig. |
 | --- | :---: | :---: | :---: | :---: |
-| **Nature (n = 3,096) — pairwise (Fig. 2a)** | **30.85%** | **0.43%** | ~71× | ****P < 0.0001 |
-| Nature — global (≥ 1 reviewer match; Supp. Fig. 1a) | 57.55% | 1.13% | ~51× | ****P < 0.0001 |
-| ICLR (n = 1,709) — pairwise (Fig. 2b) | 39.23% | 3.91% | ~10× | ****P < 0.0001 |
-| ICLR — global (Supp. Fig. 1b) | 77.18% | ~13% | ~6× | ****P < 0.0001 |
+| **Nature (n = 3,096): pairwise (Fig. 2a)** | **30.85%** | **0.43%** | ~71× | ****P < 0.0001 |
+| Nature: global (≥ 1 reviewer match; Supp. Fig. 1a) | 57.55% | 1.13% | ~51× | ****P < 0.0001 |
+| ICLR (n = 1,709): pairwise (Fig. 2b) | 39.23% | 3.91% | ~10× | ****P < 0.0001 |
+| ICLR: global (Supp. Fig. 1b) | 77.18% | ~13% | ~6× | ****P < 0.0001 |
 
 | Robustness across overlap metrics (Supp. Fig. 2) | Shuffled overlap |
 | --- | :---: |

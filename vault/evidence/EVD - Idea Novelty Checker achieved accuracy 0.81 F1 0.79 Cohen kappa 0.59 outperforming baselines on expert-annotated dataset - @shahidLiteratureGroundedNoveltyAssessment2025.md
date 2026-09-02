@@ -31,7 +31,7 @@ tripod_llm_pct: 41pct
 >
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p1-1.png]]
 > Full results from Table 1: Complete system with idea, most relevant papers, class, and reasoning: Accuracy=0.81, Precision=0.84, Recall=0.78, F1=0.79, Cohen's Kappa=0.59. (Shahid et al., 2025, p. 7)
-> [Screenshot: Table 1, p. 7 — experimental results using gpt-4o on expert-annotated dataset]
+> [Screenshot: Table 1, p. 7, experimental results using gpt-4o on expert-annotated dataset]
 
 ## Methods Context
 
@@ -43,7 +43,7 @@ tripod_llm_pct: 41pct
 >
 > **Tools:** Semantic Scholar Search API + Snippet API for candidate retrieval; SPECTER-2 (Cohan et al.) embeddings for similarity filtering; RankGPT (Sun et al.) for facet-based LLM re-ranking; GPT-4o ("gpt-4o", inference Aug–Sep 2024) for keyword extraction (LLM_query), re-ranking (LLM_rankgpt), and novelty evaluation (LLM_novelty); brat-style expert annotation.
 >
-> **Dependent variables:** binary novelty classification metrics on a 32-idea test set — accuracy, precision, recall, F1, and Cohen's κ vs. expert labels.
+> **Dependent variables:** binary novelty classification metrics on a 32-idea test set, accuracy, precision, recall, F1, and Cohen's κ vs. expert labels.
 >
 > **Independent variables / covariates:** prompting strategy (zero-shot, DSPy, TextGRAD, OpenReview-derived in-context examples, expert-labeled in-context examples); presence/absence of "most relevant papers", "class" label, and "reasoning" in the in-context examples; number of in-context examples (n_examples; best = 15).
 >
@@ -52,7 +52,7 @@ tripod_llm_pct: 41pct
 
 ### How?
 
-> **Procedure:** (1) **Step 1 — Candidate retrieval.** Prompt LLM_query (gpt-4o) to extract keywords + potential titles from the input idea; query Semantic Scholar Search API for keyword/title hits and Snippet API (~500-word snippets) using the entire idea as input. Optionally retrieve papers similar to user-provided seed papers via Semantic Scholar's recommendations API. Combine all retrieved papers into a candidate pool. (2) **Step 2 — Two-stage re-ranking.** Embedding filtering with SPECTER-2 selects the top N=100 candidates by cosine similarity to the idea embedding; RankGPT (LLM_rankgpt = gpt-4o) then re-ranks using a *facet-based* relevance criterion (purpose, mechanism, evaluation, application — favoring papers matching all key facets, then those matching application+purpose, then partial matches), producing top k=10 most relevant papers. (3) **Step 3 — Novelty evaluation.** LLM_novelty (gpt-4o) is prompted with the idea, the top-10 papers, and 15 expert-labeled in-context examples (idea + top-10 papers + class + reasoning) drawn from the formative-study training split; output is a binary {novel, not novel} label with reasoning. The 15 idea-paper pairs and the 5-pair OpenReview-baseline configuration were chosen via a random seed (=100); DSPy used 2 bootstrapped examples and DSPy/TextGRAD were each trained for 12 prompt iterations.
+> **Procedure:** (1) **Step 1, Candidate retrieval.** Prompt LLM_query (gpt-4o) to extract keywords + potential titles from the input idea; query Semantic Scholar Search API for keyword/title hits and Snippet API (~500-word snippets) using the entire idea as input. Optionally retrieve papers similar to user-provided seed papers via Semantic Scholar's recommendations API. Combine all retrieved papers into a candidate pool. (2) **Step 2, Two-stage re-ranking.** Embedding filtering with SPECTER-2 selects the top N=100 candidates by cosine similarity to the idea embedding; RankGPT (LLM_rankgpt = gpt-4o) then re-ranks using a *facet-based* relevance criterion (purpose, mechanism, evaluation, application, favoring papers matching all key facets, then those matching application+purpose, then partial matches), producing top k=10 most relevant papers. (3) **Step 3, Novelty evaluation.** LLM_novelty (gpt-4o) is prompted with the idea, the top-10 papers, and 15 expert-labeled in-context examples (idea + top-10 papers + class + reasoning) drawn from the formative-study training split; output is a binary {novel, not novel} label with reasoning. The 15 idea-paper pairs and the 5-pair OpenReview-baseline configuration were chosen via a random seed (=100); DSPy used 2 bootstrapped examples and DSPy/TextGRAD were each trained for 12 prompt iterations.
 >
 > "For our novelty evaluation system, we use SPECTER-2 (Cohan et al.) as the default embedding model. Initially, we retrieve the top N =100 papers using these embeddings, from which the top k =10 most relevant papers are selected for comparison with the input idea. The default language model for the idea keyword extraction (LLMquery), re-ranking process (LLMrankgpt), and novelty evaluation (LLMnovelty) is gpt-4o. Expert-labeled data from the formative study is incorporated as in-context examples in the novelty checker. We experimented with various numbers of in-context examples (comprising idea-paper pairs along with their novelty class and reviews) and found that the best performance was achieved using 15 idea examples (random seed 100)." (Shahid et al., 2025, p. 6)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p6-3.png]]
@@ -78,7 +78,7 @@ tripod_llm_pct: 41pct
 - OpenReview-based examples performed worse than expert-labeled examples even when relevant papers were also included.
 - Test agreement was reported with **two-way Cohen's κ** (only for the in-context settings); other rows show only accuracy/precision/recall/F1.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting summary]].
 
 | Setting | Accuracy | Precision | Recall | F1 | Cohen's κ |
 | --- | :---: | :---: | :---: | :---: | :---: |
@@ -90,7 +90,7 @@ tripod_llm_pct: 41pct
 | OpenReview examples (idea + review) | 0.59 | 0.55 | 0.51 | 0.43 | — |
 | Expert-labeled (idea + reasoning) | 0.75 | 0.76 | 0.77 | 0.75 | — |
 | Expert-labeled (idea + papers + class) | 0.78 | 0.77 | 0.76 | 0.77 | — |
-| **Expert-labeled (idea + papers + class + reasoning) — Idea Novelty Checker** | **0.81** | **0.84** | **0.78** | **0.79** | **0.59** |
+| **Expert-labeled (idea + papers + class + reasoning), Idea Novelty Checker** | **0.81** | **0.84** | **0.78** | **0.79** | **0.59** |
 
 ## Caveats
 

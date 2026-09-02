@@ -60,7 +60,7 @@ tripod_llm_pct: 62pct
 
 ### Who?
 
-> **Models:** Claude 3.5-Sonnet and GPT-4o (10 iterations per prompt at temperature 0.7 — necessary for the consistency analysis); GPT-o1-preview (1 iteration; consistency-across-iterations analysis therefore not computed for o1-preview).
+> **Models:** Claude 3.5-Sonnet and GPT-4o (10 iterations per prompt at temperature 0.7, necessary for the consistency analysis); GPT-o1-preview (1 iteration; consistency-across-iterations analysis therefore not computed for o1-preview).
 >
 > **Variables analyzed:** the same 172 CDP candidate confounders. Note: Non-Confounders measured at follow-up are *omitted* from the option-ordering analysis for GPT-o1-preview because the content-flagging workaround changed the prompt for that subgroup; this affects only Non-Confounders for o1-preview.
 >
@@ -73,7 +73,7 @@ tripod_llm_pct: 62pct
 
 Option-ordering sensitivity: 16.3% of GPT-4o variables switched between 0% and 100% confounder designation solely based on option order, and 4.6% of Claude variables did the same. This is a strong indicator of unreliable causal reasoning.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting summary]].
 
 Cross-method agreement (Cohen's κ on 0%/Mixed/100% designations):
 

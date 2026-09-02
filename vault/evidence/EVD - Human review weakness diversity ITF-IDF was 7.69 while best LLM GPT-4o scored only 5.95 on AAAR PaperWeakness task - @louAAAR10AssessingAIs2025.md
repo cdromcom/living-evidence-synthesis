@@ -70,7 +70,7 @@ tripod_llm_pct: 57pct
 
 Surprisingly, AI-SCI (an advanced prompting framework) performed worse than baseline GPT-4o on ITF-IDF, suggesting popular prompting techniques do not resolve the diversity gap. The paper also flags (footnote 7, p. 9) that the human ITF-IDF of 7.69 may be slightly underestimated because repeated weaknesses across reviewers were retained.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting summary]].
 
 | System | S-F1 (%) | S-Precision (%) | S-Recall (%) | ITF-IDF (↑) |
 | --- | --- | --- | --- | --- |

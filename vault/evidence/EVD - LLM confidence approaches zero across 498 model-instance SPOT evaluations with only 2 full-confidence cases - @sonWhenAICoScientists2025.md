@@ -39,7 +39,7 @@ tripod_llm_pct: 63pct
 
 > **Study design:** post-hoc calibration sub-analysis nested in the SPOT benchmark evaluation.
 >
-> **Method type:** unbiased per-error confidence estimation derived from the same 8-run pass@K resampling protocol — i.e., self-estimated confidence is computed from observed run-level success rates, NOT from model-reported probabilities or verbalised confidence.
+> **Method type:** unbiased per-error confidence estimation derived from the same 8-run pass@K resampling protocol, i.e., self-estimated confidence is computed from observed run-level success rates, NOT from model-reported probabilities or verbalised confidence.
 >
 > **Tools:** the pass@K bootstrap estimator (Appendix C); kernel density estimation; scatter visualisation against pass@4 (Figure 4 right).
 >
@@ -73,16 +73,16 @@ tripod_llm_pct: 63pct
 - Miscalibration means confidence estimates cannot be used to filter reliable predictions: even o3, the best model, has only 2 full-confidence cases out of 83.
 - Confidence correlates only weakly with pass@4 (Figure 4 right), so models cannot self-flag the rare errors they actually catch.
 - Models rarely rediscover the same errors across independent runs, further undermining reliability.
-- Confidence here is an **objective frequency-derived estimate** (run-level success rate), not the model's verbalised self-confidence — a stronger calibration signal because it cannot be inflated by overconfident phrasing.
+- Confidence here is an **objective frequency-derived estimate** (run-level success rate), not the model's verbalised self-confidence; a stronger calibration signal because it cannot be inflated by overconfident phrasing.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
 
 | Calibration metric | Value |
 | --- | :---: |
 | Total model-instance evaluations | 498 (83 × 6) |
 | Cases of full (=1.0) confidence | **2** (both from o3) |
 | Confidence-distribution shape | KDE peaks near 0 for all 6 models (Figure 4 left) |
-| Confidence vs. pass@4 (Figure 4 right) | weak positive — points fall well below the y = x diagonal |
+| Confidence vs. pass@4 (Figure 4 right) | weak positive: points fall well below the y = x diagonal |
 
 | Confidence formula | Definition |
 | --- | --- |

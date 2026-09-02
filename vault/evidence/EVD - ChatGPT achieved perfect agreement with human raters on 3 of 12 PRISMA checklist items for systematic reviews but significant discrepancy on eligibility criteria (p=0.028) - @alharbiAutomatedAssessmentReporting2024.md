@@ -57,7 +57,7 @@ tripod_llm_pct: 30pct
 
 > **Sample-size flow:** four leading orthodontic journals searched (AJO-DO, JO, EJO, AO) for publications 2018–2022 containing keywords "systematic review", "meta-analysis", "randomized controlled trial", "assigned", "prospective", or "comparative" → full-text screened to confirm true SR designation → random sample of **20 systematic-review abstracts** (5 per journal) selected for analysis (parallel sample of 20 RCTs in companion EVD). All 20 SRs analyzed; no exclusions reported after sampling.
 >
-> **Models:** ChatGPT 3.5 (OpenAI, free version, accessed 30 May 2024) — single LLM, no model comparison.
+> **Models:** ChatGPT 3.5 (OpenAI, free version, accessed 30 May 2024), single LLM, no model comparison.
 >
 > **Human raters:** two reviewers F.A. and S.A. (authors), both Department of Pediatric Dentistry, Prince Sattam Bin Abdulaziz University.
 >
@@ -66,11 +66,11 @@ tripod_llm_pct: 30pct
 
 ## Other Notes
 
-- Eligibility criteria (item 3): ChatGPT reported 90% (18/20) as reporting eligibility criteria; humans rated only 60% (12/20) as reporting (p=0.028) — the only PRISMA item with a statistically significant discrepancy.
+- Eligibility criteria (item 3): ChatGPT reported 90% (18/20) as reporting eligibility criteria; humans rated only 60% (12/20) as reporting (p=0.028), the only PRISMA item with a statistically significant discrepancy.
 - ChatGPT showed a systematic tendency to over-report: in 9 of 12 PRISMA items, ChatGPT's "Reported" proportion ≥ humans', suggesting it may over-interpret implicit information in abstracts.
-- Funding (item 11): ChatGPT 30% (6/20) vs. humans 5% (1/20), p=0.091 — borderline non-significant but a 6-fold disagreement on a checkable factual item.
+- Funding (item 11): ChatGPT 30% (6/20) vs. humans 5% (1/20), p=0.091, borderline non-significant but a 6-fold disagreement on a checkable factual item.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting summary]].
 
 | PRISMA-for-abstracts item | ChatGPT Reported | Human Reported | Fisher p |
 | --- | :---: | :---: | :---: |

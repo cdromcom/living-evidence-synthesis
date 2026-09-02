@@ -59,7 +59,7 @@ tripod_llm_pct: 55pct
 
 > **Participants / sample-size flow:** target population = arXiv CS / computational biology preprint authors (Jan–Mar 2023) with discoverable email + recipients of institute mailing lists → opt-in respondents who uploaded their own paper post-9/2021 and completed the 6-page survey → **308 researchers from 110 US institutions** retained for analysis. Authors flag the population is self-selected and skewed toward respondents already familiar with LLMs/AI. Demographic covariates (career stage from undergraduate to faculty/industry; 0 to 10+ years' publishing experience) collected and used in subgroup checks.
 >
-> **No external models / annotators evaluated** — the unit of measurement is the respondent's rating of GPT-4 feedback on their own paper.
+> **No external models / annotators evaluated**; the unit of measurement is the respondent's rating of GPT-4 feedback on their own paper.
 >
 > "Through recruitment over institute mailing lists, and contacting paper authors who put preprints on arXiv, we were able to collect survey responses from 308 researchers from 110 US institutions in the field of AI and computational biology that come from diverse education status, experience, and institutes." (Liang et al., 2024, p. 3)
 > ![[liangCanLargeLanguage2024a-evd-p3-1.png]]
@@ -67,10 +67,10 @@ tripod_llm_pct: 55pct
 ## Other Notes
 
 - Self-selection bias is explicitly acknowledged by the authors as a study limitation; respondents likely already familiar with / favorably disposed toward LLMs.
-- 17.5% of participants considered GPT-4 feedback inferior to most human feedback (Fig. 4c) — i.e., the helpfulness distribution is real but not uniform.
+- 17.5% of participants considered GPT-4 feedback inferior to most human feedback (Fig. 4c), i.e., the helpfulness distribution is real but not uniform.
 - IRB approval obtained from Stanford; participants compensated $20 for ~15–20 min.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
 
 | Survey item (Likert) | Distribution (n=308) |
 | --- | --- |

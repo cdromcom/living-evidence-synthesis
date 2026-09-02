@@ -56,7 +56,7 @@ tripod_llm_pct: 43pct
 
 ### Who?
 
-> **Models:** all 6 commercial LLMs aggregated — GPT 3.5-Turbo-1106, GPT 4-0613, GPT 4-1106, Claude v1, Palm 2/chat-bison, Gemini pro 1.0.
+> **Models:** all 6 commercial LLMs aggregated, GPT 3.5-Turbo-1106, GPT 4-0613, GPT 4-1106, Claude v1, Palm 2/chat-bison, Gemini pro 1.0.
 >
 > **Articles:** 39 PubMed observational obesity studies (selection: 2996 PubMed hits → 303 after filters → first 50 → 39 after excluding 11 non-observational; Claude v1 capped at 33).
 >
@@ -71,7 +71,7 @@ tripod_llm_pct: 43pct
 
 Q8 (statistical software identification) and Q15 (funding) were multiple-choice questions with 7 and 2 options respectively, which may explain the lower performance. Q12 and Q13 (discussion sections) showed highest accuracy, suggesting LLMs are better at summarizing interpretive content than extracting specific technical details.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting summary]].
 
 Per-question correct % across all 6 LLMs (from Figure 3 / Table 4):
 

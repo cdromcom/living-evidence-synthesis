@@ -54,9 +54,9 @@ tripod_llm_pct: 43pct
 
 > **Procedure:** (1) Construct a prompt prefacing the model as "a professional reviewer in computer science and machine learning" and asking it to "predict the review score in several aspects" on a 1–5 scale (system prompt verbatim in Appendix A.1). (2) Run two settings:
 >
-> **Setting 1 — Given Review:** model receives a human-written review and predicts aspect scores; tested zero-shot, few-shot (5 in-context examples), and MCQ-style (each score has an explicit verbal criterion).
+> **Setting 1, Given Review:** model receives a human-written review and predicts aspect scores; tested zero-shot, few-shot (5 in-context examples), and MCQ-style (each score has an explicit verbal criterion).
 >
-> **Setting 2 — Given Paper:** model receives only the abstract / whole paper / selected sections / abstract+sections, and predicts the same scores. (3) For few-shot, the demonstration examples use "most frequent score" per aspect (justified in Section 3.2 against "all-1" and "all-5" alternatives, Table 3). (4) Inference parameters: GPT-3.5-turbo-0613 / GPT-3.5-16k version 0613, **temperature 0.3** ("If not specially marked, all models are of version 0613 with temperature 0.3"). (5) Compute average accuracy, |diff|, Pearson, Spearman, Kendall's tau across the 8 aspects (Table 1), and per-aspect correlations (Table 2). Aspects flagged "not discussed" by the review are excluded for that aspect.
+> **Setting 2, Given Paper:** model receives only the abstract / whole paper / selected sections / abstract+sections, and predicts the same scores. (3) For few-shot, the demonstration examples use "most frequent score" per aspect (justified in Section 3.2 against "all-1" and "all-5" alternatives, Table 3). (4) Inference parameters: GPT-3.5-turbo-0613 / GPT-3.5-16k version 0613, **temperature 0.3** ("If not specially marked, all models are of version 0613 with temperature 0.3"). (5) Compute average accuracy, |diff|, Pearson, Spearman, Kendall's tau across the 8 aspects (Table 1), and per-aspect correlations (Table 2). Aspects flagged "not discussed" by the review are excluded for that aspect.
 >
 > "We conduct experiments under two different settings: (1) given human-written review, predict aspect scores; (2) given (part of) the research paper, predict scores." (Zhou et al., 2024, p. 9342)
 > ![[zhouLLMReliableReviewer2024-evd-p3-1.png]]
@@ -74,18 +74,18 @@ tripod_llm_pct: 43pct
 
 When given the paper (not the review), GPT-3.5 correlation drops dramatically (best Pearson ~0.258 for full paper). This demonstrates that LLMs can understand human-written reviews but cannot reliably judge paper quality from the paper alone.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting summary]].
 
 | Setting (input → prompt style)          | Accuracy ↑ | \|diff\| ↓ | Pearson ↑ | Spearman ↑ | Kendall τ ↑ |
 | --------------------------------------- | :--------: | :--------: | :-------: | :--------: | :---------: |
 | Baseline: most-frequent score           | **0.404**  |   0.966    |   0.333   |   0.340    |    0.297    |
-| Given review — zero-shot                |   0.353    | **0.856**  |   0.548   |   0.553    |    0.475    |
-| **Given review — few-shot**             |   0.306    |   1.132    | **0.651** | **0.659**  |  **0.580**  |
-| Given review — MCQ style                |   0.336    |   1.025    |   0.558   |   0.565    |    0.492    |
-| Given paper — abstract                  |   0.237    |   0.992    |   0.228   |   0.233    |    0.195    |
-| Given paper — whole paper (GPT-3.5-16k) |   0.138    |   2.132    |   0.131   |   0.131    |    0.109    |
-| Given paper — selected sections         |   0.251    |   0.886    |   0.258   |   0.265    |    0.222    |
-| Given paper — abstract & sections       |   0.330    |   0.923    |   0.248   |   0.249    |    0.209    |
+| Given review: zero-shot                |   0.353    | **0.856**  |   0.548   |   0.553    |    0.475    |
+| **Given review: few-shot**             |   0.306    |   1.132    | **0.651** | **0.659**  |  **0.580**  |
+| Given review: MCQ style                |   0.336    |   1.025    |   0.558   |   0.565    |    0.492    |
+| Given paper: abstract                  |   0.237    |   0.992    |   0.228   |   0.233    |    0.195    |
+| Given paper: whole paper (GPT-3.5-16k) |   0.138    |   2.132    |   0.131   |   0.131    |    0.109    |
+| Given paper: selected sections         |   0.251    |   0.886    |   0.258   |   0.265    |    0.222    |
+| Given paper: abstract & sections       |   0.330    |   0.923    |   0.248   |   0.249    |    0.209    |
 
 | Per-aspect Pearson (given review, few-shot) | Recommendation | Substance | Appropriateness | Comparison | Soundness | Originality | Clarity | Impact |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |

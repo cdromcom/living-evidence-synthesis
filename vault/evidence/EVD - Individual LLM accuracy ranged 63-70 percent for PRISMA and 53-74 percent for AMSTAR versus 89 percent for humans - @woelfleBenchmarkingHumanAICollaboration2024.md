@@ -52,7 +52,7 @@ tripod_llm_pct: 67pct
 
 ### How?
 
-> **Procedure:** Five LLMs were queried via APIs (Anthropic, OpenAI, OpenRouter for Mixtral) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes from the full text, (2) explain reasoning in one paragraph, and (3) assign a per-item rating (no/yes/NA for PRISMA/AMSTAR; ordinal 1–5 or NA for PRECIS-2). Claude-3-Opus received page-level PNG images (multimodal, implicit OCR — fully exposing figures/tables); the other four models received plain text the authors extracted (image-blind). Each prompt was run twice (GPT-4 only on 25% of publications due to cost) and the duplicate runs are treated as intrarater reliability.
+> **Procedure:** Five LLMs were queried via APIs (Anthropic, OpenAI, OpenRouter for Mixtral) at temperature 0 for maximum intrarater reliability. For each publication and tool, the prompt asked the LLM to (1) extract 1–3 relevant quotes from the full text, (2) explain reasoning in one paragraph, and (3) assign a per-item rating (no/yes/NA for PRISMA/AMSTAR; ordinal 1–5 or NA for PRECIS-2). Claude-3-Opus received page-level PNG images (multimodal, implicit OCR, fully exposing figures/tables); the other four models received plain text the authors extracted (image-blind). Each prompt was run twice (GPT-4 only on 25% of publications due to cost) and the duplicate runs are treated as intrarater reliability.
 >
 > **For this analysis (individual LLMs):** each LLM run was directly compared to human consensus, item-by-item, computing accuracy and Cohen's kappa (weighted κ for PRECIS-2 with the 1/2 and 4/5 ordinal pairs collapsed). 1000-resample publication-level bootstrap 95% CIs in R 4.3. Quote handling and post-processing in Python 3.11.4 (parasail, rapidfuzz).
 >
@@ -63,7 +63,7 @@ tripod_llm_pct: 67pct
 
 > **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1), each prompted twice.
 >
-> **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al.); PRECIS-2 — 56 RCTs from PragMeta. Maximum potential ratings: PRISMA up to 3024 (27 × 112); AMSTAR up to 1232 (11 × 112); PRECIS-2 up to 504 (9 × 56).
+> **Datasets / sample-size flow:** PRISMA & AMSTAR, 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al.); PRECIS-2, 56 RCTs from PragMeta. Maximum potential ratings: PRISMA up to 3024 (27 × 112); AMSTAR up to 1232 (11 × 112); PRECIS-2 up to 504 (9 × 56).
 >
 > **Processing failures (excluded from N):** Claude-3-Opus 3/112 (Anthropic content filtering / overly long); GPT-4 3/112 (context length); GPT-3.5 3/112 PRISMA-AMSTAR + 2/56 PRECIS-2; Mixtral 1/112; Claude-2 processed all. Reflected in Table 2 N (e.g., GPT-3.5 PRISMA: 1868/2943 = 63%).
 >
@@ -75,9 +75,9 @@ tripod_llm_pct: 67pct
 ## Other Notes
 
 - All five individual LLMs performed significantly worse than humans (89% PRISMA / 89% AMSTAR / 75% PRECIS-2 for human rater 1) on every tool.
-- Counter-intuitive PRECIS-2 finding: smaller/cheaper GPT-3.5 (55%) and Mixtral (48%) outperformed larger Claude-3-Opus (45%) and Claude-2 (44%) and GPT-4 (38%) — authors attribute this partly to the dataset being skewed toward pragmatic trials (smaller models may default toward more pragmatic scores).
+- Counter-intuitive PRECIS-2 finding: smaller/cheaper GPT-3.5 (55%) and Mixtral (48%) outperformed larger Claude-3-Opus (45%) and Claude-2 (44%) and GPT-4 (38%), authors attribute this partly to the dataset being skewed toward pragmatic trials (smaller models may default toward more pragmatic scores).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
 
 | Tool | Model | Agreement (95% CI) | Cohen's kappa (95% CI) | Intrarater agreement (95% CI) |
 | --- | --- | --- | --- | --- |

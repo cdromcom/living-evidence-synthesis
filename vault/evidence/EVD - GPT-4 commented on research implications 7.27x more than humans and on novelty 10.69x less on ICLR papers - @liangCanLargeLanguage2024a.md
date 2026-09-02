@@ -74,7 +74,7 @@ tripod_llm_pct: 55pct
 - Authors interpret the divergence as an argument for human-AI complementarity rather than full LLM automation of review.
 - IAA on the 11-aspect coding is not reported in the main text; only "two researchers with a background in machine learning performed the annotations."
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
 
 | Aspect (ICLR, n=500 papers) | Frequency ratio (GPT-4 / Human) | Direction |
 | --- | :---: | --- |

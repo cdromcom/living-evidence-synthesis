@@ -37,7 +37,7 @@ tripod_llm_pct: 37pct
 
 > **Study design:** classification benchmark of LLM reviewer agents against ground-truth conference acceptance decisions, repeated across three OpenReview datasets.
 >
-> **Method type:** binary {ACCEPT, REJECT} prediction at the paper level — GAR's meta-reviewer aggregates individual reviews into a final decision; the GAR^> variant instead applies a fixed score threshold of 6 (ICLR "Weak Accept").
+> **Method type:** binary {ACCEPT, REJECT} prediction at the paper level, GAR's meta-reviewer aggregates individual reviews into a final decision; the GAR^> variant instead applies a fixed score threshold of 6 (ICLR "Weak Accept").
 >
 > **Tools:** GAR pipeline (graph-paper representation + 3–6 reviewer agents + meta-reviewer) backed by GPT-4o-mini; baselines AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review; trivial baselines (Random Decision, Always Reject); Nougat for PDF→Markdown extraction; Molmo-7b for figure ingestion.
 >
@@ -57,7 +57,7 @@ tripod_llm_pct: 37pct
 
 ### Who?
 
-> **Models:** seven systems compared per dataset — Human (NeurIPS 2023 consistency study), Random Decision, Always Reject, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review, plus GAR and GAR^>. All LLM-based agents use GPT-4o-mini in the main run; §5.12 (Table 9) repeats with GPT-4o, Mistral-7b Instruct, Llama-3.1 (8b), and Llama-3.1 (70b).
+> **Models:** seven systems compared per dataset, Human (NeurIPS 2023 consistency study), Random Decision, Always Reject, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review, plus GAR and GAR^>. All LLM-based agents use GPT-4o-mini in the main run; §5.12 (Table 9) repeats with GPT-4o, Mistral-7b Instruct, Llama-3.1 (8b), and Llama-3.1 (70b).
 >
 > **Sample-size flow / data:** ICLR 2023 = 3,797 OpenReview papers → 1,000-paper evaluation set + remaining ~2,797 used to initialise the memory module. NeurIPS 2023 and ICLR 2022 likewise sampled at 1,000 papers each → total 3,000 evaluation papers. Each paper retrieved by ≥3 reviewers in the source dataset; ground truth = official conference accept/reject decisions. Each reported cell is the mean ± SE over 20 independent runs.
 >
@@ -68,7 +68,7 @@ tripod_llm_pct: 37pct
 
 GAR^> achieved F1 = 0.62 ± 0.05 on NeurIPS 23 (vanilla GAR 0.61 ± 0.04); on ICLR 23 GAR^> reached Balanced Accuracy 0.70 ± 0.05 and F1 0.69 ± 0.05. AI-Scientist sat at 0.51–0.57 F1 across datasets; OpenReviewer 0.39–0.47. The §5.4 ablation (Table 4) shows the persona-initialisation choice matters: NN-optimised persona pushes ICLR 23 Balanced Acc to 0.74 ± 0.06 (GAR^> 0.74 ± 0.06 / F1 0.70 ± 0.06); removing the memory module drops it to 0.61 ± 0.06 / 0.52 ± 0.05. §5.12 (Table 9) shows GPT-4o backbone reaches F1 0.73 ± 0.03 on ICLR 23 (GAR^> 0.71 ± 0.03), confirming GAR's gains are robust across foundation models.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting summary]].
 
 | Method (GPT-4o-mini) | NeurIPS 23 BalAcc / F1 | ICLR 22 BalAcc / F1 | ICLR 23 BalAcc / F1 |
 | --- | :---: | :---: | :---: |

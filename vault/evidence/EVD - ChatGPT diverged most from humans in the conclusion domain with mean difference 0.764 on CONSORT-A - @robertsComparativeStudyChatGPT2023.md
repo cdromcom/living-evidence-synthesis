@@ -28,7 +28,7 @@ tripod_llm_pct: 26pct
 > "The mean difference in absolute OCS was highest for the 'conclusion' domain (0.764, 95% CI: 0.186, 0.280), indicating that ChatGPT differed the most from human evaluators in this domain." (Roberts et al., 2023, p. 4)
 >
 > ![[robertsComparativeStudyChatGPT2023-evd-p4-1.png]]
-> [Screenshot: Table 1, p. 3 — error analysis of ChatGPT CONSORT-A OCS subscores by domain]
+> [Screenshot: Table 1, p. 3, error analysis of ChatGPT CONSORT-A OCS subscores by domain]
 
 ## Methods Context
 
@@ -49,7 +49,7 @@ tripod_llm_pct: 26pct
 
 ### How?
 
-> **Procedure:** for each of the 14 CONSORT-A domains in Table 1, the 30 paired (human, ChatGPT) item-level scores (0 / 0.5 / 1) were used to compute (i) mean absolute difference with 95% CI, (ii) Welch's two-sample t-test p-value (P<0.001 deemed significant), and (iii) Pearson's r between the two raters' subscores. ChatGPT scoring used the single zero-shot prompt template in Figure 1A — definitions for all 15 CONSORT-A items provided up front, with the model asked to label each item completely / partially / not reported and then compute OCS = (1·I_C) + (0.5·I_P) + (0·I_N). The "conclusion" domain in CONSORT-A is binary in practice (a conclusion is either stated or not), so disagreement reflects the model's interpretation of "conclusion was stated" vs. the human reviewers'.
+> **Procedure:** for each of the 14 CONSORT-A domains in Table 1, the 30 paired (human, ChatGPT) item-level scores (0 / 0.5 / 1) were used to compute (i) mean absolute difference with 95% CI, (ii) Welch's two-sample t-test p-value (P<0.001 deemed significant), and (iii) Pearson's r between the two raters' subscores. ChatGPT scoring used the single zero-shot prompt template in Figure 1A, definitions for all 15 CONSORT-A items provided up front, with the model asked to label each item completely / partially / not reported and then compute OCS = (1·I_C) + (0.5·I_P) + (0·I_N). The "conclusion" domain in CONSORT-A is binary in practice (a conclusion is either stated or not), so disagreement reflects the model's interpretation of "conclusion was stated" vs. the human reviewers'.
 >
 > "ChatGPT was used to score the same set of abstracts, using a prompt to assess for each domain within the CONSORT-A checklist (figure 1)… An overall compliance score (OCS) was given out of 15, along with an OCS percentage (figure 1B). This was performed using the GPT3.5 model." (Roberts et al., 2023, p. 3)
 > ![[robertsComparativeStudyChatGPT2023-evd-p3-3.png]]
@@ -65,11 +65,11 @@ tripod_llm_pct: 26pct
 
 ## Other Notes
 
-- Lowest mean difference was 'blinding' (0.034, 95% CI 0.818, 0.895), indicating ChatGPT was most accurate there. Note the wide CI (0.818, 0.895) and high p-value (0.091) suggest the result is not significantly different from zero — i.e., agreement, not divergence.
+- Lowest mean difference was 'blinding' (0.034, 95% CI 0.818, 0.895), indicating ChatGPT was most accurate there. Note the wide CI (0.818, 0.895) and high p-value (0.091) suggest the result is not significantly different from zero, i.e., agreement, not divergence.
 - The CIs in Table 1 are inconsistent with the point estimates throughout (e.g., the 'conclusion' point estimate 0.764 falls outside its reported 95% CI 0.186, 0.280). These appear to be either typesetting errors or a different statistic mislabelled as a CI; the per-domain p-values and r values are internally consistent.
 - Authors hypothesise prompt quality and ChatGPT's known instruction-following weaknesses as causes of the conclusion-domain divergence; no follow-up prompt-engineering experiments performed.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
 
 | CONSORT-A domain | Mean abs. OCS diff | Welch p | Pearson r |
 | --- | :---: | :---: | :---: |

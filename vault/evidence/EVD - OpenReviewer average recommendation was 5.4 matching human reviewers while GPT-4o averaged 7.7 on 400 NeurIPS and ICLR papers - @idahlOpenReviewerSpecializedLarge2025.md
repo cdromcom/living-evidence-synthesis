@@ -67,9 +67,9 @@ tripod_llm_pct: 56pct
 ## Other Notes
 
 - High recommendation scores (e.g., 8.1 for Llama-3.1-8B-Instruct) would lead to an "accept" outcome for most papers in the test set, making such scores misleading for pre-submission feedback.
-- Llama-OpenReviewer-8B is the full-finetune of the same base model that, off-the-shelf, gives the most inflated recommendations (8.1) — so the 5.4 result is attributable to the peer-review fine-tune rather than the base model.
+- Llama-OpenReviewer-8B is the full-finetune of the same base model that, off-the-shelf, gives the most inflated recommendations (8.1), so the 5.4 result is attributable to the peer-review fine-tune rather than the base model.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting summary]].
 
 | Model | Avg. recommendation (1–10) ± SD |
 | --- | :---: |

@@ -35,7 +35,7 @@ tripod_llm_pct: 64pct
 
 > **Study design:** exploratory retrospective cross-sectional benchmark of a closed-source LLM against human-labeled CONSORT-adherence ground truth from a published systematic review.
 >
-> **Method type:** zero-shot generative question-answering with prompt-engineered system + user prompts (no fine-tuning of the GPT-4 model — authors explicitly note GPT-4 fine-tuning was unavailable to them at the time).
+> **Method type:** zero-shot generative question-answering with prompt-engineered system + user prompts (no fine-tuning of the GPT-4 model, authors explicitly note GPT-4 fine-tuning was unavailable to them at the time).
 >
 > **Tools:** OpenAI GPT-4 Turbo (temperature=0.2, Top P=0.2, response capped at 512 tokens); R 4.3.2 + Python 3.8.17 for analysis; Schulz et al. 2020 sports-medicine CONSORT-adherence dataset as ground truth.
 >
@@ -48,7 +48,7 @@ tripod_llm_pct: 64pct
 
 ### How?
 
-> **Procedure:** (1) Subsample full-text articles from Schulz et al. 2020 (which assessed 160 sports-medicine RCTs in 2020 against CONSORT items); extract text from PMC (n=24 open-access) or from publisher EPUB/PDF; exclude papers with extraction errors or inaccessible files. (2) Split each paper into Introduction / Method / Results sections (because Llama 2 context window could not fit whole papers — same split used for GPT-4 for comparability). (3) For each paper, build 9 (paper-section text, CONSORT question) pairs — for question 9 (effect sizes), Method + Results are concatenated; this question is dropped for Llama 2 due to the smaller context window. (4) Randomly split text–question pairs 80% TRAIN / 20% TEST, stratified by paper section so a single paper can appear in both splits via different sections (no validation set due to limited data). (5) Iteratively engineer system + user prompts: start from OpenAI guidelines (persona + delimiters + step-list); use the first 10 incorrectly-answered TRAIN examples to ask ChatGPT to revise prompt language; rerun and revise once more; copy ChatGPT-suggested prompt verbatim. The final system prompt instructs the model to summarise relevant text first, then answer YES/NO. (6) Submit each TEST text-question pair to GPT-4 Turbo via the OpenAI API; compare returned YES/NO against Schulz et al. labels. (7) Compute F1, accuracy, and 95% Clopper–Pearson CIs in R; build the confusion matrix in Figure 1. The work was reported in line with the MI-CLAIM checklist (filed on OSF).
+> **Procedure:** (1) Subsample full-text articles from Schulz et al. 2020 (which assessed 160 sports-medicine RCTs in 2020 against CONSORT items); extract text from PMC (n=24 open-access) or from publisher EPUB/PDF; exclude papers with extraction errors or inaccessible files. (2) Split each paper into Introduction / Method / Results sections (because Llama 2 context window could not fit whole papers, same split used for GPT-4 for comparability). (3) For each paper, build 9 (paper-section text, CONSORT question) pairs, for question 9 (effect sizes), Method + Results are concatenated; this question is dropped for Llama 2 due to the smaller context window. (4) Randomly split text–question pairs 80% TRAIN / 20% TEST, stratified by paper section so a single paper can appear in both splits via different sections (no validation set due to limited data). (5) Iteratively engineer system + user prompts: start from OpenAI guidelines (persona + delimiters + step-list); use the first 10 incorrectly-answered TRAIN examples to ask ChatGPT to revise prompt language; rerun and revise once more; copy ChatGPT-suggested prompt verbatim. The final system prompt instructs the model to summarise relevant text first, then answer YES/NO. (6) Submit each TEST text-question pair to GPT-4 Turbo via the OpenAI API; compare returned YES/NO against Schulz et al. labels. (7) Compute F1, accuracy, and 95% Clopper–Pearson CIs in R; build the confusion matrix in Figure 1. The work was reported in line with the MI-CLAIM checklist (filed on OSF).
 >
 > "Each reporting guideline item of each paper was assessed for adherence using a generative question and answering format, where the model was prompted to answer a question, formulated using natural language, about the text/image extracted from each paper. The model was required to summarise the text that was relevant to the question and answer YES or NO to the question. Each question corresponded to a variable from the labelled dataset by Schulz et al. The label ('ground truth') for each question ('YES' or 'NO') was extracted from the systematic analysis by Schulz et al." (Wrightson et al., 2025, p. 4)
 > ![[wrightsonGPTRCTsUsing2025-evd-p4-4.png]]
@@ -64,11 +64,11 @@ tripod_llm_pct: 64pct
 
 ## Other Notes
 
-- The 113-paper figure is the per-paper denominator; the actual classification denominator for the headline F1 is the pooled 20% TEST split of (paper-section, question) pairs — Figure 1's confusion matrix shows 198 instances.
-- Item 8 (blinding) reaches the highest accuracy (100%, 95% CI 87% to 100%, F1 = 1.00); item 9 (standardised effect sizes & CIs) the lowest F1 (0.57; accuracy 87%) — likely because effect-size reporting is rare (Schulz et al. adherence = 20%) and the question requires combining Method + Results text.
+- The 113-paper figure is the per-paper denominator; the actual classification denominator for the headline F1 is the pooled 20% TEST split of (paper-section, question) pairs, Figure 1's confusion matrix shows 198 instances.
+- Item 8 (blinding) reaches the highest accuracy (100%, 95% CI 87% to 100%, F1 = 1.00); item 9 (standardised effect sizes & CIs) the lowest F1 (0.57; accuracy 87%), likely because effect-size reporting is rare (Schulz et al. adherence = 20%) and the question requires combining Method + Results text.
 - Authors flag possible **data leakage**: the same paper can appear in both TRAIN and TEST via different sections, since the split was stratified by section to keep section-mix constant across splits. They warn this may have inflated TEST performance.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wrightsonGPTRCTsUsing2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wrightsonGPTRCTsUsing2025#TRIPOD-LLM reporting summary]].
 
 | CONSORT question (text analysis) | F1-score | Accuracy (95% CI) |
 | --- | :---: | :---: |

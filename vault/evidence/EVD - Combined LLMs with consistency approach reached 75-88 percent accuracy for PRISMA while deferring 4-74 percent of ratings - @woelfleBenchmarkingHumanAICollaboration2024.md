@@ -43,7 +43,7 @@ tripod_llm_pct: 67pct
 
 > **Study design:** cross-sectional benchmark of LLM ensembling against a fixed human consensus on three evidence-appraisal tools.
 >
-> **Method type:** consistency-based LLM ensemble — nine assessments per item (across 5 LLMs) combined; only ratings consistent in ≥k of 9 retained, the rest deferred.
+> **Method type:** consistency-based LLM ensemble, nine assessments per item (across 5 LLMs) combined; only ratings consistent in ≥k of 9 retained, the rest deferred.
 >
 > **Tools:** PRISMA (27 items × 112 systematic reviews), AMSTAR (11 items × 112 systematic reviews), PRECIS-2 (9 domains × 56 RCTs).
 >
@@ -69,7 +69,7 @@ tripod_llm_pct: 67pct
 
 > **Models:** 5 LLMs (Claude-3-Opus / Claude-2 / GPT-4-32k-0613 / GPT-3.5-turbo-16k-0613 / Mixtral-8x22B-instruct-v0.1) producing 9 assessment runs per item.
 >
-> **Datasets / sample-size flow:** PRISMA & AMSTAR — 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); 27 PRISMA items × 112 = up to 3024 ratings; 11 AMSTAR items × 112 = up to 1232 ratings. PRECIS-2 — 56 RCTs from the PragMeta database; 9 domains × 56 = up to 504 ratings.
+> **Datasets / sample-size flow:** PRISMA & AMSTAR, 112 systematic reviews & meta-analyses in pediatric surgery (Cullis et al., shared); 27 PRISMA items × 112 = up to 3024 ratings; 11 AMSTAR items × 112 = up to 1232 ratings. PRECIS-2, 56 RCTs from the PragMeta database; 9 domains × 56 = up to 504 ratings.
 >
 > **Processing failures (excluded from N):** Claude-3-Opus failed on 3/112 (Anthropic content filtering / context); GPT-4 failed on 3/112 (context length); GPT-3.5 failed on 3/112 PRISMA/AMSTAR + 2/56 PRECIS-2; Mixtral failed on 1/112; Claude-2 processed all.
 >
@@ -80,10 +80,10 @@ tripod_llm_pct: 67pct
 
 ## Other Notes
 
-- Performance increased monotonically with consistency threshold, but at the cost of larger deferring fractions — at 9/9 consistency for PRISMA and ≥8/9 for PRECIS-2, accuracy and kappa CIs overlap with those of a single human rater.
+- Performance increased monotonically with consistency threshold, but at the cost of larger deferring fractions, at 9/9 consistency for PRISMA and ≥8/9 for PRECIS-2, accuracy and kappa CIs overlap with those of a single human rater.
 - 95% CIs were derived from bootstrapping with 1000 resamples on the publication level.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
 
 | Tool / consistency threshold | Accuracy (95% CI) | Cohen's kappa (95% CI) | Deferring fraction (95% CI) |
 | --- | --- | --- | --- |

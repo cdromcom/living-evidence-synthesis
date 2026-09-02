@@ -24,7 +24,7 @@ severity: high
 
 ### Limitation
 
-The benchmark datasets contain no time-on-task data for the human raters, so the central efficiency claim of human–AI collaboration — that workload for the second rater is reduced — cannot be quantified in absolute terms. The authors acknowledge it is possible the second human reader still has to read the entire publication regardless of which items are deferred, in which case time savings would be small or zero.
+The benchmark datasets contain no time-on-task data for the human raters, so the central efficiency claim of human–AI collaboration, that workload for the second rater is reduced, cannot be quantified in absolute terms. The authors acknowledge it is possible the second human reader still has to read the entire publication regardless of which items are deferred, in which case time savings would be small or zero.
 
 ### Supporting Quote
 

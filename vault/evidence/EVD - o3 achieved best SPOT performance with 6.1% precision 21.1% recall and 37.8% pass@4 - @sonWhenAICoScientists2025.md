@@ -44,9 +44,9 @@ tripod_llm_pct: 63pct
 >
 > **Tools:** SPOT benchmark (83 manuscripts × 91 errors, 47 source papers, 10 STEM domains); Llama-Parse for PDF→Markdown conversion; GPT-4.1 as LLM-as-judge for match adjudication; pass@K bootstrap estimator (Chen et al. 2021).
 >
-> **Dependent variables:** Precision (%), Recall (%), pass@1 (%), pass@4 (%) — each reported as mean ± std over 8 independent runs per paper.
+> **Dependent variables:** Precision (%), Recall (%), pass@1 (%), pass@4 (%), each reported as mean ± std over 8 independent runs per paper.
 >
-> **Independent variables:** model identity (10 multimodal LLMs — 6 proprietary + 4 open-source); paper × error annotation pair; run index (1–8) for bootstrap resampling.
+> **Independent variables:** model identity (10 multimodal LLMs, 6 proprietary + 4 open-source); paper × error annotation pair; run index (1–8) for bootstrap resampling.
 >
 > "We mainly evaluate verification performance through precision, recall, and pass@K. A predicted error is counted as a true positive (TP) only when the model's reported location matches a benchmark annotation and an LLM confirms they indicate the same error." (Son et al., 2025, p. 4)
 > ![[sonWhenAICoScientists2025-evd-p4-3.png]]
@@ -60,7 +60,7 @@ tripod_llm_pct: 63pct
 
 ### Who?
 
-> **Models evaluated (n = 10 multimodal):** 6 proprietary — **o3 (2025-04-16)**, GPT-4.1 (2025-04-14), Gemini-2.5-Pro (preview-03-25), Gemini-2.0-Flash-Lite (001), Claude-3.7-Sonnet:Thinking (20250219:Think), Claude-3.7-Sonnet (20250219); 4 open-source — Qwen2.5-VL-72B/32B-Instruct, Llama-4-Maverick, Llama-4-Scout. All accessed via official APIs (or OpenRouter as fallback); each call retried up to 3 times.
+> **Models evaluated (n = 10 multimodal):** 6 proprietary, **o3 (2025-04-16)**, GPT-4.1 (2025-04-14), Gemini-2.5-Pro (preview-03-25), Gemini-2.0-Flash-Lite (001), Claude-3.7-Sonnet:Thinking (20250219:Think), Claude-3.7-Sonnet (20250219); 4 open-source, Qwen2.5-VL-72B/32B-Instruct, Llama-4-Maverick, Llama-4-Scout. All accessed via official APIs (or OpenRouter as fallback); each call retried up to 3 times.
 >
 > **Evaluation data flow:** WithdrarXiv 14,000 entries → 1,855 after GPT-4o filter → 58 after post-2024 filter; PubPeer 25,378 → 215 post-2024. After author-confirmation (Stage 3) and two-stage human sanity check (Stage 4) → **83 manuscripts / 91 author-confirmed errors / 47 source papers**, spanning Mathematics, Physics, Biology, Chemistry, Materials Science, Medicine, Environmental Science, Engineering, Computer Science, and Multidisciplinary venues. 76/83 papers contain a single error; 6 contain two; 1 contains three. Severity split: 59 errata vs. 32 retractions.
 >
@@ -73,9 +73,9 @@ tripod_llm_pct: 63pct
 
 - All models accessed via APIs; calls retried up to 3 times; failures/cutoffs marked incorrect.
 - Gemini-2.5-Pro: precision=3.1%, recall=10.1%, pass@4=25.9% (second best overall on multimodal).
-- Open-source models collapse to ~0%: Llama-4-Maverick precision 2.0%, recall 0.9%, pass@4 3.3% — a 20.2 pp gap to o3 on pass@4. Authors note this is the only benchmark (vs. MathVista, MMLU-Pro, GPQA-Diamond, MMMU, HLE) where Llama-4-Maverick "score collapses to near zero (0.9%)."
+- Open-source models collapse to ~0%: Llama-4-Maverick precision 2.0%, recall 0.9%, pass@4 3.3%, a 20.2 pp gap to o3 on pass@4. Authors note this is the only benchmark (vs. MathVista, MMLU-Pro, GPQA-Diamond, MMMU, HLE) where Llama-4-Maverick "score collapses to near zero (0.9%)."
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
 
 | Model | Think | Precision (%) | Recall (%) | pass@1 (%) | pass@4 (%) |
 | --- | :---: | :---: | :---: | :---: | :---: |

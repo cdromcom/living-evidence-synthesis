@@ -49,7 +49,7 @@ tripod_llm_pct: 36pct
 
 ### How?
 
-> **Procedure:** (1) Sampled 15 NeurIPS 2022 papers from OpenReview — 10 by uniform sampling, 5 manually retrieved to cover the crowdsourcing/human-subjects checklist category; all post-dated GPT-4 training cutoff. (2) For each paper retained 16 of 18 checklist questions where ground truth could be determined; only items the authors had answered "Yes" were kept (since the task was to verify "Yes" answers), yielding 119 unique {question, paper} pairs. (3) First author (CS graduate student) hand-labeled each pair via keyword search + full scan, cross-checked against the author-submitted answer (deferring to authors when unsure), and re-labeled all questions a second time for calibration. (4) Constructed prompts: a system prompt assigning the model a "computer science researcher reviewing a paper titled [title] for the NeurIPS computer science conference" role + a user prompt providing the relevant paper section(s) (per token-budget) + the checklist question rephrased into third-person, asking for a Yes/No/N/A answer with a brief justification. (5) Hyperparameters chosen via pilot on a separate NeurIPS paper, sweeping `temperature ∈ {0, 0.1, …, 2.0}` and `top_p ∈ {0, 0.1, …, 1.0}`; (1.0, 1.0) marginally best. (6) Queried GPT-4 three times per pair, took majority vote (mark incorrect if all three responses differed).
+> **Procedure:** (1) Sampled 15 NeurIPS 2022 papers from OpenReview, 10 by uniform sampling, 5 manually retrieved to cover the crowdsourcing/human-subjects checklist category; all post-dated GPT-4 training cutoff. (2) For each paper retained 16 of 18 checklist questions where ground truth could be determined; only items the authors had answered "Yes" were kept (since the task was to verify "Yes" answers), yielding 119 unique {question, paper} pairs. (3) First author (CS graduate student) hand-labeled each pair via keyword search + full scan, cross-checked against the author-submitted answer (deferring to authors when unsure), and re-labeled all questions a second time for calibration. (4) Constructed prompts: a system prompt assigning the model a "computer science researcher reviewing a paper titled [title] for the NeurIPS computer science conference" role + a user prompt providing the relevant paper section(s) (per token-budget) + the checklist question rephrased into third-person, asking for a Yes/No/N/A answer with a brief justification. (5) Hyperparameters chosen via pilot on a separate NeurIPS paper, sweeping `temperature ∈ {0, 0.1, …, 2.0}` and `top_p ∈ {0, 0.1, …, 1.0}`; (1.0, 1.0) marginally best. (6) Queried GPT-4 three times per pair, took majority vote (mark incorrect if all three responses differed).
 >
 > "Throughout our experiments, for the LLM, we used the standard GPT-4 model with 8k tokens for the context. Due to limits on the token count, we were not able to pass in entire papers to the model. Instead, for each {question, paper} pair, we selected the section(s) in the paper that best correspond to each question, and only provided those section(s) in the prompt." (Liu & Shah, 2023, p. 28)
 > ![[liuReviewerGPTExploratoryStudy2023-evd-p28-2.png]]
@@ -73,11 +73,11 @@ tripod_llm_pct: 36pct
 
 ## Other Notes
 
-- 50% of LLM errors were on questions whose answers required information in figures — a structural limitation of text-only prompting. Removing those questions raised GPT-4 accuracy to 92.8%.
+- 50% of LLM errors were on questions whose answers required information in figures, a structural limitation of text-only prompting. Removing those questions raised GPT-4 accuracy to 92.8%.
 - Author-submitted checklists also matched the ground truth 86.6% of the time, but mismatches barely overlapped: GPT-4 disagreed with 75% (12 of 16) of author mismatches; conversely 9 of 16 (56.3%) of GPT-4's incorrect answers had correct author responses.
 - Per-paper accuracy in Table 2 (15 papers) ranges 0.57–1.00; per-question accuracy across 16 items ranges 0.63–1.00.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting summary]].
 
 | Metric | Value |
 | --- | --- |
@@ -98,7 +98,7 @@ tripod_llm_pct: 36pct
 > (`labels.xlsx`, github.com/niharshah/ReviewerGPT2023) rather than from
 > the paper's stated numbers: summing the spreadsheet's own per-paper
 > "total accurate" / "total" columns gives 206/238 = **86.55%**, against
-> the paper's stated **86.6%** — an exact match within rounding. No LLM
+> the paper's stated **86.6%**, an exact match within rounding. No LLM
 > re-run was needed; the per-pair correctness was already recorded in the
 > released file.
 

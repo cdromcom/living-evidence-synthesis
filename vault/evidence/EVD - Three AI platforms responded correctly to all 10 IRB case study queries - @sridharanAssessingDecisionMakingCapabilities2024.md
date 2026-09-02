@@ -55,7 +55,7 @@ tripod_llm_pct: 23pct
 
 ### Who?
 
-> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5 architecture, OpenAI), and Google Bard. No human participants; the units of analysis are AI responses to case-study prompts.
+> **Models / participants:** three AI platforms, Poe Assistant, ChatGPT (GPT-3.5 architecture, OpenAI), and Google Bard. No human participants; the units of analysis are AI responses to case-study prompts.
 >
 > **Sample-size flow:** 10 case studies sourced from FERCAP/SIDCER handbook → all 10 administered to each of 3 platforms → 30 platform × case-study response sets analyzed. No exclusions reported. The two assessors are the two paper authors (KS, GS).
 >
@@ -64,9 +64,9 @@ tripod_llm_pct: 23pct
 
 ## Other Notes
 
-- "Successfully responded to queries from all case studies" means all platforms produced an on-topic answer for every case — not that every answer was correct. Table 1 documents 9 distinct domains where at least one platform missed a GCP-relevant sub-issue, and Case Study 10 (post-trial access) was missed by all three.
+- "Successfully responded to queries from all case studies" means all platforms produced an on-topic answer for every case, not that every answer was correct. Table 1 documents 9 distinct domains where at least one platform missed a GCP-relevant sub-issue, and Case Study 10 (post-trial access) was missed by all three.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
 
 | Outcome | Value |
 | --- | --- |

@@ -56,7 +56,7 @@ tripod_llm_pct: 43pct
 
 ### Who?
 
-> **Models:** 6 commercial LLMs — GPT 3.5-turbo-1106 (OpenAI, cutoff Sep 2021); GPT 4-0613 (OpenAI, cutoff Sep 2021); GPT 4-1106 (OpenAI, cutoff Apr 2023); Claude v1 (Anthropic, cutoff not stated); Palm 2/chat-bison (Google, cutoff not stated); Gemini pro 1.0 (Google, cutoff not stated).
+> **Models:** 6 commercial LLMs, GPT 3.5-turbo-1106 (OpenAI, cutoff Sep 2021); GPT 4-0613 (OpenAI, cutoff Sep 2021); GPT 4-1106 (OpenAI, cutoff Apr 2023); Claude v1 (Anthropic, cutoff not stated); Palm 2/chat-bison (Google, cutoff not stated); Gemini pro 1.0 (Google, cutoff not stated).
 >
 > **Articles (sample-size flow):** PubMed "obesity"-in-title search 19 Dec 2023 → **2996 hits** → English + free full-text + human + last 5 years → **303 hits** → first **50** → 11 excluded as non-observational → **39 analyzed** (Claude v1 limited to 33 due to access restrictions). For 39 articles × 15 questions × 10 trials = **5850 QA pairs per LLM** (4950 for Claude v1).
 >
@@ -69,7 +69,7 @@ tripod_llm_pct: 43pct
 
 Statistical analysis revealed significant differences between LLMs (P<.001). The difference between ChatGPT 4-1106 and ChatGPT 3.5 Turbo-1106 was not statistically significant (P=.061).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting summary]].
 
 | LLM | Total QA pairs | Correct (n) | Correct (%) |
 | --- | :---: | :---: | :---: |

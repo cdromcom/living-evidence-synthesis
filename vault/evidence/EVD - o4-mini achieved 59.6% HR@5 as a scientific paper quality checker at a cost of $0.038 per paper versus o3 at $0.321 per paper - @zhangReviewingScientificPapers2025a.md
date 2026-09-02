@@ -67,16 +67,16 @@ tripod_llm_pct: 54pct
 
 - Cost ratio: o3 PDF ($0.321) is **8.4×** more expensive than o4-mini PDF ($0.038); o3 LaTeX ($0.383) is **8.9×** more expensive than o4-mini LaTeX ($0.043). Performance gap is only 5.3 pp HR@5 (PDF) / 9.4 pp (LaTeX) → o4-mini wins on cost-per-hit by a wide margin under this prompting strategy.
 - Both o-series models gain HR@5 when switched from PDF to LaTeX (o3: 64.9 → 71.0; o4-mini: 59.6 → 61.6), unlike Gemini models which degraded slightly under LaTeX, suggesting OpenAI models received specialized LaTeX training.
-- o4-mini's input-token usage was slightly higher than o3's (17,760 vs. 16,594 under PDF) — authors flag this as unexplained.
+- o4-mini's input-token usage was slightly higher than o3's (17,760 vs. 16,594 under PDF), authors flag this as unexplained.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
 
 | Model × ingestion | HR@5 | Input tok | Think tok | Output tok | $/paper | $ vs. o4-mini |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **o4-mini (medium) — PDF** | **59.6%** | 17,760 | 3,582 | 701 | **$0.038** | 1.0× |
-| o3 (medium) — PDF | 64.9% | 16,594 | 3,152 | 729 | $0.321 | **8.4×** |
-| **o4-mini (medium) — LaTeX** | 61.6% | 22,287 | 3,421 | 685 | **$0.043** | 1.0× |
-| o3 (medium) — LaTeX | 71.0% | 21,990 | 3,156 | 927 | $0.383 | **8.9×** |
+| **o4-mini (medium): PDF** | **59.6%** | 17,760 | 3,582 | 701 | **$0.038** | 1.0× |
+| o3 (medium): PDF | 64.9% | 16,594 | 3,152 | 729 | $0.321 | **8.4×** |
+| **o4-mini (medium): LaTeX** | 61.6% | 22,287 | 3,421 | 685 | **$0.043** | 1.0× |
+| o3 (medium): LaTeX | 71.0% | 21,990 | 3,156 | 927 | $0.383 | **8.9×** |
 
 ## Caveats
 

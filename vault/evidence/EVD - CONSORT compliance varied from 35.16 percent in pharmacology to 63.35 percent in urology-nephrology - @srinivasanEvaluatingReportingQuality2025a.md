@@ -48,7 +48,7 @@ tripod_llm_pct: 50pct
 
 ### How?
 
-> **Procedure:** (1) Each open-access RCT PDF was converted to XML via PyMuPDF and enriched with Semantic Scholar metadata. (2) For each article, GPT-4o-mini was prompted independently for each of 25 CONSORT criteria (later restricted to 21 after removing items 2a Background, 7b interim analyses, 3b protocol changes, 6b changes to outcomes, 14b reasons for termination — items the model misclassified as "not applicable" too often or that were reported in <5% of articles). The prompt template was: "Your task is to assess whether the given article meets the specified CONSORT criteria. # Article {article} # CONSORT Criterion The criterion being assessed is: {criterion} {definition}". The model returned JSON with {is_met, rationale, confidence}. (3) Only high-confidence predictions were retained for downstream analysis (>90% of articles). (4) Articles were mapped to Scimago discipline categories by journal; mean CONSORT compliance computed per discipline across the full 1966–2024 interval; significance tested with chi-square (effect size Cramer's V).
+> **Procedure:** (1) Each open-access RCT PDF was converted to XML via PyMuPDF and enriched with Semantic Scholar metadata. (2) For each article, GPT-4o-mini was prompted independently for each of 25 CONSORT criteria (later restricted to 21 after removing items 2a Background, 7b interim analyses, 3b protocol changes, 6b changes to outcomes, 14b reasons for termination, items the model misclassified as "not applicable" too often or that were reported in <5% of articles). The prompt template was: "Your task is to assess whether the given article meets the specified CONSORT criteria. # Article {article} # CONSORT Criterion The criterion being assessed is: {criterion} {definition}". The model returned JSON with {is_met, rationale, confidence}. (3) Only high-confidence predictions were retained for downstream analysis (>90% of articles). (4) Articles were mapped to Scimago discipline categories by journal; mean CONSORT compliance computed per discipline across the full 1966–2024 interval; significance tested with chi-square (effect size Cramer's V).
 >
 > "We applied our most efficient and best performing model to 21,041 open access NCBI articles published between 1966-2024 to evaluate the quality of RCT reporting over time. For each article, the model was tasked with independently assessing each criterion. This required re-prompting the model for every criterion, ensuring that each article was evaluated multiple times—once for each criterion." (Srinivasan et al., 2025, p. 4)
 > ![[srinivasanEvaluatingReportingQuality2025a-evd-p4-2.png]]
@@ -64,7 +64,7 @@ tripod_llm_pct: 50pct
 
 ## Other Notes
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting summary]].
 
 | Discipline | Mean % CONSORT items reported |
 | --- | :---: |

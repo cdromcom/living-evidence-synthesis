@@ -48,7 +48,7 @@ tripod_llm_pct: 50pct
 
 ### How?
 
-> **Procedure:** for each (article, criterion) pair, the entire article text was fed into the model with a single prompt that contains a task instruction + the criterion definition (template: "#Task Your task is to assess whether the given article meets the specified CONSORT criteria. # Article {article} # CONSORT Criterion The criterion being assessed is: {criterion} {definition}"). Each criterion was assessed independently — the model was re-prompted C times per article (where C = number of CONSORT criteria). Output: a JSON string with four fields — Criterion, Rationale (chain-of-thought reasoning), Decision (MET / NOT MET), Confidence (Low / Medium / High). Predictions were stratified by self-reported confidence; only High-confidence predictions were retained for the deployment analysis. Performance computed against CONSORT-TM gold sentence-level annotations and compared head-to-head with the Damen et al. / Lan Jiang et al. baseline. Inference settings (temperature, top_p, system prompt) not reported.
+> **Procedure:** for each (article, criterion) pair, the entire article text was fed into the model with a single prompt that contains a task instruction + the criterion definition (template: "#Task Your task is to assess whether the given article meets the specified CONSORT criteria. # Article {article} # CONSORT Criterion The criterion being assessed is: {criterion} {definition}"). Each criterion was assessed independently; the model was re-prompted C times per article (where C = number of CONSORT criteria). Output: a JSON string with four fields: Criterion, Rationale (chain-of-thought reasoning), Decision (MET / NOT MET), Confidence (Low / Medium / High). Predictions were stratified by self-reported confidence; only High-confidence predictions were retained for the deployment analysis. Performance computed against CONSORT-TM gold sentence-level annotations and compared head-to-head with the Damen et al. / Lan Jiang et al. baseline. Inference settings (temperature, top_p, system prompt) not reported.
 >
 > "To extract methods-related CONSORT checklist items from RCT reports for this study, we consider OpenAI's proprietary models GPT-4, GPT-4o and GPT-4o-mini. We run the GPT models via a secure Azure PHI-compliant instance… Each criterion was assessed independently for every article. For each criterion, the entire article content was fed into the model, and the assessment was conducted one criterion at a time. As a result, the model must be prompted with the same article C times, where C is the number of criteria." (Srinivasan et al., 2025, p. 4)
 > ![[srinivasanEvaluatingReportingQuality2025a-evd-p4-4.png]]
@@ -57,7 +57,7 @@ tripod_llm_pct: 50pct
 
 > **Models evaluated:** GPT-4-turbo, GPT-4o, GPT-4o-mini (zero-shot). Comparison baseline: Lan Jiang et al. (2024) prior state-of-the-art on CONSORT-TM. No model fine-tuning.
 >
-> **Evaluation corpus:** CONSORT-TM (Kilicoglu et al. 2021) — 50 RCT publications annotated at the sentence level against 37 CONSORT checklist items by six annotators (paired annotation of 30 articles, sentence-level Krippendorff's α = 0.57). Item 2a Background was excluded as too broad. Public at github.com/ScienceNLP-Lab/RCT-Transparency. All 50 articles were used for the zero-shot benchmark.
+> **Evaluation corpus:** CONSORT-TM (Kilicoglu et al. 2021), 50 RCT publications annotated at the sentence level against 37 CONSORT checklist items by six annotators (paired annotation of 30 articles, sentence-level Krippendorff's α = 0.57). Item 2a Background was excluded as too broad. Public at github.com/ScienceNLP-Lab/RCT-Transparency. All 50 articles were used for the zero-shot benchmark.
 >
 > **Human expert validation sub-study:** 4 experts (1 clinician, 3 data scientists) manually rated GPT-4o-mini outputs on 50 randomly selected articles as Correct / Partially Correct / Incorrect (used to substantiate the deployment-model choice; not the benchmark numbers themselves).
 >
@@ -66,7 +66,7 @@ tripod_llm_pct: 50pct
 
 ## Other Notes
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting summary]].
 
 | Model | Accuracy | Precision | Recall | F1 | Micro-F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |

@@ -58,7 +58,7 @@ tripod_llm_pct: 46pct
 
 > **Models / participants:** 1 OpenAI model (gpt-3.5-turbo-0125); no human subjects. Evaluation units are statement-reference pairs.
 >
-> **Sample-size flow (statement-reference pairs):** sourced from 3 channels — (1) prior citation-verification studies that shared annotated datasets or traceable examples → 163 (65.2%); (2) PubPeer comments cross-referenced with Retraction Watch retractions (2022–2023) for "concerns or issues about referencing or attributions" → 80 (32.0%); (3) PubMed corrections / errata / corrigenda → 7 (2.8%). Three inclusion criteria: digital versions findable via search engines; reference is a journal article (PDF text-extractable); cited statement uniquely identifiable in the citing article. **Final analyzed N = 250 statement-reference pairs.**
+> **Sample-size flow (statement-reference pairs):** sourced from 3 channels, (1) prior citation-verification studies that shared annotated datasets or traceable examples → 163 (65.2%); (2) PubPeer comments cross-referenced with Retraction Watch retractions (2022–2023) for "concerns or issues about referencing or attributions" → 80 (32.0%); (3) PubMed corrections / errata / corrigenda → 7 (2.8%). Three inclusion criteria: digital versions findable via search engines; reference is a journal article (PDF text-extractable); cited statement uniquely identifiable in the citing article. **Final analyzed N = 250 statement-reference pairs.**
 >
 > **Label distribution:** 112 Unsubstantiated (44.8%), 14 Partially substantiated (5.6%), 124 Fully substantiated (49.6%).
 >
@@ -69,7 +69,7 @@ tripod_llm_pct: 46pct
 
 ## Other Notes
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting summary]].
 
 | Setting | Unsubstantiated acc. | Partially acc. | Fully acc. | Overall acc. |
 | --- | --- | --- | --- | --- |

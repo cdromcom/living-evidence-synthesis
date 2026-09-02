@@ -26,7 +26,7 @@ severity: moderate
 
 ### Limitation
 
-The AAAR-1.0 EQINFER and EXPDESIGN tasks use LaTeX source as the input, with no rendered figures or tables provided to the LLM. (The WEAKNESS task does include figure/table images.) Limitations grounded in figure-only evidence — such as inconsistencies between text and chart, missing axis labels, or visual overstatements — therefore cannot be flagged on EQINFER/EXPDESIGN.
+The AAAR-1.0 EQINFER and EXPDESIGN tasks use LaTeX source as the input, with no rendered figures or tables provided to the LLM. (The WEAKNESS task does include figure/table images.) Limitations grounded in figure-only evidence (such as inconsistencies between text and chart, missing axis labels, or visual overstatements) therefore cannot be flagged on EQINFER/EXPDESIGN.
 
 ### Supporting Quote
 

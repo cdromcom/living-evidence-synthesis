@@ -52,7 +52,7 @@ tripod_llm_pct: 57pct
 
 ### How?
 
-> **Procedure:** four-stage data construction. (1) **Crawling**: ACL Anthology 2019–2023 papers' arXiv LaTeX sources cleaned and merged; regex extracted ≤3 equation snippets per paper, yielding 3,877 human-written positive equations. (2) **GPT-4 negative synthesis**: for each positive equation, GPT-4 prompted at high temperature to generate three different negative-counterpart equations conditioned on paper context. (3) **GPT-4 filtering**: GPT-4 used to remove context-unaligned negatives; pairs where any negative was unaligned were dropped. (4) **Expert examination**: 5 senior PhD students checked all instances against two criteria — grammatical correctness of all equations and semantic distinctness of all negatives from positive. Each pair was checked by ≥2 experts; only unanimous-keep pairs retained → 1,049 positive + 3,147 negative equations. **Inference**: each LLM presented with the cleaned paper text — 1,000 words before + 1,000 words after the masked equation (2,000 words surrounding context) — plus a multiple-choice prompt; per-instance binary judgments aggregated to F1/Precision/Recall in Table 1. Each model run thrice; median reported.
+> **Procedure:** four-stage data construction. (1) **Crawling**: ACL Anthology 2019–2023 papers' arXiv LaTeX sources cleaned and merged; regex extracted ≤3 equation snippets per paper, yielding 3,877 human-written positive equations. (2) **GPT-4 negative synthesis**: for each positive equation, GPT-4 prompted at high temperature to generate three different negative-counterpart equations conditioned on paper context. (3) **GPT-4 filtering**: GPT-4 used to remove context-unaligned negatives; pairs where any negative was unaligned were dropped. (4) **Expert examination**: 5 senior PhD students checked all instances against two criteria, grammatical correctness of all equations and semantic distinctness of all negatives from positive. Each pair was checked by ≥2 experts; only unanimous-keep pairs retained → 1,049 positive + 3,147 negative equations. **Inference**: each LLM presented with the cleaned paper text, 1,000 words before + 1,000 words after the masked equation (2,000 words surrounding context), plus a multiple-choice prompt; per-instance binary judgments aggregated to F1/Precision/Recall in Table 1. Each model run thrice; median reported.
 >
 > "we fix the maximum input length for all models. According to Table 9, we empirically use 1,000 words for both contexts before and after equations, i.e., 2,000 surrounding words." (Lou et al., 2025, p. 7)
 > ![[louAAAR10AssessingAIs2025-evd-p7-2.png]]
@@ -70,7 +70,7 @@ tripod_llm_pct: 57pct
 
 The EQINFER task is deliberately challenging: even expert human researchers require substantial research accumulation to solve these tasks. Figure 4 shows context-length scaling has limited effect: GPT-4o F1 stays ~40 across 100–1,500 words; Llama-3.1 peaks ~35 at 700 words; Qwen-2.5 stays ~26.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting summary]].
 
 | Model | F1 (%) | Precision (%) | Recall (%) |
 | --- | --- | --- | --- |

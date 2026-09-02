@@ -23,7 +23,7 @@ severity: high
 
 ### Limitation
 
-The 13 short papers and 10 abstract pairs used in the error detection and comparison tasks were deliberately constructed by the authors, not drawn from real peer-review submissions. This limits the ecological validity of the findings — real papers are longer, more complex, and errors are embedded in more ambiguous contexts.
+The 13 short papers and 10 abstract pairs used in the error detection and comparison tasks were deliberately constructed by the authors, not drawn from real peer-review submissions. This limits the ecological validity of the findings, real papers are longer, more complex, and errors are embedded in more ambiguous contexts.
 
 ### Supporting Quote
 

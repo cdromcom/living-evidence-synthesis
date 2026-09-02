@@ -37,7 +37,7 @@ tripod_llm_pct: 42pct
 >
 > **Method type:** zero-shot prompting of four general-purpose LLMs via public web interfaces, scored against a two-expert consensus reference.
 >
-> **Tools:** ChatGPT 4o (OpenAI), x.AI Grok 3, Gemini 2.0 Flash (Google), DeepSeek V3 — all via public web UIs; QUADAS-2 instrument (Whiting et al. 2011) covering four domains (patient selection, index test, reference standard, flow and timing) with 11 signaling questions per article.
+> **Tools:** ChatGPT 4o (OpenAI), x.AI Grok 3, Gemini 2.0 Flash (Google), DeepSeek V3, all via public web UIs; QUADAS-2 instrument (Whiting et al. 2011) covering four domains (patient selection, index test, reference standard, flow and timing) with 11 signaling questions per article.
 >
 > **Dependent variable:** correctness of each LLM signaling-question assessment (binary: correct = answer matches human consensus AND argument is correct).
 >
@@ -55,7 +55,7 @@ tripod_llm_pct: 42pct
 
 ### Who?
 
-> **Models:** four general-purpose LLMs accessed via public web interfaces — ChatGPT 4o, x.AI Grok 3, Gemini 2.0 Flash, DeepSeek V3 (versions as of the study period; specific build dates not reported).
+> **Models:** four general-purpose LLMs accessed via public web interfaces, ChatGPT 4o, x.AI Grok 3, Gemini 2.0 Flash, DeepSeek V3 (versions as of the study period; specific build dates not reported).
 >
 > **Article sample-size flow:** PubMed search (9 May 2025) for diagnostic accuracy + diabetes, most recent first, free full-text filter → original diagnostic-accuracy articles only (reviews/systematic reviews/editorials/protocols excluded) → screened by authors for medical-field diversity → **10 diagnostic-accuracy articles retained** spanning cardiology (2), gastroenterology (2), neurology (1), rheumatology (1), sleep medicine (1), vascular surgery (1), and ophthalmology (2). 2 additional non-diagnostic articles included as inapplicability controls (analyzed separately in §3.5; not part of the 110 assessments).
 >
@@ -70,7 +70,7 @@ tripod_llm_pct: 42pct
 
 By domain: Flow and timing was highest (80.63%), then index test (73.75%), then patient selection (65.83%) and reference standard (63.75%). The percentage of answers that were correct but with incorrect reasoning was 2.95% overall, highest in index test domain (5%).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting summary]].
 
 | Model | Correct / 110 | % correct |
 | --- | :---: | :---: |

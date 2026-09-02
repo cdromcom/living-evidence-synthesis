@@ -41,7 +41,7 @@ tripod_llm_pct: 25pct
 >
 > **Tools:** GPT-4 (used as the underlying reviewer LLM throughout the OpenReviewer pipeline); ICLR / NeurIPS conference review form, reviewer guide, code of ethics, code of conduct, area chair guidelines, and prior-year reviewer statistics as augmentation documents.
 >
-> **Dependent variables:** review subscores — Correctness, Technical Novelty & Significance, Empirical Novelty & Significance, **Overall Recommendation**, Confidence — each averaged across the corpus per condition (Figure 14).
+> **Dependent variables:** review subscores, Correctness, Technical Novelty & Significance, Empirical Novelty & Significance, **Overall Recommendation**, Confidence, each averaged across the corpus per condition (Figure 14).
 >
 > **Independent variable:** prompt context condition (Human, P1, P2, P3, P4, P5). Each Pₖ is a strict superset of Pₖ₋₁: P1 = paper text (P) + review form (RF); P2 adds reviewer guide (RG); P3 adds code of ethics (CE) + code of conduct (CC); P4 adds area chair guidelines (AC); P5 adds prior-year statistics (S).
 >
@@ -61,7 +61,7 @@ tripod_llm_pct: 25pct
 >
 > **Human comparator:** OpenReview reviewers of the same ICLR / NeurIPS papers.
 >
-> **Paper sample (sample-size flow):** source pool — ICLR 2024 (7,404), ICLR 2023 (4,955), NeurIPS 2023 (12,345), NeurIPS 2022 (10,411) (Table 3, Appendix B). The Appendix-D analysis aggregates "ICLR/NeurIPS papers" but does not report the exact N analyzed per condition for the recommendation-score ablation; only means and SDs are shown in Figure 14.
+> **Paper sample (sample-size flow):** source pool, ICLR 2024 (7,404), ICLR 2023 (4,955), NeurIPS 2023 (12,345), NeurIPS 2022 (10,411) (Table 3, Appendix B). The Appendix-D analysis aggregates "ICLR/NeurIPS papers" but does not report the exact N analyzed per condition for the recommendation-score ablation; only means and SDs are shown in Figure 14.
 >
 > **Conditions (5):** P1 = P + RF; P2 = RG + P + RF; P3 = RG + CE + CC + P + RF; P4 = AC + RG + CE + CC + P + RF; P5 = S + AC + RG + CE + CC + P + RF.
 >
@@ -72,9 +72,9 @@ tripod_llm_pct: 25pct
 
 - The directional finding is non-monotonic: P1 → P2 → P3 trend slightly **upward** (7.21 → 7.58 → 7.62); only **adding the area-chair guidelines (P4)** drops the score below human (4.61), and **adding prior-year statistics (P5)** brings it back to ≈ human (5.36). This means the "match" depends critically on giving the LLM both (a) area-chair-style stringency and (b) base-rate calibration.
 - SD also tracks context: human SD = 1.61; P1 SD = 1.03 (over-confident); P5 SD increases (more variability), better matching the human distribution.
-- Authors flag that LLM Confidence scores (Figure 31) are skewed higher than human Confidence even at P5 — calibration of the Confidence dimension is not solved by P5.
+- Authors flag that LLM Confidence scores (Figure 31) are skewed higher than human Confidence even at P5, calibration of the Confidence dimension is not solved by P5.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting summary]].
 
 | Reviewer / context | Mean recommendation | SD | Direction vs. human |
 | --- | :---: | :---: | --- |
@@ -85,7 +85,7 @@ tripod_llm_pct: 25pct
 | LLM P4 (+ AC) | 4.61 | — | −1.27 (under, more stringent) |
 | **LLM P5 (+ S)** | **5.36** | — | **−0.52 (≈ human)** |
 
-| Other dimensions (P5 vs. human, qualitative — Figs. 30–31) | Result |
+| Other dimensions (P5 vs. human, qualitative, Figs. 30–31) | Result |
 | --- | --- |
 | Correctness | Similar mean and shape |
 | Technical / Empirical Novelty & Significance | Similar mean and shape |

@@ -55,7 +55,7 @@ tripod_llm_pct: 35pct
 
 ### Who?
 
-> **Models / participants:** 4 LLMs — Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0 — generating ICDs; no human subjects.
+> **Models / participants:** 4 LLMs, Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0, generating ICDs; no human subjects.
 >
 > **Sample-size flow:** FERCAP–SIDCER handbook → 7 prototypical case scenarios → 28 ICDs generated (4 LLMs × 7 cases) → all 28 evaluated against the HHS checklist; none excluded. All 28 ICDs were within the recommended 1250-word ceiling.
 >
@@ -71,7 +71,7 @@ tripod_llm_pct: 35pct
 - Case-2-specific failures: none of the LLMs explicitly stated that the natural course of Tourette is waxing/waning, nor that the experimental drug is symptomatic and not curative, nor that participants might receive placebo. ChatGPT 3.5 made a misleading "optimal-dose" statement; ChatGPT 4.0 corrected this.
 - Case-6-specific error: ChatGPT 3.5 (but not 4.0) erroneously claimed interviews would be audio-recorded for transcription/analysis.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting summary]].
 
 | ICD element | ChatGPT 4.0 | Google Bard | ChatGPT 3.5 | Claude-Instant-100k |
 | --- | :---: | :---: | :---: | :---: |

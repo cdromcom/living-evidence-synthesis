@@ -33,7 +33,7 @@ tripod_llm_pct: 23pct
 
 ### What?
 
-> **Study design:** cross-sectional observational LLM evaluation — single-topic failure-mode analysis nested in the broader 16-SOP Sridharan & Sivaramakrishnan benchmark.
+> **Study design:** cross-sectional observational LLM evaluation, single-topic failure-mode analysis nested in the broader 16-SOP Sridharan & Sivaramakrishnan benchmark.
 >
 > **Method type:** prompt-elicited SOP draft per platform, qualitatively reviewed by two independent authors against Mayo Clinic and Harvard Longwood reference SOPs and ICH E6 GCP.
 >
@@ -48,14 +48,14 @@ tripod_llm_pct: 23pct
 
 ### How?
 
-> **Procedure:** the prompt for "management of initial protocol submissions to IRB" (Electronic Supplementary Material 2) was administered to each of the three AI platforms. Two authors independently reviewed each draft and checked whether the SOP mentioned the requirement that a quorum be achieved before a full board review may proceed — a known requirement under both Mayo Clinic and Harvard Longwood SOPs and standard IRB regulation. None of the three drafts surfaced the quorum requirement; this omission is reported narratively in Results and tabulated in Table 2's right-hand "common to all three" column.
+> **Procedure:** the prompt for "management of initial protocol submissions to IRB" (Electronic Supplementary Material 2) was administered to each of the three AI platforms. Two authors independently reviewed each draft and checked whether the SOP mentioned the requirement that a quorum be achieved before a full board review may proceed, a known requirement under both Mayo Clinic and Harvard Longwood SOPs and standard IRB regulation. None of the three drafts surfaced the quorum requirement; this omission is reported narratively in Results and tabulated in Table 2's right-hand "common to all three" column.
 >
 > "Concerning the SOP for the initial review of proposals, none of the AI platforms recognized the necessity of achieving a quorum for conducting a full board review." (Sridharan & Sivaramakrishnan, 2024, p. 85)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p3-3.png]]
 
 ### Who?
 
-> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5), Google Bard. No human participants.
+> **Models / participants:** three AI platforms, Poe Assistant, ChatGPT (GPT-3.5), Google Bard. No human participants.
 >
 > **Sample-size flow:** 1 SOP topic (initial review of proposals) → administered to all 3 platforms → 3 platform-drafts analyzed; 0 / 3 mentioned the quorum requirement. Two human reviewers (the two paper authors).
 >
@@ -65,9 +65,9 @@ tripod_llm_pct: 23pct
 ## Other Notes
 
 - The quorum omission is one of several "common to all three platforms" failures called out in Table 2's rightmost column, alongside: chairperson independence, scope of reviewable proposals, and member appointment / disqualification criteria.
-- The COI section of Table 2 also notes a related quorum failure — none of the three platforms stated that a member with declared COI should not be counted in the quorum, even when ChatGPT and Bard correctly required the conflicted member to leave the room.
+- The COI section of Table 2 also notes a related quorum failure, none of the three platforms stated that a member with declared COI should not be counted in the quorum, even when ChatGPT and Bard correctly required the conflicted member to leave the room.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
 
 | Platform | Mentions quorum requirement for full board review? |
 | --- | :---: |

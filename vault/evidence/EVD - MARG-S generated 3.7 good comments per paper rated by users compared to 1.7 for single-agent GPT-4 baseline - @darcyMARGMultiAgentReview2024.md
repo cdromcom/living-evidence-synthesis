@@ -45,7 +45,7 @@ tripod_llm_pct: 53pct
 >
 > **Tools:** GPT-4 (gpt-4-0613, 8k context); MARG-S, LiZCa (Liang et al. 2023), and SARG-B baselines; lme4.glmer + ordinal.clmm in R for mixed-effect logistic and cumulative-link analyses; web survey UI (Figure 4).
 >
-> **Dependent variables:** per-comment rating triple — overall quality (Bad / Neutral / Good), accuracy (Major-inaccuracy / Minor-inaccuracy / Accurate), specificity (Very generic / Generic / Specific / Very specific); per-review length and helpfulness on 5-point scales; total "good" comments per review.
+> **Dependent variables:** per-comment rating triple, overall quality (Bad / Neutral / Good), accuracy (Major-inaccuracy / Minor-inaccuracy / Accurate), specificity (Very generic / Generic / Specific / Very specific); per-review length and helpfulness on 5-point scales; total "good" comments per review.
 >
 > **Independent variables / covariates:** review-generation method (3 levels) as fixed effect; participant ID (submission ID) as random effect; specificity and accuracy as additional fixed effects when modelling overall rating.
 >
@@ -74,9 +74,9 @@ tripod_llm_pct: 53pct
 - MARG-S vs. SARG-B difference in good-comment count significant per Barnard's exact test (p=0.02 per-comment) but not per-user (p=0.12); MARG-S vs. LiZCa not significant (p=0.09 per-comment, p=0.16 per-user).
 - Helpfulness: participants rated MARG-S an average of 1.0 points higher on the 5-point scale than the other methods; 5 of 9 participants rated MARG-S 2–3 points higher.
 - Length: 6/9 rated MARG-S "way too long"; LiZCa rated "too short" or "way too short" by 7/9.
-- Compliment probe: 19% of MARG-S comments included flattery vs. 25% SARG-B and 0% LiZCa; "has_compliment" coefficient 0.11 (p=0.76) — no detectable bias on user ratings.
+- Compliment probe: 19% of MARG-S comments included flattery vs. 25% SARG-B and 0% LiZCa; "has_compliment" coefficient 0.11 (p=0.76), no detectable bias on user ratings.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting summary]].
 
 | Method | Bad / review | Neutral / review | Good / review | Total / review |
 | --- | --- | --- | --- | --- |

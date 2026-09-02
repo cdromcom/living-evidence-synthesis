@@ -50,7 +50,7 @@ tripod_llm_pct: 25pct
 
 ### How?
 
-> **Procedure:** (1) take the Reviewer Arena set of 150 papers (each with one human OpenReview review + one GPT-4 P5 review). (2) Randomly sample **5% of the papers** (~7–8 papers) for blind expert evaluation. (3) For each sampled paper, present each review to two independent evaluators — one Human (an ICLR 2023 reviewer) and one GPT-4 — yielding 4 (Writer × Evaluator) conditions per review. (4) Each evaluator scores the review on the 3 rubric items using the 0–5 scale (0 = content-free). (5) Average each cell across the sample. The same paper-corpus protocol underpins the BT-based Reviewer Arena (Section 3): "five expert evaluators were provided with 150 papers together with two anonymous reviews for each paper" — the present sub-study reuses that pool but evaluates **whole-review quality on a rubric** rather than pairwise preference.
+> **Procedure:** (1) take the Reviewer Arena set of 150 papers (each with one human OpenReview review + one GPT-4 P5 review). (2) Randomly sample **5% of the papers** (~7–8 papers) for blind expert evaluation. (3) For each sampled paper, present each review to two independent evaluators, one Human (an ICLR 2023 reviewer) and one GPT-4, yielding 4 (Writer × Evaluator) conditions per review. (4) Each evaluator scores the review on the 3 rubric items using the 0–5 scale (0 = content-free). (5) Average each cell across the sample. The same paper-corpus protocol underpins the BT-based Reviewer Arena (Section 3): "five expert evaluators were provided with 150 papers together with two anonymous reviews for each paper", the present sub-study reuses that pool but evaluates **whole-review quality on a rubric** rather than pairwise preference.
 >
 > "five expert evaluators were provided with 150 papers together with two anonymous reviews for each paper. Each paper was randomly assigned two reviewers from the list of five potential reviewers: Human, GPT-4 (Turbo-2024-04-09), Claude 3 Opus, Gemini Pro (Bard), and Command R+." (Tyser et al., 2024, p. 4)
 > ![[tyserAIDrivenReviewSystems2024-evd-p4-3.png]]
@@ -68,11 +68,11 @@ tripod_llm_pct: 25pct
 
 ## Other Notes
 
-- The headline "human and GPT-4 P5 score comparably" is true **only when the evaluator is human** (4.80 vs. 4.76 on Q1; 4.66 vs. 4.79 on Q2; 4.53 vs. 4.68 on Q3). When the evaluator is GPT-4, the model is harder on human-written reviews (Q1 = 4.27) than on its own (Q1 = 4.65) — the asymmetric self-rating pattern is consistent with a self-enhancement / self-recognition bias.
+- The headline "human and GPT-4 P5 score comparably" is true **only when the evaluator is human** (4.80 vs. 4.76 on Q1; 4.66 vs. 4.79 on Q2; 4.53 vs. 4.68 on Q3). When the evaluator is GPT-4, the model is harder on human-written reviews (Q1 = 4.27) than on its own (Q1 = 4.65); the asymmetric self-rating pattern is consistent with a self-enhancement / self-recognition bias.
 - Confusion-matrix analysis (Appendix E, p. 12, treating the human-reviewer mean as ground truth): the LLM accepted **1 paper** with score ≥ 7 that humans rated ≤ 3; rejected **4 papers** with score ≤ 3 that humans rated ≥ 7. Looser thresholds (LLM ≥ 6 vs. human ≤ 4): 8 false-accepts; (LLM ≤ 4 vs. human ≥ 6): 22 false-rejects. So the LLM is more prone to false-rejects than false-accepts at this calibration.
 - The 5%-sample (~7–8 papers) is small; 95% CIs are not reported, and the closeness of 4.80 vs. 4.76 (Q1) is unlikely to be statistically distinguishable.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting summary]].
 
 | Rubric question (0–5) | Writer = Human / Eval = Human | Writer = GPT-4 P5 / Eval = Human | Writer = Human / Eval = GPT-4 | Writer = GPT-4 P5 / Eval = GPT-4 |
 | --- | :---: | :---: | :---: | :---: |

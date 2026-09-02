@@ -33,7 +33,7 @@ tripod_llm_pct: 23pct
 
 ### What?
 
-> **Study design:** cross-sectional observational LLM evaluation — generative-output coverage assessment.
+> **Study design:** cross-sectional observational LLM evaluation, generative-output coverage assessment.
 >
 > **Method type:** prompt-elicited SOP drafting by three LLMs, with each output qualitatively compared against two reference institutional SOP corpora by two independent authors.
 >
@@ -55,7 +55,7 @@ tripod_llm_pct: 23pct
 
 ### Who?
 
-> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5, OpenAI), Google Bard. No human participants.
+> **Models / participants:** three AI platforms, Poe Assistant, ChatGPT (GPT-3.5, OpenAI), Google Bard. No human participants.
 >
 > **Sample-size flow:** 16 SOP topics prompted → administered to all 3 platforms → 48 platform × topic SOP drafts produced and reviewed. Reference corpora: 2 institutional SOP sets (Mayo Clinic, Harvard Longwood). Two human reviewers (the two paper authors).
 >
@@ -64,11 +64,11 @@ tripod_llm_pct: 23pct
 
 ## Other Notes
 
-- "Strikingly similar" core content masked clinically meaningful divergences — e.g., on COI handling Poe Assistant said the conflicted member could participate in discussion (only barred from voting), while ChatGPT and Bard correctly required the member to leave the room and not be counted in quorum.
+- "Strikingly similar" core content masked clinically meaningful divergences, e.g., on COI handling Poe Assistant said the conflicted member could participate in discussion (only barred from voting), while ChatGPT and Bard correctly required the member to leave the room and not be counted in quorum.
 - Omissions common to all three platforms (per Table 2 right-hand column): no mention that the IRB chairperson should be independent of the institution; no mention of scope of proposals reviewed; no member appointment / disqualification criteria; COI member should not be counted in quorum and meeting minutes should record the recusal; expedited-approval decisions should be disclosed at the next full IRB meeting; in multi-centric studies AE / SAE reports from other sites should be submitted.
 - ChatGPT was the only platform to mention KPIs for IRB quality assurance.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
 
 | Outcome | Value |
 | --- | --- |

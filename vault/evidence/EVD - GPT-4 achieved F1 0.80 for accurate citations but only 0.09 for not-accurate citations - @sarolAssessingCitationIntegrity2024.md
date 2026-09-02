@@ -51,7 +51,7 @@ tripod_llm_pct: 73pct
 
 ### How?
 
-> **Procedure:** for each test citation, build a prompt = (a) detailed task instruction, (b) descriptions of the three classes (ACC / N_ACC / IRR), (c) **four demonstrations** drawn from the Sarol training set — one ACC, one IRR, and two N_ACC (the harder, rarer class), (d) the test case. XML-like tags + markdown delimiters separate prompt sections. The model is asked to return both a predicted label and a free-text reasoning. Evidence input is the **top-5 BM25+MonoT5 retrieved sentences** (top-20 used for MultiVerS was prohibitive at GPT cost). All API calls executed February 2024. McNemar's test compared GPT models to the MultiVerS baseline.
+> **Procedure:** for each test citation, build a prompt = (a) detailed task instruction, (b) descriptions of the three classes (ACC / N_ACC / IRR), (c) **four demonstrations** drawn from the Sarol training set, one ACC, one IRR, and two N_ACC (the harder, rarer class), (d) the test case. XML-like tags + markdown delimiters separate prompt sections. The model is asked to return both a predicted label and a free-text reasoning. Evidence input is the **top-5 BM25+MonoT5 retrieved sentences** (top-20 used for MultiVerS was prohibitive at GPT cost). All API calls executed February 2024. McNemar's test compared GPT models to the MultiVerS baseline.
 >
 > "The prompt consists of a detailed task instruction along with descriptions of three classes, which is followed by four demonstrations selected from the training set (one each for ACCURATE and IRRELEVANT, and two for NOT_ACCURATE). The test case follows the demonstrations. XML-like tags and markdown elements are used to differentiate between the different parts of the prompt. The prompt template and an example are provided in the Supplementary Material. The models were evaluated in February, 2024." (Sarol et al., 2024, p. 5)
 > ![[sarolAssessingCitationIntegrity2024-evd-p5-3.png]]
@@ -71,9 +71,9 @@ tripod_llm_pct: 73pct
 
 - GPT-4 is dramatically asymmetric: 0.80 F1 / 0.90 recall on ACCURATE but 0.09 F1 on NOT_ACCURATE (0.05 for GPT-3.5-turbo). NOT_ACCURATE is arguably the most consequential class for downstream citation-integrity screening, so GPT-4 is unsuitable for practical use under this prompting strategy.
 - Authors note that "better prompting strategies, specifically focusing on NOT_ACCURATE, could yield better results"; only slight manual variations were tried.
-- GPT-3.5-turbo with 5-shot in-context learning achieved 0.89 F1 on the citation-context (binary) sub-task — no improvement over the trivial citance baseline (0.94).
+- GPT-3.5-turbo with 5-shot in-context learning achieved 0.89 F1 on the citation-context (binary) sub-task, no improvement over the trivial citance baseline (0.94).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting summary]].
 
 | Model | Micro-F1 | Macro-F1 | ACC F1 (recall) | N_ACC F1 | IRR F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |

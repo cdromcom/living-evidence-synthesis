@@ -33,11 +33,11 @@ tripod_llm_pct: 23pct
 
 ### What?
 
-> **Study design:** cross-sectional observational LLM evaluation — failure-mode analysis of a single case study (Case Study 10: Post-Trial Access) within the broader 10-case Sridharan & Sivaramakrishnan benchmark.
+> **Study design:** cross-sectional observational LLM evaluation, failure-mode analysis of a single case study (Case Study 10: Post-Trial Access) within the broader 10-case Sridharan & Sivaramakrishnan benchmark.
 >
 > **Method type:** qualitative comparative assessment of free-text LLM responses by two independent reviewers against the FERCAP/SIDCER handbook + ICH E6 GCP guidelines.
 >
-> **Tools:** Poe Assistant, ChatGPT (GPT-3.5), Google Bard; FERCAP/SIDCER Case Study 10 (Post-Trial Access — herbal medicine scenario).
+> **Tools:** Poe Assistant, ChatGPT (GPT-3.5), Google Bard; FERCAP/SIDCER Case Study 10 (Post-Trial Access, herbal medicine scenario).
 >
 > **Dependent variable(s):** binary "addressed / failed to address" the specific GCP rationale that post-trial access need not be provided when product benefits are unestablished.
 >
@@ -48,14 +48,14 @@ tripod_llm_pct: 23pct
 
 ### How?
 
-> **Procedure:** each of the three AI platforms was prompted with the open-ended question(s) attached to FERCAP/SIDCER Case Study 10 (post-trial access to a herbal medicine whose benefits were not established). Two authors independently read each AI response, then verified against the FERCAP/SIDCER handbook and ICH E6 GCP guidelines whether the response correctly explained that post-trial access need not be guaranteed when the investigational product's benefit is unestablished. Disagreements between assessors resolved by discussion. The negative finding (all three platforms missed this rationale) was flagged narratively in the Results — no quantitative scoring or significance test was applied.
+> **Procedure:** each of the three AI platforms was prompted with the open-ended question(s) attached to FERCAP/SIDCER Case Study 10 (post-trial access to a herbal medicine whose benefits were not established). Two authors independently read each AI response, then verified against the FERCAP/SIDCER handbook and ICH E6 GCP guidelines whether the response correctly explained that post-trial access need not be guaranteed when the investigational product's benefit is unestablished. Disagreements between assessors resolved by discussion. The negative finding (all three platforms missed this rationale) was flagged narratively in the Results, no quantitative scoring or significance test was applied.
 >
 > "Significantly, all platforms fell short in explaining why post-trial access to herbal medicine was not provided in case study 10, particularly since the medicinal product's benefits had not been established." (Sridharan & Sivaramakrishnan, 2024, p. 85)
 > ![[sridharanAssessingDecisionMakingCapabilities2024-evd-p3-2.png]]
 
 ### Who?
 
-> **Models / participants:** three AI platforms — Poe Assistant, ChatGPT (GPT-3.5), Google Bard. No human participants.
+> **Models / participants:** three AI platforms, Poe Assistant, ChatGPT (GPT-3.5), Google Bard. No human participants.
 >
 > **Sample-size flow:** 1 case study (Case Study 10 of 10) → administered to all 3 platforms → 3 platform-responses analyzed; all 3 failed → 0 / 3 correct. Two human assessors (the two authors) reviewed all responses.
 >
@@ -67,7 +67,7 @@ tripod_llm_pct: 23pct
 - The handbook's expected answer hinges on a GCP principle: the Declaration of Helsinki / ICH E6 obligation to provide post-trial access applies when the intervention has been shown beneficial; for an unestablished herbal medicine, the obligation does not attach. None of the three LLMs surfaced that conditional logic.
 - This is the only case (of 10) on which all three platforms failed simultaneously, making it the most-cited failure mode in the paper's discussion.
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
 
 | Platform | Addressed unestablished-benefit rationale? |
 | --- | :---: |

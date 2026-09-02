@@ -54,7 +54,7 @@ tripod_llm_pct: 55pct
 
 ### How?
 
-> **Procedure:** (1) For each of 3,096 Nature-family papers (post-2022, to avoid GPT-4 training overlap), GPT-4 generated structured 4-section feedback in a single pass over the parsed PDF. (2) Stage 1 (extraction) — GPT-4 reads either the LLM or the human review and emits a JSON list of distinct critical points (`{ID: content}`); pipeline validated against 639 human-coded feedbacks with **F1 = 0.968 (precision 0.977, recall 0.960)** (Supp. Table 3a). (3) Stage 2 (matching) — GPT-4 receives both extracted JSON lists and emits matched ID pairs with a 5–10 similarity rating; only matches scored ≥ 7 are kept; pipeline validated on 760 sampled feedback pairs (332 GPT–human, 428 human–human) yielding **F1 = 0.824 (P = 0.777, R = 0.878)** on 12,035 comment pairs (Supp. Table 3b). IAA on 800 stratified pairs (3 annotators) gave **89.8% pairwise agreement, F1 = 0.887**. (4) Hit rate computed for GPT-4 vs each individual human reviewer; for the human-vs-human baseline, only the first N comments by reviewer A are used, where N = number of GPT-4 comments, controlling for set-size confound. (5) McNemar / paired comparisons reported with 95% CIs and *P < 0.0001 in Fig. 2a.
+> **Procedure:** (1) For each of 3,096 Nature-family papers (post-2022, to avoid GPT-4 training overlap), GPT-4 generated structured 4-section feedback in a single pass over the parsed PDF. (2) Stage 1 (extraction), GPT-4 reads either the LLM or the human review and emits a JSON list of distinct critical points (`{ID: content}`); pipeline validated against 639 human-coded feedbacks with **F1 = 0.968 (precision 0.977, recall 0.960)** (Supp. Table 3a). (3) Stage 2 (matching), GPT-4 receives both extracted JSON lists and emits matched ID pairs with a 5–10 similarity rating; only matches scored ≥ 7 are kept; pipeline validated on 760 sampled feedback pairs (332 GPT–human, 428 human–human) yielding **F1 = 0.824 (P = 0.777, R = 0.878)** on 12,035 comment pairs (Supp. Table 3b). IAA on 800 stratified pairs (3 annotators) gave **89.8% pairwise agreement, F1 = 0.887**. (4) Hit rate computed for GPT-4 vs each individual human reviewer; for the human-vs-human baseline, only the first N comments by reviewer A are used, where N = number of GPT-4 comments, controlling for set-size confound. (5) McNemar / paired comparisons reported with 95% CIs and *P < 0.0001 in Fig. 2a.
 >
 > "We developed a retrospective comment matching pipeline to evaluate the overlap between feedback from LLM and human reviewers. The pipeline first performs extractive text summarization to extract the comments from both LLM and human-written feedback. It then applies semantic text matching to identify shared comments between the two feedback sources. We validated the pipeline's accuracy through human verification, yielding an F1 score of 96.8% for extraction (Supp. Table 3a, Methods) and 82.4% for matching (Supp. Table 3b, Methods)." (Liang et al., 2024, p. 3)
 > ![[liangCanLargeLanguage2024a-evd-p3-4.png]]
@@ -72,12 +72,12 @@ tripod_llm_pct: 55pct
 
 ## Other Notes
 
-- Results held across all four set-overlap metrics — Szymkiewicz–Simpson, Jaccard, Sørensen–Dice (Supp. Fig. 2) — and across journals (Fig. 2c, r = 0.80, P = 3.69×10⁻⁴ between GPT-4-vs-human and human-vs-human overlap across the 15 Nature journals).
+- Results held across all four set-overlap metrics: Szymkiewicz–Simpson, Jaccard, Sørensen–Dice (Supp. Fig. 2), and across journals (Fig. 2c, r = 0.80, P = 3.69×10⁻⁴ between GPT-4-vs-human and human-vs-human overlap across the 15 Nature journals).
 - Replicated on ICLR: GPT-4 vs human = **39.23%**, human vs human = **35.25%**; ICLR-by-decision r = 0.98 (P = 3.28×10⁻³).
 - Per-journal GPT-4-vs-human overlap ranged from **15.58% (Nature Communications Materials)** to **39.16% (Nature)**.
 - Global hit rate (≥ 1 human reviewer matches a given GPT-4 comment) = 57.55% on Nature, 77.18% on ICLR (Supp. Fig. 1).
 
-> [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
 
 | Comparison (Nature, n = 3,096 papers) | Hit rate | 95% CI / sig. |
 | --- | :---: | :---: |
