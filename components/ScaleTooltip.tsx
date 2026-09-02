@@ -80,14 +80,14 @@ export default function ScaleTooltip({
           id={id}
           ref={popRef}
           role="tooltip"
-          className={`absolute top-full z-30 mt-1.5 w-72 max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-card p-3 text-left shadow-lg ${
+          className={`absolute top-full z-30 mt-1.5 w-[23rem] max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-card p-3 text-left shadow-lg ${
             alignRight ? "right-0" : "left-0"
           }`}
         >
           <span className="block text-[0.6875rem] leading-snug text-ink/80">{description}</span>
 
           <span className="mt-2.5 block border-t border-border pt-2.5">
-            <span className="mb-1.5 block text-[0.625rem] uppercase tracking-wide text-muted-ink">
+            <span className="mb-1.5 block text-[0.6875rem] capitalize leading-snug text-muted-ink">
               {scale.what}
             </span>
             <span className="block space-y-1">
