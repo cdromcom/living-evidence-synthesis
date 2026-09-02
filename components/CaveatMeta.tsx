@@ -1,3 +1,6 @@
+import ScaleTooltip from "@/components/ScaleTooltip";
+import { CAVEAT_SEVERITY_SCALE } from "@/lib/scales";
+
 type Severity = "low" | "moderate" | "high";
 type CaveatType = "author-stated" | "inferred";
 
@@ -30,12 +33,17 @@ export default function CaveatMeta({
   return (
     <div className="mt-3 flex flex-wrap items-center gap-1.5">
       {severity && (
-        <span
-          title="How consequential this limitation is for interpreting the source's findings"
-          className={`inline-flex items-center rounded-full border bg-card px-2.5 py-1 text-xs font-medium ${SEVERITY_TONE[severity]}`}
+        <ScaleTooltip
+          scale={CAVEAT_SEVERITY_SCALE}
+          current={severity}
+          description={`${SEVERITY_LABEL[severity]}: how consequential this limitation is for interpreting the source's findings.`}
         >
-          {SEVERITY_LABEL[severity]}
-        </span>
+          <span
+            className={`inline-flex items-center rounded-full border bg-card px-2.5 py-1 text-xs font-medium ${SEVERITY_TONE[severity]}`}
+          >
+            {SEVERITY_LABEL[severity]}
+          </span>
+        </ScaleTooltip>
       )}
       {caveatType && (
         <span

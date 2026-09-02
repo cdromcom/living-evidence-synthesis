@@ -1,5 +1,26 @@
 import ChipRows from "@/components/ChipRows";
 import CollapsibleSignalBlock from "@/components/CollapsibleSignalBlock";
+import ScaleTooltip from "@/components/ScaleTooltip";
+import {
+  TONE_BG,
+  TONE_RING,
+  codeQualityBand,
+  dataQualityBand,
+  AI_WRITING_CHECK_SCALE,
+  CODE_QUALITY_SCALE,
+  DATA_LEAKAGE_SCALE,
+  DATA_QUALITY_SCALE,
+  DISCLOSURE_SCALE,
+  REPORTING_COMPLIANCE_SCALE,
+  REPO_CHECK_SCALE,
+  RIGOR_CHECK_SCALE,
+  STATISTICAL_CONSISTENCY_SCALE,
+  STATISTICAL_POWER_SCALE,
+  TOP_LEVEL_SCALE,
+  VALIDITY_SCALE,
+  type Scale,
+  type Tone,
+} from "@/lib/scales";
 import {
   getTopSignals,
   getReproducibilityRisk,
@@ -51,24 +72,9 @@ import {
   type DataQualityScore,
 } from "@/lib/data";
 
-// One color vocabulary for every chip on this page, so a color always means
-// the same thing no matter which signal it's attached to: gray = not
-// applicable / unclear (no judgment implied), red = absent or a real
-// problem, gold = partially met / some concern, green = fully met / no
-// issues found.
-type Tone = "green" | "gold" | "red" | "gray";
-const TONE_BG: Record<Tone, string> = {
-  green: "bg-emerald-600",
-  gold: "bg-amber-500",
-  red: "bg-red-600",
-  gray: "bg-zinc-400",
-};
-const TONE_RING: Record<Tone, string> = {
-  green: "border-emerald-600",
-  gold: "border-amber-500",
-  red: "border-red-600",
-  gray: "border-zinc-300",
-};
+// The shared color vocabulary and every chip's scale now live in lib/scales.ts,
+// so the swatches the hover card draws are the same values the chips use.
+
 
 // Transparency is now our own computed measure of adherence to reporting
 // guidelines (TRIPOD-LLM) — did the paper report what it did, in enough
@@ -93,16 +99,21 @@ function ReportingComplianceGlyph() {
 
 function ReportingComplianceBadge({ compliance, linkBase = "" }: { compliance: ReportingCompliance; linkBase?: string }) {
   return (
-    <a
-      href={`${linkBase}#tripod-llm-reporting-summary`}
-      title={`TRIPOD-LLM reporting-guideline adherence: ${compliance.pct}% of checklist items (Methods 5a-15, Results 16a-18) fully or partially reported: ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()} compliance. Hand-scored against the checklist, our own computed measure. Click to view the table.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
+    <ScaleTooltip
+      scale={REPORTING_COMPLIANCE_SCALE}
+      current={compliance.level}
+      description={`TRIPOD-LLM reporting-guideline adherence: ${compliance.pct}% of checklist items (Methods 5a-15, Results 16a-18) fully or partially reported — ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()} compliance. Click to view the table.`}
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[COMPLIANCE_TONE[compliance.level]]}`}>
-        <ReportingComplianceGlyph />
-      </span>
-      TRIPOD-LLM · {compliance.pct}% reported
-    </a>
+      <a
+        href={`${linkBase}#tripod-llm-reporting-summary`}
+        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[COMPLIANCE_TONE[compliance.level]]}`}>
+          <ReportingComplianceGlyph />
+        </span>
+        TRIPOD-LLM · {compliance.pct}% reported
+      </a>
+    </ScaleTooltip>
   );
 }
 
@@ -285,20 +296,25 @@ function IntegrityBadge({ kind, level, linkBase = "" }: { kind: IntegritySignalK
   const href = INTEGRITY_HREF[kind] && `${linkBase}${INTEGRITY_HREF[kind]}`;
   const Tag = href ? "a" : "span";
   return (
-    <Tag
-      href={href}
-      title={href ? `${INTEGRITY_SIGNAL_LABELS[kind]}: ${DISCLOSURE_LEVEL_LABELS[level]}. Click to view the row.` : `${INTEGRITY_SIGNAL_LABELS[kind]}: ${DISCLOSURE_LEVEL_LABELS[level]}`}
-      className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
-        href ? " transition-colors hover:border-forest/50" : ""
-      }`}
+    <ScaleTooltip
+      scale={DISCLOSURE_SCALE}
+      current={level}
+      description={`${INTEGRITY_SIGNAL_LABELS[kind]}: ${DISCLOSURE_LEVEL_LABELS[level]}.${href ? " Click to view the row." : ""}`}
     >
-      <span
-        className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DISCLOSURE_TONE[level]]}`}
+      <Tag
+        href={href}
+        className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
+          href ? " transition-colors hover:border-forest/50" : ""
+        }`}
       >
-        <IntegrityGlyph kind={kind} />
-      </span>
-      {INTEGRITY_SIGNAL_LABELS[kind]}
-    </Tag>
+        <span
+          className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DISCLOSURE_TONE[level]]}`}
+        >
+          <IntegrityGlyph kind={kind} />
+        </span>
+        {INTEGRITY_SIGNAL_LABELS[kind]}
+      </Tag>
+    </ScaleTooltip>
   );
 }
 
@@ -317,18 +333,23 @@ function StandardBadge({ standard, level, linkBase = "" }: { standard: TopStanda
   const Tag = href ? "a" : "span";
 
   return (
-    <Tag
-      href={href}
-      title={href ? `${TOP_STANDARD_LABELS[standard]}: ${TOP_LEVEL_LABELS[level]}. Click to view the row.` : `${TOP_STANDARD_LABELS[standard]}: ${TOP_LEVEL_LABELS[level]}`}
-      className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase ${TONE_RING[tone]}${
-        href ? " transition-colors hover:border-forest/50" : ""
-      }`}
+    <ScaleTooltip
+      scale={TOP_LEVEL_SCALE}
+      current={level}
+      description={`${TOP_STANDARD_LABELS[standard]}: ${TOP_LEVEL_LABELS[level]}.${href ? " Click to view the row." : ""}`}
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
-        <StandardGlyph standard={standard} />
-      </span>
-      {TOP_STANDARD_LABELS[standard]}
-    </Tag>
+      <Tag
+        href={href}
+        className={`inline-flex items-center gap-1.5 rounded-full border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase ${TONE_RING[tone]}${
+          href ? " transition-colors hover:border-forest/50" : ""
+        }`}
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
+          <StandardGlyph standard={standard} />
+        </span>
+        {TOP_STANDARD_LABELS[standard]}
+      </Tag>
+    </ScaleTooltip>
   );
 }
 
@@ -357,40 +378,48 @@ function RiskBadge({
   title,
   glyph,
   href,
+  scale = VALIDITY_SCALE,
 }: {
   label: string;
   risk: ReproducibilityRisk;
   title: string;
   glyph: React.ReactNode;
   href?: string;
+  scale?: Scale;
 }) {
   const Tag = href ? "a" : "span";
   return (
-    <Tag
-      href={href}
-      title={href ? `${title}. Click to view the row.` : title}
-      className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
-        href ? " transition-colors hover:border-forest/50" : ""
-      }`}
-    >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[RISK_TONE[risk]]}`}>{glyph}</span>
-      {label}
-    </Tag>
+    <ScaleTooltip scale={scale} current={risk} description={href ? `${title}. Click to view the row.` : title}>
+      <Tag
+        href={href}
+        className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
+          href ? " transition-colors hover:border-forest/50" : ""
+        }`}
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[RISK_TONE[risk]]}`}>{glyph}</span>
+        {label}
+      </Tag>
+    </ScaleTooltip>
   );
 }
 
 function DataLeakageBadge({ risk, linkBase = "" }: { risk: ReproducibilityRisk | "not-addressed"; linkBase?: string }) {
   return (
-    <a
-      href={`${linkBase}#qa-data-leakage`}
-      title={`Data leakage: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+    <ScaleTooltip
+      scale={DATA_LEAKAGE_SCALE}
+      current={risk}
+      description={`Data leakage: ${DATA_LEAKAGE_LABELS[risk]}. Click to view the row.`}
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DATA_LEAKAGE_TONE[risk]]}`}>
-        <DataLeakageGlyph />
-      </span>
-      Data Leakage
-    </a>
+      <a
+        href={`${linkBase}#qa-data-leakage`}
+        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DATA_LEAKAGE_TONE[risk]]}`}>
+          <DataLeakageGlyph />
+        </span>
+        Data Leakage
+      </a>
+    </ScaleTooltip>
   );
 }
 
@@ -581,45 +610,57 @@ function RigorCheckBadge({
   kind,
   risk,
   levelLabels = DATA_LEAKAGE_LABELS,
+  scale = RIGOR_CHECK_SCALE,
   linkBase = "",
 }: {
   kind: RigorCheckKind;
   risk: ReproducibilityRisk | "not-addressed";
   levelLabels?: Record<ReproducibilityRisk | "not-addressed", string>;
+  scale?: Scale;
   linkBase?: string;
 }) {
   const label = RIGOR_CHECK_LABELS[kind];
   const href = RIGOR_CHECK_HREF[kind] && `${linkBase}${RIGOR_CHECK_HREF[kind]}`;
   const Tag = href ? "a" : "span";
   return (
-    <Tag
-      href={href}
-      title={href ? `${label}: ${levelLabels[risk]}. Click to view the row.` : `${label}: ${levelLabels[risk]}`}
-      className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
-        href ? " transition-colors hover:border-forest/50" : ""
-      }`}
+    <ScaleTooltip
+      scale={scale}
+      current={risk}
+      description={`${label}: ${levelLabels[risk]}.${href ? " Click to view the row." : ""}`}
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DATA_LEAKAGE_TONE[risk]]}`}>
-        <RigorCheckGlyph kind={kind} />
-      </span>
-      {label}
-    </Tag>
+      <Tag
+        href={href}
+        className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase${
+          href ? " transition-colors hover:border-forest/50" : ""
+        }`}
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[DATA_LEAKAGE_TONE[risk]]}`}>
+          <RigorCheckGlyph kind={kind} />
+        </span>
+        {label}
+      </Tag>
+    </ScaleTooltip>
   );
 }
 
 function StatisticalConsistencyBadge({ status, linkBase = "" }: { status: StatisticalConsistencyStatus; linkBase?: string }) {
   const tone: Tone = status === "consistent" ? "green" : status === "issues-found" ? "red" : "gray";
   return (
-    <a
-      href={`${linkBase}#qa-statistic-accuracy`}
-      title={`Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity). Click to view the row.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+    <ScaleTooltip
+      scale={STATISTICAL_CONSISTENCY_SCALE}
+      current={status}
+      description={`Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity). Click to view the row.`}
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
-        <RigorCheckGlyph kind="statcheck" />
-      </span>
-      Statistic Accuracy
-    </a>
+      <a
+        href={`${linkBase}#qa-statistic-accuracy`}
+        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
+          <RigorCheckGlyph kind="statcheck" />
+        </span>
+        Statistic Accuracy
+      </a>
+    </ScaleTooltip>
   );
 }
 
@@ -639,16 +680,21 @@ function StatisticalPowerGlyph() {
 function StatisticalPowerBadge({ status, linkBase = "" }: { status: StatisticalPowerStatus; linkBase?: string }) {
   const tone = TONE_BG[status === "adequate" ? "green" : "red"];
   return (
-    <a
-      href={`${linkBase}#qa-statistical-power`}
-      title={`Statistical Power: ${STATISTICAL_POWER_LABELS[status]}. Click to view the row.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+    <ScaleTooltip
+      scale={STATISTICAL_POWER_SCALE}
+      current={status}
+      description={`Statistical Power: ${STATISTICAL_POWER_LABELS[status]}. Click to view the row.`}
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${tone}`}>
-        <StatisticalPowerGlyph />
-      </span>
-      Statistical Power
-    </a>
+      <a
+        href={`${linkBase}#qa-statistical-power`}
+        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${tone}`}>
+          <StatisticalPowerGlyph />
+        </span>
+        Statistical Power
+      </a>
+    </ScaleTooltip>
   );
 }
 
@@ -666,18 +712,23 @@ function CodeQualityGlyph() {
 }
 
 function CodeQualityBadge({ score, linkBase = "" }: { score: CodeQualityScore; linkBase?: string }) {
-  const tone: Tone = score >= 4 ? "green" : score >= 2 ? "gold" : "red";
+  const band = codeQualityBand(score);
   return (
-    <a
-      href={`${linkBase}#qa-code-quality-fair`}
-      title={`Code Quality: ${score}/5 (fair-software.eu criteria via howfairis). Click to view the row.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+    <ScaleTooltip
+      scale={CODE_QUALITY_SCALE}
+      current={band}
+      description={`Code Quality: ${score}/5, scored against the fair-software.eu criteria by howfairis. Click to view the row.`}
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
-        <CodeQualityGlyph />
-      </span>
-      Code Quality {score}/5
-    </a>
+      <a
+        href={`${linkBase}#qa-code-quality-fair`}
+        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[band as Tone]}`}>
+          <CodeQualityGlyph />
+        </span>
+        Code Quality {score}/5
+      </a>
+    </ScaleTooltip>
   );
 }
 
@@ -695,18 +746,23 @@ function DataQualityGlyph() {
 }
 
 function DataQualityBadge({ score, linkBase = "" }: { score: DataQualityScore; linkBase?: string }) {
-  const tone: Tone = score >= 16 ? "green" : score >= 8 ? "gold" : "red";
+  const band = dataQualityBand(score);
   return (
-    <a
-      href={`${linkBase}#qa-data-quality-fair`}
-      title={`Data Quality: ${score}/24 (FAIR-Checker; GitHub/GitLab-hosted data gets a +2 top-up if the repo has a real license file, since FAIR-Checker can't see repo content directly). Click to view the row.`}
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+    <ScaleTooltip
+      scale={DATA_QUALITY_SCALE}
+      current={band}
+      description={`Data Quality: ${score}/24, scored by FAIR-Checker. Click to view the row.`}
     >
-      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
-        <DataQualityGlyph />
-      </span>
-      Data Quality {score}/24
-    </a>
+      <a
+        href={`${linkBase}#qa-data-quality-fair`}
+        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 lowercase transition-colors hover:border-forest/50"
+      >
+        <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[band as Tone]}`}>
+          <DataQualityGlyph />
+        </span>
+        Data Quality {score}/24
+      </a>
+    </ScaleTooltip>
   );
 }
 
@@ -809,6 +865,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         kind="repository-check"
         risk={repositoryCheck}
         levelLabels={REPO_CHECK_LABELS}
+        scale={REPO_CHECK_SCALE}
         linkBase={linkBase}
       />
     ),
@@ -825,6 +882,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         kind="code-check"
         risk={codeCheck}
         levelLabels={REPO_CHECK_LABELS}
+        scale={REPO_CHECK_SCALE}
         linkBase={linkBase}
       />
     ),
@@ -951,6 +1009,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         kind="ai-writing-check"
         risk={aiWritingCheck}
         levelLabels={AI_WRITING_CHECK_LABELS}
+        scale={AI_WRITING_CHECK_SCALE}
         linkBase={linkBase}
       />
     ),

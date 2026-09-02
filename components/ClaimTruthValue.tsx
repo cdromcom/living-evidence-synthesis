@@ -1,3 +1,6 @@
+import ScaleTooltip from "@/components/ScaleTooltip";
+import { TRUTH_VALUE_SCALE } from "@/lib/scales";
+
 const TONE = {
   high: "border-emerald-600 text-emerald-700",
   medium: "border-amber-500 text-amber-700",
@@ -21,17 +24,20 @@ export default function ClaimTruthValue({ value }: { value: number }) {
   const pct = Math.round(value * 100);
   const band = bandFor(value);
   return (
-    <div
-      className={`inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs ${TONE[band]}`}
-      title="Curator-assessed confidence that this claim is well-supported by the cited evidence, on a 0–100% scale"
+    <ScaleTooltip
+      scale={TRUTH_VALUE_SCALE}
+      current={band}
+      description={`Truth value ${pct}%: curator-assessed confidence that this claim is well-supported by the cited evidence, on a 0-100% scale.`}
     >
-      <span className="font-semibold">Truth value {pct}%</span>
-      <span className="h-1.5 w-16 overflow-hidden rounded-full bg-muted-surface">
-        <span
-          className={`block h-full rounded-full ${BAR_COLOR[band]}`}
-          style={{ width: `${pct}%` }}
-        />
+      <span className={`inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs ${TONE[band]}`}>
+        <span className="font-semibold">Truth value {pct}%</span>
+        <span className="h-1.5 w-16 overflow-hidden rounded-full bg-muted-surface">
+          <span
+            className={`block h-full rounded-full ${BAR_COLOR[band]}`}
+            style={{ width: `${pct}%` }}
+          />
+        </span>
       </span>
-    </div>
+    </ScaleTooltip>
   );
 }
