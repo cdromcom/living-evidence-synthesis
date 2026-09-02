@@ -34,7 +34,7 @@ function Rows({ rows }: { rows: SignalRow[] }) {
         );
         return (
           <tr key={row.label} className="border-t border-border/70">
-            <th scope="row" className="w-[58%] py-[3px] pr-2 text-left align-baseline font-normal text-ink/90">
+            <th scope="row" className="py-[3px] pr-2 text-left align-baseline font-normal text-ink/90">
               {row.scale && row.current ? (
                 <ScaleTooltip
                   scale={row.scale}
@@ -51,13 +51,13 @@ function Rows({ rows }: { rows: SignalRow[] }) {
                 rule. Riding along with a right-aligned status made each dot sit
                 wherever its wording happened to end, which is exactly the
                 scanning cue a status column exists to provide. */}
-            <td className="w-[10px] py-[3px] pr-1.5 align-baseline">
+            <td className="w-[14px] py-[3px] pr-1.5 align-baseline">
               <span
                 className={`mt-[0.32rem] block h-[7px] w-[7px] rounded-full ${TONE_BG[row.tone]}`}
                 aria-hidden
               />
             </td>
-            <td className="py-[3px] align-baseline text-muted-ink">{row.status}</td>
+            <td className="w-[104px] whitespace-nowrap py-[3px] align-baseline text-muted-ink">{row.status}</td>
           </tr>
         );
       })}
@@ -117,7 +117,7 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
                         {section.subgroup}
                       </p>
                     )}
-                    <table className="w-full border-collapse">
+                    <table className="w-full table-fixed border-collapse">
                       <tbody>
                         <Rows rows={section.rows} />
                       </tbody>
