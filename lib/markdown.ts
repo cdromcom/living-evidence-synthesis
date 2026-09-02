@@ -297,6 +297,34 @@ function renderFigureEmbeds(html: string): string {
 }
 
 /**
+ * On a Question page, collapses the EVD list nested under each supporting Claim.
+ *
+ * The section answers "which claims address this question", but the evidence
+ * nested beneath outnumbers the claims several times over (QUE-001: 8 claims,
+ * 32 evidence items), so the claims — the actual answer — are buried. The claims
+ * stay visible and each claim's evidence folds behind a count.
+ */
+function collapseNestedEvidence(html: string): string {
+  const section = html.match(
+    /<h3 id="[^"]*">\s*Supporting Claims[\s\S]*?<\/h3>([\s\S]*?)(?=<h[23] |$)/i
+  );
+  if (!section) return html;
+  const [full, body] = section;
+
+  const collapsed = body.replace(/<ul>([\s\S]*?)<\/ul>\s*<\/li>/g, (whole, inner) => {
+    const count = (inner.match(/<li>/g) || []).length;
+    if (count === 0) return whole;
+    const label = count === 1 ? "1 supporting evidence node" : `${count} supporting evidence nodes`;
+    return (
+      `<details class="evd-nest"><summary>${label}</summary>` +
+      `<ul>${inner}</ul></details></li>`
+    );
+  });
+
+  return html.replace(full, full.replace(body, collapsed));
+}
+
+/**
  * Collapses the long verbatim quotes inside Methods Context.
  *
  * These run to a median of ~336 characters and there are several per subsection,
@@ -529,6 +557,6 @@ export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
   const withCaptions = promoteTableCaptions(withFigures);
   const withFieldLists = renderFieldLists(withCaptions);
   const { html, toc } = injectHeadingIds(withFieldLists);
-  const withQuotes = collapseLongQuotes(html);
+  const withQuotes = collapseNestedEvidence(collapseLongQuotes(html));
   return { html: wrapAccordionSections(tagTripodRows(tagAppraisalRows(withQuotes))), toc };
 }

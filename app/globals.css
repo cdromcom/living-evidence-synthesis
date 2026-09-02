@@ -547,3 +547,19 @@ h6 {
 .prose-node .quote-collapse-body > p {
   margin: 0.4em 0 0.2em;
 }
+
+/* A Question's supporting Claims are the answer; their evidence is the backing.
+   Keep the claims visible and fold each claim's evidence behind a count. */
+.prose-node .evd-nest > summary {
+  cursor: pointer;
+  list-style: none;
+  margin: 0.2em 0 0.2em 0;
+  font-size: 0.75rem;
+  color: var(--color-muted-ink);
+  transition: color 0.12s;
+}
+.prose-node .evd-nest > summary::-webkit-details-marker { display: none; }
+.prose-node .evd-nest > summary::before { content: "▸ "; }
+.prose-node .evd-nest[open] > summary::before { content: "▾ "; }
+.prose-node .evd-nest > summary:hover { color: var(--color-forest); }
+.prose-node .evd-nest > ul { margin-top: 0.25em; }
