@@ -58,12 +58,56 @@ roadmap — just a landing spot so these don't get lost between sessions.
   TRIPOD rollout, given a context-sensitive rewrite (comma vs. semicolon
   vs. colon vs. new sentence per Grammarly's rule) can't be done as a
   mechanical find-replace.
-- **FAIR data-quality signals.** Floated as a possible new trust signal
-  (Findable/Accessible/Interoperable/Reusable subscores per source) —
-  never scoped or started. Comparable effort to the Rigor-chip rollout.
+- ~~**FAIR data-quality signals.**~~ Done 2026-08-31 — shipped as the
+  "Data Quality" chip (FAIR-Checker + license top-up hybrid, 14 sources
+  scored). See `misc/data_quality_2026-08.md` in the vault.
+
+## Awaiting a decision
+
+- **Whether to formalize the power-analysis pilot into a real signal.**
+  Post-hoc power was computed for Roberts 2023 (weak correlations, N=30),
+  Thelwall 2024, Zhou et al. 2024, and Hasan et al. 2024 (Kendall's τ
+  formula, not Pearson-r), emphasizing whether the studies could actually
+  detect medium/large effects. Presented to the user but never wired into
+  the site as a tagged signal (would follow the `forensic/*` /
+  `reproduction-check` precedent, e.g. `forensic/power-check`) — asked
+  whether to do so, no answer yet. Don't build this without checking in
+  first, since it's a real scoping decision, not just an extension of
+  existing work.
 
 ## Known gaps, not currently blocking anything
 
+- **Sign-in emails are unauthenticated for their own From domain, so they
+  land in spam.** Sign-in now works end to end (Supabase → Brevo SMTP →
+  inbox, first confirmed delivery 2026-09-02), but the From address is
+  `ppatel45@umd.edu` while the mail is relayed by Brevo. `umd.edu` cannot
+  be made to authorize Brevo — no SPF include, no DKIM key — so every
+  message fails SPF alignment and carries no aligned DKIM signature.
+  Observed consequences: Gmail filed the first successful send as spam,
+  and the self-addressed copy (From and To both `ppatel45@umd.edu`) never
+  reached the mailbox at all, held by UMD's Cisco IronPort gateway
+  (`mx1.umd.iphmx.com`) rather than appearing in Junk. Marking it "not
+  spam" only trains that one mailbox; every new reviewer's filter judges
+  it fresh. `umd.edu` publishes `p=none`, so nothing is hard-rejected —
+  it just lands in spam. **Fix before inviting real reviewers:** register
+  a domain, verify the *domain* (not a single sender) in Brevo so it
+  issues SPF + DKIM records to publish, and point `smtp_admin_email` at
+  something like `noreply@<domain>`. The same domain would also replace
+  the `living-evidence-synthesis.vercel.app` Site URL, which is worth
+  something on its own when asking researchers to trust a review site.
+- **`verifyOtp` has never actually been exercised.** The 8-digit code has
+  been confirmed to arrive, and `app/login/page.tsx` was corrected to
+  match the project's `mailer_otp_length` of 8, but nobody has yet typed
+  a code in and watched it land on `/review` signed in. Every link in the
+  chain is verified individually; the last hop is not. Worth one manual
+  run-through before assuming reviewer sign-in works.
+- **Claude-in-Chrome browser extension was disconnected for the entire
+  back half of a long 2026-08-31 session** (from the AI Writing Check
+  work onward, through the Data Quality rollout). Every UI change since
+  then was verified via `tsc --noEmit` + curl against the local dev
+  server instead of an actual screenshot. Worth a Chrome restart and a
+  real visual pass over the newer chips (Code Quality, Data Quality, the
+  redundant-chip hiding) next time the extension is available.
 - **Altmetric badge shows "Unavailable" on every page right now** because
   `badges.altmetric.com` (Altmetric's own image CDN) has been returning
   HTTP 503 site-wide — confirmed unrelated to any specific paper's DOI.
