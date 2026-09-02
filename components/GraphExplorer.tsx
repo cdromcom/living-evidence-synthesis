@@ -152,7 +152,7 @@ type TrustSignalOption = { key: string; label: string; group: string; test: (n: 
 // the same "was this handled well" positive condition the pre-existing
 // Openness/Integrity filters below already use.
 const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: GraphNode) => ReproducibilityRisk | "not-addressed" | null }[] = [
-  { id: "data-repo-check", label: "Data Repo Check", group: "Openness", getter: getRepositoryCheck },
+  { id: "data-repo-check", label: "Dataset check", group: "Openness", getter: getRepositoryCheck },
   { id: "code-check", label: "Code Check", group: "Openness", getter: getCodeCheck },
   { id: "baseline-adequacy", label: "Baseline Adequacy", group: "Rigor — Design", getter: getBaselineAdequacy },
   { id: "train-dev-test", label: "Train/Dev/Test Hygiene", group: "Rigor — Design", getter: getTrainDevTestHygiene },
@@ -168,7 +168,7 @@ const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: 
 
 // Only Registration and Protocol get their own filter checkboxes here — Data
 // and Code transparency have a newer, more specific equivalent already below
-// (Data Repo Check / Code Check, which test whether the claimed repo link is
+// (Dataset check / Code check, which test whether the claimed repo link is
 // actually live, not just whether it was disclosed), so a bare "Data"/"Code"
 // checkbox would just duplicate those.
 const OPENNESS_FILTER_STANDARDS = ["study-registration", "study-protocol"] as const;

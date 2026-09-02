@@ -538,7 +538,7 @@ export const RIGOR_CHECK_LABELS = {
   "effect-size": "Effect size",
   "exact-p-values": "Exact p-values",
   spin: "Non-significant result spin",
-  "repository-check": "Data repo check",
+  "repository-check": "Dataset check",
   "code-check": "Code check",
   statcheck: "Statistical consistency",
   "prompt-engineering": "Prompt engineering",

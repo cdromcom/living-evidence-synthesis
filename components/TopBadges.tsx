@@ -321,7 +321,7 @@ function IntegrityBadge({ kind, level, linkBase = "" }: { kind: IntegritySignalK
 
 // Registration and Protocol are literally TRIPOD-LLM items 14d/14c — link
 // straight to that checklist row. Data/Code transparency aren't rendered as
-// their own chips any more (superseded by Data Repo Check/Code Check), so
+// their own chips any more (superseded by Dataset check / Code check), so
 // no entries are needed for them here.
 const TOP_STANDARD_HREF: Partial<Record<TopStandard, string>> = {
   "study-registration": "#tripod-14d",
@@ -786,7 +786,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const linkBase = parentSource ? `/nodes/${parentSource.id}` : "";
   // Registration/Protocol disclosure level is distinct from whether the
   // claimed data/code repo actually resolves — but the old Data/Code
-  // disclosure-level chips duplicated what Data Repo Check/Code Check now
+  // disclosure-level chips duplicated what Dataset check / Code check now
   // say more usefully (an actual liveness check, not just a disclosure
   // level), so only the two non-redundant TOP standards render here.
   const opennessSignals = getTopSignals(signalSource).filter(

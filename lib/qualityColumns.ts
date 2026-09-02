@@ -127,7 +127,7 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
   },
   {
     id: "data-repo-check",
-    label: "Data Repo Check",
+    label: "Dataset check",
     group: "Openness",
     defaultVisible: false,
     value: (_evd, src) => riskCell(getRepositoryCheck(src), REPO_CHECK_LABELS),
