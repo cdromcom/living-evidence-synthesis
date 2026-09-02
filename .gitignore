@@ -45,3 +45,7 @@ next-env.d.ts
 
 # locally-cached source PDFs used for full-text forensic checks — never commit copyrighted papers
 /.cache/
+
+# Figure/table crops copied from vault/ by scripts/sync-attachments.mjs.
+# The originals are committed under vault/**/Attachments; this is a build artifact.
+public/vault-img/

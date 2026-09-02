@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+// Math is rendered to KaTeX markup at build time (lib/markdown.ts); this is the
+// stylesheet that markup needs. No KaTeX JavaScript ships to the browser.
+import "katex/dist/katex.min.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 

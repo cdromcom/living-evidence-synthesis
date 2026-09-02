@@ -72,6 +72,7 @@ tripod_llm_pct: 54pct
 
 > [!info] TRIPOD-LLM item 17 (Performance) — EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
 
+*Figures reproduced from Zhang & Abernethy (2025), Tables 2 and 3, pp. 3–4. Single-judge rows are from Table 3; the rest from Table 2.*
 | Condition | HR@5 | Avg. # problems (Q1, Q3) | Input tok | Think tok | Output tok | $/paper |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Claude 3.7 Sonnet — PDF** | **16.3%** | **1.6 (0, 4)** | **43,357** | 1,630 | 311 | $0.159 |

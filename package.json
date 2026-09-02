@@ -6,7 +6,7 @@
     "node": ">=22 <23"
   },
   "scripts": {
-    "preflight": "node scripts/preflight.mjs",
+    "preflight": "node scripts/preflight.mjs && node scripts/sync-attachments.mjs",
     "dev": "npm run preflight && scripts/with-lock.sh next dev",
     "build": "npm run preflight && scripts/with-lock.sh next build",
     "start": "next start",
@@ -17,6 +17,7 @@
     "d3-force": "^3.0.0",
     "fuse.js": "^7.5.0",
     "gray-matter": "^4.0.3",
+    "katex": "^0.18.5",
     "lucide-react": "^1.31.0",
     "marked": "^18.0.9",
     "mermaid": "^11.17.0",

@@ -1,4 +1,5 @@
 import { marked } from "marked";
+import katex from "katex";
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -178,6 +179,170 @@ function stripTags(html: string): string {
   return html.replace(/<[^>]+>/g, "");
 }
 
+/**
+ * Renders `$…$` and `$$…$$` to HTML with KaTeX, at build time — no client-side
+ * math runtime ships.
+ *
+ * The delimiter rule has to survive a corpus full of dollar amounts
+ * ("$0.038 per paper versus o3 at $0.321"). Requiring that no whitespace sit
+ * immediately inside the delimiters separates the two cleanly: real math like
+ * `$\hat{p}_{i,g} = 1$` keeps its internal spaces, while a currency pair always
+ * has a space before the closing `$`. Checked against every vault file — 40
+ * matches, all genuine LaTeX, no false positives.
+ *
+ * Runs before marked so KaTeX's markup is emitted as raw HTML, and math
+ * containing `_` or `*` never reaches the emphasis parser.
+ */
+function renderMath(md: string): string {
+  const render = (tex: string, displayMode: boolean): string => {
+    try {
+      return katex.renderToString(tex, {
+        displayMode,
+        throwOnError: false,
+        strict: false,
+        output: "html",
+      });
+    } catch {
+      // A malformed expression should show as its own source, not vanish.
+      return `<code class="math-error">${escapeHtml(displayMode ? `$$${tex}$$` : `$${tex}$`)}</code>`;
+    }
+  };
+  return md
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_m, tex) => render(tex.trim(), true))
+    .replace(/(?<!\$)\$(?!\s)((?:[^$\n])+?)(?<!\s)\$(?!\d)/g, (_m, tex) => render(tex, false));
+}
+
+/**
+ * A figure embed sits on its own line but usually directly under the quote it
+ * illustrates, with no blank line between them — so marked folds the image into
+ * the quote's paragraph. Give each image its own block (respecting any
+ * blockquote prefix) so it can be lifted into a `<figure>` afterwards; a
+ * `<details>` element is not valid inside a `<p>`.
+ */
+function isolateImageLines(md: string): string {
+  const out: string[] = [];
+  for (const line of md.split("\n")) {
+    const m = line.match(/^((?:\s*>\s?)*)(.*)$/);
+    const prefix = m ? m[1] : "";
+    const rest = m ? m[2] : line;
+    if (/^!\[/.test(rest.trim()) && out.length > 0) {
+      const prevRest = out[out.length - 1].replace(/^(?:\s*>\s?)*/, "").trim();
+      if (prevRest !== "") out.push(prefix.trimEnd());
+    }
+    out.push(line);
+  }
+  return out.join("\n");
+}
+
+/**
+ * Turns a crop's filename into something a reader can place. The vault names
+ * them `<citekey>-<what>-p<page>[-<n>].png`, so the page number and what was
+ * cropped are both recoverable — which is exactly the caption a table or figure
+ * lifted straight out of a paper needs in order not to be presented as ours.
+ */
+function describeCrop(filename: string): { label: string; page: string | null } {
+  const stem = filename.replace(/\.[a-z0-9]+$/i, "");
+  const pageMatch = stem.match(/-p(\d+)(?:[-_].*)?$/i);
+  const page = pageMatch ? pageMatch[1] : null;
+  let what = stem
+    .replace(/-p\d+(?:[-_].*)?$/i, "")
+    .replace(/^[a-z]+[A-Za-z]*\d{4}[a-z]?-?/, "") // drop the leading citekey
+    .replace(/[-_]+/g, " ")
+    .trim();
+  what = what
+    .replace(/\bfig(\d+)/gi, "Figure $1")
+    .replace(/\btable(\d+)/gi, "Table $1")
+    .replace(/\bevd\b/gi, "Evidence excerpt")
+    .replace(/\bcombined\b/gi, "")
+    .trim();
+  const label = what ? what.charAt(0).toUpperCase() + what.slice(1) : "Figure";
+  return { label, page };
+}
+
+function figureIconSvg(): string {
+  return (
+    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 15l4.5-4 4 3.5 3.5-3 5 4.5"/>' +
+    '<circle cx="9" cy="9.5" r="1.4"/></svg>'
+  );
+}
+
+/**
+ * Lifts each figure crop out of its paragraph into a collapsed `<details>`
+ * carrying a caption that names the crop and its page in the source paper.
+ *
+ * Collapsed by default on purpose: an EVD typically embeds three or four
+ * full-width screenshots, and inline they push the prose that cites them off
+ * the screen. The summary says what the reader would be opening.
+ */
+function renderFigureEmbeds(html: string): string {
+  return html.replace(
+    /<p>\s*<img src="\/vault-img\/([^"]+)" alt="([^"]*)"\s*\/?>\s*<\/p>/g,
+    (_m, src, alt) => {
+      const filename = decodeURIComponent(src);
+      const { label, page } = describeCrop(filename);
+      const cite = page ? `${label} — reproduced from the source paper, p.&nbsp;${page}` : `${label} — reproduced from the source paper`;
+      const summary = page ? `${label} · p.&nbsp;${page}` : label;
+      return (
+        `<details class="figure-embed">` +
+        `<summary>${figureIconSvg()}<span>${summary}</span></summary>` +
+        `<figure class="figure-embed-body">` +
+        `<img src="/vault-img/${src}" alt="${escapeHtml(alt)}" loading="lazy" />` +
+        `<figcaption>${cite}</figcaption>` +
+        `</figure></details>`
+      );
+    }
+  );
+}
+
+/**
+ * Promotes an italic line sitting directly above a table into that table's
+ * `<caption>`.
+ *
+ * A table lifted out of a paper has to say so — otherwise the site presents
+ * someone else's numbers as if we assembled them. Writing the attribution as a
+ * plain italic line keeps the vault file readable in Obsidian, where `<caption>`
+ * would not render at all; the convention is `*Table N — Author Year, p. N*`
+ * immediately before the table, with no blank line between.
+ */
+function promoteTableCaptions(html: string): string {
+  return html.replace(
+    /<p><em>([\s\S]*?)<\/em><\/p>\s*<table>/g,
+    (_m, caption) => `<table><caption class="table-source">${caption}</caption>`
+  );
+}
+
+/**
+ * A run of `**Label:** value` paragraphs is a field list written as prose.
+ * Obsidian stacks them as separate paragraphs, which reads as an undifferentiated
+ * wall inside the Methods Context subsections; as a description list the labels
+ * line up and the values become scannable.
+ */
+function renderFieldLists(html: string): string {
+  // `(?!</p>)` matters more than it looks: with a plain lazy `[\s\S]*?` the
+  // engine backtracks across paragraph boundaries to satisfy the {2,}, so a run
+  // starting at one label swallows every paragraph up to the *next* label —
+  // including quotes and figures — and rebuilding from the label pairs alone
+  // then drops them. Confining each item to a single paragraph keeps the
+  // transform incapable of losing content.
+  // Two label conventions live in the vault: EVD Methods Context writes
+  // `**Tools:**` and SRC structured abstracts write `**Tools.**`. Both are field
+  // labels; accept either terminator. Capped at 60 characters and required to
+  // contain no sentence punctuation of its own, so an ordinary bolded sentence
+  // ending in a period is not mistaken for a label.
+  const CELL = String.raw`<p><strong>([^<.:!?]{1,60}?)[.:]<\/strong>((?:(?!<\/p>)[\s\S])*)<\/p>`;
+  const item = new RegExp(CELL, "g");
+  const run = new RegExp(`(?:${CELL}\\s*){2,}`, "g");
+  return html.replace(run, (matched) => {
+    const rows: string[] = [];
+    for (const m of matched.matchAll(item)) {
+      rows.push(`<dt>${m[1]}</dt><dd>${m[2].trim()}</dd>`);
+    }
+    return rows.length >= 2 ? `<dl class="field-list">${rows.join("")}</dl>` : matched;
+  });
+}
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -315,10 +480,13 @@ function injectHeadingIds(html: string): { html: string; toc: TocItem[] } {
 }
 
 export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
-  const withCallouts = transformCallouts(md);
+  const withCallouts = transformCallouts(renderMath(isolateImageLines(md)));
   const rawHtml = marked.parse(withCallouts, { async: false }) as string;
   const withMermaid = activateMermaid(rawHtml);
   const withMutedIcons = muteStatusIcons(withMermaid);
-  const { html, toc } = injectHeadingIds(withMutedIcons);
+  const withFigures = renderFigureEmbeds(withMutedIcons);
+  const withCaptions = promoteTableCaptions(withFigures);
+  const withFieldLists = renderFieldLists(withCaptions);
+  const { html, toc } = injectHeadingIds(withFieldLists);
   return { html: wrapAccordionSections(tagTripodRows(tagAppraisalRows(html))), toc };
 }

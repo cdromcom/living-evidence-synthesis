@@ -18,6 +18,20 @@ const TYPE_CONFIG = [
   { type: "EP", dir: "evd-patterns", expected: 21 },
 ];
 
+/**
+ * Every figure/table crop that actually exists in the vault, indexed by bare
+ * filename the way Obsidian resolves embeds. Used to tell a real image from an
+ * embed whose file was never committed.
+ */
+const AVAILABLE_IMAGES = (function indexImages(dir, out = new Set()) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, entry.name);
+    if (entry.isDirectory()) indexImages(p, out);
+    else if (/\.(png|jpe?g|gif|webp|svg)$/i.test(entry.name)) out.add(entry.name);
+  }
+  return out;
+})(VAULT);
+
 function listMdFiles(dir) {
   return fs
     .readdirSync(dir, { withFileTypes: true })
@@ -259,8 +273,22 @@ for (const n of rawNodes) {
 
 function rewriteBody(body) {
   let text = body;
-  // strip image embeds ![[...]]
-  text = text.replace(/!\[\[[^\]]+\]\]/g, "");
+  // Rewrite Obsidian image embeds ![[name.png]] to a real markdown image
+  // pointing at public/vault-img/, which scripts/sync-attachments.mjs fills
+  // from the vault. These used to be stripped outright, which is why every
+  // figure and table crop was missing from the site while sitting in the repo
+  // the whole time. Non-image embeds (there are none today) still drop out.
+  text = text.replace(/!\[\[([^\]]+)\]\]/g, (whole, inner) => {
+    const name = inner.split("|")[0].trim();
+    if (!/\.(png|jpe?g|gif|webp|svg)$/i.test(name)) return "";
+    // A handful of embeds point at crops that were never committed. Emit a
+    // labelled placeholder rather than a markdown image that would render as a
+    // broken-file icon with no clue which crop is missing.
+    if (!AVAILABLE_IMAGES.has(name)) {
+      return `<span class="figure-missing">Figure not available: ${name}</span>`;
+    }
+    return `![${name}](/vault-img/${encodeURIComponent(name)})`;
+  });
   // rewrite [[Target|Alias]] / [[Target#^anchor]] / [[Target]]
   text = text.replace(/\[\[([^\]]+)\]\]/g, (whole, inner) => {
     const [targetRaw, aliasRaw] = inner.split("|");
