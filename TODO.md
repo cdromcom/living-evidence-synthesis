@@ -5,6 +5,42 @@ roadmap — just a landing spot so these don't get lost between sessions.
 
 ## Content accuracy
 
+- **Re-crop 9 missing figure/table screenshots from the source PDFs.** As of
+  2026-09-02 the site renders every `![[...]]` embed (451 crops across 184
+  nodes), but nine embeds point at files that were never committed to
+  `vault/**/Attachments/`. Those render as a dashed "Figure not available:
+  &lt;name&gt;" placeholder naming the file, and `npm run preflight` prints the
+  same list, so nothing fails silently — the figures are just absent.
+
+  The PDFs are not in this repo (deliberately, see README). They're in the
+  canonical Obsidian vault at
+  `/Users/ppatel/Documents/living-synthesis/source/pdfs/`.
+
+  Crops resolve by **bare filename**, so re-cropping to the exact name below
+  and dropping it anywhere under `vault/**/Attachments/` is all that's needed
+  — `scripts/sync-attachments.mjs` (runs in preflight) copies it into
+  `public/vault-img/` and the placeholder becomes the image. No code change,
+  no rebuild of the graph JSON required beyond the usual `node
+  scripts/build-graph.mjs`.
+
+  | Crop needed | Page | Used by |
+  | --- | --- | --- |
+  | `alharbi2024-table1cont-p5-1.png` | p.5 | EVD-010 |
+  | `liangCanLargeLanguage2024a-aspects-p5-5.png` | p.5 | EVD-030 |
+  | `liangCanLargeLanguage2024a-overlap-p3-3.png` | p.3 | EVD-033 |
+  | `sonWhenAICoScientists2025-fig4-p6.png` | p.6 | EVD-049, EVD-062 |
+  | `sonWhenAICoScientists2025-tables-p34-4.png` | pp.3–4 | EVD-062 |
+  | `sonWhenAICoScientists2025-tables-p5-2.png` | p.5 | EVD-063 |
+  | `thelwallEvaluatingResearchQuality2024-tables-p8-1.png` | p.8 | EVD-019, EVD-040 |
+  | `wuAutomatedNoveltyEvaluationa-results-p10-1.png` | p.10 | EVD-070 |
+  | `xuCanLLMsIdentify2025-clm-p8-2.png` | p.8 | CLM-024 |
+
+  Page numbers are read off the filenames' own `-pN-` convention rather than
+  from the nodes, so spot-check each against the paper before trusting it —
+  `-p34-` in particular is ambiguous between "page 34" and "pages 3–4".
+  Verify with `node scripts/sync-attachments.mjs`, which reports the count
+  still missing.
+
 - **Sync the canonical Obsidian vault's own node files to the new
   format.** `living-synthesis-site`'s 27 source pages now have the
   quote-grounded 42-item TRIPOD-LLM table and 10-11-row Quality Appraisal
