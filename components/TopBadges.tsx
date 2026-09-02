@@ -901,7 +901,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           // reads as "we forgot to check", which is not what a missing tag means.
           codeQualityFair !== null
             ? {
-                label: "Code quality (FAIR)",
+                label: "Code quality \u00b7 FAIR",
                 status: `${codeQualityFair} of 5`,
                 tone: codeQualityBand(codeQualityFair) as Tone,
                 href: `${linkBase}#qa-code-quality-fair`,
@@ -909,14 +909,14 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                 current: codeQualityBand(codeQualityFair),
               }
             : {
-                label: "Code quality (FAIR)",
+                label: "Code quality \u00b7 FAIR",
                 status: "not applicable",
                 tone: "gray" as Tone,
                 description: "No code repository was claimed for this paper, so there is nothing to score against the fair-software.eu criteria.",
               },
           dataQualityFair !== null
             ? {
-                label: "Data quality (FAIR)",
+                label: "Data quality \u00b7 FAIR",
                 status: `${dataQualityFair} of 24`,
                 tone: dataQualityBand(dataQualityFair) as Tone,
                 href: `${linkBase}#qa-data-quality-fair`,
@@ -924,7 +924,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                 current: dataQualityBand(dataQualityFair),
               }
             : {
-                label: "Data quality (FAIR)",
+                label: "Data quality \u00b7 FAIR",
                 status: "not applicable",
                 tone: "gray" as Tone,
                 description: "No dataset was claimed for this paper, so there is nothing for FAIR-Checker to score.",

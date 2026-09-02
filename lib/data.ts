@@ -529,22 +529,22 @@ export const REPO_CHECK_LABELS: Record<ReproducibilityRisk | "not-addressed", st
 };
 
 export const RIGOR_CHECK_LABELS = {
-  "baseline-adequacy": "Baseline Adequacy",
-  "train-dev-test": "Train/Dev/Test Hygiene",
-  "multiple-comparisons": "Multiple-Comparisons Correction",
-  "human-baseline": "Human-Baseline Comparability",
-  "data-leakage": "Data Leakage",
-  "confidence-intervals": "Confidence Intervals",
-  "effect-size": "Effect Size",
-  "exact-p-values": "Exact p-Values",
-  spin: "Non-Significant Result Spin",
-  "repository-check": "Data Repo Check",
-  "code-check": "Code Check",
-  statcheck: "Statistical Consistency",
-  "prompt-engineering": "Prompt Engineering",
-  "chance-corrected-metrics": "Chance-Corrected Metrics",
-  "ablation-experiments": "Ablation Experiment(s)",
-  "ai-writing-check": "AI Writing Check",
+  "baseline-adequacy": "Baseline adequacy",
+  "train-dev-test": "Train/dev/test hygiene",
+  "multiple-comparisons": "Multiple-comparisons correction",
+  "human-baseline": "Human-baseline comparability",
+  "data-leakage": "Data leakage",
+  "confidence-intervals": "Confidence intervals",
+  "effect-size": "Effect size",
+  "exact-p-values": "Exact p-values",
+  spin: "Non-significant result spin",
+  "repository-check": "Data repo check",
+  "code-check": "Code check",
+  statcheck: "Statistical consistency",
+  "prompt-engineering": "Prompt engineering",
+  "chance-corrected-metrics": "Chance-corrected metrics",
+  "ablation-experiments": "Ablation experiment(s)",
+  "ai-writing-check": "AI writing check",
 } as const;
 
 /**
