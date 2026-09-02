@@ -912,16 +912,18 @@ export default function TopBadges({ node }: { node: GraphNode }) {
 
 
   /**
-   * One row per artifact instead of four.
+   * Two rows per artifact: whether it exists and resolves, and how FAIR it is.
    *
-   * Availability and FAIR score were two separate rows that could appear to
-   * disagree: a live repository with no score yet showed as "NA", which reads
-   * as "nothing to score" when it actually means "we have not scored it".
-   * Folding them together makes the three states distinct — nothing claimed,
-   * claimed but unscored, claimed and scored — and halves the row count.
+   * They are kept separate because they answer different questions, but the
+   * FAIRness row has to distinguish three states rather than two. A live
+   * repository with no score is "unscored" — our gap — while "NA" is reserved
+   * for the case where the authors claim no artifact at all and there is
+   * genuinely nothing to score. Reporting both as "NA" made a live, scoreable
+   * repository look like an absent one; nine artifact pairs in the corpus are
+   * in exactly that state.
    */
-  const artifactRow = (
-    label: string,
+  const artifactRows = (
+    name: string,
     check: ReproducibilityRisk | "not-addressed" | null | undefined,
     score: number | null,
     max: number,
@@ -932,48 +934,44 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     checkHref: string
   ): SignalRow[] => {
     if (!check && score === null) return [];
-    if (check === "not-addressed" || (!check && score === null)) {
-      return [{
-        label,
-        status: "none claimed",
-        tone: "gray",
-        href: `${linkBase}${checkHref}`,
-        scale: checkScale,
-        current: "not-addressed",
-        description: `${label}: the authors claim none, so there is nothing to reach and nothing to score.`,
-      }];
-    }
-    if (check === "high-risk" || check === "some-concerns") {
-      return [{
-        label,
-        status: check === "high-risk" ? "dead link" : "partially reachable",
-        tone: check === "high-risk" ? "red" : "gold",
-        href: `${linkBase}${checkHref}`,
-        scale: checkScale,
-        current: check,
-      }];
-    }
-    // Claimed and reachable — report the FAIR score when we have one.
-    if (score === null) {
-      return [{
-        label,
-        status: "live, unscored",
-        tone: "green",
-        href: `${linkBase}${checkHref}`,
-        scale: checkScale,
-        current: "low-risk",
-        description: `${label}: the link resolves, but it has not been scored for FAIRness yet.`,
-      }];
-    }
-    return [{
-      label,
-      status: `live, ${score} of ${max}`,
-      tone: band(score) as Tone,
-      href: `${linkBase}${fairHref}`,
-      scale: fairScale,
-      current: band(score),
-      description: `${label}: link resolves; FAIR score ${score} of ${max}.`,
-    }];
+    const noArtifact = check === "not-addressed" || !check;
+
+    const availability: SignalRow = {
+      label: name,
+      status: noArtifact
+        ? "none claimed"
+        : check === "high-risk"
+          ? "dead link"
+          : check === "some-concerns"
+            ? "partially reachable"
+            : "live",
+      tone: noArtifact ? "gray" : check === "high-risk" ? "red" : check === "some-concerns" ? "gold" : "green",
+      href: `${linkBase}${checkHref}`,
+      scale: checkScale,
+      current: noArtifact ? "not-addressed" : (check as string),
+    };
+
+    const fairness: SignalRow =
+      score !== null
+        ? {
+            label: `${name} FAIRness`,
+            status: `${score} of ${max}`,
+            tone: band(score) as Tone,
+            href: `${linkBase}${fairHref}`,
+            scale: fairScale,
+            current: band(score),
+          }
+        : {
+            label: `${name} FAIRness`,
+            status: noArtifact ? "NA" : "unscored",
+            tone: "gray",
+            href: noArtifact ? undefined : `${linkBase}${fairHref}`,
+            description: noArtifact
+              ? `${name} FAIRness: the authors claim no ${name.toLowerCase()}, so there is nothing to score.`
+              : `${name} FAIRness: the ${name.toLowerCase()} link resolves, but no FAIR score has been recorded for it yet.`,
+          };
+
+    return [availability, fairness];
   };
 
   const signalGroups: SignalGroup[] = [
@@ -1004,9 +1002,9 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             scale: TOP_LEVEL_SCALE,
             current: sig.level,
           })),
-          ...artifactRow("Dataset", repositoryCheck, dataQualityFair, 24, dataQualityBand,
+          ...artifactRows("Dataset", repositoryCheck, dataQualityFair, 24, dataQualityBand,
             DATA_QUALITY_SCALE, DATASET_CHECK_SCALE, "#qa-data-quality-fair", "#qa-repository-check"),
-          ...artifactRow("Code", codeCheck, codeQualityFair, 5, codeQualityBand,
+          ...artifactRows("Code", codeCheck, codeQualityFair, 5, codeQualityBand,
             CODE_QUALITY_SCALE, CODE_CHECK_SCALE, "#qa-code-quality-fair", "#qa-code-check"),
         ],
       }],

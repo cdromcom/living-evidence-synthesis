@@ -109,7 +109,7 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
                   {group.name}
                 </p>
                 {group.sections.map((section, i) => (
-                  <div key={section.subgroup ?? i} className={section.subgroup && i > 0 ? "mt-2.5" : undefined}>
+                  <div key={section.subgroup ?? i} className={section.subgroup ? (i > 0 ? "mt-3" : "mt-1.5") : undefined}>
                     {section.subgroup && (
                       <p className="mb-0.5 text-[0.625rem] font-medium uppercase tracking-wide text-muted-ink/80">
                         {section.subgroup}
