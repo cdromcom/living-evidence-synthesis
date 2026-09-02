@@ -112,7 +112,42 @@ the vault change and the regenerated JSON together.
 Note: `vault/source/pdfs/` (the full source paper PDFs) is deliberately
 excluded from this repo; publishing entire copyrighted articles publicly
 isn't something this project does. The embedded screenshot crops of
-individual tables/figures inside node markdown files are committed.
+individual tables/figures inside node markdown files are committed, under
+`vault/**/Attachments/`. Next only serves `public/`, so
+`scripts/sync-attachments.mjs` (run from `preflight`, i.e. before both `dev`
+and `build`) copies the referenced crops into `public/vault-img/`, which is
+gitignored — the originals stay in the vault and the repo does not carry two
+copies. It also prints any embed whose file is missing.
+
+## How a node body is rendered
+
+`lib/markdown.ts` turns each node's markdown into the page you see. Beyond
+callouts and mermaid, it does six things worth knowing about:
+
+- **Figure and table crops.** Obsidian `![[crop.png]]` embeds become real
+  images pointing at `/vault-img/`, each in a collapsed `<details>` captioned
+  from the filename's own `<citekey>-<what>-p<page>` convention ("Evidence
+  excerpt · p. 3"). Collapsed because an EVD embeds three or four full-width
+  screenshots and inline they push the prose that cites them off screen. An
+  embed whose file was never committed renders as a named placeholder rather
+  than a broken image.
+- **Maths.** `$…$` and `$$…$$` render through KaTeX at build time; no maths
+  runtime ships to the browser. The delimiter rule requires no whitespace
+  immediately inside the `$`, which is what separates real LaTeX from the
+  corpus's many dollar amounts (`$0.038 per paper versus o3 at $0.321`).
+- **Field lists.** Runs of `**Label:**` (EVD Methods Context) or `**Label.**`
+  (SRC structured abstracts) become a description list with the labels
+  aligned, instead of a stack of paragraphs that reads as one block.
+- **Long quotes.** Verbatim quotes inside Methods Context run to a median of
+  ~336 characters, several per subsection, so past 200 characters they
+  collapse to their opening words plus citation. Quotes in Description stay
+  visible — there, the quote *is* the evidence.
+- **Table captions.** An italic line directly above a table becomes its
+  `<caption>`, so a table lifted from a paper says whose it is. Do not use
+  this on the Quality-appraisal or TRIPOD tables: those are ours.
+- **Nested evidence on Questions.** A Question's supporting Claims keep their
+  evidence folded behind a count — QUE-001 has 8 claims and 32 evidence
+  nodes, and the claims are the answer.
 
 ## Review backend
 
@@ -283,12 +318,27 @@ recurring:
 
 ## Source page design (SRC nodes)
 
-Each `SRC` node page (`vault/source/*.md`) renders trust-signal chips
-(Openness, Rigor, Transparency/TRIPOD-LLM compliance, etc.), muted
-single-color status icons instead of categorical emoji, and — for papers
-with a TRIPOD-LLM appraisal table — a quote-plus-locator citation in the
-final column (`*"quote"* \`§/page\`` or literal `Not reported`) instead of
-a paraphrase. The chip/icon/table styling lives in `lib/markdown.ts`,
+Each `SRC` node page (`vault/source/*.md`) renders its trust signals as a
+**nutrition-style panel** behind the "Show Quality Signals" button
+(`components/QualitySignalsTable.tsx`): one row per signal, grouped under
+Transparency / Openness / Rigor / Integrity, with Rigor's bands (Validity,
+Design, Analyses, Interpretation) nested under a single heading rather than
+repeating it. Each row carries a colour dot in its own column, so the dots
+form a rule you can run an eye down, and a status word beside it — colour is
+never the only encoding. Hovering a signal name opens the **whole scale** it
+is drawn from, every level with its colour and meaning, the paper's own value
+marked (`components/ScaleTooltip.tsx`, scales defined once in
+`lib/scales.ts`). Pages also use muted single-color status icons instead of
+categorical emoji, and — for papers with a TRIPOD-LLM appraisal table — a
+quote-plus-locator citation in the final column (`*"quote"* \`§/page\`` or
+literal `Not reported`) instead of a paraphrase.
+
+A Source page opens with only the **Question** expanded; Methods, Findings,
+Claim supported, Caveats and the appraisal tables start collapsed, and the
+Abstract's subsections are indented under it so the hierarchy reads at a
+glance. Other node types keep every section open, because their bodies *are*
+the content rather than chapters around it (`AccordionPolicy` in
+`lib/markdown.ts`). The chip/icon/table styling lives in `lib/markdown.ts`,
 `components/TopBadges.tsx`, and `app/globals.css`; the underlying signals
 are parsed from `tags:` frontmatter (`rigor/*`, `top/*`, `appraisal/*`,
 etc.) by small getters in `lib/data.ts`. Page footers cite the TRIPOD-LLM
@@ -311,7 +361,7 @@ in the vault repo. This is not a full-corpus sweep and is unrelated to the
 TOP "AI disclosure" transparency signal (whether authors *say* they used
 AI) — it's a forensic check of whether the prose itself reads as
 AI-generated. Results are tagged `integrity/ai-writing-check/*` on the
-source, surfaced as an "AI Writing Check" chip/row/column alongside every
+source, surfaced as an "AI writing check" row alongside every
 other trust signal, and cited with the paper's own Pangram dashboard link
 rather than a quote from the paper (see `getAiWritingCheck` in
 `lib/data.ts`). Pangram's AI-*image* detector is a research preview with
@@ -326,7 +376,7 @@ repository, license, package-registry listing (PyPI/npm/Conda/etc.),
 citation metadata (CITATION.cff/Zenodo), and a quality-checklist badge —
 via [`howfairis`](https://github.com/fair-software/howfairis), a local
 CLI tool requiring no API key. This is a different question from the
-existing Data Repo Check/Code Check chips (which only ask "does the
+existing Dataset/Code availability rows (which only ask "does the
 link still resolve"): Code Quality asks whether the repo follows
 baseline open-source-software hygiene once you're there. As of 2026-08,
 13 of 27 sources have a GitHub/GitLab repo to check (the rest host code
@@ -334,8 +384,7 @@ on HuggingFace/OSF, which howfairis doesn't support, or release no code
 at all) — every one of the 13 scored 1/5 or 2/5, with none reaching a
 package-registry listing, citation file, or quality badge. Tagged
 `top/code-quality-fair/{0-5}` on the source (see `getCodeQualityFair` in
-`lib/data.ts`), surfaced as a "Code Quality N/5" chip/row/column
-alongside every other trust signal.
+`lib/data.ts`), surfaced as a **Code FAIRness** row alongside every other trust signal.
 
 ### Data Quality (FAIR-Checker, hybrid-scored)
 
@@ -360,8 +409,14 @@ scored 16/24, two HuggingFace dataset cards scored 9/24, and ten
 GitHub-hosted datasets split between 4/24 (no license) and 6/24 (license
 present). Full per-source breakdown in `misc/data_quality_2026-08.md` in
 the vault. Tagged `top/data-quality-fair/{0-24}` on the source (see
-`getDataQualityFair` in `lib/data.ts`), surfaced as a "Data Quality N/24"
-chip/row/column alongside every other trust signal; the older Data Repo
-Check chip (which only asks "does the link still resolve") is hidden
-wherever a Data Quality score already exists, on the same precedent as
-Code Check/Code Quality.
+`getDataQualityFair` in `lib/data.ts`), surfaced as a **Dataset FAIRness**
+row alongside every other trust signal.
+
+Availability and FAIRness are shown as separate rows — **Dataset** / **Dataset
+FAIRness** and **Code** / **Code FAIRness** — and both always render. The
+FAIRness row distinguishes three states rather than two: a score (`16 of 24`),
+`unscored` when the link resolves but nothing has been scored yet, and `NA`
+only when the authors claim no artifact at all. That distinction matters:
+nine artifact pairs in the corpus are live-but-unscored, and reporting those
+as "not applicable" made a working, scoreable repository look like an absent
+one.

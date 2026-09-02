@@ -116,14 +116,17 @@ roadmap — just a landing spot so these don't get lost between sessions.
 
 ## Deferred by explicit scope decision
 
-- **Full vault-wide em-dash sweep.** ~1,845 em dashes in editorial prose
-  across 161 vault files (SRC/EVD/CLM/CVT/QUE combined), plus the 115 in
-  shared component/UI copy (already done). Only the 2 pilot files
-  (louAAAR10, woelfle) and the shared component copy have been cleaned up
-  so far. Scoped as its own follow-up project, similar in size to the
-  TRIPOD rollout, given a context-sensitive rewrite (comma vs. semicolon
-  vs. colon vs. new sentence per Grammarly's rule) can't be done as a
-  mechanical find-replace.
+- ~~**Full vault-wide em-dash sweep.**~~ Done 2026-09-02 — 1,527 rewrites
+  across 161 files, chosen per occurrence rather than swept. The ~1,845
+  estimate counted every em dash in the files; the real figure for editorial
+  prose was 900, because 744 sit inside table rows where an em dash is the
+  *not-applicable placeholder* in a results cell rather than punctuation, and
+  a mechanical pass would have rewritten those into commas and corrupted every
+  results table. A further 8 sit inside quotation marks and belong to the
+  quoted author; all 3,335 quoted spans were verified byte-identical
+  afterwards. Replacements: 896 commas, 346 colons on compound table labels,
+  150 paired parentheticals, 100 semicolons, 35 colons introducing
+  enumerations.
 - ~~**FAIR data-quality signals.**~~ Done 2026-08-31 — shipped as the
   "Data Quality" chip (FAIR-Checker + license top-up hybrid, 14 sources
   scored). See `misc/data_quality_2026-08.md` in the vault.

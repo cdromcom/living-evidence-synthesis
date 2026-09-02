@@ -553,6 +553,86 @@ since reaching a dataset well enough to FAIR-score it already implies the
 link is live. Full per-source breakdown and methodology notes live in
 `misc/data_quality_2026-08.md` in the vault.
 
+## Making the pages readable
+
+A long pass over how a node page actually reads, prompted by looking at one
+and finding several things missing that were sitting in the repo the whole
+time.
+
+The figures were the biggest of these. Every source page had screenshot crops
+of the paper's own tables and figures embedded in it, 451 of them across 184
+nodes, committed to git months ago. None had ever appeared on the site: one
+line in the build script deleted every embed as it went past. Obsidian writes
+image embeds in its own `![[filename]]` syntax, the site's markdown reader did
+not understand it, and rather than translate it the build simply stripped it.
+Fixing that meant translating the syntax and copying the referenced crops
+somewhere the web server can reach, which a small script now does before every
+build. Nine crops turned out to point at files that were never committed;
+those show a labelled placeholder naming the missing file rather than a broken
+image, and the script prints the list.
+
+Mathematics had the same shape of problem. Formulas written as `$n_c = 1$`
+were displaying as literal dollar signs and underscores. Rendering them
+properly took a typesetting library, but the interesting part was telling
+formulas apart from money: this corpus is full of sentences like "$0.038 per
+paper versus o3 at $0.321", and a naive rule turns the text between two dollar
+signs into an equation. Requiring no space immediately inside the delimiters
+separates them cleanly — real formulas do not start with a space, and a price
+range always has one before the closing sign. Checked against every file: 40
+formulas found, no false catches.
+
+Then the smaller readability work. Labelled runs like **Design.** and
+**Tools.** had been rendering as a wall of paragraphs; they became an aligned
+list. Verbatim quotes in the Methods sections, which run to a few hundred
+characters each and several per subsection, now collapse to their opening
+words until clicked. A Question page kept its Claims visible and folded each
+claim's evidence behind a count, because on one page eight claims were buried
+under thirty-two pieces of evidence. Source pages now open on the Question
+alone, with everything below it collapsed, and the diagram summarising a
+paper's methods moved into the Methods section, where it had never been.
+
+## Rewriting 1,527 em dashes without breaking the tables
+
+A long-standing note in the to-do list called for replacing em dashes in the
+project's own prose — not in quoted material, where the punctuation belongs to
+the quoted author. The note estimated 1,845 of them and warned it could not be
+done mechanically.
+
+Measuring first changed the job twice over. Only 900 were editorial prose. Of
+the rest, 8 sat inside quotation marks, and 744 sat inside table rows — where
+an em dash is not punctuation at all but the standard placeholder for "not
+applicable" in a results cell. A find-and-replace would have turned those into
+commas and quietly corrupted every results table on the site.
+
+The remaining 900 were replaced one at a time by what the dash was doing:
+parenthetical asides became parentheses or commas, appositives commas, dashes
+introducing an explanation or a list a colon, dashes joining two independent
+clauses a semicolon. Four rounds of testing against real sentences were needed
+before the rules stopped making mistakes — the first version turned "the claim
+— that workload is reduced — cannot be quantified" into something ungrammatical
+by treating the pair of dashes as two unrelated marks. Afterwards, all 3,335
+quoted passages in the changed files were checked byte for byte against their
+previous versions to confirm no quotation had been altered.
+
+## The trust signals become a label
+
+The row of coloured pills at the top of a source page had grown to two dozen,
+wrapping across several lines with nothing lining up. They became a panel laid
+out like a nutrition label: one row per signal, categories printed once with
+their sub-bands nested underneath, statuses in a fixed column with the colour
+dots on their own vertical rule so the eye can run down them. Hovering any
+signal now shows the entire scale it comes from — every level, its colour, and
+what that level means — with this paper's own value marked, which the pills
+never did because a tooltip cannot draw a coloured dot.
+
+One change there fixed a factual error rather than a visual one. Availability
+and FAIRness are reported separately for datasets and code, and when a
+repository existed but had never been FAIR-scored, the panel said "not
+applicable" — which reads as "there is nothing to score" rather than "we have
+not scored it". Nine artifact pairs in the corpus were in exactly that state.
+They now read "unscored", and "not applicable" is reserved for papers that
+claim no dataset or code at all.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

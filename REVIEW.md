@@ -7,6 +7,16 @@ This document describes what's checked, where the data comes from, and —
 just as importantly — what's deliberately *not* checked and why, since a
 wrong signal is worse than a missing one.
 
+> **Note (2026-09-02):** these signals are no longer rendered as chips. They
+> are rows in a nutrition-style panel (`components/QualitySignalsTable.tsx`),
+> still behind the "Show Quality Signals" button, still one per signal, and
+> still linking to their Quality Appraisal row. Read "chip" below as "signal
+> row". Two specifics changed with it: Dataset and Code each carry an
+> availability row *and* a FAIRness row, both always rendered; and a FAIRness
+> row reads `unscored` — not `NA` — when the artifact exists but has not been
+> scored, with `NA` reserved for papers that claim no artifact at all.
+
+
 **Contents:** [Guiding principle](#guiding-principle) ·
 [What's on every source page](#whats-on-every-source-page) ·
 [What we tried and deliberately did not ship](#what-we-tried-and-deliberately-did-not-ship) ·
