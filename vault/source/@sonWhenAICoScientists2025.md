@@ -117,25 +117,8 @@ Can today's best general-purpose AI models read a scientific paper and reliably 
 
 **Sample.** WithdrarXiv shrank from 14,000 entries to 1,855 after the first GPT-4o filter and 58 after a post-2024 publication-date filter; PubPeer shrank from 25,378 to 215. After author-confirmation and the two-stage human sanity check, the final SPOT benchmark contained 83 manuscripts with 91 author-confirmed errors drawn from 47 source papers across ten STEM domains. The unit of analysis is the (paper, annotated error) pair. Errors break down into six categories: Equation/Proof (37), Figure Duplication (27), Data Inconsistency (18), Statistical Reporting (4), Reagent Identity (3), and Experiment Setup (2). Severity split: 59 errata and 32 retractions. Human annotators were the paper's own authors plus a second author-led audit group; case-study expert review used "a researcher with related publications or a PhD-trained postdoc" in mathematics and materials science.
 
-### Findings
 
-- **Even the best model misses about four out of five errors.** o3, OpenAI's reasoning model, topped the leaderboard with 6.1% precision (when it flags an error it is right about 6% of the time), 21.1% recall (it catches roughly 1 in 5 known errors), and 37.8% pass@4 (the chance it catches a given error in at least one of four independent tries). Every other model came in well below o3, and the four open-source models collapsed to near zero, Llama-4-Maverick reached only 0.9% recall, a 20.2-percentage-point gap behind o3 on pass@4. The same Llama-4 model is competitive with o3 on standard benchmarks like MathVista and GPQA-Diamond, so SPOT is uniquely hard for open-source systems. [[EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]]
-
-- **No model is good at every error type, reasoning helps with math, hurts on figures.** o3 dominated equation and proof errors (62.6% pass@4) and statistical reporting (88.4% pass@4 on a tiny sample of 4 errors), but scored a flat 0% on figure-duplication errors. Gemini-2.5-Pro showed the same blind spot. Surprisingly, the non-reasoning GPT-4.1 hit 44.4% pass@4 on figure duplication, beating every reasoning model. No model solved a single Experiment Setup error (0/2 across all six proprietary systems). The pattern suggests that reasoning training trades off against visual-similarity detection. [[EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]]
-
-- **Models cannot tell when they are right.** Across 498 (model × paper) evaluations of the six proprietary models, only two cases reached full self-estimated confidence (where a model catches the error in all 8 of its 8 runs), and both came from o3. The authors compute confidence as an objective frequency from the 8 runs, not the model's own verbalised certainty, which makes the result harder to dismiss as bluster. The kernel density of confidences peaks near zero for every model, and confidence correlates only weakly with pass@4, meaning a high confidence score is not a reliable signal that the prediction is correct. A user cannot filter for the rare correct flags. [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025]]
-
-### Claim supported
-
-These findings support two related claims. The strongest is [[CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]], at single-digit precision and confidence near zero, no model is close to a tool a journal or co-author could trust to surface real mistakes. The second is [[CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]; the o3-vs-open-source gap on SPOT is wider than on any other benchmark the authors tested. For a researcher considering using one of these models as an automated proof-reader, the practical takeaway is that current systems will miss roughly four out of every five real errors and, when they do flag something, will be wrong about 94% of the time.
-
-### Caveats
-
-- **The benchmark is small and some error types have only a handful of cases.** SPOT contains 83 manuscripts and 91 errors, with as few as 2 examples in the Experiment Setup category and 3 in Reagent Identity. Per-category numbers therefore have very high variance, and cross-model comparisons in those small cells should be read as suggestive rather than definitive. [[CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]
-
-- **Only author-acknowledged errors made it in.** The authors deliberately excluded any error the original authors did not formally admit through an erratum or retraction. This filter raises label quality but probably under-represents the harder, contested, or quietly-buried errors that a deployed verifier would most need to catch. The headline numbers may therefore be optimistic relative to real-world performance. [[CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -164,6 +147,24 @@ flowchart TD
     class N result;
 ```
 ---
+
+### Findings
+
+- **Even the best model misses about four out of five errors.** o3, OpenAI's reasoning model, topped the leaderboard with 6.1% precision (when it flags an error it is right about 6% of the time), 21.1% recall (it catches roughly 1 in 5 known errors), and 37.8% pass@4 (the chance it catches a given error in at least one of four independent tries). Every other model came in well below o3, and the four open-source models collapsed to near zero, Llama-4-Maverick reached only 0.9% recall, a 20.2-percentage-point gap behind o3 on pass@4. The same Llama-4 model is competitive with o3 on standard benchmarks like MathVista and GPQA-Diamond, so SPOT is uniquely hard for open-source systems. [[EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]]
+
+- **No model is good at every error type, reasoning helps with math, hurts on figures.** o3 dominated equation and proof errors (62.6% pass@4) and statistical reporting (88.4% pass@4 on a tiny sample of 4 errors), but scored a flat 0% on figure-duplication errors. Gemini-2.5-Pro showed the same blind spot. Surprisingly, the non-reasoning GPT-4.1 hit 44.4% pass@4 on figure duplication, beating every reasoning model. No model solved a single Experiment Setup error (0/2 across all six proprietary systems). The pattern suggests that reasoning training trades off against visual-similarity detection. [[EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]]
+
+- **Models cannot tell when they are right.** Across 498 (model × paper) evaluations of the six proprietary models, only two cases reached full self-estimated confidence (where a model catches the error in all 8 of its 8 runs), and both came from o3. The authors compute confidence as an objective frequency from the 8 runs, not the model's own verbalised certainty, which makes the result harder to dismiss as bluster. The kernel density of confidences peaks near zero for every model, and confidence correlates only weakly with pass@4, meaning a high confidence score is not a reliable signal that the prediction is correct. A user cannot filter for the rare correct flags. [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025]]
+
+### Claim supported
+
+These findings support two related claims. The strongest is [[CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]], at single-digit precision and confidence near zero, no model is close to a tool a journal or co-author could trust to surface real mistakes. The second is [[CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]; the o3-vs-open-source gap on SPOT is wider than on any other benchmark the authors tested. For a researcher considering using one of these models as an automated proof-reader, the practical takeaway is that current systems will miss roughly four out of every five real errors and, when they do flag something, will be wrong about 94% of the time.
+
+### Caveats
+
+- **The benchmark is small and some error types have only a handful of cases.** SPOT contains 83 manuscripts and 91 errors, with as few as 2 examples in the Experiment Setup category and 3 in Reagent Identity. Per-category numbers therefore have very high variance, and cross-model comparisons in those small cells should be read as suggestive rather than definitive. [[CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]
+
+- **Only author-acknowledged errors made it in.** The authors deliberately excluded any error the original authors did not formally admit through an erratum or retraction. This filter raises label quality but probably under-represents the harder, contested, or quietly-buried errors that a deployed verifier would most need to catch. The headline numbers may therefore be optimistic relative to real-world performance. [[CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors]]
 
 ## Quality appraisal
 

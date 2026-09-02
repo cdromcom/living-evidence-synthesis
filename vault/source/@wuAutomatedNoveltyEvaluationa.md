@@ -94,23 +94,8 @@ Can a computer judge how novel a research paper's method is, and does it do bett
 
 **Sample.** The authors crawled 3,376 ICLR 2022 papers, dropped 944 with reviewer disagreement greater than 1, and kept 2,432 papers as the unit of analysis. They split these 8:1:1 into roughly 1,945 train, 243 validation, and 244 test papers. The class breakdown skewed toward Low Novelty (n=1,425) over High Novelty (n=1,007). No human raters were recruited for this study; the labels come from the original ICLR reviewers.
 
-### Findings
 
-- **Fusing human and LLM knowledge wins by 10 F1 points.** The proposed Ours-SciBERT model with HK+LLMK inputs scored weighted F1 = 0.83 and accuracy = 0.84. The best PLM baseline using the same inputs (SciBERT alone) reached only F1 = 0.73 / accuracy = 0.74, and the best zero-shot LLM (GPT-4o) reached F1 = 0.68 / accuracy = 0.68. Smaller LLaMA-3.1 trailed at F1 = 0.44. The fusion advantage held across all five PLM backbones the authors tested. [[EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction - @wuAutomatedNoveltyEvaluationa]]
-
-- **The knowledge-guided module is doing the heavy lifting.** Removing the sparse-attention fusion module dropped the model from F1 = 0.83 / accuracy = 0.84 to F1 = 0.73 / accuracy = 0.74, a 10-point fall on both metrics. Removing the Self-Attention Reduction prediction head cost only 4 points, and removing the basic self-attention block cost only 2 points. After ablation, the stripped-down model lands at the same level as a plain SciBERT baseline, suggesting the fusion module, not the backbone, is what generates the gain. [[EVD - Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74 - @wuAutomatedNoveltyEvaluationa]]
-
-### Claim supported
-
-These findings collectively support the claim that [[CLM - Combining human reviewer knowledge with LLM-generated method summaries improves automated novelty prediction beyond either source alone]]. For someone considering this in practice: the headline 0.83 weighted F1 is meaningful inside ICLR-style ML conferences, but the result depends on already having peer-review text, so this is a tool for *post-review* triage and meta-analysis, not for deciding novelty before reviewers have weighed in.
-
-### Caveats
-
-- **Zero-shot LLMs were never tuned for the task.** All four LLM baselines ran zero-shot at default settings, with no prompt engineering or few-shot examples. This understates what an off-the-shelf LLM could do with even minor tuning, which means the gap between the proposed fusion model and a plain LLM may be smaller than the headline numbers imply. [[CVT - LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment]]
-
-- **All 2,432 papers come from a single ML conference.** ICLR 2022 reviewers use specific vocabulary and rubrics for novelty, which may not transfer to biology, social science, medicine, or other peer-review systems. Whether the model would work on a non-ML domain, or even a non-ICLR ML venue, is untested. [[CVT - The novelty prediction dataset was limited to ICLR machine learning conference papers restricting generalizability to other academic domains]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -139,6 +124,22 @@ flowchart TD
     class N result;
 ```
 ---
+
+### Findings
+
+- **Fusing human and LLM knowledge wins by 10 F1 points.** The proposed Ours-SciBERT model with HK+LLMK inputs scored weighted F1 = 0.83 and accuracy = 0.84. The best PLM baseline using the same inputs (SciBERT alone) reached only F1 = 0.73 / accuracy = 0.74, and the best zero-shot LLM (GPT-4o) reached F1 = 0.68 / accuracy = 0.68. Smaller LLaMA-3.1 trailed at F1 = 0.44. The fusion advantage held across all five PLM backbones the authors tested. [[EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction - @wuAutomatedNoveltyEvaluationa]]
+
+- **The knowledge-guided module is doing the heavy lifting.** Removing the sparse-attention fusion module dropped the model from F1 = 0.83 / accuracy = 0.84 to F1 = 0.73 / accuracy = 0.74, a 10-point fall on both metrics. Removing the Self-Attention Reduction prediction head cost only 4 points, and removing the basic self-attention block cost only 2 points. After ablation, the stripped-down model lands at the same level as a plain SciBERT baseline, suggesting the fusion module, not the backbone, is what generates the gain. [[EVD - Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74 - @wuAutomatedNoveltyEvaluationa]]
+
+### Claim supported
+
+These findings collectively support the claim that [[CLM - Combining human reviewer knowledge with LLM-generated method summaries improves automated novelty prediction beyond either source alone]]. For someone considering this in practice: the headline 0.83 weighted F1 is meaningful inside ICLR-style ML conferences, but the result depends on already having peer-review text, so this is a tool for *post-review* triage and meta-analysis, not for deciding novelty before reviewers have weighed in.
+
+### Caveats
+
+- **Zero-shot LLMs were never tuned for the task.** All four LLM baselines ran zero-shot at default settings, with no prompt engineering or few-shot examples. This understates what an off-the-shelf LLM could do with even minor tuning, which means the gap between the proposed fusion model and a plain LLM may be smaller than the headline numbers imply. [[CVT - LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment]]
+
+- **All 2,432 papers come from a single ML conference.** ICLR 2022 reviewers use specific vocabulary and rubrics for novelty, which may not transfer to biology, social science, medicine, or other peer-review systems. Whether the model would work on a non-ML domain, or even a non-ICLR ML venue, is untested. [[CVT - The novelty prediction dataset was limited to ICLR machine learning conference papers restricting generalizability to other academic domains]]
 
 ## Quality appraisal
 

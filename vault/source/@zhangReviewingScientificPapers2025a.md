@@ -89,25 +89,8 @@ Can today's top reasoning-style large language models (LLMs), chatbots that "thi
 
 **Sample.** No human subjects. Papers flowed from 6,018 WITHDRARXIV critical-error candidates, through a Gemini 2.5 Flash filter (down to 2,190), then a five-rule manual exclusion pass (misclassified, duplicate-version, non-English, template-like, or not-detectable-from-manuscript), to a final WITHDRARXIV-CHECK corpus of 1,225 papers, randomly split into a 245-paper test set. Test composition skews heavily toward formal sciences: Math 52%, Physics 29%, Computer Science 15%, Other 4%. Median page count was 14 (range 2–136); 88% had LaTeX source available.
 
-### Findings
 
-- **OpenAI o3 was the best error catcher overall.** o3 hit on 64.9% of papers when fed PDFs and 71.0% when fed LaTeX (HR@5: share of test papers on which the model raised at least one judge-confirmed real error, out of 245). Its single-judge HR@5 ran higher (72.7% to 80.4%), and the dual-judge fusion is what brings the headline number down: evidence that the strict "both judges must agree" rule is doing real work against inflation. o3 also used markedly fewer thinking tokens than the Gemini family (3,152 vs. 14,228 for Gemini 2.5 Pro under PDF), so "more thinking" did not translate into "more hits". [[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a]]
-
-- **o4-mini wins on dollars-per-hit by a wide margin.** o4-mini reached 59.6% HR@5 on PDFs and 61.6% on LaTeX (only 5.3 to 9.4 percentage points behind o3), but at $0.038 and $0.043 per paper, roughly 8.4 to 8.9 times cheaper than o3 ($0.321 and $0.383 per paper). For anyone considering screening at scale, that cost ratio dominates the small accuracy gap. Both OpenAI models also gained from the LaTeX ingestion path, while the Gemini family slightly degraded under LaTeX, suggesting OpenAI's reasoning models received specialized LaTeX training. [[EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper - @zhangReviewingScientificPapers2025a]]
-
-- **Claude 3.7 Sonnet collapsed on PDF inputs.** When given PDFs, Claude returned an empty problem list on 64.9% of test papers and reached only 16.3% HR@5. Switching to LaTeX roughly doubled its hit rate to 33.1% and tripled the average problems submitted (1.6 to 3.4). Claude's PDF input-token usage was 9.3 times Gemini's and 2.6 times o3's; the authors trace this to Anthropic's PDF representation (per-page extracted text plus page image), suggesting the failure is a vendor-specific ingestion-pipeline problem, not a reasoning failure. The result was severe enough that the authors disqualified Claude from the judge pool. [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker - @zhangReviewingScientificPapers2025a]]
-
-### Claim supported
-
-These findings support the claim that [[CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]. For someone considering deployment: o3 sets the current ceiling at roughly 7-in-10 papers caught when given LaTeX, o4-mini offers nearly the same accuracy at one-eighth the cost, and Claude's PDF pipeline is currently a non-starter for this use case. The authors frame the practical implication explicitly: these tools belong as a pre-screen feeding human reviewers, not as a replacement.
-
-### Caveats
-
-- **Only closed-source proprietary models were tested.** No open-source reasoning model (e.g., DeepSeek-R1, Qwen-QwQ, Llama-with-thinking variants) was evaluated, so we cannot tell whether o3's lead reflects reasoning-LLM capability in general or just one vendor's tooling. The Claude PDF collapse in particular looks more like a vendor pipeline issue than a model issue, and that hypothesis cannot be tested without open-source comparators. [[CVT - Only closed-source reasoning LLMs were evaluated as scientific paper quality checkers excluding open-source alternatives]]
-
-- **The corpus is dominated by math and physics.** Math (52%) and physics (29%) papers together make up over 80% of the test set, and the kinds of "critical errors" in those fields tend to be formal: wrong equations, broken proofs, sign errors. Errors in empirical sciences (biology, medicine, social science) often hinge on study design, statistical analysis, or data quality, which look structurally different. The headline hit rates may not transfer. [[CVT - The error detection dataset was rich in math and physics papers and may not generalize to other scientific domains]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -138,6 +121,24 @@ flowchart TD
     class P result;
 ```
 ---
+
+### Findings
+
+- **OpenAI o3 was the best error catcher overall.** o3 hit on 64.9% of papers when fed PDFs and 71.0% when fed LaTeX (HR@5: share of test papers on which the model raised at least one judge-confirmed real error, out of 245). Its single-judge HR@5 ran higher (72.7% to 80.4%), and the dual-judge fusion is what brings the headline number down: evidence that the strict "both judges must agree" rule is doing real work against inflation. o3 also used markedly fewer thinking tokens than the Gemini family (3,152 vs. 14,228 for Gemini 2.5 Pro under PDF), so "more thinking" did not translate into "more hits". [[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a]]
+
+- **o4-mini wins on dollars-per-hit by a wide margin.** o4-mini reached 59.6% HR@5 on PDFs and 61.6% on LaTeX (only 5.3 to 9.4 percentage points behind o3), but at $0.038 and $0.043 per paper, roughly 8.4 to 8.9 times cheaper than o3 ($0.321 and $0.383 per paper). For anyone considering screening at scale, that cost ratio dominates the small accuracy gap. Both OpenAI models also gained from the LaTeX ingestion path, while the Gemini family slightly degraded under LaTeX, suggesting OpenAI's reasoning models received specialized LaTeX training. [[EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper - @zhangReviewingScientificPapers2025a]]
+
+- **Claude 3.7 Sonnet collapsed on PDF inputs.** When given PDFs, Claude returned an empty problem list on 64.9% of test papers and reached only 16.3% HR@5. Switching to LaTeX roughly doubled its hit rate to 33.1% and tripled the average problems submitted (1.6 to 3.4). Claude's PDF input-token usage was 9.3 times Gemini's and 2.6 times o3's; the authors trace this to Anthropic's PDF representation (per-page extracted text plus page image), suggesting the failure is a vendor-specific ingestion-pipeline problem, not a reasoning failure. The result was severe enough that the authors disqualified Claude from the judge pool. [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker - @zhangReviewingScientificPapers2025a]]
+
+### Claim supported
+
+These findings support the claim that [[CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]. For someone considering deployment: o3 sets the current ceiling at roughly 7-in-10 papers caught when given LaTeX, o4-mini offers nearly the same accuracy at one-eighth the cost, and Claude's PDF pipeline is currently a non-starter for this use case. The authors frame the practical implication explicitly: these tools belong as a pre-screen feeding human reviewers, not as a replacement.
+
+### Caveats
+
+- **Only closed-source proprietary models were tested.** No open-source reasoning model (e.g., DeepSeek-R1, Qwen-QwQ, Llama-with-thinking variants) was evaluated, so we cannot tell whether o3's lead reflects reasoning-LLM capability in general or just one vendor's tooling. The Claude PDF collapse in particular looks more like a vendor pipeline issue than a model issue, and that hypothesis cannot be tested without open-source comparators. [[CVT - Only closed-source reasoning LLMs were evaluated as scientific paper quality checkers excluding open-source alternatives]]
+
+- **The corpus is dominated by math and physics.** Math (52%) and physics (29%) papers together make up over 80% of the test set, and the kinds of "critical errors" in those fields tend to be formal: wrong equations, broken proofs, sign errors. Errors in empirical sciences (biology, medicine, social science) often hinge on study design, statistical analysis, or data quality, which look structurally different. The headline hit rates may not transfer. [[CVT - The error detection dataset was rich in math and physics papers and may not generalize to other scientific domains]]
 
 ## Quality appraisal
 

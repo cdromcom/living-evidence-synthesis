@@ -91,25 +91,8 @@ Can off-the-shelf chatbots stand in for a member of an Institutional Review Boar
 
 **Sample.** The unit of analysis is one AI response. Ten case studies times three platforms produced 30 case responses, and 16 SOP topics times three platforms produced 48 SOP drafts. No platform-response was excluded. The two human reviewers were the two paper authors, one a Professor of Pharmacology and Therapeutics with prior IRB service, the other a Specialist Dentist; both have published in evidence-based medicine.
 
-### Findings
 
-- **All three chatbots produced an on-topic answer for every case.** Across the 10 FERCAP/SIDCER case studies, each of Poe Assistant, ChatGPT, and Google Bard returned a coherent reply that engaged the ethical issues at hand, covering GCP violations, IRB shortcomings, conflicts of interest, undue inducements, vulnerability, serious adverse event reporting, and expedited-review eligibility. Importantly, "responded successfully" means on-topic, not correct: Table 1 still flagged nine distinct domains in which at least one platform missed a GCP-relevant sub-issue. [[EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]
-
-- **Every chatbot wrote SOPs that hit the standard skeleton.** All 48 drafts contained the five fundamental SOP sections: purpose, scope, definitions, procedures, and responsibilities. The wording differed but the core content was strikingly similar across platforms. Table 2 captured seven SOP topics where the platforms diverged in clinically meaningful ways, for example, on conflict-of-interest handling, Poe Assistant said the conflicted member could still join the discussion (only barred from voting), while ChatGPT and Bard correctly required the conflicted member to leave the room. [[EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024]]
-
-- **No chatbot mentioned the quorum rule for full board reviews.** A core IRB rule, that an initial protocol cannot be reviewed at a full board meeting unless a minimum number of members are present, called a quorum, was missing from all three SOPs for "management of initial protocol submissions." Both Mayo Clinic and Harvard Longwood SOPs require it. The same blind spot showed up in the conflict-of-interest section, where none of the three platforms mentioned that a conflicted member should not be counted toward the quorum. [[EVD - None of three AI platforms recognized quorum requirement for initial proposal review - @sridharanAssessingDecisionMakingCapabilities2024]]
-
-- **Every chatbot fumbled the post-trial-access case.** Case Study 10 asked when a sponsor must provide post-trial access to an investigational herbal medicine. The expected GCP-grounded answer is conditional: post-trial access is owed when the intervention has been shown beneficial, but for an unproven herbal product the obligation does not attach. Zero of the three platforms surfaced that conditional logic. This was the only case (of 10) in which all three platforms failed simultaneously, making it the paper's flagship failure mode. [[EVD - All AI platforms failed to address post-trial herbal medicine access in case study 10 - @sridharanAssessingDecisionMakingCapabilities2024]]
-
-### Claim supported
-
-Together, these findings support the broader claim that [[CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]. For an IRB chair considering using one of these chatbots as a prescreening assistant, the practical takeaway is that the tools will reliably draft a plausible-looking SOP or case response, but a trained human reviewer still has to catch the structural gaps (the quorum rule, the conditional GCP logic, the COI quorum exclusion) that the models silently omit.
-
-### Caveats
-
-- **Three platforms and ten cases is a thin slice.** The benchmark covers only Poe Assistant, ChatGPT (GPT-3.5), and Google Bard against 10 prevalidated case studies from a single 2012 handbook. The authors describe the work as a preliminary attempt; results may not transfer to newer models (GPT-4, Claude, Gemini) or to live IRB scenarios drawn from local jurisdictions. [[CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -141,6 +124,24 @@ flowchart TD
     class K,O result;
 ```
 ---
+
+### Findings
+
+- **All three chatbots produced an on-topic answer for every case.** Across the 10 FERCAP/SIDCER case studies, each of Poe Assistant, ChatGPT, and Google Bard returned a coherent reply that engaged the ethical issues at hand, covering GCP violations, IRB shortcomings, conflicts of interest, undue inducements, vulnerability, serious adverse event reporting, and expedited-review eligibility. Importantly, "responded successfully" means on-topic, not correct: Table 1 still flagged nine distinct domains in which at least one platform missed a GCP-relevant sub-issue. [[EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]
+
+- **Every chatbot wrote SOPs that hit the standard skeleton.** All 48 drafts contained the five fundamental SOP sections: purpose, scope, definitions, procedures, and responsibilities. The wording differed but the core content was strikingly similar across platforms. Table 2 captured seven SOP topics where the platforms diverged in clinically meaningful ways, for example, on conflict-of-interest handling, Poe Assistant said the conflicted member could still join the discussion (only barred from voting), while ChatGPT and Bard correctly required the conflicted member to leave the room. [[EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024]]
+
+- **No chatbot mentioned the quorum rule for full board reviews.** A core IRB rule, that an initial protocol cannot be reviewed at a full board meeting unless a minimum number of members are present, called a quorum, was missing from all three SOPs for "management of initial protocol submissions." Both Mayo Clinic and Harvard Longwood SOPs require it. The same blind spot showed up in the conflict-of-interest section, where none of the three platforms mentioned that a conflicted member should not be counted toward the quorum. [[EVD - None of three AI platforms recognized quorum requirement for initial proposal review - @sridharanAssessingDecisionMakingCapabilities2024]]
+
+- **Every chatbot fumbled the post-trial-access case.** Case Study 10 asked when a sponsor must provide post-trial access to an investigational herbal medicine. The expected GCP-grounded answer is conditional: post-trial access is owed when the intervention has been shown beneficial, but for an unproven herbal product the obligation does not attach. Zero of the three platforms surfaced that conditional logic. This was the only case (of 10) in which all three platforms failed simultaneously, making it the paper's flagship failure mode. [[EVD - All AI platforms failed to address post-trial herbal medicine access in case study 10 - @sridharanAssessingDecisionMakingCapabilities2024]]
+
+### Claim supported
+
+Together, these findings support the broader claim that [[CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]. For an IRB chair considering using one of these chatbots as a prescreening assistant, the practical takeaway is that the tools will reliably draft a plausible-looking SOP or case response, but a trained human reviewer still has to catch the structural gaps (the quorum rule, the conditional GCP logic, the COI quorum exclusion) that the models silently omit.
+
+### Caveats
+
+- **Three platforms and ten cases is a thin slice.** The benchmark covers only Poe Assistant, ChatGPT (GPT-3.5), and Google Bard against 10 prevalidated case studies from a single 2012 handbook. The authors describe the work as a preliminary attempt; results may not transfer to newer models (GPT-4, Claude, Gemini) or to live IRB scenarios drawn from local jurisdictions. [[CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings]]
 
 ## Quality appraisal
 

@@ -88,23 +88,8 @@ Can an off-the-shelf large language model (LLM) catch sentences in a scientific 
 
 **Sample.** The final dataset has 250 statement-and-reference pairs: 163 (65.2%) from prior citation-verification studies, 80 (32.0%) from PubPeer plus Retraction Watch, and 7 (2.8%) from PubMed corrections. The label split is 112 Unsubstantiated (44.8%), 124 Fully substantiated (49.6%), and only 14 Partially substantiated (5.6%). The unit of analysis is one citing sentence paired with one cited reference; no human annotators were recruited for this study because labels were inherited from the source datasets.
 
-### Findings
 
-- **GPT-3.5 Turbo gets *worse* the more context you give it.** Overall accuracy peaked at 68.0% in the proprietary "title plus PDF via Assistant" setting and at 66.0% with title only, then *fell* to 54.0% once excerpts were added. Accuracy on Fully-substantiated pairs collapsed from 73.4% (title) to 30.6% (title plus abstract plus excerpts). The authors explain this as the model treating any unrelated sentence in the reference as evidence of a mismatch. [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
-
-- **GPT-4 Turbo benefits from more context and tops the table.** The best run was GPT-4 Turbo with title plus abstract plus retrieved excerpts at 70.0% overall accuracy (Unsubstantiated 83.9%, Partially 21.4%, Fully 62.9%). Even with title only, GPT-4 Turbo caught 89.3% of Unsubstantiated cases, far above GPT-3.5 Turbo. GPT-4o's best run reached 68.0%. The newer models behave more cautiously and are more sensitive to small mismatches between a claim and its cited source. [[EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024]]
-
-### Claim supported
-
-Together these findings support the claim that [[CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]. The practical takeaway: a 70% top-line accuracy still means roughly 3 in 10 citation pairs are mislabeled, and the dominant class (Unsubstantiated vs. Fully substantiated) drives most of the score. A journal that wanted to deploy this as a screening tool would still need a human reviewer in the loop.
-
-### Caveats
-
-- **The benchmark is mostly natural-science journal articles.** All 250 pairs come from journal venues, with biology, medicine, chemistry, and physics dominating. The findings may not transfer to conference papers, preprints, or to humanities and engineering work that this corpus barely covers. [[CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]]
-
-- **Each citation is treated as a single yes-or-no fact.** The three-label scheme assumes one statement cites one reference for one reason. Real citations often serve several purposes at once (e.g., a method reference plus a background claim), and forcing them into one bucket adds noise to both the gold labels and the model evaluation. [[CVT - The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -134,6 +119,22 @@ flowchart TD
     class M result;
 ```
 ---
+
+### Findings
+
+- **GPT-3.5 Turbo gets *worse* the more context you give it.** Overall accuracy peaked at 68.0% in the proprietary "title plus PDF via Assistant" setting and at 66.0% with title only, then *fell* to 54.0% once excerpts were added. Accuracy on Fully-substantiated pairs collapsed from 73.4% (title) to 30.6% (title plus abstract plus excerpts). The authors explain this as the model treating any unrelated sentence in the reference as evidence of a mismatch. [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
+
+- **GPT-4 Turbo benefits from more context and tops the table.** The best run was GPT-4 Turbo with title plus abstract plus retrieved excerpts at 70.0% overall accuracy (Unsubstantiated 83.9%, Partially 21.4%, Fully 62.9%). Even with title only, GPT-4 Turbo caught 89.3% of Unsubstantiated cases, far above GPT-3.5 Turbo. GPT-4o's best run reached 68.0%. The newer models behave more cautiously and are more sensitive to small mismatches between a claim and its cited source. [[EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024]]
+
+### Claim supported
+
+Together these findings support the claim that [[CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]. The practical takeaway: a 70% top-line accuracy still means roughly 3 in 10 citation pairs are mislabeled, and the dominant class (Unsubstantiated vs. Fully substantiated) drives most of the score. A journal that wanted to deploy this as a screening tool would still need a human reviewer in the loop.
+
+### Caveats
+
+- **The benchmark is mostly natural-science journal articles.** All 250 pairs come from journal venues, with biology, medicine, chemistry, and physics dominating. The findings may not transfer to conference papers, preprints, or to humanities and engineering work that this corpus barely covers. [[CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]]
+
+- **Each citation is treated as a single yes-or-no fact.** The three-label scheme assumes one statement cites one reference for one reason. Real citations often serve several purposes at once (e.g., a method reference plus a background claim), and forcing them into one bucket adds noise to both the gold labels and the model evaluation. [[CVT - The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation]]
 
 ## Quality appraisal
 

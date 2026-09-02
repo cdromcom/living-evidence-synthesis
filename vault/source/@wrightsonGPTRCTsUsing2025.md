@@ -101,25 +101,8 @@ Can a large language model (LLM) read a published clinical trial report and tell
 
 **Sample.** The sample-size flow ran from 160 sports-medicine trial papers from 2020, through 113 papers retained after extraction-error and file-access exclusions, to a pooled TEST confusion matrix of 198 (paper-section, question) instances for the headline GPT-4 Turbo number. The unit of analysis is the (paper-section, CONSORT-question) pair, not the paper. The image sub-study used 20 figures (10 true CONSORT flow diagrams plus 10 distractor figures), drawn from both TRAIN and TEST because the eligible pool was too small to split. No human raters were used in this paper; the labels were taken directly from Schulz et al. 2020.
 
-### Findings
 
-- **Fine-tuning closes most of the open-source gap.** The base Llama 2 70B reached only F1 = 0.63 with 64% accuracy (95% CI 57% to 71%) on the eight CONSORT text questions it could process. After fine-tuning on the GPT-4-correct TRAIN examples, the same model jumped to F1 = 0.84 with 83% accuracy (95% CI 77% to 88%), a +0.21 F1 gain (+19 percentage points). The fine-tuned open-source model lands close to but does not match GPT-4 Turbo. [[EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions - @wrightsonGPTRCTsUsing2025]]
-
-- **GPT-4 Turbo gets to roughly 9 in 10 correct.** Pooled across the nine CONSORT text questions in the TEST set, GPT-4 Turbo scored F1 = 0.89 with 90% accuracy (95% CI 85% to 94%). Per-item F1 ranged from 1.00 on blinding (Q8) down to 0.57 on standardised effect sizes and confidence intervals (Q9), the question that requires combining the Method and Results sections. The pooled confusion matrix showed 84 true-positives, 94 true-negatives, 13 false-negatives, and 7 false-positives. [[EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports - @wrightsonGPTRCTsUsing2025]]
-
-- **GPT-4 Vision spots flow diagrams but cannot audit them.** Asked "is this a CONSORT flow diagram?" GPT-4 Vision was perfect: 100% accuracy (95% CI 89% to 100%) and F1 = 1.00 across 20 images. But asked the harder follow-up, "does this diagram report the participants lost to follow-up and the reasons?", it scored only 57% accuracy (95% CI 39% to 73%) with F1 = 0.58. The lower bound of that confidence interval (39%) sits below chance for a binary task, so the model essentially fails at fine-grained content extraction from the figure. [[EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy - @wrightsonGPTRCTsUsing2025]]
-
-### Claim supported
-
-Together these findings support [[CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]], a closed-source model out of the box, and an open-source model with light fine-tuning, can both pass roughly 8 to 9 of 10 CONSORT text checks against human labels. For practical use, that means an LLM might plausibly act as a first-pass screen for journal editors or peer reviewers, but it is not yet a stand-alone replacement: GPT-4 Vision's collapse on fine-grained image questions and Llama 2's outright skipping of the effect-size item show real gaps that a deployed tool would still have to flag for human follow-up.
-
-### Caveats
-
-- **The open-source model could not see whole papers.** Llama 2's context window forced the authors to chop each paper into Introduction, Method, and Results sections, and to drop CONSORT question 9 (effect sizes) entirely because it required Method plus Results to be passed together. Performance on whole papers, or on items that span sections, may differ. [[CVT - The Llama 2 context window required splitting each paper into sections preventing whole-paper analysis]]
-
-- **Only sports-medicine and orthopaedic papers were tested.** The 113 papers all come from one Schulz-et-al. systematic review of sports-medicine and orthopaedic journals from 2020. Other specialties (oncology, cardiology, psychiatry) use different vocabulary and reporting conventions, and the F1 = 0.89 headline may not hold up when applied to them. [[CVT - The study used only sports medicine and orthopaedic journal papers limiting generalizability to other medical fields]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -149,6 +132,24 @@ flowchart TD
     class M result;
 ```
 ---
+
+### Findings
+
+- **Fine-tuning closes most of the open-source gap.** The base Llama 2 70B reached only F1 = 0.63 with 64% accuracy (95% CI 57% to 71%) on the eight CONSORT text questions it could process. After fine-tuning on the GPT-4-correct TRAIN examples, the same model jumped to F1 = 0.84 with 83% accuracy (95% CI 77% to 88%), a +0.21 F1 gain (+19 percentage points). The fine-tuned open-source model lands close to but does not match GPT-4 Turbo. [[EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions - @wrightsonGPTRCTsUsing2025]]
+
+- **GPT-4 Turbo gets to roughly 9 in 10 correct.** Pooled across the nine CONSORT text questions in the TEST set, GPT-4 Turbo scored F1 = 0.89 with 90% accuracy (95% CI 85% to 94%). Per-item F1 ranged from 1.00 on blinding (Q8) down to 0.57 on standardised effect sizes and confidence intervals (Q9), the question that requires combining the Method and Results sections. The pooled confusion matrix showed 84 true-positives, 94 true-negatives, 13 false-negatives, and 7 false-positives. [[EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports - @wrightsonGPTRCTsUsing2025]]
+
+- **GPT-4 Vision spots flow diagrams but cannot audit them.** Asked "is this a CONSORT flow diagram?" GPT-4 Vision was perfect: 100% accuracy (95% CI 89% to 100%) and F1 = 1.00 across 20 images. But asked the harder follow-up, "does this diagram report the participants lost to follow-up and the reasons?", it scored only 57% accuracy (95% CI 39% to 73%) with F1 = 0.58. The lower bound of that confidence interval (39%) sits below chance for a binary task, so the model essentially fails at fine-grained content extraction from the figure. [[EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy - @wrightsonGPTRCTsUsing2025]]
+
+### Claim supported
+
+Together these findings support [[CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]], a closed-source model out of the box, and an open-source model with light fine-tuning, can both pass roughly 8 to 9 of 10 CONSORT text checks against human labels. For practical use, that means an LLM might plausibly act as a first-pass screen for journal editors or peer reviewers, but it is not yet a stand-alone replacement: GPT-4 Vision's collapse on fine-grained image questions and Llama 2's outright skipping of the effect-size item show real gaps that a deployed tool would still have to flag for human follow-up.
+
+### Caveats
+
+- **The open-source model could not see whole papers.** Llama 2's context window forced the authors to chop each paper into Introduction, Method, and Results sections, and to drop CONSORT question 9 (effect sizes) entirely because it required Method plus Results to be passed together. Performance on whole papers, or on items that span sections, may differ. [[CVT - The Llama 2 context window required splitting each paper into sections preventing whole-paper analysis]]
+
+- **Only sports-medicine and orthopaedic papers were tested.** The 113 papers all come from one Schulz-et-al. systematic review of sports-medicine and orthopaedic journals from 2020. Other specialties (oncology, cardiology, psychiatry) use different vocabulary and reporting conventions, and the F1 = 0.89 headline may not hold up when applied to them. [[CVT - The study used only sports medicine and orthopaedic journal papers limiting generalizability to other medical fields]]
 
 ## Quality appraisal
 

@@ -104,6 +104,37 @@ Can large language models (LLMs) take over part of the slow, expert-driven work 
 
 **Sample.** For PRISMA and AMSTAR the authors used 112 systematic reviews and meta-analyses in pediatric surgery, with prior expert ratings shared by Cullis and colleagues. For PRECIS-2 they used 56 randomized controlled trials from the PragMeta database. The unit of analysis was a single rating (one item on one paper), giving up to 3,024 PRISMA ratings, 1,232 AMSTAR ratings, and 504 PRECIS-2 ratings. Two human raters per paper produced the consensus that the LLMs were graded against: British pediatric surgeons for PRISMA and AMSTAR; an experienced systematic reviewer plus either a trained MSc epidemiology student or a senior pragmatic-trial expert for PRECIS-2.
 
+
+**At a glance.**
+
+```mermaid
+flowchart TD
+    A["Cullis et al. dataset<br/>112 pediatric-surgery<br/>systematic reviews"] --> C["<b>PRISMA: 27 items × 112</b><br/><b>AMSTAR: 11 items × 112</b>"]
+    B["PragMeta database<br/>56 randomized trials"] --> D["<b>PRECIS-2: 9 domains × 56</b>"]
+    C --> E["PDF preprocessing<br/>plain text (4 LLMs)<br/>or page PNGs (Opus)"]
+    D --> E
+    E --> F["Prompt template<br/>extract quotes →<br/>reason → rate [X]"]
+    F --> G{"5 LLMs × 2 runs<br/>(GPT-4 × 1)<br/>= 9 runs / item"}
+    G --> H["Claude-3-Opus<br/>Claude-2<br/>GPT-4 · GPT-3.5<br/>Mixtral-8x22B"]
+    H --> I["Compare each run<br/>to 2-rater human<br/>consensus"]
+    I --> J["Individual LLM<br/>accuracy + κ"]
+    I --> K["Combined LLMs<br/>5/9 to 9/9<br/>consistency"]
+    I --> L["Human-AI pair<br/>(rater-1 + each LLM)<br/>10 pairings"]
+    J --> M["Bootstrap 1000×<br/>publication-level<br/>95% CIs"]
+    K --> M
+    L --> M
+
+    classDef data fill:#E3F2FD,stroke:#1565C0,color:#0D47A1;
+    classDef step fill:#FFF8E1,stroke:#F57F17,color:#5D4037;
+    classDef model fill:#F1F8E9,stroke:#2E7D32,color:#1B5E20;
+    classDef result fill:#FCE4EC,stroke:#AD1457,color:#880E4F;
+    class A,B,C,D data;
+    class E,F,I step;
+    class G,H model;
+    class J,K,L,M result;
+```
+---
+
 ### Findings
 
 - **No single LLM came close to a human expert.** On PRISMA, accuracy ran from 63% (GPT-3.5) to 70% (Claude-3-Opus), versus 89% for a human rater. On AMSTAR, the range was 53% to 74%, again versus 89%. On PRECIS-2, every LLM landed between 38% (GPT-4) and 55% (GPT-3.5), versus 75% for a human. Cohen's kappa, which runs from 0 (chance agreement) to 1 (perfect), stayed near zero on PRECIS-2 for every model. [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans - @woelfleBenchmarkingHumanAICollaboration2024]]
@@ -133,36 +164,6 @@ These findings support [[CLM - Human-AI collaboration outperforms individual LLM
 - **The evaluation datasets were already on the open web.** The Cullis pediatric-surgery ratings and the PragMeta PRECIS-2 ratings are publicly available, so any LLM trained on web crawls could plausibly have seen the labels during pretraining. Tabular CSV ratings are unlikely training material, but the risk cannot be ruled out without prospective replication. [[CVT - Human consensus datasets used as comparators were openly available online raising train test contamination concerns]]
 
 - **No human time-on-task data was recorded.** The whole efficiency argument for human-AI collaboration rests on saving the second rater work, but the datasets contain no measurements of how long humans took. If a second rater still has to read the full paper regardless of which items the LLM arbitrates, the time saving could be small or zero. [[CVT - The benchmark datasets did not record human time on task preventing quantification of efficiency gains]]
-
-### Methods at a glance
-
-```mermaid
-flowchart TD
-    A["Cullis et al. dataset<br/>112 pediatric-surgery<br/>systematic reviews"] --> C["<b>PRISMA: 27 items × 112</b><br/><b>AMSTAR: 11 items × 112</b>"]
-    B["PragMeta database<br/>56 randomized trials"] --> D["<b>PRECIS-2: 9 domains × 56</b>"]
-    C --> E["PDF preprocessing<br/>plain text (4 LLMs)<br/>or page PNGs (Opus)"]
-    D --> E
-    E --> F["Prompt template<br/>extract quotes →<br/>reason → rate [X]"]
-    F --> G{"5 LLMs × 2 runs<br/>(GPT-4 × 1)<br/>= 9 runs / item"}
-    G --> H["Claude-3-Opus<br/>Claude-2<br/>GPT-4 · GPT-3.5<br/>Mixtral-8x22B"]
-    H --> I["Compare each run<br/>to 2-rater human<br/>consensus"]
-    I --> J["Individual LLM<br/>accuracy + κ"]
-    I --> K["Combined LLMs<br/>5/9 to 9/9<br/>consistency"]
-    I --> L["Human-AI pair<br/>(rater-1 + each LLM)<br/>10 pairings"]
-    J --> M["Bootstrap 1000×<br/>publication-level<br/>95% CIs"]
-    K --> M
-    L --> M
-
-    classDef data fill:#E3F2FD,stroke:#1565C0,color:#0D47A1;
-    classDef step fill:#FFF8E1,stroke:#F57F17,color:#5D4037;
-    classDef model fill:#F1F8E9,stroke:#2E7D32,color:#1B5E20;
-    classDef result fill:#FCE4EC,stroke:#AD1457,color:#880E4F;
-    class A,B,C,D data;
-    class E,F,I step;
-    class G,H model;
-    class J,K,L,M result;
-```
----
 
 ## Quality appraisal
 

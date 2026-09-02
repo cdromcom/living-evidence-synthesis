@@ -120,27 +120,8 @@ Can a general-purpose large language model write peer-review feedback on a scien
 
 **Sample.** The retrospective corpus combines 3,096 accepted Nature-family papers with 8,745 human reviews (15 journals, January 2022 to June 2023) and 1,709 ICLR papers with 6,505 human reviews (2022 and 2023 cycles). The aspect-coding sub-study draws a random sample of 500 ICLR papers. The pipeline itself is validated on 639 feedbacks for the extraction stage and 12,035 comment pairs for the matching stage, with three co-authors providing inter-annotator agreement on 800 stratified pairs. The prospective survey reached 308 researchers from 110 US institutions in computer science and computational biology, recruited via institute mailing lists and arXiv-author email scrapes, and compensated $20 each.
 
-### Findings
 
-- **GPT-4's review overlap with humans matches the overlap between two humans.** GPT-4 comments overlapped with an individual human reviewer's comments at a hit rate of 30.85% on Nature, compared to 28.58% for two humans on the same papers (p < 0.0001 versus a shuffled null). On ICLR the numbers were 39.23% versus 35.25%. The pattern held across four set-overlap metrics (hit rate, Szymkiewicz-Simpson, Jaccard, and Sorensen-Dice) and across all 15 journals (cross-journal correlation r = 0.80, p = 3.69 x 10^-4). [[EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58% - @liangCanLargeLanguage2024a]]
-
-- **GPT-4 emphasizes very different aspects than humans.** GPT-4 commented on the implications of research 7.27 times more often than humans, and on novelty 10.69 times less often. Humans were 6.71x more likely than GPT-4 to ask for ablation experiments; GPT-4 was 2.19x more likely to ask for experiments on more datasets. The two reviewers agreed roughly evenly on clarity, efficiency, reproducibility, and prior-work comparison. The authors read this as evidence that GPT-4 and humans complement rather than substitute for each other. [[EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers - @liangCanLargeLanguage2024a]]
-
-- **The shuffling test rules out generic boilerplate.** When the authors randomly reassigned GPT-4 reviews to other papers in the same journal and same Nature root category, the pairwise hit rate collapsed from 30.85% to 0.43% on Nature, a 71-fold drop, and from 39.23% to 3.91% on ICLR (p < 0.0001 in both datasets). Because the shuffle stayed within journal and category, the drop is not a topic-mismatch artifact; the GPT-4 review really is tailored to the specific paper. [[EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a]]
-
-- **Researchers found GPT-4 feedback useful on their own papers, though most did not call it as helpful as the best human reviewers.** Of 308 surveyed authors, 57.4% rated GPT-4 feedback helpful or very helpful and 82.4% rated it more beneficial than feedback from at least some human reviewers. But only 1.6% rated it more helpful than most humans, and 17.5% rated it less helpful than most humans. Roughly half (50.5%) said they would use the system again. [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers - @liangCanLargeLanguage2024a]]
-
-### Claim supported
-
-These findings support two claims. First, that [[CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]], when given the full paper, GPT-4's per-paper feedback overlaps with a single human reviewer's at roughly the rate two humans overlap with each other. Second, that [[CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]; the 71-fold collapse on shuffling is hard to explain any other way. For someone considering using such a system as a pre-submission review aid, the practical takeaway is more cautious than the headline numbers suggest: GPT-4 covers a comparable share of points to one human, but skews toward research-implications commentary and away from novelty assessment, so it is best read as a complement to human review rather than a replacement.
-
-### Caveats
-
-- **The Nature corpus contains only accepted papers.** GPT-4's overlap is measured against reviews of papers that already passed peer review, which is a high-quality slice of the literature. The full pre-submission feedback loop, where weaker papers might be the ones that most need help, is not tested. [[CVT - The Liang et al study used papers already accepted to journals which may not represent the full quality distribution]]
-
-- **The user-study sample selected itself in.** The 308 survey respondents opted into a tool advertised as LLM scientific feedback, so they likely skew toward researchers already familiar with and favorably disposed toward AI tools. The authors flag this themselves. [[CVT - The Liang et al user study was subject to self-selection bias as participants opted in to receive LLM feedback]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -173,6 +154,26 @@ flowchart TD
     class L,M,P result;
 ```
 ---
+
+### Findings
+
+- **GPT-4's review overlap with humans matches the overlap between two humans.** GPT-4 comments overlapped with an individual human reviewer's comments at a hit rate of 30.85% on Nature, compared to 28.58% for two humans on the same papers (p < 0.0001 versus a shuffled null). On ICLR the numbers were 39.23% versus 35.25%. The pattern held across four set-overlap metrics (hit rate, Szymkiewicz-Simpson, Jaccard, and Sorensen-Dice) and across all 15 journals (cross-journal correlation r = 0.80, p = 3.69 x 10^-4). [[EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58% - @liangCanLargeLanguage2024a]]
+
+- **GPT-4 emphasizes very different aspects than humans.** GPT-4 commented on the implications of research 7.27 times more often than humans, and on novelty 10.69 times less often. Humans were 6.71x more likely than GPT-4 to ask for ablation experiments; GPT-4 was 2.19x more likely to ask for experiments on more datasets. The two reviewers agreed roughly evenly on clarity, efficiency, reproducibility, and prior-work comparison. The authors read this as evidence that GPT-4 and humans complement rather than substitute for each other. [[EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers - @liangCanLargeLanguage2024a]]
+
+- **The shuffling test rules out generic boilerplate.** When the authors randomly reassigned GPT-4 reviews to other papers in the same journal and same Nature root category, the pairwise hit rate collapsed from 30.85% to 0.43% on Nature, a 71-fold drop, and from 39.23% to 3.91% on ICLR (p < 0.0001 in both datasets). Because the shuffle stayed within journal and category, the drop is not a topic-mismatch artifact; the GPT-4 review really is tailored to the specific paper. [[EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a]]
+
+- **Researchers found GPT-4 feedback useful on their own papers, though most did not call it as helpful as the best human reviewers.** Of 308 surveyed authors, 57.4% rated GPT-4 feedback helpful or very helpful and 82.4% rated it more beneficial than feedback from at least some human reviewers. But only 1.6% rated it more helpful than most humans, and 17.5% rated it less helpful than most humans. Roughly half (50.5%) said they would use the system again. [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers - @liangCanLargeLanguage2024a]]
+
+### Claim supported
+
+These findings support two claims. First, that [[CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]], when given the full paper, GPT-4's per-paper feedback overlaps with a single human reviewer's at roughly the rate two humans overlap with each other. Second, that [[CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]; the 71-fold collapse on shuffling is hard to explain any other way. For someone considering using such a system as a pre-submission review aid, the practical takeaway is more cautious than the headline numbers suggest: GPT-4 covers a comparable share of points to one human, but skews toward research-implications commentary and away from novelty assessment, so it is best read as a complement to human review rather than a replacement.
+
+### Caveats
+
+- **The Nature corpus contains only accepted papers.** GPT-4's overlap is measured against reviews of papers that already passed peer review, which is a high-quality slice of the literature. The full pre-submission feedback loop, where weaker papers might be the ones that most need help, is not tested. [[CVT - The Liang et al study used papers already accepted to journals which may not represent the full quality distribution]]
+
+- **The user-study sample selected itself in.** The 308 survey respondents opted into a tool advertised as LLM scientific feedback, so they likely skew toward researchers already familiar with and favorably disposed toward AI tools. The authors flag this themselves. [[CVT - The Liang et al user study was subject to self-selection bias as participants opted in to receive LLM feedback]]
 
 ## Quality appraisal
 

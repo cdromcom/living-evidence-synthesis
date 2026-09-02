@@ -97,23 +97,8 @@ Can off-the-shelf chatbots judge how trustworthy a medical study is the same way
 
 **Sample.** PubMed search returned candidate diagnostic-accuracy articles, screened for specialty diversity, leaving 10 retained articles spanning seven medical fields (cardiology, gastroenterology, neurology, rheumatology, sleep medicine, vascular surgery, and ophthalmology), plus 2 non-diagnostic control articles handled separately. The unit of analysis is the signaling-question assessment: 10 articles times 11 questions times 4 models equals 440 LLM assessments. Two authors from a medical informatics and biostatistics department served as the human reference raters.
 
-### Findings
 
-- **The four chatbots got about three out of four answers right on average.** Across 110 signaling-question assessments per model, the mean correct rate was 72.95%. Grok 3 led at 77.27% (85/110), followed by ChatGPT 4o at 75.45%, DeepSeek V3 at 71.82%, and Gemini 2.0 Flash at 67.27%. Accuracy varied sharply by QUADAS-2 domain: flow and timing was easiest at 80.63%, while reference standard was hardest at 63.75%. About 3% of "right" answers were actually backed by wrong reasoning, a small but real reminder that matching the verdict does not mean understanding the study. [[EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27% - @leucutaRiskBiasAssessment2025]]
-
-- **The mistakes followed a pattern, not random noise.** In the patient-selection domain, the second-hardest at 65.83%, the models made four recurring kinds of error. They misunderstood "consecutive sampling" inside case-control or subgroup studies, treating it as logically impossible. They drew unjustified inferences from what authors did or did not say, treating silence as proof. They picked one of two contradictory author statements rather than calling the design uninterpretable. And they misjudged whether a study population (for example, "patients with suspected disease") was representative. The models also confused exclusions made when picking patients with exclusions made when running the analysis, which belong in a different QUADAS-2 domain. [[EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design - @leucutaRiskBiasAssessment2025]]
-
-### Claim supported
-
-These findings support the broader claim that [[CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]], and the more specific point that [[CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]. For someone considering plugging an off-the-shelf chatbot into a systematic-review workflow, the message is: a 73% mean accuracy with systematic blind spots on study-design judgment is not safe to run unsupervised. These tools could realistically pre-screen or assist a human reviewer, but every domain-level verdict still needs a methodologist to check.
-
-### Caveats
-
-- **Only one prompt was tested across all four models.** The authors deliberately used a single, simple prompt to mimic a non-expert user, with no per-model tuning. Better prompts almost certainly would lift accuracy, so the 67–77% range is best read as a floor rather than a ceiling. [[CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment]]
-
-- **Only the free public web versions of each chatbot were tested.** Paid tiers, API access, and newer model snapshots may behave differently. The numbers reflect what a typical clinician-researcher with a free account would see, not the frontier of each vendor's stack. [[CVT - Only publicly available web-based LLM interfaces were used rather than APIs potentially missing superior performance of paid or fine-tuned model versions]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -145,6 +130,22 @@ flowchart TD
     class L,N,O result;
 ```
 ---
+
+### Findings
+
+- **The four chatbots got about three out of four answers right on average.** Across 110 signaling-question assessments per model, the mean correct rate was 72.95%. Grok 3 led at 77.27% (85/110), followed by ChatGPT 4o at 75.45%, DeepSeek V3 at 71.82%, and Gemini 2.0 Flash at 67.27%. Accuracy varied sharply by QUADAS-2 domain: flow and timing was easiest at 80.63%, while reference standard was hardest at 63.75%. About 3% of "right" answers were actually backed by wrong reasoning, a small but real reminder that matching the verdict does not mean understanding the study. [[EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27% - @leucutaRiskBiasAssessment2025]]
+
+- **The mistakes followed a pattern, not random noise.** In the patient-selection domain, the second-hardest at 65.83%, the models made four recurring kinds of error. They misunderstood "consecutive sampling" inside case-control or subgroup studies, treating it as logically impossible. They drew unjustified inferences from what authors did or did not say, treating silence as proof. They picked one of two contradictory author statements rather than calling the design uninterpretable. And they misjudged whether a study population (for example, "patients with suspected disease") was representative. The models also confused exclusions made when picking patients with exclusions made when running the analysis, which belong in a different QUADAS-2 domain. [[EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design - @leucutaRiskBiasAssessment2025]]
+
+### Claim supported
+
+These findings support the broader claim that [[CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]], and the more specific point that [[CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]. For someone considering plugging an off-the-shelf chatbot into a systematic-review workflow, the message is: a 73% mean accuracy with systematic blind spots on study-design judgment is not safe to run unsupervised. These tools could realistically pre-screen or assist a human reviewer, but every domain-level verdict still needs a methodologist to check.
+
+### Caveats
+
+- **Only one prompt was tested across all four models.** The authors deliberately used a single, simple prompt to mimic a non-expert user, with no per-model tuning. Better prompts almost certainly would lift accuracy, so the 67–77% range is best read as a floor rather than a ceiling. [[CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment]]
+
+- **Only the free public web versions of each chatbot were tested.** Paid tiers, API access, and newer model snapshots may behave differently. The numbers reflect what a typical clinician-researcher with a free account would see, not the frontier of each vendor's stack. [[CVT - Only publicly available web-based LLM interfaces were used rather than APIs potentially missing superior performance of paid or fine-tuned model versions]]
 
 ## Quality appraisal
 

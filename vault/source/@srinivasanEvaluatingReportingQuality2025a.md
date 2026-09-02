@@ -96,25 +96,8 @@ How well do randomized clinical trials report the design choices that readers ne
 
 **Sample.** The authors searched PubMed for human-subjects RCTs available as open-access full text, identified 53,137 candidate trials, and successfully obtained PDFs for 21,041 articles (a roughly 40% loss). All 21,041 articles became the unit of analysis for the large-scale phase. Articles spanned four periods: 1966–1990 (n=2,771), 1990–2000 (n=1,969), 2000–2010 (n=3,765), and 2010–2024 (n=10,447). A 1,790-article subset was further enriched with trial-design metadata from ClinicalTrials.gov.
 
-### Findings
 
-- **The cheap small model matched the big one.** All three GPT models beat the prior state-of-the-art on CONSORT-TM by more than 40 percentage points on F1 (F1 runs from 0 to 1; higher is better; it balances precision and recall). GPT-4-turbo led with F1 = 0.89, while GPT-4o-mini matched GPT-4o at F1 = 0.85 with the highest precision of the three (0.96, meaning when it says an item is MET, it is right 96% of the time). When the authors restricted to the model's High-confidence predictions, GPT-4o-mini reached F1 = 0.95. Four human experts agreed with GPT-4o-mini's outputs on 92% of cases (83% Correct plus 9% Partially correct). [[EVD - GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent - @srinivasanEvaluatingReportingQuality2025a]]
-
-- **Reporting has improved a lot, but still falls short.** Across 21,041 trials, the share of CONSORT items reported per article climbed from 27.3% in 1966–1990 to 56.1% in 2010–2024. Each consecutive period beat the last by a wide margin (relative gains of 24%, 33%, and 25%; all p < 0.0001, meaning the differences are extremely unlikely to be chance). Even so, the most recent period sits below 60%, meaning a typical modern trial still leaves out four of every ten checklist items. [[EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs - @srinivasanEvaluatingReportingQuality2025a]]
-
-- **The most reproducibility-critical items are the most missing.** Only 9.7% of trials described how the random sequence was generated, only 15.25% described how that sequence was concealed from researchers (allocation concealment, the safeguard against rigging which patient gets which treatment), and only 2.22% told readers where to find the trial protocol. By contrast, more than 95% of articles reported the scientific background. The items that matter most for judging whether a trial's results are trustworthy are the items authors leave out most often. [[EVD - Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs - @srinivasanEvaluatingReportingQuality2025a]]
-
-- **Reporting quality varies sharply by specialty.** The best-reporting field (urology and nephrology, 63.35% of items met) reports nearly twice as many checklist items as the worst (pharmacology, 35.16%). Critical care (62.27%) and gastroenterology and hepatology (60.28%) sit near the top; radiology (40.46%) and pharmacology sit at the bottom. The 28-percentage-point spread suggests that journal-level editorial culture, not the underlying trial science, drives much of the difference. [[EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology - @srinivasanEvaluatingReportingQuality2025a]]
-
-### Claim supported
-
-These findings together support two claims: that an off-the-shelf small language model can score trial reporting against a 25-item checklist accurately enough to deploy at scale ([[CLM - LLMs can achieve state-of-the-art CONSORT compliance assessment performance through zero-shot prompting at scale]]), and that decades of CONSORT-driven progress have not closed the gap on the items that matter most for trial credibility ([[CLM - RCT reporting quality has improved substantially over decades but critical methodological gaps persist across all disciplines]]). For someone considering deploying this kind of tool (say, a journal that wants to flag missing CONSORT items at submission) a precision of 0.96 on the High-confidence subset is plausibly good enough for a "warn the author" workflow, but the 8% Partially-correct and 8% Incorrect rates from the human audit mean a hard reject decision should still go through a human.
-
-### Caveats
-
-- **The corpus is open-access only and checks presence, not accuracy.** The 21,041-article corpus is restricted to PubMed open-access PDFs, which over-represent certain journals and disciplines. The model also asks "is this CONSORT item mentioned?" rather than "is the mention accurate or complete?", so a one-sentence randomization claim with no detail counts the same as a thorough description. [[CVT - CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -144,6 +127,24 @@ flowchart TD
     class P result;
 ```
 ---
+
+### Findings
+
+- **The cheap small model matched the big one.** All three GPT models beat the prior state-of-the-art on CONSORT-TM by more than 40 percentage points on F1 (F1 runs from 0 to 1; higher is better; it balances precision and recall). GPT-4-turbo led with F1 = 0.89, while GPT-4o-mini matched GPT-4o at F1 = 0.85 with the highest precision of the three (0.96, meaning when it says an item is MET, it is right 96% of the time). When the authors restricted to the model's High-confidence predictions, GPT-4o-mini reached F1 = 0.95. Four human experts agreed with GPT-4o-mini's outputs on 92% of cases (83% Correct plus 9% Partially correct). [[EVD - GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent - @srinivasanEvaluatingReportingQuality2025a]]
+
+- **Reporting has improved a lot, but still falls short.** Across 21,041 trials, the share of CONSORT items reported per article climbed from 27.3% in 1966–1990 to 56.1% in 2010–2024. Each consecutive period beat the last by a wide margin (relative gains of 24%, 33%, and 25%; all p < 0.0001, meaning the differences are extremely unlikely to be chance). Even so, the most recent period sits below 60%, meaning a typical modern trial still leaves out four of every ten checklist items. [[EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs - @srinivasanEvaluatingReportingQuality2025a]]
+
+- **The most reproducibility-critical items are the most missing.** Only 9.7% of trials described how the random sequence was generated, only 15.25% described how that sequence was concealed from researchers (allocation concealment, the safeguard against rigging which patient gets which treatment), and only 2.22% told readers where to find the trial protocol. By contrast, more than 95% of articles reported the scientific background. The items that matter most for judging whether a trial's results are trustworthy are the items authors leave out most often. [[EVD - Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs - @srinivasanEvaluatingReportingQuality2025a]]
+
+- **Reporting quality varies sharply by specialty.** The best-reporting field (urology and nephrology, 63.35% of items met) reports nearly twice as many checklist items as the worst (pharmacology, 35.16%). Critical care (62.27%) and gastroenterology and hepatology (60.28%) sit near the top; radiology (40.46%) and pharmacology sit at the bottom. The 28-percentage-point spread suggests that journal-level editorial culture, not the underlying trial science, drives much of the difference. [[EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology - @srinivasanEvaluatingReportingQuality2025a]]
+
+### Claim supported
+
+These findings together support two claims: that an off-the-shelf small language model can score trial reporting against a 25-item checklist accurately enough to deploy at scale ([[CLM - LLMs can achieve state-of-the-art CONSORT compliance assessment performance through zero-shot prompting at scale]]), and that decades of CONSORT-driven progress have not closed the gap on the items that matter most for trial credibility ([[CLM - RCT reporting quality has improved substantially over decades but critical methodological gaps persist across all disciplines]]). For someone considering deploying this kind of tool (say, a journal that wants to flag missing CONSORT items at submission) a precision of 0.96 on the High-confidence subset is plausibly good enough for a "warn the author" workflow, but the 8% Partially-correct and 8% Incorrect rates from the human audit mean a hard reject decision should still go through a human.
+
+### Caveats
+
+- **The corpus is open-access only and checks presence, not accuracy.** The 21,041-article corpus is restricted to PubMed open-access PDFs, which over-represent certain journals and disciplines. The model also asks "is this CONSORT item mentioned?" rather than "is the mention accurate or complete?", so a one-sentence randomization claim with no detail counts the same as a thorough description. [[CVT - CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements]]
 
 ## Quality appraisal
 

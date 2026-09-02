@@ -137,25 +137,8 @@ Can today's large language models (LLMs) actually do the hard parts of an AI res
 
 **Sample.** EQINFER ends up with 1,049 positive plus 3,147 negative equations from 869 source papers (4,196 instances). EXPDESIGN keeps 100 papers, with about 5.7 experiments each, hand-curated by 10 senior PhD experts via a multi-round bidding-and-discussion process. PAPERWEAKNESS samples 1,000 ICLR 2023 papers (500 accepted, 500 rejected) balanced across 13 tracks, then drops papers without extracted weaknesses to land on 993 instances, each carrying about 3.8 reviewers and 4.8 weaknesses per reviewer. REVIEWCRITIQUE inherits 11,376 review segments from 380 reviews of 100 ICLR papers, labeled by 40+ AI-research experts in Du et al. 2024.
 
-### Findings
 
-- **Closed-source models lead the deficient-segment task. Absolute accuracy is dismal.** On REVIEWCRITIQUE, the best system (Claude Opus with the "Either No" ensemble) hits an F1 of just 21.99% on flagging deficient review segments: F1 runs from 0 to 100 and higher is better. Recall (42.12%) far exceeds precision (16.94%), meaning the model raises the alarm too often and is right less than one time in five. GPT-4 and Gemini 1.5 land at 20.66% and 20.34%; the best open-source model (Llama3-70B) reaches 18.43%. Across the board, the LLMs over-predict deficiency. [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
-
-- **LLM-written weaknesses are vague compared to real reviewer weaknesses.** Human reviewers score 7.69 on the authors' diversity metric ITF-IDF: higher means weaknesses are both informative inside a paper and specific across papers. The best LLM, GPT-4o, scores only 5.95, and weaker open-source systems land between 0.98 and 2.60. Surface-level overlap with reviewer weaknesses is similar across LLMs (S-F1 around 42 to 49 out of 100), so the gap is not about wording; it is about depth. The AI-SCI agent framework on top of GPT-4o makes things worse, dropping ITF-IDF to 2.23. [[EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task - @louAAAR10AssessingAIs2025]]
-
-- **On equation correctness, the best model barely beats a "say yes to everything" baseline.** A trivial baseline that predicts every candidate equation as correct scores 40% F1 because the dataset is 1-to-3 positives-to-negatives. The best LLM, o3-mini, reaches only 47.98% F1, about 8 points above the baseline. Most open-source models cannot beat the baseline at all; Mixtral's 40.90% F1 comes from predicting almost everything as positive (recall 93.80%, precision 26.15%). Adding context length from 100 to 1,500 words barely moves performance. [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
-
-### Claim supported
-
-These findings collectively support [[CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]] and the narrower [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]. For someone considering deploying an LLM as a co-reviewer at a venue like ICLR, the practical message is blunt: even the strongest closed-source model misses roughly 4 in 5 deficient review segments and writes weaknesses that are noticeably less specific than those of an actual reviewer. AI-assisted reviewing may be a useful drafting aid, but it is not a substitute for a careful human read.
-
-### Caveats
-
-- **Benchmark papers may already be in the models' training data.** The papers come from arXiv and OpenReview, both public crawl targets. Any LLM that already saw these papers during pretraining could be remembering rather than reasoning, which inflates the headline numbers. [[CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
-
-- **Equations and experiments are evaluated as text only: no figures or rendered tables.** EQINFER and EXPDESIGN feed the LLM raw LaTeX source with no rendered figures, so weaknesses that hinge on a chart, a missing axis, or a visual inconsistency cannot be flagged. The PAPERWEAKNESS task does include figures, but the equation and experiment-design results are blind to non-textual content. [[CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -187,6 +170,24 @@ flowchart TD
     class H result;
 ```
 ---
+
+### Findings
+
+- **Closed-source models lead the deficient-segment task. Absolute accuracy is dismal.** On REVIEWCRITIQUE, the best system (Claude Opus with the "Either No" ensemble) hits an F1 of just 21.99% on flagging deficient review segments: F1 runs from 0 to 100 and higher is better. Recall (42.12%) far exceeds precision (16.94%), meaning the model raises the alarm too often and is right less than one time in five. GPT-4 and Gemini 1.5 land at 20.66% and 20.34%; the best open-source model (Llama3-70B) reaches 18.43%. Across the board, the LLMs over-predict deficiency. [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
+
+- **LLM-written weaknesses are vague compared to real reviewer weaknesses.** Human reviewers score 7.69 on the authors' diversity metric ITF-IDF: higher means weaknesses are both informative inside a paper and specific across papers. The best LLM, GPT-4o, scores only 5.95, and weaker open-source systems land between 0.98 and 2.60. Surface-level overlap with reviewer weaknesses is similar across LLMs (S-F1 around 42 to 49 out of 100), so the gap is not about wording; it is about depth. The AI-SCI agent framework on top of GPT-4o makes things worse, dropping ITF-IDF to 2.23. [[EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task - @louAAAR10AssessingAIs2025]]
+
+- **On equation correctness, the best model barely beats a "say yes to everything" baseline.** A trivial baseline that predicts every candidate equation as correct scores 40% F1 because the dataset is 1-to-3 positives-to-negatives. The best LLM, o3-mini, reaches only 47.98% F1, about 8 points above the baseline. Most open-source models cannot beat the baseline at all; Mixtral's 40.90% F1 comes from predicting almost everything as positive (recall 93.80%, precision 26.15%). Adding context length from 100 to 1,500 words barely moves performance. [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
+
+### Claim supported
+
+These findings collectively support [[CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]] and the narrower [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]. For someone considering deploying an LLM as a co-reviewer at a venue like ICLR, the practical message is blunt: even the strongest closed-source model misses roughly 4 in 5 deficient review segments and writes weaknesses that are noticeably less specific than those of an actual reviewer. AI-assisted reviewing may be a useful drafting aid, but it is not a substitute for a careful human read.
+
+### Caveats
+
+- **Benchmark papers may already be in the models' training data.** The papers come from arXiv and OpenReview, both public crawl targets. Any LLM that already saw these papers during pretraining could be remembering rather than reasoning, which inflates the headline numbers. [[CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
+
+- **Equations and experiments are evaluated as text only: no figures or rendered tables.** EQINFER and EXPDESIGN feed the LLM raw LaTeX source with no rendered figures, so weaknesses that hinge on a chart, a missing axis, or a visual inconsistency cannot be flagged. The PAPERWEAKNESS task does include figures, but the equation and experiment-design results are blind to non-textual content. [[CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation]]
 
 ## Quality appraisal
 

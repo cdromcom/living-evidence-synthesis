@@ -92,23 +92,8 @@ Can ChatGPT do the job of a methodologist who checks whether a published abstrac
 
 **Sample.** The authors searched four leading orthodontic journals (AJO-DO, JO, EJO, AO) and confirmed each candidate's design by full-text screening. They then drew a random sample of 20 RCT abstracts and 20 systematic-review abstracts (40 total), with five abstracts per journal per design. The unit of analysis is the abstract. The two human raters were the authors themselves, both from the Department of Pediatric Dentistry at Prince Sattam Bin Abdulaziz University.
 
-### Findings
 
-- **ChatGPT matched humans on the easy CONSORT items but missed the methodological ones.** ChatGPT and human raters agreed perfectly on 6 of 17 CONSORT-A items, title, author details, trial design, interventions per group, objectives, and conclusions. They diverged sharply on two items: ChatGPT said all 20 abstracts reported randomization details (humans said only 11 did, p=0.001) and all 20 reported recruitment details (humans flagged all 20 as Not Applicable, p<0.001). Across 14 of the 17 items, ChatGPT rated more abstracts as "Reported" than humans did, suggesting it tends to over-credit abstracts for items they only partially address. [[EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001) - @alharbiAutomatedAssessmentReporting2024]]
-
-- **The same over-reporting pattern showed up on PRISMA.** ChatGPT and humans agreed perfectly on 3 of 12 PRISMA items, identifying the report as a systematic review, objectives, and interpretation. Only one item showed a significant disagreement: ChatGPT said 18 of 20 abstracts reported their eligibility criteria, while humans said only 12 did (p=0.028, unlikely to be chance). On 9 of 12 items, ChatGPT marked at least as many abstracts "Reported" as humans did. On funding, ChatGPT credited 6 of 20 abstracts versus humans' 1 of 20, a six-fold gap on a checkable factual item, though the difference fell just short of statistical significance (p=0.091). [[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028) - @alharbiAutomatedAssessmentReporting2024]]
-
-### Claim supported
-
-These findings support two related claims: that [[CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]], and more broadly that [[CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]. For anyone considering ChatGPT as a screening tool: the model is reasonable for surface checks like "does the title say randomized?" but unreliable for the items that matter most in methodological appraisal, like whether randomization is actually described or whether eligibility criteria are spelled out.
-
-### Caveats
-
-- **Only one model and one access route were tested.** The authors used ChatGPT 3.5 through the free chat interface on a single date, with no API access, no temperature control, and no comparison to GPT-4 or other LLMs. The findings describe the behavior of one consumer product at one moment in time, not LLMs in general. [[CVT - Only a single LLM version was tested via free chat GUI rather than API limiting reproducibility and prompt control]]
-
-- **The sample is small and narrow.** Twenty RCT abstracts and twenty systematic-review abstracts from four orthodontic journals do not give enough statistical power to detect moderate disagreements on most items, and the orthodontics-only scope limits how far the findings generalize to other medical fields. [[CVT - The small sample of 20 RCTs and 20 systematic reviews limited statistical power to detect differences in checklist item performance]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -135,6 +120,22 @@ flowchart TD
     class K result;
 ```
 ---
+
+### Findings
+
+- **ChatGPT matched humans on the easy CONSORT items but missed the methodological ones.** ChatGPT and human raters agreed perfectly on 6 of 17 CONSORT-A items, title, author details, trial design, interventions per group, objectives, and conclusions. They diverged sharply on two items: ChatGPT said all 20 abstracts reported randomization details (humans said only 11 did, p=0.001) and all 20 reported recruitment details (humans flagged all 20 as Not Applicable, p<0.001). Across 14 of the 17 items, ChatGPT rated more abstracts as "Reported" than humans did, suggesting it tends to over-credit abstracts for items they only partially address. [[EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001) - @alharbiAutomatedAssessmentReporting2024]]
+
+- **The same over-reporting pattern showed up on PRISMA.** ChatGPT and humans agreed perfectly on 3 of 12 PRISMA items, identifying the report as a systematic review, objectives, and interpretation. Only one item showed a significant disagreement: ChatGPT said 18 of 20 abstracts reported their eligibility criteria, while humans said only 12 did (p=0.028, unlikely to be chance). On 9 of 12 items, ChatGPT marked at least as many abstracts "Reported" as humans did. On funding, ChatGPT credited 6 of 20 abstracts versus humans' 1 of 20, a six-fold gap on a checkable factual item, though the difference fell just short of statistical significance (p=0.091). [[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028) - @alharbiAutomatedAssessmentReporting2024]]
+
+### Claim supported
+
+These findings support two related claims: that [[CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]], and more broadly that [[CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]. For anyone considering ChatGPT as a screening tool: the model is reasonable for surface checks like "does the title say randomized?" but unreliable for the items that matter most in methodological appraisal, like whether randomization is actually described or whether eligibility criteria are spelled out.
+
+### Caveats
+
+- **Only one model and one access route were tested.** The authors used ChatGPT 3.5 through the free chat interface on a single date, with no API access, no temperature control, and no comparison to GPT-4 or other LLMs. The findings describe the behavior of one consumer product at one moment in time, not LLMs in general. [[CVT - Only a single LLM version was tested via free chat GUI rather than API limiting reproducibility and prompt control]]
+
+- **The sample is small and narrow.** Twenty RCT abstracts and twenty systematic-review abstracts from four orthodontic journals do not give enough statistical power to detect moderate disagreements on most items, and the orthodontics-only scope limits how far the findings generalize to other medical fields. [[CVT - The small sample of 20 RCTs and 20 systematic reviews limited statistical power to detect differences in checklist item performance]]
 
 ## Quality appraisal
 

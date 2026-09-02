@@ -93,21 +93,8 @@ Can a team of language-model "agents" that talk to each other write better feedb
 
 **Sample.** The automated benchmark used 30 papers from the ARIES corpus, picked because GPT could extract real reviewer comments for them. The user study recruited 9 NLP and HCI researchers from one large research organization, all of whom completed the task. Each participant rated about 17 comments per method across 3 methods, producing roughly 333 rated comments. The unit of analysis is the comment for benchmark and rating models, the review for length and helpfulness ratings, and the paper for some aggregate counts.
 
-### Findings
 
-- **MARG-S beat the prior state-of-the-art on automatic recall.** MARG-S scored a recall of 15.84 on the ARIES benchmark, beating the previous best (LiZCa at 9.67) by 6.17 points (recall is the share of real reviewer comments the system reproduced; higher is better). Precision dropped though, because MARG-S generates roughly five times as many comments as LiZCa (19.8 vs. 4.0 per paper), so its pseudo-Jaccard score (3.53) trailed LiZCa's (5.58). The authors argue recall matters more in practice because users can filter out bad comments, but high comment volume may overwhelm authors. [[EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus - @darcyMARGMultiAgentReview2024]]
-
-- **Real users rated MARG-S more than twice as helpful as the single-agent baseline.** Across 9 participants reviewing their own papers, MARG-S produced 3.7 "good" comments per review compared to 1.7 for the single-agent SARG-B baseline and 0.3 for LiZCa. MARG-S also slashed the share of generic comments from about 60 percent (SARG-B) down to 29 percent. The good-comment gap over SARG-B was significant per-comment (Barnard's exact test, p=0.02, unlikely to be chance) but not significant per-user (paired t-test, p=0.12, could plausibly be chance with only 9 raters). The MARG-S share of "very specific" comments was 39.0 percent vs. 11.7 percent for SARG-B (p=0.002, very unlikely to be chance). [[EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline - @darcyMARGMultiAgentReview2024]]
-
-### Claim supported
-
-These findings together support the claim that [[CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]. For someone considering an LLM review-helper today, MARG-S offers a clear quality lift over a one-shot prompt, but it costs about 1.24 million input tokens per paper (roughly 167x LiZCa) and 6 of 9 users called its reviews "way too long", so the practical question is whether downstream filtering or summarization can keep that quality lift without burying authors in comments.
-
-### Caveats
-
-- **The automated metric is a lower bound, not a truth.** The benchmark scores generated comments by overlap with real human reviewer comments, but real reviewers miss valid critiques and sometimes raise unreasonable ones. A generated comment can be genuinely useful yet score zero because no human reviewer happened to write the same thing. [[CVT - The MARG automated evaluation used overlap-based matching which is an imperfect proxy for review quality]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -141,6 +128,20 @@ flowchart TD
     class E1,E2,R,R2 result;
 ```
 ---
+
+### Findings
+
+- **MARG-S beat the prior state-of-the-art on automatic recall.** MARG-S scored a recall of 15.84 on the ARIES benchmark, beating the previous best (LiZCa at 9.67) by 6.17 points (recall is the share of real reviewer comments the system reproduced; higher is better). Precision dropped though, because MARG-S generates roughly five times as many comments as LiZCa (19.8 vs. 4.0 per paper), so its pseudo-Jaccard score (3.53) trailed LiZCa's (5.58). The authors argue recall matters more in practice because users can filter out bad comments, but high comment volume may overwhelm authors. [[EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus - @darcyMARGMultiAgentReview2024]]
+
+- **Real users rated MARG-S more than twice as helpful as the single-agent baseline.** Across 9 participants reviewing their own papers, MARG-S produced 3.7 "good" comments per review compared to 1.7 for the single-agent SARG-B baseline and 0.3 for LiZCa. MARG-S also slashed the share of generic comments from about 60 percent (SARG-B) down to 29 percent. The good-comment gap over SARG-B was significant per-comment (Barnard's exact test, p=0.02, unlikely to be chance) but not significant per-user (paired t-test, p=0.12, could plausibly be chance with only 9 raters). The MARG-S share of "very specific" comments was 39.0 percent vs. 11.7 percent for SARG-B (p=0.002, very unlikely to be chance). [[EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline - @darcyMARGMultiAgentReview2024]]
+
+### Claim supported
+
+These findings together support the claim that [[CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]. For someone considering an LLM review-helper today, MARG-S offers a clear quality lift over a one-shot prompt, but it costs about 1.24 million input tokens per paper (roughly 167x LiZCa) and 6 of 9 users called its reviews "way too long", so the practical question is whether downstream filtering or summarization can keep that quality lift without burying authors in comments.
+
+### Caveats
+
+- **The automated metric is a lower bound, not a truth.** The benchmark scores generated comments by overlap with real human reviewer comments, but real reviewers miss valid critiques and sometimes raise unreasonable ones. A generated comment can be genuinely useful yet score zero because no human reviewer happened to write the same thing. [[CVT - The MARG automated evaluation used overlap-based matching which is an imperfect proxy for review quality]]
 
 ## Quality appraisal
 

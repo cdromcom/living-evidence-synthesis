@@ -87,25 +87,8 @@ Can an LLM-powered review agent (built with memory, persona, and novelty modules
 
 **Sample.** The authors start with the ICLR 2023 OpenReview dataset of 3,797 papers, each with at least 3 reviews. They sample 1,000 papers per dataset as the evaluation set across three corpora (ICLR 2023, ICLR 2022, and NeurIPS 2023) for a total of 3,000 evaluation papers. The remaining ~2,797 ICLR 23 reviews bootstrap the memory module. The preference task uses a smaller subset of 200 papers with two reviewer types randomly assigned per paper. Five expert human evaluators replicate the preference task; their backgrounds and recruitment are not described.
 
-### Findings
 
-- **GAR beats human reviewers on accept/reject prediction.** GAR scored F1 = 0.66 on ICLR 2023 (F1 runs from 0 to 1; higher is better; it balances precision and recall). The human reviewer baseline from the NeurIPS 2023 consistency study was F1 = 0.49. The threshold-based variant GAR^> climbed to F1 = 0.69 on ICLR 23. The next-best LLM baseline (AI-Scientist) reached only 0.54. GAR's lead over the human baseline held at p<0.002 across all three datasets. [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
-
-- **GAR also wins the head-to-head preference contest.** GPT-4o, acting as judge, picked GAR's review over the alternative more often than any other reviewer, yielding a Bradley-Terry coefficient of 0.684, ahead of human reviewers at 0.523. GAR won 56% of direct matchups against humans, 80% against OpenReviewer, and 77% against AI-Review. When five human experts replaced GPT-4o as judge, the GAR > Human ordering held (0.143 vs 0.112), though the absolute scores compress. [[EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation - @bougieGenerativeAdversarialReviews2024a]]
-
-- **GAR reviews read as the most human-like.** On a 1-to-5 Likert scale where 5 means "reads like a human reviewer", GAR scored 3.89 to 4.02 across the three datasets, significantly higher than every LLM baseline at p<0.05. AI-Scientist sat near 3.4, ReviewerGPT and AI-Review near 3.3, and OpenReviewer trailed at 2.4. Swapping GAR's backbone to the larger GPT-4o pushed the score to 4.11 on ICLR 23; open-weight backbones (Llama-3.1, Mistral) landed in the 3.6 range. [[EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines - @bougieGenerativeAdversarialReviews2024a]]
-
-### Claim supported
-
-These findings collectively support [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]. For someone considering using GAR in practice, the takeaway is cautious: GAR is the strongest reviewer-agent benchmark to date, but the headline numbers depend on a same-family LLM acting as judge, and the evaluation conferences likely overlap with the underlying model's pretraining data. The authors themselves frame GAR as augmentation, not replacement, of human reviewers.
-
-### Caveats
-
-- **Test papers may live inside the LLM's training data.** ICLR 2022 and 2023 papers are widely circulated preprints that almost certainly appeared in GPT-4o's pretraining corpus. The model may be recognizing rather than reviewing, inflating accept/reject F1 and human-likeness scores. [[CVT - Evaluated papers may have been present in LLM training data introducing potential contamination bias in GAR performance estimates]]
-
-- **The judge and the contestant are the same model family.** GAR's reviewer agents run on GPT-4o-mini and the automated evaluator is GPT-4o. LLM judges tend to favor outputs that match their own style, so GAR's Bradley-Terry lead and human-likeness lead may partly reflect in-family preference bias rather than genuine quality. The five-human replication mitigates this for the preference task only. [[CVT - GPT-4 was used as both reviewer backbone and preference evaluator introducing circular evaluation in the GAR preference ranking experiment]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -133,6 +116,24 @@ flowchart TD
     class I,J,K,L result;
 ```
 ---
+
+### Findings
+
+- **GAR beats human reviewers on accept/reject prediction.** GAR scored F1 = 0.66 on ICLR 2023 (F1 runs from 0 to 1; higher is better; it balances precision and recall). The human reviewer baseline from the NeurIPS 2023 consistency study was F1 = 0.49. The threshold-based variant GAR^> climbed to F1 = 0.69 on ICLR 23. The next-best LLM baseline (AI-Scientist) reached only 0.54. GAR's lead over the human baseline held at p<0.002 across all three datasets. [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
+
+- **GAR also wins the head-to-head preference contest.** GPT-4o, acting as judge, picked GAR's review over the alternative more often than any other reviewer, yielding a Bradley-Terry coefficient of 0.684, ahead of human reviewers at 0.523. GAR won 56% of direct matchups against humans, 80% against OpenReviewer, and 77% against AI-Review. When five human experts replaced GPT-4o as judge, the GAR > Human ordering held (0.143 vs 0.112), though the absolute scores compress. [[EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation - @bougieGenerativeAdversarialReviews2024a]]
+
+- **GAR reviews read as the most human-like.** On a 1-to-5 Likert scale where 5 means "reads like a human reviewer", GAR scored 3.89 to 4.02 across the three datasets, significantly higher than every LLM baseline at p<0.05. AI-Scientist sat near 3.4, ReviewerGPT and AI-Review near 3.3, and OpenReviewer trailed at 2.4. Swapping GAR's backbone to the larger GPT-4o pushed the score to 4.11 on ICLR 23; open-weight backbones (Llama-3.1, Mistral) landed in the 3.6 range. [[EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines - @bougieGenerativeAdversarialReviews2024a]]
+
+### Claim supported
+
+These findings collectively support [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]. For someone considering using GAR in practice, the takeaway is cautious: GAR is the strongest reviewer-agent benchmark to date, but the headline numbers depend on a same-family LLM acting as judge, and the evaluation conferences likely overlap with the underlying model's pretraining data. The authors themselves frame GAR as augmentation, not replacement, of human reviewers.
+
+### Caveats
+
+- **Test papers may live inside the LLM's training data.** ICLR 2022 and 2023 papers are widely circulated preprints that almost certainly appeared in GPT-4o's pretraining corpus. The model may be recognizing rather than reviewing, inflating accept/reject F1 and human-likeness scores. [[CVT - Evaluated papers may have been present in LLM training data introducing potential contamination bias in GAR performance estimates]]
+
+- **The judge and the contestant are the same model family.** GAR's reviewer agents run on GPT-4o-mini and the automated evaluator is GPT-4o. LLM judges tend to favor outputs that match their own style, so GAR's Bradley-Terry lead and human-likeness lead may partly reflect in-family preference bias rather than genuine quality. The five-human replication mitigates this for the preference task only. [[CVT - GPT-4 was used as both reviewer backbone and preference evaluator introducing circular evaluation in the GAR preference ranking experiment]]
 
 ## Quality appraisal
 

@@ -118,19 +118,8 @@ Can a general-purpose chatbot (GPT-4) judge how trustworthy a non-randomised med
 
 **Sample.** The Scopus search returned 98 Cochrane systematic reviews. Of these, 36 included a complete ROBINS-I assessment. After dropping studies that appeared in more than one review, the analytic sample landed at 307 unique non-randomised primary studies. Each study contributed eight ordinal judgments (seven domains plus Overall). The unit of analysis was a single study-by-domain judgment.
 
-### Findings
 
-- **GPT-4 agrees with Cochrane only at a fair level overall.** Across all 307 studies and all eight ROBINS-I judgments, GPT-4 and the Cochrane reviewers landed on the same answer 61% of the time. Kendall's tau (a 0-to-1 correlation where 1 means perfect agreement) was 0.35, which the authors' own scale calls "fair." Weighted Cohen's kappa (another 0-to-1 agreement statistic that adjusts for chance and partial credit on close calls) was much weaker at 0.13, putting it in the "slight" band. Domain-by-domain, raw agreement ranged from 31% on D4 (deviations from intended interventions) up to 71% on D3 (classification of interventions). Confounding (D1) was where GPT-4 struggled most, agreeing only 47% of the time. [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
-
-### Claim supported
-
-These findings support two related claims. The headline result, fair-to-moderate agreement that varies sharply by domain, backs [[CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]. The authors' practical response to that result, a four-part framework covering rationale, protocol, execution, and reporting for LLM use in reviews, backs [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]. For someone weighing whether to plug GPT-4 into a real Cochrane workflow, the message is simple: today, GPT-4 can serve as one independent reviewer alongside a human, but it cannot replace the human. The authors say so directly, "pairing artificial intelligence with an independent human reviewer remains required at present."
-
-### Caveats
-
-- **The prompts and data-entry steps were tuned on the fly.** The authors openly state their prompt wording and the Word-paste workflow were refined iteratively until the system produced "sensical output," with no pre-registration. That means the reported 61% agreement may reflect a polished, optimised pipeline rather than typical zero-shot performance, and someone trying to replicate it from scratch could land on different numbers. [[CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -159,6 +148,18 @@ flowchart TD
     class N result;
 ```
 ---
+
+### Findings
+
+- **GPT-4 agrees with Cochrane only at a fair level overall.** Across all 307 studies and all eight ROBINS-I judgments, GPT-4 and the Cochrane reviewers landed on the same answer 61% of the time. Kendall's tau (a 0-to-1 correlation where 1 means perfect agreement) was 0.35, which the authors' own scale calls "fair." Weighted Cohen's kappa (another 0-to-1 agreement statistic that adjusts for chance and partial credit on close calls) was much weaker at 0.13, putting it in the "slight" band. Domain-by-domain, raw agreement ranged from 31% on D4 (deviations from intended interventions) up to 71% on D3 (classification of interventions). Confounding (D1) was where GPT-4 struggled most, agreeing only 47% of the time. [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
+
+### Claim supported
+
+These findings support two related claims. The headline result, fair-to-moderate agreement that varies sharply by domain, backs [[CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]. The authors' practical response to that result, a four-part framework covering rationale, protocol, execution, and reporting for LLM use in reviews, backs [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]. For someone weighing whether to plug GPT-4 into a real Cochrane workflow, the message is simple: today, GPT-4 can serve as one independent reviewer alongside a human, but it cannot replace the human. The authors say so directly, "pairing artificial intelligence with an independent human reviewer remains required at present."
+
+### Caveats
+
+- **The prompts and data-entry steps were tuned on the fly.** The authors openly state their prompt wording and the Word-paste workflow were refined iteratively until the system produced "sensical output," with no pre-registration. That means the reported 61% agreement may reflect a polished, optimised pipeline rather than typical zero-shot performance, and someone trying to replicate it from scratch could land on different numbers. [[CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability]]
 
 ## Quality appraisal
 

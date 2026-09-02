@@ -117,23 +117,8 @@ Can a large language model write peer reviews of machine-learning papers that ar
 
 **Sample.** The source pool spans ICLR 2024 (7,404 papers), ICLR 2023 (4,955), NeurIPS 2023 (12,345), NeurIPS 2022 (10,411), plus 16 open-access Nature titles. From this pool the authors sampled 150 papers for Reviewer Arena, each judged by 2 of 5 reviewers under the eyes of 5 expert human evaluators. The blind rubric sub-study used a 5% random subset of those 150 papers, roughly 7 to 8 papers, scored by 1 ICLR 2023 reviewer plus GPT-4.
 
-### Findings
 
-- **GPT-4 Turbo edged out humans in head-to-head review preference.** Across 150 papers and 5 expert judges, GPT-4 Turbo took rank 1 with a Bradley-Terry score of 0.558, ahead of the human OpenReview reviewer at 0.501. Command R+ came third (0.277), Claude 3 Opus fourth (0.000, the reference anchor), and Gemini Pro last (-0.522). When GPT-4 Turbo itself acted as the judge instead of humans, it still ranked itself first (0.179) but the gap to humans collapsed to 0.060 BT points, and the weaker models reordered substantially. [[EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558 - @tyserAIDrivenReviewSystems2024]]
-
-- **Adding area-chair guidelines is what makes GPT-4's scores match humans.** Without venue-specific stringency context, GPT-4 graded papers far too generously: human mean recommendation was 5.88 ± 1.61; GPT-4 with just paper text plus the review form (P1) averaged 7.21, and adding the reviewer guide (P2) and ethics codes (P3) pushed it slightly higher to 7.58 and 7.62. Only when the area-chair guidelines were added (P4) did the LLM swing to 4.61, now too stringent. The full P5 bundle (adding prior-year statistics) settled at 5.36, within roughly half a point of the human average. The Confidence dimension, however, stayed skewed higher than human even at P5. [[EVD - LLM review recommendation scores exceeded human scores without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024]]
-
-- **Humans rated GPT-4 P5 reviews as comparable to human reviews on a rubric.** On a 0-to-5 rubric covering whether a review explains its score, guides authors to improve, and contains paper-specific content, the human evaluator rated human-written reviews at 4.80 / 4.66 / 4.53 and GPT-4 P5 reviews at 4.76 / 4.79 / 4.68, statistically indistinguishable on a 7-to-8 paper sample. But when GPT-4 was the evaluator, it scored its own reviews higher (4.65) than human reviews (4.27) on the score-explanation question, a sign of self-enhancement bias. A confusion-matrix check showed the LLM was more prone to false-rejects than false-accepts: 22 papers the LLM rated 4 or below were actually rated 6 or above by humans, versus only 8 the other way. [[EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria - @tyserAIDrivenReviewSystems2024]]
-
-### Claim supported
-
-These findings collectively support the claim that [[CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]. The practical caveat is that the comparability hinges almost entirely on the prompt: the LLM is over-generous out of the box, and only the carefully assembled venue-specific bundle of area-chair guidelines plus prior-year score statistics drags its calibration into the human range. A journal or conference deploying this would need to maintain those documents annually, and a 5-judge preference signal on 150 papers is a thin reed for the "as good as humans" headline.
-
-### Caveats
-
-- **The match-to-human result depends on yearly-updated venue documents and biased preference judgments.** The P5 context bundle relies on area-chair guidelines, codes of ethics, and prior-year statistics that each conference rewrites annually, so the calibration will drift. And human pairwise preferences are known to favor verbose, confident, and self-similar text, biases the authors only partially correct for. [[CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -161,6 +146,22 @@ flowchart TD
     class L result;
 ```
 ---
+
+### Findings
+
+- **GPT-4 Turbo edged out humans in head-to-head review preference.** Across 150 papers and 5 expert judges, GPT-4 Turbo took rank 1 with a Bradley-Terry score of 0.558, ahead of the human OpenReview reviewer at 0.501. Command R+ came third (0.277), Claude 3 Opus fourth (0.000, the reference anchor), and Gemini Pro last (-0.522). When GPT-4 Turbo itself acted as the judge instead of humans, it still ranked itself first (0.179) but the gap to humans collapsed to 0.060 BT points, and the weaker models reordered substantially. [[EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558 - @tyserAIDrivenReviewSystems2024]]
+
+- **Adding area-chair guidelines is what makes GPT-4's scores match humans.** Without venue-specific stringency context, GPT-4 graded papers far too generously: human mean recommendation was 5.88 ± 1.61; GPT-4 with just paper text plus the review form (P1) averaged 7.21, and adding the reviewer guide (P2) and ethics codes (P3) pushed it slightly higher to 7.58 and 7.62. Only when the area-chair guidelines were added (P4) did the LLM swing to 4.61, now too stringent. The full P5 bundle (adding prior-year statistics) settled at 5.36, within roughly half a point of the human average. The Confidence dimension, however, stayed skewed higher than human even at P5. [[EVD - LLM review recommendation scores exceeded human scores without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024]]
+
+- **Humans rated GPT-4 P5 reviews as comparable to human reviews on a rubric.** On a 0-to-5 rubric covering whether a review explains its score, guides authors to improve, and contains paper-specific content, the human evaluator rated human-written reviews at 4.80 / 4.66 / 4.53 and GPT-4 P5 reviews at 4.76 / 4.79 / 4.68, statistically indistinguishable on a 7-to-8 paper sample. But when GPT-4 was the evaluator, it scored its own reviews higher (4.65) than human reviews (4.27) on the score-explanation question, a sign of self-enhancement bias. A confusion-matrix check showed the LLM was more prone to false-rejects than false-accepts: 22 papers the LLM rated 4 or below were actually rated 6 or above by humans, versus only 8 the other way. [[EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria - @tyserAIDrivenReviewSystems2024]]
+
+### Claim supported
+
+These findings collectively support the claim that [[CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]. The practical caveat is that the comparability hinges almost entirely on the prompt: the LLM is over-generous out of the box, and only the carefully assembled venue-specific bundle of area-chair guidelines plus prior-year score statistics drags its calibration into the human range. A journal or conference deploying this would need to maintain those documents annually, and a 5-judge preference signal on 150 papers is a thin reed for the "as good as humans" headline.
+
+### Caveats
+
+- **The match-to-human result depends on yearly-updated venue documents and biased preference judgments.** The P5 context bundle relies on area-chair guidelines, codes of ethics, and prior-year statistics that each conference rewrites annually, so the calibration will drift. And human pairwise preferences are known to favor verbose, confident, and self-similar text, biases the authors only partially correct for. [[CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases]]
 
 ## Quality appraisal
 

@@ -97,23 +97,8 @@ Can today's large language models (LLMs) act as early-stage peer reviewers and r
 
 **Sample.** LIMITGEN-Syn flowed from 1,408 NLP papers to 500 retained papers to 1,000 perturbed examples (250 per aspect across 11 subtypes). LIMITGEN-Human flowed from 9,844 ICLR 2025 submissions to 1,000 sampled papers, yielding 6,047 ground-truth limitations (about six per paper). The unit of analysis is one paper plus one target aspect. Six NLP/AI experts (each with peer-reviewed publications) handled annotation, validation, and human evaluation; two of them produced the human-baseline scores.
 
-### Findings
 
-- **GPT-4o catches barely half the obvious flaws humans catch.** On LIMITGEN-Syn, GPT-4o reached 52.0% coarse-grained accuracy (the share of papers where its top-three limitations included the planted one) compared to 86.0% for human experts and 68.1% for the MARG multi-agent system. The other three LLMs trailed GPT-4o (Llama-3.3-70B at 45.7%, Qwen-2.5-72B at 47.1%, GPT-4o-mini at 49.1%). The two human raters agreed strongly with each other (Cohen's kappa = 0.833, where 1.0 means perfect agreement and 0 means chance). [[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
-
-- **RAG helps every system but does not close the human gap.** Adding RAG lifted GPT-4o from 52.0% to 64.2% coarse accuracy (a 12.2 percentage-point gain) and lifted MARG from 68.1% to 77.9% (+9.8 points). Smaller open-weight models gained much less (Llama +2.4, Qwen +1.3 points). Even the best RAG-augmented system stayed roughly 8 to 22 points below the 86% human ceiling. The RAG benefit also held up in an out-of-domain user study: GPT-4o jumped from 31.3% to 50.0% on biomedical papers and from 37.5% to 56.3% on computer-networks papers. [[EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn - @xuCanLLMsIdentify2025]]
-
-### Claim supported
-
-Together these findings support two related claims: that [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]] and that [[CLM - RAG augmentation improves LLM limitation identification by grounding generation in domain-relevant literature]]. The MARG result also reinforces the broader claim that [[CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]. For someone considering deploying an LLM as a first-pass reviewer, the practical takeaway is straightforward: even with retrieval support, the best system here still misses roughly one in five obvious flaws and a much larger share of subtle ones, so it can complement but not replace a human reviewer.
-
-### Caveats
-
-- **The planted flaws may be easier to catch than real ones.** Because LIMITGEN-Syn injects flaws using a fixed taxonomy, the perturbations are by construction discrete and isolated. Real papers tend to have flaws that are tangled together and partly hidden, so accuracy on the synthetic set may not match accuracy in the wild. [[CVT - The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws]]
-
-- **Almost all evaluation papers come from AI and NLP.** The taxonomy and benchmark were built by NLP researchers using NLP papers, so limitation categories that matter in biomedicine, physics, or social science (for example, sample-size justification or IRB issues) may be missing or misweighted. The 32-example out-of-domain user study is a useful sanity check but is too small to confirm broad generalization. [[CVT - The LimitGen benchmark focused only on AI research limiting applicability to other scientific domains]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -143,6 +128,22 @@ flowchart TD
     class N,O result;
 ```
 ---
+
+### Findings
+
+- **GPT-4o catches barely half the obvious flaws humans catch.** On LIMITGEN-Syn, GPT-4o reached 52.0% coarse-grained accuracy (the share of papers where its top-three limitations included the planted one) compared to 86.0% for human experts and 68.1% for the MARG multi-agent system. The other three LLMs trailed GPT-4o (Llama-3.3-70B at 45.7%, Qwen-2.5-72B at 47.1%, GPT-4o-mini at 49.1%). The two human raters agreed strongly with each other (Cohen's kappa = 0.833, where 1.0 means perfect agreement and 0 means chance). [[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
+
+- **RAG helps every system but does not close the human gap.** Adding RAG lifted GPT-4o from 52.0% to 64.2% coarse accuracy (a 12.2 percentage-point gain) and lifted MARG from 68.1% to 77.9% (+9.8 points). Smaller open-weight models gained much less (Llama +2.4, Qwen +1.3 points). Even the best RAG-augmented system stayed roughly 8 to 22 points below the 86% human ceiling. The RAG benefit also held up in an out-of-domain user study: GPT-4o jumped from 31.3% to 50.0% on biomedical papers and from 37.5% to 56.3% on computer-networks papers. [[EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn - @xuCanLLMsIdentify2025]]
+
+### Claim supported
+
+Together these findings support two related claims: that [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]] and that [[CLM - RAG augmentation improves LLM limitation identification by grounding generation in domain-relevant literature]]. The MARG result also reinforces the broader claim that [[CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]. For someone considering deploying an LLM as a first-pass reviewer, the practical takeaway is straightforward: even with retrieval support, the best system here still misses roughly one in five obvious flaws and a much larger share of subtle ones, so it can complement but not replace a human reviewer.
+
+### Caveats
+
+- **The planted flaws may be easier to catch than real ones.** Because LIMITGEN-Syn injects flaws using a fixed taxonomy, the perturbations are by construction discrete and isolated. Real papers tend to have flaws that are tangled together and partly hidden, so accuracy on the synthetic set may not match accuracy in the wild. [[CVT - The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws]]
+
+- **Almost all evaluation papers come from AI and NLP.** The taxonomy and benchmark were built by NLP researchers using NLP papers, so limitation categories that matter in biomedicine, physics, or social science (for example, sample-size justification or IRB issues) may be missing or misweighted. The 32-example out-of-domain user study is a useful sanity check but is too small to confirm broad generalization. [[CVT - The LimitGen benchmark focused only on AI research limiting applicability to other scientific domains]]
 
 ## Quality appraisal
 

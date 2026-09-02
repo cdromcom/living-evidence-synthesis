@@ -563,3 +563,16 @@ h6 {
 .prose-node .evd-nest[open] > summary::before { content: "▾ "; }
 .prose-node .evd-nest > summary:hover { color: var(--color-forest); }
 .prose-node .evd-nest > ul { margin-top: 0.25em; }
+
+/* Nested accordions (an H3 subsection inside its H2) are indented so the
+   hierarchy is visible when everything is collapsed to a stack of headings —
+   the H3 margin-left is reset inside <summary>, which is what flattened them.
+   The hairline gives the indent something to read against. */
+.prose-node .accordion-body .accordion-section {
+  margin-left: 1.15em;
+  padding-left: 0.85em;
+  border-left: 1px solid var(--color-border);
+}
+.prose-node .accordion-body .accordion-section > summary h3 {
+  font-size: 1em;
+}

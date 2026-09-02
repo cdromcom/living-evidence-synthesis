@@ -90,21 +90,8 @@ Can a general-purpose large language model (LLM) act as a trustworthy peer revie
 
 **Sample.** The PeerRead subset covers 427 official ICLR-2017 reviews carrying 1,300 aspect scores. The ASAP evaluation uses 300 papers for GPT-3.5 and a smaller 50-paper slice for GPT-4 (the authors note "the generation is expensive" as the reason for the cap). The RR-MCQ benchmark contains 196 questions from 14 ICLR-2023 papers, with 788 aspect labels assigned by two graduate-student annotators who initially disagreed on 10.9% of labels and resolved the rest by discussion.
 
-### Findings
 
-- **GPT-3.5 mimics human reviewers when handed the review itself.** Given a human-written review and 5 demonstration examples (few-shot prompting, where the model sees worked examples before answering), GPT-3.5 predicted aspect scores at a Pearson correlation of 0.651, roughly twice the correlation of a "most-frequent score" baseline (0.333). When the same model was given only the paper instead of the review, correlation collapsed to 0.131–0.258. The model can read a review and infer the score, but it cannot judge the paper itself. [[EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review - @zhouLLMReliableReviewer2024]]
-
-- **GPT-4 fails the deeper reviewer test on RR-MCQ.** On the 196 multiple-choice questions distilled from real review-rebuttal threads, the best pipeline (GPT-4 selecting sections, then GPT-4 answering) reached only 0.276 macro accuracy, meaning roughly 28% of questions were answered completely correctly. Micro accuracy (treating each of 4 options as a separate True/False decision) was higher at 0.710, but micro accuracy is inflated by easy "wrong-option rejections". GPT-4 did worst on questions about argumentation soundness (macro accuracy 0.193) and constructive suggestions (0.153), exactly the reasoning-heavy questions that matter most for real review work. [[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions - @zhouLLMReliableReviewer2024]]
-
-### Claim supported
-
-These findings together support the claim that [[CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]], and a related observation that [[CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]. For anyone considering wiring GPT-4 into a reviewing workflow, the practical message is blunt: the model can pattern-match a review back to a numeric score, but on the harder reasoning questions a real reviewer actually answers, it sits at 28%, far below what a journal or conference could deploy without a human in the loop.
-
-### Caveats
-
-- **The new RR-MCQ benchmark is small and narrow.** Only 14 ICLR-2023 papers and 196 questions, drawn from a single venue and discipline. The authors themselves note the "high cost of designing high-quality questions". A larger, multi-venue benchmark could shift the headline numbers. [[CVT - The Zhou RR-MCQ dataset was constructed from only 14 ICLR papers limiting diversity and scale]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -133,6 +120,20 @@ flowchart TD
     class K result;
 ```
 ---
+
+### Findings
+
+- **GPT-3.5 mimics human reviewers when handed the review itself.** Given a human-written review and 5 demonstration examples (few-shot prompting, where the model sees worked examples before answering), GPT-3.5 predicted aspect scores at a Pearson correlation of 0.651, roughly twice the correlation of a "most-frequent score" baseline (0.333). When the same model was given only the paper instead of the review, correlation collapsed to 0.131–0.258. The model can read a review and infer the score, but it cannot judge the paper itself. [[EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review - @zhouLLMReliableReviewer2024]]
+
+- **GPT-4 fails the deeper reviewer test on RR-MCQ.** On the 196 multiple-choice questions distilled from real review-rebuttal threads, the best pipeline (GPT-4 selecting sections, then GPT-4 answering) reached only 0.276 macro accuracy, meaning roughly 28% of questions were answered completely correctly. Micro accuracy (treating each of 4 options as a separate True/False decision) was higher at 0.710, but micro accuracy is inflated by easy "wrong-option rejections". GPT-4 did worst on questions about argumentation soundness (macro accuracy 0.193) and constructive suggestions (0.153), exactly the reasoning-heavy questions that matter most for real review work. [[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions - @zhouLLMReliableReviewer2024]]
+
+### Claim supported
+
+These findings together support the claim that [[CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]], and a related observation that [[CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]. For anyone considering wiring GPT-4 into a reviewing workflow, the practical message is blunt: the model can pattern-match a review back to a numeric score, but on the harder reasoning questions a real reviewer actually answers, it sits at 28%, far below what a journal or conference could deploy without a human in the loop.
+
+### Caveats
+
+- **The new RR-MCQ benchmark is small and narrow.** Only 14 ICLR-2023 papers and 196 questions, drawn from a single venue and discipline. The authors themselves note the "high cost of designing high-quality questions". A larger, multi-venue benchmark could shift the headline numbers. [[CVT - The Zhou RR-MCQ dataset was constructed from only 14 ICLR papers limiting diversity and scale]]
 
 ## Quality appraisal
 

@@ -87,25 +87,8 @@ Can a smaller language model, trained specifically on real peer reviews, write m
 
 **Sample.** The starting crawl held 36,000 papers and 141,000 reviews. After filters, about 79,000 reviews remained for fine-tuning. The test set was 400 held-out papers from NeurIPS 2024 and ICLR 2025, with each model producing 400 generated reviews. The unit of analysis is the generated review (one per paper per model). No human raters were involved beyond the original OpenReview reviewers whose comments served as the reference.
 
-### Findings
 
-- **OpenReviewer's recommendations match humans; the chatbots inflate.** Real OpenReview reviewers averaged 5.4 out of 10 across the 400 test papers (standard deviation 1.2). OpenReviewer also averaged 5.4 (standard deviation 1.1). General-purpose LLMs ran much higher: GPT-4o at 7.7, Claude-3.5-Sonnet at 7.6, Llama-3.1-70B at 6.9, and Llama-3.1-8B-Instruct at 8.1, high enough that most papers would be recommended for acceptance. Because Llama-OpenReviewer-8B is a fine-tune of the very same base model that gave the most inflated 8.1 average, the drop to 5.4 is attributable to the peer-review fine-tune rather than the base model. [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]
-
-- **OpenReviewer matched a human reviewer on more than half of papers.** Exact Match rate (EM), the share of papers where the model's 1-to-10 recommendation exactly equals any human reviewer's recommendation, reached 55.5% for OpenReviewer versus 23.8% for GPT-4o, 15.5% for Claude, 14.0% for Llama-3.1-8B, and 11.5% for Llama-3.1-70B. The Average Error (the typical distance between the model's recommendation and the human-reviewer mean, on the 1-to-10 scale) was 0.96 for OpenReviewer and 2.34 for GPT-4o, about two-and-a-half times larger. The authors did not report confidence intervals or a paired statistical test for these gaps. [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]
-
-- **A GPT-4o judge preferred OpenReviewer's reviews most of the time.** In an arena-style preference test, GPT-4o (the judge) read the human expert reviews plus two candidate reviews and chose which one matched the human reviews better. OpenReviewer won against Llama-3.1-70B 76% of the time, against Llama-3.1-8B 70%, against Claude 69%, and against GPT-4o itself 60%. The narrowest margin came against GPT-4o, which is also the judge; a known self-preference confound the authors acknowledge but do not correct for with order randomization or judge diversity. [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]
-
-### Claim supported
-
-These findings collectively support [[CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]] and [[CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]. For someone considering a chatbot as a pre-submission paper-feedback tool, the practical takeaway is sharp: an off-the-shelf GPT-4o or Claude will tell most authors their paper looks like an "accept" when human reviewers would not, while a small fine-tuned model can land on the realistic distribution, at the cost of being trained on a single domain (machine learning) and a small set of conferences.
-
-### Caveats
-
-- **Trained and tested only on ICLR and NeurIPS machine-learning papers.** The training corpus and the 400-paper test set both come from two AI conferences, so the result does not tell us whether the same fine-tuning recipe would work on biomedical, social-science, or humanities papers, where review norms and recommendation scales differ. [[CVT - The OpenReviewer training and test data were limited to ICLR and NeurIPS conferences limiting domain generalizability]]
-
-- **The arena judge is also one of the contestants.** GPT-4o serves as the LLM-as-judge for the head-to-head preference test, and one of the four pairings is OpenReviewer versus GPT-4o itself. LLM judges are known to favor outputs from models with similar style or training, so the win rates, especially the narrowest 60% margin against GPT-4o, should be read with caution. [[CVT - The evaluation used LLM-as-judge which may favor outputs from models similar to the judge]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -132,6 +115,24 @@ flowchart TD
     class L,M result;
 ```
 ---
+
+### Findings
+
+- **OpenReviewer's recommendations match humans; the chatbots inflate.** Real OpenReview reviewers averaged 5.4 out of 10 across the 400 test papers (standard deviation 1.2). OpenReviewer also averaged 5.4 (standard deviation 1.1). General-purpose LLMs ran much higher: GPT-4o at 7.7, Claude-3.5-Sonnet at 7.6, Llama-3.1-70B at 6.9, and Llama-3.1-8B-Instruct at 8.1, high enough that most papers would be recommended for acceptance. Because Llama-OpenReviewer-8B is a fine-tune of the very same base model that gave the most inflated 8.1 average, the drop to 5.4 is attributable to the peer-review fine-tune rather than the base model. [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]
+
+- **OpenReviewer matched a human reviewer on more than half of papers.** Exact Match rate (EM), the share of papers where the model's 1-to-10 recommendation exactly equals any human reviewer's recommendation, reached 55.5% for OpenReviewer versus 23.8% for GPT-4o, 15.5% for Claude, 14.0% for Llama-3.1-8B, and 11.5% for Llama-3.1-70B. The Average Error (the typical distance between the model's recommendation and the human-reviewer mean, on the 1-to-10 scale) was 0.96 for OpenReviewer and 2.34 for GPT-4o, about two-and-a-half times larger. The authors did not report confidence intervals or a paired statistical test for these gaps. [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]
+
+- **A GPT-4o judge preferred OpenReviewer's reviews most of the time.** In an arena-style preference test, GPT-4o (the judge) read the human expert reviews plus two candidate reviews and chose which one matched the human reviews better. OpenReviewer won against Llama-3.1-70B 76% of the time, against Llama-3.1-8B 70%, against Claude 69%, and against GPT-4o itself 60%. The narrowest margin came against GPT-4o, which is also the judge; a known self-preference confound the authors acknowledge but do not correct for with order randomization or judge diversity. [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]
+
+### Claim supported
+
+These findings collectively support [[CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]] and [[CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]. For someone considering a chatbot as a pre-submission paper-feedback tool, the practical takeaway is sharp: an off-the-shelf GPT-4o or Claude will tell most authors their paper looks like an "accept" when human reviewers would not, while a small fine-tuned model can land on the realistic distribution, at the cost of being trained on a single domain (machine learning) and a small set of conferences.
+
+### Caveats
+
+- **Trained and tested only on ICLR and NeurIPS machine-learning papers.** The training corpus and the 400-paper test set both come from two AI conferences, so the result does not tell us whether the same fine-tuning recipe would work on biomedical, social-science, or humanities papers, where review norms and recommendation scales differ. [[CVT - The OpenReviewer training and test data were limited to ICLR and NeurIPS conferences limiting domain generalizability]]
+
+- **The arena judge is also one of the contestants.** GPT-4o serves as the LLM-as-judge for the head-to-head preference test, and one of the four pairings is OpenReviewer versus GPT-4o itself. LLM judges are known to favor outputs from models with similar style or training, so the win rates, especially the narrowest 60% margin against GPT-4o, should be read with caution. [[CVT - The evaluation used LLM-as-judge which may favor outputs from models similar to the judge]]
 
 ## Quality appraisal
 

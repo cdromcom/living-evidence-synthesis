@@ -89,27 +89,8 @@ Can a large language model help review computer science papers? The authors brea
 
 **Sample.** Three small corpora, all hand-built. Error study: 13 short papers (no exclusions). Checklist study: 15 papers chosen from NeurIPS 2022 OpenReview, 10 by uniform random sampling and 5 hand-picked to cover the crowdsourcing/human-subjects checklist category, yielding 240 candidate question-paper pairs, filtered to 119 author-"Yes" pairs for analysis. Abstract study: 10 hand-built abstract pairs, one per intervention type. The unit of analysis is the {paper}, {question, paper} pair, or {abstract pair}; a single CS graduate student (the first author) provided checklist labels.
 
-### Findings
 
-- **GPT-4 caught half of the planted errors.** Across the 13 short papers, GPT-4 detected the planted error in 7 of 13 papers when given any chance across three prompt templates (53.8%). The strongest single template was `Prompt-Parts` (paper fed sentence-by-sentence), at 7 of 13. Every paper GPT-4 missed lacked a complete proof, meaning detection would have required outside knowledge rather than a local deductive check. The other 8 LLMs the authors tried failed on every paper. [[EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]
-
-- **GPT-4 verified NeurIPS checklists about as accurately as the authors themselves.** GPT-4's majority-vote answers matched the hand-labeled ground truth on 86.6% of the 119 question-paper pairs. By coincidence, the author-submitted checklists matched the same ground truth at 86.6% as well, but the errors barely overlapped: GPT-4 disagreed with 75% (12 of 16) of the items where authors were wrong, and 56.3% (9 of 16) of GPT-4's mistakes were on items the authors got right. Half of GPT-4's errors involved questions whose answers required reading figures (which the text-only prompt could not see); excluding those raised accuracy to 92.8%. [[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023]]
-
-- **GPT-4 picked the wrong abstract more often than the right one.** On 10 hand-built abstract pairs where one paper is plainly stronger, GPT-4 picked the inferior one in 6 of 10 cases (60% error). Failures included a positive-result bias, mis-reading parameter ranges, mis-reading lower bounds, falling for a literal prompt-injection sentence, getting swayed by bombastic language, and being influenced by the algorithm's name. The four successes covered null-result interpretation, upper bounds, buzzwords, and a Nobel-laureate author byline. [[EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]
-
-### Claim supported
-
-Together these three studies support [[CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]] and [[CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]. The practical takeaway: a tool that hits 87% on a structured checklist could plausibly help a program chair flag suspect items for human attention, but a tool that picks the wrong abstract 60% of the time, and falls for a prompt injection, should not be allowed near acceptance decisions.
-
-### Caveats
-
-- **The checklist ground truth came from author self-reports.** The first author labeled checklist items by reading the paper and deferring to the author's submitted answer when unsure. Because authors and the ground truth match 86.6% by construction, GPT-4's 86.6% accuracy may partly measure agreement with author self-assessment rather than objective compliance. [[CVT - Checklist ground truth relied on author-stated responses rather than independent verification]]
-
-- **Only GPT-4 worked at all on error detection.** Eight other LLMs (Bard, Vicuna, Koala, Alpaca, LLaMa, Dolly, OpenAssistant, StableLM) caught zero of 13 errors in the pilot, so all reported results pertain to GPT-4 only. The findings do not generalize to the broader open-source ecosystem of the time. [[CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely]]
-
-- **The error and abstract corpora are author-built, not real submissions.** The 13 short papers and 10 abstract pairs were written by the authors with errors deliberately inserted, so the test set has no true negatives, no real-paper length, and no real-reviewer ambiguity. Performance on real conference submissions is unknown. [[CVT - The error detection study used constructed short papers rather than real manuscript submissions]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -130,6 +111,26 @@ flowchart TD
     class G,H,I result;
 ```
 ---
+
+### Findings
+
+- **GPT-4 caught half of the planted errors.** Across the 13 short papers, GPT-4 detected the planted error in 7 of 13 papers when given any chance across three prompt templates (53.8%). The strongest single template was `Prompt-Parts` (paper fed sentence-by-sentence), at 7 of 13. Every paper GPT-4 missed lacked a complete proof, meaning detection would have required outside knowledge rather than a local deductive check. The other 8 LLMs the authors tried failed on every paper. [[EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]
+
+- **GPT-4 verified NeurIPS checklists about as accurately as the authors themselves.** GPT-4's majority-vote answers matched the hand-labeled ground truth on 86.6% of the 119 question-paper pairs. By coincidence, the author-submitted checklists matched the same ground truth at 86.6% as well, but the errors barely overlapped: GPT-4 disagreed with 75% (12 of 16) of the items where authors were wrong, and 56.3% (9 of 16) of GPT-4's mistakes were on items the authors got right. Half of GPT-4's errors involved questions whose answers required reading figures (which the text-only prompt could not see); excluding those raised accuracy to 92.8%. [[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023]]
+
+- **GPT-4 picked the wrong abstract more often than the right one.** On 10 hand-built abstract pairs where one paper is plainly stronger, GPT-4 picked the inferior one in 6 of 10 cases (60% error). Failures included a positive-result bias, mis-reading parameter ranges, mis-reading lower bounds, falling for a literal prompt-injection sentence, getting swayed by bombastic language, and being influenced by the algorithm's name. The four successes covered null-result interpretation, upper bounds, buzzwords, and a Nobel-laureate author byline. [[EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]
+
+### Claim supported
+
+Together these three studies support [[CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]] and [[CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]. The practical takeaway: a tool that hits 87% on a structured checklist could plausibly help a program chair flag suspect items for human attention, but a tool that picks the wrong abstract 60% of the time, and falls for a prompt injection, should not be allowed near acceptance decisions.
+
+### Caveats
+
+- **The checklist ground truth came from author self-reports.** The first author labeled checklist items by reading the paper and deferring to the author's submitted answer when unsure. Because authors and the ground truth match 86.6% by construction, GPT-4's 86.6% accuracy may partly measure agreement with author self-assessment rather than objective compliance. [[CVT - Checklist ground truth relied on author-stated responses rather than independent verification]]
+
+- **Only GPT-4 worked at all on error detection.** Eight other LLMs (Bard, Vicuna, Koala, Alpaca, LLaMa, Dolly, OpenAssistant, StableLM) caught zero of 13 errors in the pilot, so all reported results pertain to GPT-4 only. The findings do not generalize to the broader open-source ecosystem of the time. [[CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely]]
+
+- **The error and abstract corpora are author-built, not real submissions.** The 13 short papers and 10 abstract pairs were written by the authors with errors deliberately inserted, so the test set has no true negatives, no real-paper length, and no real-reviewer ambiguity. Performance on real conference submissions is unknown. [[CVT - The error detection study used constructed short papers rather than real manuscript submissions]]
 
 ## Quality appraisal
 

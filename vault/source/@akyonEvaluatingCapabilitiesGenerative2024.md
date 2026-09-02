@@ -105,25 +105,8 @@ Can today's general-purpose chatbots read a medical research paper and reliably 
 
 **Sample.** The PubMed search returned 2,996 hits, narrowed to 303 by filters, then to the first 50, then to 39 observational papers after excluding 11. Claude v1 was further restricted to 33 papers because of access limits. The unit of analysis was the question-answer pair: 39 articles times 15 questions times 10 trials gives 5,850 pairs per LLM (4,950 for Claude v1). The reference standard came from a single experienced medical professor in pediatric gastroenterology, with answers verified by one epidemiologist.
 
-### Findings
 
-- **GPT 3.5-Turbo edged out the newer models on this task.** GPT 3.5-Turbo-1106 got 66.9% of answers right, narrowly beating GPT 4-1106 at 65.6% (the gap was not statistically meaningful, p = 0.061). Palm 2 followed at 62.1%, then Claude v1 at 58.3%, Gemini pro at 49.2%, and GPT 4-0613 at the bottom with 44.1%. Differences across models overall were unlikely to be chance (p < 0.001). [[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024]]
-
-- **The older GPT-4 snapshot performed worst of the six.** GPT 4-0613 (the June 2023 GPT-4 release) answered only 44.1% correctly, significantly below Gemini pro at 49.2% (p < 0.001) and well below the newer GPT 4-1106. The authors note that 28 of the 39 articles (71.8%) were published before GPT 4-0613's September 2021 training cutoff, while all 39 came before GPT 4-1106's April 2023 cutoff. They also speculate that compression techniques in newer model snapshots (such as quantization, which lowers numeric precision to save memory) may have degraded the 0613 release. [[EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions - @akyonEvaluatingCapabilitiesGenerative2024]]
-
-- **Models did best on discussion items and worst on technical-detail items.** Averaged across all six LLMs, the easiest STROBE items were Q12 (whether the discussion summarises key results) at 68.3%, Q13 (whether limitations are discussed) at 62.8%, and Q10 (presence of a flowchart) at 60.5%. The hardest items were Q8 (which statistical software was used) at 33.5%, Q15 (funding source) at 35.8%, and Q1 (study design stated in the title or abstract) at 36.5%. Q8 and Q15 were multiple-choice with 7 and 2 options respectively, which may explain part of the gap. [[EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models - @akyonEvaluatingCapabilitiesGenerative2024]]
-
-### Claim supported
-
-Together these findings support the broader claim that [[CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]] and that [[CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]. For anyone considering plugging an LLM into a real review workflow, the practical takeaway is sobering: even the best model here misses a third of STROBE items, and performance flips unpredictably across model versions, so an LLM is at most an assistant that still needs a human checker.
-
-### Caveats
-
-- **The gold standard came from one expert.** A single medical professor wrote the reference answers and one epidemiologist verified them, so the "ground truth" reflects the views of a small panel rather than a broad consensus. [[CVT - The benchmark gold standard relied on a single medical professor limiting reference standard validity]]
-
-- **Model training cutoffs were not equal.** GPT 4-1106 saw all 39 papers before its April 2023 cutoff; GPT 3.5-Turbo and GPT 4-0613 saw only 28 of them; cutoffs for Claude, Palm, and Gemini were not disclosed. Performance gaps between models could partly reflect training-data coverage rather than actual comprehension ability. [[CVT - Training data cutoff differences across LLM versions confounded performance comparisons in the STROBE benchmark study]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -159,6 +142,24 @@ flowchart TD
     class P,Q result;
 ```
 ---
+
+### Findings
+
+- **GPT 3.5-Turbo edged out the newer models on this task.** GPT 3.5-Turbo-1106 got 66.9% of answers right, narrowly beating GPT 4-1106 at 65.6% (the gap was not statistically meaningful, p = 0.061). Palm 2 followed at 62.1%, then Claude v1 at 58.3%, Gemini pro at 49.2%, and GPT 4-0613 at the bottom with 44.1%. Differences across models overall were unlikely to be chance (p < 0.001). [[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024]]
+
+- **The older GPT-4 snapshot performed worst of the six.** GPT 4-0613 (the June 2023 GPT-4 release) answered only 44.1% correctly, significantly below Gemini pro at 49.2% (p < 0.001) and well below the newer GPT 4-1106. The authors note that 28 of the 39 articles (71.8%) were published before GPT 4-0613's September 2021 training cutoff, while all 39 came before GPT 4-1106's April 2023 cutoff. They also speculate that compression techniques in newer model snapshots (such as quantization, which lowers numeric precision to save memory) may have degraded the 0613 release. [[EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions - @akyonEvaluatingCapabilitiesGenerative2024]]
+
+- **Models did best on discussion items and worst on technical-detail items.** Averaged across all six LLMs, the easiest STROBE items were Q12 (whether the discussion summarises key results) at 68.3%, Q13 (whether limitations are discussed) at 62.8%, and Q10 (presence of a flowchart) at 60.5%. The hardest items were Q8 (which statistical software was used) at 33.5%, Q15 (funding source) at 35.8%, and Q1 (study design stated in the title or abstract) at 36.5%. Q8 and Q15 were multiple-choice with 7 and 2 options respectively, which may explain part of the gap. [[EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models - @akyonEvaluatingCapabilitiesGenerative2024]]
+
+### Claim supported
+
+Together these findings support the broader claim that [[CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]] and that [[CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]. For anyone considering plugging an LLM into a real review workflow, the practical takeaway is sobering: even the best model here misses a third of STROBE items, and performance flips unpredictably across model versions, so an LLM is at most an assistant that still needs a human checker.
+
+### Caveats
+
+- **The gold standard came from one expert.** A single medical professor wrote the reference answers and one epidemiologist verified them, so the "ground truth" reflects the views of a small panel rather than a broad consensus. [[CVT - The benchmark gold standard relied on a single medical professor limiting reference standard validity]]
+
+- **Model training cutoffs were not equal.** GPT 4-1106 saw all 39 papers before its April 2023 cutoff; GPT 3.5-Turbo and GPT 4-0613 saw only 28 of them; cutoffs for Claude, Palm, and Gemini were not disclosed. Performance gaps between models could partly reflect training-data coverage rather than actual comprehension ability. [[CVT - Training data cutoff differences across LLM versions confounded performance comparisons in the STROBE benchmark study]]
 
 ## Quality appraisal
 

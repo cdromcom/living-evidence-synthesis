@@ -90,23 +90,8 @@ Can today's general-purpose chatbots spot the same ethical issues that an Instit
 
 **Sample.** The unit of analysis is a chatbot–case cell. Seven cases times four chatbots gives 28 cells per prompting condition (56 cells across both conditions), plus 28 generated ICDs. No exclusions are reported; every chatbot answered every query. The two raters were the paper's two authors, one from a medical-school pharmacology department (Arabian Gulf University), one from a primary-care centre in Bahrain. Rater background in IRB review or rating-task expertise is not described.
 
-### Findings
 
-- **All four chatbots answered every case and gave broadly similar responses.** All four chatbots produced answers to every query for all seven cases under a single prompt. The authors describe the responses as "homogeneous" on study-design appropriateness, risks and benefits, vulnerability, and ICD content. Failure patterns clustered by case rather than by model, for example, none of the four chatbots flagged the inappropriate non-randomised design in case 4, and none flagged the school-site coercion risk in case 3. [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
-
-- **Every generated ICD covered the fundamental elements but used too much jargon.** All 28 chatbot-generated ICDs (4 chatbots times 7 cases) included every fundamental element on the HHS checklist and stayed under the 1250-word readability ceiling. But every chatbot used technical language ("tardive dyskinesia", "myelodysplastic syndrome", "Yale Global Tic Severity Scale") despite the recommended 8th-grade reading level. None mentioned the planned number of participants. ChatGPT 3.5 and ChatGPT 4.0 inappropriately included eligibility criteria in every ICD. Google Bard and Claude-Instant-100k omitted IRB contact details. [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
-
-- **Single-prompt answers missed key safety topics that multi-prompt answers caught.** Under a single prompt, the chatbots performed "suboptimally" on placebo-arm suitability, risk-mitigation strategies, and potential risks to participants. For example, in the MDS placebo case (case 5), only Google Bard flagged that placebo was questionable given iron-overload risk under a single prompt. Asking the same questions one at a time produced more complete answers across all four chatbots and all three domains, Claude-Instant-100k revised its weak placebo justification, and ChatGPT 4.0 newly recommended an independent data-monitoring committee, post-study drug access, and an independent advocate for child participants in case 2. The improvement was qualitative, no statistical test was performed, and "some omissions related to a single prompt were observed even with multiple prompts". [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
-
-### Claim supported
-
-These findings support [[CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]] and [[CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]. For someone considering a chatbot as an IRB pre-screen, the practical takeaway is narrow: the tools are useful for a first-pass jargon-heavy ICD draft and for surfacing standard ethical considerations, but they reliably miss specific risks (placebo suitability, risk mitigation, coercion) unless prompted query-by-query, and even then a human reviewer has to plug the gaps.
-
-### Caveats
-
-- **Pilot design with seven cases and only cloud chatbots.** The evaluation rests on a small handful of teaching scenarios from a single published handbook, which limits how confidently the results generalize to real proposals. Cloud-only chatbot use also rules out testing how the tools handle multicentric studies where cultural, linguistic, and geographical differences matter. [[CVT - LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability]]
-
-### Methods at a glance
+**At a glance.**
 
 ```mermaid
 flowchart TD
@@ -135,6 +120,22 @@ flowchart TD
     class J,M result;
 ```
 ---
+
+### Findings
+
+- **All four chatbots answered every case and gave broadly similar responses.** All four chatbots produced answers to every query for all seven cases under a single prompt. The authors describe the responses as "homogeneous" on study-design appropriateness, risks and benefits, vulnerability, and ICD content. Failure patterns clustered by case rather than by model, for example, none of the four chatbots flagged the inappropriate non-randomised design in case 4, and none flagged the school-site coercion risk in case 3. [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
+
+- **Every generated ICD covered the fundamental elements but used too much jargon.** All 28 chatbot-generated ICDs (4 chatbots times 7 cases) included every fundamental element on the HHS checklist and stayed under the 1250-word readability ceiling. But every chatbot used technical language ("tardive dyskinesia", "myelodysplastic syndrome", "Yale Global Tic Severity Scale") despite the recommended 8th-grade reading level. None mentioned the planned number of participants. ChatGPT 3.5 and ChatGPT 4.0 inappropriately included eligibility criteria in every ICD. Google Bard and Claude-Instant-100k omitted IRB contact details. [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
+
+- **Single-prompt answers missed key safety topics that multi-prompt answers caught.** Under a single prompt, the chatbots performed "suboptimally" on placebo-arm suitability, risk-mitigation strategies, and potential risks to participants. For example, in the MDS placebo case (case 5), only Google Bard flagged that placebo was questionable given iron-overload risk under a single prompt. Asking the same questions one at a time produced more complete answers across all four chatbots and all three domains, Claude-Instant-100k revised its weak placebo justification, and ChatGPT 4.0 newly recommended an independent data-monitoring committee, post-study drug access, and an independent advocate for child participants in case 2. The improvement was qualitative, no statistical test was performed, and "some omissions related to a single prompt were observed even with multiple prompts". [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
+
+### Claim supported
+
+These findings support [[CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]] and [[CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]. For someone considering a chatbot as an IRB pre-screen, the practical takeaway is narrow: the tools are useful for a first-pass jargon-heavy ICD draft and for surfacing standard ethical considerations, but they reliably miss specific risks (placebo suitability, risk mitigation, coercion) unless prompted query-by-query, and even then a human reviewer has to plug the gaps.
+
+### Caveats
+
+- **Pilot design with seven cases and only cloud chatbots.** The evaluation rests on a small handful of teaching scenarios from a single published handbook, which limits how confidently the results generalize to real proposals. Cloud-only chatbot use also rules out testing how the tools handle multicentric studies where cultural, linguistic, and geographical differences matter. [[CVT - LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability]]
 
 ## Quality appraisal
 
