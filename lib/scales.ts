@@ -183,6 +183,35 @@ export const CAVEAT_SEVERITY_SCALE: Scale = {
   ],
 };
 
+
+/**
+ * Availability ladders for the two artifact rows. Same shape as the old repo
+ * check, but worded for what is actually being looked for: a dataset in one
+ * case, a code repository in the other. "No repository claimed" read oddly
+ * under a row called Dataset.
+ */
+export const DATASET_CHECK_SCALE: Scale = {
+  what: "Whether a dataset is claimed, and whether the link resolves.",
+  steps: [
+    { key: "low-risk", tone: "green", value: "Live", label: "Dataset link resolves" },
+    { key: "some-concerns", tone: "gold", value: "Partial", label: "Partially reachable" },
+    { key: "high-risk", tone: "red", value: "Dead", label: "Link does not resolve" },
+    { key: "not-addressed", tone: "gray", value: "None", label: "No dataset claimed by the authors" },
+  ],
+  note: "Gray means the paper claims no dataset — nothing to reach, and nothing to score for FAIRness.",
+};
+
+export const CODE_CHECK_SCALE: Scale = {
+  what: "Whether a code repository is claimed, and whether the link resolves.",
+  steps: [
+    { key: "low-risk", tone: "green", value: "Live", label: "Repository link resolves" },
+    { key: "some-concerns", tone: "gold", value: "Partial", label: "Partially reachable" },
+    { key: "high-risk", tone: "red", value: "Dead", label: "Link does not resolve" },
+    { key: "not-addressed", tone: "gray", value: "None", label: "No code repository claimed by the authors" },
+  ],
+  note: "Gray means the paper claims no code — nothing to reach, and nothing to score for FAIRness.",
+};
+
 /** Which band a 0-5 code-quality score falls in. */
 export function codeQualityBand(score: number): string {
   return score >= 4 ? "green" : score >= 2 ? "gold" : "red";

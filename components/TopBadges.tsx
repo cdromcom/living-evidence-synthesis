@@ -14,6 +14,8 @@ import {
   DISCLOSURE_SCALE,
   REPORTING_COMPLIANCE_SCALE,
   REPO_CHECK_SCALE,
+  DATASET_CHECK_SCALE,
+  CODE_CHECK_SCALE,
   RIGOR_CHECK_SCALE,
   STATISTICAL_CONSISTENCY_SCALE,
   STATISTICAL_POWER_SCALE,
@@ -908,6 +910,72 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   };
   const short = (s: string) => SHORT[s] ?? s.toLowerCase();
 
+
+  /**
+   * One row per artifact instead of four.
+   *
+   * Availability and FAIR score were two separate rows that could appear to
+   * disagree: a live repository with no score yet showed as "NA", which reads
+   * as "nothing to score" when it actually means "we have not scored it".
+   * Folding them together makes the three states distinct — nothing claimed,
+   * claimed but unscored, claimed and scored — and halves the row count.
+   */
+  const artifactRow = (
+    label: string,
+    check: ReproducibilityRisk | "not-addressed" | null | undefined,
+    score: number | null,
+    max: number,
+    band: (n: number) => string,
+    fairScale: Scale,
+    checkScale: Scale,
+    fairHref: string,
+    checkHref: string
+  ): SignalRow[] => {
+    if (!check && score === null) return [];
+    if (check === "not-addressed" || (!check && score === null)) {
+      return [{
+        label,
+        status: "none claimed",
+        tone: "gray",
+        href: `${linkBase}${checkHref}`,
+        scale: checkScale,
+        current: "not-addressed",
+        description: `${label}: the authors claim none, so there is nothing to reach and nothing to score.`,
+      }];
+    }
+    if (check === "high-risk" || check === "some-concerns") {
+      return [{
+        label,
+        status: check === "high-risk" ? "dead link" : "partially reachable",
+        tone: check === "high-risk" ? "red" : "gold",
+        href: `${linkBase}${checkHref}`,
+        scale: checkScale,
+        current: check,
+      }];
+    }
+    // Claimed and reachable — report the FAIR score when we have one.
+    if (score === null) {
+      return [{
+        label,
+        status: "live, unscored",
+        tone: "green",
+        href: `${linkBase}${checkHref}`,
+        scale: checkScale,
+        current: "low-risk",
+        description: `${label}: the link resolves, but it has not been scored for FAIRness yet.`,
+      }];
+    }
+    return [{
+      label,
+      status: `live, ${score} of ${max}`,
+      tone: band(score) as Tone,
+      href: `${linkBase}${fairHref}`,
+      scale: fairScale,
+      current: band(score),
+      description: `${label}: link resolves; FAIR score ${score} of ${max}.`,
+    }];
+  };
+
   const signalGroups: SignalGroup[] = [
     {
       name: "Transparency",
@@ -936,40 +1004,10 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             scale: TOP_LEVEL_SCALE,
             current: sig.level,
           })),
-          ...rigorRow("repository-check", repositoryCheck, REPO_CHECK_LABELS, REPO_CHECK_SCALE),
-          ...rigorRow("code-check", codeCheck, REPO_CHECK_LABELS, REPO_CHECK_SCALE),
-          // Always rendered, even when the source has no score: an absent row
-          // reads as "we forgot to check", which is not what a missing tag means.
-          codeQualityFair !== null
-            ? {
-                label: "Code quality \u00b7 FAIR",
-                status: `${codeQualityFair} of 5`,
-                tone: codeQualityBand(codeQualityFair) as Tone,
-                href: `${linkBase}#qa-code-quality-fair`,
-                scale: CODE_QUALITY_SCALE,
-                current: codeQualityBand(codeQualityFair),
-              }
-            : {
-                label: "Code quality \u00b7 FAIR",
-                status: "NA",
-                tone: "gray" as Tone,
-                description: "No code repository was claimed for this paper, so there is nothing to score against the fair-software.eu criteria.",
-              },
-          dataQualityFair !== null
-            ? {
-                label: "Data quality \u00b7 FAIR",
-                status: `${dataQualityFair} of 24`,
-                tone: dataQualityBand(dataQualityFair) as Tone,
-                href: `${linkBase}#qa-data-quality-fair`,
-                scale: DATA_QUALITY_SCALE,
-                current: dataQualityBand(dataQualityFair),
-              }
-            : {
-                label: "Data quality \u00b7 FAIR",
-                status: "NA",
-                tone: "gray" as Tone,
-                description: "No dataset was claimed for this paper, so there is nothing for FAIR-Checker to score.",
-              },
+          ...artifactRow("Dataset", repositoryCheck, dataQualityFair, 24, dataQualityBand,
+            DATA_QUALITY_SCALE, DATASET_CHECK_SCALE, "#qa-data-quality-fair", "#qa-repository-check"),
+          ...artifactRow("Code", codeCheck, codeQualityFair, 5, codeQualityBand,
+            CODE_QUALITY_SCALE, CODE_CHECK_SCALE, "#qa-code-quality-fair", "#qa-code-check"),
         ],
       }],
     },
