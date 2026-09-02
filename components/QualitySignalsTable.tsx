@@ -34,7 +34,7 @@ function Rows({ rows }: { rows: SignalRow[] }) {
         );
         return (
           <tr key={row.label} className="border-t border-border/70">
-            <th scope="row" className="w-[55%] py-[3px] pr-2 text-left align-baseline font-normal text-ink/90">
+            <th scope="row" className="w-[58%] py-[3px] pr-2 text-left align-baseline font-normal text-ink/90">
               {row.scale && row.current ? (
                 <ScaleTooltip
                   scale={row.scale}
@@ -47,15 +47,17 @@ function Rows({ rows }: { rows: SignalRow[] }) {
                 name
               )}
             </th>
-            <td className="py-[3px] text-right align-baseline">
-              <span className="inline-flex items-baseline gap-1.5">
-                <span
-                  className={`mt-[0.32rem] inline-block h-[7px] w-[7px] shrink-0 rounded-full ${TONE_BG[row.tone]}`}
-                  aria-hidden
-                />
-                <span className="text-muted-ink">{row.status}</span>
-              </span>
+            {/* The dot gets its own column so the dots stack on one vertical
+                rule. Riding along with a right-aligned status made each dot sit
+                wherever its wording happened to end, which is exactly the
+                scanning cue a status column exists to provide. */}
+            <td className="w-[10px] py-[3px] pr-1.5 align-baseline">
+              <span
+                className={`mt-[0.32rem] block h-[7px] w-[7px] rounded-full ${TONE_BG[row.tone]}`}
+                aria-hidden
+              />
             </td>
+            <td className="py-[3px] align-baseline text-muted-ink">{row.status}</td>
           </tr>
         );
       })}
