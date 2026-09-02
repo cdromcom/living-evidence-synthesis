@@ -859,13 +859,54 @@ export default function TopBadges({ node }: { node: GraphNode }) {
     risk
       ? [{
           label: RIGOR_CHECK_LABELS[kind],
-          status: labels[risk],
+          status: short(labels[risk]),
           tone: DATA_LEAKAGE_TONE[risk],
           href: RIGOR_CHECK_HREF[kind] ? `${linkBase}${RIGOR_CHECK_HREF[kind]}` : undefined,
           scale,
           current: risk,
         }]
       : [];
+
+
+  /**
+   * Panel-only shorthand for the status column.
+   *
+   * The full wording still reaches the reader through the hover card and the
+   * screen-reader copy; in the column itself a phrase like "Not addressed by
+   * authors" wraps to two lines and buries the one word that matters. Written
+   * in the case it should display in, rather than lower-cased by CSS, so "NA"
+   * survives as an abbreviation.
+   */
+  const SHORT: Record<string, string> = {
+    "Level 2 — Shared and Cited": "shared",
+    "Level 1 — Disclosed": "disclosed",
+    "Not Disclosed": "missing",
+    "Not Applicable": "NA",
+    "Not applicable": "NA",
+    "Partially disclosed": "partial",
+    "Not disclosed": "missing",
+    "Disclosed": "disclosed",
+    "Addressed": "addressed",
+    "Partially addressed": "partial",
+    "Unresolved": "unresolved",
+    "Not addressed by authors": "missing",
+    "Live": "live",
+    "Partially reachable": "partial",
+    "Dead link": "dead link",
+    "No repository claimed": "none claimed",
+    "Not checked": "not checked",
+    "Human-written": "human-written",
+    "AI-assisted": "AI-assisted",
+    "AI-generated": "AI-generated",
+    "Low risk": "low risk",
+    "Some risk": "some risk",
+    "High risk": "high risk",
+    "Consistent": "consistent",
+    "Issues found": "issues found",
+    "Power analysis reported": "reported",
+    "Power analysis reported but underpowered": "underpowered",
+  };
+  const short = (s: string) => SHORT[s] ?? s.toLowerCase();
 
   const signalGroups: SignalGroup[] = [
     {
@@ -874,7 +915,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         rows: compliance
           ? [{
               label: "TRIPOD-LLM reporting",
-              status: `${compliance.pct}% reported, ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()}`,
+              status: `${compliance.pct}%, ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()}`,
               tone: COMPLIANCE_TONE[compliance.level],
               href: `${linkBase}#tripod-llm-reporting-summary`,
               scale: REPORTING_COMPLIANCE_SCALE,
@@ -889,7 +930,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         rows: [
           ...opennessSignals.map((sig) => ({
             label: TOP_STANDARD_LABELS[sig.standard],
-            status: TOP_LEVEL_LABELS[sig.level],
+            status: short(TOP_LEVEL_LABELS[sig.level]),
             tone: TOP_LEVEL_TONE[sig.level],
             href: TOP_STANDARD_HREF[sig.standard] ? `${linkBase}${TOP_STANDARD_HREF[sig.standard]}` : undefined,
             scale: TOP_LEVEL_SCALE,
@@ -910,7 +951,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
               }
             : {
                 label: "Code quality \u00b7 FAIR",
-                status: "not applicable",
+                status: "NA",
                 tone: "gray" as Tone,
                 description: "No code repository was claimed for this paper, so there is nothing to score against the fair-software.eu criteria.",
               },
@@ -925,7 +966,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
               }
             : {
                 label: "Data quality \u00b7 FAIR",
-                status: "not applicable",
+                status: "NA",
                 tone: "gray" as Tone,
                 description: "No dataset was claimed for this paper, so there is nothing for FAIR-Checker to score.",
               },
@@ -939,7 +980,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           subgroup: "Validity",
           rows: validity.map((v) => ({
             label: VALIDITY_DOMAIN_LABELS[v.domain],
-            status: REPRODUCIBILITY_RISK_LABELS[v.risk],
+            status: short(REPRODUCIBILITY_RISK_LABELS[v.risk]),
             tone: RISK_TONE[v.risk],
             href: `${linkBase}#qa-${v.domain}`,
             scale: VALIDITY_SCALE,
@@ -952,7 +993,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             ...(dataLeakage
               ? [{
                   label: RIGOR_CHECK_LABELS["data-leakage"],
-                  status: DATA_LEAKAGE_LABELS[dataLeakage],
+                  status: short(DATA_LEAKAGE_LABELS[dataLeakage]),
                   tone: DATA_LEAKAGE_TONE[dataLeakage],
                   href: `${linkBase}#qa-data-leakage`,
                   scale: DATA_LEAKAGE_SCALE,
@@ -975,7 +1016,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             ...(statisticalPower
               ? [{
                   label: "Statistical power",
-                  status: STATISTICAL_POWER_LABELS[statisticalPower],
+                  status: short(STATISTICAL_POWER_LABELS[statisticalPower]),
                   tone: (statisticalPower === "adequate" ? "green" : "red") as Tone,
                   href: `${linkBase}#qa-statistical-power`,
                   scale: STATISTICAL_POWER_SCALE,
@@ -985,7 +1026,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             ...(statisticalConsistency
               ? [{
                   label: "Statistic accuracy",
-                  status: STATISTICAL_CONSISTENCY_LABELS[statisticalConsistency],
+                  status: short(STATISTICAL_CONSISTENCY_LABELS[statisticalConsistency]),
                   tone: (statisticalConsistency === "consistent"
                     ? "green"
                     : statisticalConsistency === "issues-found"
@@ -1007,7 +1048,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
         rows: [
           ...integrity.map((sig) => ({
             label: INTEGRITY_SIGNAL_LABELS[sig.kind],
-            status: DISCLOSURE_LEVEL_LABELS[sig.level],
+            status: short(DISCLOSURE_LEVEL_LABELS[sig.level]),
             tone: DISCLOSURE_TONE[sig.level],
             href: INTEGRITY_HREF[sig.kind] ? `${linkBase}${INTEGRITY_HREF[sig.kind]}` : undefined,
             scale: DISCLOSURE_SCALE,
@@ -1016,7 +1057,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           ...(aiWritingCheck
             ? [{
                 label: RIGOR_CHECK_LABELS["ai-writing-check"],
-                status: AI_WRITING_CHECK_LABELS[aiWritingCheck],
+                status: short(AI_WRITING_CHECK_LABELS[aiWritingCheck]),
                 tone: DATA_LEAKAGE_TONE[aiWritingCheck],
                 href: `${linkBase}#qa-ai-writing-check`,
                 scale: AI_WRITING_CHECK_SCALE,

@@ -33,7 +33,7 @@ function Rows({ rows }: { rows: SignalRow[] }) {
           <span>{row.label}</span>
         );
         return (
-          <tr key={row.label} className="border-t border-border/50">
+          <tr key={row.label} className="border-t border-border/70">
             <th scope="row" className="w-[55%] py-[3px] pr-2 text-left align-baseline font-normal text-ink/90">
               {row.scale && row.current ? (
                 <ScaleTooltip
@@ -53,7 +53,7 @@ function Rows({ rows }: { rows: SignalRow[] }) {
                   className={`mt-[0.32rem] inline-block h-[7px] w-[7px] shrink-0 rounded-full ${TONE_BG[row.tone]}`}
                   aria-hidden
                 />
-                <span className="lowercase text-muted-ink">{row.status}</span>
+                <span className="text-muted-ink">{row.status}</span>
               </span>
             </td>
           </tr>
@@ -91,9 +91,9 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
   return (
     <section
       aria-label="Quality signals"
-      className="mt-2 bg-card pb-2 pr-1 pt-1.5 text-[0.6875rem] leading-snug"
+      className="mt-2 pb-2 pr-1 pt-1.5 text-[0.6875rem] leading-snug"
     >
-      <p className="border-b-[5px] border-ink/80 pb-1 font-semibold uppercase tracking-[0.08em] text-ink">
+      <p className="border-b-[3px] border-ink/45 pb-1 font-semibold uppercase tracking-[0.08em] text-ink/80">
         Quality signals
       </p>
 
@@ -105,7 +105,7 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
           <div key={ci}>
             {column.map((group) => (
               <div key={group.name}>
-                <p className="mt-2 border-b-2 border-ink/60 pb-[2px] font-semibold uppercase tracking-[0.06em] text-ink">
+                <p className="mt-2 border-b border-ink/30 pb-[2px] font-semibold uppercase tracking-[0.06em] text-ink/75">
                   {group.name}
                 </p>
                 {group.sections.map((section, i) => (
