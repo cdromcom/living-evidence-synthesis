@@ -71,9 +71,7 @@ nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757
 > [!success] **TL;DR**
 > The headline finding, that GPT-4o and Claude flag expert-rejected variables as confounders at 65 to 74 percent rates and flip 16 percent of their answers on option-order alone, is methodologically credible and lands the central claim cleanly. The biggest open question is generalization: a single famous case study, deliberately chosen because it is in the training data, is the easiest possible test, and the models still fail it.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

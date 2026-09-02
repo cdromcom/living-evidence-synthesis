@@ -483,7 +483,7 @@ function tagTripodRows(html: string): string {
  * Wraps every H3 subsection (e.g. Methods Context's What?/How?/Who?) in its
  * own collapsible <details>, nested inside its parent H2's accordion body.
  */
-function wrapH3Subsections(html: string): string {
+function wrapH3Subsections(html: string, isOpen: (text: string, level: 2 | 3) => boolean): string {
   const h3Regex = /<h3 id="[^"]*">[\s\S]*?<\/h3>/g;
   const matches = [...html.matchAll(h3Regex)];
   if (matches.length === 0) return html;
@@ -493,7 +493,8 @@ function wrapH3Subsections(html: string): string {
     const start = matches[i].index! + heading.length;
     const end = i + 1 < matches.length ? matches[i + 1].index! : html.length;
     const body = html.slice(start, end);
-    result += `<details class="accordion-section" open><summary>${heading}</summary><div class="accordion-body">${body}</div></details>`;
+    const open = isOpen(stripTags(heading).trim(), 3) ? " open" : "";
+    result += `<details class="accordion-section"${open}><summary>${heading}</summary><div class="accordion-body">${body}</div></details>`;
   }
   return result;
 }
@@ -510,7 +511,7 @@ function wrapH3Subsections(html: string): string {
  * in-page anchor (from the TOC or a chip link) auto-expands a closed
  * section on navigation, no JS required.
  */
-function wrapAccordionSections(html: string): string {
+function wrapAccordionSections(html: string, isOpen: (text: string, level: 2 | 3) => boolean): string {
   const h2Regex = /<h2 id="[^"]*">[\s\S]*?<\/h2>/g;
   const matches = [...html.matchAll(h2Regex)];
   if (matches.length === 0) return html;
@@ -519,12 +520,13 @@ function wrapAccordionSections(html: string): string {
     const heading = matches[i][0];
     const start = matches[i].index! + heading.length;
     const end = i + 1 < matches.length ? matches[i + 1].index! : html.length;
-    const body = wrapH3Subsections(html.slice(start, end));
+    const body = wrapH3Subsections(html.slice(start, end), isOpen);
     const headingText = stripTags(heading).trim();
     if (headingText.toLowerCase() === "source") {
       result += heading + body;
     } else {
-      result += `<details class="accordion-section" open><summary>${heading}</summary><div class="accordion-body">${body}</div></details>`;
+      const open = isOpen(headingText, 2) ? " open" : "";
+      result += `<details class="accordion-section"${open}><summary>${heading}</summary><div class="accordion-body">${body}</div></details>`;
     }
   }
   return result;
@@ -548,7 +550,33 @@ function injectHeadingIds(html: string): { html: string; toc: TocItem[] } {
   return { html: tagged, toc };
 }
 
-export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
+/**
+ * Which sections start expanded.
+ *
+ * A Source page opens on the Question alone: everything below it — Methods,
+ * Findings, the appraisal tables — is reference material a reader consults, not
+ * prose they read straight through, and leaving it all open pushed the question
+ * the paper answers off the top of the screen. "Abstract" stays open only
+ * because it is the Question's parent; a closed parent would hide it.
+ *
+ * Every other node type keeps its sections open: their bodies are short enough
+ * to read in one pass, and collapsing them would hide the node's whole content
+ * behind a click.
+ */
+export type AccordionPolicy = "source" | "open";
+
+function openPredicate(policy: AccordionPolicy) {
+  if (policy === "open") return () => true;
+  return (text: string, level: 2 | 3) => {
+    const t = text.trim().toLowerCase();
+    return (level === 2 && t === "abstract") || (level === 3 && t === "question");
+  };
+}
+
+export function renderMarkdown(
+  md: string,
+  policy: AccordionPolicy = "open"
+): { html: string; toc: TocItem[] } {
   const withCallouts = transformCallouts(renderMath(isolateImageLines(md)));
   const rawHtml = marked.parse(withCallouts, { async: false }) as string;
   const withMermaid = activateMermaid(rawHtml);
@@ -558,5 +586,8 @@ export function renderMarkdown(md: string): { html: string; toc: TocItem[] } {
   const withFieldLists = renderFieldLists(withCaptions);
   const { html, toc } = injectHeadingIds(withFieldLists);
   const withQuotes = collapseNestedEvidence(collapseLongQuotes(html));
-  return { html: wrapAccordionSections(tagTripodRows(tagAppraisalRows(withQuotes))), toc };
+  return {
+    html: wrapAccordionSections(tagTripodRows(tagAppraisalRows(withQuotes)), openPredicate(policy)),
+    toc,
+  };
 }

@@ -73,9 +73,7 @@ nodeInstanceId: 019dd17a-f945-72a9-a2d4-93facd4227d6
 > [!success] **TL;DR**
 > This is an exploratory pilot, framed as such; it shows GPT-4 can plausibly help with the most structured reviewing subtask (checklist verification at 87%, or 93% if you exclude figure-only items) while failing at the least structured one (picking the better abstract, where it lands below chance under strict scoring). The numbers are too small and too domain-restricted to support deployment decisions, but the failure modes (prompt injection, positive-result bias, algorithm-name effects) are concrete enough to inform what guardrails any future reviewer-assistant tool would need.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

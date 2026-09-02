@@ -85,9 +85,7 @@ nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e
 > [!success] **TL;DR**
 > The headline "GPT-4 Turbo at 90% accuracy" is real on this dataset, and fine-tuning a 70-billion-parameter open-source model on GPT-4 outputs is a credible path to closing most of the closed-source gap (F1 0.84 vs. 0.89).
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

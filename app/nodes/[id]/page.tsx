@@ -62,7 +62,7 @@ export default async function NodeDetailPage({
 
   const inbound = getInboundEdges(node.id);
   const outbound = getOutboundEdges(node.id);
-  const { html, toc } = renderMarkdown(node.bodyMarkdown);
+  const { html, toc } = renderMarkdown(node.bodyMarkdown, node.type === "SRC" ? "source" : "open");
   const HANDLED_EXTRA_KEYS = new Set([
     "doi",
     "sourceUrl",

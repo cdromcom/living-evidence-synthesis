@@ -101,9 +101,7 @@ nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc
 > [!success] **TL;DR**
 > SPOT is a careful benchmark and the head-to-head design is fair, but the conclusion that "no current model is dependable for academic error verification" rests on a sample of 91 errors that lean toward author-acknowledged, locatable, math-heavy mistakes. The single-digit precision and near-zero calibration are striking enough that the directional claim, frontier LLMs are not yet trustworthy auto-reviewers, likely survives any reasonable expansion of the benchmark.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

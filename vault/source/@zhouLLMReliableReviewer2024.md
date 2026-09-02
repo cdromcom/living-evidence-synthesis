@@ -74,9 +74,7 @@ nodeInstanceId: 019dd17a-f95e-7c73-827f-b2352b9cc159
 > [!success] **TL;DR**
 > The paper makes a defensible negative claim: an off-the-shelf GPT-4, prompted in plausible ways, hits roughly 28% on the reasoning-heavy reviewer questions that the authors built RR-MCQ to capture.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

@@ -74,9 +74,7 @@ nodeInstanceId: 019dd17a-f94e-7707-9444-b2e1619daef0
 > [!success] **TL;DR**
 > This is a useful exploratory pilot, it demonstrates that off-the-shelf chatbots can produce structurally complete IRB-style answers and ICD drafts on teaching cases, and that splitting prompts apart helps. It is not evidence that any of these tools are ready to pre-screen real proposals.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

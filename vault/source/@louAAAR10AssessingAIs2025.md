@@ -121,9 +121,7 @@ nodeInstanceId: 019dd17a-f946-7c68-bb43-0ad4895ce6b1
 > [!success] **TL;DR**
 > AAAR-1.0 is a useful, deliberately hard benchmark that puts a clear ceiling on what current LLMs can do as automatic AI-paper reviewers; the headline numbers (47.98% F1 on equation correctness, 5.95 ITF-IDF on weaknesses versus 7.69 for humans, 21.99% F1 on flagging deficient review segments) all say the same thing: not deployment-ready.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes: click any link to drill in.
+## Abstract
 
 ### Question
 

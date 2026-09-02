@@ -91,7 +91,7 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
   return (
     <section
       aria-label="Quality signals"
-      className="mt-2 border border-ink/70 bg-card px-3 pb-2 pt-1.5 text-[0.6875rem] leading-snug"
+      className="mt-2 bg-card pb-2 pr-1 pt-1.5 text-[0.6875rem] leading-snug"
     >
       <p className="border-b-[5px] border-ink/80 pb-1 font-semibold uppercase tracking-[0.08em] text-ink">
         Quality signals
@@ -109,9 +109,9 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
                   {group.name}
                 </p>
                 {group.sections.map((section, i) => (
-                  <div key={section.subgroup ?? i}>
+                  <div key={section.subgroup ?? i} className={section.subgroup && i > 0 ? "mt-2.5" : undefined}>
                     {section.subgroup && (
-                      <p className="mt-1 text-[0.625rem] font-medium uppercase tracking-wide text-muted-ink/80">
+                      <p className="mb-0.5 text-[0.625rem] font-medium uppercase tracking-wide text-muted-ink/80">
                         {section.subgroup}
                       </p>
                     )}

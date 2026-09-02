@@ -89,9 +89,7 @@ nodeInstanceId: 019dd17a-f930-7bc0-be54-6850b5d43d22
 > [!success] **TL;DR**
 > The headline ranking, GPT 3.5-Turbo at the top, GPT 4-0613 at the bottom, is real but not interpretable as a comprehension ranking, because training-data coverage, access restrictions, and a single-expert gold standard all confound the comparison. The most defensible finding is the item-level pattern: across all six models, discussion-section items are easy and technical-detail items are hard, which is consistent with how LLMs handle interpretive vs. extractive tasks generally.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

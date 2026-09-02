@@ -81,9 +81,7 @@ nodeInstanceId: 019dd17a-f942-782f-99e1-d83f3cbbc264
 > [!success] **TL;DR**
 > This is a careful, transparent snapshot of how four free chatbots perform at one slice of risk-of-bias appraisal, and the qualitative error analysis is the paper's most durable contribution, it names specific reasoning failures (consecutive sampling under case-control, exclusion-stage confusion) that any future LLM-for-systematic-review tool will need to fix. The headline 72.95% accuracy should not be taken as a benchmark for LLM capability, because the small sample, single prompt, and free-tier model versions all push the estimate toward a lower bound.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

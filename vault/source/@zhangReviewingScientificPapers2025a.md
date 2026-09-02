@@ -73,9 +73,7 @@ nodeInstanceId: 019dd17a-f95d-7879-86c1-70337328c988
 > [!success] **TL;DR**
 > The paper makes a clean, well-instrumented case that today's reasoning LLMs (especially OpenAI's o3 and o4-mini) can flag the *specific* author-stated retraction error on roughly 60–70% of withdrawn math and physics papers, with o4-mini delivering nearly o3's accuracy at one-eighth the cost. The result that holds up cleanly is the cost–performance frontier within the OpenAI o-series.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

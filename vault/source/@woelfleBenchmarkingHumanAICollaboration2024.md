@@ -88,9 +88,7 @@ nodeInstanceId: 019dd17a-f954-743a-bc52-4e26dd72d397
 > [!success] **TL;DR**
 > The strongest result here, that a single human paired with one LLM matches or beats two humans on PRISMA and AMSTAR, is methodologically credible within the pediatric-surgery dataset and the specific model snapshots tested. Before treating this as a deployable workflow, two things need to follow: a prospective replication on freshly-rated papers (to neutralize web-contamination concerns) and a real time-on-task measurement (to confirm the "spared work" actually translates into wall-clock savings rather than just deferred decisions).
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes: click any link to drill in.
+## Abstract
 
 ### Question
 

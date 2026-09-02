@@ -81,9 +81,7 @@ nodeInstanceId: 019dd17a-f95b-77a4-8120-c69bff843bd2
 > [!success] **TL;DR**
 > LIMITGEN is a well-designed benchmark with a credible human ceiling, and its central finding, RAG helps but does not close a roughly 22-point gap to human reviewers, is robust to the LLM-judge concern thanks to the 0.96 correlation with human evaluation. The result is not deployment-ready as a standalone reviewer: even the best system (MARG + RAG) still misses roughly one in five obvious flaws and the benchmark itself excludes most non-AI domains.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

@@ -76,9 +76,7 @@ nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10
 > [!success] **TL;DR**
 > The paper's headline pattern, that ChatGPT matches humans on surface items but over-credits abstracts on methodological ones, is plausible and consistent with related work, but the evidence here is weak: a tiny single-specialty sample, a self-rating author panel, no agreement statistic, no multiple-comparison correction, and a non-reproducible chat-GUI pipeline. Treat this as a hypothesis-generating pilot rather than a benchmark.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

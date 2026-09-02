@@ -77,9 +77,7 @@ nodeInstanceId: 019dd17a-f939-7206-9a0a-1c995b5d5a78
 > [!success] **TL;DR**
 > MARG-S delivers a real, user-validated improvement on a hard task, multi-agent collaboration roughly doubles the rate of useful comments compared to a one-shot GPT-4 prompt, and the specificity gain is large and statistically robust. But the evidence base is narrow: 9 same-organization NLP researchers rating their own papers with one deprecated model snapshot, evaluated against an admitted lower-bound proxy.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

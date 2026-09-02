@@ -69,9 +69,7 @@ nodeInstanceId: 019dd17a-f951-7716-87b8-85d879b3e235
 > [!success] **TL;DR**
 > The result that abstracts beat full text, counterintuitive but consistent across three models, is a useful and cheap finding for anyone building LLM-assisted quality-screening tools. But the headline r=0.678 should be read as the upper bound of what a single expert can predict about his own work, not as evidence that ChatGPT can grade research at REF-panel quality.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

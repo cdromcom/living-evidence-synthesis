@@ -71,9 +71,7 @@ nodeInstanceId: 019dd17a-f937-724d-9f43-074dca71227e
 > [!success] **TL;DR**
 > GAR is the strongest reviewer-agent benchmark to date and convincingly outperforms prior LLM reviewer systems on three independent tasks. But the two largest claims, beating humans on accept/reject prediction and on review preference, rest on a same-family LLM judge and on test conferences likely seen in pretraining; either could account for a meaningful share of the gap.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

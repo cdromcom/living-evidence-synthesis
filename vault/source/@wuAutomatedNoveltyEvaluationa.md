@@ -78,9 +78,7 @@ nodeInstanceId: 019dd17a-f95a-7ee1-ba78-ba0e4133973c
 > [!success] **TL;DR**
 > The 10-point F1 gain from fusing human and LLM knowledge is real and the ablation cleanly localizes it to the knowledge-guided module, that part is well demonstrated. But the comparison to LLM baselines is not fair (zero-shot, no tuning), the evaluation lives entirely inside one ML conference, and the headline metric averages over an imbalanced binary collapse of a noisy subjective label.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

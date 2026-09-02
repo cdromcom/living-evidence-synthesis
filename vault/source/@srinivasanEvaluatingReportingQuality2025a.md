@@ -80,9 +80,7 @@ nodeInstanceId: 019dd17a-f950-75f1-a036-5fc27aea2466
 > [!success] **TL;DR**
 > GPT-4o-mini's CONSORT-TM performance (F1 = 0.85, precision = 0.96, climbing to F1 = 0.95 on High-confidence predictions) is genuinely impressive and credibly state-of-the-art for zero-shot CONSORT scoring, that result is the paper's strongest contribution and is robust enough to inform a "warn the author at submission" tool.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

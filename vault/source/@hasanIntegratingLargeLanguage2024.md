@@ -102,9 +102,7 @@ nodeInstanceId: 019dd17a-f93d-7c62-8a27-124b13d62c62
 > [!success] **TL;DR**
 > GPT-4 reaches a fair but uneven level of agreement with Cochrane reviewers on ROBINS-I, strong enough to consider as an extra independent reviewer in a human-in-the-loop workflow, nowhere near strong enough to replace one.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

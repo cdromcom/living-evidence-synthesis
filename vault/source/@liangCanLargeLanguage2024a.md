@@ -104,9 +104,7 @@ nodeInstanceId: 019dd17a-f943-7596-91de-9191d88da102
 > [!success] **TL;DR**
 > This is the single most-cited piece of evidence that general-purpose LLM peer review is in the same ballpark as human peer review at scale, and the methodological backbone (controlled human baselines, a shuffling null, a multi-stage validated pipeline, and a real user study) is solid. But the headline "comparable overlap" hides a substantive aspect skew (GPT-4 misses novelty almost entirely) and the test bed excludes the rejected and weak papers where pre-submission feedback would matter most.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

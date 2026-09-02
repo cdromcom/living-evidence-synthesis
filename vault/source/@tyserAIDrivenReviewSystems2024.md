@@ -101,9 +101,7 @@ nodeInstanceId: 019dd17a-f952-7812-8b4b-cd633d0b6ddb
 > [!success] **TL;DR**
 > The paper makes a real contribution by showing that GPT-4 with a fully assembled venue-context bundle can produce reviews that judges prefer at roughly the same rate as human OpenReview reviews. But the headline "LLM ≥ human" rests on a 5-judge preference tournament over 150 papers, no confidence intervals, an 8-paper rubric sub-study with one human evaluator, and a context bundle that has to be rebuilt each year.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

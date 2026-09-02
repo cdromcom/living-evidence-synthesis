@@ -72,9 +72,7 @@ nodeInstanceId: 019dd17a-f95c-7282-bd5a-5ee57f06b340
 > [!success] **TL;DR**
 > GPT-4 Turbo with retrieved excerpts hits 70.0% overall accuracy on a 250-pair benchmark, promising as a research signal, but well short of what a journal-screening pipeline would need. The two largest gaps to deployment are the small, narrow-domain corpus and the lack of any uncertainty estimates on the model-by-context comparisons; before treating "more context helps GPT-4 but hurts GPT-3.5" as a settled finding, a reader should want confidence intervals, a larger and more diverse benchmark, and disclosure of the OpenAI training-cutoff dates relative to the cited papers.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

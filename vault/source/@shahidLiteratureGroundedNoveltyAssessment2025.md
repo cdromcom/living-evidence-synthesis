@@ -85,9 +85,7 @@ nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335
 > [!success] **TL;DR**
 > The Idea Novelty Checker is a well-engineered RAG pipeline and the ablation cleanly shows that LLM-based re-ranking, especially facet-based, is the load-bearing component. But the headline 0.81 accuracy is built on 32 ideas labeled by the same two authors who built the in-context examples, with no confidence intervals or significance tests, so the "13% higher than prior systems" claim should be read as a promising signal rather than evidence of deployable novelty assessment.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

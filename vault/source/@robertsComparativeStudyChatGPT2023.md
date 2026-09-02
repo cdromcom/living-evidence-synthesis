@@ -86,9 +86,7 @@ nodeInstanceId: 019dd17a-f947-796e-bc90-271cd2fe663c
 > [!success] **TL;DR**
 > The headline finding, a 4.92-percentage-point average gap between ChatGPT and humans, overstates how well ChatGPT actually mirrors human judgement. The per-domain Pearson r values show ChatGPT and humans hitting similar averages by picking the same modal label, not by tracking which abstracts are well-reported, and on the binary "conclusion" item the model and humans disagree a lot.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 

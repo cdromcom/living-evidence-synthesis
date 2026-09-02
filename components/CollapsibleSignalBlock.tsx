@@ -40,7 +40,7 @@ export default function CollapsibleSignalBlock({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="mt-3 max-w-[70%]">
+    <div className="mt-3 max-w-[86%]">
       <button
         type="button"
         onClick={() => setExpanded((e) => !e)}

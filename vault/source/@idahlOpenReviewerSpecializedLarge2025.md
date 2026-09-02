@@ -71,9 +71,7 @@ nodeInstanceId: 019dd17a-f941-711e-94d8-69d06137ee06
 > [!success] **TL;DR**
 > OpenReviewer's headline result, that a small, peer-review-fine-tuned 8-billion-parameter model lands on the human recommendation distribution while general-purpose chatbots inflate by 1.5 to 2.7 points on a 10-point scale, is concrete, and the supervised fine-tune is the obvious explanation given that the base model on its own gives the most inflated reviews. But two unresolved issues stop this from being deployment-ready as a pre-submission feedback tool: the entire evaluation is in-domain (ICLR + NeurIPS only), and the comparisons lack formal uncertainty estimates.
 
-## Structured abstract
-
-> [!info] A plain-language summary built from this paper's discourse-graph nodes. Numbers and findings link back to specific EVD nodes; click any link to drill in.
+## Abstract
 
 ### Question
 
