@@ -5,6 +5,36 @@ roadmap — just a landing spot so these don't get lost between sessions.
 
 ## Content accuracy
 
+- **Caption the 76 uncaptioned EVD "Other Notes" tables with the source
+  paper's own table labels.** Each EVD carries one table under `## Other Notes`
+  reproducing results from its source paper, but 76 of the 77 present those
+  numbers with no attribution, so the site reads as though we assembled them.
+  The one worked example is
+  `EVD - Claude 3.7 Sonnet found no problem in 64.9%… - @zhangReviewingScientificPapers2025a.md`.
+
+  The rendering convention already exists: an *italic line immediately above
+  the table* (no blank line between) becomes the table's `<caption>` — see
+  `promoteTableCaptions` in `lib/markdown.ts`. It stays readable in Obsidian,
+  where a raw `<caption>` would not render at all. Format used in the pilot:
+
+  ```
+  *Figures reproduced from Zhang & Abernethy (2025), Tables 2 and 3, pp. 3–4.
+  Single-judge rows are from Table 3; the rest from Table 2.*
+  ```
+
+  This needs the **actual table numbers from each source PDF**, which is why it
+  is a manual pass rather than a script: the surrounding prose usually names a
+  table ("Table 2 shows…") but not always, and several EVDs splice rows from two
+  different tables, as the pilot did. PDFs are in the canonical Obsidian vault
+  at `/Users/ppatel/Documents/living-synthesis/source/pdfs/`, not this repo.
+
+  Do **not** caption the SRC `## Quality appraisal` and `## TRIPOD-LLM reporting
+  summary` tables the same way — those are our own hand-scored assessments, not
+  reproductions, and they already carry explanatory callouts on all 27 SRCs.
+
+  Progress check: `grep -L '^\*.*\*$' ` won't do it cleanly; the count above
+  came from checking the line directly preceding each table under Other Notes.
+
 - **Re-crop 9 missing figure/table screenshots from the source PDFs.** As of
   2026-09-02 the site renders every `![[...]]` embed (451 crops across 184
   nodes), but nine embeds point at files that were never committed to
