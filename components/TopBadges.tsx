@@ -870,145 +870,161 @@ export default function TopBadges({ node }: { node: GraphNode }) {
   const signalGroups: SignalGroup[] = [
     {
       name: "Transparency",
-      rows: compliance
-        ? [{
-            label: "TRIPOD-LLM reporting",
-            status: `${compliance.pct}% reported · ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()}`,
-            tone: COMPLIANCE_TONE[compliance.level],
-            href: `${linkBase}#tripod-llm-reporting-summary`,
-            scale: REPORTING_COMPLIANCE_SCALE,
-            current: compliance.level,
-          }]
-        : [],
+      sections: [{
+        rows: compliance
+          ? [{
+              label: "TRIPOD-LLM reporting",
+              status: `${compliance.pct}% reported, ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()}`,
+              tone: COMPLIANCE_TONE[compliance.level],
+              href: `${linkBase}#tripod-llm-reporting-summary`,
+              scale: REPORTING_COMPLIANCE_SCALE,
+              current: compliance.level,
+            }]
+          : [],
+      }],
     },
     {
       name: "Openness",
-      rows: [
-        ...opennessSignals.map((sig) => ({
-          label: TOP_STANDARD_LABELS[sig.standard],
-          status: TOP_LEVEL_LABELS[sig.level],
-          tone: TOP_LEVEL_TONE[sig.level],
-          href: TOP_STANDARD_HREF[sig.standard] ? `${linkBase}${TOP_STANDARD_HREF[sig.standard]}` : undefined,
-          scale: TOP_LEVEL_SCALE,
-          current: sig.level,
-        })),
-        ...rigorRow("repository-check", repositoryCheck, REPO_CHECK_LABELS, REPO_CHECK_SCALE),
-        ...rigorRow("code-check", codeCheck, REPO_CHECK_LABELS, REPO_CHECK_SCALE),
-        ...(codeQualityFair !== null
-          ? [{
-              label: "Code quality (FAIR)",
-              status: `${codeQualityFair}/5`,
-              tone: codeQualityBand(codeQualityFair) as Tone,
-              href: `${linkBase}#qa-code-quality-fair`,
-              scale: CODE_QUALITY_SCALE,
-              current: codeQualityBand(codeQualityFair),
-            }]
-          : []),
-        ...(dataQualityFair !== null
-          ? [{
-              label: "Data quality (FAIR)",
-              status: `${dataQualityFair}/24`,
-              tone: dataQualityBand(dataQualityFair) as Tone,
-              href: `${linkBase}#qa-data-quality-fair`,
-              scale: DATA_QUALITY_SCALE,
-              current: dataQualityBand(dataQualityFair),
-            }]
-          : []),
+      sections: [{
+        rows: [
+          ...opennessSignals.map((sig) => ({
+            label: TOP_STANDARD_LABELS[sig.standard],
+            status: TOP_LEVEL_LABELS[sig.level],
+            tone: TOP_LEVEL_TONE[sig.level],
+            href: TOP_STANDARD_HREF[sig.standard] ? `${linkBase}${TOP_STANDARD_HREF[sig.standard]}` : undefined,
+            scale: TOP_LEVEL_SCALE,
+            current: sig.level,
+          })),
+          ...rigorRow("repository-check", repositoryCheck, REPO_CHECK_LABELS, REPO_CHECK_SCALE),
+          ...rigorRow("code-check", codeCheck, REPO_CHECK_LABELS, REPO_CHECK_SCALE),
+          // Always rendered, even when the source has no score: an absent row
+          // reads as "we forgot to check", which is not what a missing tag means.
+          codeQualityFair !== null
+            ? {
+                label: "Code quality (FAIR)",
+                status: `${codeQualityFair} of 5`,
+                tone: codeQualityBand(codeQualityFair) as Tone,
+                href: `${linkBase}#qa-code-quality-fair`,
+                scale: CODE_QUALITY_SCALE,
+                current: codeQualityBand(codeQualityFair),
+              }
+            : {
+                label: "Code quality (FAIR)",
+                status: "not applicable",
+                tone: "gray" as Tone,
+                description: "No code repository was claimed for this paper, so there is nothing to score against the fair-software.eu criteria.",
+              },
+          dataQualityFair !== null
+            ? {
+                label: "Data quality (FAIR)",
+                status: `${dataQualityFair} of 24`,
+                tone: dataQualityBand(dataQualityFair) as Tone,
+                href: `${linkBase}#qa-data-quality-fair`,
+                scale: DATA_QUALITY_SCALE,
+                current: dataQualityBand(dataQualityFair),
+              }
+            : {
+                label: "Data quality (FAIR)",
+                status: "not applicable",
+                tone: "gray" as Tone,
+                description: "No dataset was claimed for this paper, so there is nothing for FAIR-Checker to score.",
+              },
+        ],
+      }],
+    },
+    {
+      name: "Rigor",
+      sections: [
+        {
+          subgroup: "Validity",
+          rows: validity.map((v) => ({
+            label: VALIDITY_DOMAIN_LABELS[v.domain],
+            status: REPRODUCIBILITY_RISK_LABELS[v.risk],
+            tone: RISK_TONE[v.risk],
+            href: `${linkBase}#qa-${v.domain}`,
+            scale: VALIDITY_SCALE,
+            current: v.risk,
+          })),
+        },
+        {
+          subgroup: "Design",
+          rows: [
+            ...(dataLeakage
+              ? [{
+                  label: RIGOR_CHECK_LABELS["data-leakage"],
+                  status: DATA_LEAKAGE_LABELS[dataLeakage],
+                  tone: DATA_LEAKAGE_TONE[dataLeakage],
+                  href: `${linkBase}#qa-data-leakage`,
+                  scale: DATA_LEAKAGE_SCALE,
+                  current: dataLeakage,
+                }]
+              : []),
+            ...rigorRow("baseline-adequacy", baselineAdequacy),
+            ...rigorRow("train-dev-test", trainDevTest),
+            ...rigorRow("human-baseline", humanBaseline),
+            ...rigorRow("prompt-engineering", promptEngineering),
+            ...rigorRow("ablation-experiments", ablationExperiments),
+          ],
+        },
+        {
+          subgroup: "Analyses",
+          rows: [
+            ...rigorRow("confidence-intervals", confidenceIntervals),
+            ...rigorRow("multiple-comparisons", multipleComparisons),
+            ...rigorRow("chance-corrected-metrics", chanceCorrectedMetrics),
+            ...(statisticalPower
+              ? [{
+                  label: "Statistical power",
+                  status: STATISTICAL_POWER_LABELS[statisticalPower],
+                  tone: (statisticalPower === "adequate" ? "green" : "red") as Tone,
+                  href: `${linkBase}#qa-statistical-power`,
+                  scale: STATISTICAL_POWER_SCALE,
+                  current: statisticalPower,
+                }]
+              : []),
+            ...(statisticalConsistency
+              ? [{
+                  label: "Statistic accuracy",
+                  status: STATISTICAL_CONSISTENCY_LABELS[statisticalConsistency],
+                  tone: (statisticalConsistency === "consistent"
+                    ? "green"
+                    : statisticalConsistency === "issues-found"
+                      ? "red"
+                      : "gray") as Tone,
+                  href: `${linkBase}#qa-statistic-accuracy`,
+                  scale: STATISTICAL_CONSISTENCY_SCALE,
+                  current: statisticalConsistency,
+                }]
+              : []),
+          ],
+        },
+        { subgroup: "Interpretation", rows: rigorRow("spin", spin) },
       ],
-    },
-    {
-      name: "Rigor",
-      subgroup: "Validity",
-      rows: validity.map((v) => ({
-        label: VALIDITY_DOMAIN_LABELS[v.domain],
-        status: REPRODUCIBILITY_RISK_LABELS[v.risk],
-        tone: RISK_TONE[v.risk],
-        href: `${linkBase}#qa-${v.domain}`,
-        scale: VALIDITY_SCALE,
-        current: v.risk,
-      })),
-    },
-    {
-      name: "Rigor",
-      subgroup: "Design",
-      rows: [
-        ...(dataLeakage
-          ? [{
-              label: RIGOR_CHECK_LABELS["data-leakage"],
-              status: DATA_LEAKAGE_LABELS[dataLeakage],
-              tone: DATA_LEAKAGE_TONE[dataLeakage],
-              href: `${linkBase}#qa-data-leakage`,
-              scale: DATA_LEAKAGE_SCALE,
-              current: dataLeakage,
-            }]
-          : []),
-        ...rigorRow("baseline-adequacy", baselineAdequacy),
-        ...rigorRow("train-dev-test", trainDevTest),
-        ...rigorRow("human-baseline", humanBaseline),
-        ...rigorRow("prompt-engineering", promptEngineering),
-        ...rigorRow("ablation-experiments", ablationExperiments),
-      ],
-    },
-    {
-      name: "Rigor",
-      subgroup: "Analyses",
-      rows: [
-        ...rigorRow("confidence-intervals", confidenceIntervals),
-        ...rigorRow("multiple-comparisons", multipleComparisons),
-        ...rigorRow("chance-corrected-metrics", chanceCorrectedMetrics),
-        ...(statisticalPower
-          ? [{
-              label: "Statistical Power",
-              status: STATISTICAL_POWER_LABELS[statisticalPower],
-              tone: (statisticalPower === "adequate" ? "green" : "red") as Tone,
-              href: `${linkBase}#qa-statistical-power`,
-              scale: STATISTICAL_POWER_SCALE,
-              current: statisticalPower,
-            }]
-          : []),
-        ...(statisticalConsistency
-          ? [{
-              label: "Statistic accuracy",
-              status: STATISTICAL_CONSISTENCY_LABELS[statisticalConsistency],
-              tone: (statisticalConsistency === "consistent"
-                ? "green"
-                : statisticalConsistency === "issues-found"
-                  ? "red"
-                  : "gray") as Tone,
-              href: `${linkBase}#qa-statistic-accuracy`,
-              scale: STATISTICAL_CONSISTENCY_SCALE,
-              current: statisticalConsistency,
-            }]
-          : []),
-      ],
-    },
-    {
-      name: "Rigor",
-      subgroup: "Interpretation",
-      rows: rigorRow("spin", spin),
     },
     {
       name: "Integrity",
-      rows: [
-        ...integrity.map((sig) => ({
-          label: INTEGRITY_SIGNAL_LABELS[sig.kind],
-          status: DISCLOSURE_LEVEL_LABELS[sig.level],
-          tone: DISCLOSURE_TONE[sig.level],
-          href: INTEGRITY_HREF[sig.kind] ? `${linkBase}${INTEGRITY_HREF[sig.kind]}` : undefined,
-          scale: DISCLOSURE_SCALE,
-          current: sig.level,
-        })),
-        ...(aiWritingCheck
-          ? [{
-              label: RIGOR_CHECK_LABELS["ai-writing-check"],
-              status: AI_WRITING_CHECK_LABELS[aiWritingCheck],
-              tone: DATA_LEAKAGE_TONE[aiWritingCheck],
-              href: `${linkBase}#qa-ai-writing-check`,
-              scale: AI_WRITING_CHECK_SCALE,
-              current: aiWritingCheck,
-            }]
-          : []),
-      ],
+      sections: [{
+        rows: [
+          ...integrity.map((sig) => ({
+            label: INTEGRITY_SIGNAL_LABELS[sig.kind],
+            status: DISCLOSURE_LEVEL_LABELS[sig.level],
+            tone: DISCLOSURE_TONE[sig.level],
+            href: INTEGRITY_HREF[sig.kind] ? `${linkBase}${INTEGRITY_HREF[sig.kind]}` : undefined,
+            scale: DISCLOSURE_SCALE,
+            current: sig.level,
+          })),
+          ...(aiWritingCheck
+            ? [{
+                label: RIGOR_CHECK_LABELS["ai-writing-check"],
+                status: AI_WRITING_CHECK_LABELS[aiWritingCheck],
+                tone: DATA_LEAKAGE_TONE[aiWritingCheck],
+                href: `${linkBase}#qa-ai-writing-check`,
+                scale: AI_WRITING_CHECK_SCALE,
+                current: aiWritingCheck,
+              }]
+            : []),
+        ],
+      }],
     },
   ];
 
