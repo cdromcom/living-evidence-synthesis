@@ -576,3 +576,86 @@ h6 {
 .prose-node .accordion-body .accordion-section > summary h3 {
   font-size: 1em;
 }
+
+/* ---------------------------------------------------------------------------
+   Prompts disclosure injected into an Evidence body, beside the Procedure it
+   belongs to. Mirrors components/PromptDetail.tsx, which renders the same block
+   as React on Source pages.
+   --------------------------------------------------------------------------- */
+.prose-node .prompt-detail {
+  margin: 0.9em 0;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: var(--color-card);
+}
+.prose-node .prompt-detail > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--color-muted-ink);
+  transition: color 0.12s, background 0.12s;
+}
+.prose-node .prompt-detail > summary::-webkit-details-marker { display: none; }
+.prose-node .prompt-detail > summary::before { content: "▸ "; }
+.prose-node .prompt-detail[open] > summary::before { content: "▾ "; }
+.prose-node .prompt-detail > summary:hover {
+  color: var(--color-ink);
+  background: var(--color-muted-surface);
+}
+.prose-node .prompt-detail[open] > summary { border-bottom: 1px solid var(--color-border); }
+.prose-node .prompt-detail-body { padding: 0.75rem; }
+.prose-node .prompt-role {
+  margin: 0 0 0.25em;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-muted-ink);
+}
+.prose-node .prompt-item { margin-left: 0.4rem; color: var(--color-border); }
+/* The full prompt keeps its own line breaks and numbering — it is an artifact,
+   not prose, and rewrapping it would misrepresent what was sent. */
+.prose-node .prompt-verbatim {
+  margin: 0 0 0.9em;
+  padding: 0.6rem 0.75rem;
+  border-left: 2px solid var(--color-forest);
+  border-radius: 0 0.25rem 0.25rem 0;
+  background: var(--color-muted-surface);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  color: var(--color-ink);
+}
+.prose-node .prompt-locator {
+  margin: 0 0 0.6em;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.625rem;
+  color: var(--color-muted-ink);
+}
+.prose-node .prompt-sep {
+  margin: 0.4em 0 0.6em;
+  padding-top: 0.6em;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.6875rem;
+  color: var(--color-muted-ink);
+}
+.prose-node .prompt-excerpts { margin: 0; padding: 0; list-style: none; }
+.prose-node .prompt-excerpts > li + li { margin-top: 0.75em; }
+.prose-node .prompt-excerpts blockquote {
+  margin: 0;
+  border-left: 2px solid var(--color-border);
+  padding-left: 0.7rem;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--color-ink);
+}
+.prose-node .prompt-foot {
+  margin: 0.8em 0 0;
+  padding-top: 0.6em;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.625rem;
+  color: var(--color-muted-ink);
+}

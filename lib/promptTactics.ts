@@ -50,6 +50,15 @@ export type PromptTactics = {
   prompts: { item: string; label: string; text: string; locator: string | null }[];
   /** What the coding turns on, in one or two sentences. */
   reading: string;
+  /**
+   * The prompt as printed in the paper's PDF, in full, rather than the excerpt
+   * the TRIPOD row quotes. Present only for sources whose PDF actually prints
+   * one — many report the prompt only as "see the supplement", and inventing a
+   * plausible reconstruction would be worse than an honest gap.
+   */
+  fullPrompts?: { role: "System prompt" | "User prompt"; text: string }[];
+  /** Where in the PDF the full prompt was read from. */
+  fullPromptSource?: string;
 };
 
 export const PROMPT_TACTICS: PromptTactics[] = [
@@ -785,6 +794,17 @@ export const PROMPT_TACTICS: PromptTactics[] = [
         "label": "Output format",
         "text": "1. Extract 1-3 relevant quotes from the full text. 2. Explain your reasoning in 1 paragraph. 3. Give a score X from 1 (very explanatory) to 5 (very pragmatic) in square brackets",
         "locator": "Box 1, p.6"
+      }
+    ],  
+    "fullPromptSource": "Box 1, p.6 — the paper prints its GPT-4 / PRECIS-2 prompt in full",
+    "fullPrompts": [
+      {
+        "role": "System prompt",
+        "text": "You are an expert in clinical trial design and are tasked to assess the PRECIS-2 scores of a trial based on the full text of its publication. You have the briefing in the attached \"Loudon 2015 shortened.txt\" and \"PRECIS Toolkit page 4.txt\"."
+      },
+      {
+        "role": "User prompt",
+        "text": "This is the full text to be assessed: [attachment: 722.txt]\nFor each of the nine domains of PRECIS-2, perform the following steps.\n1. Extract 1-3 relevant quotes from the full text.\n2. Explain your reasoning in 1 paragraph.\n3. Give a score X from 1 (very explanatory) to 5 (very pragmatic) in square brackets like this: \"Score: [X]\". If the full text does not contain enough information to assess a specific domain, report \"Score: [NA]\".\nDo not provide a final summary paragraph in the end."
       }
     ]
   },

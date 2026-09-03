@@ -565,6 +565,34 @@ function injectHeadingIds(html: string): { html: string; toc: TocItem[] } {
  */
 export type AccordionPolicy = "source" | "open";
 
+/**
+ * Drops a block of ready-made HTML immediately after the Procedure entry in
+ * Methods Context.
+ *
+ * The prompts belong next to the procedure they were part of, not stacked at
+ * the top of the page above the abstract — a reader meets "Claude was prompted
+ * once with the Appendix-A instruction" and the prompt itself should be right
+ * there. Falls back to the end of Methods Context when a node writes its
+ * procedure without that label, and returns the page unchanged when there is no
+ * Methods Context at all, so a node type that has none is never altered.
+ */
+function insertAfterProcedure(html: string, block: string): string {
+  if (!block) return html;
+  const section = html.match(
+    /<h2 id="[^"]*">\s*Methods Context\s*<\/h2>([\s\S]*?)(?=<h2 |$)/i
+  );
+  if (!section) return html;
+  const [full, body] = section;
+
+  // The field list renders Procedure as <dt>Procedure</dt><dd>…</dd>; put the
+  // block after the whole list so it does not break the dl's structure.
+  const dl = body.match(/<dl class="field-list">[\s\S]*?<dt>Procedure<\/dt>[\s\S]*?<\/dl>/i);
+  const next = dl
+    ? body.replace(dl[0], `${dl[0]}${block}`)
+    : `${body}${block}`;
+  return html.replace(full, full.replace(body, next));
+}
+
 function openPredicate(policy: AccordionPolicy) {
   if (policy === "open") return () => true;
   return (text: string, level: 2 | 3) => {
@@ -575,7 +603,9 @@ function openPredicate(policy: AccordionPolicy) {
 
 export function renderMarkdown(
   md: string,
-  policy: AccordionPolicy = "open"
+  policy: AccordionPolicy = "open",
+  /** Optional HTML dropped in after the Procedure entry (see insertAfterProcedure). */
+  procedureBlock = ""
 ): { html: string; toc: TocItem[] } {
   const withCallouts = transformCallouts(renderMath(isolateImageLines(md)));
   const rawHtml = marked.parse(withCallouts, { async: false }) as string;
@@ -585,7 +615,10 @@ export function renderMarkdown(
   const withCaptions = promoteTableCaptions(withFigures);
   const withFieldLists = renderFieldLists(withCaptions);
   const { html, toc } = injectHeadingIds(withFieldLists);
-  const withQuotes = collapseNestedEvidence(collapseLongQuotes(html));
+  const withQuotes = insertAfterProcedure(
+    collapseNestedEvidence(collapseLongQuotes(html)),
+    procedureBlock
+  );
   return {
     html: wrapAccordionSections(tagTripodRows(tagAppraisalRows(withQuotes)), openPredicate(policy)),
     toc,

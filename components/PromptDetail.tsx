@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { promptsFor } from "@/lib/promptTactics";
+import { PROMPT_TACTICS, promptsFor } from "@/lib/promptTactics";
 
 /**
  * The prompts a paper reports, collapsed until asked for.
@@ -24,7 +24,9 @@ export default function PromptDetail({
   className?: string;
 }) {
   const prompts = promptsFor(srcId);
-  if (prompts.length === 0) return null;
+  const row = PROMPT_TACTICS.find((r) => r.srcId === srcId);
+  const full = row?.fullPrompts ?? [];
+  if (prompts.length === 0 && full.length === 0) return null;
 
   return (
     <details className={`rounded-md border border-border bg-card ${className}`}>
@@ -43,8 +45,12 @@ export default function PromptDetail({
           <path d="M4 6h16M4 12h10M4 18h13" />
         </svg>
         <span>
-          {prompts.length === 1 ? "1 prompt reported" : `${prompts.length} prompts reported`}
-          {inherited && " by the source paper"}
+          {full.length > 0
+            ? "Prompt in full"
+            : prompts.length === 1
+              ? "1 prompt reported"
+              : `${prompts.length} prompts reported`}
+          {inherited && (full.length > 0 ? ", from the source paper" : " by the source paper")}
         </span>
       </summary>
 
@@ -57,6 +63,29 @@ export default function PromptDetail({
             </Link>
             , the paper this evidence comes from.
           </p>
+        )}
+        {full.length > 0 && (
+          <div className="mb-3">
+            {full.map((f) => (
+              <div key={f.role} className="mb-3 last:mb-0">
+                <p className="font-mono text-[0.625rem] uppercase tracking-wide text-muted-ink">
+                  {f.role}
+                </p>
+                {/* Kept as-sent: line breaks and numbering are part of the prompt. */}
+                <pre className="mt-1 overflow-x-auto whitespace-pre-wrap rounded-r border-l-2 border-forest bg-muted-surface px-3 py-2 font-mono text-[0.75rem] leading-relaxed text-ink">
+                  {f.text}
+                </pre>
+              </div>
+            ))}
+            {row?.fullPromptSource && (
+              <p className="font-mono text-[0.625rem] text-muted-ink">{row.fullPromptSource}</p>
+            )}
+            {prompts.length > 0 && (
+              <p className="mt-3 border-t border-border pt-2 text-[0.6875rem] text-muted-ink">
+                As recorded against the TRIPOD-LLM checklist:
+              </p>
+            )}
+          </div>
         )}
         <ul className="space-y-3">
           {prompts.map((p, i) => (
