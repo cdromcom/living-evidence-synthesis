@@ -168,6 +168,17 @@ Two findings the page is built around: only three of the 27 sources vary shot
 count as an experimental condition, and the 27 produce 23 distinct combinations
 of tactics, so there is no shared methodology to speak of.
 
+The prompts themselves are available wherever the question comes up, not only on
+that page. `components/PromptDetail.tsx` renders every prompt fragment a paper
+reports — 76 across the corpus, one entry per TRIPOD-LLM row (9a prompt design,
+6d output instruction, 9b prompt development, and 6c only where that row quotes
+prompt text rather than sampling parameters) — behind one collapsed disclosure.
+It appears on Source pages, and on Evidence pages showing the parent paper's
+prompts, since "what did they actually type at the model" is the same question a
+reader has when weighing a finding. The fragments were already on the page,
+spread across four rows of a TRIPOD table that is itself collapsed: recoverable,
+but not findable.
+
 ## Review backend
 
 Live, sign-in-gated accuracy review is backed by Supabase (Postgres + auth),
