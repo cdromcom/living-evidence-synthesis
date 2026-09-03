@@ -149,6 +149,25 @@ callouts and mermaid, it does six things worth knowing about:
   evidence folded behind a count — QUE-001 has 8 claims and 32 evidence
   nodes, and the claims are the answer.
 
+## Prompt tactics (`/prompts`)
+
+A cross-corpus view of *how* each source paper prompted its model, coded across
+eleven dimensions: shot count (and whether it was varied), whether input or
+output type was iterated, role-playing, detailed procedure, repeated runs, and
+three properties of the run itself — disclosed temperature, reasoning/thinking
+model, retrieval augmentation. Each row expands to the prompt the paper reports
+verbatim, its TRIPOD locator, and a link to the Source node.
+
+The coding lives in `lib/promptTactics.ts` as committed data, not derived from
+frontmatter: it is a curator judgement per paper, read off TRIPOD-LLM items 9a,
+6c and 6d plus the Methods section. If a source's prompt description changes,
+that file has to be updated by hand alongside it — there is no build step that
+would notice the drift.
+
+Two findings the page is built around: only three of the 27 sources vary shot
+count as an experimental condition, and the 27 produce 23 distinct combinations
+of tactics, so there is no shared methodology to speak of.
+
 ## Review backend
 
 Live, sign-in-gated accuracy review is backed by Supabase (Postgres + auth),
