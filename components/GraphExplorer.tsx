@@ -401,16 +401,44 @@ export default function GraphExplorer({
   // container and passing width explicitly fixes both that and the initial
   // auto-fit.
   const [graphWidth, setGraphWidth] = useState(0);
+  // Height is fixed at 620 in the page flow, but in fullscreen the container is
+  // sized by flex rather than by its content, so it can be measured.
+  const [measuredHeight, setMeasuredHeight] = useState(0);
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver((entries) => {
-      const w = Math.round(entries[0].contentRect.width);
+      const box = entries[0].contentRect;
+      const w = Math.round(box.width);
+      const h = Math.round(box.height);
       setGraphWidth((prev) => (prev === w ? prev : w));
+      setMeasuredHeight((prev) => (prev === h ? prev : h));
     });
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  // Fullscreen puts the whole explorer — filter chips, dropdowns and the
+  // right-hand panel included — into the fullscreen element, so nothing the
+  // reader was using disappears when the canvas gets bigger.
+  const shellRef = useRef<HTMLDivElement>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(document.fullscreenElement === shellRef.current);
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, []);
+  async function toggleFullscreen() {
+    hasAutoFittedRef.current = false; // re-fit to the new viewport
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await shellRef.current?.requestFullscreen();
+    } catch {
+      // Safari on iOS and some embedded browsers refuse; leave the page as-is
+      // rather than half-applying a fullscreen layout.
+    }
+  }
+  const graphHeight = isFullscreen && measuredHeight > 0 ? measuredHeight : 620;
 
   const statuses = useMemo(
     () => Array.from(new Set(nodes.map((n) => n.curationStatus))).sort(),
@@ -775,7 +803,10 @@ export default function GraphExplorer({
   const selectedNode = selectedId ? getNodeById(selectedId) : undefined;
 
   return (
-    <div>
+    <div
+      ref={shellRef}
+      className={isFullscreen ? "flex h-full flex-col overflow-auto bg-paper p-4" : undefined}
+    >
       <div className="mb-3 flex flex-wrap items-center gap-2">
         {NODE_TYPE_ORDER.map((t) => (
           <button
@@ -895,8 +926,15 @@ export default function GraphExplorer({
         </div>
       )}
 
-      <div className="grid gap-3 lg:grid-cols-[1fr_280px]">
-        <div ref={containerRef} className="overflow-hidden rounded-lg border border-border bg-card">
+      <div
+        className={`grid gap-3 lg:grid-cols-[1fr_280px] ${
+          isFullscreen ? "min-h-0 flex-1" : ""
+        }`}
+      >
+        <div
+          ref={containerRef}
+          className="relative overflow-hidden rounded-lg border border-border bg-card"
+        >
           <ForceGraph2D
             ref={fgRef}
             graphData={graphData}
@@ -935,10 +973,43 @@ export default function GraphExplorer({
             linkDirectionalArrowLength={3}
             linkDirectionalArrowRelPos={1}
             width={graphWidth || undefined}
-            height={620}
+            height={graphHeight}
             cooldownTicks={100}
             backgroundColor="rgba(0,0,0,0)"
           />
+
+          {/* Sits over the canvas rather than in the toolbar: it belongs to the
+              graph, and in fullscreen the toolbar is still on screen, so the
+              control stays where the reader last saw it. Bottom-right keeps it
+              clear of the node tooltip, which follows the cursor. */}
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            aria-pressed={isFullscreen}
+            title={isFullscreen ? "Exit full screen" : "Full screen"}
+            className="absolute bottom-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-md border border-border bg-white text-ink/70 shadow-sm transition-colors hover:border-forest/50 hover:text-forest focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+          >
+            <span className="sr-only">
+              {isFullscreen ? "Exit full screen" : "View the graph full screen"}
+            </span>
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              {isFullscreen ? (
+                <path d="M9 3v6H3M15 21v-6h6M3 15h6v6M21 9h-6V3" />
+              ) : (
+                <path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6" />
+              )}
+            </svg>
+          </button>
         </div>
 
         <div className="min-w-0 rounded-lg border border-border bg-card p-4">
