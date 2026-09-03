@@ -937,12 +937,6 @@ export default function GraphExplorer({
           ))}
         </select>
         <button
-          onClick={zoomToFit}
-          className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-muted-surface"
-        >
-          Fit to view
-        </button>
-        <button
           onClick={() => {
             hasAutoFittedRef.current = false;
             setTypeFilter(new Set(NODE_TYPE_ORDER));
@@ -1012,7 +1006,13 @@ export default function GraphExplorer({
       >
         <div
           ref={containerRef}
-          className="relative overflow-hidden rounded-lg border border-border bg-card"
+          // In page flow the canvas is a fixed 620 tall, so the box must not
+          // stretch to a taller panel or it grows an empty band beneath the
+          // drawing. In fullscreen the row height is the viewport and the canvas
+          // is measured to fill it, so stretching is exactly what is wanted.
+          className={`relative overflow-hidden rounded-lg border border-border bg-card ${
+            isFullscreen ? "" : "self-start"
+          }`}
         >
           <ForceGraph2D
             ref={fgRef}
@@ -1061,12 +1061,36 @@ export default function GraphExplorer({
               graph, and in fullscreen the toolbar is still on screen, so the
               control stays where the reader last saw it. Bottom-right keeps it
               clear of the node tooltip, which follows the cursor. */}
+          <div className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={zoomToFit}
+            title="Fit to view"
+            className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-white text-ink/70 shadow-sm transition-colors hover:border-forest/50 hover:text-forest focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+          >
+            <span className="sr-only">Fit the whole graph in view</span>
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              {/* arrows pulling inward: gather the graph back into the frame */}
+              <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+              <path d="M9.5 9.5l-4-4M14.5 9.5l4-4M9.5 14.5l-4 4M14.5 14.5l4 4" />
+            </svg>
+          </button>
           <button
             type="button"
             onClick={toggleFullscreen}
             aria-pressed={isFullscreen}
             title={isFullscreen ? "Exit full screen" : "Full screen"}
-            className="absolute bottom-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-md border border-border bg-white text-ink/70 shadow-sm transition-colors hover:border-forest/50 hover:text-forest focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+            className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-white text-ink/70 shadow-sm transition-colors hover:border-forest/50 hover:text-forest focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
           >
             <span className="sr-only">
               {isFullscreen ? "Exit full screen" : "View the graph full screen"}
@@ -1089,6 +1113,7 @@ export default function GraphExplorer({
               )}
             </svg>
           </button>
+          </div>
         </div>
 
         {/* Splitter. Below lg the two panes stack, so it is hidden there —
@@ -1111,9 +1136,9 @@ export default function GraphExplorer({
           <span className="h-10 w-[3px] rounded-full bg-border transition-colors group-hover:bg-forest/60" />
         </div>
 
-        <div className="min-w-0 rounded-lg border border-border bg-card p-4">
+        <div className="flex min-h-0 min-w-0 flex-col rounded-lg border border-border bg-card p-4">
           {selectedNode ? (
-            <div>
+            <div className="flex min-h-0 flex-1 flex-col">
               <div className="flex items-start justify-between gap-2">
                 <span
                   className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-wide text-white ${NODE_TYPE_BG_CLASS[selectedNode.type]}`}
@@ -1184,11 +1209,14 @@ export default function GraphExplorer({
                   .sort((a, b) => a.title.localeCompare(b.title));
                 if (neighborNodes.length === 0) return null;
                 return (
-                  <div className="mt-4 border-t border-border pt-3">
+                  <div className="mt-4 flex min-h-0 flex-1 flex-col border-t border-border pt-3">
                     <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
                       Connected nodes ({neighborNodes.length})
                     </p>
-                    <ul className="mt-2 max-h-72 space-y-1 overflow-y-auto">
+                    {/* Fills whatever height the panel has left rather than a
+                        fixed 18rem, so the list only scrolls once it genuinely
+                        outgrows the panel. */}
+                    <ul className="mt-2 min-h-0 flex-1 space-y-1 overflow-y-auto">
                       {neighborNodes.map((n) => {
                         const isExpanded = expandedNeighbors.has(n.id);
                         const summary = isExpanded ? nodeSummary(n) : null;
@@ -1247,7 +1275,7 @@ export default function GraphExplorer({
                 <li>Hover a node to highlight it and its direct connections.</li>
                 <li>Click a node to preview it here without leaving the graph.</li>
                 <li>&quot;Focus this neighborhood&quot; isolates a node and its connections to cut clutter.</li>
-                <li>Drag nodes to rearrange; scroll/pinch to zoom; &quot;Fit to view&quot; re-centers.</li>
+                <li>Drag nodes to rearrange; scroll/pinch to zoom; the fit-to-view icon over the canvas re-centers.</li>
                 <li>
                   Press <kbd className="mono rounded border border-border bg-muted-surface px-1 py-0.5 text-[0.65rem]">⌘K</kbd>{" "}
                   (or Ctrl+K) any time to search all nodes by title, tag, or id.
