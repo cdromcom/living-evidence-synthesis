@@ -3,11 +3,10 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
-import type { GraphNode, GraphEdge, NodeType, FiveC, ReproducibilityRisk, EvaluativeTask } from "@/lib/data";
+import type { GraphNode, GraphEdge, NodeType, ReproducibilityRisk, EvaluativeTask } from "@/lib/data";
 import {
   NODE_TYPE_ORDER,
   NODE_TYPE_LABELS,
-  FIVE_C_ORDER,
   FIVE_C_LABELS,
   getFiveCs,
   TASK_ORDER,
@@ -65,7 +64,6 @@ type FGNode = {
   title: string;
   degree: number;
   status: string;
-  fiveCs: FiveC[];
   // Injected by the force simulation at runtime, absent before the first tick.
   x?: number;
   y?: number;
@@ -379,10 +377,7 @@ export default function GraphExplorer({
   );
   const [statusFilter, setStatusFilter] = useState<string>("all");
   // Empty set = filter inactive (show everything, including nodes with no
-  // 5C tag at all — most QUE/SRC/CVT/EP nodes). Non-empty = show only nodes
-  // that carry at least one of the selected 5Cs.
-  const [fiveCFilter, setFiveCFilter] = useState<Set<FiveC>>(new Set());
-  // Same empty-set-means-inactive convention as fiveCFilter, OR'd across
+  // Empty set means inactive; non-empty is OR'd across
   // whichever trust-signal checkboxes (Openness/Rigor/Transparency/Integrity)
   // are selected — see TRUST_SIGNAL_OPTIONS.
   const [trustSignalFilter, setTrustSignalFilter] = useState<Set<string>>(new Set());
@@ -429,7 +424,6 @@ export default function GraphExplorer({
           (n) =>
             typeFilter.has(n.type) &&
             (statusFilter === "all" || n.curationStatus === statusFilter) &&
-            (fiveCFilter.size === 0 || getFiveCs(n).some((c) => fiveCFilter.has(c))) &&
             (trustSignalFilter.size === 0 ||
               TRUST_SIGNAL_OPTIONS.filter((o) => trustSignalFilter.has(o.key)).some((o) => o.test(n))) &&
             (taskFilter.size === 0 || getEvaluativeTasks(n).some((t) => taskFilter.has(t)))
@@ -449,13 +443,12 @@ export default function GraphExplorer({
         title: n.title,
         degree: degreeById.get(n.id) ?? 0,
         status: n.curationStatus,
-        fiveCs: getFiveCs(n),
       }));
     const fgLinks: FGLink[] = edges
       .filter((e) => visibleIds.has(e.from) && visibleIds.has(e.to))
       .map((e) => ({ source: e.from, target: e.to, type: e.type }));
     return { nodes: fgNodes, links: fgLinks };
-  }, [nodes, edges, typeFilter, statusFilter, fiveCFilter, trustSignalFilter, taskFilter]);
+  }, [nodes, edges, typeFilter, statusFilter, trustSignalFilter, taskFilter]);
 
   // Adjacency, built once per filtered graph — powers both hover/selection
   // highlighting and focus (ego-network) mode.
@@ -550,16 +543,6 @@ export default function GraphExplorer({
       const next = new Set(prev);
       if (next.has(t)) next.delete(t);
       else next.add(t);
-      return next;
-    });
-  }
-
-  function toggleFiveC(c: FiveC) {
-    hasAutoFittedRef.current = false;
-    setFiveCFilter((prev) => {
-      const next = new Set(prev);
-      if (next.has(c)) next.delete(c);
-      else next.add(c);
       return next;
     });
   }
@@ -810,16 +793,6 @@ export default function GraphExplorer({
         ))}
         <span className="mx-1 h-4 w-px bg-border" />
         <CheckboxDropdown
-          label="5Cs"
-          options={FIVE_C_ORDER.map((c) => ({ key: c, label: FIVE_C_LABELS[c] }))}
-          selected={fiveCFilter}
-          onToggle={(key) => toggleFiveC(key as FiveC)}
-          onClear={() => {
-            hasAutoFittedRef.current = false;
-            setFiveCFilter(new Set());
-          }}
-        />
-        <CheckboxDropdown
           label="Trust signals"
           options={TRUST_SIGNAL_OPTIONS.map((o) => ({ key: o.key, label: o.label, group: o.group }))}
           selected={trustSignalFilter}
@@ -866,7 +839,6 @@ export default function GraphExplorer({
             hasAutoFittedRef.current = false;
             setTypeFilter(new Set(NODE_TYPE_ORDER));
             setStatusFilter("all");
-            setFiveCFilter(new Set());
             setTrustSignalFilter(new Set());
             setTaskFilter(new Set());
           }}
@@ -1093,10 +1065,6 @@ export default function GraphExplorer({
               <p className="font-semibold text-ink/80">How to read this graph</p>
               <ul className="mt-2 list-disc space-y-1.5 pl-4">
                 <li>Chip color above = node type; dot size = number of connections.</li>
-                <li>
-                  The 5Cs dropdown filters by appraisal (Credibility, Clarity, Creativity, Care, Connectivity):
-                  most claims and evidence carry one or more; other node types usually don&apos;t.
-                </li>
                 <li>
                   The Trust signals dropdown filters by the same Openness/Rigor/Transparency/Integrity signals
                   shown on each source page. Check any box to show nodes matching at least one.
