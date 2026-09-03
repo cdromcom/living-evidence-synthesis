@@ -185,12 +185,28 @@ export default function PromptTacticsExplorer({ rows }: { rows: PromptTactics[] 
                       {isOpen && (
                         <div className="mt-2 max-w-[52ch] space-y-2 border-l-2 border-forest pl-3">
                           <p className="font-mono text-[0.625rem] uppercase tracking-wide text-muted-ink">
-                            Prompt as reported
+                            {r.prompts.length === 1
+                              ? "1 prompt reported"
+                              : `${r.prompts.length} prompts reported`}
                           </p>
-                          <blockquote className="text-[0.8125rem] italic leading-relaxed text-ink">
-                            {r.prompt}
-                          </blockquote>
-                          <p className="font-mono text-[0.6875rem] text-muted-ink">{r.locator}</p>
+                          <ul className="space-y-2.5">
+                            {r.prompts.map((f, i) => (
+                              <li key={`${f.item}-${i}`}>
+                                <p className="font-mono text-[0.5625rem] uppercase tracking-wide text-muted-ink">
+                                  {f.label}
+                                  <span className="ml-1.5 text-border">TRIPOD {f.item}</span>
+                                </p>
+                                <blockquote className="mt-0.5 text-[0.8125rem] italic leading-relaxed text-ink">
+                                  {f.text}
+                                </blockquote>
+                                {f.locator && (
+                                  <p className="mt-0.5 font-mono text-[0.625rem] text-muted-ink">
+                                    {f.locator}
+                                  </p>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
                           <p className="text-xs text-muted-ink">{r.reading}</p>
                           <p className="font-mono text-[0.6875rem] text-muted-ink">
                             Temperature{" "}

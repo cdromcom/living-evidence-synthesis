@@ -5,6 +5,7 @@ import {
   getNodeById,
   getOutboundEdges,
   getReportingCompliance,
+  getParentSource,
 } from "@/lib/data";
 import { renderMarkdown } from "@/lib/markdown";
 import NodeTypeBadge from "@/components/NodeTypeBadge";
@@ -16,6 +17,7 @@ import SourceToc from "@/components/SourceToc";
 import TopBadges from "@/components/TopBadges";
 import SourceCredibility from "@/components/SourceCredibility";
 import SourceCitation from "@/components/SourceCitation";
+import PromptDetail from "@/components/PromptDetail";
 import ClaimTruthValue from "@/components/ClaimTruthValue";
 import CaveatMeta from "@/components/CaveatMeta";
 
@@ -63,6 +65,8 @@ export default async function NodeDetailPage({
   const inbound = getInboundEdges(node.id);
   const outbound = getOutboundEdges(node.id);
   const { html, toc } = renderMarkdown(node.bodyMarkdown, node.type === "SRC" ? "source" : "open");
+  // EVD pages show their parent paper's prompts; SRC pages show their own.
+  const promptSourceId = node.type === "EVD" ? getParentSource(node.id)?.id ?? null : null;
   const HANDLED_EXTRA_KEYS = new Set([
     "doi",
     "sourceUrl",
@@ -171,6 +175,15 @@ export default async function NodeDetailPage({
 
       <TopBadges node={node} />
       <SourceCredibility node={node} />
+
+      {/* What the paper actually typed at the model, on demand. On a Source
+          page these are its own; on an Evidence page they come from the paper
+          the evidence was read out of, which is the same question a reader has
+          when weighing that finding. */}
+      {node.type === "SRC" && <PromptDetail srcId={node.id} className="mt-3 max-w-[86%]" />}
+      {node.type === "EVD" && promptSourceId && (
+        <PromptDetail srcId={promptSourceId} inherited className="mt-3 max-w-[86%]" />
+      )}
 
       {extraEntries.length > 0 && (
         <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 text-xs sm:grid-cols-3">
