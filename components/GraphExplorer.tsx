@@ -440,6 +440,83 @@ export default function GraphExplorer({
   }
   const graphHeight = isFullscreen && measuredHeight > 0 ? measuredHeight : 620;
 
+  // Panel width is draggable. Kept in localStorage so the choice survives
+  // navigating between the graph and a node page and back, which is the whole
+  // point of widening it — reading a long summary without leaving the graph.
+  const PANEL_MIN = 220;
+  const PANEL_MAX = 560;
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [panelWidth, setPanelWidth] = useState(280);
+  useEffect(() => {
+    // Applied a frame after mount rather than synchronously: the server has no
+    // localStorage, so reading it during render would hydrate to a different
+    // width than the markup was built with.
+    const id = requestAnimationFrame(() => {
+      try {
+        const saved = Number(window.localStorage.getItem("graph:panelWidth"));
+        if (Number.isFinite(saved) && saved >= PANEL_MIN && saved <= PANEL_MAX) setPanelWidth(saved);
+      } catch {
+        // private mode or blocked storage — the default width is fine
+      }
+    });
+    return () => cancelAnimationFrame(id);
+  }, []);
+  const commitPanelWidth = useCallback((w: number) => {
+    setPanelWidth(w);
+    try {
+      window.localStorage.setItem("graph:panelWidth", String(w));
+    } catch {
+      // nothing to do; the width still applies for this visit
+    }
+  }, []);
+
+  const dragStateRef = useRef<{ startX: number; startW: number } | null>(null);
+  const clampWidth = useCallback((w: number) => {
+    const grid = gridRef.current?.getBoundingClientRect().width ?? 0;
+    // Never let the panel squeeze the canvas below a usable width.
+    const max = Math.min(PANEL_MAX, Math.max(PANEL_MIN, grid - 360));
+    return Math.round(Math.min(max, Math.max(PANEL_MIN, w)));
+  }, []);
+
+  function onHandlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    e.preventDefault();
+    // Record the drag before capturing: setPointerCapture throws if the pointer
+    // is no longer active, and letting that abort the handler would leave the
+    // splitter looking grabbable but doing nothing.
+    dragStateRef.current = { startX: e.clientX, startW: panelWidth };
+    try {
+      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {
+      // Without capture the drag still tracks while the pointer stays on the
+      // handle; it just stops early if it leaves.
+    }
+  }
+  function onHandlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    const st = dragStateRef.current;
+    if (!st) return;
+    // Dragging left widens the panel, so the delta is inverted.
+    setPanelWidth(clampWidth(st.startW - (e.clientX - st.startX)));
+  }
+  function endHandleDrag(e: React.PointerEvent<HTMLDivElement>) {
+    if (!dragStateRef.current) return;
+    dragStateRef.current = null;
+    try {
+      (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
+    } catch {
+      // already released
+    }
+    commitPanelWidth(clampWidth(panelWidth));
+  }
+  function onHandleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    const step = e.shiftKey ? 48 : 16;
+    if (e.key === "ArrowLeft") commitPanelWidth(clampWidth(panelWidth + step));
+    else if (e.key === "ArrowRight") commitPanelWidth(clampWidth(panelWidth - step));
+    else if (e.key === "Home") commitPanelWidth(clampWidth(PANEL_MAX));
+    else if (e.key === "End") commitPanelWidth(clampWidth(PANEL_MIN));
+    else return;
+    e.preventDefault();
+  }
+
   const statuses = useMemo(
     () => Array.from(new Set(nodes.map((n) => n.curationStatus))).sort(),
     [nodes]
@@ -927,7 +1004,9 @@ export default function GraphExplorer({
       )}
 
       <div
-        className={`grid gap-3 lg:grid-cols-[1fr_280px] ${
+        ref={gridRef}
+        style={{ ["--panel-w" as string]: `${panelWidth}px` }}
+        className={`grid gap-3 lg:grid-cols-[minmax(0,1fr)_0.5rem_var(--panel-w)] ${
           isFullscreen ? "min-h-0 flex-1" : ""
         }`}
       >
@@ -1010,6 +1089,26 @@ export default function GraphExplorer({
               )}
             </svg>
           </button>
+        </div>
+
+        {/* Splitter. Below lg the two panes stack, so it is hidden there —
+            there is no horizontal space to trade. */}
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          aria-label="Resize the detail panel"
+          aria-valuenow={panelWidth}
+          aria-valuemin={PANEL_MIN}
+          aria-valuemax={PANEL_MAX}
+          tabIndex={0}
+          onPointerDown={onHandlePointerDown}
+          onPointerMove={onHandlePointerMove}
+          onPointerUp={endHandleDrag}
+          onPointerCancel={endHandleDrag}
+          onKeyDown={onHandleKeyDown}
+          className="group hidden cursor-col-resize touch-none select-none items-center justify-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest lg:flex"
+        >
+          <span className="h-10 w-[3px] rounded-full bg-border transition-colors group-hover:bg-forest/60" />
         </div>
 
         <div className="min-w-0 rounded-lg border border-border bg-card p-4">
