@@ -22,9 +22,11 @@ function iconSvg(path: string): string {
  * Wraps a rendered `.mermaid` block in a figure with a small toolbar: a
  * "fit to view" toggle (the diagram's native size is often wider than the
  * article column, so the default is a horizontal scroll — this scales it
- * down to see the whole shape at once) and a fullscreen toggle (for reading
+ * down to see the whole shape at once) and a full screen toggle (for reading
  * the labels back at full size after fitting). The plotting area itself is
- * also a fullscreen toggle, so a reader doesn't have to aim for the button.
+ * also a full screen toggle, so a reader doesn't have to aim for the button.
+ * A diagram's legend, if it has one, lives in this same toolbar row rather
+ * than under the diagram — see the append order below.
  */
 function wrapWithToolbar(block: HTMLDivElement) {
   if (block.closest(".mermaid-figure")) return;
@@ -45,22 +47,28 @@ function wrapWithToolbar(block: HTMLDivElement) {
   const toolbar = document.createElement("div");
   toolbar.className = "mermaid-toolbar";
 
+  const buttons = document.createElement("div");
+  buttons.className = "mermaid-toolbar-buttons";
+
   const fitBtn = document.createElement("button");
   fitBtn.type = "button";
   fitBtn.className = "mermaid-btn";
   fitBtn.innerHTML = `${iconSvg(FIT_ICON)}<span>Fit to view</span>`;
   fitBtn.setAttribute("aria-pressed", "false");
-  fitBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const fitted = figure.classList.toggle("is-fit");
+  const setFit = (fitted: boolean) => {
+    figure.classList.toggle("is-fit", fitted);
     fitBtn.setAttribute("aria-pressed", String(fitted));
     fitBtn.querySelector("span")!.textContent = fitted ? "Actual size" : "Fit to view";
+  };
+  fitBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setFit(!figure.classList.contains("is-fit"));
   });
 
   const fullscreenBtn = document.createElement("button");
   fullscreenBtn.type = "button";
   fullscreenBtn.className = "mermaid-btn";
-  fullscreenBtn.innerHTML = `${iconSvg(EXPAND_ICON)}<span>Fullscreen</span>`;
+  fullscreenBtn.innerHTML = `${iconSvg(EXPAND_ICON)}<span>Full screen</span>`;
   const toggleFullscreen = () => {
     if (document.fullscreenElement === figure) {
       document.exitFullscreen();
@@ -72,22 +80,29 @@ function wrapWithToolbar(block: HTMLDivElement) {
     e.stopPropagation();
     toggleFullscreen();
   });
-  // The plotting area itself also opens/closes fullscreen on click — a
-  // diagram big enough to want fullscreen for is reason enough to make the
+  // The plotting area itself also opens/closes full screen on click — a
+  // diagram big enough to want full screen for is reason enough to make the
   // whole thing the click target, not just the small toolbar button.
   block.addEventListener("click", toggleFullscreen);
   figure.addEventListener("fullscreenchange", () => {
     const active = document.fullscreenElement === figure;
     fullscreenBtn.innerHTML = `${iconSvg(active ? COLLAPSE_ICON : EXPAND_ICON)}<span>${
-      active ? "Exit fullscreen" : "Fullscreen"
+      active ? "Exit full screen" : "Full screen"
     }</span>`;
     figure.classList.toggle("is-fullscreen", active);
+    // Entering full screen defaults to Fit to view — the diagram's native
+    // size assumes a narrow article column, so at full-viewport scale that
+    // reads as one small corner of a mostly-empty screen until scaled up.
+    if (active && !figure.classList.contains("is-fit")) setFit(true);
   });
 
-  toolbar.append(fitBtn, fullscreenBtn);
+  buttons.append(fitBtn, fullscreenBtn);
+  // Legend on the left, buttons on the right, one row — see globals.css's
+  // .mermaid-toolbar (space-between, no wrap) for the layout this assumes.
+  if (legend) toolbar.append(legend, buttons);
+  else toolbar.append(buttons);
   block.replaceWith(figure);
   figure.append(toolbar, block);
-  if (legend) figure.append(legend);
 }
 
 /**

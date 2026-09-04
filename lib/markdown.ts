@@ -652,7 +652,7 @@ function insertBeforeAtAGlance(html: string, block: string): string {
  */
 function nestAtAGlanceDiagram(html: string): string {
   return html.replace(
-    /<dt>At a glance<\/dt><dd><\/dd>(<\/dl>)?((?:<div class="mermaid">[\s\S]*?<\/div>)(?:<div class="mermaid-legend">[\s\S]*?<\/div>)?)/i,
+    /<dt>At a glance<\/dt><dd><\/dd>(<\/dl>)?((?:<div class="mermaid">[\s\S]*?<\/div>)(?:\s*<div class="mermaid-legend">[\s\S]*?<\/div>)?)/i,
     (_m, closeDl, diagramAndLegend) => `<dt>At a glance</dt><dd>${diagramAndLegend}</dd>${closeDl || ""}`
   );
 }
