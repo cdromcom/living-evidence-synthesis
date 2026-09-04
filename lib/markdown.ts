@@ -643,11 +643,17 @@ function insertBeforeAtAGlance(html: string, block: string): string {
  * (including the injected Prompt box) lines up in. Nesting it in the dd
  * puts it in that same grid cell, so its left edge matches automatically —
  * no measurement, no duplicated width value to keep in sync.
+ *
+ * "At a glance" is always the field list's last entry in the corpus today,
+ * so the diagram actually sits past the list's own closing `</dl>`, not
+ * directly after the empty dd — that closing tag is optional here (matched
+ * and put back immediately after the now-filled dd) so this still works if
+ * a future entry ever follows "At a glance" instead.
  */
 function nestAtAGlanceDiagram(html: string): string {
   return html.replace(
-    /<dt>At a glance<\/dt><dd><\/dd>((?:<div class="mermaid">[\s\S]*?<\/div>)(?:<div class="mermaid-legend">[\s\S]*?<\/div>)?)/i,
-    (_m, diagramAndLegend) => `<dt>At a glance</dt><dd>${diagramAndLegend}</dd>`
+    /<dt>At a glance<\/dt><dd><\/dd>(<\/dl>)?((?:<div class="mermaid">[\s\S]*?<\/div>)(?:<div class="mermaid-legend">[\s\S]*?<\/div>)?)/i,
+    (_m, closeDl, diagramAndLegend) => `<dt>At a glance</dt><dd>${diagramAndLegend}</dd>${closeDl || ""}`
   );
 }
 
