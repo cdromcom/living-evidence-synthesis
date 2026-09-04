@@ -181,7 +181,7 @@ These findings support the broader claim that [[CLM - LLMs can help automate app
 
 ---
 
-## TRIPOD-LLM reporting summary
+## TRIPOD-LLM reporting
 
 > [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical short report, where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "clinical-appraisal workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
 > <div class="callout-legend-flat">

@@ -68,7 +68,7 @@ tripod_llm_pct: 37pct
 
 The win matrix (Figure 2, p. 10) shows GAR winning 77% of matchups against AI-Review, 65% vs. ReviewerGPT, 80% vs. OpenReviewer, 62% vs. AI-Scientist, and 56% vs. Human; humans won 64% vs. AI-Review and 74% vs. OpenReviewer in the same matrix. The §5.2 human-evaluator replication (Table 2) preserves the GAR > Human > AI-Scientist ordering.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
 
 | Reviewer | BT score (GPT-4o judge) | BT score (human judges, §5.2) |
 | --- | :---: | :---: |

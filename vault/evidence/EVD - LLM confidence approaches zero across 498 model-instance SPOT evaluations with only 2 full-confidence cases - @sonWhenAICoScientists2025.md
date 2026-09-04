@@ -75,7 +75,7 @@ tripod_llm_pct: 63pct
 - Models rarely rediscover the same errors across independent runs, further undermining reliability.
 - Confidence here is an **objective frequency-derived estimate** (run-level success rate), not the model's verbalised self-confidence; a stronger calibration signal because it cannot be inflated by overconfident phrasing.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
 
 | Calibration metric | Value |
 | --- | :---: |

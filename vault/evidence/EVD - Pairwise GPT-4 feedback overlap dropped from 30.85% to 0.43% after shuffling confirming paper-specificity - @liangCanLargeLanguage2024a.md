@@ -71,7 +71,7 @@ tripod_llm_pct: 55pct
 - The shuffled control was within stratum (same journal + same Nature category, or same ICLR year), so the drop is not attributable to topic-distribution mismatch, only to paper-specificity.
 - Note: the original quote in the Description fixed a typo ("A significant decreased" → "the pairwise overlap significantly decreased") to match the verbatim source text.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
 
 | Dataset | Real LLM hit rate | Shuffled LLM hit rate | Drop | Sig. |
 | --- | :---: | :---: | :---: | :---: |

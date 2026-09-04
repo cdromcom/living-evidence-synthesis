@@ -78,7 +78,7 @@ tripod_llm_pct: 41pct
 - OpenReview-based examples performed worse than expert-labeled examples even when relevant papers were also included.
 - Test agreement was reported with **two-way Cohen's κ** (only for the in-context settings); other rows show only accuracy/precision/recall/F1.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting]].
 
 | Setting | Accuracy | Precision | Recall | F1 | Cohen's κ |
 | --- | :---: | :---: | :---: | :---: | :---: |

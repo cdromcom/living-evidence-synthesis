@@ -73,7 +73,7 @@ tripod_llm_pct: 64pct
 - Default TogetherAI hyperparameters (temperature=0.7, Top P=0.7) are notably higher / more stochastic than the GPT-4 Turbo settings used elsewhere in the same paper (temperature=0.2, Top P=0.2). The authors do not justify the asymmetry.
 - The Llama 2 evaluation excludes CONSORT question 9 (effect sizes), the question on which GPT-4 performed worst (F1 = 0.57), so the Llama 2 numbers are not strictly comparable to GPT-4's pooled F1 = 0.89.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wrightsonGPTRCTsUsing2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wrightsonGPTRCTsUsing2025#TRIPOD-LLM reporting]].
 
 | Llama 2 70B condition (TEST, 8 CONSORT text Qs pooled) | F1-score | Accuracy (95% CI) |
 | --- | :---: | :---: |

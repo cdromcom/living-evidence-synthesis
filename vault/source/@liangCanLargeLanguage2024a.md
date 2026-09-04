@@ -209,7 +209,7 @@ These findings support two claims. First, that [[CLM - LLM review quality is com
 
 ---
 
-## TRIPOD-LLM reporting summary
+## TRIPOD-LLM reporting
 
 > [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark, where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
 > <div class="callout-legend-flat">

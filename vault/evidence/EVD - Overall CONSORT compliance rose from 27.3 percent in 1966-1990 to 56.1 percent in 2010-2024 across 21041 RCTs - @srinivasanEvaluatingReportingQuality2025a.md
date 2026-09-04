@@ -65,7 +65,7 @@ tripod_llm_pct: 50pct
 
 ## Other Notes
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting]].
 
 | Period | n | Mean compliance (95% CI) | Relative change vs. prior period | p-value |
 | --- | :---: | :---: | :---: | :---: |

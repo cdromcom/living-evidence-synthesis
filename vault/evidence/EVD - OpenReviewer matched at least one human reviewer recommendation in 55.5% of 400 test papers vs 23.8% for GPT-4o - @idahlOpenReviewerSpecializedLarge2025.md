@@ -70,7 +70,7 @@ tripod_llm_pct: 56pct
 - EM is a strict metric, being off by 1 point still counts as a miss, so it co-moves with the Avg. Error metric in the same direction.
 - No statistical-significance test (e.g., bootstrap CI, paired test) is reported for EM or Avg. Error differences between models.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting]].
 
 | Model                                    |  EM (%)  | Avg. Error (1–10 scale) ± SD |
 | ---------------------------------------- | :------: | :--------------------------: |

@@ -67,7 +67,7 @@ tripod_llm_pct: 23pct
 - The quorum omission is one of several "common to all three platforms" failures called out in Table 2's rightmost column, alongside: chairperson independence, scope of reviewable proposals, and member appointment / disqualification criteria.
 - The COI section of Table 2 also notes a related quorum failure, none of the three platforms stated that a member with declared COI should not be counted in the quorum, even when ChatGPT and Bard correctly required the conflicted member to leave the room.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
 
 | Platform | Mentions quorum requirement for full board review? |
 | --- | :---: |

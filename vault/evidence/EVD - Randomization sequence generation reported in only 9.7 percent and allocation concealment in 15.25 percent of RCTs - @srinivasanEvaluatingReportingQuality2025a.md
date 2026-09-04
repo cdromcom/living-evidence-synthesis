@@ -67,7 +67,7 @@ tripod_llm_pct: 50pct
 - Other items also flagged as critically underreported in the same passage: external validity discussed in only 1.6% of articles. Frequently reported items by contrast: scientific background/rationale (95.88%) and specific objectives/hypotheses (89.21%).
 - Item 24 protocol access at 2.22% is the lowest of the three highlighted items, highly relevant to systematic-reviewer ability to verify methods.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting]].
 
 | CONSORT item | % of 21,041 RCTs reporting |
 | --- | :---: |

@@ -69,7 +69,7 @@ tripod_llm_pct: 42pct
 
 Four major error categories in patient selection: (1) misunderstanding consecutive sampling in case-control/subgroup designs; (2) inference errors about consecutive sampling based on author reporting; (3) ambiguity handling in contradictory author descriptions; (4) misinterpreting representativeness of diagnostic populations. These errors were systematic, not random.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]].
 
 | Patient-selection signaling question | Error theme(s) observed |
 | --- | --- |
@@ -82,7 +82,7 @@ Four major error categories in patient selection: (1) misunderstanding consecuti
 | Patient-selection correct rate (overall, 4 models × 10 articles × 3 Qs, n=120) | **65.83%** (79/120): the **second-lowest** of the four QUADAS-2 domains |
 | Best models for patient selection | ChatGPT 4o (76.67%) and Grok 3 (73.33%); Gemini 2.0 Flash worst (50%) |
 
-For the Methods/Results compliance items (5a–15, 16a–16d, 18) and the headline accuracy numbers, see the companion EVD and the source-file table linked above. Source-file `## TRIPOD-LLM reporting summary` is at [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting summary]] and includes Supplementary Table S1 as the full per-article error catalogue.
+For the Methods/Results compliance items (5a–15, 16a–16d, 18) and the headline accuracy numbers, see the companion EVD and the source-file table linked above. Source-file `## TRIPOD-LLM reporting` is at [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]] and includes Supplementary Table S1 as the full per-article error catalogue.
 
 ## Caveats
 

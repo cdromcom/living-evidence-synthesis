@@ -66,7 +66,7 @@ tripod_llm_pct: 23pct
 
 - "Successfully responded to queries from all case studies" means all platforms produced an on-topic answer for every case, not that every answer was correct. Table 1 documents 9 distinct domains where at least one platform missed a GCP-relevant sub-issue, and Case Study 10 (post-trial access) was missed by all three.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
 
 | Outcome | Value |
 | --- | --- |

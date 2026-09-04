@@ -78,7 +78,7 @@ tripod_llm_pct: 63pct
 - GPT-4.1 (non-thinking) outperforms reasoning models on figure duplication, suggesting test-time reasoning effort is mis-allocated for visual tasks.
 - Statistical Reporting (n = 4) is o3's strongest category at 88.4% pass@4 but the small denominator means high variance.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
 
 | Error category (n) | o3 pass@4 | GPT-4.1 pass@4 | Gemini-2.5-Pro pass@4 | Claude-3.7:Think pass@4 |
 | --- | :---: | :---: | :---: | :---: |

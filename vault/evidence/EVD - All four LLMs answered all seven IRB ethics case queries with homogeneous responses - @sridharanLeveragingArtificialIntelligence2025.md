@@ -67,7 +67,7 @@ tripod_llm_pct: 35pct
 - "Failure-to-identify" patterns are domain-specific rather than model-specific in the single-prompt condition: only Claude-Instant-100k flagged the need for first-time-procedure observation in case 1; only ChatGPT 3.5 identified researcher risk in case 6 (IPV); only ChatGPT 3.5 and Google Bard flagged the need for separate consent for biological samples in case 7.
 - Several "homogeneous" failures are shared across all four models (e.g., none caught the inappropriate non-randomised design in case 4; none flagged the school-site coercion risk in case 3).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting]].
 
 | Domain (single-prompt) | ChatGPT 4.0 | Google Bard | ChatGPT 3.5 | Claude-Instant-100k |
 | --- | :---: | :---: | :---: | :---: |

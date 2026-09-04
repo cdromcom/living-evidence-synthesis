@@ -69,7 +69,7 @@ tripod_llm_pct: 54pct
 - Both o-series models gain HR@5 when switched from PDF to LaTeX (o3: 64.9 → 71.0; o4-mini: 59.6 → 61.6), unlike Gemini models which degraded slightly under LaTeX, suggesting OpenAI models received specialized LaTeX training.
 - o4-mini's input-token usage was slightly higher than o3's (17,760 vs. 16,594 under PDF), authors flag this as unexplained.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting]].
 
 | Model × ingestion | HR@5 | Input tok | Think tok | Output tok | $/paper | $ vs. o4-mini |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |

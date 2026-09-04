@@ -71,7 +71,7 @@ tripod_llm_pct: 37pct
 
 AI-Scientist scores: NeurIPS 3.34 ± 0.09, ICLR 22 3.39 ± 0.11, ICLR 23 3.38 ± 0.08. OpenReviewer: NeurIPS 2.45 ± 0.10, ICLR 22 2.43 ± 0.09, ICLR 23 2.43 ± 0.09. ReviewerGPT: 3.26 / 3.25 / 3.29. AI-Review: 3.30 / 3.42 / 3.38. The §5.11 ablation on GAR backbones (Table 8) shows GPT-4o highest (4.11 ± 0.10 on ICLR 23), GPT-4o-mini close behind (3.99 ± 0.09), and the open Llama-3.1 / Mistral-7b backbones at 3.64–3.73. Authors attribute GAR's lead to the graph-based memory + multi-round refinement + persona modules.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
 
 | Reviewer (GPT-4o-mini backbone) | NeurIPS 23 | ICLR 22 | ICLR 23 |
 | --- | :---: | :---: | :---: |

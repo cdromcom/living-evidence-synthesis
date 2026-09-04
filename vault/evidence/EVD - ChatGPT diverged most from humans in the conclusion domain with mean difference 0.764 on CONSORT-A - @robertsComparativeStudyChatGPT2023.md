@@ -69,7 +69,7 @@ tripod_llm_pct: 26pct
 - The CIs in Table 1 are inconsistent with the point estimates throughout (e.g., the 'conclusion' point estimate 0.764 falls outside its reported 95% CI 0.186, 0.280). These appear to be either typesetting errors or a different statistic mislabelled as a CI; the per-domain p-values and r values are internally consistent.
 - Authors hypothesise prompt quality and ChatGPT's known instruction-following weaknesses as causes of the conclusion-domain divergence; no follow-up prompt-engineering experiments performed.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
 
 | CONSORT-A domain | Mean abs. OCS diff | Welch p | Pearson r |
 | --- | :---: | :---: | :---: |

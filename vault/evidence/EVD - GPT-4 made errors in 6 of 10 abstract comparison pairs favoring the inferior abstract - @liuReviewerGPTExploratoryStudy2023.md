@@ -69,7 +69,7 @@ tripod_llm_pct: 36pct
 - For the bombastic-language pair, GPT-4 was swayed in 2 of 3 responses.
 - The authors caveat that the LLM's verbal explanations may not reflect its actual decision process (citing Turpin et al. 2023).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
 
 | Intervention type (Table 3) | Per-response | Overall |
 | --- | --- | --- |

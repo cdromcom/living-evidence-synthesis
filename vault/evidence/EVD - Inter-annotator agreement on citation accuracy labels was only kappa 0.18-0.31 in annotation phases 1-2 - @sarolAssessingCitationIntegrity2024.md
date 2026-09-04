@@ -68,7 +68,7 @@ tripod_llm_pct: 73pct
 - Authors flag the IAA as "lower than desired" but contextualize against analogous citation-linking datasets (Li et al. 2023) which report IAA in the range 0.16–0.52, so the Sarol corpus sits in the middle of that range.
 - Inter-annotator disagreement was concentrated on hard distinctions (e.g., OVERSIMPLIFY vs. NOT_SUBSTANTIATE, related categories differing only in severity). The category-priority rule and a final single-annotator review were designed to dampen this in the released corpus, but training/eval splits still inherit residual label noise.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
 
 | Task | Phase 1 κ | Phase 2 κ |
 | --- | :---: | :---: |

@@ -69,7 +69,7 @@ tripod_llm_pct: 67pct
 - A small minority of LLM responses (especially Claude-3-Opus, Claude-2, Mixtral-8x22B) quoted from the prompt briefing rather than the target full text, mechanically lowering similarity for those items.
 - Most "near-100%" matches were exact substrings of the source; sub-100% matches were typically due to references/brackets being removed or minor rephrasing.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
 
 | Tool | Median quotes / publication (range) | Quotes per item | Median quote similarity to source full text |
 | --- | --- | --- | --- |

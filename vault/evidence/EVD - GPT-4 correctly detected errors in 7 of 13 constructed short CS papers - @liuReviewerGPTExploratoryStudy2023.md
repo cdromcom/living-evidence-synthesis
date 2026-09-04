@@ -72,7 +72,7 @@ tripod_llm_pct: 36pct
 - For all 6 papers where GPT-4 failed, the short paper did not contain a complete proof, so detection would have required external knowledge rather than a deductive check.
 - Per-prompt totals: `Prompt-Direct` 5✓ / 8✗ / 1!; `Prompt-OneShot` 6✓ / 7✗ / 1!; `Prompt-Parts` 7✓ / 6✗ / 1!; `Overall` 7✓ / 6✗ / 2!.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
 
 | Prompt strategy | ✓ detected | ✗ missed | ! false alarms |
 | --- | --- | --- | --- |

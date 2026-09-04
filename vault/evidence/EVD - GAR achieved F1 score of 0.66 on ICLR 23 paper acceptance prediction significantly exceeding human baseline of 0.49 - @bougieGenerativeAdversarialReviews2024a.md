@@ -68,7 +68,7 @@ tripod_llm_pct: 37pct
 
 GAR^> achieved F1 = 0.62 ± 0.05 on NeurIPS 23 (vanilla GAR 0.61 ± 0.04); on ICLR 23 GAR^> reached Balanced Accuracy 0.70 ± 0.05 and F1 0.69 ± 0.05. AI-Scientist sat at 0.51–0.57 F1 across datasets; OpenReviewer 0.39–0.47. The §5.4 ablation (Table 4) shows the persona-initialisation choice matters: NN-optimised persona pushes ICLR 23 Balanced Acc to 0.74 ± 0.06 (GAR^> 0.74 ± 0.06 / F1 0.70 ± 0.06); removing the memory module drops it to 0.61 ± 0.06 / 0.52 ± 0.05. §5.12 (Table 9) shows GPT-4o backbone reaches F1 0.73 ± 0.03 on ICLR 23 (GAR^> 0.71 ± 0.03), confirming GAR's gains are robust across foundation models.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
 
 | Method (GPT-4o-mini) | NeurIPS 23 BalAcc / F1 | ICLR 22 BalAcc / F1 | ICLR 23 BalAcc / F1 |
 | --- | :---: | :---: | :---: |

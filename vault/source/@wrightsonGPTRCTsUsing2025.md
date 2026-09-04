@@ -184,7 +184,7 @@ Together these findings support [[CLM - LLMs can assess clinical trial reporting
 
 ---
 
-## TRIPOD-LLM reporting summary
+## TRIPOD-LLM reporting
 
 > [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`. Reporting was self-described as following the **MI-CLAIM** checklist (Norgeot et al. 2020), filed on OSF.
 > <div class="callout-legend-flat">

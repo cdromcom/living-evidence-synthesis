@@ -82,7 +82,7 @@ tripod_llm_pct: 67pct
 - "Best accuracy" in the abstract refers to the upper bound across the 10 collaboration pairs; the paired numbers in parentheses (e.g., "25/35% deferred") report the deferring fractions of those two best-performing pairs (typically GPT-4 and Claude-3-Opus for PRISMA/AMSTAR).
 - For PRISMA + Claude-3-Opus, accepting 96% accuracy spares the second human rater 65% of responses, i.e., 1 wrong response per ~25 spared. For AMSTAR, accepting 95% accuracy spares 70%, 1 wrong per ~20 spared. For PRECIS-2, accepting 86% accuracy spares only 29%, 1 wrong per ~7 spared.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
 
 | Pair (Human rater 1 + …) | Accuracy (95% CI) | Cohen's kappa (95% CI) | Deferring fraction (95% CI) |
 | --- | --- | --- | --- |

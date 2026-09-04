@@ -69,7 +69,7 @@ tripod_llm_pct: 43pct
 
 Statistical analysis revealed significant differences between LLMs (P<.001). The difference between ChatGPT 4-1106 and ChatGPT 3.5 Turbo-1106 was not statistically significant (P=.061).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting]].
 
 | LLM | Total QA pairs | Correct (n) | Correct (%) |
 | --- | :---: | :---: | :---: |

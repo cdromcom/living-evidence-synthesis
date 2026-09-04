@@ -77,7 +77,7 @@ tripod_llm_pct: 55pct
 - Per-journal GPT-4-vs-human overlap ranged from **15.58% (Nature Communications Materials)** to **39.16% (Nature)**.
 - Global hit rate (≥ 1 human reviewer matches a given GPT-4 comment) = 57.55% on Nature, 77.18% on ICLR (Supp. Fig. 1).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
 
 | Comparison (Nature, n = 3,096 papers) | Hit rate | 95% CI / sig. |
 | --- | :---: | :---: |

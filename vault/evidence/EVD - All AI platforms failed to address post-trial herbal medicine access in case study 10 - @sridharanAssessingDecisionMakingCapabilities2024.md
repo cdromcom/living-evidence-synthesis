@@ -67,7 +67,7 @@ tripod_llm_pct: 23pct
 - The handbook's expected answer hinges on a GCP principle: the Declaration of Helsinki / ICH E6 obligation to provide post-trial access applies when the intervention has been shown beneficial; for an unestablished herbal medicine, the obligation does not attach. None of the three LLMs surfaced that conditional logic.
 - This is the only case (of 10) on which all three platforms failed simultaneously, making it the most-cited failure mode in the paper's discussion.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
 
 | Platform | Addressed unestablished-benefit rationale? |
 | --- | :---: |

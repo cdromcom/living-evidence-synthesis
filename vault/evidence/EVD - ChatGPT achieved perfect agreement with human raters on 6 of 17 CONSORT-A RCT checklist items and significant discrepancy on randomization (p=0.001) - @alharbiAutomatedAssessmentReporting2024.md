@@ -71,7 +71,7 @@ tripod_llm_pct: 30pct
 - Item 11 (recruitment status): ChatGPT reported 100% (20/20) as reporting; humans rated 0% (0/20) as applicable, humans flagged all 20 as NA (p<0.001). This is a systematic misclassification of the NA category, not a borderline disagreement.
 - ChatGPT systematically over-reports: in 14 of 17 items, ChatGPT's "Reported" proportion ≥ humans'.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting]].
 
 | CONSORT-A item | ChatGPT Reported | Human Reported | Fisher p |
 | --- | :---: | :---: | :---: |

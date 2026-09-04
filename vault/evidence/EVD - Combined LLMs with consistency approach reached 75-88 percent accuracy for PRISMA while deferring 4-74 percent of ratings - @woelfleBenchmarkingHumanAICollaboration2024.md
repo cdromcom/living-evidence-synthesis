@@ -83,7 +83,7 @@ tripod_llm_pct: 67pct
 - Performance increased monotonically with consistency threshold, but at the cost of larger deferring fractions, at 9/9 consistency for PRISMA and ≥8/9 for PRECIS-2, accuracy and kappa CIs overlap with those of a single human rater.
 - 95% CIs were derived from bootstrapping with 1000 resamples on the publication level.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
 
 | Tool / consistency threshold | Accuracy (95% CI) | Cohen's kappa (95% CI) | Deferring fraction (95% CI) |
 | --- | --- | --- | --- |

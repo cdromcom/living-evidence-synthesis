@@ -71,7 +71,7 @@ tripod_llm_pct: 54pct
 - o3's HR@5 jumped from 64.9% (PDF) to 71.0% (LaTeX), suggesting OpenAI o-series models received specialized LaTeX training. Single-judge HR@5s (Table 3): Gemini-2.5-Pro judge 72.7% (PDF) / 75.5% (LaTeX); o3 judge 75.5% (PDF) / 80.4% (LaTeX), both-judges-affirm fusion drops these to 64.9% / 71.0%, demonstrating resistance of multi-judge approach to inflation.
 - o3 used markedly fewer thinking tokens than the Gemini family (3,152 vs. 14,228 for Gemini 2.5 Pro under PDF), yet achieved the highest HR, "potentially overthinking behavior did not result in higher hit rates."
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting]].
 
 | Condition | HR@5 | Avg. # problems (Q1, Q3) | Input tok | Think tok | Output tok | $/paper |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |

@@ -75,7 +75,7 @@ tripod_llm_pct: 53pct
 - Cost: MARG-S consumes 1,236,344 input tokens and 51,255 generated tokens per paper on average, roughly 9× MARG-TP and 167× LiZCa.
 - Threshold sensitivity (Figure 3): at "high" relatedness × "more" specificity MARG-S recall drops to 8.6 and LiZCa to 3.1, both methods lose recall under stricter matching but MARG-S degrades less.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting]].
 
 | Method | Recall | Precision | Jaccard | # comments / paper |
 | --- | --- | --- | --- | --- |

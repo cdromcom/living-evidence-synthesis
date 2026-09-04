@@ -70,7 +70,7 @@ tripod_llm_pct: 42pct
 
 By domain: Flow and timing was highest (80.63%), then index test (73.75%), then patient selection (65.83%) and reference standard (63.75%). The percentage of answers that were correct but with incorrect reasoning was 2.95% overall, highest in index test domain (5%).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]].
 
 | Model | Correct / 110 | % correct |
 | --- | :---: | :---: |

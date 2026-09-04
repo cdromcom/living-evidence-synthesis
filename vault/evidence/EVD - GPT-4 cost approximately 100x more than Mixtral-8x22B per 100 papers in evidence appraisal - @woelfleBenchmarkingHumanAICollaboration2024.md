@@ -72,7 +72,7 @@ tripod_llm_pct: 67pct
 - GPT-4 cost reflects gpt-4-32k-0613, queried September 2023. Newer GPT-4 versions released after this study may have lower per-token costs.
 - Rarely, API rate limits required a break until the end of the day to continue calling Claude-3-Opus, Claude-2, and GPT-4.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
 
 | Model (version) | Median cost / publication (IQR) | Cost per 100 publications (median) | Median response time / publication |
 | --- | --- | --- | --- |

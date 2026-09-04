@@ -77,7 +77,7 @@ tripod_llm_pct: 46pct
 - Linear regression (intercept −3.40, coefficient 2.05 for GPT-4o Abstracts) maps model scores onto the REF scale and reduces MAD by 31% vs. the baseline of guessing the corpus mean (2.75).
 - Paper-level mean correlation between GPT-4o-Abstract predictions and predictions from other (model × input) cells is very high (e.g., 0.875 with GPT-3.5-turbo Abstracts), suggesting the underlying language models extract similar quality signals.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@thelwallEvaluatingResearchQuality2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@thelwallEvaluatingResearchQuality2024#TRIPOD-LLM reporting]].
 
 | Model × Input (n=51, 30 iters averaged) | Spearman r vs. human | Direct MAD | Regression intercept | Regression coefficient | Regression MAD | MAD improvement vs. baseline |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |

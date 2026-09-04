@@ -70,7 +70,7 @@ tripod_llm_pct: 56pct
 - Authors acknowledge: "While human judgments could be more meaningful, they are expensive to obtain as, in our case, they would require annotators to be trained reviewers and study each paper in great detail."
 - No order-randomization, position-bias correction, or judge-model-diversity check is reported.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting]].
 
 | OpenReviewer vs. baseline (judge: GPT-4o 2024-11-20) | OpenReviewer wins | Tie | OpenReviewer loses |
 | --- | :---: | :---: | :---: |

@@ -77,7 +77,7 @@ tripod_llm_pct: 67pct
 - All five individual LLMs performed significantly worse than humans (89% PRISMA / 89% AMSTAR / 75% PRECIS-2 for human rater 1) on every tool.
 - Counter-intuitive PRECIS-2 finding: smaller/cheaper GPT-3.5 (55%) and Mixtral (48%) outperformed larger Claude-3-Opus (45%) and Claude-2 (44%) and GPT-4 (38%), authors attribute this partly to the dataset being skewed toward pragmatic trials (smaller models may default toward more pragmatic scores).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
 
 | Tool | Model | Agreement (95% CI) | Cohen's kappa (95% CI) | Intrarater agreement (95% CI) |
 | --- | --- | --- | --- | --- |

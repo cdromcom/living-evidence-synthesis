@@ -71,7 +71,7 @@ tripod_llm_pct: 46pct
 
 ## Other Notes
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting]].
 
 | Setting | Unsubstantiated acc. | Partially acc. | Fully acc. | Overall acc. |
 | --- | --- | --- | --- | --- |

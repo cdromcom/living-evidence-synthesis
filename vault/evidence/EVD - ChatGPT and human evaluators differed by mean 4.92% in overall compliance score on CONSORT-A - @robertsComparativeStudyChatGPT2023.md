@@ -70,7 +70,7 @@ tripod_llm_pct: 26pct
 - Interpretation: a 4.92 percentage-point mean difference on a 100-point OCS scale corresponds to roughly 0.74 of a single CONSORT-A item, small in aggregate but driven by large per-domain divergences (see the conclusion-domain EVD).
 - Per-paper Pearson r is not reported, only per-domain r values appear in Table 1.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
 
 | Agreement metric (overall OCS%) | Value |
 | --- | --- |

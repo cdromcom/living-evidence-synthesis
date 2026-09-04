@@ -77,7 +77,7 @@ tripod_llm_pct: 36pct
 - Author-submitted checklists also matched the ground truth 86.6% of the time, but mismatches barely overlapped: GPT-4 disagreed with 75% (12 of 16) of author mismatches; conversely 9 of 16 (56.3%) of GPT-4's incorrect answers had correct author responses.
 - Per-paper accuracy in Table 2 (15 papers) ranges 0.57–1.00; per-question accuracy across 16 items ranges 0.63–1.00.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
 
 | Metric | Value |
 | --- | --- |

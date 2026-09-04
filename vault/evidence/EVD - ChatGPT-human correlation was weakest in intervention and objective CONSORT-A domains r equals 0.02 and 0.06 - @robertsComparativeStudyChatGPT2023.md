@@ -69,7 +69,7 @@ tripod_llm_pct: 26pct
 - Most domains have r values in the very-weak range (<0.2): intervention 0.02, number analysed 0.04, objective 0.06, conclusion 0.06, randomisation 0.11, outcome (methods) 0.14, outcome (reporting) 0.15, funding 0.21, participants 0.26.
 - The combination of low Pearson r and small mean differences (e.g., intervention r=0.02 with mean diff only 0.057) suggests ChatGPT and humans are agreeing on the modal label by chance rather than tracking the same per-abstract signal.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
 
 | CONSORT-A domain | Pearson r | p-value | Author band | Notes |
 | --- | :---: | :---: | --- | --- |

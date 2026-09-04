@@ -73,7 +73,7 @@ tripod_llm_pct: 62pct
 
 Option-ordering sensitivity: 16.3% of GPT-4o variables switched between 0% and 100% confounder designation solely based on option order, and 4.6% of Claude variables did the same. This is a strong indicator of unreliable causal reasoning.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting]].
 
 Cross-method agreement (Cohen's κ on 0%/Mixed/100% designations):
 

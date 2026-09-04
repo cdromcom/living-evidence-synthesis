@@ -70,7 +70,7 @@ tripod_llm_pct: 62pct
 
 LLM confounder designation was highly inconsistent across prompts and models. Cohen's kappa between direct and indirect methods ranged from 0.16 (GPT-o1) to 0.24 (GPT-4o), indicating poor agreement.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting]].
 
 Direct method (with reasoning), share of variables designated as confounder, averaged over 10 iterations:
 

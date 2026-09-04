@@ -74,7 +74,7 @@ tripod_llm_pct: 43pct
 
 When given the paper (not the review), GPT-3.5 correlation drops dramatically (best Pearson ~0.258 for full paper). This demonstrates that LLMs can understand human-written reviews but cannot reliably judge paper quality from the paper alone.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting]].
 
 | Setting (input → prompt style)          | Accuracy ↑ | \|diff\| ↓ | Pearson ↑ | Spearman ↑ | Kendall τ ↑ |
 | --------------------------------------- | :--------: | :--------: | :-------: | :--------: | :---------: |

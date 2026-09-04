@@ -70,7 +70,7 @@ tripod_llm_pct: 55pct
 - 17.5% of participants considered GPT-4 feedback inferior to most human feedback (Fig. 4c), i.e., the helpfulness distribution is real but not uniform.
 - IRB approval obtained from Stanford; participants compensated $20 for ~15–20 min.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
 
 | Survey item (Likert) | Distribution (n=308) |
 | --- | --- |

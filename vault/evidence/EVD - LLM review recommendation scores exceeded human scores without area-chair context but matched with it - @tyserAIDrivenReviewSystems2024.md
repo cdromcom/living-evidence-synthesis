@@ -74,7 +74,7 @@ tripod_llm_pct: 25pct
 - SD also tracks context: human SD = 1.61; P1 SD = 1.03 (over-confident); P5 SD increases (more variability), better matching the human distribution.
 - Authors flag that LLM Confidence scores (Figure 31) are skewed higher than human Confidence even at P5, calibration of the Confidence dimension is not solved by P5.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting]].
 
 | Reviewer / context | Mean recommendation | SD | Direction vs. human |
 | --- | :---: | :---: | --- |

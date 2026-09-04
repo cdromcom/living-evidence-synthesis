@@ -70,7 +70,7 @@ tripod_llm_pct: 57pct
 
 The EQINFER task is deliberately challenging: even expert human researchers require substantial research accumulation to solve these tasks. Figure 4 shows context-length scaling has limited effect: GPT-4o F1 stays ~40 across 100–1,500 words; Llama-3.1 peaks ~35 at 700 words; Qwen-2.5 stays ~26.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting]].
 
 | Model | F1 (%) | Precision (%) | Recall (%) |
 | --- | --- | --- | --- |

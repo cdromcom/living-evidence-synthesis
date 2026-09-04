@@ -66,7 +66,7 @@ tripod_llm_pct: 39pct
 
 Domain-specific results: D3 (classification of intervention) had highest raw agreement (71%) and D1 (confounding) the lowest (47%). Kappa was low across all domains (range 0.02–0.28); D2 (participant selection) had the highest Kendall coefficient (0.54). Overall Kendall τ of 0.35 suggests fair agreement.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@hasanIntegratingLargeLanguage2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@hasanIntegratingLargeLanguage2024#TRIPOD-LLM reporting]].
 
 | ROBINS-I domain | Raw % agreement | Weighted κ | Kendall τ |
 | --- | :---: | :---: | :---: |

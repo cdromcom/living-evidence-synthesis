@@ -74,7 +74,7 @@ tripod_llm_pct: 70pct
 - RAG-setting ablation (Table 5, GPT-4o-mini on 100 LIMITGEN-Human examples) shows top-5 reranked gives the best fine-grained gain (+0.05) but even "last-5 of 18" still helps faithfulness/soundness modestly, i.e., RAG benefits are partly robust to retrieval relevance.
 - User study on 32 examples in biomedical and computer-network domains (Table 6) replicates the RAG benefit out-of-domain (e.g., GPT-4o biomedical accuracy 31.3% → 50.0% with RAG).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting]].
 
 | System (LIMITGEN-Syn) | Coarse Acc. base → +RAG (Δ) | Fine (0–5) base → +RAG (Δ) | Human Acc. base → +RAG (Δ) |
 | --- | :---: | :---: | :---: |

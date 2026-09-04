@@ -70,7 +70,7 @@ tripod_llm_pct: 30pct
 - ChatGPT showed a systematic tendency to over-report: in 9 of 12 PRISMA items, ChatGPT's "Reported" proportion ≥ humans', suggesting it may over-interpret implicit information in abstracts.
 - Funding (item 11): ChatGPT 30% (6/20) vs. humans 5% (1/20), p=0.091, borderline non-significant but a 6-fold disagreement on a checkable factual item.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting]].
 
 | PRISMA-for-abstracts item | ChatGPT Reported | Human Reported | Fisher p |
 | --- | :---: | :---: | :---: |

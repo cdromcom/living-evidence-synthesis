@@ -72,7 +72,7 @@ tripod_llm_pct: 41pct
 - Top-10 paper overlap with the complete system: ~30% of papers differ when either embedding filtering or general-relevance RankGPT is used; without any re-ranker, overlap drops to <3 of 10 papers.
 - The ablation thus shows **two layered contributions**: removing the LLM re-ranker (embedding-only) is far more harmful than swapping facet-based for general-relevance, indicating that retrieval-stage LLM re-ranking is the dominant performance driver and facet-awareness adds a smaller second-order gain.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting]].
 
 | Ablation condition | "Not novel" accuracy |
 | --- | :---: |

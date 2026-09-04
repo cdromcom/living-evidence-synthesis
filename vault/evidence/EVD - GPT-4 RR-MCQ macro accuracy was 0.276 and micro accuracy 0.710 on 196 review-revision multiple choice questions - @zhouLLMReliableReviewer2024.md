@@ -78,7 +78,7 @@ tripod_llm_pct: 43pct
 
 Macro accuracy (0.276) means only ~28% of questions were answered completely correctly. The task requires both logic reasoning and domain knowledge.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting]].
 
 | Pipeline (step1 → step2) | Macro acc ↑ | Macro prec | Macro recall | Macro F1 | Micro acc ↑ | Micro prec | Micro recall | Micro F1 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |

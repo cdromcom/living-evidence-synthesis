@@ -75,7 +75,7 @@ tripod_llm_pct: 63pct
 - Gemini-2.5-Pro: precision=3.1%, recall=10.1%, pass@4=25.9% (second best overall on multimodal).
 - Open-source models collapse to ~0%: Llama-4-Maverick precision 2.0%, recall 0.9%, pass@4 3.3%, a 20.2 pp gap to o3 on pass@4. Authors note this is the only benchmark (vs. MathVista, MMLU-Pro, GPQA-Diamond, MMMU, HLE) where Llama-4-Maverick "score collapses to near zero (0.9%)."
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
 
 | Model | Think | Precision (%) | Recall (%) | pass@1 (%) | pass@4 (%) |
 | --- | :---: | :---: | :---: | :---: | :---: |

@@ -69,7 +69,7 @@ tripod_llm_pct: 53pct
 - After removal, the w/o-Knowledge-Guided model (F1 0.73 / Acc 0.74) lands at essentially the same level as the SciBERT PLM baseline using HK+LLMK inputs (F1 0.73 / Acc 0.74), i.e., the ablation collapses the model to its PLM backbone, supporting the authors' framing that the knowledge-guided module is what carries the fusion gain.
 - Ablation reported on a single SciBERT backbone only; not replicated on the other Ours-* variants. No confidence intervals or significance test reported.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wuAutomatedNoveltyEvaluationa#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wuAutomatedNoveltyEvaluationa#TRIPOD-LLM reporting]].
 
 | Variant (HK + LLMK input, SciBERT backbone) | Weighted F1 | Accuracy | Δ F1 vs. full | Δ Accuracy vs. full |
 | --- | :---: | :---: | :---: | :---: |

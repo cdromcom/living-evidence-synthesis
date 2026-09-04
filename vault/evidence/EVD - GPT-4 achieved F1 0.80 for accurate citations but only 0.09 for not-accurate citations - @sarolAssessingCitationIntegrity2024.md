@@ -73,7 +73,7 @@ tripod_llm_pct: 73pct
 - Authors note that "better prompting strategies, specifically focusing on NOT_ACCURATE, could yield better results"; only slight manual variations were tried.
 - GPT-3.5-turbo with 5-shot in-context learning achieved 0.89 F1 on the citation-context (binary) sub-task, no improvement over the trivial citance baseline (0.94).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
 
 | Model | Micro-F1 | Macro-F1 | ACC F1 (recall) | N_ACC F1 | IRR F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |

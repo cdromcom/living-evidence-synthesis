@@ -108,7 +108,7 @@ function ReportingComplianceBadge({ compliance, linkBase = "" }: { compliance: R
       description={`TRIPOD-LLM reporting-guideline adherence: ${compliance.pct}% of checklist items (Methods 5a-15, Results 16a-18) fully or partially reported — ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()} compliance. Click to view the table.`}
     >
       <a
-        href={`${linkBase}#tripod-llm-reporting-summary`}
+        href={`${linkBase}#tripod-llm-reporting`}
         className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-1 text-[0.6875rem] text-ink/80 transition-colors hover:border-forest/50"
       >
         <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[COMPLIANCE_TONE[compliance.level]]}`}>
@@ -983,7 +983,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
               label: "TRIPOD-LLM reporting",
               status: `${compliance.pct}%, ${REPORTING_COMPLIANCE_LABELS[compliance.level].toLowerCase()}`,
               tone: COMPLIANCE_TONE[compliance.level],
-              href: `${linkBase}#tripod-llm-reporting-summary`,
+              href: `${linkBase}#tripod-llm-reporting`,
               scale: REPORTING_COMPLIANCE_SCALE,
               current: compliance.level,
             }]
@@ -1003,9 +1003,9 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             current: sig.level,
           })),
           ...artifactRows("Dataset", repositoryCheck, dataQualityFair, 24, dataQualityBand,
-            DATA_QUALITY_SCALE, DATASET_CHECK_SCALE, "#qa-data-quality-fair", "#qa-repository-check"),
+            DATA_QUALITY_SCALE, DATASET_CHECK_SCALE, "#qa-data-quality-fair", "#tripod-14e"),
           ...artifactRows("Code", codeCheck, codeQualityFair, 5, codeQualityBand,
-            CODE_QUALITY_SCALE, CODE_CHECK_SCALE, "#qa-code-quality-fair", "#qa-code-check"),
+            CODE_QUALITY_SCALE, CODE_CHECK_SCALE, "#qa-code-quality-fair", "#tripod-14f"),
         ],
       }],
     },

@@ -70,7 +70,7 @@ tripod_llm_pct: 54pct
 - **Hit rate doubled under LaTeX (16.3% → 33.1%) and average problems submitted rose from 1.6 to 3.4**, with Q1 rising from 0 to 1: direct evidence that the empty-submission problem is PDF-specific.
 - Single-judge HR@5 (Table 3) for Claude as checker: PDF (Gemini-judge 21.6%, o3-judge 19.2%); LaTeX (Gemini-judge 44.5%, o3-judge 40.8%).
 
-> [!info] TRIPOD-LLM item 17 (Performance): EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance): EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting]].
 
 *Figures reproduced from Zhang & Abernethy (2025), Tables 2 and 3, pp. 3–4. Single-judge rows are from Table 3; the rest from Table 2.*
 | Condition | HR@5 | Avg. # problems (Q1, Q3) | Input tok | Think tok | Output tok | $/paper |

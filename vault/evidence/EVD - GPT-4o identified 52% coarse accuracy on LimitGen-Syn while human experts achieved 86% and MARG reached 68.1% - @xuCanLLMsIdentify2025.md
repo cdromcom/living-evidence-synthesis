@@ -74,7 +74,7 @@ tripod_llm_pct: 70pct
 - Cohen's κ between the two LIMITGEN-Syn evaluators = 0.833 (high agreement); automated-vs-accuracy correlation = 0.96 supports use of GPT-4o as judge.
 - Human-evaluation accuracy column (45.9% for GPT-4o, 82.0% for Human) is computed on the 100-example sample and is systematically lower than coarse automated accuracy on the full set.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting]].
 
 | System | Coarse Acc. (auto, %) | Fine (0–5) | Human-eval Acc. (%) |
 | --- | :---: | :---: | :---: |

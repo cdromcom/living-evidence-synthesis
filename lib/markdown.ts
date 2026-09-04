@@ -462,14 +462,14 @@ function tagAppraisalRows(html: string): string {
 }
 
 /**
- * Tags each row of the "## TRIPOD-LLM reporting summary" table with a
+ * Tags each row of the "## TRIPOD-LLM reporting" table with a
  * stable `id="tripod-<item>"` (e.g. `tripod-14d`, `tripod-9a`) so a
  * top-of-page trust-signal chip (Registration, Protocol, Data/Code Repo
  * Check, Ethical Approval, Funding, COI, Prompt Engineering) can link
  * straight to its own checklist row instead of just the table's heading.
  */
 function tagTripodRows(html: string): string {
-  const section = html.match(/<h2 id="[^"]*">\s*TRIPOD-LLM reporting summary\s*<\/h2>([\s\S]*?)(?=<h2 |$)/i);
+  const section = html.match(/<h2 id="[^"]*">\s*TRIPOD-LLM reporting\s*<\/h2>([\s\S]*?)(?=<h2 |$)/i);
   if (!section) return html;
   const [full, body] = section;
   const taggedBody = body.replace(/<tr>\s*<td>\s*<strong>([^<]+)<\/strong>/g, (rowMatch, item) => {

@@ -71,7 +71,7 @@ tripod_llm_pct: 53pct
 - LLaMA-3.1 was the only LLM whose performance improved when moving from HK+MT to HK+LLMK; other LLMs declined or stayed flat, suggesting LLM-summarized inputs help only smaller-parameter PLMs.
 - ALBERT showed the largest absolute gain from the knowledge-fusion framework (0.52 → 0.76 F1 with the Ours-ALBERT variant).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wuAutomatedNoveltyEvaluationa#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wuAutomatedNoveltyEvaluationa#TRIPOD-LLM reporting]].
 
 | Model (HK + LLMK input) | Weighted F1 | Accuracy |
 | --- | :---: | :---: |

@@ -76,7 +76,7 @@ tripod_llm_pct: 53pct
 - Length: 6/9 rated MARG-S "way too long"; LiZCa rated "too short" or "way too short" by 7/9.
 - Compliment probe: 19% of MARG-S comments included flattery vs. 25% SARG-B and 0% LiZCa; "has_compliment" coefficient 0.11 (p=0.76), no detectable bias on user ratings.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting]].
 
 | Method | Bad / review | Neutral / review | Good / review | Total / review |
 | --- | --- | --- | --- | --- |

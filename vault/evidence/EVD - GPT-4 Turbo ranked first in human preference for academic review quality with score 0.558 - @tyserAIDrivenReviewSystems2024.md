@@ -72,7 +72,7 @@ tripod_llm_pct: 25pct
 - The BT model imposes ξ₁ = 0 for identifiability; ranks are relative, not absolute.
 - The 5-evaluator pool is small and the paper does not report per-evaluator agreement, so the human-preference ranking has a wide implicit confidence interval that the BT score does not display.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting]].
 
 | Rank | Reviewer | BT score (human evaluators) | BT score (GPT-4 Turbo evaluator) |
 | :---: | --- | :---: | :---: |

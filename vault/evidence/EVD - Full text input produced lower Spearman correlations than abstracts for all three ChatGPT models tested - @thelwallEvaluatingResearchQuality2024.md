@@ -75,7 +75,7 @@ tripod_llm_pct: 46pct
 - Cross-cell correlation between truncated-text and abstract predictions is 0.754 within GPT-3.5-turbo (Table 1), suggesting the two inputs carry largely overlapping signal but the abstract version is cleaner.
 - The full-text → abstract gap is largest for GPT-4o-mini (0.571 vs. 0.506; Δ = +0.065 favoring abstracts) and smallest for GPT-4o (0.678 vs. 0.675; Δ ≈ 0).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@thelwallEvaluatingResearchQuality2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@thelwallEvaluatingResearchQuality2024#TRIPOD-LLM reporting]].
 
 | Model | Titles (r) | Abstracts (r) | Truncated text (r) | Δ Abstract − Truncated |
 | --- | :---: | :---: | :---: | :---: |

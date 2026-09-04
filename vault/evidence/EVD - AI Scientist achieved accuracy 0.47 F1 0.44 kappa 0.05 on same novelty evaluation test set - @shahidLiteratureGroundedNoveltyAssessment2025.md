@@ -74,7 +74,7 @@ tripod_llm_pct: 41pct
 - Cohen's κ of **0.05** indicates near-chance agreement with expert labels; AI Researcher (gpt-4o) reaches κ=0.52, much closer to the Idea Novelty Checker (κ=0.59).
 - AI Researcher's performance is highly backbone-sensitive: gpt-4o reaches F1=0.75, but Claude-3.5-Sonnet drops to F1=0.56 / κ=0.19.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting]].
 
 | System (backbone) | Accuracy | Precision | Recall | F1 | Cohen's κ |
 | --- | :---: | :---: | :---: | :---: | :---: |

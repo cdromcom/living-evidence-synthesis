@@ -70,7 +70,7 @@ tripod_llm_pct: 57pct
 
 Despite being the best model, Claude Opus F1=21.99% is very low in absolute terms, indicating the task is highly challenging. Recall scores are consistently higher than precision across all models, suggesting LLMs over-predict deficiency.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting]].
 
 | Model × prompt strategy | Precision / Recall / F1 (%) |
 | --- | --- |

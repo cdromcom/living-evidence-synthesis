@@ -68,7 +68,7 @@ tripod_llm_pct: 23pct
 - Omissions common to all three platforms (per Table 2 right-hand column): no mention that the IRB chairperson should be independent of the institution; no mention of scope of proposals reviewed; no member appointment / disqualification criteria; COI member should not be counted in quorum and meeting minutes should record the recusal; expedited-approval decisions should be disclosed at the next full IRB meeting; in multi-centric studies AE / SAE reports from other sites should be submitted.
 - ChatGPT was the only platform to mention KPIs for IRB quality assurance.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting summary]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
 
 | Outcome | Value |
 | --- | --- |
