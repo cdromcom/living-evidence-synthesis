@@ -633,8 +633,8 @@ function insertBeforeAtAGlance(html: string, block: string): string {
 }
 
 /**
- * Moves the mermaid diagram (and its legend, if any) that follows an empty
- * "At a glance" `<dd>` into that `<dd>`.
+ * Moves the mermaid diagram that follows an empty "At a glance" `<dd>` into
+ * that `<dd>`.
  *
  * renderFieldLists only folds `**Label.**` paragraphs into the field list —
  * a fenced ```mermaid block is its own following sibling, outside the `<dl>`
@@ -652,8 +652,8 @@ function insertBeforeAtAGlance(html: string, block: string): string {
  */
 function nestAtAGlanceDiagram(html: string): string {
   return html.replace(
-    /<dt>At a glance<\/dt><dd><\/dd>(<\/dl>)?((?:<div class="mermaid">[\s\S]*?<\/div>)(?:\s*<div class="mermaid-legend">[\s\S]*?<\/div>)?)/i,
-    (_m, closeDl, diagramAndLegend) => `<dt>At a glance</dt><dd>${diagramAndLegend}</dd>${closeDl || ""}`
+    /<dt>At a glance<\/dt><dd><\/dd>(<\/dl>)?(<div class="mermaid">[\s\S]*?<\/div>)/i,
+    (_m, closeDl, diagram) => `<dt>At a glance</dt><dd>${diagram}</dd>${closeDl || ""}`
   );
 }
 

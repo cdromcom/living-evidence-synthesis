@@ -25,30 +25,14 @@ function iconSvg(path: string): string {
  * down to see the whole shape at once) and a full screen toggle (for reading
  * the labels back at full size after fitting). The plotting area itself is
  * also a full screen toggle, so a reader doesn't have to aim for the button.
- * A diagram's legend, if it has one, lives in this same toolbar row rather
- * than under the diagram — see the append order below.
  */
 function wrapWithToolbar(block: HTMLDivElement) {
   if (block.closest(".mermaid-figure")) return;
   const figure = document.createElement("div");
   figure.className = "mermaid-figure";
 
-  // A diagram's legend (see lib/markdown.ts's rendering of a `.mermaid-legend`
-  // block, written straight into the vault markdown right after the fenced
-  // diagram) sits as the next sibling in the DOM. The Fullscreen API only
-  // shows the element actually promoted to fullscreen and its descendants —
-  // a sibling left outside `figure` would simply vanish in fullscreen — so it
-  // has to move inside here to stay visible there.
-  const legend =
-    block.nextElementSibling?.classList.contains("mermaid-legend")
-      ? (block.nextElementSibling as HTMLElement)
-      : null;
-
   const toolbar = document.createElement("div");
   toolbar.className = "mermaid-toolbar";
-
-  const buttons = document.createElement("div");
-  buttons.className = "mermaid-toolbar-buttons";
 
   const fitBtn = document.createElement("button");
   fitBtn.type = "button";
@@ -96,11 +80,7 @@ function wrapWithToolbar(block: HTMLDivElement) {
     if (active && !figure.classList.contains("is-fit")) setFit(true);
   });
 
-  buttons.append(fitBtn, fullscreenBtn);
-  // Legend on the left, buttons on the right, one row — see globals.css's
-  // .mermaid-toolbar (space-between, no wrap) for the layout this assumes.
-  if (legend) toolbar.append(legend, buttons);
-  else toolbar.append(buttons);
+  toolbar.append(fitBtn, fullscreenBtn);
   block.replaceWith(figure);
   figure.append(toolbar, block);
 }
