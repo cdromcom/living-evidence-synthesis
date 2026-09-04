@@ -30,6 +30,17 @@ function wrapWithToolbar(block: HTMLDivElement) {
   const figure = document.createElement("div");
   figure.className = "mermaid-figure";
 
+  // A diagram's legend (see lib/markdown.ts's rendering of a `.mermaid-legend`
+  // block, written straight into the vault markdown right after the fenced
+  // diagram) sits as the next sibling in the DOM. The Fullscreen API only
+  // shows the element actually promoted to fullscreen and its descendants —
+  // a sibling left outside `figure` would simply vanish in fullscreen — so it
+  // has to move inside here to stay visible there.
+  const legend =
+    block.nextElementSibling?.classList.contains("mermaid-legend")
+      ? (block.nextElementSibling as HTMLElement)
+      : null;
+
   const toolbar = document.createElement("div");
   toolbar.className = "mermaid-toolbar";
 
@@ -66,6 +77,7 @@ function wrapWithToolbar(block: HTMLDivElement) {
   toolbar.append(fitBtn, fullscreenBtn);
   block.replaceWith(figure);
   figure.append(toolbar, block);
+  if (legend) figure.append(legend);
 }
 
 /**

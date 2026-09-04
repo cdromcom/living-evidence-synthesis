@@ -594,49 +594,43 @@ function insertAfterProcedure(html: string, block: string): string {
 }
 
 /**
- * Drops a block of ready-made HTML immediately before the "At a glance"
- * entry in a source's Methods field list — the entry that introduces its
- * flowchart diagram (rendered by renderFieldLists as `<dt>At a
- * glance</dt><dd></dd>`, directly followed by the `.mermaid` block).
+ * Drops a block of ready-made HTML into a source's Methods field list, as
+ * its own `<dt>Prompt</dt><dd>…</dd>` entry immediately before "At a
+ * glance" (the entry that introduces the flowchart diagram; rendered by
+ * renderFieldLists as `<dt>At a glance</dt><dd></dd>`, directly followed by
+ * the `.mermaid` block).
  *
  * The prompt belongs right where the diagram it fed shows the prompt-template
  * step, not stacked at the top of the page above the abstract — a reader
  * meeting the flowchart's "Prompt template" node should be able to see the
- * actual prompt without scrolling back up. Falls back to the end of the
- * Methods section when a source writes "At a glance" without it collapsing
- * into the field list (e.g. field-list detection requires 2+ consecutive
- * `**Label.**` paragraphs), and returns the page unchanged when there is no
- * Methods section at all. A source without an "At a glance" diagram is never
- * altered — it keeps its prompt block at the top of the page instead (see
- * app/nodes/[id]/page.tsx).
+ * actual prompt without scrolling back up. Wrapping it in a "Prompt" dt gives
+ * it the same bold-label treatment as Design/Tools/Procedure/Sample, and
+ * keeps it a normal dt/dd pair in the field list's grid rather than a
+ * foreign child that would throw off the dt/dd column auto-placement (see
+ * globals.css's `.field-list`).
+ *
+ * Falls back to the end of the field list when a source writes "At a
+ * glance" without it collapsing into that list (field-list detection
+ * requires 2+ consecutive `**Label.**` paragraphs), then to the end of the
+ * Methods section when there is no field list at all, and returns the page
+ * unchanged when there is no Methods section. A source without an "At a
+ * glance" diagram is never altered — it keeps its prompt block at the top of
+ * the page instead (see app/nodes/[id]/page.tsx).
  */
 function insertBeforeAtAGlance(html: string, block: string): string {
   if (!block) return html;
   const section = html.match(/<h3 id="[^"]*">\s*Methods\s*<\/h3>([\s\S]*?)(?=<h[23] |$)/i);
   if (!section) return html;
   const [full, body] = section;
+  const wrapped = `<dt>Prompt</dt><dd>${block}</dd>`;
 
-  // The field list is a CSS grid (see globals.css's .field-list) that
-  // auto-places every direct child, `dt`/`dd` alternating, into its two
-  // columns — dropping the prompt's <details> in as a third kind of child
-  // would throw that placement off for every entry after it. Splitting the
-  // list in two around the injection point keeps each half a clean
-  // dt/dd grid on its own.
   const dl = body.match(/<dl class="field-list">([\s\S]*?)<\/dl>/i);
-  if (!dl) return html.replace(full, full.replace(body, `${body}${block}`));
+  if (!dl) return html.replace(full, full.replace(body, `${body}${wrapped}`));
   const [dlFull, dlInner] = dl;
 
-  const at = dlInner.match(/<dt>At a glance<\/dt><dd>[\s\S]*?<\/dd>/i);
-  if (!at) return html.replace(full, full.replace(body, body.replace(dlFull, `${dlFull}${block}`)));
-
-  const splitAt = dlInner.indexOf(at[0]);
-  const before = dlInner.slice(0, splitAt);
-  const after = dlInner.slice(splitAt);
-  const rebuiltDl =
-    (before ? `<dl class="field-list">${before}</dl>` : "") +
-    block +
-    `<dl class="field-list">${after}</dl>`;
-  return html.replace(full, full.replace(body, body.replace(dlFull, rebuiltDl)));
+  const at = dlInner.match(/<dt>At a glance<\/dt>/i);
+  const newInner = at ? dlInner.replace(at[0], `${wrapped}${at[0]}`) : `${dlInner}${wrapped}`;
+  return html.replace(full, full.replace(body, body.replace(dlFull, `<dl class="field-list">${newInner}</dl>`)));
 }
 
 function openPredicate(policy: AccordionPolicy) {

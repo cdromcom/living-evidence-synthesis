@@ -285,18 +285,31 @@ h6 {
   width: 100%;
 }
 
-.prose-node .mermaid-figure.is-fullscreen {
+/* Both the JS-toggled class (belt) and the native pseudo-class (suspenders)
+   get the theme background: a browser's default UA stylesheet paints a
+   fullscreened element's own background (and its `::backdrop`, the pane
+   behind it filling the rest of the screen) white regardless of the site's
+   theme, and author styles must say otherwise explicitly or that white
+   shows through — around the card if it doesn't fill the viewport, and
+   behind the diagram itself while `fullscreenchange` hasn't fired yet. */
+.prose-node .mermaid-figure.is-fullscreen,
+.prose-node .mermaid-figure:fullscreen {
   display: flex;
   flex-direction: column;
   background: var(--color-paper);
 }
-.prose-node .mermaid-figure.is-fullscreen .mermaid {
+.prose-node .mermaid-figure::backdrop {
+  background: var(--color-paper);
+}
+.prose-node .mermaid-figure.is-fullscreen .mermaid,
+.prose-node .mermaid-figure:fullscreen .mermaid {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.prose-node .mermaid-figure.is-fullscreen.is-fit .mermaid svg {
+.prose-node .mermaid-figure.is-fullscreen.is-fit .mermaid svg,
+.prose-node .mermaid-figure:fullscreen.is-fit .mermaid svg {
   width: auto;
   max-width: 100%;
   max-height: calc(100vh - 3rem);
@@ -306,12 +319,10 @@ h6 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem 1.1rem;
-  margin: -0.4em 0 1.2em;
-  padding: 0.5em 0.75em;
-  border: 1px solid var(--color-border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 0.6em 0.75em;
+  border-top: 1px solid var(--color-border);
   background: var(--color-muted-surface, var(--color-card));
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
   font-size: 0.75rem;
   color: var(--color-muted-ink);
 }
@@ -326,6 +337,28 @@ h6 {
   height: 0.7em;
   border-radius: 2px;
   flex-shrink: 0;
+}
+
+/* Fullscreen swaps the compact wrapped row for a vertical list — swatch
+   still to the left of its label, one entry per line — since there's a
+   full viewport height to use and a wrapped row of six items reads worse at
+   that scale. Reordered above the diagram (below the toolbar) rather than
+   below it, so it's never pushed out of the initial viewport by diagram
+   height; the diagram's flex area then fills whatever is left underneath. */
+.prose-node .mermaid-figure.is-fullscreen .mermaid-legend,
+.prose-node .mermaid-figure:fullscreen .mermaid-legend {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-top: none;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  font-size: 0.8125rem;
+}
+.prose-node .mermaid-figure.is-fullscreen .mermaid,
+.prose-node .mermaid-figure:fullscreen .mermaid {
+  order: 1;
 }
 
 .prose-node blockquote {
@@ -665,6 +698,13 @@ h6 {
 }
 .prose-node .accordion-body .accordion-section > summary h3 {
   font-size: 1em;
+}
+/* The H3's own body (Design/Tools/Procedure/... under Methods, etc.) reads as
+   a flat continuation of the heading otherwise — 1em is the marker (0.5em)
+   plus the summary's gap (0.5em), so this aligns the body's left edge with
+   the heading text, not just with the accordion's own left edge. */
+.prose-node .accordion-body .accordion-section > .accordion-body {
+  padding-left: 1em;
 }
 
 /* ---------------------------------------------------------------------------
