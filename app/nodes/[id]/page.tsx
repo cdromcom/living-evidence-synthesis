@@ -72,10 +72,18 @@ export default async function NodeDetailPage({
   const procedureBlock = promptSourceId
     ? promptBlockHtml(promptSourceId, { inherited: true })
     : "";
+  // On a Source page whose Methods field list has an "At a glance" entry
+  // (i.e. it has a diagram), the prompt belongs beside that diagram's own
+  // prompt-template step rather than stacked above the abstract — see
+  // lib/markdown.ts's insertBeforeAtAGlance. Sources without one keep the
+  // prompt block at the top of the page (rendered by <PromptDetail> below).
+  const hasAtAGlance = node.type === "SRC" && /\*\*At a glance\.?\*\*/i.test(node.bodyMarkdown);
+  const atAGlanceBlock = hasAtAGlance ? promptBlockHtml(node.id) : "";
   const { html, toc } = renderMarkdown(
     node.bodyMarkdown,
     node.type === "SRC" ? "source" : "open",
-    procedureBlock
+    procedureBlock,
+    atAGlanceBlock
   );
   const HANDLED_EXTRA_KEYS = new Set([
     "doi",
@@ -190,7 +198,9 @@ export default async function NodeDetailPage({
           page these are its own; on an Evidence page they come from the paper
           the evidence was read out of, which is the same question a reader has
           when weighing that finding. */}
-      {node.type === "SRC" && <PromptDetail srcId={node.id} className="mt-3 max-w-[86%]" />}
+      {node.type === "SRC" && !hasAtAGlance && (
+        <PromptDetail srcId={node.id} className="mt-3 max-w-[86%]" />
+      )}
 
       {extraEntries.length > 0 && (
         <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 text-xs sm:grid-cols-3">

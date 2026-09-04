@@ -2,6 +2,72 @@
 
 import { useEffect, useRef } from "react";
 
+const EXPAND_ICON =
+  '<path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>';
+const COLLAPSE_ICON =
+  '<path d="M3 8V5a2 2 0 0 1 2-2h3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M21 16v3a2 2 0 0 1-2 2h-3"/>';
+const FIT_ICON =
+  '<rect x="3.5" y="3.5" width="17" height="17" rx="1.5"/><path d="M9 15l-3 3m0 0v-3m0 3h3M15 9l3-3m0 0h-3m3 0v3"/>';
+
+function iconSvg(path: string): string {
+  return (
+    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    path +
+    "</svg>"
+  );
+}
+
+/**
+ * Wraps a rendered `.mermaid` block in a figure with a small toolbar: a
+ * "fit to view" toggle (the diagram's native size is often wider than the
+ * article column, so the default is a horizontal scroll — this scales it
+ * down to see the whole shape at once) and a fullscreen toggle (for reading
+ * the labels back at full size after fitting).
+ */
+function wrapWithToolbar(block: HTMLDivElement) {
+  if (block.closest(".mermaid-figure")) return;
+  const figure = document.createElement("div");
+  figure.className = "mermaid-figure";
+
+  const toolbar = document.createElement("div");
+  toolbar.className = "mermaid-toolbar";
+
+  const fitBtn = document.createElement("button");
+  fitBtn.type = "button";
+  fitBtn.className = "mermaid-btn";
+  fitBtn.innerHTML = `${iconSvg(FIT_ICON)}<span>Fit to view</span>`;
+  fitBtn.setAttribute("aria-pressed", "false");
+  fitBtn.addEventListener("click", () => {
+    const fitted = figure.classList.toggle("is-fit");
+    fitBtn.setAttribute("aria-pressed", String(fitted));
+    fitBtn.querySelector("span")!.textContent = fitted ? "Actual size" : "Fit to view";
+  });
+
+  const fullscreenBtn = document.createElement("button");
+  fullscreenBtn.type = "button";
+  fullscreenBtn.className = "mermaid-btn";
+  fullscreenBtn.innerHTML = `${iconSvg(EXPAND_ICON)}<span>Fullscreen</span>`;
+  fullscreenBtn.addEventListener("click", () => {
+    if (document.fullscreenElement === figure) {
+      document.exitFullscreen();
+    } else {
+      figure.requestFullscreen?.();
+    }
+  });
+  figure.addEventListener("fullscreenchange", () => {
+    const active = document.fullscreenElement === figure;
+    fullscreenBtn.innerHTML = `${iconSvg(active ? COLLAPSE_ICON : EXPAND_ICON)}<span>${
+      active ? "Exit fullscreen" : "Fullscreen"
+    }</span>`;
+    figure.classList.toggle("is-fullscreen", active);
+  });
+
+  toolbar.append(fitBtn, fullscreenBtn);
+  block.replaceWith(figure);
+  figure.append(toolbar, block);
+}
+
 /**
  * Renders a node's pre-built HTML body and boots mermaid for any
  * `.mermaid` blocks inside it (see lib/markdown.ts's activateMermaid) —
@@ -34,7 +100,10 @@ export default function NodeArticle({ html }: { html: string }) {
       for (let i = 0; i < blocks.length; i++) {
         try {
           const { svg } = await mermaid.render(`mermaid-svg-${i}-${Date.now()}`, sources[i]);
-          if (!cancelled) blocks[i].innerHTML = svg;
+          if (!cancelled) {
+            blocks[i].innerHTML = svg;
+            wrapWithToolbar(blocks[i]);
+          }
         } catch (err) {
           console.error("Mermaid diagram failed to render:", err);
         }

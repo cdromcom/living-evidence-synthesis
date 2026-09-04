@@ -228,14 +228,104 @@ h6 {
   white-space: nowrap;
 }
 
-.prose-node .mermaid {
+.prose-node .mermaid-figure {
   margin: 1.2em 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+}
+
+.prose-node .mermaid-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  padding: 0.375rem 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prose-node .mermaid-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.6875rem;
+  color: var(--color-muted-ink);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.prose-node .mermaid-btn:hover {
+  color: var(--color-ink);
+  border-color: var(--color-forest);
+}
+.prose-node .mermaid-btn[aria-pressed="true"] {
+  color: var(--color-forest);
+  border-color: var(--color-forest);
+}
+
+.prose-node .mermaid {
+  margin: 0;
+  padding: 1em;
   overflow-x: auto;
 }
 
 .prose-node .mermaid svg {
-  max-width: 100%;
   height: auto;
+}
+
+/* Native size by default (diagrams are often wider than the article column,
+   so this scrolls); "Fit to view" scales the svg down to the column width so
+   the whole shape is visible at once, trading label legibility for overview. */
+.prose-node .mermaid-figure.is-fit .mermaid {
+  overflow-x: visible;
+}
+.prose-node .mermaid-figure.is-fit .mermaid svg {
+  width: 100%;
+}
+
+.prose-node .mermaid-figure.is-fullscreen {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-paper);
+}
+.prose-node .mermaid-figure.is-fullscreen .mermaid {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prose-node .mermaid-figure.is-fullscreen.is-fit .mermaid svg {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 3rem);
+}
+
+.prose-node .mermaid-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.1rem;
+  margin: -0.4em 0 1.2em;
+  padding: 0.5em 0.75em;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--color-muted-surface, var(--color-card));
+  font-size: 0.75rem;
+  color: var(--color-muted-ink);
+}
+.prose-node .mermaid-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+.prose-node .mermaid-legend-swatch {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 2px;
+  flex-shrink: 0;
 }
 
 .prose-node blockquote {

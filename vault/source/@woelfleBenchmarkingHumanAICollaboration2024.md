@@ -133,6 +133,14 @@ flowchart TD
     class G,H model;
     class J,K,L,M result;
 ```
+
+<div class="mermaid-legend">
+<span class="mermaid-legend-item"><span class="mermaid-legend-swatch" style="background:#E3F2FD;border:1px solid #1565C0"></span>Blue — input datasets</span>
+<span class="mermaid-legend-item"><span class="mermaid-legend-swatch" style="background:#FFF8E1;border:1px solid #F57F17"></span>Yellow — processing / prompting step</span>
+<span class="mermaid-legend-item"><span class="mermaid-legend-swatch" style="background:#F1F8E9;border:1px solid #2E7D32"></span>Green — the five LLMs under test</span>
+<span class="mermaid-legend-item"><span class="mermaid-legend-swatch" style="background:#FCE4EC;border:1px solid #AD1457"></span>Pink — downstream result / analysis</span>
+</div>
+
 ---
 
 ### Findings
