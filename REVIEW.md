@@ -16,6 +16,18 @@ wrong signal is worse than a missing one.
 > row reads `unscored` — not `NA` — when the artifact exists but has not been
 > scored, with `NA` reserved for papers that claim no artifact at all.
 
+> **Note (2026-09-04):** correction to the note above — Dataset's and Code's
+> *availability* rows do not link to the Quality Appraisal table. They link
+> to the TRIPOD-LLM table's Data availability (14e) and Code availability
+> (14f) rows (`#tripod-14e` / `#tripod-14f`, set in `components/TopBadges.tsx`).
+> They previously pointed at `#qa-repository-check` / `#qa-code-check`,
+> anchors that were never tagged anywhere on the page — a dead link that
+> didn't error visibly, just went nowhere on click. Each row's *FAIRness*
+> row is unaffected and still links to its own Quality Appraisal row. Also:
+> the TRIPOD-LLM table's own heading, and the Transparency chip that links
+> to it, dropped "summary" from the name — it's "TRIPOD-LLM reporting" now,
+> both in the visible heading and every anchor id derived from it.
+
 
 **Contents:** [Guiding principle](#guiding-principle) ·
 [What's on every source page](#whats-on-every-source-page) ·

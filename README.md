@@ -122,7 +122,7 @@ copies. It also prints any embed whose file is missing.
 ## How a node body is rendered
 
 `lib/markdown.ts` turns each node's markdown into the page you see. Beyond
-callouts and mermaid, it does six things worth knowing about:
+callouts and mermaid, it does seven things worth knowing about:
 
 - **Figure and table crops.** Obsidian `![[crop.png]]` embeds become real
   images pointing at `/vault-img/`, each in a collapsed `<details>` captioned
@@ -145,6 +145,14 @@ callouts and mermaid, it does six things worth knowing about:
 - **Table captions.** An italic line directly above a table becomes its
   `<caption>`, so a table lifted from a paper says whose it is. Do not use
   this on the Quality-appraisal or TRIPOD tables: those are ours.
+- **Interactive mermaid diagrams.** After a diagram renders (client-side
+  only, since mermaid needs a browser — `components/NodeArticle.tsx`), it's
+  wrapped in a toolbar with a "Fit to view" toggle (scales a diagram wider
+  than the article column down to fit) and a "Full screen" toggle, also
+  triggered by clicking the diagram itself, which defaults to Fit to view on
+  entry. Mermaid's own light-page background is stripped from the rendered
+  SVG so the diagram matches the site's theme instead of showing through as
+  a mismatched rectangle.
 - **Nested evidence on Questions.** A Question's supporting Claims keep their
   evidence folded behind a count — QUE-001 has 8 claims and 32 evidence
   nodes, and the claims are the answer.
@@ -172,12 +180,30 @@ The prompts themselves are available wherever the question comes up, not only on
 that page. `components/PromptDetail.tsx` renders every prompt fragment a paper
 reports — 76 across the corpus, one entry per TRIPOD-LLM row (9a prompt design,
 6d output instruction, 9b prompt development, and 6c only where that row quotes
-prompt text rather than sampling parameters) — behind one collapsed disclosure.
-It appears on Source pages, and on Evidence pages showing the parent paper's
-prompts, since "what did they actually type at the model" is the same question a
-reader has when weighing a finding. The fragments were already on the page,
+prompt text rather than sampling parameters) — behind one collapsed disclosure,
+plus (Woelfle only, so far) the full system/user prompt Box 1 prints verbatim on
+p.6, above the TRIPOD excerpts as the more readable record. It appears on
+Evidence pages showing the parent paper's prompts, since "what did they
+actually type at the model" is the same question a reader has when weighing a
+finding — inline in Methods Context right after the Procedure entry it belongs
+beside, not stacked above the abstract. The fragments were already on the page,
 spread across four rows of a TRIPOD table that is itself collapsed: recoverable,
 but not findable.
+
+On a Source page the same disclosure is inline too, as its own "Prompt" entry
+in the Methods field list, placed directly before "At a glance" — next to the
+flowchart's own "Prompt template" step, rather than at the top of the page.
+(Every source in the corpus currently has an "At a glance" diagram; one
+without it falls back to the top-of-page placement, rendered by the same
+`<PromptDetail>` used on Evidence pages.) Node bodies are injected via
+`dangerouslySetInnerHTML`, so neither inline placement can host a React
+component directly — `lib/promptBlock.ts` renders the identical markup as a
+server-side HTML string, reading the same `lib/promptTactics.ts` data as
+`PromptDetail.tsx` so the two can differ in placement but never in content.
+The nesting itself (finding the right spot in the field list and, for
+Sources, folding the diagram into its own "At a glance" entry so the two line
+up on the same left edge) is `lib/markdown.ts`'s `insertAfterProcedure`,
+`insertBeforeAtAGlance`, and `nestAtAGlanceDiagram`.
 
 ## Review backend
 
