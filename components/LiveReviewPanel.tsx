@@ -15,10 +15,10 @@ export default function LiveReviewPanel() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!session || !supabase) {
-      setLoading(false);
-      return;
-    }
+    // `loading` is only ever read once the JSX below already knows `session`
+    // is truthy (the `!session` branch renders and returns first) — so
+    // there's nothing to reset here when there's no session to fetch for.
+    if (!session || !supabase) return;
     supabase
       .from("node_reviews")
       .select("*")

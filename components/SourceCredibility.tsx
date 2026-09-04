@@ -166,7 +166,7 @@ export default function SourceCredibility({ node }: { node: GraphNode }) {
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
         {doi && (
           <MiniCard title="Altmetric" icon={<AltmetricGlyph />}>
-            <AltmetricBadge doi={doi} />
+            <AltmetricBadge key={doi} doi={doi} />
           </MiniCard>
         )}
 

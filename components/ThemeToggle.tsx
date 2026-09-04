@@ -1,31 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
-function applyTheme(theme: Theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  window.localStorage.setItem("theme", theme);
+// A tiny external store rather than useState+useEffect: the initial value
+// can only be read in the browser (localStorage/matchMedia), which
+// useSyncExternalStore handles without the render-then-immediately-correct
+// flash a mount effect would need, and without ever calling setState from
+// inside an effect. Module-level since there's one theme per tab; no
+// listener is needed for changes originating outside this module (matching
+// the previous effect, which never re-read matchMedia after mount either).
+let currentTheme: Theme | null = null;
+let listeners: Array<() => void> = [];
+
+function readStoredTheme(): Theme {
+  const stored = window.localStorage.getItem("theme") as Theme | null;
+  return (
+    stored ??
+    (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+  );
+}
+
+function getSnapshot(): Theme {
+  if (currentTheme === null) currentTheme = readStoredTheme();
+  return currentTheme;
+}
+
+function getServerSnapshot(): Theme | null {
+  return null;
+}
+
+function subscribe(callback: () => void) {
+  listeners.push(callback);
+  return () => {
+    listeners = listeners.filter((l) => l !== callback);
+  };
+}
+
+function setTheme(next: Theme) {
+  currentTheme = next;
+  document.documentElement.setAttribute("data-theme", next);
+  window.localStorage.setItem("theme", next);
+  for (const listener of listeners) listener();
 }
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme | null>(null);
-
-  useEffect(() => {
-    const stored = window.localStorage.getItem("theme") as Theme | null;
-    const initial =
-      stored ??
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
-    setTheme(initial);
-  }, []);
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   function toggle() {
-    const next: Theme = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    applyTheme(next);
+    setTheme(theme === "dark" ? "light" : "dark");
   }
 
   return (

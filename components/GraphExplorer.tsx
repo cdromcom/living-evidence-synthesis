@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
+import type { ForceGraphMethods, ForceGraphProps } from "react-force-graph-2d";
 import type { GraphNode, GraphEdge, NodeType, ReproducibilityRisk, EvaluativeTask } from "@/lib/data";
 import {
   NODE_TYPE_ORDER,
@@ -49,7 +50,18 @@ import {
   GRAPH_SELECT_NODE_EVENT,
 } from "@/lib/ui";
 
-const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
+// react-force-graph-2d's default export is generic (ForceGraphProps<NodeType,
+// LinkType>); next/dynamic's own generic is what actually pins the node/link
+// shape below back to FGNode/FGLink instead of collapsing to the library's
+// untyped `{ [others: string]: any }` default. `ref` isn't part of
+// ForceGraphProps itself (the library adds it separately via its own
+// `FCwithRef` wrapper type, which `dynamic<P>` doesn't preserve), so it's
+// added here to keep `ref={fgRef}` below typed too.
+const ForceGraph2D = dynamic<
+  ForceGraphProps<FGNode, FGLink> & {
+    ref?: React.MutableRefObject<ForceGraphMethods<FGNode, FGLink> | undefined>;
+  }
+>(() => import("react-force-graph-2d"), {
   ssr: false,
   loading: () => (
     <div className="flex h-[620px] items-center justify-center text-sm text-muted-ink">
@@ -68,7 +80,20 @@ type FGNode = {
   x?: number;
   y?: number;
 };
-type FGLink = { source: string; target: string; type: string };
+// Once the simulation runs, react-force-graph replaces each link's
+// source/target string in place with the actual FGNode it resolved to — the
+// type reflects both states rather than casting through `any` at each call
+// site that has to tell them apart.
+type FGLink = { source: string | FGNode; target: string | FGNode; type: string };
+// The canvas paint callbacks (nodeCanvasObject, nodePointerAreaPaint, and
+// the label-placement helpers below) only ever run for a node the
+// simulation has already positioned — x/y are required here rather than
+// re-checked at every call site.
+type PositionedFGNode = FGNode & { x: number; y: number };
+
+function linkEndpointId(end: string | FGNode): string {
+  return typeof end === "string" ? end : end.id;
+}
 
 function nodeRadius(node: { degree: number }): number {
   return 4 + Math.min(10, Math.sqrt(node.degree || 1) * 1.6);
@@ -370,7 +395,7 @@ export default function GraphExplorer({
   nodes: GraphNode[];
   edges: GraphEdge[];
 }) {
-  const fgRef = useRef<any>(null);
+  const fgRef = useRef<ForceGraphMethods<FGNode, FGLink> | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
   const [typeFilter, setTypeFilter] = useState<Set<NodeType>>(
     new Set(NODE_TYPE_ORDER)
@@ -560,8 +585,8 @@ export default function GraphExplorer({
   const neighborsOf = useMemo(() => {
     const map = new Map<string, Set<string>>();
     for (const l of baseGraphData.links) {
-      const s = typeof l.source === "string" ? l.source : (l.source as any).id;
-      const t = typeof l.target === "string" ? l.target : (l.target as any).id;
+      const s = linkEndpointId(l.source);
+      const t = linkEndpointId(l.target);
       if (!map.has(s)) map.set(s, new Set());
       if (!map.has(t)) map.set(t, new Set());
       map.get(s)!.add(t);
@@ -576,8 +601,8 @@ export default function GraphExplorer({
     return {
       nodes: baseGraphData.nodes.filter((n) => keep.has(n.id)),
       links: baseGraphData.links.filter((l) => {
-        const s = typeof l.source === "string" ? l.source : (l.source as any).id;
-        const t = typeof l.target === "string" ? l.target : (l.target as any).id;
+        const s = linkEndpointId(l.source);
+        const t = linkEndpointId(l.target);
         return keep.has(s) && keep.has(t);
       }),
     };
@@ -672,6 +697,34 @@ export default function GraphExplorer({
     });
   }
 
+  function clearTrustSignalFilter() {
+    hasAutoFittedRef.current = false;
+    setTrustSignalFilter(new Set());
+  }
+
+  function clearTaskFilter() {
+    hasAutoFittedRef.current = false;
+    setTaskFilter(new Set());
+  }
+
+  function changeStatusFilter(value: string) {
+    hasAutoFittedRef.current = false;
+    setStatusFilter(value);
+  }
+
+  function resetAllFilters() {
+    hasAutoFittedRef.current = false;
+    setTypeFilter(new Set(NODE_TYPE_ORDER));
+    setStatusFilter("all");
+    setTrustSignalFilter(new Set());
+    setTaskFilter(new Set());
+  }
+
+  function toggleFocusMode() {
+    hasAutoFittedRef.current = false;
+    setFocusMode((f) => !f);
+  }
+
   function selectNode(id: string | null) {
     setSelectedId(id);
     setExpandedNeighbors(new Set());
@@ -726,6 +779,13 @@ export default function GraphExplorer({
   const hasAutoFittedRef = useRef(false);
   function handleEngineStop() {
     if (hasAutoFittedRef.current) return;
+    // A plain non-reactive "run once" guard — deliberately a ref, not state,
+    // since turning it into state would re-render on every settle instead of
+    // only the first. onEngineStop is a callback out of force-graph's own
+    // internal d3-force loop rather than a DOM event, which the compiler
+    // can't classify as a safe context for mutating a ref the way it does
+    // toggleType/toggleTask/etc. above (identical pattern, not flagged there).
+    // eslint-disable-next-line react-hooks/immutability
     hasAutoFittedRef.current = true;
     zoomToFit();
   }
@@ -741,7 +801,7 @@ export default function GraphExplorer({
   const LABEL_SIDES: LabelSide[] = ["right", "left", "bottom", "top"];
 
   function computeLabelRect(
-    node: any,
+    node: PositionedFGNode,
     ctx: CanvasRenderingContext2D,
     globalScale: number,
     priority: boolean,
@@ -774,7 +834,7 @@ export default function GraphExplorer({
   }
 
   function drawLabel(
-    node: any,
+    node: FGNode,
     ctx: CanvasRenderingContext2D,
     globalScale: number,
     priority: boolean,
@@ -798,7 +858,7 @@ export default function GraphExplorer({
    * on top of something.
    */
   function placeLabel(
-    node: any,
+    node: PositionedFGNode,
     ctx: CanvasRenderingContext2D,
     globalScale: number,
     priority: boolean
@@ -821,13 +881,13 @@ export default function GraphExplorer({
     labelRectsRef.current = [];
     lineSegmentsRef.current = [];
 
-    for (const n of graphData.nodes as any[]) {
+    for (const n of graphData.nodes) {
       if (n.x == null || n.y == null) continue;
       const r = nodeRadius(n);
       labelRectsRef.current.push([n.x - r, n.y - r, n.x + r, n.y + r]);
     }
 
-    for (const l of graphData.links as any[]) {
+    for (const l of graphData.links) {
       const s = typeof l.source === "string" ? nodeById.get(l.source) : l.source;
       const t = typeof l.target === "string" ? nodeById.get(l.target) : l.target;
       if (!s || !t || s.x == null || s.y == null || t.x == null || t.y == null) continue;
@@ -838,12 +898,18 @@ export default function GraphExplorer({
       if (!id) continue;
       const n = nodeById.get(id);
       if (!n || n.x == null || n.y == null) continue;
-      placeLabel(n, ctx, globalScale, true);
+      // Just checked above — TS doesn't narrow FGNode's optional x/y into
+      // PositionedFGNode's required ones from a `== null` guard on its own.
+      placeLabel(n as PositionedFGNode, ctx, globalScale, true);
     }
   }
 
   const nodeCanvasObject = useCallback(
-    (node: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
+    // The library's own callback type declares x/y optional (true before the
+    // first simulation tick) — this paint callback only ever runs after,
+    // when they're always set.
+    (rawNode: FGNode, ctx: CanvasRenderingContext2D, globalScale: number) => {
+      const node = rawNode as PositionedFGNode;
       const r = nodeRadius(node);
       const color = resolveColor(NODE_TYPE_COLOR_VAR[node.type as NodeType]);
       const isHighlighted = !highlightId || node.id === highlightId || highlightNeighbors?.has(node.id);
@@ -874,6 +940,13 @@ export default function GraphExplorer({
 
       placeLabel(node, ctx, globalScale, false);
     },
+    // placeLabel (and the computeLabelRect/drawLabel/claimLabelRect it calls)
+    // doesn't close over any reactive component state — only refs
+    // (labelRectsRef, lineSegmentsRef) and its own arguments — so it's
+    // effectively stable across renders despite being redeclared each one;
+    // omitted deliberately rather than listed as a dependency that would
+    // always "change".
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [hoverId, selectedId, highlightId, highlightNeighbors, nodeById]
   );
 
@@ -905,28 +978,19 @@ export default function GraphExplorer({
           options={TRUST_SIGNAL_OPTIONS.map((o) => ({ key: o.key, label: o.label, group: o.group }))}
           selected={trustSignalFilter}
           onToggle={toggleTrustSignal}
-          onClear={() => {
-            hasAutoFittedRef.current = false;
-            setTrustSignalFilter(new Set());
-          }}
+          onClear={clearTrustSignalFilter}
         />
         <CheckboxDropdown
           label="Evaluative task"
           options={TASK_ORDER.map((t) => ({ key: t, label: TASK_LABELS[t], group: TASK_GROUPS[t] }))}
           selected={taskFilter}
           onToggle={(key) => toggleTask(key as EvaluativeTask)}
-          onClear={() => {
-            hasAutoFittedRef.current = false;
-            setTaskFilter(new Set());
-          }}
+          onClear={clearTaskFilter}
         />
         <span className="mx-1 h-4 w-px bg-border" />
         <select
           value={statusFilter}
-          onChange={(e) => {
-            hasAutoFittedRef.current = false;
-            setStatusFilter(e.target.value);
-          }}
+          onChange={(e) => changeStatusFilter(e.target.value)}
           className="rounded-full border border-border bg-card px-3 py-1 text-xs"
         >
           <option value="all">All statuses</option>
@@ -937,13 +1001,7 @@ export default function GraphExplorer({
           ))}
         </select>
         <button
-          onClick={() => {
-            hasAutoFittedRef.current = false;
-            setTypeFilter(new Set(NODE_TYPE_ORDER));
-            setStatusFilter("all");
-            setTrustSignalFilter(new Set());
-            setTaskFilter(new Set());
-          }}
+          onClick={resetAllFilters}
           className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-muted-surface"
         >
           Reset filters
@@ -1018,17 +1076,18 @@ export default function GraphExplorer({
             ref={fgRef}
             graphData={graphData}
             nodeId="id"
-            nodeLabel={(n: any) => `${NODE_TYPE_LABELS[n.type as NodeType]}: ${n.title}`}
+            nodeLabel={(n: FGNode) => `${NODE_TYPE_LABELS[n.type]}: ${n.title}`}
             nodeCanvasObject={nodeCanvasObject}
-            nodePointerAreaPaint={(node: any, color: string, ctx: CanvasRenderingContext2D) => {
+            nodePointerAreaPaint={(rawNode: FGNode, color: string, ctx: CanvasRenderingContext2D) => {
+              const node = rawNode as PositionedFGNode;
               const r = nodeRadius(node);
               ctx.fillStyle = color;
               ctx.beginPath();
               ctx.arc(node.x, node.y, r + 2, 0, 2 * Math.PI, false);
               ctx.fill();
             }}
-            onNodeHover={(n: any) => setHoverId(n ? n.id : null)}
-            onNodeClick={(n: any) => selectNode(n.id === selectedId ? null : n.id)}
+            onNodeHover={(n: FGNode | null) => setHoverId(n ? n.id : null)}
+            onNodeClick={(n: FGNode) => selectNode(n.id === selectedId ? null : n.id)}
             onBackgroundClick={() => selectNode(null)}
             onEngineStop={handleEngineStop}
             // Low floor so zoomToFit ("Fit to view") can actually zoom out
@@ -1037,15 +1096,15 @@ export default function GraphExplorer({
             // bbox-fitting scale, making the button appear to do nothing.
             minZoom={0.05}
             onRenderFramePre={onRenderFramePre}
-            linkColor={(l: any) => {
-              const s = typeof l.source === "string" ? l.source : l.source?.id;
-              const t = typeof l.target === "string" ? l.target : l.target?.id;
+            linkColor={(l: FGLink) => {
+              const s = linkEndpointId(l.source);
+              const t = linkEndpointId(l.target);
               const touchesHighlight = highlightId && (s === highlightId || t === highlightId);
               return touchesHighlight ? "rgba(107,102,96,0.85)" : "rgba(107,102,96,0.18)";
             }}
-            linkWidth={(l: any) => {
-              const s = typeof l.source === "string" ? l.source : l.source?.id;
-              const t = typeof l.target === "string" ? l.target : l.target?.id;
+            linkWidth={(l: FGLink) => {
+              const s = linkEndpointId(l.source);
+              const t = linkEndpointId(l.target);
               const touchesHighlight = highlightId && (s === highlightId || t === highlightId);
               return touchesHighlight ? 1.4 : 0.5;
             }}
@@ -1181,10 +1240,7 @@ export default function GraphExplorer({
               })()}
               <div className="mt-4 flex flex-col gap-2">
                 <button
-                  onClick={() => {
-                    hasAutoFittedRef.current = false;
-                    setFocusMode((f) => !f);
-                  }}
+                  onClick={toggleFocusMode}
                   className={`rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors ${
                     focusMode
                       ? "border-forest bg-forest text-paper"

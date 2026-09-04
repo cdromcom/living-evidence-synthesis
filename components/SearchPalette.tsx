@@ -33,7 +33,16 @@ export default function SearchPalette() {
     function onKeyDown(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setOpen((v) => !v);
+        // Functional update (not the closed-over `open`) since this listener
+        // is registered once at mount and never re-registered — resetting
+        // the query lives here, inside the event handler, rather than an
+        // effect keyed on `open`, since only opening (not closing) should
+        // clear it.
+        setOpen((v) => {
+          const next = !v;
+          if (next) setQuery("");
+          return next;
+        });
       }
       if (e.key === "Escape") setOpen(false);
     }
@@ -41,11 +50,10 @@ export default function SearchPalette() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  // Focus has to wait for the dialog to actually be in the DOM, which only
+  // an effect after the `open`-gated render can guarantee.
   useEffect(() => {
-    if (open) {
-      setQuery("");
-      requestAnimationFrame(() => inputRef.current?.focus());
-    }
+    if (open) requestAnimationFrame(() => inputRef.current?.focus());
   }, [open]);
 
   function goTo(id: string) {
@@ -63,7 +71,10 @@ export default function SearchPalette() {
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setQuery("");
+          setOpen(true);
+        }}
         className="flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-1.5 text-sm text-muted-ink transition-colors hover:border-forest hover:text-ink"
       >
         <Search className="h-3.5 w-3.5" aria-hidden />

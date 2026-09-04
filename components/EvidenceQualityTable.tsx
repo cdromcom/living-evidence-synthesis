@@ -36,6 +36,11 @@ function downloadBlob(filename: string, blob: Blob) {
   URL.revokeObjectURL(url);
 }
 
+function SortIndicator({ active, direction }: { active: boolean; direction?: "asc" | "desc" }) {
+  if (!active) return <span className="ml-1 inline-block w-2.5 text-muted-ink/30">↕</span>;
+  return <span className="ml-1 inline-block w-2.5">{direction === "asc" ? "↑" : "↓"}</span>;
+}
+
 function csvEscape(value: string): string {
   if (/[",\n]/.test(value)) return `"${value.replace(/"/g, '""')}"`;
   return value;
@@ -147,11 +152,6 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Evidence Quality");
     XLSX.writeFile(workbook, "evidence-quality.xlsx");
     setExportMenuOpen(false);
-  }
-
-  function SortIndicator({ active, direction }: { active: boolean; direction?: "asc" | "desc" }) {
-    if (!active) return <span className="ml-1 inline-block w-2.5 text-muted-ink/30">↕</span>;
-    return <span className="ml-1 inline-block w-2.5">{direction === "asc" ? "↑" : "↓"}</span>;
   }
 
   return (

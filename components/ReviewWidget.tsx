@@ -37,18 +37,31 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
   }
 
   useEffect(() => {
-    if (session) loadReviews();
-    else setLoadingReviews(false);
+    // `loadingReviews` is only ever read once the JSX below already knows
+    // `session` is truthy — nothing to reset here when there's no session to
+    // fetch for (mirrors the same simplification in LiveReviewPanel).
+    if (!session) return;
+    // loadReviews's own first line flips loadingReviews to true, ahead of the
+    // actual async fetch — genuinely needed so a session/nodeId change (e.g.
+    // navigating to a different node) shows a loading state, not derivable
+    // from anything available during render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadReviews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, nodeId]);
 
-  useEffect(() => {
-    if (mine) {
-      setVerdict(mine.verdict);
-      setProposed(mine.proposed ?? "");
-      setNote(mine.note ?? "");
-    }
-  }, [mine]);
+  // Seeds the form from the signed-in user's own existing review, once per
+  // distinct review (by id) — not a plain effect, since after seeding these
+  // fields are freely user-editable and must not keep snapping back to
+  // `mine` on every render. This is React's own documented pattern for
+  // adjusting state during rendering: https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const [seededReviewId, setSeededReviewId] = useState<string | undefined>(undefined);
+  if (mine && mine.id !== seededReviewId) {
+    setSeededReviewId(mine.id);
+    setVerdict(mine.verdict);
+    setProposed(mine.proposed ?? "");
+    setNote(mine.note ?? "");
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();

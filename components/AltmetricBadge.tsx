@@ -32,7 +32,9 @@ export default function AltmetricBadge({ doi }: { doi: string }) {
   const [cdnDown, setCdnDown] = useState(false);
 
   useEffect(() => {
-    setCdnDown(false);
+    // No need to reset cdnDown for a new doi here — the caller keys this
+    // component by doi (see SourceCredibility.tsx), so a doi change remounts
+    // it from scratch rather than reusing this instance's stale state.
     const existing = document.querySelector<HTMLScriptElement>(`script[src="${EMBED_SCRIPT_SRC}"]`);
     function init() {
       if (ref.current && window._altmetric_embed_init) window._altmetric_embed_init(ref.current);
