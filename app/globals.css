@@ -331,7 +331,10 @@ h6 {
   gap: 0.6rem 1.1rem;
   padding: 0.6em 0.75em;
   border-top: 1px solid var(--color-border);
-  background: var(--color-muted-surface, var(--color-card));
+  /* Matches .mermaid-figure's own background exactly (rather than the
+     muted-surface tone used elsewhere for a callout) so the legend reads as
+     part of the same card, not a distinct block glued to the bottom of it. */
+  background: var(--color-card);
   border-radius: 0 0 var(--radius-md) var(--radius-md);
   font-size: 0.75rem;
   color: var(--color-muted-ink);
@@ -340,6 +343,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
+  white-space: nowrap;
 }
 .prose-node .mermaid-legend-swatch {
   display: inline-block;
@@ -365,10 +369,14 @@ h6 {
   flex-wrap: nowrap;
   align-items: flex-start;
   gap: 0.5rem;
-  max-width: 15rem;
+  /* Sized to its content rather than capped, so a one-line item never wraps
+     regardless of label length; a border (not a fill that contrasts with
+     the plotting area) is what keeps it legible as a distinct group. */
+  width: max-content;
+  max-width: min(90vw, 20rem);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background: var(--color-card);
+  background: var(--color-paper);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   font-size: 0.8125rem;
   cursor: default;
