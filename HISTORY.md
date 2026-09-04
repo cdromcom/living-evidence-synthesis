@@ -633,6 +633,86 @@ not scored it". Nine artifact pairs in the corpus were in exactly that state.
 They now read "unscored", and "not applicable" is reserved for papers that
 claim no dataset or code at all.
 
+## Moving a prompt box next to the diagram it explains
+
+Every source page carries the prompt the paper's authors sent to each
+language model, so a reader can judge a finding without taking the model's
+output on faith. That disclosure used to sit in one fixed spot at the top of
+the page, above everything else. Asked to move it, the natural place turned
+out to be inside the Methods section itself — directly before the "At a
+glance" flowchart that diagrams the paper's whole procedure, since one of that
+diagram's own boxes is the prompt template being disclosed right below it.
+Getting the two to line up on the same left edge, rather than the diagram
+sitting flush with the section's own margin while the prompt box sat indented
+under it, meant nesting the diagram inside the same field-list entry the
+prompt box occupies, instead of leaving it as a separate block underneath.
+
+That nesting broke twice before it actually worked, both times in the same
+way: a screenshot that looked right from a distance. The first version wrote
+a rule assuming the diagram sat immediately after an empty placeholder in the
+list; it didn't — the list's own closing tag sat between them, so the rule
+never matched on any page, including the one it was built against, and the
+apparent alignment in that first screenshot was coincidence, not the fix
+working. The second version, after a color-coded key was added to explain
+the diagram's shapes, made the identical mistake one step later: a blank line
+in the source markdown between the diagram and its key meant the rule that
+was supposed to move both together silently left the key behind. Neither bug
+showed up until the actual HTML was inspected directly rather than eyeballed
+in a screenshot — the fix after that was to always check the rendered markup,
+not just how the page looked.
+
+The diagram itself gained a small toolbar: a button to shrink it to the
+width of the page (its natural size usually needs a sideways scroll), and a
+button to open it full-screen, which now starts already shrunk to fit rather
+than showing one small corner of an otherwise empty display. The color key
+mentioned above — explaining that blue boxes are input data, yellow are
+processing steps, and so on — went through three different homes (a strip
+under the diagram, a floating card over it in full-screen mode, folded into
+the same toolbar row as the buttons) before being removed outright. None of
+the placements read as intentional, and by the third attempt the honest call
+was to cut it rather than keep iterating on a small feature nobody was asking
+for by that point.
+
+## Thirty-three warnings the site had been building around
+
+A routine check of the project's code-quality tool (`eslint`, which flags
+code patterns that tend to cause bugs even when nothing is visibly broken
+yet) turned up thirty-three warnings scattered across eight files, none of
+them related to the page just described — accumulated over earlier work and
+left alone because fixing them wasn't the task at hand at the time.
+
+Most were the same shape: a piece of state was being set the moment a
+component appeared on screen, from inside a hook meant for connecting to
+things outside React (an "effect"), which the tool now flags because it can
+cause an extra invisible re-draw of the page. Where that reset was only ever
+resetting something nothing on screen actually depended on yet, it was
+deleted outright. Where a value could only be known once, in the browser, on
+first paint — a saved light/dark theme preference, read from browser storage
+— the component was rewritten around a hook built for exactly that (
+`useSyncExternalStore`), which does not have the same problem. Elsewhere a
+form's fields, meant to be pre-filled from a reviewer's previous submission
+and then freely edited afterward, had been getting silently overwritten on
+every redraw; that one used React's own documented pattern for adjusting
+state during a render rather than after it.
+
+The other cluster lived in the interactive node-relationship map (the
+force-directed graph on the Graph page), where the third-party charting
+library's types get lost the moment the library is loaded lazily (deferred
+until the page actually needs it, to keep the initial page load small) —
+seventeen places had fallen back to accepting anything, untyped, as a
+result. Pinning the lazy-loading call to the library's actual shape restored
+real checking everywhere it touches the page's own data. A handful of other
+warnings, about a small helper component that was being redefined on every
+single frame instead of once, and a non-reactive flag being changed from
+inside event handlers, were fixed the same way: moved out to where the tool
+expected them, or, in one case each, left with a one-line comment explaining
+why the pattern was intentional — a scoped exception, not a blanket one.
+
+A full production build and a pass through every changed page in a real
+browser followed, since a passing type-checker confirms the code is
+internally consistent, not that clicking the buttons still does what it did
+before.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.
