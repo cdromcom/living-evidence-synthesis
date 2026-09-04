@@ -23,7 +23,8 @@ function iconSvg(path: string): string {
  * "fit to view" toggle (the diagram's native size is often wider than the
  * article column, so the default is a horizontal scroll — this scales it
  * down to see the whole shape at once) and a fullscreen toggle (for reading
- * the labels back at full size after fitting).
+ * the labels back at full size after fitting). The plotting area itself is
+ * also a fullscreen toggle, so a reader doesn't have to aim for the button.
  */
 function wrapWithToolbar(block: HTMLDivElement) {
   if (block.closest(".mermaid-figure")) return;
@@ -49,7 +50,8 @@ function wrapWithToolbar(block: HTMLDivElement) {
   fitBtn.className = "mermaid-btn";
   fitBtn.innerHTML = `${iconSvg(FIT_ICON)}<span>Fit to view</span>`;
   fitBtn.setAttribute("aria-pressed", "false");
-  fitBtn.addEventListener("click", () => {
+  fitBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     const fitted = figure.classList.toggle("is-fit");
     fitBtn.setAttribute("aria-pressed", String(fitted));
     fitBtn.querySelector("span")!.textContent = fitted ? "Actual size" : "Fit to view";
@@ -59,13 +61,21 @@ function wrapWithToolbar(block: HTMLDivElement) {
   fullscreenBtn.type = "button";
   fullscreenBtn.className = "mermaid-btn";
   fullscreenBtn.innerHTML = `${iconSvg(EXPAND_ICON)}<span>Fullscreen</span>`;
-  fullscreenBtn.addEventListener("click", () => {
+  const toggleFullscreen = () => {
     if (document.fullscreenElement === figure) {
       document.exitFullscreen();
     } else {
       figure.requestFullscreen?.();
     }
+  };
+  fullscreenBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleFullscreen();
   });
+  // The plotting area itself also opens/closes fullscreen on click — a
+  // diagram big enough to want fullscreen for is reason enough to make the
+  // whole thing the click target, not just the small toolbar button.
+  block.addEventListener("click", toggleFullscreen);
   figure.addEventListener("fullscreenchange", () => {
     const active = document.fullscreenElement === figure;
     fullscreenBtn.innerHTML = `${iconSvg(active ? COLLAPSE_ICON : EXPAND_ICON)}<span>${
@@ -114,6 +124,11 @@ export default function NodeArticle({ html }: { html: string }) {
           const { svg } = await mermaid.render(`mermaid-svg-${i}-${Date.now()}`, sources[i]);
           if (!cancelled) {
             blocks[i].innerHTML = svg;
+            // mermaid's "neutral" theme sets an inline background-color on
+            // its own root <svg> (light gray, meant for a white page) — strip
+            // it so the diagram shows the site's own themed background
+            // instead of a light rectangle sitting on top of it.
+            blocks[i].querySelector("svg")?.style.removeProperty("background-color");
             wrapWithToolbar(blocks[i]);
           }
         } catch (err) {

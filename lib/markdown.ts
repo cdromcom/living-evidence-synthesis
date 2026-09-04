@@ -596,9 +596,8 @@ function insertAfterProcedure(html: string, block: string): string {
 /**
  * Drops a block of ready-made HTML into a source's Methods field list, as
  * its own `<dt>Prompt</dt><dd>…</dd>` entry immediately before "At a
- * glance" (the entry that introduces the flowchart diagram; rendered by
- * renderFieldLists as `<dt>At a glance</dt><dd></dd>`, directly followed by
- * the `.mermaid` block).
+ * glance" (the entry whose dd holds the flowchart diagram, nested there by
+ * nestAtAGlanceDiagram above).
  *
  * The prompt belongs right where the diagram it fed shows the prompt-template
  * step, not stacked at the top of the page above the abstract — a reader
@@ -633,6 +632,25 @@ function insertBeforeAtAGlance(html: string, block: string): string {
   return html.replace(full, full.replace(body, body.replace(dlFull, `<dl class="field-list">${newInner}</dl>`)));
 }
 
+/**
+ * Moves the mermaid diagram (and its legend, if any) that follows an empty
+ * "At a glance" `<dd>` into that `<dd>`.
+ *
+ * renderFieldLists only folds `**Label.**` paragraphs into the field list —
+ * a fenced ```mermaid block is its own following sibling, outside the `<dl>`
+ * entirely, so it (and anything injected before it) sat flush with the
+ * field list's own left edge instead of the value column every other entry
+ * (including the injected Prompt box) lines up in. Nesting it in the dd
+ * puts it in that same grid cell, so its left edge matches automatically —
+ * no measurement, no duplicated width value to keep in sync.
+ */
+function nestAtAGlanceDiagram(html: string): string {
+  return html.replace(
+    /<dt>At a glance<\/dt><dd><\/dd>((?:<div class="mermaid">[\s\S]*?<\/div>)(?:<div class="mermaid-legend">[\s\S]*?<\/div>)?)/i,
+    (_m, diagramAndLegend) => `<dt>At a glance</dt><dd>${diagramAndLegend}</dd>`
+  );
+}
+
 function openPredicate(policy: AccordionPolicy) {
   if (policy === "open") return () => true;
   return (text: string, level: 2 | 3) => {
@@ -655,7 +673,7 @@ export function renderMarkdown(
   const withMutedIcons = muteStatusIcons(withMermaid);
   const withFigures = renderFigureEmbeds(withMutedIcons);
   const withCaptions = promoteTableCaptions(withFigures);
-  const withFieldLists = renderFieldLists(withCaptions);
+  const withFieldLists = nestAtAGlanceDiagram(renderFieldLists(withCaptions));
   const { html, toc } = injectHeadingIds(withFieldLists);
   const withQuotes = insertBeforeAtAGlance(
     insertAfterProcedure(collapseNestedEvidence(collapseLongQuotes(html)), procedureBlock),

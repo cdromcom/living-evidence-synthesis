@@ -275,6 +275,14 @@ h6 {
   height: auto;
 }
 
+/* The whole plotting area (not just the toolbar's Fullscreen button) opens
+   fullscreen on click — a diagram this size is the reason someone would
+   click into it at all, so the click target might as well be the diagram
+   itself rather than a small button above it. */
+.prose-node .mermaid {
+  cursor: zoom-in;
+}
+
 /* Native size by default (diagrams are often wider than the article column,
    so this scrolls); "Fit to view" scales the svg down to the column width so
    the whole shape is visible at once, trading label legibility for overview. */
@@ -286,17 +294,17 @@ h6 {
 }
 
 /* Both the JS-toggled class (belt) and the native pseudo-class (suspenders)
-   get the theme background: a browser's default UA stylesheet paints a
-   fullscreened element's own background (and its `::backdrop`, the pane
-   behind it filling the rest of the screen) white regardless of the site's
-   theme, and author styles must say otherwise explicitly or that white
-   shows through — around the card if it doesn't fill the viewport, and
-   behind the diagram itself while `fullscreenchange` hasn't fired yet. */
+   get the theme background, `!important`: a browser's default UA stylesheet
+   paints a fullscreened element white regardless of site theme, and that
+   rule otherwise wins some browsers' cascade over an author rule of equal or
+   lower specificity even though it's non-!important — the shows-through-white
+   this was meant to fix. */
 .prose-node .mermaid-figure.is-fullscreen,
 .prose-node .mermaid-figure:fullscreen {
   display: flex;
   flex-direction: column;
-  background: var(--color-paper);
+  position: relative;
+  background: var(--color-paper) !important;
 }
 .prose-node .mermaid-figure::backdrop {
   background: var(--color-paper);
@@ -307,6 +315,8 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--color-paper) !important;
+  cursor: zoom-out;
 }
 .prose-node .mermaid-figure.is-fullscreen.is-fit .mermaid svg,
 .prose-node .mermaid-figure:fullscreen.is-fit .mermaid svg {
@@ -339,26 +349,29 @@ h6 {
   flex-shrink: 0;
 }
 
-/* Fullscreen swaps the compact wrapped row for a vertical list — swatch
-   still to the left of its label, one entry per line — since there's a
-   full viewport height to use and a wrapped row of six items reads worse at
-   that scale. Reordered above the diagram (below the toolbar) rather than
-   below it, so it's never pushed out of the initial viewport by diagram
-   height; the diagram's flex area then fills whatever is left underneath. */
+/* Fullscreen takes the legend out of the document flow entirely — stacking
+   it as a block (even a vertical one) pushes the diagram down and shrinks
+   the plotting area, which is the opposite of the point of fullscreen.
+   Floated instead as a vertical card over the plotting area's own right
+   edge — swatch still to the left of its label — clear of the toolbar
+   above and never adding height of its own. */
 .prose-node .mermaid-figure.is-fullscreen .mermaid-legend,
 .prose-node .mermaid-figure:fullscreen .mermaid-legend {
+  position: absolute;
+  top: 3.5rem;
+  right: 1rem;
+  z-index: 1;
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: flex-start;
   gap: 0.5rem;
-  border-top: none;
-  border-bottom: 1px solid var(--color-border);
-  border-radius: 0;
+  max-width: 15rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   font-size: 0.8125rem;
-}
-.prose-node .mermaid-figure.is-fullscreen .mermaid,
-.prose-node .mermaid-figure:fullscreen .mermaid {
-  order: 1;
+  cursor: default;
 }
 
 .prose-node blockquote {
