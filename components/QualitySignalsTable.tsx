@@ -57,7 +57,7 @@ function Rows({ rows }: { rows: SignalRow[] }) {
                 aria-hidden
               />
             </td>
-            <td className="w-[104px] whitespace-nowrap py-[3px] align-baseline text-muted-ink">{row.status}</td>
+            <td className="w-[116px] whitespace-nowrap py-[3px] align-baseline text-muted-ink">{row.status}</td>
           </tr>
         );
       })}
@@ -93,7 +93,7 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
   return (
     <section
       aria-label="Quality signals"
-      className="mt-2 pb-2 pr-1 pt-1.5 text-[0.6875rem] leading-snug"
+      className="mt-2 pb-2 pr-1 pt-1.5 text-xs leading-snug"
     >
       <p className="border-b-[3px] border-ink/45 pb-1 font-semibold uppercase tracking-[0.08em] text-ink/80">
         Quality signals
@@ -113,7 +113,7 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
                 {group.sections.map((section, i) => (
                   <div key={section.subgroup ?? i} className={section.subgroup ? (i > 0 ? "mt-3" : "mt-1.5") : undefined}>
                     {section.subgroup && (
-                      <p className="mb-0.5 text-[0.625rem] font-medium uppercase tracking-wide text-muted-ink/80">
+                      <p className="mb-0.5 text-[0.6875rem] font-medium uppercase tracking-wide text-muted-ink/80">
                         {section.subgroup}
                       </p>
                     )}

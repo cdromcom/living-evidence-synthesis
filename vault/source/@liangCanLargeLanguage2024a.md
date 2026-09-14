@@ -177,7 +177,10 @@ These findings support two claims. First, that [[CLM - LLM review quality is com
 
 ## Quality appraisal
 
-> [!info] Methodological-quality assessment, synthesized from this paper's discourse-graph nodes and grounded in the same paper this page's top trust-signal chips summarize. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead. The four validity domains (Construct, Internal, External, Statistical conclusion) are risk-of-bias judgments; every other row below is a was-this-addressed checklist item. Blank Rating cells mean not applicable.
+> [!info] Methodological-quality assessment
+> Synthesized from this paper's discourse-graph nodes, grounded in the same paper this page's top trust-signal chips summarize. Covers *methodological quality* — the TRIPOD-LLM table below covers *reporting compliance* instead.
+>
+> The four validity domains (Construct, Internal, External, Statistical conclusion) are risk-of-bias judgments; every other row is a was-this-addressed checklist item. Blank Rating cells mean not applicable.
 > <dl class="callout-legend">
 > <dt><span class="status-icon status-icon-good">●</span> Addressed</dt><dd>Fully met, or no meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Partly addressed</dt><dd>A real but non-fatal limitation</dd>
@@ -211,7 +214,10 @@ These findings support two claims. First, that [[CLM - LLM review quality is com
 
 ## TRIPOD-LLM reporting
 
-> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark, where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`. Blank ✓ cells mean not applicable.
+> [!info] Reporting compliance for this paper
+> Mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18).
+>
+> TRIPOD-LLM is a clinical-ML guideline applied here to a non-clinical AI-research benchmark: where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`. Blank RATING cells mean not applicable.
 > <div class="callout-legend-flat">
 > <span><span class="status-icon status-icon-good">●</span>Addressed</span>
 > <span><span class="status-icon status-icon-partial">◐</span>Partly addressed</span>
