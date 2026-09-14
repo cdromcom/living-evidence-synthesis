@@ -253,23 +253,23 @@ export default async function NodeDetailPage({
 
           {hasReferences && (
             <div className="space-y-1">
-              <h2 className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted-ink">
+              <h2 className="text-xs font-semibold uppercase tracking-wide text-ink/70">
                 References
               </h2>
               {/* Footer text is capped at 40% of the page width — these are short
                   attribution/provenance lines, not article copy, and reading the
                   full-width article measure here just looks like an unstyled
                   afterthought. */}
-              <ol className="max-w-[40vw] list-decimal space-y-1 pl-4">
+              <ol className="max-w-[40vw] list-decimal space-y-1.5 pl-4">
                 {hasCritiqueStatus && (
-                  <li className="text-[0.625rem] text-muted-ink">
+                  <li className="text-xs leading-relaxed text-ink/70">
                     Retraction/correction status checked against Crossref (which now includes the
                     Retraction Watch database) or DataCite for arXiv preprints, at curation time, not a
                     live guarantee; verify independently before relying on it.
                   </li>
                 )}
                 {hasTripodCompliance && (
-                  <li className="text-[0.625rem] text-muted-ink">
+                  <li className="text-xs leading-relaxed text-ink/70">
                     Gallifant, J., Afshar, M., et al.{" "}
                     <a
                       href="https://www.nature.com/articles/s41591-024-03425-5"
@@ -283,7 +283,7 @@ export default async function NodeDetailPage({
                   </li>
                 )}
                 {curatedWithModel && (
-                  <li className="text-[0.625rem] text-muted-ink">
+                  <li className="text-xs leading-relaxed text-ink/70">
                     Trust-signal analysis on this page was curated with {curatedWithModel}
                     {curatedWithModelDate ? `, ${curatedWithModelDate}` : ""}, an AI assistant, not an
                     independent human reviewer; verify anything load-bearing.
