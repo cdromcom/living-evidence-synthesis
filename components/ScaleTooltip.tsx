@@ -8,6 +8,12 @@ import { TONE_BG, type Scale } from "@/lib/scales";
 // browser so the card never appears left and then jumps right.
 const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
+// A step's `value` and `label` sometimes collapse to the same word (e.g. a
+// disclosure level literally named "Disclosed" whose label dict also just
+// says "Disclosed") — showing that word twice in a row reads as a stutter,
+// so the second copy is dropped rather than chasing every label dict by hand.
+const sameText = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
+
 /**
  * Wraps a signal chip and, on hover or keyboard focus, shows the whole scale
  * the chip is drawn from — every level, its color, and what that level means —
@@ -72,7 +78,7 @@ export default function ScaleTooltip({
       {/* Available to screen readers and to anyone who can't hover. */}
       <span className="sr-only">
         {description} Scale:{" "}
-        {scale.steps.map((s) => `${s.value} — ${s.label}`).join("; ")}.
+        {scale.steps.map((s) => (sameText(s.value, s.label) ? s.value : `${s.value} — ${s.label}`)).join("; ")}.
       </span>
 
       {open && (
@@ -107,7 +113,9 @@ export default function ScaleTooltip({
                     <span className={`shrink-0 tabular-nums ${isCurrent ? "font-semibold" : "font-medium"}`}>
                       {step.value}
                     </span>
-                    <span className="text-muted-ink">{step.label}</span>
+                    {!sameText(step.value, step.label) && (
+                      <span className="text-muted-ink">{step.label}</span>
+                    )}
                     {isCurrent && <span className="ml-auto shrink-0 text-[0.625rem] text-forest">this paper</span>}
                   </span>
                 );
