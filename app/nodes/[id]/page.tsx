@@ -260,7 +260,7 @@ export default async function NodeDetailPage({
                   attribution/provenance lines, not article copy, and reading the
                   full-width article measure here just looks like an unstyled
                   afterthought. */}
-              <ol className="max-w-[40vw] list-decimal space-y-1.5 pl-4">
+              <ol className="max-w-[40vw] list-decimal space-y-3 pl-4">
                 {hasCritiqueStatus && (
                   <li className="text-xs leading-relaxed text-ink/70">
                     Retraction/correction status checked against Crossref (which now includes the

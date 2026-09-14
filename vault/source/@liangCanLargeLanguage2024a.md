@@ -218,7 +218,7 @@ These findings support two claims. First, that [[CLM - LLM review quality is com
 > <span><span class="status-icon status-icon-bad">○</span>Not addressed</span>
 > </div>
 
-| # | Item | ✓ | Quote |
+| # | Item | RATING | Quote |
 | --- | --- | :---: | --- |
 | **1** | Title | ◐ | *"Can large language models provide useful feedback on research papers? A large-scale empirical analysis."* `Title` |
 | **2** | Abstract | | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
