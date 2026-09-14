@@ -50,8 +50,8 @@ import {
   getParentSource,
   TOP_STANDARD_LABELS,
   TOP_LEVEL_LABELS,
-  REPRODUCIBILITY_RISK_LABELS,
   VALIDITY_DOMAIN_LABELS,
+  VALIDITY_RISK_LABELS,
   INTEGRITY_SIGNAL_LABELS,
   DISCLOSURE_LEVEL_LABELS,
   REPORTING_COMPLIANCE_LABELS,
@@ -1016,7 +1016,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           subgroup: "Validity",
           rows: validity.map((v) => ({
             label: VALIDITY_DOMAIN_LABELS[v.domain],
-            status: short(REPRODUCIBILITY_RISK_LABELS[v.risk]),
+            status: short(VALIDITY_RISK_LABELS[v.risk]),
             tone: RISK_TONE[v.risk],
             href: `${linkBase}#qa-${v.domain}`,
             scale: VALIDITY_SCALE,
@@ -1166,7 +1166,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
       key={v.domain}
       label={VALIDITY_DOMAIN_LABELS[v.domain]}
       risk={v.risk}
-      title={`${VALIDITY_DOMAIN_LABELS[v.domain]}: ${REPRODUCIBILITY_RISK_LABELS[v.risk]}`}
+      title={`${VALIDITY_DOMAIN_LABELS[v.domain]}: ${VALIDITY_RISK_LABELS[v.risk]}`}
       glyph={<ValidityGlyph domain={v.domain} />}
       href={`${linkBase}#qa-${v.domain}`}
     />

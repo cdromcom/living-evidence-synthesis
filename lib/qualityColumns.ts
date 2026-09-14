@@ -22,7 +22,7 @@ import {
   getDataQualityFair,
   VALIDITY_DOMAIN_ORDER,
   VALIDITY_DOMAIN_LABELS,
-  REPRODUCIBILITY_RISK_LABELS,
+  VALIDITY_RISK_LABELS,
   DATA_LEAKAGE_LABELS,
   REPO_CHECK_LABELS,
   AI_WRITING_CHECK_LABELS,
@@ -99,7 +99,7 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
       value: (evd) => {
         const signal = getValiditySignals(evd).find((v) => v.domain === domain);
         if (!signal) return null;
-        return { text: REPRODUCIBILITY_RISK_LABELS[signal.risk], tone: RISK_TONE[signal.risk] };
+        return { text: VALIDITY_RISK_LABELS[signal.risk], tone: RISK_TONE[signal.risk] };
       },
     })
   ),

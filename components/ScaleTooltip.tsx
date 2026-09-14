@@ -87,7 +87,7 @@ export default function ScaleTooltip({
           <span className="block text-[0.6875rem] leading-snug text-ink/80">{description}</span>
 
           <span className="mt-2.5 block border-t border-border pt-2.5">
-            <span className="mb-1.5 block text-[0.6875rem] capitalize leading-snug text-muted-ink">
+            <span className="mb-1.5 block text-[0.6875rem] leading-snug text-muted-ink">
               {scale.what}
             </span>
             <span className="block space-y-1">

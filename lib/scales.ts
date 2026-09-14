@@ -4,10 +4,10 @@ import {
   DISCLOSURE_LEVEL_LABELS,
   REPO_CHECK_LABELS,
   REPORTING_COMPLIANCE_LABELS,
-  REPRODUCIBILITY_RISK_LABELS,
   STATISTICAL_CONSISTENCY_LABELS,
   STATISTICAL_POWER_LABELS,
   TOP_LEVEL_LABELS,
+  VALIDITY_RISK_LABELS,
 } from "@/lib/data";
 
 // One color vocabulary for every chip on the site, so a color always means
@@ -56,10 +56,22 @@ export type Scale = {
   note?: string;
 };
 
-const risk = (labels: Record<string, string>): ScaleStep[] => [
+// Only VALIDITY_SCALE is a genuine risk-of-bias judgment, so only it gets
+// "risk" wording in `value`. Everything else that shares this 3-step ladder
+// (Reproducibility, Data leakage, Repo/Dataset checks, AI-writing check) is a
+// plain was-this-addressed checklist, and used to inherit "Low risk"/"Some
+// risk"/"High risk" as `value` regardless of the label passed in — which,
+// for Reproducibility specifically, duplicated its own `label` text verbatim.
+const riskOfBias = (labels: Record<string, string>): ScaleStep[] => [
   { key: "low-risk", tone: "green", value: "Low risk", label: labels["low-risk"] },
   { key: "some-concerns", tone: "gold", value: "Some risk", label: labels["some-concerns"] },
   { key: "high-risk", tone: "red", value: "High risk", label: labels["high-risk"] },
+];
+
+const addressed = (labels: Record<string, string>): ScaleStep[] => [
+  { key: "low-risk", tone: "green", value: "Addressed", label: labels["low-risk"] },
+  { key: "some-concerns", tone: "gold", value: "Partly addressed", label: labels["some-concerns"] },
+  { key: "high-risk", tone: "red", value: "Not addressed", label: labels["high-risk"] },
 ];
 
 const notAddressed = (labels: Record<string, string>): ScaleStep => ({
@@ -72,9 +84,9 @@ const notAddressed = (labels: Record<string, string>): ScaleStep => ({
 export const TOP_LEVEL_SCALE: Scale = {
   what: "How openly this TOP standard was met.",
   steps: [
-    { key: "level-2-shared", tone: "green", value: "Level 2", label: TOP_LEVEL_LABELS["level-2-shared"] },
-    { key: "level-1-disclosed", tone: "gold", value: "Level 1", label: TOP_LEVEL_LABELS["level-1-disclosed"] },
-    { key: "not-disclosed", tone: "red", value: "Level 0", label: TOP_LEVEL_LABELS["not-disclosed"] },
+    { key: "level-2-shared", tone: "green", value: "Shared", label: TOP_LEVEL_LABELS["level-2-shared"] },
+    { key: "level-1-disclosed", tone: "gold", value: "Disclosed", label: TOP_LEVEL_LABELS["level-1-disclosed"] },
+    { key: "not-disclosed", tone: "red", value: "Not disclosed", label: TOP_LEVEL_LABELS["not-disclosed"] },
     { key: "not-applicable", tone: "gray", value: "n/a", label: TOP_LEVEL_LABELS["not-applicable"] },
   ],
   note: "COS TOP Guidelines. Red means the standard was never addressed — an absence, not merely unclear.",
@@ -92,28 +104,28 @@ export const DISCLOSURE_SCALE: Scale = {
 
 export const VALIDITY_SCALE: Scale = {
   what: "Risk of bias in this validity domain.",
-  steps: risk(REPRODUCIBILITY_RISK_LABELS),
+  steps: riskOfBias(VALIDITY_RISK_LABELS),
 };
 
 export const RIGOR_CHECK_SCALE: Scale = {
   what: "How well this methodological check was met.",
-  steps: [...risk(REPRODUCIBILITY_RISK_LABELS), notAddressed(DATA_LEAKAGE_LABELS)],
+  steps: [...addressed(DATA_LEAKAGE_LABELS), notAddressed(DATA_LEAKAGE_LABELS)],
 };
 
 export const DATA_LEAKAGE_SCALE: Scale = {
   what: "Whether train/eval contamination was ruled out.",
-  steps: [...risk(DATA_LEAKAGE_LABELS), notAddressed(DATA_LEAKAGE_LABELS)],
+  steps: [...addressed(DATA_LEAKAGE_LABELS), notAddressed(DATA_LEAKAGE_LABELS)],
   note: "Gray is not a pass — it means the paper is silent on it.",
 };
 
 export const REPO_CHECK_SCALE: Scale = {
   what: "Whether the claimed repository actually resolves.",
-  steps: [...risk(REPO_CHECK_LABELS), notAddressed(REPO_CHECK_LABELS)],
+  steps: [...addressed(REPO_CHECK_LABELS), notAddressed(REPO_CHECK_LABELS)],
 };
 
 export const AI_WRITING_CHECK_SCALE: Scale = {
   what: "Pangram's estimate of how the prose was written.",
-  steps: [...risk(AI_WRITING_CHECK_LABELS), notAddressed(AI_WRITING_CHECK_LABELS)],
+  steps: [...addressed(AI_WRITING_CHECK_LABELS), notAddressed(AI_WRITING_CHECK_LABELS)],
 };
 
 export const STATISTICAL_CONSISTENCY_SCALE: Scale = {

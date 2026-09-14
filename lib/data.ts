@@ -247,18 +247,22 @@ export function getTopSignals(node: Pick<GraphNode, "tags">): TopSignal[] {
 }
 
 /**
- * Source-level reproducibility risk, from each SRC file's Critical
- * Appraisal table (Reproducibility domain: 🟢/🟡/🔴). Distinct from TOP's
+ * Source-level reproducibility check, from each SRC file's Quality
+ * Appraisal table (Reproducibility domain: ●/◐/○). Distinct from TOP's
  * own "Computational Transparency" verification standard, which requires an
  * independent party to actually re-run the study — this is a retrospective
- * risk rating, not a verified reproduction.
+ * assessment of whether reproducibility was addressed, not a verified
+ * reproduction. Keys are unchanged from the earlier risk-worded scheme so
+ * vault tags (`trust/reproducibility/*`) don't need renaming; only the
+ * display text moved off "risk" language, since this isn't a risk-of-bias
+ * domain (see VALIDITY_RISK_LABELS for the rows that are).
  */
 export type ReproducibilityRisk = "low-risk" | "some-concerns" | "high-risk";
 
 export const REPRODUCIBILITY_RISK_LABELS: Record<ReproducibilityRisk, string> = {
-  "low-risk": "Low risk",
-  "some-concerns": "Some risk",
-  "high-risk": "High risk",
+  "low-risk": "Addressed",
+  "some-concerns": "Partly addressed",
+  "high-risk": "Not addressed",
 };
 
 export function getReproducibilityRisk(node: Pick<GraphNode, "tags">): ReproducibilityRisk | null {
@@ -289,6 +293,18 @@ export const VALIDITY_DOMAIN_LABELS: Record<ValidityDomain, string> = {
   "internal-validity": "Internal validity",
   "external-validity": "External validity",
   "statistical-rigor": "Statistical conclusion validity",
+};
+
+/**
+ * These 4 domains are genuine risk-of-bias judgments, unlike every other
+ * quality-appraisal row (which uses REPRODUCIBILITY_RISK_LABELS's
+ * addressed/not-addressed language) — so this is the one place "risk"
+ * wording is kept, reusing the same low-risk/some-concerns/high-risk keys.
+ */
+export const VALIDITY_RISK_LABELS: Record<ReproducibilityRisk, string> = {
+  "low-risk": "Low risk",
+  "some-concerns": "Some risk",
+  "high-risk": "High risk",
 };
 
 export type ValiditySignal = { domain: ValidityDomain; risk: ReproducibilityRisk };
