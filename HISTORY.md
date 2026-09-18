@@ -633,6 +633,35 @@ not scored it". Nine artifact pairs in the corpus were in exactly that state.
 They now read "unscored", and "not applicable" is reserved for papers that
 claim no dataset or code at all.
 
+## Cleaning up after a full read-through (2026-09-18)
+
+A read of the whole codebase turned up a handful of small problems, fixed
+together.
+
+The most important one was a copyright slip. The project's rule has always
+been that full papers stay out of the repository — only small crops of
+individual tables and figures are kept. But one file in the vault's evidence
+attachments, a leftover from extracting text out of a PDF, held the entire
+text of Woelfle et al. (2024), all eleven pages of an Elsevier journal
+article. The site never displayed it, yet anyone browsing the repository on
+GitHub could read it. It is gone now, along with a similar leftover for Liu &
+Shah (2023) that turned out to be empty. Deleting a file only removes it
+from the current version of the project; earlier versions in the git history
+still contain it until that history is rewritten.
+
+The hover card on the TRIPOD-LLM reporting signal was showing the wrong
+ranges. It described "low" as 0–33%, "moderate" as 34–66% and "high" as
+67–100%, but every source had actually been scored with different cut-offs:
+under 60% is low, 60–79% is moderate, 80% and up is high. So a paper at 50%
+was marked against a "0–33%" band, and a paper at 67% was labelled moderate
+while its number sat in the card's "high" range. The card now uses the real
+cut-offs, and every source's rating was checked to fall inside its new band.
+
+On the Prompts page, one paper's description showed the formatting code
+`<em>delivery</em>` as literal text instead of italics. The tags were
+removed. An empty, accidentally committed file (`.Rhistory`, a scratch file
+from the R statistics program) was also deleted.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

@@ -138,9 +138,11 @@ export const STATISTICAL_POWER_SCALE: Scale = {
 export const REPORTING_COMPLIANCE_SCALE: Scale = {
   what: "Share of TRIPOD-LLM checklist items reported.",
   steps: [
-    { key: "high", tone: "green", value: "67-100%", label: REPORTING_COMPLIANCE_LABELS.high },
-    { key: "moderate", tone: "gold", value: "34-66%", label: REPORTING_COMPLIANCE_LABELS.moderate },
-    { key: "low", tone: "red", value: "0-33%", label: REPORTING_COMPLIANCE_LABELS.low },
+    // Same cut-offs the sources were hand-scored against (and the graph's
+    // Transparency filter uses): high >=80%, moderate 60-79%, low <60%.
+    { key: "high", tone: "green", value: "80-100%", label: REPORTING_COMPLIANCE_LABELS.high },
+    { key: "moderate", tone: "gold", value: "60-79%", label: REPORTING_COMPLIANCE_LABELS.moderate },
+    { key: "low", tone: "red", value: "0-59%", label: REPORTING_COMPLIANCE_LABELS.low },
   ],
   note: "Our own hand-scored measure, not the authors' claim.",
 };

@@ -146,6 +146,23 @@ roadmap — just a landing spot so these don't get lost between sessions.
 
 ## Known gaps, not currently blocking anything
 
+- **Possible open redirect after GitHub sign-in: figure out whether it is
+  really a problem.** `app/api/github/login/route.ts` stores the `?next=`
+  query parameter in the `gh_oauth_next` cookie without checking it, and
+  `app/api/github/callback/route.ts` redirects to it after the token
+  exchange. A link like `/api/github/login?next=https://example.com` should
+  therefore land the user on an outside site right after they sign in. Not
+  yet confirmed by actually running it. Things to settle first: does the
+  redirect really leave the site, and does it matter given that the GitHub
+  consent screen sits in between? If it is real, the fix is small: accept
+  `next` only when it is a same-site path (starts with `/` but not `//`).
+- **Git history still contains the removed Woelfle full-text file.**
+  `vault/evidence/Attachments/woelfleBenchmarkingHumanAICollaboration2024-bbox.html`
+  was deleted on 2026-09-18, but it remains in earlier commits on GitHub.
+  Fully removing it needs a history rewrite (e.g. `git filter-repo`) and a
+  force-push, which changes every commit hash. Decide whether that is worth
+  doing.
+
 - **Sign-in emails are unauthenticated for their own From domain, so they
   land in spam.** Sign-in now works end to end (Supabase → Brevo SMTP →
   inbox, first confirmed delivery 2026-09-02), but the From address is
