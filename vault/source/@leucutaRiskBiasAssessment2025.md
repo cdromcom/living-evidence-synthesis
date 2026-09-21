@@ -19,7 +19,7 @@ tags:
   - rigor/study-type/exploratory
   - rigor/data-leakage/addressed
   - rigor/baseline-adequacy/not-addressed
-  - rigor/train-dev-test/not-addressed
+  - rigor/train-dev-test/not-applicable
   - rigor/multiple-comparisons/not-addressed
   - rigor/human-baseline/addressed
   - rigor/confidence-intervals/not-addressed
@@ -154,6 +154,7 @@ These findings support the broader claim that [[CLM - LLMs achieve moderate accu
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -165,12 +166,12 @@ These findings support the broader claim that [[CLM - LLMs achieve moderate accu
 | **Reproducibility**: code, data, determinism? | 🟡 | *"Table S1: Human and large language model (LLMs) detailed answers for each article, as well as explanation of correct answers and LLM reasoning errors."* `Supplementary Materials, p.18`, full responses are shared, but four public web-UI chatbots with undisclosed temperature/seed are intrinsically non-deterministic |
 | **Data leakage**: could models have seen this data pretraining? | 🟢 | *"To avoid this possible error, in our study we selected very recent articles only."* `Discussion, p.16` |
 | **Baseline adequacy**: is there a meaningful floor to beat? | 🔴 | Not reported, no naive or majority-class baseline is compared against the four LLMs' accuracy scores |
-| **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | Not applicable, zero-shot web-UI prompting with no training, development, or test split described |
+| **Train/dev/test hygiene**: are data splits kept separate? | ➖ | Not applicable, zero-shot web-UI prompting with no training, development, or test split described |
 | **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, 4 models × 4 domains × 11 signaling questions are compared with no stated correction |
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"The human assessment was performed by two authors who independently assessed the quality of the articles and resolved their discrepancies by discussion and consensus."* `§2.3, p.2` |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: per-domain accuracy percentages (Table 2-3) are given with no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: per-domain accuracy is reported as raw counts/percentages `Table 2-3, p.9`, not a chance-corrected statistic |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"a 73% mean accuracy with systematic blind spots on study-design judgment is not safe to run unsupervised... not yet a substitute for expert clinical and methodological judgment."* `Discussion, p.?`; the limitation is stated as a direct conclusion, not softened |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | Curator assessment, not yet grounded in a quote: the paper reports its accuracy shortfall as a direct conclusion rather than reframing it. A verbatim sentence from the Discussion is still needed here |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported: four LLMs are compared against human QUADAS-2 assessments and against each other; no component of any single model's own pipeline is varied and re-measured |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check and Code check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/f2ce3917-e5ba-4e1b-a56f-52ea094bc91d) |
 

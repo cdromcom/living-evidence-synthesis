@@ -31,7 +31,7 @@ tags:
   - top/code-check/not-addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/partial
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/not-addressed
@@ -168,6 +168,7 @@ Together these findings support the broader claim that [[CLM - LLMs achieve mode
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -185,7 +186,7 @@ Together these findings support the broader claim that [[CLM - LLMs achieve mode
 | **Statistical power**: was the sample sized to detect the claimed effect? | 🟢 | *"A post-hoc power analysis was conducted to assess the statistical power of our study based on the total correct responses across all repetitions... indicated that all analyses exceeded 95% power."* `Article Selection, p.8` |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: the six-model STROBE comparison uses Kruskal-Wallis and chi-square significance tests only; no confidence interval accompanies the per-model accuracy figures `Statistical Analysis, p.13` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: model comparisons use raw percent-correct scores with chi-square/Kruskal-Wallis significance tests, not a chance-corrected agreement statistic `Statistical Analysis, p.13` |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: GPT 4-0613's worst-performer result (44.1%) is stated plainly in the abstract alongside the top performer, with no apparent reframing |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: GPT 4-0613's worst-performer result (44.1%) is stated plainly in the abstract alongside the top performer, with no apparent reframing |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported: comparisons are only across six different LLMs on the same benchmark; no pipeline component (e.g., RAG vs. no-RAG, prompt variants) is removed or varied and re-measured |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check and Code check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/988f13aa-623b-4941-8d18-0c836c53009a) |
 

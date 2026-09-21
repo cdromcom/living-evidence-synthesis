@@ -109,6 +109,18 @@ at `vault/` into `lib/graph-data.generated.json`. Re-run it
 (`node scripts/build-graph.mjs`) after editing the vault, and commit both
 the vault change and the regenerated JSON together.
 
+Node IDs are pinned in `lib/node-ids.json`, which the same script reads and
+rewrites — commit it alongside the other two. An ID is a node's public URL
+(`/nodes/EVD-030`) and the key its accuracy reviews are stored under in
+Supabase, so it has to survive renames: a file already in the map keeps its ID
+wherever it sorts, a new file takes the next unused number for its type, and a
+file that disappears has its number **retired** rather than handed to the next
+node along. Renaming a vault file therefore prints a warning naming the
+orphaned ID; move that entry onto the new filename by hand, in the same commit,
+or the node gets a fresh ID and its existing reviews are stranded. (Before
+2026-09 IDs were assigned by alphabetical position, so inserting a single file
+silently renumbered every node below it.)
+
 Note: `vault/source/pdfs/` (the full source paper PDFs) is deliberately
 excluded from this repo; publishing entire copyrighted articles publicly
 isn't something this project does. The embedded screenshot crops of
@@ -343,7 +355,7 @@ recurring:
    this looks like a genuine code or dependency bug (missing export,
    silent exit, `undefined` where a module should be). `du -k` on the
    specific file reports `0` when it's actually a stub; `brctl download
-   <path>` re-materializes it. See `FIXES.md` §9 for the full story — it
+   <path>` re-materializes it. See `FIXES.md` §7 for the full story — it
    cost an entire session before being correctly diagnosed.
 
 ## Source page design (SRC nodes)
@@ -376,9 +388,20 @@ guideline (Gallifant et al. 2025, *Nature Medicine*) and, when present,
 the LLM model/version/date used to curate that page's trust signals
 (`curatedWithModel`/`curatedWithModelDate` frontmatter).
 
-This treatment has been piloted on one source
-(`@louAAAR10AssessingAIs2025.md`, SRC-011) and not yet rolled out to the
-other source files.
+This treatment was piloted on one source (`@louAAAR10AssessingAIs2025.md`,
+SRC-011) and has since been rolled out to all 27: every source file now
+carries the quote-grounded Quality Appraisal and TRIPOD-LLM tables and the
+`curatedWithModel` footer.
+
+The appraisal scale has four levels, not three. Low / Some / High risk grade a
+domain that applies to the paper; **Not applicable** (`➖`) is for a domain that
+cannot apply to it at all — a paper that trains nothing has no train/dev/test
+split to keep clean, and a paper with no null result has no opportunity to spin
+one. Those two states are genuinely different and were conflated as High risk
+until 2026-09, which scored 19 rows across 18 papers as carrying "a significant,
+unaddressed threat to validity" for domains that could never have applied. The
+matching tag value is `not-applicable` (e.g. `integrity/spin/not-applicable`),
+read by `getTaggedCheck` in `lib/data.ts` and typed as `CheckStatus`.
 
 ### AI Writing Check (Pangram)
 

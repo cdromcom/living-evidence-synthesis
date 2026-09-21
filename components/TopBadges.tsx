@@ -65,6 +65,7 @@ import {
   type TopStandard,
   type TopLevel,
   type ReproducibilityRisk,
+  type CheckStatus,
   type ValidityDomain,
   type IntegritySignalKind,
   type DisclosureLevel,
@@ -146,9 +147,10 @@ const RISK_TONE: Record<ReproducibilityRisk, Tone> = {
 
 // "not-addressed" (the paper doesn't discuss this at all) reads as unclear,
 // not a confirmed problem, so it stays gray rather than red.
-const DATA_LEAKAGE_TONE: Record<ReproducibilityRisk | "not-addressed", Tone> = {
+const DATA_LEAKAGE_TONE: Record<CheckStatus, Tone> = {
   ...RISK_TONE,
   "not-addressed": "gray",
+  "not-applicable": "gray",
 };
 
 // Original glyph — two overlapping shapes with a "leak" drip, evoking
@@ -406,7 +408,7 @@ function RiskBadge({
   );
 }
 
-function DataLeakageBadge({ risk, linkBase = "" }: { risk: ReproducibilityRisk | "not-addressed"; linkBase?: string }) {
+function DataLeakageBadge({ risk, linkBase = "" }: { risk: CheckStatus; linkBase?: string }) {
   return (
     <ScaleTooltip
       scale={DATA_LEAKAGE_SCALE}
@@ -617,8 +619,8 @@ function RigorCheckBadge({
   linkBase = "",
 }: {
   kind: RigorCheckKind;
-  risk: ReproducibilityRisk | "not-addressed";
-  levelLabels?: Record<ReproducibilityRisk | "not-addressed", string>;
+  risk: CheckStatus;
+  levelLabels?: Record<CheckStatus, string>;
   scale?: Scale;
   linkBase?: string;
 }) {
@@ -854,8 +856,8 @@ export default function TopBadges({ node }: { node: GraphNode }) {
 
   const rigorRow = (
     kind: RigorCheckKind,
-    risk: ReproducibilityRisk | "not-addressed" | null | undefined,
-    labels: Record<ReproducibilityRisk | "not-addressed", string> = DATA_LEAKAGE_LABELS,
+    risk: CheckStatus | null | undefined,
+    labels: Record<CheckStatus, string> = DATA_LEAKAGE_LABELS,
     scale: Scale = RIGOR_CHECK_SCALE
   ): SignalRow[] =>
     risk
@@ -924,7 +926,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
    */
   const artifactRows = (
     name: string,
-    check: ReproducibilityRisk | "not-addressed" | null | undefined,
+    check: CheckStatus | null | undefined,
     score: number | null,
     max: number,
     band: (n: number) => string,

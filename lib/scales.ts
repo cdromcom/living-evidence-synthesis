@@ -69,6 +69,18 @@ const notAddressed = (labels: Record<string, string>): ScaleStep => ({
   label: labels["not-addressed"],
 });
 
+/**
+ * Distinct from "Not addressed": the domain cannot apply to this study at all,
+ * so there is nothing the authors could have done about it. Kept off the
+ * red end of the scale for that reason.
+ */
+const notApplicable = (labels: Record<string, string>): ScaleStep => ({
+  key: "not-applicable",
+  tone: "gray",
+  value: "n/a",
+  label: labels["not-applicable"],
+});
+
 export const TOP_LEVEL_SCALE: Scale = {
   what: "How openly this TOP standard was met.",
   steps: [
@@ -97,7 +109,11 @@ export const VALIDITY_SCALE: Scale = {
 
 export const RIGOR_CHECK_SCALE: Scale = {
   what: "How well this methodological check was met.",
-  steps: [...risk(REPRODUCIBILITY_RISK_LABELS), notAddressed(DATA_LEAKAGE_LABELS)],
+  steps: [
+    ...risk(REPRODUCIBILITY_RISK_LABELS),
+    notAddressed(DATA_LEAKAGE_LABELS),
+    notApplicable(DATA_LEAKAGE_LABELS),
+  ],
 };
 
 export const DATA_LEAKAGE_SCALE: Scale = {

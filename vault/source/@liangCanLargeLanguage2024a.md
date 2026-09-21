@@ -30,7 +30,7 @@ tags:
   - top/code-check/addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
@@ -182,6 +182,7 @@ These findings support two claims. First, that [[CLM - LLM review quality is com
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -196,9 +197,9 @@ These findings support two claims. First, that [[CLM - LLM review quality is com
 | **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | Not reported, no train/dev/test split is described; the retrospective corpora are used directly for evaluation with no held-out development set |
 | **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, no correction is stated across the 15 journals x 11 aspects x 4 overlap-metric comparisons |
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"we assessed the pairwise overlap of both GPT-4 vs. Human and Human vs. Human in terms of hit rate"* `Methods, p.9`, human-vs-human overlap is computed as a direct comparator throughout |
-| **Confidence Intervals**: are point estimates accompanied by an interval? | 🟢 | *"Significance comes from McNemar-style paired tests with 95% confidence intervals."* `Procedure, p.?`, and *"Error bars represent 95% confidence intervals."* `Fig. 2 caption, p.4` |
+| **Confidence Intervals**: are point estimates accompanied by an interval? | 🟢 | *"Error bars represent 95% confidence intervals."* `Fig. 2 caption, p.4` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: overlap between LLM and human comments is measured via hit rate, Jaccard, Szymkiewicz-Simpson, and Sørensen-Dice coefficients, none of which correct for chance-level agreement |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no formal significance-testing framework is used on the main LLM-vs-human comparisons, so there is no statistically null/non-significant finding to spin; the paper's own limitations are stated plainly in the Discussion `p.7` |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no formal significance-testing framework is used on the main LLM-vs-human comparisons, so there is no statistically null/non-significant finding to spin; the paper's own limitations are stated plainly in the Discussion `p.7` |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | *"The near-floor shuffled overlap (0.43% pairwise / 1.13% global on Nature; 3.91% pairwise on ICLR) rejects the 'GPT-4 produces generic boilerplate' null at P < 0.0001 in both datasets."*, the reported overlap statistics decrease monotonically as expected under the shuffle-control design, with no internal inconsistency `Fig. 2a` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"we performed a shuffling experiment aimed at verifying the specificity and relevance of LLM generated feedback... the pairwise overlap decreased from 30.85% to 0.43% after shuffling."* `p.4`, isolates whether feedback is paper-specific by deliberately breaking that association and re-measuring overlap |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/Weixin-Liang/LLM-scientific-feedback: **2/5**: open repository + license: no package-registry listing, citation metadata, or quality-checklist badge. |

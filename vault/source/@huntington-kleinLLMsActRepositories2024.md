@@ -19,9 +19,9 @@ tags:
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
   - rigor/baseline-adequacy/partial
-  - rigor/train-dev-test/not-addressed
+  - rigor/train-dev-test/not-applicable
   - rigor/multiple-comparisons/not-addressed
-  - rigor/human-baseline/not-addressed
+  - rigor/human-baseline/not-applicable
   - rigor/confidence-intervals/not-addressed
   - integrity/ethical-approval/not-applicable
   - integrity/funding-disclosure/not-disclosed
@@ -140,6 +140,7 @@ These findings together support the broader claim that [[CLM - LLMs do not yet s
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -151,9 +152,9 @@ These findings together support the broader claim that [[CLM - LLMs do not yet s
 | **Reproducibility**: code, data, determinism? | 🟡 | *"our code, which can be easily revised to test future LLM tools, will be available at https://osf.io/spzbu/."* `Conclusion, p.19`, code is released, but temperature 0.7 was deliberately chosen for variability, making the closed-model runs non-deterministic |
 | **Data leakage**: could models have seen this data pretraining? | 🔴 | *"the prominent role of the CDP means that studies concerning confounding in the CDP are likely to be in the LLM training data... If discussion of confounding in the CDP is in the training data, then we know that discussions of expert opinions on causal links for the variables relevant to the CDP are in the training data."* `p.3`, the leakage is knowingly built into the design rather than mitigated |
 | **Baseline adequacy**: is there a meaningful floor to beat? | 🟡 | *"we have a set of 60 variables that are in the CDP dataset but are very unlikely to be confounders, which we call 'Non-Confounders'."* `Methods, p.4`, a curated negative-baseline set exists, but no naive or random-guess baseline rate is explicitly reported alongside it |
-| **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | Not applicable, no training, development, or test split is described; all 172 candidate variables are queried directly at inference time |
+| **Train/dev/test hygiene**: are data splits kept separate? | ➖ | Not applicable, no training, development, or test split is described; all 172 candidate variables are queried directly at inference time |
 | **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, 3 models × 8 prompt variants × 6 confounder categories are compared with no stated correction |
-| **Human-baseline comparability**: is there a human reference point? | 🔴 | Not applicable, the "ground truth" comes from previously published expert confounder lists (CDPRG 1980; Murray and Hernán 2016; Debertin et al. 2024) rather than a live human panel run alongside the LLMs in this study |
+| **Human-baseline comparability**: is there a human reference point? | ➖ | Not applicable, the "ground truth" comes from previously published expert confounder lists (CDPRG 1980; Murray and Hernán 2016; Debertin et al. 2024) rather than a live human panel run alongside the LLMs in this study |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: Cohen's kappa values (0.13–0.41) are reported as point estimates only, with no interval `Results, p.14` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟢 | *"For GPT o1-preview, there was fair agreement across methods, with 87.7% of the variables designated the same way; however, this was driven partially by the model's tendency to label everything a confounder, so the Cohen's kappa was still low at .16."* `Results, p.14` |
 | **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"LLMs exhibit mediocre performance in identifying confounders... LLM judgment on confounder status is highly inconsistent... LLMs do not yet have the ability to automate the reporting of causal links."* `Abstract, p.1`, a candid, unspun negative headline |

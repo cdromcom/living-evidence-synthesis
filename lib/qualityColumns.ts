@@ -33,6 +33,7 @@ import {
   REPORTING_COMPLIANCE_LABELS,
   type GraphNode,
   type ReproducibilityRisk,
+  type CheckStatus,
   type TopLevel,
   type DisclosureLevel,
 } from "@/lib/data";
@@ -54,9 +55,10 @@ const RISK_TONE: Record<ReproducibilityRisk, Tone> = {
   "some-concerns": "gold",
   "high-risk": "red",
 };
-const RISK_OR_NA_TONE: Record<ReproducibilityRisk | "not-addressed", Tone> = {
+const RISK_OR_NA_TONE: Record<CheckStatus, Tone> = {
   ...RISK_TONE,
   "not-addressed": "gray",
+  "not-applicable": "gray",
 };
 const TOP_LEVEL_TONE: Record<TopLevel, Tone> = {
   "level-2-shared": "green",
@@ -71,7 +73,7 @@ const DISCLOSURE_TONE: Record<DisclosureLevel, Tone> = {
   "not-applicable": "gray",
 };
 
-function riskCell(risk: ReproducibilityRisk | "not-addressed" | null, labels = DATA_LEAKAGE_LABELS): Cell {
+function riskCell(risk: CheckStatus | null, labels = DATA_LEAKAGE_LABELS): Cell {
   if (!risk) return null;
   return { text: labels[risk], tone: RISK_OR_NA_TONE[risk] };
 }

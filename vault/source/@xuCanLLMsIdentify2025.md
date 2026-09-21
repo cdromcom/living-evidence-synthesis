@@ -31,7 +31,7 @@ tags:
   - top/code-check/addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/partial
   - rigor/ablation-experiments/addressed
@@ -152,6 +152,7 @@ Together these findings support two related claims: that [[CLM - LLMs cannot rel
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -168,7 +169,7 @@ Together these findings support two related claims: that [[CLM - LLMs cannot rel
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"Human 86.0% ... GPT-4o 52.0% ... MARG 68.1%"* `Table 3, p.8` |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: Accuracy/Fine-grained/Jaccard figures (Table 3-4) and the Cohen's kappa on annotator agreement are given as point estimates with no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟡 | *"The two human raters agreed strongly with each other (Cohen's kappa = 0.833, where 1.0 means perfect agreement and 0 means chance)."* `§4.1, p.5–6`, kappa validates the benchmark's own ground truth, but the LLM systems' own performance is scored via Accuracy/Fine-grained score/Jaccard instead, not a chance-corrected statistic |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no formal significance test underlies the paper's headline comparison; the blunt framing of its own main finding ("GPT-4o can only identify about half of the limitations that humans consider very obvious") is plain, not spun, but falls outside this check's addressed/not-addressed distinction absent a formal test `§4.2, p.6` |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no formal significance test underlies the paper's headline comparison; the blunt framing of its own main finding ("GPT-4o can only identify about half of the limitations that humans consider very obvious") is plain, not spun, but falls outside this check's addressed/not-addressed distinction absent a formal test `§4.2, p.6` |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | The reported Cohen's kappa (0.833 for LimitGen-Syn; 0.772/0.735/0.717 for LimitGen-Human) falls within the valid 0–1 range `§4.1, p.5–6` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"The results, as shown in Table 5, demonstrate that providing a broader set of relevant papers, as in the standard RAG method with the top 5 papers, improves the LLM's performance in generating accurate limitations compared to using only the top 3 or the last 5 retrieved papers."* `p.7, §6.2` |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/yale-nlp/LimitGen: **1/5**: open repository only: no license, package-registry listing, citation metadata, or quality-checklist badge. |

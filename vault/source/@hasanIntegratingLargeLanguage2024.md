@@ -19,7 +19,7 @@ tags:
   - rigor/study-type/exploratory
   - rigor/data-leakage/not-addressed
   - rigor/baseline-adequacy/not-addressed
-  - rigor/train-dev-test/not-addressed
+  - rigor/train-dev-test/not-applicable
   - rigor/multiple-comparisons/not-addressed
   - rigor/human-baseline/addressed
   - rigor/confidence-intervals/not-addressed
@@ -168,6 +168,7 @@ These findings support two related claims. The headline result, fair-to-moderate
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -179,7 +180,7 @@ These findings support two related claims. The headline result, fair-to-moderate
 | **Reproducibility**: code, data, determinism? | 🔴 | *"Data are available upon reasonable request... Analysed datasheet is available upon request."* `Data availability statement, p.4`, no code released and no public data release |
 | **Data leakage**: could models have seen this data pretraining? | 🔴 | Not reported |
 | **Baseline adequacy**: is there a meaningful floor to beat? | 🔴 | Not reported, no naive or non-LLM baseline is compared against GPT-4's agreement rate |
-| **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | Not applicable, zero-shot GPT-4 evaluation with no training, development, or test split described |
+| **Train/dev/test hygiene**: are data splits kept separate? | ➖ | Not applicable, zero-shot GPT-4 evaluation with no training, development, or test split described |
 | **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, 8 ROBINS-I domains × 3 agreement statistics are compared with no stated correction |
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"While their RoB assessment is certainly not a reference standard and can be quite poor for some domains such as confounding, the rigorous and multidomain evaluation conducted by pairs of independent reviewers in these reviews makes them a reasonable comparison for novel LLM application."* `Discussion, p.4` |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: *"Kappa coefficient was low across all domains."* `Results, p.2`, three agreement statistics (raw %, weighted kappa, Kendall's τ) are reported as point estimates with no interval on any of them |

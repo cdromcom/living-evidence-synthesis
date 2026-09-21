@@ -30,7 +30,7 @@ tags:
   - top/code-check/not-addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
@@ -170,6 +170,7 @@ These findings collectively support the claim that [[CLM - LLM review quality is
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -186,7 +187,7 @@ These findings collectively support the claim that [[CLM - LLM review quality is
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"The human reviewers have an average recommendation score of 5.88, with a standard deviation 1.61"* `Appendix D, p.13` |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: Bradley-Terry win-rate scores and mean recommendation scores are given as point estimates with no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: no classification or agreement metric is reported at all; evaluation uses Bradley-Terry win-rate scores and Likert ratings, which the task doesn't call for a chance-corrected metric on |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no formal significance testing is performed on the paper's own comparisons, so there is no null finding to spin |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no formal significance testing is performed on the paper's own comparisons, so there is no null finding to spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Figure 14: Ablation of in-context LLM review scores: ... P1, P2, P3, P4, P5 ablate the increasing documents used in the GPT-4 context prompt."* `Appendix D` |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check and Code check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is primarily human-written, with a small amount of AI content detected"* (2.6% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/b864de60-9f64-4857-b056-e81148e4d68e) |
 

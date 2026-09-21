@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
-import type { GraphNode, GraphEdge, NodeType, ReproducibilityRisk, EvaluativeTask } from "@/lib/data";
+import type { GraphNode, GraphEdge, NodeType, ReproducibilityRisk, CheckStatus, EvaluativeTask } from "@/lib/data";
 import {
   NODE_TYPE_ORDER,
   NODE_TYPE_LABELS,
@@ -149,7 +149,7 @@ type TrustSignalOption = { key: string; label: string; group: string; test: (n: 
 // its risk level as text either, only as the badge's dot color), testing
 // the same "was this handled well" positive condition the pre-existing
 // Openness/Integrity filters below already use.
-const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: GraphNode) => ReproducibilityRisk | "not-addressed" | null }[] = [
+const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: GraphNode) => CheckStatus | null }[] = [
   { id: "data-repo-check", label: "Dataset check", group: "Openness", getter: getRepositoryCheck },
   { id: "code-check", label: "Code Check", group: "Openness", getter: getCodeCheck },
   { id: "baseline-adequacy", label: "Baseline Adequacy", group: "Rigor — Design", getter: getBaselineAdequacy },

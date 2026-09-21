@@ -123,18 +123,9 @@ finally produced a clean build: compiled in 2.3 min, typechecked in
 `PATH` when present, so `npm run dev`/`build` use it automatically without
 anyone needing to remember the workaround.
 
-## Net result
+### 7. iCloud Drive "Optimize Mac Storage" silently evicting `node_modules` files to zero-byte stubs
 
-| Symptom seen | Real cause | Fix |
-|---|---|---|
-| Random, inconsistent build failures | Two builds racing on one `.next` dir | `scripts/with-lock.sh` (atomic lock) |
-| Warning about ignored lockfile | `outputFileTracingRoot` unset, scanning whole home dir | Set explicitly in `next.config.mjs` |
-| SIGKILL / OOM-looking failures | Other apps (browser, etc.) starving CPU/RAM | `scripts/preflight.mjs` (pre-run resource check) |
-| "0 byte" native binary | Flaky `du` reading, not a real bug | N/A — false alarm, verified and moved on |
-| Build looked frozen at 0% CPU | Self-inflicted: throttled to 1 core while diagnosing | Removed throttling; verified activity with `sample`, not `ps` |
-| Builds crawling / silently stalling under both webpack and Turbopack | Node version too new for this Next.js version | Pinned Node 22 via a local, non-global install |
-
-### 9. iCloud Drive "Optimize Mac Storage" silently evicting `node_modules` files to zero-byte stubs
+*Found in a later session than 1-6 above, against the same project.*
 
 **Symptom:** `next dev` exited instantly with code 0 and no output beyond
 preflight warnings, across many attempts (with-lock disabled, sandbox
@@ -173,6 +164,18 @@ no output, or a required module's export is unexpectedly `undefined`, check
 assuming a real code or version bug — especially on a Mac with iCloud
 Drive storage optimization enabled. A `du -k` reading of exactly `0` on a
 file that isn't actually empty is the tell.
+
+## Net result
+
+| Symptom seen | Real cause | Fix |
+|---|---|---|
+| Random, inconsistent build failures | Two builds racing on one `.next` dir | `scripts/with-lock.sh` (atomic lock) |
+| Warning about ignored lockfile | `outputFileTracingRoot` unset, scanning whole home dir | Set explicitly in `next.config.mjs` |
+| SIGKILL / OOM-looking failures | Other apps (browser, etc.) starving CPU/RAM | `scripts/preflight.mjs` (pre-run resource check) |
+| "0 byte" native binary | Flaky `du` reading, not a real bug | N/A — false alarm, verified and moved on |
+| Build looked frozen at 0% CPU | Self-inflicted: throttled to 1 core while diagnosing | Removed throttling; verified activity with `sample`, not `ps` |
+| Builds crawling / silently stalling under both webpack and Turbopack | Node version too new for this Next.js version | Pinned Node 22 via a local, non-global install |
+| `next dev` exiting silently; `undefined` module exports | iCloud evicted `node_modules` files to zero-byte stubs | `brctl download` the affected paths; verify with `du -k` |
 
 ## Diagnostic technique worth keeping
 

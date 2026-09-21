@@ -31,7 +31,7 @@ tags:
   - top/code-check/addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
@@ -148,6 +148,7 @@ These findings collectively support the claim that [[CLM - Combining human revie
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -164,7 +165,7 @@ These findings collectively support the claim that [[CLM - Combining human revie
 | **Human-baseline comparability**: is there a human reference point? | 🔴 | Not addressed, peer-reviewer TNS scores are used only as training/gold labels, not evaluated as a separately-run human comparator system |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: *"the results of the LLMs are the averages obtained from three rounds of testing"* `Table 2 note, p.21` gives a point estimate with no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: only F1 and accuracy are reported (Tables 2-4); no chance-corrected statistic appears anywhere |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance testing is performed on the paper's own results, so there is no null finding to spin |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no significance testing is performed on the paper's own results, so there is no null finding to spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"To better understand the effectiveness of each component of our method, we have done an ablation study as shown in Table 4... We systematically removed three components, namely, Self-Attention Reduction, Knowledge Guided, and Self Attention, to examine their individual impacts on the model."* `p.1463, §5.4` |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/njust-winchy/method_novelty_predict: **1/5**: open repository only: no license, package-registry listing, citation metadata, or quality-checklist badge. |
 | **Data Quality**: is the released dataset FAIR? | 🔴 | FAIR-Checker (12 semantic-web metrics, 0-2 each) against https://github.com/njust-winchy/method_novelty_predict: **4/24**. |

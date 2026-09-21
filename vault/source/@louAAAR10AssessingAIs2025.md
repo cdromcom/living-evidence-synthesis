@@ -32,7 +32,7 @@ tags:
   - top/code-check/not-addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
@@ -196,6 +196,7 @@ These findings collectively support [[CLM - Current LLMs are not yet qualified a
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -212,7 +213,7 @@ These findings collectively support [[CLM - Current LLMs are not yet qualified a
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"there is still a considerable gap in the weakness diversity between the LLMs and human experts"* `§5.3, p.8`, human experts serve as a direct comparator on the PAPERWEAKNESS task |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: *"selecting the median result from these repeated runs"* `Appendix B.2, p.16` reports a point estimate with no interval around it |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: all metrics are F1/precision/recall/S-Match/ROUGE/ITF-IDF; no kappa or MCC is reported anywhere |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no formal significance tests are run; the informal "not significant" performance-gap claim ("the best LLM on this task only obtains 47.98%") is stated plainly, not spun `p.7` |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no formal significance tests are run; the informal "not significant" performance-gap claim ("the best LLM on this task only obtains 47.98%") is stated plainly, not spun `p.7` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"D.4 Multi-Modal Input Ablation. We post the multi-modal ablation study of ExpDesign and Weakness in Table 14 and Table 15."* `p.18`, figure/table inputs are removed and the effect measured; Table 4 and Table 12 test additional prompting/input-processing variants |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Code Check returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/51d58239-8e43-43c4-9d61-00ad4267bf95) |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/RenzeLou/AAAR-1.0: **2/5**: open repository + license: no package-registry listing, citation metadata, or quality-checklist badge. |

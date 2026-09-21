@@ -31,7 +31,7 @@ tags:
   - top/code-check/addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
@@ -142,6 +142,7 @@ These findings collectively support the claim that [[CLM - Abstracts are the opt
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -158,7 +159,7 @@ These findings collectively support the claim that [[CLM - Abstracts are the opt
 | **Human-baseline comparability**: is there a human reference point? | 🟡 | *"the author's scores are less relevant than the scores of more independent and less expert (on this topic) senior researchers, who would be the ones forming the evaluations in the most important context"* `§2.1, p.4` |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🟡 | *"The standard deviation was calculated to estimate confidence intervals for the mean correlation from a single iteration with the t distribution."* `§2.5, p.6`; an interval is derived, but only for the single-iteration sub-analysis, via an ad hoc method (t-distribution over permutation subsets) rather than a standard CI on the headline correlations |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: model-quality agreement is assessed via Spearman correlation and mean absolute difference against citation/journal-rank proxies, not a chance-corrected statistic |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance testing framework is applied to the headline correlations, so there is no null finding to spin |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no significance testing framework is applied to the headline correlations, so there is no null finding to spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"If the Strategy 3 specific part (defining significance, rigour, originality) is removed from Strategy 6 then this performs slightly worse than strategy 6... so the full instructions seem to be the optimal choice."* `p.10` |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/48951609-f079-463b-90a3-862ee10dab0f) |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/MikeThelwall/Python_misc: **1/5**: open repository only: no license, package-registry listing, citation metadata, or quality-checklist badge. |

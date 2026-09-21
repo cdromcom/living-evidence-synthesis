@@ -3,6 +3,89 @@
 Outstanding work flagged during recent sessions but not yet done. Not a
 roadmap — just a landing spot so these don't get lost between sessions.
 
+## From the 2026-09-21 full read-through — for a human, not an LLM
+
+Every node was read end to end on 2026-09-21 (Claude Opus 5). The five
+mechanical problems found are already fixed and written up in `HISTORY.md`.
+Everything below is a **judgement call about what the papers actually say**,
+which is exactly the kind of decision this project does not delegate to a
+model: each one needs somebody with the source PDF open. They are recorded
+here as leads to check, **not** as agreed defects — the read-through was itself
+done by an LLM, so treat every count as "claimed, verify before acting."
+
+Do not hand this section to an agent to "fix." Ordered by how much is at stake.
+
+- **~10 claims and patterns say something their own linked evidence does not
+  support.** The clearest: a claim titled "Reasoning LLMs substantially
+  outperform non-reasoning models" rests on a paper that only tested reasoning
+  models, so it has no comparison to make; a pattern calls o4-mini
+  "Pareto-dominant" when it is cheaper *and* less accurate than o3, which makes
+  it Pareto-efficient instead. Others involve a stated mechanism the evidence
+  does not establish, or a scope condition dropped from a quote. Each needs the
+  paper checked, then either the node retitled or the evidence link removed.
+
+- **Numeric disagreements inside individual nodes, ~30 spotted.** Examples of
+  the kinds: arithmetic that cannot hold ("dropped 5 of 25 items, leaving 21"),
+  a point estimate outside its own confidence interval (`95% (89–93%)`), a
+  swapped false-positive/false-negative pair against the node's own confusion
+  matrix, a title naming the wrong cell of the table below it, and percentages
+  described as percentage points. These are individually small and individually
+  wrong; a sweep cannot settle them because the right value is in the PDF.
+
+- **Every Question's "Supporting Claims" list is keyword-matched, not
+  topic-matched.** All 27 carry a visible note telling the reader to "verify
+  each link is truly supportive before citing," and five list no claim from
+  their own key paper. This is the single biggest credibility gap in the
+  rendered site, and the fix is a curation pass, one question at a time.
+
+- **~70 of 77 EVD "Other Notes" tables reproduce a paper's numbers with no
+  attribution.** Same item as the long-standing captioning task below; the
+  read-through confirms the count and that only one file follows the
+  convention.
+
+- **Quotes that do not support the row they sit in.** Several appraisal rows
+  cite a quote describing a bias *control* as evidence of a bias, or quote an
+  unrelated appendix. Distinct from the two self-quoting rows already fixed;
+  these have real quotes that argue for a different verdict.
+
+- **Two papers' appraisals disagree with each other on identical facts.** The
+  same "we used only post-cutoff papers" mitigation is rated 🟡 in one source
+  and 🔴 in another. Pick one reading and apply it to both.
+
+- **Prose damage from the em-dash sweep, 50+ comma splices.** Two are
+  boilerplate repeated across the corpus (the Quality-appraisal callout, spliced
+  in 24 of 27 sources, and the TRIPOD callout in ~22), so those two are a
+  find-and-replace once somebody approves the wording. The remaining ~25 sit in
+  hand-written prose and want reading in context.
+
+- **Frontmatter drift.** `TruthValue: 0.5` on all 31 claims looks like an
+  unfilled placeholder; `NodeFormality` is split 45 lowercase `draft` against
+  160 PascalCase `ReadyForInternal`; `apaYear: 2024` contradicts a 2025 citekey
+  in three sources; one source records a DOI while its own note says "No DOI on
+  record"; caveats are inconsistent about whether `Applies To` uses bullets.
+
+- **Leftover extraction debris.** Six evidence files contain a literal
+  `[Screenshot: ... pdftoppm ...]` shell command where an embed belongs; a
+  stray `1` sits before a heading in two files and a stray `do` in a third;
+  three idahl files have blockquotes broken by an unprefixed blank line.
+
+- **One dangling wikilink**, in `EP - LLM performance varies substantially with
+  prompt design...`: it points at `CLM - LLM novelty evaluation is highly
+  sensitive to prompt variations...`, which does not exist. A caveat of nearly
+  that name does, so the link probably wants repointing and relabelling.
+
+- **The About page overstates the review status.** `app/about/page.tsx:82` tells
+  readers "nothing in this corpus is committed without that human step," but 45
+  nodes are published as "Initial AI draft" and 27 more carry a "Seed" status
+  the page never explains. Either the sentence needs qualifying or those nodes
+  need promoting — a claim about the project's own process, so it is yours to
+  make, not a model's.
+
+- **~150 unreferenced images** remain under `vault/**/Attachments/` after the 42
+  byte-identical duplicates were deleted. They are not duplicates of anything,
+  and some may be the missing crops listed below under different names. Worth
+  a look before either deleting them or re-cutting figures from the PDFs.
+
 ## Content accuracy
 
 - **Caption the 76 uncaptioned EVD "Other Notes" tables with the source
@@ -35,9 +118,9 @@ roadmap — just a landing spot so these don't get lost between sessions.
   Progress check: `grep -L '^\*.*\*$' ` won't do it cleanly; the count above
   came from checking the line directly preceding each table under Other Notes.
 
-- **Re-crop 9 missing figure/table screenshots from the source PDFs.** As of
-  2026-09-02 the site renders every `![[...]]` embed (451 crops across 184
-  nodes), but nine embeds point at files that were never committed to
+- **Re-crop 7 missing figure/table screenshots from the source PDFs.** As of
+  2026-09-21 the site renders every `![[...]]` embed except seven, which point
+  at files that were never committed to
   `vault/**/Attachments/`. Those render as a dashed "Figure not available:
   &lt;name&gt;" placeholder naming the file, and `npm run preflight` prints the
   same list, so nothing fails silently — the figures are just absent.
@@ -56,14 +139,20 @@ roadmap — just a landing spot so these don't get lost between sessions.
   | Crop needed | Page | Used by |
   | --- | --- | --- |
   | `alharbi2024-table1cont-p5-1.png` | p.5 | EVD-010 |
-  | `liangCanLargeLanguage2024a-aspects-p5-5.png` | p.5 | EVD-030 |
-  | `liangCanLargeLanguage2024a-overlap-p3-3.png` | p.3 | EVD-033 |
   | `sonWhenAICoScientists2025-fig4-p6.png` | p.6 | EVD-049, EVD-062 |
   | `sonWhenAICoScientists2025-tables-p34-4.png` | pp.3–4 | EVD-062 |
   | `sonWhenAICoScientists2025-tables-p5-2.png` | p.5 | EVD-063 |
   | `thelwallEvaluatingResearchQuality2024-tables-p8-1.png` | p.8 | EVD-019, EVD-040 |
   | `wuAutomatedNoveltyEvaluationa-results-p10-1.png` | p.10 | EVD-070 |
   | `xuCanLLMsIdentify2025-clm-p8-2.png` | p.8 | CLM-024 |
+
+  Two entries came off this list on 2026-09-21 without any re-cropping: the two
+  Liang crops were misspelled references, not missing files (`-p5-5`/`-p3-3` in
+  the notes against `-p5-05`/`-p3-03` on disk). Before cutting any of the seven
+  above, check the ~150 unreferenced images still sitting in
+  `vault/**/Attachments/` — several look like plausible matches (for instance
+  `alharbi2024-tables-p4-05.png` against the missing `alharbi2024-table1cont-p5-1.png`),
+  and repointing an embed is cheaper than re-cropping a PDF.
 
   Page numbers are read off the filenames' own `-pN-` convention rather than
   from the nodes, so spot-check each against the paper before trusting it —
@@ -110,9 +199,9 @@ roadmap — just a landing spot so these don't get lost between sessions.
   question (LLMs for scientific peer review / evidence appraisal) and add
   them to the vault as new sources, following the same extraction +
   quote-grounded TRIPOD-LLM/Quality-Appraisal pipeline as the existing 27.
-  **Not yet actionable in this session** — no Undermind.ai connector is
-  currently connected/available (checked via tool search, nothing found).
-  Needs the connector added to this Claude session/account first.
+  **Now actionable** — the Undermind connector is available as of 2026-09-21,
+  so the blocker recorded here previously (no connector on the account) is
+  gone. The work itself has not been started.
 
 ## Deferred by explicit scope decision
 
@@ -146,16 +235,12 @@ roadmap — just a landing spot so these don't get lost between sessions.
 
 ## Known gaps, not currently blocking anything
 
-- **Possible open redirect after GitHub sign-in: figure out whether it is
-  really a problem.** `app/api/github/login/route.ts` stores the `?next=`
-  query parameter in the `gh_oauth_next` cookie without checking it, and
-  `app/api/github/callback/route.ts` redirects to it after the token
-  exchange. A link like `/api/github/login?next=https://example.com` should
-  therefore land the user on an outside site right after they sign in. Not
-  yet confirmed by actually running it. Things to settle first: does the
-  redirect really leave the site, and does it matter given that the GitHub
-  consent screen sits in between? If it is real, the fix is small: accept
-  `next` only when it is a same-site path (starts with `/` but not `//`).
+- ~~**Possible open redirect after GitHub sign-in.**~~ Fixed 2026-09-21. It was
+  real: `app/api/github/callback/route.ts` resolved the attacker-supplied
+  `next` cookie against `request.url`, and an absolute URL there wins, so the
+  visitor left the site. `sameSitePath()` in that file now accepts only a path
+  beginning with a single `/`, rejecting `//` and `/\` protocol-relative
+  targets and anything that fails to decode.
 - **Git history still contains the removed Woelfle full-text file.**
   `vault/evidence/Attachments/woelfleBenchmarkingHumanAICollaboration2024-bbox.html`
   was deleted on 2026-09-18, but it remains in earlier commits on GitHub.
@@ -227,8 +312,8 @@ roadmap — just a landing spot so these don't get lost between sessions.
   days (~725 of 862 target blocks) of JP's auto-dated Roam notes still
   need moving into `#[[🔖 JP: Bookmarks]]`. Do not resume without asking
   first — this is a different project entirely.
-- **"Contribute a node" page isn't interactive yet.** It currently just
-  explains in words how to manually add a note to the source vault. The
-  planned next step is a real GitHub-OAuth-backed form that opens a pull
-  request automatically. Credentials for this are collected and stored;
-  the feature itself isn't built.
+- ~~**"Contribute a node" page isn't interactive yet.**~~ Built since this was
+  written: `components/ContributeForm.tsx` posts to `app/api/contribute/route.ts`,
+  which forks the repo, commits the new node on a branch via `lib/github.ts`,
+  and hands back a compare link. Still unverified end to end against a real
+  GitHub account, which is the part worth doing next.

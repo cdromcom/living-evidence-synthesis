@@ -662,6 +662,64 @@ On the Prompts page, one paper's description showed the formatting code
 removed. An empty, accidentally committed file (`.Rhistory`, a scratch file
 from the R statistics program) was also deleted.
 
+## A full read-through, and the repairs it turned up
+
+*2026-09-21, with Claude Opus 5.*
+
+Every file in the project was read end to end: the website's code, the
+documentation, and all 232 research notes. Most of what surfaced was content
+work for a human to judge, and that was written down in `TODO.md` rather than
+acted on. Five things were repaired straight away.
+
+Two quality-appraisal rows were quoting the site's own words back as though a
+paper had said them. Each row in those tables is supposed to carry a verbatim
+sentence from the paper it rates, with a page number. In the Leucuța and Liang
+source files, one row each had been filled in with a sentence written by the
+project's own curator elsewhere on the same page, and the page number given was
+the literal placeholder `p.?`. Both are now corrected: the Liang row keeps the
+genuine figure-caption quote it also had, and the Leucuța row states plainly
+that it is a curator's judgement still waiting for a real quote. Searching the
+whole collection for that `p.?` placeholder now returns nothing.
+
+The appraisal tables had no way to say "this does not apply here." They offered
+only low, some, and high risk, so 19 rows across 18 papers were marked high risk
+— defined on the page as "a significant, unaddressed threat to validity" — while
+the text beside the mark read "Not applicable." A paper that never trains a
+model cannot keep its training and test data separate, and a paper with no null
+result has no opportunity to spin one. The scale now has a fourth, neutral
+level, those 19 rows use it, and the underlying labels were updated to match so
+the marks and the site's filters agree.
+
+Every note's ID was fragile. A note's ID (`EVD-030`) is its web address, and it
+is also the key each reviewer's accuracy verdict is filed under. Those IDs were
+being handed out by alphabetical position, so renaming or adding a single file
+would shift every ID below it and quietly reattach existing review verdicts to
+different notes. IDs are now pinned in a file that is kept alongside the notes:
+an existing note keeps its ID wherever it sorts, a new note takes the next
+unused number, and a note that disappears has its number retired rather than
+handed on. Confirmed by test: inserting a file that sorts first no longer
+disturbs anything.
+
+Signing in with GitHub could have sent someone off the site. The sign-in link
+accepts a "send me back here afterwards" address, and it was being trusted
+without inspection, so a crafted link could have carried a visitor to an
+outside site at the exact moment they were signing in. Only same-site
+destinations are accepted now.
+
+Two figures reported as missing were not missing at all. Of nine crops the
+to-do list said needed re-cutting from the original PDFs, two were simply
+misspelled references: the notes asked for `...aspects-p5-5.png` and
+`...overlap-p3-3.png` while the committed files are named `-p5-05` and
+`-p3-03`. Correcting the two references restored both images without touching a
+PDF. Seven genuinely missing crops remain.
+
+Finally, 42 duplicate images were deleted, recovering 5.7 MB. These were
+byte-for-byte identical copies of crops the project already had under another
+name, left over from repeated extraction runs; in every case a referenced copy
+was kept. A further ~150 images are referenced by nothing but are not duplicates
+of anything, and several are plausible replacements for the seven missing crops,
+so they were left alone pending a human look.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

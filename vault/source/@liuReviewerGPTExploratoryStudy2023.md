@@ -32,7 +32,7 @@ tags:
   - top/code-check/addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/partial
@@ -139,6 +139,7 @@ Together these three studies support [[CLM - LLMs show promise for targeted revi
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -155,7 +156,7 @@ Together these three studies support [[CLM - LLMs show promise for targeted revi
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"author-submitted checklists also match the ground truth 86.6% of the time, although the mismatches may potentially be due to later paper revisions"* `§4.2, p.28`, the authors' own checklist answers serve as a direct human comparator |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: accuracy/hit-rate percentages across constructed test cases carry no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: results are reported as raw accuracy/hit-rate percentages across constructed test cases |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no statistical tests are run on the paper's own results, so there is no null/non-significant finding to potentially spin |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no statistical tests are run on the paper's own results, so there is no null/non-significant finding to potentially spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟡 | Three prompting strategies (Prompt-Direct, Prompt-OneShot, Prompt-Parts) are compared per task with per-response performance tabulated `Table 1, p.4-6`, a prompt-variant comparison, not a systematic ablation of a pipeline/system component |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source has 2+ high-risk validity domains and low TRIPOD-LLM reporting compliance. Pangram v4.0 AI-text detector (Bulk API job `blk_67300368bbd040638643bc4a30458fb3`): *"We believe this text is mainly human-written, with some AI content."* (8.6% AI-generated, 0% AI-assisted), the flagged spans coincide with the paper's own Appendix (sample GPT-4-generated peer reviews the authors quote as worked examples of their prompting method), not the authors' own prose |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/niharshah/ReviewerGPT2023: **1/5**: open repository only: no license, package-registry listing, citation metadata, or quality-checklist badge. |

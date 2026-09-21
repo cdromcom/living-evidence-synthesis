@@ -19,7 +19,7 @@ tags:
   - rigor/study-type/exploratory
   - rigor/data-leakage/unresolved
   - rigor/baseline-adequacy/partial
-  - rigor/train-dev-test/not-addressed
+  - rigor/train-dev-test/not-applicable
   - rigor/multiple-comparisons/not-addressed
   - rigor/human-baseline/addressed
   - rigor/confidence-intervals/not-addressed
@@ -144,6 +144,7 @@ These findings support two related claims: that [[CLM - LLM performance on struc
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -155,7 +156,7 @@ These findings support two related claims: that [[CLM - LLM performance on struc
 | **Reproducibility**: code, data, determinism? | 🔴 | *"The text from the abstracts was then pasted into ChatGPT version 3.5 on 30 May 2024."* `§2.6, p.3`, the free chat GUI exposes no temperature/top-p/seed control and the exact underlying snapshot is not fixed or disclosed |
 | **Data leakage**: could models have seen this data pretraining? | 🔴 | *"ChatGPT's training data likely lack sufficient examples of high-quality, detailed reporting in orthodontic research... reporting guidelines like CONSORT and PRISMA are periodically updated, and ChatGPT's training data might not reflect the most current versions"* `Discussion, p.7` |
 | **Baseline adequacy**: is there a meaningful floor to beat? | 🟡 | *"The alignment between human and ChatGPT ratings was lower for the remaining seven items, with statistically significant discrepancies identified for two items: randomization and recruitment details."* `§3.1, p.4`, the human rating serves as an implicit comparator, but no explicit naive/chance baseline (e.g., always-"Reported") is computed and reported alongside ChatGPT |
-| **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | Not applicable: no model training, fine-tuning, or prompt-development split is described; off-the-shelf ChatGPT 3.5 is evaluated directly on all 40 abstracts |
+| **Train/dev/test hygiene**: are data splits kept separate? | ➖ | Not applicable: no model training, fine-tuning, or prompt-development split is described; off-the-shelf ChatGPT 3.5 is evaluated directly on all 40 abstracts |
 | **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported: Fisher's exact test is run separately on each of 29 items (17 CONSORT + 12 PRISMA) with no stated correction |
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"Two independent reviewers (F.A. and S.A.) assessed the reporting quality of RCT abstracts in duplicate using the CONSORT for the Abstract checklist."* `§2.4, p.3`, human raters directly score the same abstracts as ChatGPT and are statistically compared item-by-item |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: Fisher's exact/chi-square tests are used per item with no accompanying interval on the agreement percentages `§3.1, p.4` |

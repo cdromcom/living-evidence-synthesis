@@ -33,7 +33,7 @@ tripod_llm_pct: 55pct
 >
 > Grounding figure context (p. 5): aspect distribution discussion alongside Fig. 3 reference.
 >
-> ![[liangCanLargeLanguage2024a-aspects-p5-5.png]]
+> ![[liangCanLargeLanguage2024a-aspects-p5-05.png]]
 
 ## Methods Context
 

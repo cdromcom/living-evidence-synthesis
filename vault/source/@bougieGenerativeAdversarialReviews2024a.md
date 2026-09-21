@@ -30,7 +30,7 @@ tags:
   - top/code-check/not-addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
@@ -142,6 +142,7 @@ These findings collectively support [[CLM - LLM-based peer review agents equippe
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -158,7 +159,7 @@ These findings collectively support [[CLM - LLM-based peer review agents equippe
 | **Human-baseline comparability**: is there a human reference point? | 🟢 | *"This f1 score is significantly higher than the 0.49 achieved by human reviewers in the NeurIPS 2023 consistency study"* `§5.3, p.10`, human reviewers appear as a directly scored comparator on both the accept/reject and preference tasks |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: Balanced Accuracy and F1 are reported as point estimates only, with no interval `Table 3, p.9` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: Balanced Accuracy and F1 are reported against a "Random Decision" baseline row for context, but no chance-corrected statistic (e.g. kappa/MCC) is computed `Table 3, p.9` |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no null/negative finding about the paper's own proposed method (GAR) requires spinning; baseline weaknesses are stated plainly as a point of comparison, not something GAR itself needs to explain away |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no null/negative finding about the paper's own proposed method (GAR) requires spinning; baseline weaknesses are stated plainly as a point of comparison, not something GAR itself needs to explain away |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Table 4: Ablation study of GAR on three datasets... Line 6 highlights the performance without memory module."* `p.12`; a "GAR (w/o memory)" condition is directly compared against full GAR |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check and Code check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is primarily human-written, with a small amount of AI content detected"* (1.9% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/90599784-9e44-4d95-a85d-eacb5cb1ce0d) |
 

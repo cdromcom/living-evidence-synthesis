@@ -33,7 +33,7 @@ tripod_llm_pct: 55pct
 >
 > Grounding figure context (p. 3): overlap discussion with Fig. 2a reference.
 >
-> ![[liangCanLargeLanguage2024a-overlap-p3-3.png]]
+> ![[liangCanLargeLanguage2024a-overlap-p3-03.png]]
 
 ## Methods Context
 

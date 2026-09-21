@@ -31,7 +31,7 @@ tags:
   - top/code-check/addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
@@ -158,6 +158,7 @@ These findings support the broader claim that [[CLM - Citation quotation errors 
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -174,7 +175,7 @@ These findings support the broader claim that [[CLM - Citation quotation errors 
 | **Human-baseline comparability**: is there a human reference point? | 🔴 | Not reported, the models are scored against human-annotated ground truth labels but no human was tasked with performing the citation-accuracy classification itself as a comparator |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: *"[McNemar's test result] was...significant"* `Table 2 note, p.3` gives a significance verdict with no interval on the underlying F1 gap |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟢 | *"Cohen's kappa (κ) was used for all tasks."* `Methods, p.4`, reported at 0.18–0.31 across the annotation phases |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance tests are run on the model comparisons; McNemar's test is applied appropriately where used, with no apparent reframing |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no significance tests are run on the model comparisons; McNemar's test is applied appropriately where used, with no apparent reframing |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🟢 | The paper's Cohen's kappa values (0.18–0.31 across annotation phases) fall within the valid 0–1 range, and the reported table totals are internally consistent with the stated per-label counts `Table 1, p.5` |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | Table 4 systematically varies the evidence-retrieval input (title+abstract, top-5/10/20 sentences, +annotated evidence, oracle) and reports the resulting F1 for each variant, isolating the retrieval component's contribution `p.6` |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🟡 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/ScienceNLP-Lab/Citation-Integrity: **2/5**: open repository + license: no package-registry listing, citation metadata, or quality-checklist badge. |

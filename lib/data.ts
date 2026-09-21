@@ -255,6 +255,17 @@ export function getTopSignals(node: Pick<GraphNode, "tags">): TopSignal[] {
  */
 export type ReproducibilityRisk = "low-risk" | "some-concerns" | "high-risk";
 
+/**
+ * The status of a "did the paper address X" check. `not-addressed` means the
+ * paper is silent on something that does apply to it; `not-applicable` means
+ * the domain cannot apply to this study design at all (no training, so no
+ * train/dev/test split; no null result, so no scope to spin one). They were
+ * conflated as `high-risk` until 2026-09, which scored a study as carrying a
+ * "significant, unaddressed threat to validity" for a domain that could never
+ * have applied to it.
+ */
+export type CheckStatus = ReproducibilityRisk | "not-addressed" | "not-applicable";
+
 export const REPRODUCIBILITY_RISK_LABELS: Record<ReproducibilityRisk, string> = {
   "low-risk": "Low risk",
   "some-concerns": "Some risk",
@@ -357,20 +368,22 @@ export function getStudyType(node: Pick<GraphNode, "tags">): StudyType | null {
  * phrasing) before marking anything `not-addressed` — that value means the
  * paper doesn't discuss this, not that leakage is absent.
  */
-export const DATA_LEAKAGE_LABELS: Record<ReproducibilityRisk | "not-addressed", string> = {
+export const DATA_LEAKAGE_LABELS: Record<CheckStatus, string> = {
   "low-risk": "Addressed",
   "some-concerns": "Partially addressed",
   "high-risk": "Unresolved",
   "not-addressed": "Not addressed by authors",
+  "not-applicable": "Not applicable to this study",
 };
-const DATA_LEAKAGE_TAG_TO_RISK: Record<string, ReproducibilityRisk | "not-addressed"> = {
+const DATA_LEAKAGE_TAG_TO_RISK: Record<string, CheckStatus> = {
   addressed: "low-risk",
   partial: "some-concerns",
   unresolved: "high-risk",
   "not-addressed": "not-addressed",
+  "not-applicable": "not-applicable",
 };
 
-export function getDataLeakageSignal(node: Pick<GraphNode, "tags">): ReproducibilityRisk | "not-addressed" | null {
+export function getDataLeakageSignal(node: Pick<GraphNode, "tags">): CheckStatus | null {
   return getRigorCheck(node, "data-leakage");
 }
 
@@ -390,7 +403,7 @@ function getTaggedCheck(
   node: Pick<GraphNode, "tags">,
   key: string,
   namespace: string = "rigor"
-): ReproducibilityRisk | "not-addressed" | null {
+): CheckStatus | null {
   const prefix = `${namespace}/${key}/`;
   const tag = node.tags.find((t) => t.startsWith(prefix));
   if (!tag) return null;
@@ -445,11 +458,12 @@ export function getSpinSignal(node: Pick<GraphNode, "tags">) {
 export function getAiWritingCheck(node: Pick<GraphNode, "tags">) {
   return getTaggedCheck(node, "ai-writing-check", "integrity");
 }
-export const AI_WRITING_CHECK_LABELS: Record<ReproducibilityRisk | "not-addressed", string> = {
+export const AI_WRITING_CHECK_LABELS: Record<CheckStatus, string> = {
   "low-risk": "Human-written",
   "some-concerns": "AI-assisted",
   "high-risk": "AI-generated",
   "not-addressed": "Not checked",
+  "not-applicable": "Not applicable to this study",
 };
 /**
  * Ablation Experiment(s) — does the paper isolate a component's
@@ -521,11 +535,12 @@ export function getDataQualityFair(node: Pick<GraphNode, "tags">): DataQualitySc
 // not-addressed tag vocabulary as the other checks above, but read oddly
 // with the generic "Addressed"/"Unresolved" wording for a link-liveness
 // check — this gives them their own live/dead phrasing instead.
-export const REPO_CHECK_LABELS: Record<ReproducibilityRisk | "not-addressed", string> = {
+export const REPO_CHECK_LABELS: Record<CheckStatus, string> = {
   "low-risk": "Live",
   "some-concerns": "Partially reachable",
   "high-risk": "Dead link",
   "not-addressed": "No repository claimed",
+  "not-applicable": "Not applicable to this study",
 };
 
 export const RIGOR_CHECK_LABELS = {

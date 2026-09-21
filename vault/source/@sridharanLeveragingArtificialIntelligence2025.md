@@ -30,7 +30,7 @@ tags:
   - top/code-check/not-addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/not-addressed
@@ -144,6 +144,7 @@ These findings support [[CLM - AI tools can augment IRB decision-making and impr
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -160,7 +161,7 @@ These findings support [[CLM - AI tools can augment IRB decision-making and impr
 | **Human-baseline comparability**: is there a human reference point? | 🟡 | *"A short description of key responses expected from the LLMs for each case scenario is provided in table 1."* `p.127`, an expert-authored reference standard, though not a live human performing the task alongside the models |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: no inter-rater agreement statistic or quantitative metric is computed, so no interval is possible |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: comparisons are purely qualitative "identified/not identified" judgments (Tables 2-4), with no statistic computed at all |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance testing is performed at all, so there is no null finding to spin |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no significance testing is performed at all, so there is no null finding to spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported: a qualitative case-study comparison of four chatbots' ethics-query responses; no system component is removed or varied and re-measured |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check and Code check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/350dad34-a504-44f0-92a3-46d7026a90b3) |
 

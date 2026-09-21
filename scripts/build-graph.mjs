@@ -8,6 +8,7 @@ import matter from "gray-matter";
 
 const VAULT = path.join(process.cwd(), "vault");
 const OUT = path.join(process.cwd(), "lib", "graph-data.generated.json");
+const ID_MAP = path.join(process.cwd(), "lib", "node-ids.json");
 
 const TYPE_CONFIG = [
   { type: "QUE", dir: "questions", expected: 27 },
@@ -58,18 +59,56 @@ function mapCurationStatus(nodeFormality, fallbackStatus) {
 
 // ---- Pass 1: load all files, assign IDs, build filename -> id lookup ----
 
+/**
+ * Node IDs are permanent, not positional.
+ *
+ * They were originally the file's alphabetical index within its folder, which
+ * meant renaming or inserting one file silently renumbered every node after it
+ * — and a node's ID is its public URL (`/nodes/EVD-030`), the key each
+ * accuracy review is stored under in Supabase (`node_reviews.node_id`), and
+ * what `app/narratives/page.tsx` and `lib/promptTactics.ts` hard-code. A
+ * renumber would therefore reattach existing review verdicts to whichever node
+ * inherited the number.
+ *
+ * `lib/node-ids.json` pins each filename to the ID it already has. A file in
+ * the map keeps its ID wherever it sorts; a new file takes the next unused
+ * number for its type; a mapped file that has disappeared is reported (its
+ * number is retired rather than reused, so a rename must be recorded here
+ * rather than left to re-derive). The map is committed alongside the vault.
+ */
+const idMap = fs.existsSync(ID_MAP) ? JSON.parse(fs.readFileSync(ID_MAP, "utf8")) : {};
+const assignedIds = new Set(Object.values(idMap));
+const newlyAssigned = [];
+
+function idFor(type, filenameNoExt) {
+  const key = `${type}/${filenameNoExt}`;
+  if (idMap[key]) return idMap[key];
+  let n = 1;
+  let candidate = `${type}-${String(n).padStart(3, "0")}`;
+  while (assignedIds.has(candidate)) {
+    n += 1;
+    candidate = `${type}-${String(n).padStart(3, "0")}`;
+  }
+  idMap[key] = candidate;
+  assignedIds.add(candidate);
+  newlyAssigned.push(`${candidate}  ${filenameNoExt}`);
+  return candidate;
+}
+
+const seenKeys = new Set();
 const rawNodes = []; // { id, type, filename (no ext), frontmatter, body }
 const titleToId = new Map(); // normalized filename -> id
 
 for (const cfg of TYPE_CONFIG) {
   const dir = path.join(VAULT, cfg.dir);
   const files = listMdFiles(dir);
-  files.forEach((fname, idx) => {
+  files.forEach((fname) => {
     const filePath = path.join(dir, fname);
     const raw = fs.readFileSync(filePath, "utf8");
     const { data, content } = matter(raw);
     const filenameNoExt = fname.replace(/\.md$/i, "");
-    const id = `${cfg.type}-${String(idx + 1).padStart(3, "0")}`;
+    const id = idFor(cfg.type, filenameNoExt);
+    seenKeys.add(`${cfg.type}/${filenameNoExt}`);
     rawNodes.push({
       id,
       type: cfg.type,
@@ -431,6 +470,25 @@ if (spotCheckEp) {
   );
 }
 
+// ---- ID map bookkeeping ----
+
+if (newlyAssigned.length) {
+  console.log(`Assigned ${newlyAssigned.length} new node ID(s):`);
+  for (const line of newlyAssigned) console.log(`  ${line}`);
+}
+const vanished = Object.keys(idMap).filter((k) => !seenKeys.has(k));
+if (vanished.length) {
+  console.warn(
+    `WARNING: ${vanished.length} ID(s) in node-ids.json have no file (renamed or deleted). ` +
+      `Their numbers stay retired so existing links and reviews never point at a different node. ` +
+      `If a file was renamed, move its entry to the new name by hand:`
+  );
+  for (const k of vanished) console.warn(`  ${idMap[k]}  ${k}`);
+}
+
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify({ nodes, edges }, null, 2));
+const sortedMap = Object.fromEntries(Object.entries(idMap).sort(([a], [b]) => a.localeCompare(b)));
+fs.writeFileSync(ID_MAP, JSON.stringify(sortedMap, null, 2) + "\n");
 console.log(`Wrote ${OUT}`);
+console.log(`Wrote ${ID_MAP} (${Object.keys(idMap).length} pinned IDs)`);

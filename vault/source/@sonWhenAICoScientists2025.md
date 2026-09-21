@@ -32,7 +32,7 @@ tags:
   - top/code-check/addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - rigor/prompt-engineering/partial
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
@@ -173,6 +173,7 @@ These findings support two related claims. The strongest is [[CLM - Current LLMs
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -189,7 +190,7 @@ These findings support two related claims. The strongest is [[CLM - Current LLMs
 | **Human-baseline comparability**: is there a human reference point? | 🟡 | *"A domain expert evaluated each paper, either a researcher with relevant publications or a PhD-trained postdoc in the field. Reviewers are provided the LLM-flagged 'errors' from o3 and Gemini 2.5 Pro alongside the official withdrawal notices."* `§4, p.7` |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: Precision/Recall/pass@K figures carry no interval |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: evaluation uses only Precision, Recall, and pass@K; no chance-corrected statistic is computed |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance testing is performed on model-performance comparisons, so there is no null finding to spin |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no significance testing is performed on model-performance comparisons, so there is no null finding to spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Table 3: Multi-modality ablation for 13 models... The right panel shows performance on the text-only subset of SPOT... removing all instances from the figure-duplication and any data-inconsistency category."* `p.7`, a named ablation removing visual/figure inputs and re-measuring recall/pass@4 |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is primarily human-written, with a small amount of AI content detected"* (2.9% AI-generated, 1.4% AI-assisted). [Dashboard](https://www.pangram.com/history/41ee0a70-99f1-48dc-a022-c5801b235f74) |
 | **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/guijinSON/SPOT: **1/5**: open repository only: no license, package-registry listing, citation metadata, or quality-checklist badge. |

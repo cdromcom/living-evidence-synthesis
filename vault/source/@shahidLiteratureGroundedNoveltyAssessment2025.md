@@ -31,7 +31,7 @@ tags:
   - top/code-check/addressed
   - transparency/effect-size/not-addressed
   - transparency/exact-p-values/not-addressed
-  - integrity/spin/not-addressed
+  - integrity/spin/not-applicable
   - integrity/ai-writing-check/addressed
   - rigor/prompt-engineering/addressed
   - rigor/chance-corrected-metrics/addressed
@@ -160,6 +160,7 @@ These findings support two related claims: [[CLM - Expert-annotated in-context e
 > <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
 > <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
 > <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 
 | Domain | Rating | Quote |
@@ -176,7 +177,7 @@ These findings support two related claims: [[CLM - Expert-annotated in-context e
 | **Human-baseline comparability**: is there a human reference point? | 🔴 | Not reported, expert annotators supply gold labels and in-context examples but no independent human-performed novelty judgment is measured as a comparison baseline |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: accuracy/F1/kappa figures (0.81, 0.79, 0.59) are given as point estimates with no interval `§3, p.3` |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🟢 | *"The experts achieved a moderate agreement (Cohen's Kappa = 0.64)."* `§3, p.3`, and Table 1 reports Cohen's kappa (0.59 for the full pipeline, 0.05 for AI Scientist, 0.52 for AI Researcher) as the primary model-comparison metric |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance testing is performed on the paper's own results, so there is no null finding to spin |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | ➖ | Not applicable: no significance testing is performed on the paper's own results, so there is no null finding to spin |
 | **Statistic Accuracy**: do the paper's own reported numbers check out? | 🔴 | Table 1's AI Scientist row reports Accuracy=0.47, Precision=0.55, Recall=0.53, F1=0.44 (Shahid et al., 2025, p. 7), recomputing F1 from the stated precision/recall (2PR/(P+R) ≈ 0.54) does not match the reported F1 of 0.44 |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because the Statistic Accuracy check above flagged an inconsistency. Pangram v3.3.2 AI-text detector: *"We believe that this document is primarily human-written, with a small amount of AI-assisted content detected"* (0% AI-generated, 4.4% AI-assisted, 1/27 segments AI-assisted). [Dashboard](https://www.pangram.com/history/63224e20-bbc6-40c6-80fe-937c422d2650) |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%"*; the re-ranker component is removed and the resulting performance drop measured directly |
