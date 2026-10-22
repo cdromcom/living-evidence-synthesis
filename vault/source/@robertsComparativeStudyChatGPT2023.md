@@ -151,9 +151,9 @@ These findings support the broader claim that [[CLM - LLMs can help automate app
 
 > [!info] Risk-of-bias and validity assessment, synthesized from this paper's discourse-graph nodes and grounded in the same paper this page's top trust-signal chips summarize. Covers *methodological quality*, the TRIPOD-LLM table below covers *reporting compliance* instead.
 > <dl class="callout-legend">
-> <dt><span class="status-icon status-icon-good">●</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
-> <dt><span class="status-icon status-icon-partial">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
-> <dt><span class="status-icon status-icon-bad">○</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> <dt><span class="status-icon status-icon-low-risk">○</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-some-risk">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-high-risk">●</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
 > <dt><span class="status-icon status-icon-na">–</span> Not applicable</dt><dd>The domain does not apply to this study design</dd>
 > </dl>
 

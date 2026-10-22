@@ -51,7 +51,9 @@ function calloutIconSvg(type: string): string {
  * single-hue icon family (shape encodes the level, not color): solid dot =
  * good, half dot = partial/concern, ring = bad, dash = not applicable.
  * Applies to both emoji sets identically since they're the same underlying
- * 4-level scale under different glyphs.
+ * 4-level scale under different glyphs — except inside the Quality
+ * appraisal table, which is a risk-of-bias scale and so fills the circle
+ * with the *risk*, not the compliance (see APPRAISAL_ICON_MAP).
  */
 const STATUS_ICON_MAP: Record<string, { shape: string; level: string }> = {
   "🟢": { shape: "solid", level: "good" },
@@ -60,6 +62,22 @@ const STATUS_ICON_MAP: Record<string, { shape: string; level: string }> = {
   "⚠️": { shape: "half", level: "partial" },
   "🔴": { shape: "ring", level: "bad" },
   "❌": { shape: "ring", level: "bad" },
+  "➖": { shape: "dash", level: "na" },
+};
+
+/**
+ * Quality appraisal ratings are risk judgments, so the fill tracks risk:
+ * empty ring = low risk, half dot = some risk, solid dot = high risk.
+ * Also accepts the literal ●/◐/○ glyphs some source pages store directly,
+ * read by shape (● = high risk).
+ */
+const APPRAISAL_ICON_MAP: Record<string, { shape: string; level: string }> = {
+  "🟢": { shape: "ring", level: "low-risk" },
+  "○": { shape: "ring", level: "low-risk" },
+  "🟡": { shape: "half", level: "some-risk" },
+  "◐": { shape: "half", level: "some-risk" },
+  "🔴": { shape: "solid", level: "high-risk" },
+  "●": { shape: "solid", level: "high-risk" },
   "➖": { shape: "dash", level: "na" },
 };
 
@@ -75,6 +93,9 @@ const STATUS_LEVEL_LABELS: Record<string, string> = {
   partial: "Partial / some concerns",
   bad: "Not reported / high risk",
   na: "Not applicable",
+  "low-risk": "Low risk",
+  "some-risk": "Some risk",
+  "high-risk": "High risk",
 };
 
 function statusIconSvg(shape: string, level: string): string {
@@ -91,13 +112,20 @@ function statusIconSvg(shape: string, level: string): string {
  * left untouched.
  */
 function muteStatusIcons(html: string): string {
-  return html.replace(
-    /<td([^>]*)>\s*(🟢|🟡|🔴|✅|⚠️|❌|➖)\s*<\/td>/g,
-    (_m, attrs, glyph) => {
-      const info = STATUS_ICON_MAP[glyph];
+  const replaceIcons = (text: string, map: Record<string, { shape: string; level: string }>) =>
+    text.replace(/<td([^>]*)>\s*(🟢|🟡|🔴|✅|⚠️|❌|➖|●|◐|○)\s*<\/td>/g, (_m, attrs, glyph) => {
+      const info = map[glyph];
       if (!info) return _m;
       return `<td${attrs} class="status-icon-cell"><span title="${STATUS_LEVEL_LABELS[info.level]}">${statusIconSvg(info.shape, info.level)}</span></td>`;
-    }
+    });
+  const section = html.match(/<h2[^>]*>\s*Quality appraisal\s*<\/h2>[\s\S]*?(?=<h2[\s>]|$)/i);
+  if (!section) return replaceIcons(html, STATUS_ICON_MAP);
+  const start = section.index!;
+  const end = start + section[0].length;
+  return (
+    replaceIcons(html.slice(0, start), STATUS_ICON_MAP) +
+    replaceIcons(section[0], APPRAISAL_ICON_MAP) +
+    replaceIcons(html.slice(end), STATUS_ICON_MAP)
   );
 }
 
