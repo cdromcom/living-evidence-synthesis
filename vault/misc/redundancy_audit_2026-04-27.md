@@ -31,22 +31,22 @@ vault: living-synthesis
 
 > [!example] Strongest overlap (0.50)
 >
-> - [[QUE - Can LLMs identify errors in scientific papers?]]
-> - [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?]]
+> - [[QUE - Can LLMs identify errors in scientific papers]]
+> - [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers]]
 >
 > The reasoning-LLMs version is a refinement of the broader question. Could fold into the broader QUE with a `[!info] Subquestion: reasoning models specifically` callout — or keep both with explicit cross-link.
 
 | Score | Question A | Question B |
 | ----- | ---------- | ---------- |
-| 0.50 | [[QUE - Can LLMs identify errors in scientific papers?]] | [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?]] |
-| 0.38 | [[QUE - Can LLMs identify critical limitations within scientific research papers?]] | [[QUE - Can LLMs identify errors in scientific papers?]] |
-| 0.38 | [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning?]] | [[QUE - Can LLMs identify errors in scientific papers?]] |
-| 0.36 | [[QUE - Can LLMs identify critical limitations within scientific research papers?]] | [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?]] |
-| 0.27 | [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning?]] | [[QUE - Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts?]] |
-| 0.27 | [[QUE - How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences?]] | [[QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers?]] |
-| 0.25 | [[QUE - How accurately can LLMs assess or understand medical research papers compared to human experts?]] | [[QUE - How accurately does ChatGPT score medical literature abstracts compared to human evaluators on reporting standards?]] |
-| 0.25 | [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning?]] | [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?]] |
-| 0.25 | [[QUE - Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers?]] | [[QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers?]] |
+| 0.50 | [[QUE - Can LLMs identify errors in scientific papers]] | [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers]] |
+| 0.38 | [[QUE - Can LLMs identify critical limitations within scientific research papers]] | [[QUE - Can LLMs identify errors in scientific papers]] |
+| 0.38 | [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning]] | [[QUE - Can LLMs identify errors in scientific papers]] |
+| 0.36 | [[QUE - Can LLMs identify critical limitations within scientific research papers]] | [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers]] |
+| 0.27 | [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning]] | [[QUE - Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts]] |
+| 0.27 | [[QUE - How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences]] | [[QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers]] |
+| 0.25 | [[QUE - How accurately can LLMs assess or understand medical research papers compared to human experts]] | [[QUE - How accurately does ChatGPT score medical literature abstracts compared to human evaluators on reporting standards]] |
+| 0.25 | [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning]] | [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers]] |
+| 0.25 | [[QUE - Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers]] | [[QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers]] |
 
 > [!tip] Likely cluster around "errors / limitations / quotation errors in papers"
 >

@@ -73,7 +73,7 @@ nodeInstanceId: 019dd17a-f951-7716-87b8-85d879b3e235
 
 ### Question
 
-When you ask ChatGPT to score how good a research paper is, what part of the paper should you actually feed it: the title, the title plus abstract, or the trimmed-down full text? The author tests three input formats across three OpenAI models and checks which one produces scores that line up best with a human expert's quality ratings. The benchmark is the UK's Research Excellence Framework (REF), a national exercise that grades research on a 1* to 4* scale, where 4* means "world-leading". See [[QUE - What is the optimal input format for LLM-based research quality assessment?]].
+When you ask ChatGPT to score how good a research paper is, what part of the paper should you actually feed it: the title, the title plus abstract, or the trimmed-down full text? The author tests three input formats across three OpenAI models and checks which one produces scores that line up best with a human expert's quality ratings. The benchmark is the UK's Research Excellence Framework (REF), a national exercise that grades research on a 1* to 4* scale, where 4* means "world-leading". See [[QUE - What is the optimal input format for LLM-based research quality assessment]].
 
 ### Methods
 

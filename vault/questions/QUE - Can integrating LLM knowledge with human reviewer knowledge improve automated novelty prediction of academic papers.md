@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bd9-7759-8621-6e2db50db8d2
+title: "Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers?"
 ---
 ### Key Papers Asking Question
 

@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6be3-770a-9b2c-6bb62bf1da0c
+title: "How has CONSORT reporting quality changed over time across medical disciplines and what LLM approaches can evaluate it at scale?"
 ---
 ### Key Papers Asking Question
 

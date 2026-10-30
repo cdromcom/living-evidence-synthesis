@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6be6-7074-b0d5-ef39feb142ab
+title: "What is the optimal input format for LLM-based research quality assessment?"
 ---
 ### Key Papers Asking Question
 

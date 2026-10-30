@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bd7-723f-9d6f-5c01ba1e16c3
+title: "Can LLMs verify author-provided checklists in submitted papers?"
 ---
 ### Key Papers Asking Question
 

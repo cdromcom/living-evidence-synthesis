@@ -125,7 +125,7 @@ nodeInstanceId: 019dd17a-f946-7c68-bb43-0ad4895ce6b1
 
 ### Question
 
-Can today's large language models (LLMs) actually do the hard parts of an AI researcher's job: checking whether an equation in a paper is correct, listing the experiments needed to validate an idea, finding real weaknesses in a draft, and judging whether a human review is reliable? The authors build a four-task benchmark called AAAR-1.0 and run 11 systems on it, comparing closed-source models (such as GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, and the o1/o3 reasoning models) against open-source models (such as Llama 3.1, Qwen 2.5, and Mixtral). They also pit each LLM against expert human researchers on the same papers. See [[QUE - How effectively can LLMs perform expert-level AI research tasks such as equation inference, experiment design, and review critique?]].
+Can today's large language models (LLMs) actually do the hard parts of an AI researcher's job: checking whether an equation in a paper is correct, listing the experiments needed to validate an idea, finding real weaknesses in a draft, and judging whether a human review is reliable? The authors build a four-task benchmark called AAAR-1.0 and run 11 systems on it, comparing closed-source models (such as GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, and the o1/o3 reasoning models) against open-source models (such as Llama 3.1, Qwen 2.5, and Mixtral). They also pit each LLM against expert human researchers on the same papers. See [[QUE - How effectively can LLMs perform expert-level AI research tasks such as equation inference, experiment design, and review critique]].
 
 ### Methods
 

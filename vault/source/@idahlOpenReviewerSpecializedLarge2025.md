@@ -75,7 +75,7 @@ nodeInstanceId: 019dd17a-f941-711e-94d8-69d06137ee06
 
 ### Question
 
-Can a smaller language model, trained specifically on real peer reviews, write more critical and realistic reviews of machine-learning papers than today's big general-purpose chatbots like GPT-4o or Claude? The authors built a fine-tuned model called OpenReviewer and ran it head-to-head against four general-purpose LLMs on 400 held-out NeurIPS 2024 and ICLR 2025 papers. Their core worry: off-the-shelf chatbots are too easy on papers, so the recommendations they suggest would mislead authors using them for pre-submission feedback. See [[QUE - Do specialized fine-tuned LLMs generate more critical and realistic peer reviews than general-purpose LLMs?]].
+Can a smaller language model, trained specifically on real peer reviews, write more critical and realistic reviews of machine-learning papers than today's big general-purpose chatbots like GPT-4o or Claude? The authors built a fine-tuned model called OpenReviewer and ran it head-to-head against four general-purpose LLMs on 400 held-out NeurIPS 2024 and ICLR 2025 papers. Their core worry: off-the-shelf chatbots are too easy on papers, so the recommendations they suggest would mislead authors using them for pre-submission feedback. See [[QUE - Do specialized fine-tuned LLMs generate more critical and realistic peer reviews than general-purpose LLMs]].
 
 ### Methods
 

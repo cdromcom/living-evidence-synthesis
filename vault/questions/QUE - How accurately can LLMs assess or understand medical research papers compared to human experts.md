@@ -6,22 +6,56 @@ tags:
   - 5c/credibility
 created: 2026-04-17
 updated: 2026-04-29
-nodeID: 019ddb4e-6bd6-734d-bd88-0b9622641144
+nodeID: 019ddb4e-6bde-76e3-aaf1-03cecc2bc1ec
+title: "How accurately can LLMs assess or understand medical research papers compared to human experts?"
 ---
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[@liuReviewerGPTExploratoryStudy2023]]
+> [[@akyonEvaluatingCapabilitiesGenerative2024]]
+>
+> [[@alharbiAutomatedAssessmentReporting2024]]
+>
+> [[@hasanIntegratingLargeLanguage2024]]
+>
+> [[@leucutaRiskBiasAssessment2025]]
 
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "Can LLMs select the better of two papers? (Section 5) With the successful performance of LLMs on the aforementioned two specific tasks, we moved on to a more ambitious question of whether LLMs can select the better of two papers in a selective venue or the better of two proposals in a grant evaluation setting." (Liu & Shah, 2023, p. 2)
-> ![[liuReviewerGPTExploratoryStudy2023-que-p2-2.png]]
+> "This study aims to critically assess and compare the comprehension capabilities of Large Language Models (LLMs) in accurately and efficiently understanding medical research articles using the STROBE checklist." (Akyon et al., 2024, p. 7)
+> ![[akyonEvaluatingCapabilitiesGenerative2024-que-p3-1.png]]
+>
+> "This study aims to assess the usability of LLMs, particularly ChatGPT, in assessing the completeness of reporting in two key areas of orthodontic research: abstracts of randomized controlled trials (RCTs) and abstracts of systematic reviews." (Alharbi & Asiri, 2024, p. 2)
+> ![[akyonEvaluatingCapabilitiesGenerative2024-que-p3-2.png]]
+>
+> "This study evaluates GPT-4 agreement with human reviewers in assessing the risk of bias using the Risk Of Bias In Non-randomised Studies of Interventions (ROBINS-I) tool." (Hasan et al., 2024, p. 1)
+> ![[hasanIntegratingLargeLanguage2024-que-p1-1.png]]
+>
+> "The aim of the study was to assess the capability of LLMs to evaluate the risk of bias in diagnostic accuracy studies, using QUADAS2, in comparison to human experts." (Leucuta et al., 2025, p. 2)
+>
+> ![[akyon2024-fig3-p19-1.png]]
 
 ### Supporting Claims (with their evidence)
 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
+
+- [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
+    - [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
+    - [[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
+    - [[EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task - @louAAAR10AssessingAIs2025]]
+    - [[EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn - @xuCanLLMsIdentify2025]]
+    - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
+
+- [[CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]]
+    - [[EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions - @wrightsonGPTRCTsUsing2025]]
+    - [[EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports - @wrightsonGPTRCTsUsing2025]]
+    - [[EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy - @wrightsonGPTRCTsUsing2025]]
+
+- [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
+    - [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
+    - [[EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation - @bougieGenerativeAdversarialReviews2024a]]
+    - [[EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines - @bougieGenerativeAdversarialReviews2024a]]
 
 - [[CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
     - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker - @zhangReviewingScientificPapers2025a]]
@@ -37,18 +71,6 @@ nodeID: 019ddb4e-6bd6-734d-bd88-0b9622641144
 - [[CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
     - [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
     - [[EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024]]
-
-- [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
-    - [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
-    - [[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
-    - [[EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task - @louAAAR10AssessingAIs2025]]
-    - [[EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn - @xuCanLLMsIdentify2025]]
-    - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
-
-- [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
-    - [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
-    - [[EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation - @bougieGenerativeAdversarialReviews2024a]]
-    - [[EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines - @bougieGenerativeAdversarialReviews2024a]]
 
 - [[CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]
     - [[EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set - @shahidLiteratureGroundedNoveltyAssessment2025]]
@@ -66,6 +88,5 @@ nodeID: 019ddb4e-6bd6-734d-bd88-0b9622641144
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]
-- [[EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
+- [[EP - Per-item LLM-human agreement varies sharply by item type]]

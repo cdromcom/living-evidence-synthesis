@@ -105,7 +105,7 @@ nodeInstanceId: 019dd17a-f94c-7d37-91d2-f60ffa1a9afc
 
 ### Question
 
-Can today's best general-purpose AI models read a scientific paper and reliably flag the kinds of mistakes that would normally trigger a correction notice or a retraction? The authors build a small but carefully curated test set of 83 published manuscripts containing 91 author-confirmed errors, then run thirteen frontier multimodal LLMs (large language models that can read both text and images) against it under a single fixed prompt. The headline question is practical: are these models good enough to act as junior co-scientists who catch real errors before a paper goes out? See [[QUE - Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts?]].
+Can today's best general-purpose AI models read a scientific paper and reliably flag the kinds of mistakes that would normally trigger a correction notice or a retraction? The authors build a small but carefully curated test set of 83 published manuscripts containing 91 author-confirmed errors, then run thirteen frontier multimodal LLMs (large language models that can read both text and images) against it under a single fixed prompt. The headline question is practical: are these models good enough to act as junior co-scientists who catch real errors before a paper goes out? See [[QUE - Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts]].
 
 ### Methods
 

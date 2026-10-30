@@ -3,38 +3,28 @@ NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
 tags:
-  - 5c/care
+  - 5c/clarity
+  - 5c/creativity
+  - 5c/credibility
 created: 2026-04-17
 updated: 2026-04-29
-nodeID: 019ddb4e-6bce-70d9-bda2-77f08c5db84f
+nodeID: 019ddb4e-6be2-7683-b6ab-4536525e6b2a
+title: "How effectively can LLMs perform expert-level AI research tasks such as equation inference, experiment design, and review critique?"
 ---
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[@sridharanAssessingDecisionMakingCapabilities2024]]
+> [[@louAAAR10AssessingAIs2025]]
 
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "In this study, we scrutinized the ability of three AI platforms to emulate the decision-making processes of IRB members across 10 prototypical, prevalidated case scenarios. Furthermore, we explored these platforms' proficiency in crafting SOPs that address the key roles and duties of IRBs." (Sridharan & Sivaramakrishnan, 2024, p. 84)
->
-> ![[sridharanAssessingDecisionMakingCapabilities2024-table1-p6-1.png]]
+> "How effectively can AI assist researchers in tasks that are domain-specific, expertise-demanding, and reasoning-intensive?" (Lou et al., 2025, p. 1)
+> ![[louAAAR10AssessingAIs2025-que-p1-1.png]]
 
 ### Supporting Claims (with their evidence)
 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
-
-- [[CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
-    - [[EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024]]
-    - [[EVD - All AI platforms failed to address post-trial herbal medicine access in case study 10 - @sridharanAssessingDecisionMakingCapabilities2024]]
-    - [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
-    - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
-    - [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
-    - [[EVD - None of three AI platforms recognized quorum requirement for initial proposal review - @sridharanAssessingDecisionMakingCapabilities2024]]
-    - [[EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]
-
-- [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
-    - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
 
 - [[CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
     - [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
@@ -72,8 +62,22 @@ nodeID: 019ddb4e-6bce-70d9-bda2-77f08c5db84f
     - [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]
     - [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]
 
+- [[CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
+    - [[EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024]]
+    - [[EVD - All AI platforms failed to address post-trial herbal medicine access in case study 10 - @sridharanAssessingDecisionMakingCapabilities2024]]
+    - [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
+    - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
+    - [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
+    - [[EVD - None of three AI platforms recognized quorum requirement for initial proposal review - @sridharanAssessingDecisionMakingCapabilities2024]]
+    - [[EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]
+
+- [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
+    - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
+
 ### Cross-paper patterns
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
+- [[EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]

@@ -77,7 +77,7 @@ nodeInstanceId: 019dd17a-f945-72a9-a2d4-93facd4227d6
 
 ### Question
 
-Can a large language model help review computer science papers? The authors break "reviewing" into three concrete jobs: spotting deliberately-planted errors in short papers, verifying author-completed conference checklists, and picking the better of two abstracts. The goal is to learn whether GPT-4 can serve as a useful reviewer assistant, not whether it can replace human reviewers outright. See [[QUE - Can LLMs identify errors in scientific papers?]].
+Can a large language model help review computer science papers? The authors break "reviewing" into three concrete jobs: spotting deliberately-planted errors in short papers, verifying author-completed conference checklists, and picking the better of two abstracts. The goal is to learn whether GPT-4 can serve as a useful reviewer assistant, not whether it can replace human reviewers outright. See [[QUE - Can LLMs identify errors in scientific papers]].
 
 ### Methods
 

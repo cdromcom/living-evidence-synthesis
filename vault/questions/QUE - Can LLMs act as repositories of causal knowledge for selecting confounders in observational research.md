@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bd2-70bc-b334-e31d0e971745
+title: "Can LLMs act as repositories of causal knowledge for selecting confounders in observational research?"
 ---
 ### Key Papers Asking Question
 

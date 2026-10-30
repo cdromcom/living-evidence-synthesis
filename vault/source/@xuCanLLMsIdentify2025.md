@@ -85,7 +85,7 @@ nodeInstanceId: 019dd17a-f95b-77a4-8120-c69bff843bd2
 
 ### Question
 
-Can today's large language models (LLMs) act as early-stage peer reviewers and reliably point out the weaknesses in a scientific paper? The authors build a benchmark called LIMITGEN that tests four frontier LLMs and one multi-agent system on 1,000 NLP papers where specific flaws have been planted, plus 1,000 real ICLR 2025 submissions. They also test whether retrieval-augmented generation (RAG, where the model gets to look up related papers first) closes the gap to human expert reviewers. See [[QUE - Can LLMs identify critical limitations within scientific research papers?]].
+Can today's large language models (LLMs) act as early-stage peer reviewers and reliably point out the weaknesses in a scientific paper? The authors build a benchmark called LIMITGEN that tests four frontier LLMs and one multi-agent system on 1,000 NLP papers where specific flaws have been planted, plus 1,000 real ICLR 2025 submissions. They also test whether retrieval-augmented generation (RAG, where the model gets to look up related papers first) closes the gap to human expert reviewers. See [[QUE - Can LLMs identify critical limitations within scientific research papers]].
 
 ### Methods
 

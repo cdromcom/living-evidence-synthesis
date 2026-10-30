@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6be0-72e6-a179-0a74e6aece59
+title: "How accurately does ChatGPT score medical literature abstracts compared to human evaluators on reporting standards?"
 ---
 ### Key Papers Asking Question
 

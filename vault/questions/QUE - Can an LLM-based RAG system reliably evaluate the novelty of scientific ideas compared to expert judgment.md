@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bd8-75ee-aa56-e3ab1e5fe067
+title: "Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?"
 ---
 ### Key Papers Asking Question
 

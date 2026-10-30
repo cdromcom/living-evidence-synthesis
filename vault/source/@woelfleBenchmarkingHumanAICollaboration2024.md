@@ -92,7 +92,7 @@ nodeInstanceId: 019dd17a-f954-743a-bc52-4e26dd72d397
 
 ### Question
 
-Can large language models (LLMs) take over part of the slow, expert-driven work of judging how well a medical research paper is reported, how methodologically sound it is, and how relevant it is to real-world clinical practice? The authors compare five LLMs against expert human raters on three widely-used appraisal tools, then test whether pairing one human with one LLM (or pooling several LLMs together) lifts accuracy beyond what either does alone. See [[QUE - Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PRECIS-2 tools?]].
+Can large language models (LLMs) take over part of the slow, expert-driven work of judging how well a medical research paper is reported, how methodologically sound it is, and how relevant it is to real-world clinical practice? The authors compare five LLMs against expert human raters on three widely-used appraisal tools, then test whether pairing one human with one LLM (or pooling several LLMs together) lifts accuracy beyond what either does alone. See [[QUE - Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PRECIS-2 tools]].
 
 ### Methods
 

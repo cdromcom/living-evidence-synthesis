@@ -77,7 +77,7 @@ nodeInstanceId: 019dd17a-f95d-7879-86c1-70337328c988
 
 ### Question
 
-Can today's top reasoning-style large language models (LLMs), chatbots that "think step-by-step" before answering, actually catch the kinds of critical errors that get a scientific paper withdrawn? The authors test five proprietary reasoning LLMs as zero-shot manuscript quality checkers (no fine-tuning, just a single fixed prompt) on 245 real arXiv papers that authors withdrew because of factual or methodological errors. They also compare two ways of feeding the paper into the model: as a PDF attachment versus as the raw LaTeX source code. See [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?]].
+Can today's top reasoning-style large language models (LLMs), chatbots that "think step-by-step" before answering, actually catch the kinds of critical errors that get a scientific paper withdrawn? The authors test five proprietary reasoning LLMs as zero-shot manuscript quality checkers (no fine-tuning, just a single fixed prompt) on 245 real arXiv papers that authors withdrew because of factual or methodological errors. They also compare two ways of feeding the paper into the model: as a PDF attachment versus as the raw LaTeX source code. See [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers]].
 
 ### Methods
 

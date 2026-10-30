@@ -4,53 +4,28 @@ human_reviewed: no
 aliases:
 tags:
   - 5c/clarity
+  - 5c/creativity
   - 5c/credibility
 created: 2026-04-17
 updated: 2026-04-29
-nodeID: 019ddb4e-6be1-709c-a28e-14133382b634
+nodeID: 019ddb4e-6be1-709c-a28e-1412341830a5
+title: "How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences?"
 ---
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[@hasanIntegratingLargeLanguage2024]]
->
-> [[@leucutaRiskBiasAssessment2025]]
->
-> [[@alharbiAutomatedAssessmentReporting2024]]
+> [[@tyserAIDrivenReviewSystems2024]]
 
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "we propose a framework for incorporating LLMs into systematic reviews and employ GPT-4 for RoB assessment in a case study using the Cochrane Collaboration's Risk Of Bias In Non-randomised Studies of Interventions (ROBINS-I) tool" (Hasan et al., 2024, p. 2)
-> ![[hasanIntegratingLargeLanguage2024-que-p2-1.png]]
+> "We evaluate the alignment of automatic paper reviews with human reviews using an arena of human preferences by pairwise comparisons... In addition to evaluating human and LLM preferences among LLM reviews, we fine-tune an LLM to predict human preferences, predicting which reviews humans will prefer in a head-to-head battle between LLMs." (Tyser et al., 2024, p. 1)
 >
-> "the aim of the study was to assess the capability of LLMs to evaluate the risk of bias in diagnostic accuracy studies, using QUADAS2, in comparison to human experts" (Leucuta et al., 2025, p. 2)
-> ![[leucutaRiskBiasAssessment2025-que-p2-1.png]]
->
-> "This study aims to assess the usability of LLMs, particularly ChatGPT, in assessing the completeness of reporting in two key areas of orthodontic research: abstracts of randomized controlled trials (RCTs) and abstracts of systematic reviews." (Alharbi & Asiri, 2024, p. 2)
-> ![[alharbiAutomatedAssessmentReporting2024-que-p2-1.png]]
+> ![[tyserAIDrivenReviewSystems2024-table1-p6-1.png]]
 
 ### Supporting Claims (with their evidence)
 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
-
-- [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
-    - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
-
-- [[CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
-    - [[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023]]
-    - [[EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]
-    - [[EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]
-
-- [[CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
-    - [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
-    - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
-    - [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
-
-- [[CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]
-    - [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]
-    - [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]
-    - [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]
 
 - [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
     - [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
@@ -82,9 +57,28 @@ nodeID: 019ddb4e-6be1-709c-a28e-14133382b634
     - [[EVD - None of three AI platforms recognized quorum requirement for initial proposal review - @sridharanAssessingDecisionMakingCapabilities2024]]
     - [[EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]
 
+- [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
+    - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
+
+- [[CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
+    - [[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023]]
+    - [[EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]
+    - [[EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]
+
+- [[CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]
+    - [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]
+    - [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]
+    - [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]
+
+- [[CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
+    - [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
+    - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
+    - [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
+
 ### Cross-paper patterns
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

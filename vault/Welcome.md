@@ -123,7 +123,7 @@ CLMs, CVTs, and QUEs follow analogous structures with their own reverse-link sec
 
 [[CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely]]
 
-[[QUE - Can LLMs verify author-provided checklists in submitted papers?]]
+[[QUE - Can LLMs verify author-provided checklists in submitted papers]]
 
 ---
 

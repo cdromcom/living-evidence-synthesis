@@ -89,7 +89,7 @@ nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335
 
 ### Question
 
-Can a computer program automatically tell whether a research idea is genuinely new, by comparing it to past work, in a way that lines up with what expert reviewers say? The authors target the bottleneck in tools that automatically generate research ideas; there is no good way to filter out ideas that already exist in the literature. They build a retrieval-augmented generation (RAG) system (a setup where a language model first looks up relevant papers, then judges novelty against them) and benchmark it head-to-head against zero-shot prompts, two prompt-optimization methods, and two prior systems on the same expert-labeled test set. See [[QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?]].
+Can a computer program automatically tell whether a research idea is genuinely new, by comparing it to past work, in a way that lines up with what expert reviewers say? The authors target the bottleneck in tools that automatically generate research ideas; there is no good way to filter out ideas that already exist in the literature. They build a retrieval-augmented generation (RAG) system (a setup where a language model first looks up relevant papers, then judges novelty against them) and benchmark it head-to-head against zero-shot prompts, two prompt-optimization methods, and two prior systems on the same expert-labeled test set. See [[QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment]].
 
 ### Methods
 

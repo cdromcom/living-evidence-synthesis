@@ -52,7 +52,9 @@ export function buildContributionFiles(input: ContributionInput): {
   const created = new Date().toISOString().slice(0, 10);
   const dir = VAULT_DIR[type];
 
-  const frontmatter = ["---", "NodeFormality: draft", "tags: []", `created: ${created}`, "---", ""].join("\n");
+  // Keep the real title when the filename has to drop Windows-invalid characters.
+  const titleLine = sanitizeForFilename(title) !== title.trim() ? [`title: ${JSON.stringify(title.trim())}`] : [];
+  const frontmatter = ["---", "NodeFormality: draft", ...titleLine, "tags: []", `created: ${created}`, "---", ""].join("\n");
 
   let filename: string;
   let sections = "";

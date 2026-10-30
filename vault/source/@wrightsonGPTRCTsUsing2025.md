@@ -89,7 +89,7 @@ nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e
 
 ### Question
 
-Can a large language model (LLM) read a published clinical trial report and tell whether the authors followed the standard reporting checklist? The authors focus on CONSORT, the Consolidated Standards of Reporting Trials, a 25-item checklist that journals use to judge whether a trial paper covers basic methodological essentials like randomisation, blinding, and effect sizes. They benchmark a closed-source model (OpenAI GPT-4 Turbo) against an open-source model (Meta Llama 2 70B), test fine-tuning on the open-source model, and add a small image sub-study using GPT-4 Vision on CONSORT participant flow diagrams. See [[QUE - How accurately can LLMs measure reporting guideline compliance in clinical trial reports?]].
+Can a large language model (LLM) read a published clinical trial report and tell whether the authors followed the standard reporting checklist? The authors focus on CONSORT, the Consolidated Standards of Reporting Trials, a 25-item checklist that journals use to judge whether a trial paper covers basic methodological essentials like randomisation, blinding, and effect sizes. They benchmark a closed-source model (OpenAI GPT-4 Turbo) against an open-source model (Meta Llama 2 70B), test fine-tuning on the open-source model, and add a small image sub-study using GPT-4 Vision on CONSORT participant flow diagrams. See [[QUE - How accurately can LLMs measure reporting guideline compliance in clinical trial reports]].
 
 ### Methods
 

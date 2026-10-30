@@ -35,7 +35,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
 
 ## Questions and their answers
 
-### [[QUE - Can AI platforms emulate IRB member decision-making and draft standard operating procedures for ethical review?]]
+### [[QUE - Can AI platforms emulate IRB member decision-making and draft standard operating procedures for ethical review]]
 
 - [[CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
     - [[EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024]]
@@ -102,7 +102,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]
         - ⚠️ [[CVT - The evaluation used LLM-as-judge which may favor outputs from models similar to the judge]]
 
-### [[QUE - Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers?]]
+### [[QUE - Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers]]
 
 - [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
     - [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
@@ -169,14 +169,14 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
     - [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
 
-### [[QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research?]]
+### [[QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research]]
 
 - [[CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
     - [[EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations - @huntington-kleinLLMsActRepositories2024]]
     - [[EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams - @huntington-kleinLLMsActRepositories2024]]
         - ⚠️ [[CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge]]
 
-### [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning?]]
+### [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning]]
 
 - [[CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
     - [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
@@ -243,7 +243,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
         - ⚠️ [[CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
 
-### [[QUE - Can LLMs identify critical limitations within scientific research papers?]]
+### [[QUE - Can LLMs identify critical limitations within scientific research papers]]
 
 - [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
     - [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
@@ -310,7 +310,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws]]
     - [[EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn - @xuCanLLMsIdentify2025]]
 
-### [[QUE - Can LLMs identify errors in scientific papers?]]
+### [[QUE - Can LLMs identify errors in scientific papers]]
 
 - [[CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
     - [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
@@ -377,7 +377,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
         - ⚠️ [[CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
 
-### [[QUE - Can LLMs identify potential ethical issues in clinical research proposals and generate informed consent documents?]]
+### [[QUE - Can LLMs identify potential ethical issues in clinical research proposals and generate informed consent documents]]
 
 - [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
     - [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
@@ -404,7 +404,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]]
         - ⚠️ [[CVT - The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation]]
 
-### [[QUE - Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PRECIS-2 tools?]]
+### [[QUE - Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PRECIS-2 tools]]
 
 - [[CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]
     - [[EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings - @woelfleBenchmarkingHumanAICollaboration2024]]
@@ -475,7 +475,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment]]
         - ⚠️ [[CVT - Only publicly available web-based LLM interfaces were used rather than APIs potentially missing superior performance of paid or fine-tuned model versions]]
 
-### [[QUE - Can LLMs select the higher-quality paper when comparing two abstracts?]]
+### [[QUE - Can LLMs select the higher-quality paper when comparing two abstracts]]
 
 - [[CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
     - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker - @zhangReviewingScientificPapers2025a]]
@@ -535,7 +535,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
         - ⚠️ [[CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
 
-### [[QUE - Can LLMs verify author-provided checklists in submitted papers?]]
+### [[QUE - Can LLMs verify author-provided checklists in submitted papers]]
 
 - [[CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
     - [[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028) - @alharbiAutomatedAssessmentReporting2024]]
@@ -606,7 +606,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - GPT-4 was used as both reviewer backbone and preference evaluator introducing circular evaluation in the GAR preference ranking experiment]]
     - [[EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines - @bougieGenerativeAdversarialReviews2024a]]
 
-### [[QUE - Can NLP models automatically identify citation integrity errors in biomedical publications?]]
+### [[QUE - Can NLP models automatically identify citation integrity errors in biomedical publications]]
 
 - [[CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]
     - [[EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors - @sarolAssessingCitationIntegrity2024]]
@@ -654,7 +654,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]
         - ⚠️ [[CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors]]
 
-### [[QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?]]
+### [[QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment]]
 
 - [[CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]]
     - [[EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions - @wrightsonGPTRCTsUsing2025]]
@@ -682,7 +682,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
     - [[EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79% - @shahidLiteratureGroundedNoveltyAssessment2025]]
 
-### [[QUE - Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers?]]
+### [[QUE - Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers]]
 
 - [[CLM - Combining human reviewer knowledge with LLM-generated method summaries improves automated novelty prediction beyond either source alone]]
     - [[EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction - @wuAutomatedNoveltyEvaluationa]]
@@ -748,7 +748,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]]
         - ⚠️ [[CVT - The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation]]
 
-### [[QUE - Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper feedback?]]
+### [[QUE - Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper feedback]]
 
 - [[CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]
     - [[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
@@ -816,7 +816,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - The Liang et al study used papers already accepted to journals which may not represent the full quality distribution]]
     - [[EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a]]
 
-### [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?]]
+### [[QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers]]
 
 - [[CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
     - [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
@@ -881,7 +881,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]
         - ⚠️ [[CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors]]
 
-### [[QUE - Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts?]]
+### [[QUE - Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts]]
 
 - [[CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
     - [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
@@ -948,7 +948,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
         - ⚠️ [[CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
 
-### [[QUE - Do specialized fine-tuned LLMs generate more critical and realistic peer reviews than general-purpose LLMs?]]
+### [[QUE - Do specialized fine-tuned LLMs generate more critical and realistic peer reviews than general-purpose LLMs]]
 
 - [[CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]
     - [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]
@@ -1015,7 +1015,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
         - ⚠️ [[CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability]]
 
-### [[QUE - How accurately can LLMs assess or understand medical research papers compared to human experts?]]
+### [[QUE - How accurately can LLMs assess or understand medical research papers compared to human experts]]
 
 - [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
     - [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
@@ -1082,7 +1082,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
         - ⚠️ [[CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
 
-### [[QUE - How accurately can LLMs measure reporting guideline compliance in clinical trial reports?]]
+### [[QUE - How accurately can LLMs measure reporting guideline compliance in clinical trial reports]]
 
 - [[CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
     - [[EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
@@ -1120,7 +1120,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment]]
         - ⚠️ [[CVT - Only publicly available web-based LLM interfaces were used rather than APIs potentially missing superior performance of paid or fine-tuned model versions]]
 
-### [[QUE - How accurately does ChatGPT score medical literature abstracts compared to human evaluators on reporting standards?]]
+### [[QUE - How accurately does ChatGPT score medical literature abstracts compared to human evaluators on reporting standards]]
 
 - [[CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
     - [[EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
@@ -1133,7 +1133,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
         - ⚠️ [[CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability]]
 
-### [[QUE - How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences?]]
+### [[QUE - How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences]]
 
 - [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
     - [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
@@ -1200,7 +1200,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
     - [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
 
-### [[QUE - How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows?]]
+### [[QUE - How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows]]
 
 - [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
     - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
@@ -1267,7 +1267,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]
         - ⚠️ [[CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings]]
 
-### [[QUE - How effectively can LLMs perform expert-level AI research tasks such as equation inference, experiment design, and review critique?]]
+### [[QUE - How effectively can LLMs perform expert-level AI research tasks such as equation inference, experiment design, and review critique]]
 
 - [[CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
     - [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
@@ -1334,7 +1334,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
     - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
         - ⚠️ [[CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability]]
 
-### [[QUE - How has CONSORT reporting quality changed over time across medical disciplines and what LLM approaches can evaluate it at scale?]]
+### [[QUE - How has CONSORT reporting quality changed over time across medical disciplines and what LLM approaches can evaluate it at scale]]
 
 - [[CLM - RCT reporting quality has improved substantially over decades but critical methodological gaps persist across all disciplines]]
     - [[EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology - @srinivasanEvaluatingReportingQuality2025a]]
@@ -1364,7 +1364,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements]]
     - [[EVD - Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs - @srinivasanEvaluatingReportingQuality2025a]]
 
-### [[QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers?]]
+### [[QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers]]
 
 - [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
     - [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
@@ -1436,7 +1436,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - The error detection study used constructed short papers rather than real manuscript submissions]]
     - [[EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]
 
-### [[QUE - Is LLM a reliable reviewer for automatic paper reviewing tasks?]]
+### [[QUE - Is LLM a reliable reviewer for automatic paper reviewing tasks]]
 
 - [[CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
     - [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
@@ -1510,7 +1510,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - The error detection study used constructed short papers rather than real manuscript submissions]]
     - [[EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]
 
-### [[QUE - What is the optimal input format for LLM-based research quality assessment?]]
+### [[QUE - What is the optimal input format for LLM-based research quality assessment]]
 
 - [[CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]
     - [[EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]]
