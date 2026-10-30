@@ -651,7 +651,7 @@ export const PROMPT_TACTICS: PromptTactics[] = [
     "temperature": null,
     "prompt": "Below is the summary of a research proposal. Can you generate an ICD for the study participants?",
     "locator": "TRIPOD 9a · p.127",
-    "reading": "The one source that varies prompt <em>delivery</em>: every query set is given twice — concatenated into a single prompt, then again one at a time as a dialogue — though no test compares the two conditions.",
+    "reading": "The one source that varies prompt delivery: every query set is given twice — concatenated into a single prompt, then again one at a time as a dialogue — though no test compares the two conditions.",
     "prompts": [
       {
         "item": "9a",
