@@ -8,6 +8,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bd6-734d-bd88-0b95e5b0afec
+title: "Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PRECIS-2 tools?"
 ---
 ### Key Papers Asking Question
 

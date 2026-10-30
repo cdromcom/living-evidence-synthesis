@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bd7-723f-9d6f-5c02fc957156
+title: "Can NLP models automatically identify citation integrity errors in biomedical publications?"
 ---
 ### Key Papers Asking Question
 

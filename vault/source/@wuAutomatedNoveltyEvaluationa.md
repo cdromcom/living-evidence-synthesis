@@ -82,7 +82,7 @@ nodeInstanceId: 019dd17a-f95a-7ee1-ba78-ba0e4133973c
 
 ### Question
 
-Can a computer judge how novel a research paper's method is, and does it do better when it has access to *both* what human reviewers wrote *and* what a large language model thinks? The authors focus on machine-learning papers from ICLR (a premier deep-learning conference), where reviewers already assign a 1-to-4 "Technical Novelty and Significance" (TNS) score. They compare their proposed knowledge-fusion model against five plain pretrained language models (PLMs) and four off-the-shelf large language models (LLMs) used zero-shot. See [[QUE - Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers?]].
+Can a computer judge how novel a research paper's method is, and does it do better when it has access to *both* what human reviewers wrote *and* what a large language model thinks? The authors focus on machine-learning papers from ICLR (a premier deep-learning conference), where reviewers already assign a 1-to-4 "Technical Novelty and Significance" (TNS) score. They compare their proposed knowledge-fusion model against five plain pretrained language models (PLMs) and four off-the-shelf large language models (LLMs) used zero-shot. See [[QUE - Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers]].
 
 ### Methods
 

@@ -78,7 +78,7 @@ nodeInstanceId: 019dd17a-f94e-7707-9444-b2e1619daef0
 
 ### Question
 
-Can today's general-purpose chatbots spot the same ethical issues that an Institutional Review Board (IRB) member would flag in a clinical research proposal, and can they draft a usable informed consent document (ICD) for participants? The authors put four off-the-shelf chatbots through seven worked teaching cases and compare their answers against the expected key responses listed in a published ethics handbook. They also test whether asking each question one at a time (multi-prompt) elicits better answers than asking everything at once (single-prompt). See [[QUE - Can LLMs identify potential ethical issues in clinical research proposals and generate informed consent documents?]].
+Can today's general-purpose chatbots spot the same ethical issues that an Institutional Review Board (IRB) member would flag in a clinical research proposal, and can they draft a usable informed consent document (ICD) for participants? The authors put four off-the-shelf chatbots through seven worked teaching cases and compare their answers against the expected key responses listed in a published ethics handbook. They also test whether asking each question one at a time (multi-prompt) elicits better answers than asking everything at once (single-prompt). See [[QUE - Can LLMs identify potential ethical issues in clinical research proposals and generate informed consent documents]].
 
 ### Methods
 

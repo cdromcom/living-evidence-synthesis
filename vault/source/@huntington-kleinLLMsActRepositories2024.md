@@ -75,7 +75,7 @@ nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757
 
 ### Question
 
-Can today's large language models (LLMs) reliably tell a researcher which variables to control for when studying cause and effect from observational data, what statisticians call *confounders*? The authors test this on a famous medical case study where experts have already worked out the right answer, the Coronary Drug Project (CDP). They ask three off-the-shelf models the same confounder question 13,760 times each, varying how the question is phrased, and compare the answers to expert opinion. See [[QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research?]].
+Can today's large language models (LLMs) reliably tell a researcher which variables to control for when studying cause and effect from observational data, what statisticians call *confounders*? The authors test this on a famous medical case study where experts have already worked out the right answer, the Coronary Drug Project (CDP). They ask three off-the-shelf models the same confounder question 13,760 times each, varying how the question is phrased, and compare the answers to expert opinion. See [[QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research]].
 
 ### Methods
 

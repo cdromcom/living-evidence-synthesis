@@ -78,7 +78,7 @@ nodeInstanceId: 019dd17a-f95e-7c73-827f-b2352b9cc159
 
 ### Question
 
-Can a general-purpose large language model (LLM) act as a trustworthy peer reviewer for machine-learning research papers? The authors test two off-the-shelf models, GPT-3.5 and GPT-4, across three concrete reviewer-style tasks: predicting numerical aspect scores, writing free-form reviews, and answering multiple-choice questions about real reviewer-author discussions. They keep the models completely off-the-shelf (no fine-tuning) and compare different ways of prompting them. See [[QUE - Is LLM a reliable reviewer for automatic paper reviewing tasks?]].
+Can a general-purpose large language model (LLM) act as a trustworthy peer reviewer for machine-learning research papers? The authors test two off-the-shelf models, GPT-3.5 and GPT-4, across three concrete reviewer-style tasks: predicting numerical aspect scores, writing free-form reviews, and answering multiple-choice questions about real reviewer-author discussions. They keep the models completely off-the-shelf (no fine-tuning) and compare different ways of prompting them. See [[QUE - Is LLM a reliable reviewer for automatic paper reviewing tasks]].
 
 ### Methods
 

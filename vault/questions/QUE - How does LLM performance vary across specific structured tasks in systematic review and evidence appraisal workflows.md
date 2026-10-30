@@ -4,36 +4,49 @@ human_reviewed: no
 aliases:
 tags:
   - 5c/clarity
-  - 5c/creativity
   - 5c/credibility
 created: 2026-04-17
 updated: 2026-04-29
-nodeID: 019ddb4e-6be2-7683-b6ab-4536525e6b2a
+nodeID: 019ddb4e-6be1-709c-a28e-14133382b634
+title: "How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows?"
 ---
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[@louAAAR10AssessingAIs2025]]
+> [[@hasanIntegratingLargeLanguage2024]]
+>
+> [[@leucutaRiskBiasAssessment2025]]
+>
+> [[@alharbiAutomatedAssessmentReporting2024]]
 
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "How effectively can AI assist researchers in tasks that are domain-specific, expertise-demanding, and reasoning-intensive?" (Lou et al., 2025, p. 1)
-> ![[louAAAR10AssessingAIs2025-que-p1-1.png]]
+> "we propose a framework for incorporating LLMs into systematic reviews and employ GPT-4 for RoB assessment in a case study using the Cochrane Collaboration's Risk Of Bias In Non-randomised Studies of Interventions (ROBINS-I) tool" (Hasan et al., 2024, p. 2)
+> ![[hasanIntegratingLargeLanguage2024-que-p2-1.png]]
+>
+> "the aim of the study was to assess the capability of LLMs to evaluate the risk of bias in diagnostic accuracy studies, using QUADAS2, in comparison to human experts" (Leucuta et al., 2025, p. 2)
+> ![[leucutaRiskBiasAssessment2025-que-p2-1.png]]
+>
+> "This study aims to assess the usability of LLMs, particularly ChatGPT, in assessing the completeness of reporting in two key areas of orthodontic research: abstracts of randomized controlled trials (RCTs) and abstracts of systematic reviews." (Alharbi & Asiri, 2024, p. 2)
+> ![[alharbiAutomatedAssessmentReporting2024-que-p2-1.png]]
 
 ### Supporting Claims (with their evidence)
 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
 
-- [[CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
-    - [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
-    - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
-    - [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
+- [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
+    - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
 
 - [[CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
     - [[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023]]
     - [[EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]
     - [[EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]
+
+- [[CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
+    - [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
+    - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
+    - [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
 
 - [[CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]
     - [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]
@@ -70,13 +83,9 @@ nodeID: 019ddb4e-6be2-7683-b6ab-4536525e6b2a
     - [[EVD - None of three AI platforms recognized quorum requirement for initial proposal review - @sridharanAssessingDecisionMakingCapabilities2024]]
     - [[EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]
 
-- [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
-    - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
-
 ### Cross-paper patterns
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
-- [[EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]
+- [[EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
+- [[EP - Per-item LLM-human agreement varies sharply by item type]]

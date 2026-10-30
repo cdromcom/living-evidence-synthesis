@@ -106,7 +106,7 @@ nodeInstanceId: 019dd17a-f93d-7c62-8a27-124b13d62c62
 
 ### Question
 
-Can a general-purpose chatbot (GPT-4) judge how trustworthy a non-randomised medical study is, the same way a trained Cochrane reviewer would? The authors test this on ROBINS-I (Risk Of Bias In Non-randomised Studies of Interventions), a structured tool that grades each study across seven specific concerns and gives an overall verdict. They feed the same studies to GPT-4 and to the published Cochrane judgments, then measure how often the two agree. They also propose a four-part protocol for using LLMs (large language models, AI systems trained to read and write text) inside systematic reviews. See [[QUE - How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows?]].
+Can a general-purpose chatbot (GPT-4) judge how trustworthy a non-randomised medical study is, the same way a trained Cochrane reviewer would? The authors test this on ROBINS-I (Risk Of Bias In Non-randomised Studies of Interventions), a structured tool that grades each study across seven specific concerns and gives an overall verdict. They feed the same studies to GPT-4 and to the published Cochrane judgments, then measure how often the two agree. They also propose a four-part protocol for using LLMs (large language models, AI systems trained to read and write text) inside systematic reviews. See [[QUE - How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows]].
 
 ### Methods
 

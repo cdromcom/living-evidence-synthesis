@@ -105,7 +105,7 @@ nodeInstanceId: 019dd17a-f952-7812-8b4b-cd633d0b6ddb
 
 ### Question
 
-Can a large language model write peer reviews of machine-learning papers that are as good as the reviews human experts post on OpenReview? The authors set up a head-to-head contest between five "reviewers", four LLMs and one human, and let expert judges pick which reviews they preferred. They also test what happens when you feed the LLM more of the venue's reviewing context, like the conference review form, code of ethics, and area-chair guidelines. See [[QUE - How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences?]].
+Can a large language model write peer reviews of machine-learning papers that are as good as the reviews human experts post on OpenReview? The authors set up a head-to-head contest between five "reviewers", four LLMs and one human, and let expert judges pick which reviews they preferred. They also test what happens when you feed the LLM more of the venue's reviewing context, like the conference review form, code of ethics, and area-chair guidelines. See [[QUE - How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences]].
 
 ### Methods
 

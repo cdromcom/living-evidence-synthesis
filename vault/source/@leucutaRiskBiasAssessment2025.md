@@ -85,7 +85,7 @@ nodeInstanceId: 019dd17a-f942-782f-99e1-d83f3cbbc264
 
 ### Question
 
-Can off-the-shelf chatbots judge how trustworthy a medical study is the same way a trained methodologist would? The authors test four popular general-purpose large language models on QUADAS-2, a standard checklist for rating risk of bias in diagnostic-accuracy studies. They feed each model the same 10 papers and the same prompt, then score every answer against a two-expert human consensus. See [[QUE - How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows?]].
+Can off-the-shelf chatbots judge how trustworthy a medical study is the same way a trained methodologist would? The authors test four popular general-purpose large language models on QUADAS-2, a standard checklist for rating risk of bias in diagnostic-accuracy studies. They feed each model the same 10 papers and the same prompt, then score every answer against a two-expert human consensus. See [[QUE - How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows]].
 
 ### Methods
 

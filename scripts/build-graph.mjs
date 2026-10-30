@@ -98,6 +98,7 @@ function idFor(type, filenameNoExt) {
 const seenKeys = new Set();
 const rawNodes = []; // { id, type, filename (no ext), frontmatter, body }
 const titleToId = new Map(); // normalized filename -> id
+const realNameById = new Map(); // id -> "PREFIX - real title", for nodes whose filename had to drop characters
 
 for (const cfg of TYPE_CONFIG) {
   const dir = path.join(VAULT, cfg.dir);
@@ -117,6 +118,14 @@ for (const cfg of TYPE_CONFIG) {
       body: content || "",
     });
     titleToId.set(filenameNoExt.trim().toLowerCase(), id);
+    // Filenames can't hold characters Windows forbids (e.g. a question's "?"),
+    // so such nodes keep their real title in frontmatter `title`. Also accept
+    // wikilinks written with that real title.
+    if (typeof data?.title === "string" && data.title.trim()) {
+      const realName = `${cfg.type} - ${data.title.trim()}`;
+      titleToId.set(realName.toLowerCase(), id);
+      realNameById.set(id, realName);
+    }
   });
   if (files.length !== cfg.expected) {
     console.warn(
@@ -332,8 +341,8 @@ function rewriteBody(body) {
   text = text.replace(/\[\[([^\]]+)\]\]/g, (whole, inner) => {
     const [targetRaw, aliasRaw] = inner.split("|");
     const target = targetRaw.split("#")[0].trim();
-    const label = (aliasRaw || targetRaw.split("#")[0]).trim();
     const id = titleToId.get(target.toLowerCase());
+    const label = (aliasRaw || (id && realNameById.get(id)) || targetRaw.split("#")[0]).trim();
     if (id) return `[${label}](/nodes/${id})`;
     return label; // broken link: render as plain text
   });
@@ -358,7 +367,9 @@ function shortLabel(title, max = 90) {
 
 const nodes = rawNodes.map((n) => {
   const fm = n.frontmatter;
-  let title = n.filename;
+  // Prefer frontmatter `title` (the real title when the filename had to drop
+  // Windows-invalid characters); fall back to the filename.
+  let title = typeof fm.title === "string" && fm.title.trim() ? fm.title.trim() : n.filename;
   // strip leading "PREFIX - " and, for SRC, keep the @citekey form as-is
   const prefixMatch = title.match(/^(QUE|CLM|EVD|CVT|EP)\s*-\s*/);
   if (prefixMatch) title = title.slice(prefixMatch[0].length);

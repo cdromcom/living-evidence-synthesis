@@ -108,7 +108,7 @@ nodeInstanceId: 019dd17a-f943-7596-91de-9191d88da102
 
 ### Question
 
-Can a general-purpose large language model write peer-review feedback on a scientific paper that genuinely overlaps with what a human reviewer would say? The authors test GPT-4 against human reviews on two large corpora, papers from 15 Nature family journals and from the ICLR machine-learning conference, then run a prospective survey asking the authors of new papers whether GPT-4's feedback on their own work felt useful. They also include a shuffling test to rule out the easy explanation that GPT-4 just produces generic boilerplate. See [[QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers?]].
+Can a general-purpose large language model write peer-review feedback on a scientific paper that genuinely overlaps with what a human reviewer would say? The authors test GPT-4 against human reviews on two large corpora, papers from 15 Nature family journals and from the ICLR machine-learning conference, then run a prospective survey asking the authors of new papers whether GPT-4's feedback on their own work felt useful. They also include a shuffling test to rule out the easy explanation that GPT-4 just produces generic boilerplate. See [[QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers]].
 
 ### Methods
 

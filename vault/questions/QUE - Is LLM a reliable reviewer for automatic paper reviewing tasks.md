@@ -9,6 +9,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6be4-74fd-bb05-91d8e33b2b7f
+title: "Is LLM a reliable reviewer for automatic paper reviewing tasks?"
 ---
 ### Key Papers Asking Question
 

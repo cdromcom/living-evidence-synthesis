@@ -80,7 +80,7 @@ nodeInstanceId: 019dd17a-f934-77ec-b98e-d4f2af7e4e10
 
 ### Question
 
-Can ChatGPT do the job of a methodologist who checks whether a published abstract reports everything it is supposed to? The authors test this on orthodontic journal abstracts, comparing ChatGPT's checklist ratings against two human reviewers working in duplicate. The two reporting checklists they use are CONSORT-A (the 17-item Consolidated Standards of Reporting Trials extension for abstracts of randomized controlled trials) and PRISMA-for-abstracts (the 12-item Preferred Reporting Items for Systematic Reviews and Meta-Analyses for abstracts). See [[QUE - How accurately can LLMs measure reporting guideline compliance in clinical trial reports?]].
+Can ChatGPT do the job of a methodologist who checks whether a published abstract reports everything it is supposed to? The authors test this on orthodontic journal abstracts, comparing ChatGPT's checklist ratings against two human reviewers working in duplicate. The two reporting checklists they use are CONSORT-A (the 17-item Consolidated Standards of Reporting Trials extension for abstracts of randomized controlled trials) and PRISMA-for-abstracts (the 12-item Preferred Reporting Items for Systematic Reviews and Meta-Analyses for abstracts). See [[QUE - How accurately can LLMs measure reporting guideline compliance in clinical trial reports]].
 
 ### Methods
 

@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bd5-7797-89c5-4555ab7cb5c2
+title: "Can LLMs identify potential ethical issues in clinical research proposals and generate informed consent documents?"
 ---
 ### Key Papers Asking Question
 

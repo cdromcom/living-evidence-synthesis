@@ -7,6 +7,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bdf-75b4-aeed-c983381682f9
+title: "How accurately can LLMs measure reporting guideline compliance in clinical trial reports?"
 ---
 ### Key Papers Asking Question
 

@@ -9,6 +9,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bda-7515-8d8a-2e08e4d47129
+title: "Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper feedback?"
 ---
 ### Key Papers Asking Question
 

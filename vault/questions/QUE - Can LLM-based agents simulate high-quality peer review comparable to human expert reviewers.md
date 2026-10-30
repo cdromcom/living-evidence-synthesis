@@ -9,6 +9,7 @@ tags:
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bcf-710c-9c4c-2418f67a61c3
+title: "Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers?"
 ---
 ### Key Papers Asking Question
 

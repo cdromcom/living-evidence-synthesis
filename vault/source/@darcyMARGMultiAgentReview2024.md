@@ -81,7 +81,7 @@ nodeInstanceId: 019dd17a-f939-7206-9a0a-1c995b5d5a78
 
 ### Question
 
-Can a team of language-model "agents" that talk to each other write better feedback on a scientific paper than a single language-model writing alone? The authors build MARG (Multi-Agent Review Generation), which splits the job across a leader agent, several worker agents that each see one chunk of the paper, and three expert agents tuned for different review angles. They then test the best variant, MARG-S, against simpler one-shot baselines on both an automatic benchmark and a real user study. See [[QUE - Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper feedback?]].
+Can a team of language-model "agents" that talk to each other write better feedback on a scientific paper than a single language-model writing alone? The authors build MARG (Multi-Agent Review Generation), which splits the job across a leader agent, several worker agents that each see one chunk of the paper, and three expert agents tuned for different review angles. They then test the best variant, MARG-S, against simpler one-shot baselines on both an automatic benchmark and a real user study. See [[QUE - Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper feedback]].
 
 ### Methods
 

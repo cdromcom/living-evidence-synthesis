@@ -5,7 +5,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can AI platforms emulate IRB member decision-making and draft standard operating procedures for ethical review?",
-      "filename": "QUE - Can AI platforms emulate IRB member decision-making and draft standard operating procedures for ethical review?",
+      "filename": "QUE - Can AI platforms emulate IRB member decision-making and draft standard operating procedures for ethical review",
       "shortLabel": "Can AI platforms emulate IRB member decision-making and draft standard operating procedur…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -21,7 +21,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?",
-      "filename": "QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?",
+      "filename": "QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment",
       "shortLabel": "Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -37,7 +37,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers?",
-      "filename": "QUE - Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers?",
+      "filename": "QUE - Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers",
       "shortLabel": "Can integrating LLM knowledge with human reviewer knowledge improve automated novelty pre…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -53,7 +53,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers?",
-      "filename": "QUE - Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers?",
+      "filename": "QUE - Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers",
       "shortLabel": "Can LLM-based agents simulate high-quality peer review comparable to human expert reviewe…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -71,7 +71,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLMs act as repositories of causal knowledge for selecting confounders in observational research?",
-      "filename": "QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research?",
+      "filename": "QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research",
       "shortLabel": "Can LLMs act as repositories of causal knowledge for selecting confounders in observation…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -87,7 +87,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLMs detect quotation errors in scientific papers without fine-tuning?",
-      "filename": "QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning?",
+      "filename": "QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning",
       "shortLabel": "Can LLMs detect quotation errors in scientific papers without fine-tuning?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -103,7 +103,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLMs identify critical limitations within scientific research papers?",
-      "filename": "QUE - Can LLMs identify critical limitations within scientific research papers?",
+      "filename": "QUE - Can LLMs identify critical limitations within scientific research papers",
       "shortLabel": "Can LLMs identify critical limitations within scientific research papers?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -119,7 +119,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLMs identify errors in scientific papers?",
-      "filename": "QUE - Can LLMs identify errors in scientific papers?",
+      "filename": "QUE - Can LLMs identify errors in scientific papers",
       "shortLabel": "Can LLMs identify errors in scientific papers?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -135,7 +135,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLMs identify potential ethical issues in clinical research proposals and generate informed consent documents?",
-      "filename": "QUE - Can LLMs identify potential ethical issues in clinical research proposals and generate informed consent documents?",
+      "filename": "QUE - Can LLMs identify potential ethical issues in clinical research proposals and generate informed consent documents",
       "shortLabel": "Can LLMs identify potential ethical issues in clinical research proposals and generate in…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -151,7 +151,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PRECIS-2 tools?",
-      "filename": "QUE - Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PRECIS-2 tools?",
+      "filename": "QUE - Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PRECIS-2 tools",
       "shortLabel": "Can LLMs replace or augment human raters in evidence appraisal using PRISMA AMSTAR and PR…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -168,7 +168,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLMs select the higher-quality paper when comparing two abstracts?",
-      "filename": "QUE - Can LLMs select the higher-quality paper when comparing two abstracts?",
+      "filename": "QUE - Can LLMs select the higher-quality paper when comparing two abstracts",
       "shortLabel": "Can LLMs select the higher-quality paper when comparing two abstracts?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -184,7 +184,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can LLMs verify author-provided checklists in submitted papers?",
-      "filename": "QUE - Can LLMs verify author-provided checklists in submitted papers?",
+      "filename": "QUE - Can LLMs verify author-provided checklists in submitted papers",
       "shortLabel": "Can LLMs verify author-provided checklists in submitted papers?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -200,7 +200,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper feedback?",
-      "filename": "QUE - Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper feedback?",
+      "filename": "QUE - Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper feedback",
       "shortLabel": "Can multi-agent LLM systems improve the specificity and helpfulness of scientific paper f…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -218,7 +218,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can NLP models automatically identify citation integrity errors in biomedical publications?",
-      "filename": "QUE - Can NLP models automatically identify citation integrity errors in biomedical publications?",
+      "filename": "QUE - Can NLP models automatically identify citation integrity errors in biomedical publications",
       "shortLabel": "Can NLP models automatically identify citation integrity errors in biomedical publication…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -234,7 +234,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?",
-      "filename": "QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?",
+      "filename": "QUE - Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers",
       "shortLabel": "Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -250,7 +250,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts?",
-      "filename": "QUE - Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts?",
+      "filename": "QUE - Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts",
       "shortLabel": "Can state-of-the-art LLMs reliably detect errors in published scientific manuscripts?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -266,7 +266,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Do specialized fine-tuned LLMs generate more critical and realistic peer reviews than general-purpose LLMs?",
-      "filename": "QUE - Do specialized fine-tuned LLMs generate more critical and realistic peer reviews than general-purpose LLMs?",
+      "filename": "QUE - Do specialized fine-tuned LLMs generate more critical and realistic peer reviews than general-purpose LLMs",
       "shortLabel": "Do specialized fine-tuned LLMs generate more critical and realistic peer reviews than gen…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -284,7 +284,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "How accurately can LLMs assess or understand medical research papers compared to human experts?",
-      "filename": "QUE - How accurately can LLMs assess or understand medical research papers compared to human experts?",
+      "filename": "QUE - How accurately can LLMs assess or understand medical research papers compared to human experts",
       "shortLabel": "How accurately can LLMs assess or understand medical research papers compared to human ex…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -300,7 +300,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "How accurately can LLMs measure reporting guideline compliance in clinical trial reports?",
-      "filename": "QUE - How accurately can LLMs measure reporting guideline compliance in clinical trial reports?",
+      "filename": "QUE - How accurately can LLMs measure reporting guideline compliance in clinical trial reports",
       "shortLabel": "How accurately can LLMs measure reporting guideline compliance in clinical trial reports?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -316,7 +316,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "How accurately does ChatGPT score medical literature abstracts compared to human evaluators on reporting standards?",
-      "filename": "QUE - How accurately does ChatGPT score medical literature abstracts compared to human evaluators on reporting standards?",
+      "filename": "QUE - How accurately does ChatGPT score medical literature abstracts compared to human evaluators on reporting standards",
       "shortLabel": "How accurately does ChatGPT score medical literature abstracts compared to human evaluato…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -332,7 +332,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences?",
-      "filename": "QUE - How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences?",
+      "filename": "QUE - How do LLM-generated academic reviews compare to human reviews in quality and alignment with reviewer preferences",
       "shortLabel": "How do LLM-generated academic reviews compare to human reviews in quality and alignment w…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -350,7 +350,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows?",
-      "filename": "QUE - How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows?",
+      "filename": "QUE - How does LLM performance vary across specific structured tasks in systematic review and evidence appraisal workflows",
       "shortLabel": "How does LLM performance vary across specific structured tasks in systematic review and e…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -367,7 +367,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "How effectively can LLMs perform expert-level AI research tasks such as equation inference, experiment design, and review critique?",
-      "filename": "QUE - How effectively can LLMs perform expert-level AI research tasks such as equation inference, experiment design, and review critique?",
+      "filename": "QUE - How effectively can LLMs perform expert-level AI research tasks such as equation inference, experiment design, and review critique",
       "shortLabel": "How effectively can LLMs perform expert-level AI research tasks such as equation inferenc…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -385,7 +385,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "How has CONSORT reporting quality changed over time across medical disciplines and what LLM approaches can evaluate it at scale?",
-      "filename": "QUE - How has CONSORT reporting quality changed over time across medical disciplines and what LLM approaches can evaluate it at scale?",
+      "filename": "QUE - How has CONSORT reporting quality changed over time across medical disciplines and what LLM approaches can evaluate it at scale",
       "shortLabel": "How has CONSORT reporting quality changed over time across medical disciplines and what L…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -401,7 +401,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers?",
-      "filename": "QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers?",
+      "filename": "QUE - How well do LLM-generated peer reviews overlap with human reviewer feedback on research papers",
       "shortLabel": "How well do LLM-generated peer reviews overlap with human reviewer feedback on research p…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -419,7 +419,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "Is LLM a reliable reviewer for automatic paper reviewing tasks?",
-      "filename": "QUE - Is LLM a reliable reviewer for automatic paper reviewing tasks?",
+      "filename": "QUE - Is LLM a reliable reviewer for automatic paper reviewing tasks",
       "shortLabel": "Is LLM a reliable reviewer for automatic paper reviewing tasks?",
       "curationStatus": "Reviewed",
       "tags": [
@@ -437,7 +437,7 @@
       "type": "QUE",
       "typeLabel": "Question",
       "title": "What is the optimal input format for LLM-based research quality assessment?",
-      "filename": "QUE - What is the optimal input format for LLM-based research quality assessment?",
+      "filename": "QUE - What is the optimal input format for LLM-based research quality assessment",
       "shortLabel": "What is the optimal input format for LLM-based research quality assessment?",
       "curationStatus": "Reviewed",
       "tags": [

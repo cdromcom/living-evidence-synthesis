@@ -79,7 +79,7 @@ nodeInstanceId: 019dd17a-f94d-7c19-b337-3de0ad3115f5
 
 ### Question
 
-Can off-the-shelf chatbots stand in for a member of an Institutional Review Board (IRB), the human committee that reviews the ethics of clinical research, and can they draft the standard operating procedures (SOPs) that govern how IRBs run? The authors prompt three popular AI platforms with 10 prevalidated ethics case studies and 16 SOP-writing tasks, then compare the answers to two well-known reference SOPs and the international good-clinical-practice rulebook. See [[QUE - Can AI platforms emulate IRB member decision-making and draft standard operating procedures for ethical review?]].
+Can off-the-shelf chatbots stand in for a member of an Institutional Review Board (IRB), the human committee that reviews the ethics of clinical research, and can they draft the standard operating procedures (SOPs) that govern how IRBs run? The authors prompt three popular AI platforms with 10 prevalidated ethics case studies and 16 SOP-writing tasks, then compare the answers to two well-known reference SOPs and the international good-clinical-practice rulebook. See [[QUE - Can AI platforms emulate IRB member decision-making and draft standard operating procedures for ethical review]].
 
 ### Methods
 

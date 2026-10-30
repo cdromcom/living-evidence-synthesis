@@ -93,7 +93,7 @@ nodeInstanceId: 019dd17a-f930-7bc0-be54-6850b5d43d22
 
 ### Question
 
-Can today's general-purpose chatbots read a medical research paper and reliably answer the kinds of structured questions a human reviewer would ask about it? The authors zoom in on observational studies and use the STROBE checklist (Strengthening the Reporting of Observational Studies in Epidemiology, a standard reporting guideline) as the structured task. They run six commercial large language models (LLMs) head-to-head against an expert physician's answers on the same 39 papers, with each question asked ten times to gauge consistency. See [[QUE - How accurately can LLMs assess or understand medical research papers compared to human experts?]].
+Can today's general-purpose chatbots read a medical research paper and reliably answer the kinds of structured questions a human reviewer would ask about it? The authors zoom in on observational studies and use the STROBE checklist (Strengthening the Reporting of Observational Studies in Epidemiology, a standard reporting guideline) as the structured task. They run six commercial large language models (LLMs) head-to-head against an expert physician's answers on the same 39 papers, with each question asked ten times to gauge consistency. See [[QUE - How accurately can LLMs assess or understand medical research papers compared to human experts]].
 
 ### Methods
 

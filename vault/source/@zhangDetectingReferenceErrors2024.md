@@ -76,7 +76,7 @@ nodeInstanceId: 019dd17a-f95c-7282-bd5a-5ee57f06b340
 
 ### Question
 
-Can an off-the-shelf large language model (LLM) catch sentences in a scientific paper that misquote or misrepresent the work they cite, *without* any task-specific training? The authors call these mistakes *quotation errors* and ask whether modern GPT-class models can flag them when given just the citing sentence and varying amounts of context about the cited paper. They benchmark three OpenAI models across four levels of reference context, from "title only" up to "full PDF". See [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning?]].
+Can an off-the-shelf large language model (LLM) catch sentences in a scientific paper that misquote or misrepresent the work they cite, *without* any task-specific training? The authors call these mistakes *quotation errors* and ask whether modern GPT-class models can flag them when given just the citing sentence and varying amounts of context about the cited paper. They benchmark three OpenAI models across four levels of reference context, from "title only" up to "full PDF". See [[QUE - Can LLMs detect quotation errors in scientific papers without fine-tuning]].
 
 ### Methods
 

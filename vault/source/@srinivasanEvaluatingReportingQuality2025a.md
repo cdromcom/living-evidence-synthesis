@@ -84,7 +84,7 @@ nodeInstanceId: 019dd17a-f950-75f1-a036-5fc27aea2466
 
 ### Question
 
-How well do randomized clinical trials report the design choices that readers need to judge whether the trial's results can be trusted, and can a general-purpose language model do the checking automatically across tens of thousands of papers? The authors target the CONSORT 2010 checklist, a 25-item reporting standard for clinical trials, and ask both a model question (which off-the-shelf GPT model is best at scoring an article against the checklist?) and an epidemiology question (how has reporting compliance changed over six decades and across medical specialties?). They benchmark three OpenAI models on a hand-labeled corpus, then deploy the winner across more than 21,000 trials. See [[QUE - How has CONSORT reporting quality changed over time across medical disciplines and what LLM approaches can evaluate it at scale?]].
+How well do randomized clinical trials report the design choices that readers need to judge whether the trial's results can be trusted, and can a general-purpose language model do the checking automatically across tens of thousands of papers? The authors target the CONSORT 2010 checklist, a 25-item reporting standard for clinical trials, and ask both a model question (which off-the-shelf GPT model is best at scoring an article against the checklist?) and an epidemiology question (how has reporting compliance changed over six decades and across medical specialties?). They benchmark three OpenAI models on a hand-labeled corpus, then deploy the winner across more than 21,000 trials. See [[QUE - How has CONSORT reporting quality changed over time across medical disciplines and what LLM approaches can evaluate it at scale]].
 
 ### Methods
 

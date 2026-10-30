@@ -75,7 +75,7 @@ nodeInstanceId: 019dd17a-f937-724d-9f43-074dca71227e
 
 ### Question
 
-Can an LLM-powered review agent (built with memory, persona, and novelty modules) write peer reviews that are as good as, or better than, the ones humans write at top machine-learning conferences? The authors introduce GAR (Generative Adversarial Reviews), a multi-module agent built on top of GPT-4o-mini (a smaller, cheaper version of OpenAI's GPT-4o model), and pit it against four prior LLM reviewer systems plus the original human reviewers from OpenReview. They benchmark across three tasks: predicting accept or reject decisions, head-to-head review preferences, and how human-like each review reads. See [[QUE - Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers?]].
+Can an LLM-powered review agent (built with memory, persona, and novelty modules) write peer reviews that are as good as, or better than, the ones humans write at top machine-learning conferences? The authors introduce GAR (Generative Adversarial Reviews), a multi-module agent built on top of GPT-4o-mini (a smaller, cheaper version of OpenAI's GPT-4o model), and pit it against four prior LLM reviewer systems plus the original human reviewers from OpenReview. They benchmark across three tasks: predicting accept or reject decisions, head-to-head review preferences, and how human-like each review reads. See [[QUE - Can LLM-based agents simulate high-quality peer review comparable to human expert reviewers]].
 
 ### Methods
 
