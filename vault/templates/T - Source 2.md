@@ -1,6 +1,0 @@
----
-aliases:
-created:
-updated:
-nodeID:
----
