@@ -10,8 +10,8 @@ tags:
   - cvt/severity/moderate
   - 5c/clarity
 appliesTo:
-  - "[[EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs - @srinivasanEvaluatingReportingQuality2025a]]"
-  - "[[EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology - @srinivasanEvaluatingReportingQuality2025a]]"
+  - "[[EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent - @srinivasanEvaluatingReportingQuality2025a]]"
+  - "[[EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent - @srinivasanEvaluatingReportingQuality2025a]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba6-760c-8784-47293d1a995b
@@ -36,6 +36,6 @@ The analysis was restricted to open-access articles on PubMed, which may not be 
 
 ### Applies To
 
-- [[EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs - @srinivasanEvaluatingReportingQuality2025a]]
+- [[EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent - @srinivasanEvaluatingReportingQuality2025a]]
 
-- [[EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology - @srinivasanEvaluatingReportingQuality2025a]]
+- [[EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent - @srinivasanEvaluatingReportingQuality2025a]]

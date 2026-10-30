@@ -65,7 +65,7 @@ vault: living-synthesis
 
 | Score | Claim A | Claim B |
 | ----- | ------- | ------- |
-| 0.35 | [[CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]] | [[CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]] |
+| 0.35 | [[CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]] | [[CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable]] |
 
 > [!example] Same family of claims, different axis
 >
@@ -83,10 +83,10 @@ These are EVDs from the same source paper that share many keywords. The atomicit
 
 | Score | Evidence A | Evidence B | Verdict (for review) |
 | ----- | ---------- | ---------- | -------------------- |
-| 0.50 | [[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028) - @alharbiAutomatedAssessmentReporting2024]] | [[EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001) - @alharbiAutomatedAssessmentReporting2024]] | **Distinct** — different checklists (PRISMA vs CONSORT-A), so genuinely different findings. Keep both. |
-| 0.41 | [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]] | [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]] | **Distinct** — different metrics (mean recommendation vs. exact-match rate). Keep both. |
-| 0.40 | [[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024]] | [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans - @woelfleBenchmarkingHumanAICollaboration2024]] | **Distinct** — different conditions (LLM alone vs. human-AI collaboration). Keep both. |
-| 0.39 | [[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024]] | [[EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions - @akyonEvaluatingCapabilitiesGenerative2024]] | **Distinct** — different models (best vs. worst). Could optionally collapse into one EVD comparing all models, but separate is fine for atomicity. |
+| 0.50 | [[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist - @alharbiAutomatedAssessmentReporting2024]] | [[EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT - @alharbiAutomatedAssessmentReporting2024]] | **Distinct** — different checklists (PRISMA vs CONSORT-A), so genuinely different findings. Keep both. |
+| 0.41 | [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o - @idahlOpenReviewerSpecializedLarge2025]] | [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test - @idahlOpenReviewerSpecializedLarge2025]] | **Distinct** — different metrics (mean recommendation vs. exact-match rate). Keep both. |
+| 0.40 | [[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 - @woelfleBenchmarkingHumanAICollaboration2024]] | [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent - @woelfleBenchmarkingHumanAICollaboration2024]] | **Distinct** — different conditions (LLM alone vs. human-AI collaboration). Keep both. |
+| 0.39 | [[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE - @akyonEvaluatingCapabilitiesGenerative2024]] | [[EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested - @akyonEvaluatingCapabilitiesGenerative2024]] | **Distinct** — different models (best vs. worst). Could optionally collapse into one EVD comparing all models, but separate is fine for atomicity. |
 
 > [!tip] No EVDs flagged as redundant
 >
@@ -98,8 +98,8 @@ These are EVDs from the same source paper that share many keywords. The atomicit
 
 | Score | Caveat A | Caveat B |
 | ----- | -------- | -------- |
-| 0.26 | [[CVT - The OpenReviewer training and test data were limited to ICLR and NeurIPS conferences limiting domain generalizability]] | [[CVT - The novelty prediction dataset was limited to ICLR machine learning conference papers restricting generalizability to other academic domains]] |
-| 0.20 | [[CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]] | [[CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]] |
+| 0.26 | [[CVT - The OpenReviewer training and test data were limited to ICLR and NeurIPS conferences limiting domain generalizability]] | [[CVT - The novelty prediction dataset was limited to ICLR machine learning conference papers restricting generalizability to other]] |
+| 0.20 | [[CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]] | [[CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference]] |
 | 0.20 | [[CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings]] | [[CVT - The study used only sports medicine and orthopaedic journal papers limiting generalizability to other medical fields]] |
 | 0.20 | [[CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]] | [[CVT - The LimitGen benchmark focused only on AI research limiting applicability to other scientific domains]] |
 | 0.20 | [[CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal]] | [[CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]] |

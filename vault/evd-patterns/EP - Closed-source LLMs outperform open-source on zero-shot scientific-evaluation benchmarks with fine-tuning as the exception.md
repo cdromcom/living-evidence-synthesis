@@ -29,8 +29,8 @@ The pattern says: at zero-shot inference time, closed-source frontier LLMs are t
 
 - [[EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]], Son et al. 2025: closed-source o3 leads SPOT; open-source Qwen2.5-VL-72B / Llama-4 / OLMo all score in the low single-digit percentages.
 - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]], Lou et al. 2025: open-source LLMs cannot beat the trivial all-positive baseline (40% F1) on EqInfer; closed-source o3-mini reaches 47.98%.
-- [[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a]], Zhang & Abernethy 2025: Zhang only tested closed-source models, all of which lead.
-- *Counter-example (the fine-tuning exception):* [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: fine-tuned 8B open-source OpenReviewer beats zero-shot GPT-4o on the deployment metric.
+- [[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all - @zhangReviewingScientificPapers2025a]], Zhang & Abernethy 2025: Zhang only tested closed-source models, all of which lead.
+- *Counter-example (the fine-tuning exception):* [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: fine-tuned 8B open-source OpenReviewer beats zero-shot GPT-4o on the deployment metric.
 
 ## Connected discourse-graph nodes
 

@@ -32,8 +32,8 @@ nodeID: 019ddb4e-6ba3-72d4-acd9-1fc7cc71f93e
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]
+- [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]
 
-- [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]
+- [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test - @idahlOpenReviewerSpecializedLarge2025]]
 
-- [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]
+- [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% - @idahlOpenReviewerSpecializedLarge2025]]

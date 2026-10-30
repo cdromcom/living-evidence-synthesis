@@ -34,14 +34,14 @@ nodeID: 019ddb4e-6b95-73a2-8f55-e475c8be6b8e
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy - @woelfleBenchmarkingHumanAICollaboration2024]]
 
-- [[EVD - GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers - @woelfleBenchmarkingHumanAICollaboration2024]]
 
-- [[EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2 - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent - @woelfleBenchmarkingHumanAICollaboration2024]]
 
-- [[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 - @woelfleBenchmarkingHumanAICollaboration2024]]
 
-- [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent - @woelfleBenchmarkingHumanAICollaboration2024]]
 
-- [[EVD - Median quote similarity with original full text was 99 percent across LLM extracted quotes - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Median quote similarity with original full text was 99 percent across LLM - @woelfleBenchmarkingHumanAICollaboration2024]]

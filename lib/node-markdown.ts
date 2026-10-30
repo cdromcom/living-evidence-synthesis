@@ -26,6 +26,20 @@ function sanitizeForFilename(title: string): string {
   return title.replace(/[\\/:*?"<>|]/g, "").trim();
 }
 
+// Keep `vault/<dir>/<file>` at or under this length so the repo still checks
+// out on Windows when cloned into a deep folder (e.g. OneDrive Documents).
+const MAX_VAULT_PATH = 150;
+
+/** The title part of a node filename: Windows-safe and short enough to fit MAX_VAULT_PATH. */
+function fitTitleForFilename(title: string, dir: string, prefix: string): string {
+  const clean = sanitizeForFilename(title);
+  const room = MAX_VAULT_PATH - `vault/${dir}/`.length - prefix.length - ".md".length;
+  if (clean.length <= room) return clean;
+  const cut = clean.slice(0, room);
+  const space = cut.lastIndexOf(" ");
+  return (space > 0 ? cut.slice(0, space) : cut).replace(/[\s,;:.\-]+$/, "");
+}
+
 export type ContributionEdges = {
   addresses?: string[]; // CLM -> QUE
   supports?: string[]; // CLM's supporting EVD ids, or EVD's supported CLM ids
@@ -52,8 +66,10 @@ export function buildContributionFiles(input: ContributionInput): {
   const created = new Date().toISOString().slice(0, 10);
   const dir = VAULT_DIR[type];
 
-  // Keep the real title when the filename has to drop Windows-invalid characters.
-  const titleLine = sanitizeForFilename(title) !== title.trim() ? [`title: ${JSON.stringify(title.trim())}`] : [];
+  // Keep the real title when the filename has to drop Windows-invalid
+  // characters or be shortened.
+  const fileTitle = type === "SRC" ? null : fitTitleForFilename(title, dir, `${type} - `);
+  const titleLine = fileTitle !== null && fileTitle !== title.trim() ? [`title: ${JSON.stringify(title.trim())}`] : [];
   const frontmatter = ["---", "NodeFormality: draft", ...titleLine, "tags: []", `created: ${created}`, "---", ""].join("\n");
 
   let filename: string;
@@ -62,12 +78,12 @@ export function buildContributionFiles(input: ContributionInput): {
 
   switch (type) {
     case "QUE": {
-      filename = `QUE - ${sanitizeForFilename(title)}.md`;
+      filename = `QUE - ${fileTitle}.md`;
       sections = `### Snippet: Quote(s) & Screenshots\n\n${body}\n\n### Supporting Claims\n\n`;
       break;
     }
     case "CLM": {
-      filename = `CLM - ${sanitizeForFilename(title)}.md`;
+      filename = `CLM - ${fileTitle}.md`;
       sections = `${body}\n`;
       if (edges.supports?.length) {
         sections += `\n### Supporting Evidence\n\n${linkList(edges.supports)}\n`;
@@ -83,7 +99,7 @@ export function buildContributionFiles(input: ContributionInput): {
       break;
     }
     case "EVD": {
-      filename = `EVD - ${sanitizeForFilename(title)}.md`;
+      filename = `EVD - ${fileTitle}.md`;
       const srcId = edges.derivedFrom?.[0];
       sections = `## Description\n\n${body}\n`;
       if (srcId) sections += `\n## Source\n\n${wikilink(srcId)}\n`;
@@ -96,7 +112,7 @@ export function buildContributionFiles(input: ContributionInput): {
       break;
     }
     case "CVT": {
-      filename = `CVT - ${sanitizeForFilename(title)}.md`;
+      filename = `CVT - ${fileTitle}.md`;
       sections = `## Limitation\n\n${body}\n`;
       if (edges.qualifies?.length) {
         sections += `\n### Applies To\n\n${linkList(edges.qualifies)}\n`;
@@ -110,7 +126,7 @@ export function buildContributionFiles(input: ContributionInput): {
       break;
     }
     case "EP": {
-      filename = `EP - ${sanitizeForFilename(title)}.md`;
+      filename = `EP - ${fileTitle}.md`;
       sections = `## Pattern statement\n\n${body}\n`;
       if (edges.instantiates?.length) {
         sections += `\n## Supporting Evidence\n\n${linkList(edges.instantiates)}\n`;

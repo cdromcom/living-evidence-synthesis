@@ -11,8 +11,8 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]"
-  - "[[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]"
+  - "[[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test - @idahlOpenReviewerSpecializedLarge2025]]"
+  - "[[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc0-76f4-936d-5fdd4e878463
@@ -41,6 +41,6 @@ The model's training data comes from ICLR and NeurIPS 2022 onwards, restricting 
 
 ### Applies To
 
-- [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]
+- [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test - @idahlOpenReviewerSpecializedLarge2025]]
 
-- [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]]
+- [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o - @idahlOpenReviewerSpecializedLarge2025]]

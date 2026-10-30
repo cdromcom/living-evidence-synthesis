@@ -29,7 +29,7 @@ nodeID: 019ddb4e-6b92-773d-ab17-2b5ce7bb5bdd
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025]]
+- [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 - @sonWhenAICoScientists2025]]
 
 - [[EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]]
 

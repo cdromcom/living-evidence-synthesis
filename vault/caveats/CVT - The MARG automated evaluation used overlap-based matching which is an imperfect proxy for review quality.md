@@ -11,7 +11,7 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus - @darcyMARGMultiAgentReview2024]]"
+  - "[[EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES - @darcyMARGMultiAgentReview2024]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc0-76f4-936d-5fdc49b0c1a3
@@ -36,4 +36,4 @@ The automated evaluation measures comment overlap with human reviewer comments, 
 
 ### Applies To
 
-[[EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus - @darcyMARGMultiAgentReview2024]]
+[[EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES - @darcyMARGMultiAgentReview2024]]

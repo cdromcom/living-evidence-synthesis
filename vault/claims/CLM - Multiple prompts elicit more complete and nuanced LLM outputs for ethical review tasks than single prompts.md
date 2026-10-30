@@ -29,8 +29,8 @@ nodeID: 019ddb4e-6ba0-7497-9976-51597c779f9d
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous - @sridharanLeveragingArtificialIntelligence2025]]
 
 - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
 
-- [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk - @sridharanLeveragingArtificialIntelligence2025]]

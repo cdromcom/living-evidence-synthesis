@@ -27,9 +27,9 @@ The pattern is a measurement-ceiling argument: if humans don't reliably agree wi
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2 - @sarolAssessingCitationIntegrity2024]], Sarol et al. 2024: human kappa 0.18–0.31 on citation-accuracy categorization, even after multiple reconciliation phases, fair agreement, not strong.
-- [[EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2 - @woelfleBenchmarkingHumanAICollaboration2024]], Woelfle et al. 2024: human IRR drops from 91% on objective PRISMA-style reporting checks to 57% on subjective PRECIS-2 pragmatism judgment, IRR is a function of task subjectivity.
-- [[EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations - @huntington-kleinLLMsActRepositories2024]], Huntington-Klein & Murray 2024: LLM-vs-LLM inter-prompt agreement is as low as 0.16, LLMs themselves disagree at the same fair-agreement level as humans on subjective tasks.
+- [[EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 - @sarolAssessingCitationIntegrity2024]], Sarol et al. 2024: human kappa 0.18–0.31 on citation-accuracy categorization, even after multiple reconciliation phases, fair agreement, not strong.
+- [[EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent - @woelfleBenchmarkingHumanAICollaboration2024]], Woelfle et al. 2024: human IRR drops from 91% on objective PRISMA-style reporting checks to 57% on subjective PRECIS-2 pragmatism judgment, IRR is a function of task subjectivity.
+- [[EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 - @huntington-kleinLLMsActRepositories2024]], Huntington-Klein & Murray 2024: LLM-vs-LLM inter-prompt agreement is as low as 0.16, LLMs themselves disagree at the same fair-agreement level as humans on subjective tasks.
 
 ## Connected discourse-graph nodes
 

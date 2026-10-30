@@ -11,8 +11,8 @@ tags:
   - cvt/severity/high
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported - @thelwallEvaluatingResearchQuality2024]]"
-  - "[[EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]]"
+  - "[[EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 - @thelwallEvaluatingResearchQuality2024]]"
+  - "[[EVD - Full text input produced lower Spearman correlations than abstracts for all three - @thelwallEvaluatingResearchQuality2024]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc2-7023-bcd6-57074892d4ef
@@ -41,6 +41,6 @@ The entire dataset consists of 51 articles written by a single author (the resea
 
 ### Applies To
 
-- [[EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported - @thelwallEvaluatingResearchQuality2024]]
+- [[EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 - @thelwallEvaluatingResearchQuality2024]]
 
-- [[EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]]
+- [[EVD - Full text input produced lower Spearman correlations than abstracts for all three - @thelwallEvaluatingResearchQuality2024]]

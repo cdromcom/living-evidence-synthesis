@@ -28,10 +28,10 @@ The pattern shows up in three different measurement frames, all pointing the sam
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: GPT-4o averages 7.7 vs human reviewers 5.4 on the same 400 papers (a >2-point gap on the recommendation scale).
-- [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: a fine-tuned reviewer matches human recommendations more than twice as often as GPT-4o (55.5% vs 23.8%).
-- [[EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers - @liangCanLargeLanguage2024a]], Liang et al. 2024: GPT-4 over-emphasizes positives (implications) and under-emphasizes weaknesses (novelty / limitations) in scientific feedback.
-- [[EVD - LLM review recommendation scores exceeded human scores without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024]], Tyser et al. 2024: LLM recommendation scores systematically exceed human scores in default conditions; only when explicit venue calibration context is added do they match.
+- [[EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: GPT-4o averages 7.7 vs human reviewers 5.4 on the same 400 papers (a >2-point gap on the recommendation scale).
+- [[EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: a fine-tuned reviewer matches human recommendations more than twice as often as GPT-4o (55.5% vs 23.8%).
+- [[EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less - @liangCanLargeLanguage2024a]], Liang et al. 2024: GPT-4 over-emphasizes positives (implications) and under-emphasizes weaknesses (novelty / limitations) in scientific feedback.
+- [[EVD - LLM review recommendation scores exceeded human scores without area-chair context but - @tyserAIDrivenReviewSystems2024]], Tyser et al. 2024: LLM recommendation scores systematically exceed human scores in default conditions; only when explicit venue calibration context is added do they match.
 
 ## Connected discourse-graph nodes
 

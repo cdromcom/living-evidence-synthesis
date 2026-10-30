@@ -9,7 +9,7 @@ tags:
   - cvt/severity/moderate
   - 5c/clarity
 appliesTo:
-  - "[[EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions - @wrightsonGPTRCTsUsing2025]]"
+  - "[[EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT - @wrightsonGPTRCTsUsing2025]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bbf-74eb-aad8-2d8b771d294a
@@ -34,4 +34,4 @@ The open-source Llama 2 model's context window was limited to 512 tokens for mod
 
 ### Applies To
 
-[[EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions - @wrightsonGPTRCTsUsing2025]]
+[[EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT - @wrightsonGPTRCTsUsing2025]]

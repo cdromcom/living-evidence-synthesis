@@ -32,10 +32,10 @@ nodeID: 019ddb4e-6b98-7031-a798-a5970829114a
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers - @liangCanLargeLanguage2024a]]
+- [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than - @liangCanLargeLanguage2024a]]
 
-- [[EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers - @liangCanLargeLanguage2024a]]
+- [[EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less - @liangCanLargeLanguage2024a]]
 
-- [[EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58% - @liangCanLargeLanguage2024a]]
+- [[EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable - @liangCanLargeLanguage2024a]]
 
-- [[EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a]]
+- [[EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming - @liangCanLargeLanguage2024a]]

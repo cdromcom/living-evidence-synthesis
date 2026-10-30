@@ -27,9 +27,9 @@ The pattern says LLMs do not produce honest "I'm uncertain" or "this is borderli
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025]], Son et al. 2025: across 498 model-instance evaluations on SPOT, only 2 produced a full-confidence response, the rest hover near zero confidence regardless of correctness.
+- [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 - @sonWhenAICoScientists2025]], Son et al. 2025: across 498 model-instance evaluations on SPOT, only 2 produced a full-confidence response, the rest hover near zero confidence regardless of correctness.
 - [[EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations - @sarolAssessingCitationIntegrity2024]], Sarol et al. 2024: GPT-4 over-commits on the ACCURATE class (recall 0.90) while almost completely refusing to commit on the NOT_ACCURATE class (F1 0.09), a calibration failure not a capability failure.
-- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker - @zhangReviewingScientificPapers2025a]], Zhang & Abernethy 2025: Claude 3.7 defaults to "no problem" 64.9% of the time on papers known to contain errors, refusal-to-commit on the hard class.
+- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit - @zhangReviewingScientificPapers2025a]], Zhang & Abernethy 2025: Claude 3.7 defaults to "no problem" 64.9% of the time on papers known to contain errors, refusal-to-commit on the hard class.
 
 ## Connected discourse-graph nodes
 

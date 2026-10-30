@@ -10,8 +10,8 @@ tags:
   - cvt/severity/high
   - 5c/creativity
 appliesTo:
-  - "[[EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset - @shahidLiteratureGroundedNoveltyAssessment2025]]"
-  - "[[EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set - @shahidLiteratureGroundedNoveltyAssessment2025]]"
+  - "[[EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 - @shahidLiteratureGroundedNoveltyAssessment2025]]"
+  - "[[EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty - @shahidLiteratureGroundedNoveltyAssessment2025]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb7-709c-bc82-c139eb9edf35
@@ -39,6 +39,6 @@ The evaluation dataset consists of only 67 consensus-labeled examples (35 traini
 
 ### Applies To
 
-- [[EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset - @shahidLiteratureGroundedNoveltyAssessment2025]]
+- [[EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 - @shahidLiteratureGroundedNoveltyAssessment2025]]
 
-- [[EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set - @shahidLiteratureGroundedNoveltyAssessment2025]]
+- [[EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty - @shahidLiteratureGroundedNoveltyAssessment2025]]

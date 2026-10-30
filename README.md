@@ -101,8 +101,19 @@ flowchart TB
 `vault/` is the full Obsidian vault behind this site, so you can browse and
 extend the discourse graph directly:
 
-1. Clone the repo: `git clone https://github.com/cdromcom/living-evidence-synthesis.git`
-2. In Obsidian, choose **Open folder as vault** and select the `vault/` folder.
+1. Clone the repo (Windows or Mac):
+   - **GitHub Desktop:** *File → Clone repository → URL*, paste
+     `https://github.com/cdromcom/living-evidence-synthesis` (or your fork's
+     URL), and click **Clone**. Desktop's default folder is fine.
+   - **Command line:** `git clone https://github.com/cdromcom/living-evidence-synthesis.git`
+2. In Obsidian, choose **Open folder as vault** and select the `vault/` folder
+   inside the cloned repo.
+
+   No extra Git settings are needed on Windows: filenames avoid characters
+   Windows forbids, and every path stays at or under 150 characters so the
+   checkout works even in a deep folder such as OneDrive Documents. Nodes
+   whose filename had to be shortened keep their full title in the
+   frontmatter `title` field.
 3. Node templates are in `vault/templates/`; the `.base` files (`ESS.base`,
    `EvidencePattern Nodes.base`) are saved table views of the nodes.
 4. Every node carries a `human_reviewed` field (`yes`/`no`) in its frontmatter,

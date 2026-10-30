@@ -27,10 +27,10 @@ The pattern is a measurement paradox: if you only look at sample-level summary s
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023]], Roberts et al. 2023: 4.92% mean difference looks competitive at the aggregate level.
-- [[EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06 - @robertsComparativeStudyChatGPT2023]], Roberts et al. 2023: but per-paper Pearson r drops to 0.02–0.06 in the same domains where the mean looks fine. The LLM hits the average without tracking which paper is which.
-- [[EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a]], Liang et al. 2024: GPT-4 feedback DOES track papers (overlap collapses when shuffled), but only for *which paper*; the same paper-specificity check applied to scores would differ.
-- [[EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams - @huntington-kleinLLMsActRepositories2024]], Huntington-Klein & Murray 2024: LLMs label expert-selected and non-expert variables at similar rates, hitting an average without tracking the variable-by-variable signal.
+- [[EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score - @robertsComparativeStudyChatGPT2023]], Roberts et al. 2023: 4.92% mean difference looks competitive at the aggregate level.
+- [[EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r - @robertsComparativeStudyChatGPT2023]], Roberts et al. 2023: but per-paper Pearson r drops to 0.02–0.06 in the same domains where the mean looks fine. The LLM hits the average without tracking which paper is which.
+- [[EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming - @liangCanLargeLanguage2024a]], Liang et al. 2024: GPT-4 feedback DOES track papers (overlap collapses when shuffled), but only for *which paper*; the same paper-specificity check applied to scores would differ.
+- [[EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates - @huntington-kleinLLMsActRepositories2024]], Huntington-Klein & Murray 2024: LLMs label expert-selected and non-expert variables at similar rates, hitting an average without tracking the variable-by-variable signal.
 
 ## Connected discourse-graph nodes
 

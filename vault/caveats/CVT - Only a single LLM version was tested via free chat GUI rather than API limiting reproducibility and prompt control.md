@@ -11,8 +11,8 @@ tags:
   - cvt/severity/moderate
   - 5c/clarity
 appliesTo:
-  - "[[EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001) - @alharbiAutomatedAssessmentReporting2024]]"
-  - "[[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028) - @alharbiAutomatedAssessmentReporting2024]]"
+  - "[[EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT - @alharbiAutomatedAssessmentReporting2024]]"
+  - "[[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist - @alharbiAutomatedAssessmentReporting2024]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb0-7291-b5ea-97db026f949d
@@ -38,6 +38,6 @@ The study used only GPT-3.5 (free tier, chat interface) accessed on a single dat
 
 ### Applies To
 
-- [[EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001) - @alharbiAutomatedAssessmentReporting2024]]
+- [[EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT - @alharbiAutomatedAssessmentReporting2024]]
 
-- [[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028) - @alharbiAutomatedAssessmentReporting2024]]
+- [[EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist - @alharbiAutomatedAssessmentReporting2024]]

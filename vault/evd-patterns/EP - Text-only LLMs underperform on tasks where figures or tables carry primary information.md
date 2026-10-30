@@ -27,7 +27,7 @@ The pattern says text/non-text input has a substantive effect on accuracy that r
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy - @wrightsonGPTRCTsUsing2025]], Wrightson et al. 2025: multimodal GPT-4 Vision correctly identifies *whether* a flow diagram exists (100%) but only catches missing participant details inside the diagram 57% of the time.
+- [[EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing - @wrightsonGPTRCTsUsing2025]], Wrightson et al. 2025: multimodal GPT-4 Vision correctly identifies *whether* a flow diagram exists (100%) but only catches missing participant details inside the diagram 57% of the time.
 - [[EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]], Son et al. 2025: o3 reaches 62.6% on equation-proof errors (text/LaTeX-encodable) but near-zero on figure-duplication errors (figure-only), a 60-percentage-point gap driven by input modality.
 
 ## Connected discourse-graph nodes

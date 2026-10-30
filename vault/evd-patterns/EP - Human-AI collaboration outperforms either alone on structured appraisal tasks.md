@@ -28,10 +28,10 @@ The pattern argues against a "humans vs. LLMs" framing of these tasks and toward
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024]], Woelfle et al. 2024: pairing one human with one LLM exceeds individual human accuracy on the same systematic-review-appraisal task.
-- [[EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction - @wuAutomatedNoveltyEvaluationa]], Wu et al. 2024: combining peer-review-derived knowledge (human judgment proxy) with LLM-generated method summaries reaches F1 0.83, beating LLM-only and human-knowledge-only baselines.
+- [[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 - @woelfleBenchmarkingHumanAICollaboration2024]], Woelfle et al. 2024: pairing one human with one LLM exceeds individual human accuracy on the same systematic-review-appraisal task.
+- [[EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 - @wuAutomatedNoveltyEvaluationa]], Wu et al. 2024: combining peer-review-derived knowledge (human judgment proxy) with LLM-generated method summaries reaches F1 0.83, beating LLM-only and human-knowledge-only baselines.
 
 ## Connected discourse-graph nodes
 
-- **Within-paper claims this pattern generalizes:** [[CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]], [[CLM - Combining human reviewer knowledge with LLM-generated method summaries improves automated novelty prediction beyond either source alone]].
+- **Within-paper claims this pattern generalizes:** [[CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]], [[CLM - Combining human reviewer knowledge with LLM-generated method summaries improves automated novelty prediction beyond either]].
 - **Practical implication, complementary pattern:** [[EP - Per-item LLM-human agreement varies sharply by item type]], the partial-independence mechanism likely runs through this pattern: LLMs win on simple/structured items, humans win on methodologically-loaded items, and the combination covers both halves.

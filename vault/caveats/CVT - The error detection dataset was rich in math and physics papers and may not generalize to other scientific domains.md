@@ -9,8 +9,8 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a]]"
-  - "[[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker - @zhangReviewingScientificPapers2025a]]"
+  - "[[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all - @zhangReviewingScientificPapers2025a]]"
+  - "[[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit - @zhangReviewingScientificPapers2025a]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc5-750b-9ed5-815eff6dde5f
@@ -35,6 +35,6 @@ The WITHDRARXIV-CHECK dataset consists predominantly of math (52%) and physics (
 
 ### Applies To
 
-- [[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a]]
+- [[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all - @zhangReviewingScientificPapers2025a]]
 
-- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker - @zhangReviewingScientificPapers2025a]]
+- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit - @zhangReviewingScientificPapers2025a]]

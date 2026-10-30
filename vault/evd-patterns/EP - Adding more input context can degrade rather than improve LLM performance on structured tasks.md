@@ -27,8 +27,8 @@ The pattern challenges the default practitioner assumption that "more context = 
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]], Thelwall 2024: full-text input *lowered* Spearman correlation with human quality scores below abstract-only input, across all three GPT models tested.
-- [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]], Zhang & Abernethy 2024: GPT-3.5 Turbo peaks at 68.0% with title-only input and drops to 54.0% as more context (abstract + retrieved excerpts) is added.
+- [[EVD - Full text input produced lower Spearman correlations than abstracts for all three - @thelwallEvaluatingResearchQuality2024]], Thelwall 2024: full-text input *lowered* Spearman correlation with human quality scores below abstract-only input, across all three GPT models tested.
+- [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) - @zhangDetectingReferenceErrors2024]], Zhang & Abernethy 2024: GPT-3.5 Turbo peaks at 68.0% with title-only input and drops to 54.0% as more context (abstract + retrieved excerpts) is added.
 
 ## Connected discourse-graph nodes
 

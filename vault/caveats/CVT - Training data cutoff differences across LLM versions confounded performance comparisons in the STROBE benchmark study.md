@@ -10,8 +10,8 @@ tags:
   - 5c/clarity
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024]]"
-  - "[[EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions - @akyonEvaluatingCapabilitiesGenerative2024]]"
+  - "[[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE - @akyonEvaluatingCapabilitiesGenerative2024]]"
+  - "[[EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested - @akyonEvaluatingCapabilitiesGenerative2024]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bcc-7519-b971-3ab0ca5fc00c
@@ -36,6 +36,6 @@ Different LLMs had different training data cutoff dates, meaning the 39 test art
 
 ### Applies To
 
-- [[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024]]
+- [[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE - @akyonEvaluatingCapabilitiesGenerative2024]]
 
-- [[EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions - @akyonEvaluatingCapabilitiesGenerative2024]]
+- [[EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested - @akyonEvaluatingCapabilitiesGenerative2024]]

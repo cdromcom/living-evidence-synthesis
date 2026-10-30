@@ -11,9 +11,9 @@ tags:
   - 5c/clarity
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans - @woelfleBenchmarkingHumanAICollaboration2024]]"
-  - "[[EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings - @woelfleBenchmarkingHumanAICollaboration2024]]"
-  - "[[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024]]"
+  - "[[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent - @woelfleBenchmarkingHumanAICollaboration2024]]"
+  - "[[EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy - @woelfleBenchmarkingHumanAICollaboration2024]]"
+  - "[[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 - @woelfleBenchmarkingHumanAICollaboration2024]]"
 created: 2026-04-27
 updated: 2026-04-29
 nodeID: 019ddb4e-6baa-75e9-b1ee-459f9a348dfd
@@ -38,8 +38,8 @@ The human consensus datasets used to grade LLM performance (PRISMA/AMSTAR rating
 
 ### Applies To
 
-- [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent - @woelfleBenchmarkingHumanAICollaboration2024]]
 
-- [[EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy - @woelfleBenchmarkingHumanAICollaboration2024]]
 
-- [[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 - @woelfleBenchmarkingHumanAICollaboration2024]]

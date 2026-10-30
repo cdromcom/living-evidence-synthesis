@@ -12,7 +12,7 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions - @zhouLLMReliableReviewer2024]]"
+  - "[[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple - @zhouLLMReliableReviewer2024]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc2-7023-bcd6-5708a303680b
@@ -41,4 +41,4 @@ The RR-MCQ evaluation dataset was limited to 196 questions from only 14 ICLR pap
 
 ### Applies To
 
-[[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions - @zhouLLMReliableReviewer2024]]
+[[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple - @zhouLLMReliableReviewer2024]]

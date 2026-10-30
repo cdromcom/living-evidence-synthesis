@@ -34,16 +34,16 @@ nodeID: 019ddb4e-6b8d-778c-8eca-3e56632e4dc7
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024]]
+- [[EVD - AI platforms drafted SOPs covering fundamental sections with variations - @sridharanAssessingDecisionMakingCapabilities2024]]
 
-- [[EVD - All AI platforms failed to address post-trial herbal medicine access in case study 10 - @sridharanAssessingDecisionMakingCapabilities2024]]
+- [[EVD - All AI platforms failed to address post-trial herbal medicine access - @sridharanAssessingDecisionMakingCapabilities2024]]
 
-- [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous - @sridharanLeveragingArtificialIntelligence2025]]
 
 - [[EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
 
-- [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - LLMs performed suboptimally identifying placebo arm suitability and risk - @sridharanLeveragingArtificialIntelligence2025]]
 
-- [[EVD - None of three AI platforms recognized quorum requirement for initial proposal review - @sridharanAssessingDecisionMakingCapabilities2024]]
+- [[EVD - None of three AI platforms recognized quorum requirement for initial - @sridharanAssessingDecisionMakingCapabilities2024]]
 
 - [[EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]

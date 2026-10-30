@@ -27,9 +27,9 @@ The pattern shifts the deployment-decision frame. The default question "which LL
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper - @zhangReviewingScientificPapers2025a]], Zhang & Abernethy 2025: o4-mini achieves 59.6% HR@5 at $0.038 per paper vs o3's 64.9% at $0.321, ~5pp accuracy for ~8× cost.
-- [[EVD - GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal - @woelfleBenchmarkingHumanAICollaboration2024]], Woelfle et al. 2024: GPT-4 costs ~100× more than Mixtral-8x22B per 100 papers in evidence appraisal, a two-orders-of-magnitude cost gap.
-- [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: an 8B-parameter fine-tuned reviewer beats GPT-4o (much larger, much more expensive) on the deployment-relevant preference metric.
+- [[EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 - @zhangReviewingScientificPapers2025a]], Zhang & Abernethy 2025: o4-mini achieves 59.6% HR@5 at $0.038 per paper vs o3's 64.9% at $0.321, ~5pp accuracy for ~8× cost.
+- [[EVD - GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers - @woelfleBenchmarkingHumanAICollaboration2024]], Woelfle et al. 2024: GPT-4 costs ~100× more than Mixtral-8x22B per 100 papers in evidence appraisal, a two-orders-of-magnitude cost gap.
+- [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: an 8B-parameter fine-tuned reviewer beats GPT-4o (much larger, much more expensive) on the deployment-relevant preference metric.
 
 ## Connected discourse-graph nodes
 

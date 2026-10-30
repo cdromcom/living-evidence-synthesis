@@ -28,12 +28,12 @@ The pattern is the cousin of the helpfulness pattern (#3). Helpfulness is about 
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]], Bougie & Watanabe 2024: GAR predicts ICLR-23 paper acceptance at F1=0.66, significantly above the human baseline of 0.49.
+- [[EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly - @bougieGenerativeAdversarialReviews2024a]], Bougie & Watanabe 2024: GAR predicts ICLR-23 paper acceptance at F1=0.66, significantly above the human baseline of 0.49.
 - [[EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558 - @tyserAIDrivenReviewSystems2024]], Tyser et al. 2024: GPT-4 Turbo wins the Bradley-Terry preference contest at 0.558, humans prefer its reviews to alternatives.
-- [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: OpenReviewer wins 60% vs GPT-4o, 76% vs Llama-3.1-70B in LLM-judge preference comparisons.
-- [[EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review - @zhouLLMReliableReviewer2024]], Zhou et al. 2024: GPT-3.5 achieves Pearson r=0.651 with human aspect scores when given the human-written review as input, strong rank-correlation evidence.
+- [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: OpenReviewer wins 60% vs GPT-4o, 76% vs Llama-3.1-70B in LLM-judge preference comparisons.
+- [[EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given - @zhouLLMReliableReviewer2024]], Zhou et al. 2024: GPT-3.5 achieves Pearson r=0.651 with human aspect scores when given the human-written review as input, strong rank-correlation evidence.
 
 ## Connected discourse-graph nodes
 
-- **Within-paper claims this pattern generalizes:** [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]].
+- **Within-paper claims this pattern generalizes:** [[CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing]].
 - **Compatible with (does not contradict):** [[EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]], predictive signal does not imply calibrated scores; ranks can be informative even when raw scores are biased upward.

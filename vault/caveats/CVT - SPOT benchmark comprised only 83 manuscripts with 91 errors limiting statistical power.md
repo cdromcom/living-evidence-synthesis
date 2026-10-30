@@ -11,7 +11,7 @@ tags:
   - 5c/credibility
 appliesTo:
   - "[[EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]]"
-  - "[[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025]]"
+  - "[[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 - @sonWhenAICoScientists2025]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb3-7436-879b-1256d66f19e9
@@ -39,4 +39,4 @@ The SPOT benchmark contains only 83 manuscripts with 91 annotated errors. Some e
 
 - [[EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]]
 
-- [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025]]
+- [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 - @sonWhenAICoScientists2025]]

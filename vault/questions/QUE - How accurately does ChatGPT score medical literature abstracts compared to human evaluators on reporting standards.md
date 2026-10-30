@@ -25,12 +25,12 @@ title: "How accurately does ChatGPT score medical literature abstracts compared 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
 
 - [[CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
-    - [[EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
-    - [[EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
-    - [[EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06 - @robertsComparativeStudyChatGPT2023]]
+    - [[EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score - @robertsComparativeStudyChatGPT2023]]
+    - [[EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 - @robertsComparativeStudyChatGPT2023]]
+    - [[EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r - @robertsComparativeStudyChatGPT2023]]
 
-- [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
-    - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
+- [[CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering]]
+    - [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall - @hasanIntegratingLargeLanguage2024]]
 
 ### Cross-paper patterns
 

@@ -10,7 +10,7 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023]]"
+  - "[[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper - @liuReviewerGPTExploratoryStudy2023]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba8-72e1-aaef-820bdf75ff84
@@ -37,4 +37,4 @@ The ground truth labels for checklist verification were based on the authors' ow
 
 ### Applies To
 
-[[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023]]
+[[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper - @liuReviewerGPTExploratoryStudy2023]]

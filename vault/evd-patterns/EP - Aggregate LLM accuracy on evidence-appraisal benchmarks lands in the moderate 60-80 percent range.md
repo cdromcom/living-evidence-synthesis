@@ -28,10 +28,10 @@ The pattern is the practical-headline number for "how good are LLMs at evidence 
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]], Hasan et al. 2024: GPT-4 reaches 61% raw agreement with Cochrane ROBINS-I judgments.
-- [[EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27% - @leucutaRiskBiasAssessment2025]], Leucuta et al. 2025: mean across 4 LLMs hits 72.95% on QUADAS-2 (range 67–77%).
-- [[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024]], Akyon et al. 2024: best LLM hits 66.9% on STROBE; range across 6 LLMs is 44–67%.
-- [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans - @woelfleBenchmarkingHumanAICollaboration2024]], Woelfle et al. 2024: individual LLMs hit 63–70% PRISMA / 53–74% AMSTAR vs. 89% humans.
+- [[EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall - @hasanIntegratingLargeLanguage2024]], Hasan et al. 2024: GPT-4 reaches 61% raw agreement with Cochrane ROBINS-I judgments.
+- [[EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest - @leucutaRiskBiasAssessment2025]], Leucuta et al. 2025: mean across 4 LLMs hits 72.95% on QUADAS-2 (range 67–77%).
+- [[EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE - @akyonEvaluatingCapabilitiesGenerative2024]], Akyon et al. 2024: best LLM hits 66.9% on STROBE; range across 6 LLMs is 44–67%.
+- [[EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent - @woelfleBenchmarkingHumanAICollaboration2024]], Woelfle et al. 2024: individual LLMs hit 63–70% PRISMA / 53–74% AMSTAR vs. 89% humans.
 
 ## Connected discourse-graph nodes
 

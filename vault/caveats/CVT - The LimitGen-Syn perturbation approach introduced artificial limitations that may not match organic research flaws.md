@@ -9,7 +9,7 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]"
+  - "[[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG - @xuCanLLMsIdentify2025]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bbf-74eb-aad8-2d8a65af1e1e
@@ -34,4 +34,4 @@ LIMITGEN-Syn creates test cases by systematically perturbing high-quality papers
 
 ### Applies To
 
-[[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
+[[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG - @xuCanLLMsIdentify2025]]

@@ -26,8 +26,8 @@ nodeID: 019ddb4e-6b9b-7358-92e4-7620668392ae
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
+- [[EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score - @robertsComparativeStudyChatGPT2023]]
 
-- [[EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
+- [[EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 - @robertsComparativeStudyChatGPT2023]]
 
-- [[EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06 - @robertsComparativeStudyChatGPT2023]]
+- [[EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r - @robertsComparativeStudyChatGPT2023]]

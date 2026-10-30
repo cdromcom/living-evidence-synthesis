@@ -25,8 +25,8 @@ title: "Can LLMs act as repositories of causal knowledge for selecting confounde
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
 
 - [[CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
-    - [[EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations - @huntington-kleinLLMsActRepositories2024]]
-    - [[EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams - @huntington-kleinLLMsActRepositories2024]]
+    - [[EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 - @huntington-kleinLLMsActRepositories2024]]
+    - [[EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates - @huntington-kleinLLMsActRepositories2024]]
 
 ### Cross-paper patterns
 

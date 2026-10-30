@@ -30,6 +30,6 @@ nodeID: 019ddb4e-6b8e-7498-94f8-c6632a324f81
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]]
+- [[EVD - Full text input produced lower Spearman correlations than abstracts for all three - @thelwallEvaluatingResearchQuality2024]]
 
-- [[EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported - @thelwallEvaluatingResearchQuality2024]]
+- [[EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 - @thelwallEvaluatingResearchQuality2024]]

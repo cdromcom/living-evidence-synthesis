@@ -30,6 +30,6 @@ nodeID: 019ddb4e-6b9d-761c-91d0-c7b5c7bcfc66
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations - @huntington-kleinLLMsActRepositories2024]]
+- [[EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 - @huntington-kleinLLMsActRepositories2024]]
 
-- [[EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams - @huntington-kleinLLMsActRepositories2024]]
+- [[EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates - @huntington-kleinLLMsActRepositories2024]]

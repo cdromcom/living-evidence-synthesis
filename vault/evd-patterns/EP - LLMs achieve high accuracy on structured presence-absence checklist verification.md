@@ -28,9 +28,9 @@ The pattern identifies a deployment niche where LLM-based scientific evaluation 
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023]], Liu & Shah 2023: GPT-4 hits 86.6% on NeurIPS author-checklist verification (the most concretely-defined of Liu's three sub-tasks).
-- [[EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports - @wrightsonGPTRCTsUsing2025]], Wrightson et al. 2025: GPT-4 Turbo reaches F1=0.89 / 90% accuracy across 9 CONSORT text questions on a held-out test set.
-- [[EVD - GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent - @srinivasanEvaluatingReportingQuality2025a]], Srinivasan et al. 2025: GPT-4o-mini achieves F1=0.85 with precision=0.96 on CONSORT-TM, outperforming the prior state-of-the-art by 40 percentage points.
+- [[EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper - @liuReviewerGPTExploratoryStudy2023]], Liu & Shah 2023: GPT-4 hits 86.6% on NeurIPS author-checklist verification (the most concretely-defined of Liu's three sub-tasks).
+- [[EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out - @wrightsonGPTRCTsUsing2025]], Wrightson et al. 2025: GPT-4 Turbo reaches F1=0.89 / 90% accuracy across 9 CONSORT text questions on a held-out test set.
+- [[EVD - GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior - @srinivasanEvaluatingReportingQuality2025a]], Srinivasan et al. 2025: GPT-4o-mini achieves F1=0.85 with precision=0.96 on CONSORT-TM, outperforming the prior state-of-the-art by 40 percentage points.
 
 ## Connected discourse-graph nodes
 

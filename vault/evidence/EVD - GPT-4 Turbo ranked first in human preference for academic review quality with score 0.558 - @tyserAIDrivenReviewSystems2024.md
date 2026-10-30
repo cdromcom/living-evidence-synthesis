@@ -94,7 +94,7 @@ tripod_llm_pct: 25pct
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases]]
+- [[CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference]]
 
 ## Supports Claim(s)
 

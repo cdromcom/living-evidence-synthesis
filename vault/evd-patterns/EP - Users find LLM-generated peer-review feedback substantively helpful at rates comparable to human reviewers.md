@@ -28,10 +28,10 @@ The pattern separates two questions that the over-rating pattern conflates: (1) 
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers - @liangCanLargeLanguage2024a]], Liang et al. 2024: 57.4% of 308 researchers found GPT-4 feedback helpful, 82.4% found it more beneficial than at least some of their actual human reviewers.
+- [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than - @liangCanLargeLanguage2024a]], Liang et al. 2024: 57.4% of 308 researchers found GPT-4 feedback helpful, 82.4% found it more beneficial than at least some of their actual human reviewers.
 - [[EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria - @tyserAIDrivenReviewSystems2024]], Tyser et al. 2024: LLM reviews scored comparably to human reviews across all three expert evaluation criteria.
-- [[EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines - @bougieGenerativeAdversarialReviews2024a]], Bougie & Watanabe 2024: GAR achieves human-likeness scores of 3.89–4.02 (out of 5) across three datasets, significantly above all LLM baselines.
-- [[EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline - @darcyMARGMultiAgentReview2024]], D'Arcy et al. 2024: 3.7 user-rated-good-and-specific comments per paper from MARG-S vs 1.7 from single-agent GPT-4.
+- [[EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets - @bougieGenerativeAdversarialReviews2024a]], Bougie & Watanabe 2024: GAR achieves human-likeness scores of 3.89–4.02 (out of 5) across three datasets, significantly above all LLM baselines.
+- [[EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent - @darcyMARGMultiAgentReview2024]], D'Arcy et al. 2024: 3.7 user-rated-good-and-specific comments per paper from MARG-S vs 1.7 from single-agent GPT-4.
 
 ## Connected discourse-graph nodes
 
