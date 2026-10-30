@@ -1,5 +1,6 @@
 ---
 NodeFormality: draft
+human_reviewed: no
 TruthValue: 0.8
 aliases:
 tags:

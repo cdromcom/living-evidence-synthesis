@@ -96,6 +96,24 @@ flowchart TB
 
 ## Getting started
 
+### Open the vault in Obsidian
+
+`vault/` is the full Obsidian vault behind this site, so you can browse and
+extend the discourse graph directly:
+
+1. Clone the repo: `git clone https://github.com/cdromcom/living-evidence-synthesis.git`
+2. In Obsidian, choose **Open folder as vault** and select the `vault/` folder.
+3. Node templates are in `vault/templates/`; the `.base` files (`ESS.base`,
+   `EvidencePattern Nodes.base`) are saved table views of the nodes.
+4. Every node carries a `human_reviewed` field (`yes`/`no`) in its frontmatter,
+   so you can tell AI-drafted nodes from human-checked ones.
+
+Curation scripts and audit reports are in `vault/scripts/` and `vault/misc/`.
+The screening data for the underlying systematic review is in `data/` (see
+[`data/README.md`](data/README.md)).
+
+### Run the site
+
 ```bash
 nvm use          # or: check .nvmrc; this project is pinned to Node 22
 npm install

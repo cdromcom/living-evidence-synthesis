@@ -1,5 +1,6 @@
 ---
 NodeFormality: draft
+human_reviewed: no
 aliases:
 tags:
   - cvt/domain/external-validity

@@ -1,0 +1,8 @@
+views:
+  - type: table
+    name: EvidencePattern Nodes
+    filters:
+      and:
+        - nodeTypeId == "node_tzL95oDi6eYeRIHeY_rCh"
+    order:
+      - file.name
