@@ -392,7 +392,7 @@ Output filenames: `<citekey>-{evd|clm|cvt|que}-p<N>-<idx>.png`. With `--force` t
 3. **Opening + tall-height fallback.** When only the opening matches, crop a 300pt tall region in the same column starting at the opening (was 90pt; 90pt was too short and clipped long quotes). Only the opening words get highlighted, but the rest of the quote is still visible.
 
 Citekey resolution:
-- **EVD / CVT** — citekey is read from the filename (`@<citekey>.md`) or the `## Source` block.
+- **EVD / CVT** — citekey is read from the `## Source` block (`[[@<citekey>]]`).
 - **CLM / QUE** — multiple papers in the `> [!info] Papers` block; each quote's citekey is resolved from its `(Author, Year)` attribution against that list (single-paper QUEs use the only citekey directly).
 
 Rendering uses `page.add_highlight_annot(rects)` → `annot.set_colors(stroke=COLOR)` → `annot.update()`, then `page.get_pixmap(matrix=Matrix(250/72,250/72), clip=Rect(*bbox))`. Padding around the bbox is **12pt** (was 8pt; the extra margin keeps long descenders and adjacent characters intact).

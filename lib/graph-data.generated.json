@@ -1080,7 +1080,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "39.18% of 3063 annotated biomedical citation instances contained accuracy errors",
-      "filename": "EVD - 39.18% of 3063 biomedical citations had accuracy errors - @sarolAssessingCitationIntegrity2024",
+      "filename": "EVD - 39.18% of 3063 biomedical citations had accuracy errors",
       "shortLabel": "39.18% of 3063 annotated biomedical citation instances contained accuracy errors",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1109,7 +1109,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers",
-      "filename": "EVD - 57.4% of 308 researchers found GPT-4 feedback helpful - @liangCanLargeLanguage2024a",
+      "filename": "EVD - 57.4% of 308 researchers found GPT-4 feedback helpful",
       "shortLabel": "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1139,7 +1139,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "AI platforms drafted SOPs covering fundamental sections with variations across platforms",
-      "filename": "EVD - AI platforms drafted SOPs covering fundamental sections with variations - @sridharanAssessingDecisionMakingCapabilities2024",
+      "filename": "EVD - AI platforms drafted SOPs covering fundamental sections with variations",
       "shortLabel": "AI platforms drafted SOPs covering fundamental sections with variations across platforms",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1167,7 +1167,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set",
-      "filename": "EVD - AI Scientist reached 0.47 accuracy on novelty test set - @shahidLiteratureGroundedNoveltyAssessment2025",
+      "filename": "EVD - AI Scientist reached 0.47 accuracy on novelty test set",
       "shortLabel": "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1197,7 +1197,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "All AI platforms failed to address post-trial herbal medicine access in case study 10",
-      "filename": "EVD - All AI platforms missed post-trial herbal medicine access - @sridharanAssessingDecisionMakingCapabilities2024",
+      "filename": "EVD - All AI platforms missed post-trial herbal medicine access",
       "shortLabel": "All AI platforms failed to address post-trial herbal medicine access in case study 10",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1225,7 +1225,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "All four LLMs answered all seven IRB ethics case queries with homogeneous responses",
-      "filename": "EVD - All four LLMs gave similar answers to all 7 IRB cases - @sridharanLeveragingArtificialIntelligence2025",
+      "filename": "EVD - All four LLMs gave similar answers to all 7 IRB cases",
       "shortLabel": "All four LLMs answered all seven IRB ethics case queries with homogeneous responses",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1253,7 +1253,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "All four LLMs included fundamental ICD elements for all seven case scenarios",
-      "filename": "EVD - All four LLMs included core ICD elements in all 7 cases - @sridharanLeveragingArtificialIntelligence2025",
+      "filename": "EVD - All four LLMs included core ICD elements in all 7 cases",
       "shortLabel": "All four LLMs included fundamental ICD elements for all seven case scenarios",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1281,7 +1281,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2",
-      "filename": "EVD - Annotator agreement on citation labels was only kappa 0.18-0.31 - @sarolAssessingCitationIntegrity2024",
+      "filename": "EVD - Annotator agreement on citation labels was only kappa 0.18-0.31",
       "shortLabel": "Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotat…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1310,7 +1310,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A",
-      "filename": "EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance - @robertsComparativeStudyChatGPT2023",
+      "filename": "EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance",
       "shortLabel": "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSOR…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1339,7 +1339,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A",
-      "filename": "EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764 - @robertsComparativeStudyChatGPT2023",
+      "filename": "EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764",
       "shortLabel": "ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1367,7 +1367,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028)",
-      "filename": "EVD - ChatGPT matched humans on 3 of 12 PRISMA items but not on eligibility criteria - @alharbiAutomatedAssessmentReporting2024",
+      "filename": "EVD - ChatGPT matched humans on 3 of 12 PRISMA items but not on eligibility criteria",
       "shortLabel": "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items fo…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1395,7 +1395,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001)",
-      "filename": "EVD - ChatGPT matched humans on 6 of 17 CONSORT-A items but not on randomization - @alharbiAutomatedAssessmentReporting2024",
+      "filename": "EVD - ChatGPT matched humans on 6 of 17 CONSORT-A items but not on randomization",
       "shortLabel": "ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist i…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1423,7 +1423,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06",
-      "filename": "EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective - @robertsComparativeStudyChatGPT2023",
+      "filename": "EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective",
       "shortLabel": "ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r e…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1451,7 +1451,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker",
-      "filename": "EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3% - @zhangReviewingScientificPapers2025a",
+      "filename": "EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%",
       "shortLabel": "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit ra…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1480,7 +1480,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments",
-      "filename": "EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1 - @louAAAR10AssessingAIs2025",
+      "filename": "EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1",
       "shortLabel": "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segm…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1510,7 +1510,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings",
-      "filename": "EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74% - @woelfleBenchmarkingHumanAICollaboration2024",
+      "filename": "EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%",
       "shortLabel": "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while d…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -1539,7 +1539,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology",
-      "filename": "EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology - @srinivasanEvaluatingReportingQuality2025a",
+      "filename": "EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology",
       "shortLabel": "CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1567,7 +1567,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs",
-      "filename": "EVD - CONSORT compliance rose from 27.3% to 56.1% over decades - @srinivasanEvaluatingReportingQuality2025a",
+      "filename": "EVD - CONSORT compliance rose from 27.3% to 56.1% over decades",
       "shortLabel": "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-20…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1596,7 +1596,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%",
-      "filename": "EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79% - @shahidLiteratureGroundedNoveltyAssessment2025",
+      "filename": "EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%",
       "shortLabel": "Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66%…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1624,7 +1624,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions",
-      "filename": "EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions - @wrightsonGPTRCTsUsing2025",
+      "filename": "EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions",
       "shortLabel": "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONS…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1652,7 +1652,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%",
-      "filename": "EVD - Four LLMs averaged 72.95% correct on QUADAS-2 - @leucutaRiskBiasAssessment2025",
+      "filename": "EVD - Four LLMs averaged 72.95% correct on QUADAS-2",
       "shortLabel": "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1680,7 +1680,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested",
-      "filename": "EVD - Full text scored worse than abstracts for 3 ChatGPT models - @thelwallEvaluatingResearchQuality2024",
+      "filename": "EVD - Full text scored worse than abstracts for 3 ChatGPT models",
       "shortLabel": "Full text input produced lower Spearman correlations than abstracts for all three ChatGPT…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -1708,7 +1708,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation",
-      "filename": "EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a",
+      "filename": "EVD - GAR beat human reviewers on preference 0.684 vs 0.523",
       "shortLabel": "GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1738,7 +1738,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines",
-      "filename": "EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines - @bougieGenerativeAdversarialReviews2024a",
+      "filename": "EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines",
       "shortLabel": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly o…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -1768,7 +1768,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49",
-      "filename": "EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49 - @bougieGenerativeAdversarialReviews2024a",
+      "filename": "EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49",
       "shortLabel": "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceed…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1798,7 +1798,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles",
-      "filename": "EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct - @akyonEvaluatingCapabilitiesGenerative2024",
+      "filename": "EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct",
       "shortLabel": "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist quest…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1827,7 +1827,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions",
-      "filename": "EVD - GPT 4-0613 was lowest on STROBE questions at 44.1% - @akyonEvaluatingCapabilitiesGenerative2024",
+      "filename": "EVD - GPT 4-0613 was lowest on STROBE questions at 44.1%",
       "shortLabel": "GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STRO…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1856,7 +1856,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review",
-      "filename": "EVD - GPT-3.5 predicted review aspect scores at r=0.651 - @zhouLLMReliableReviewer2024",
+      "filename": "EVD - GPT-3.5 predicted review aspect scores at r=0.651",
       "shortLabel": "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -1886,7 +1886,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%",
-      "filename": "EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context - @zhangDetectingReferenceErrors2024",
+      "filename": "EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context",
       "shortLabel": "GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and drop…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1914,7 +1914,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35",
-      "filename": "EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I - @hasanIntegratingLargeLanguage2024",
+      "filename": "EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I",
       "shortLabel": "GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1942,7 +1942,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations",
-      "filename": "EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate - @sarolAssessingCitationIntegrity2024",
+      "filename": "EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate",
       "shortLabel": "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations",
       "curationStatus": "Reviewed",
       "tags": [
@@ -1970,7 +1970,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers",
-      "filename": "EVD - GPT-4 commented on implications 7.27x more and novelty 10.69x less than humans - @liangCanLargeLanguage2024a",
+      "filename": "EVD - GPT-4 commented on implications 7.27x more and novelty 10.69x less than humans",
       "shortLabel": "GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x les…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2000,7 +2000,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal",
-      "filename": "EVD - GPT-4 cost about 100x more than Mixtral-8x22B - @woelfleBenchmarkingHumanAICollaboration2024",
+      "filename": "EVD - GPT-4 cost about 100x more than Mixtral-8x22B",
       "shortLabel": "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2029,7 +2029,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers",
-      "filename": "EVD - GPT-4 detected errors in 7 of 13 constructed papers - @liuReviewerGPTExploratoryStudy2023",
+      "filename": "EVD - GPT-4 detected errors in 7 of 13 constructed papers",
       "shortLabel": "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2057,7 +2057,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract",
-      "filename": "EVD - GPT-4 favored the worse abstract in 6 of 10 pairs - @liuReviewerGPTExploratoryStudy2023",
+      "filename": "EVD - GPT-4 favored the worse abstract in 6 of 10 pairs",
       "shortLabel": "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2085,7 +2085,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity",
-      "filename": "EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling - @liangCanLargeLanguage2024a",
+      "filename": "EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling",
       "shortLabel": "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming p…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2116,7 +2116,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%",
-      "filename": "EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human - @liangCanLargeLanguage2024a",
+      "filename": "EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human",
       "shortLabel": "GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals compa…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -2146,7 +2146,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs",
-      "filename": "EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items - @liuReviewerGPTExploratoryStudy2023",
+      "filename": "EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items",
       "shortLabel": "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2175,7 +2175,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions",
-      "filename": "EVD - GPT-4 RR-MCQ macro accuracy was 0.276 - @zhouLLMReliableReviewer2024",
+      "filename": "EVD - GPT-4 RR-MCQ macro accuracy was 0.276",
       "shortLabel": "GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision mul…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2205,7 +2205,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts",
-      "filename": "EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024",
+      "filename": "EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy",
       "shortLabel": "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2233,7 +2233,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558",
-      "filename": "EVD - GPT-4 Turbo ranked first in human review preference - @tyserAIDrivenReviewSystems2024",
+      "filename": "EVD - GPT-4 Turbo ranked first in human review preference",
       "shortLabel": "GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -2263,7 +2263,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports",
-      "filename": "EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions - @wrightsonGPTRCTsUsing2025",
+      "filename": "EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions",
       "shortLabel": "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on h…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2291,7 +2291,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy",
-      "filename": "EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57% - @wrightsonGPTRCTsUsing2025",
+      "filename": "EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57%",
       "shortLabel": "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing par…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -2319,7 +2319,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported",
-      "filename": "EVD - GPT-4o abstract scores correlated r=0.67 with humans - @thelwallEvaluatingResearchQuality2024",
+      "filename": "EVD - GPT-4o abstract scores correlated r=0.67 with humans",
       "shortLabel": "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information sci…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2347,7 +2347,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%",
-      "filename": "EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG - @xuCanLLMsIdentify2025",
+      "filename": "EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG",
       "shortLabel": "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% an…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2376,7 +2376,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent",
-      "filename": "EVD - GPT-4o-mini reached F1 0.85 on CONSORT-TM beating prior SOTA by over 40% - @srinivasanEvaluatingReportingQuality2025a",
+      "filename": "EVD - GPT-4o-mini reached F1 0.85 on CONSORT-TM beating prior SOTA by over 40%",
       "shortLabel": "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-th…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2404,7 +2404,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2",
-      "filename": "EVD - Human agreement fell from 91% on PRISMA to 57% on PRECIS-2 - @woelfleBenchmarkingHumanAICollaboration2024",
+      "filename": "EVD - Human agreement fell from 91% on PRISMA to 57% on PRECIS-2",
       "shortLabel": "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2434,7 +2434,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task",
-      "filename": "EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR - @louAAAR10AssessingAIs2025",
+      "filename": "EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR",
       "shortLabel": "Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 o…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -2464,7 +2464,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters",
-      "filename": "EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024",
+      "filename": "EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters",
       "shortLabel": "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for A…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -2493,7 +2493,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset",
-      "filename": "EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines - @shahidLiteratureGroundedNoveltyAssessment2025",
+      "filename": "EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines",
       "shortLabel": "Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baseli…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2523,7 +2523,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases",
-      "filename": "EVD - LLM confidence was near zero across 498 SPOT evaluations - @sonWhenAICoScientists2025",
+      "filename": "EVD - LLM confidence was near zero across 498 SPOT evaluations",
       "shortLabel": "LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 ful…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2551,7 +2551,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations",
-      "filename": "EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16 - @huntington-kleinLLMsActRepositories2024",
+      "filename": "EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16",
       "shortLabel": "LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2580,7 +2580,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "LLM review recommendation scores exceeded human scores without area-chair context but matched with it",
-      "filename": "EVD - LLM review scores exceeded humans without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024",
+      "filename": "EVD - LLM review scores exceeded humans without area-chair context but matched with it",
       "shortLabel": "LLM review recommendation scores exceeded human scores without area-chair context but mat…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -2610,7 +2610,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "LLM reviews scored comparably to human reviews on all three expert evaluation criteria",
-      "filename": "EVD - LLM reviews scored like human reviews on all 3 criteria - @tyserAIDrivenReviewSystems2024",
+      "filename": "EVD - LLM reviews scored like human reviews on all 3 criteria",
       "shortLabel": "LLM reviews scored comparably to human reviews on all three expert evaluation criteria",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2640,7 +2640,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Median quote similarity with original full text was 99 percent across LLM extracted quotes",
-      "filename": "EVD - LLM-extracted quotes had 99% median similarity to source - @woelfleBenchmarkingHumanAICollaboration2024",
+      "filename": "EVD - LLM-extracted quotes had 99% median similarity to source",
       "shortLabel": "Median quote similarity with original full text was 99 percent across LLM extracted quotes",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2669,7 +2669,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams",
-      "filename": "EVD - LLMs flagged expert and trimmed confounders at similar rates - @huntington-kleinLLMsActRepositories2024",
+      "filename": "EVD - LLMs flagged expert and trimmed confounders at similar rates",
       "shortLabel": "LLMs designated expert-selected confounders in CDP as confounders at similar rates to var…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2697,7 +2697,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design",
-      "filename": "EVD - LLMs made systematic QUADAS-2 patient selection errors - @leucutaRiskBiasAssessment2025",
+      "filename": "EVD - LLMs made systematic QUADAS-2 patient selection errors",
       "shortLabel": "LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain includ…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2725,7 +2725,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt",
-      "filename": "EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt - @sridharanLeveragingArtificialIntelligence2025",
+      "filename": "EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt",
       "shortLabel": "LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in si…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2753,7 +2753,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "LLMs showed lowest accuracy on questions about statistical software used and study funding across all models",
-      "filename": "EVD - LLMs were least accurate on software and funding questions - @akyonEvaluatingCapabilitiesGenerative2024",
+      "filename": "EVD - LLMs were least accurate on software and funding questions",
       "shortLabel": "LLMs showed lowest accuracy on questions about statistical software used and study fundin…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2782,7 +2782,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus",
-      "filename": "EVD - MARG-S beat baselines by 6.1 recall points on ARIES - @darcyMARGMultiAgentReview2024",
+      "filename": "EVD - MARG-S beat baselines by 6.1 recall points on ARIES",
       "shortLabel": "MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES c…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2812,7 +2812,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline",
-      "filename": "EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4 - @darcyMARGMultiAgentReview2024",
+      "filename": "EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4",
       "shortLabel": "MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-ag…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2842,7 +2842,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification",
-      "filename": "EVD - MultiVerS reached micro-F1 0.59 on citation accuracy - @sarolAssessingCitationIntegrity2024",
+      "filename": "EVD - MultiVerS reached micro-F1 0.59 on citation accuracy",
       "shortLabel": "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accu…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2870,7 +2870,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "None of three AI platforms recognized quorum requirement for initial proposal review",
-      "filename": "EVD - No AI platform recognized the IRB quorum requirement - @sridharanAssessingDecisionMakingCapabilities2024",
+      "filename": "EVD - No AI platform recognized the IRB quorum requirement",
       "shortLabel": "None of three AI platforms recognized quorum requirement for initial proposal review",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2898,7 +2898,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication",
-      "filename": "EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication - @sonWhenAICoScientists2025",
+      "filename": "EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication",
       "shortLabel": "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplica…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2926,7 +2926,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers",
-      "filename": "EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX - @zhangReviewingScientificPapers2025a",
+      "filename": "EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX",
       "shortLabel": "OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reason…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2955,7 +2955,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4",
-      "filename": "EVD - o3 led SPOT with 37.8% pass@4 - @sonWhenAICoScientists2025",
+      "filename": "EVD - o3 led SPOT with 37.8% pass@4",
       "shortLabel": "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4",
       "curationStatus": "Reviewed",
       "tags": [
@@ -2983,7 +2983,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline",
-      "filename": "EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline - @louAAAR10AssessingAIs2025",
+      "filename": "EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline",
       "shortLabel": "o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive base…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -3013,7 +3013,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper",
-      "filename": "EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3 - @zhangReviewingScientificPapers2025a",
+      "filename": "EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3",
       "shortLabel": "o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -3041,7 +3041,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs",
-      "filename": "EVD - Only 9.7% of RCTs reported sequence generation and 15.25% allocation concealment - @srinivasanEvaluatingReportingQuality2025a",
+      "filename": "EVD - Only 9.7% of RCTs reported sequence generation and 15.25% allocation concealment",
       "shortLabel": "Randomization sequence generation reported in only 9.7 percent and allocation concealment…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -3069,7 +3069,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers",
-      "filename": "EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o - @idahlOpenReviewerSpecializedLarge2025",
+      "filename": "EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o",
       "shortLabel": "OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o average…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -3099,7 +3099,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations",
-      "filename": "EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons - @idahlOpenReviewerSpecializedLarge2025",
+      "filename": "EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons",
       "shortLabel": "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge p…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -3129,7 +3129,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o",
-      "filename": "EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025",
+      "filename": "EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o",
       "shortLabel": "OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test pape…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -3159,7 +3159,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction",
-      "filename": "EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction - @wuAutomatedNoveltyEvaluationa",
+      "filename": "EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction",
       "shortLabel": "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on…",
       "curationStatus": "Initial AI draft",
       "tags": [
@@ -3187,7 +3187,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn",
-      "filename": "EVD - RAG raised GPT-4o limitation accuracy by 12.2 points - @xuCanLLMsIdentify2025",
+      "filename": "EVD - RAG raised GPT-4o limitation accuracy by 12.2 points",
       "shortLabel": "RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percen…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -3215,7 +3215,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74",
-      "filename": "EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74 - @wuAutomatedNoveltyEvaluationa",
+      "filename": "EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74",
       "shortLabel": "Removing the knowledge-guided module from the novelty prediction model dropped accuracy f…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -3243,7 +3243,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans",
-      "filename": "EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans - @woelfleBenchmarkingHumanAICollaboration2024",
+      "filename": "EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans",
       "shortLabel": "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR vers…",
       "curationStatus": "Reviewed",
       "tags": [
@@ -3272,7 +3272,7 @@
       "type": "EVD",
       "typeLabel": "Evidence",
       "title": "Three AI platforms responded correctly to all 10 IRB case study queries",
-      "filename": "EVD - Three AI platforms answered all 10 IRB cases correctly - @sridharanAssessingDecisionMakingCapabilities2024",
+      "filename": "EVD - Three AI platforms answered all 10 IRB cases correctly",
       "shortLabel": "Three AI platforms responded correctly to all 10 IRB case study queries",
       "curationStatus": "Reviewed",
       "tags": [

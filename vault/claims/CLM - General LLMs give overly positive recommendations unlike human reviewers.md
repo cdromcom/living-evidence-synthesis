@@ -40,12 +40,12 @@ title: "General-purpose LLMs produce overly positive peer review recommendations
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - GPT-3.5 predicted review aspect scores at r=0.651 - @zhouLLMReliableReviewer2024|EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review]]
+- [[EVD - GPT-3.5 predicted review aspect scores at r=0.651|EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review]]
 
-- [[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 - @zhouLLMReliableReviewer2024|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]
+- [[EVD - GPT-4 RR-MCQ macro accuracy was 0.276|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]
 
-- [[EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers]]
+- [[EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o|EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers]]
 
-- [[EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o]]
+- [[EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o|EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o]]
 
-- [[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]]
+- [[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]]

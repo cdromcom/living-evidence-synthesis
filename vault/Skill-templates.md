@@ -117,7 +117,7 @@ Each `source/@<citekey>.md` carries a plain-language **structured abstract** at 
 **Sample.** <2–3 sentences with the original-to-final sample-size flow.>
 
 ### Findings
-<One bullet per EVD. Each bullet starts with a 5–10-word **bold lead** in plain English, then 2–4 sentences with the actual numbers (define each metric on first use), and ends with `[[EVD - … - @<citekey>]]`.>
+<One bullet per EVD. Each bullet starts with a 5–10-word **bold lead** in plain English, then 2–4 sentences with the actual numbers (define each metric on first use), and ends with `[[EVD - …]]`.>
 
 ### Claim supported
 <1–2 sentences with `[[CLM - …]]` wikilinks plus one sentence of editorial framing about what this means in practice.>

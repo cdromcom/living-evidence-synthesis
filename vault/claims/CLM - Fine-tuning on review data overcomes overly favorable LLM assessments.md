@@ -34,8 +34,8 @@ title: "Specialized fine-tuning on peer review data overcomes LLM tendency towar
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers]]
+- [[EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o|EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers]]
 
-- [[EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o]]
+- [[EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o|EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o]]
 
-- [[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]]
+- [[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]]

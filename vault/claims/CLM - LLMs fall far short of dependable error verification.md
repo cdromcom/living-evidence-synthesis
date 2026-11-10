@@ -31,8 +31,8 @@ title: "Current LLMs fall far short of requirements for dependable AI-assisted a
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - LLM confidence was near zero across 498 SPOT evaluations - @sonWhenAICoScientists2025|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]
+- [[EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]
 
-- [[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication - @sonWhenAICoScientists2025|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]
+- [[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]
 
-- [[EVD - o3 led SPOT with 37.8% pass@4 - @sonWhenAICoScientists2025|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]
+- [[EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]

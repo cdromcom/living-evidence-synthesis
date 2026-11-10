@@ -10,8 +10,8 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Four LLMs averaged 72.95% correct on QUADAS-2 - @leucutaRiskBiasAssessment2025|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]"
-  - "[[EVD - LLMs made systematic QUADAS-2 patient selection errors - @leucutaRiskBiasAssessment2025|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]"
+  - "[[EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]"
+  - "[[EVD - LLMs made systematic QUADAS-2 patient selection errors|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba6-760c-8784-4728c698876e
@@ -37,6 +37,6 @@ A single identical prompt was used for all four LLMs across all studies, without
 
 ### Applies To
 
-- [[EVD - Four LLMs averaged 72.95% correct on QUADAS-2 - @leucutaRiskBiasAssessment2025|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]
+- [[EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]
 
-- [[EVD - LLMs made systematic QUADAS-2 patient selection errors - @leucutaRiskBiasAssessment2025|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]
+- [[EVD - LLMs made systematic QUADAS-2 patient selection errors|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]

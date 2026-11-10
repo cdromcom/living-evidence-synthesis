@@ -27,11 +27,11 @@ The pattern is a measurement-vs-construct mismatch. A reasonable-looking 0.65 mi
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate - @sarolAssessingCitationIntegrity2024|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]], Sarol et al. 2024: 0.80 F1 on the easy class, **0.09** on the deployment-critical class (inaccurate citations).
-- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3% - @zhangReviewingScientificPapers2025a|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]], Zhang & Abernethy 2025: Claude defaults to "no problem" 64.9% of the time when papers contain known errors.
-- [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG - @xuCanLLMsIdentify2025|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]], Xu et al. 2025: GPT-4o catches 52% of limitations while humans catch 86%; the rare positive (limitation present) is where LLMs miss most often.
-- [[EVD - GPT-4 detected errors in 7 of 13 constructed papers - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]], Liu & Shah 2023: GPT-4 misses errors in nearly half of papers with planted errors.
-- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline - @louAAAR10AssessingAIs2025|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]], Lou et al. 2025: even the best reasoning LLM is only ~8 percentage points above the trivial all-positive baseline on equation correctness.
+- [[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]], Sarol et al. 2024: 0.80 F1 on the easy class, **0.09** on the deployment-critical class (inaccurate citations).
+- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]], Zhang & Abernethy 2025: Claude defaults to "no problem" 64.9% of the time when papers contain known errors.
+- [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]], Xu et al. 2025: GPT-4o catches 52% of limitations while humans catch 86%; the rare positive (limitation present) is where LLMs miss most often.
+- [[EVD - GPT-4 detected errors in 7 of 13 constructed papers|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]], Liu & Shah 2023: GPT-4 misses errors in nearly half of papers with planted errors.
+- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]], Lou et al. 2025: even the best reasoning LLM is only ~8 percentage points above the trivial all-positive baseline on equation correctness.
 
 ## Connected discourse-graph nodes
 

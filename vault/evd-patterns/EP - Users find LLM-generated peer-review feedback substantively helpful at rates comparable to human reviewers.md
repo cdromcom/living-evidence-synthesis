@@ -28,10 +28,10 @@ The pattern separates two questions that the over-rating pattern conflates: (1) 
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful - @liangCanLargeLanguage2024a|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]], Liang et al. 2024: 57.4% of 308 researchers found GPT-4 feedback helpful, 82.4% found it more beneficial than at least some of their actual human reviewers.
-- [[EVD - LLM reviews scored like human reviews on all 3 criteria - @tyserAIDrivenReviewSystems2024|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]], Tyser et al. 2024: LLM reviews scored comparably to human reviews across all three expert evaluation criteria.
-- [[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines]], Bougie & Watanabe 2024: GAR achieves human-likeness scores of 3.89–4.02 (out of 5) across three datasets, significantly above all LLM baselines.
-- [[EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4 - @darcyMARGMultiAgentReview2024|EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline]], D'Arcy et al. 2024: 3.7 user-rated-good-and-specific comments per paper from MARG-S vs 1.7 from single-agent GPT-4.
+- [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]], Liang et al. 2024: 57.4% of 308 researchers found GPT-4 feedback helpful, 82.4% found it more beneficial than at least some of their actual human reviewers.
+- [[EVD - LLM reviews scored like human reviews on all 3 criteria|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]], Tyser et al. 2024: LLM reviews scored comparably to human reviews across all three expert evaluation criteria.
+- [[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines]], Bougie & Watanabe 2024: GAR achieves human-likeness scores of 3.89–4.02 (out of 5) across three datasets, significantly above all LLM baselines.
+- [[EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4|EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline]], D'Arcy et al. 2024: 3.7 user-rated-good-and-specific comments per paper from MARG-S vs 1.7 from single-agent GPT-4.
 
 ## Connected discourse-graph nodes
 

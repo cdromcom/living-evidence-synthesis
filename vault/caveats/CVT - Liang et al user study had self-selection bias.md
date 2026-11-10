@@ -12,7 +12,7 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful - @liangCanLargeLanguage2024a|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]"
+  - "[[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bbc-75fc-8957-3f0d88678cd4
@@ -38,4 +38,4 @@ The prospective user study recruited researchers who actively opted in to receiv
 
 ### Applies To
 
-[[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful - @liangCanLargeLanguage2024a|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]
+[[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]

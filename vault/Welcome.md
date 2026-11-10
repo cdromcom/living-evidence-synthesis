@@ -114,7 +114,7 @@ Open any EVD and you'll find:
 
 
 See this example EVD. Hover then click:
-[[EVD - GPT-4 detected errors in 7 of 13 constructed papers - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]
+[[EVD - GPT-4 detected errors in 7 of 13 constructed papers|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]
 
 
 CLMs, CVTs, and QUEs follow analogous structures with their own reverse-link sections. See these examples:

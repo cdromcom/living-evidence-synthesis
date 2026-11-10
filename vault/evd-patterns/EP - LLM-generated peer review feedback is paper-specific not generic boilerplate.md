@@ -28,8 +28,8 @@ A common skeptical reading of LLM peer review is "the LLM just gives boilerplate
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling - @liangCanLargeLanguage2024a|EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity]], Liang et al. 2024: pairwise overlap collapses from 30.85% (matched papers) to 0.43% (shuffled papers), direct empirical evidence that GPT-4 feedback is paper-driven.
-- [[EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4 - @darcyMARGMultiAgentReview2024|EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline]], D'Arcy et al. 2024: multi-agent prompting generates 3.7 user-rated-as-specific-and-useful comments per paper vs. 1.7 for single-agent GPT-4, multi-agent decomposition produces more paper-specific feedback than single-agent prompting.
+- [[EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling|EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity]], Liang et al. 2024: pairwise overlap collapses from 30.85% (matched papers) to 0.43% (shuffled papers), direct empirical evidence that GPT-4 feedback is paper-driven.
+- [[EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4|EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline]], D'Arcy et al. 2024: multi-agent prompting generates 3.7 user-rated-as-specific-and-useful comments per paper vs. 1.7 for single-agent GPT-4, multi-agent decomposition produces more paper-specific feedback than single-agent prompting.
 
 ## Connected discourse-graph nodes
 

@@ -31,8 +31,8 @@ title: "Multiple prompts elicit more complete and nuanced LLM outputs for ethica
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - All four LLMs gave similar answers to all 7 IRB cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]
+- [[EVD - All four LLMs gave similar answers to all 7 IRB cases|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]
 
-- [[EVD - All four LLMs included core ICD elements in all 7 cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs included fundamental ICD elements for all seven case scenarios]]
+- [[EVD - All four LLMs included core ICD elements in all 7 cases|EVD - All four LLMs included fundamental ICD elements for all seven case scenarios]]
 
-- [[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt - @sridharanLeveragingArtificialIntelligence2025|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]
+- [[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]

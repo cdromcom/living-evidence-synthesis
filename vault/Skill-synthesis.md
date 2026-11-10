@@ -41,9 +41,9 @@ One paragraph describing the cross-paper regularity in plain language.
 
 ## Supporting Evidence
 > [!info] EVDs from independent papers that instantiate this pattern.
-- [[EVD - ... - @paperA]] — short paper-attributed annotation
-- [[EVD - ... - @paperB]] — ...
-- [[EVD - ... - @paperC]] — ...
+- [[EVD - ...]] — short paper-attributed annotation (@paperA)
+- [[EVD - ...]] — ... (@paperB)
+- [[EVD - ...]] — ... (@paperC)
 
 ## Connected discourse-graph nodes
 - **Within-paper claims this pattern generalizes:** [[CLM - ...]], [[CLM - ...]]

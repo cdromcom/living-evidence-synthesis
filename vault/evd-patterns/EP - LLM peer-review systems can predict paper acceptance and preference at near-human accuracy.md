@@ -28,10 +28,10 @@ The pattern is the cousin of the helpfulness pattern (#3). Helpfulness is about 
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49]], Bougie & Watanabe 2024: GAR predicts ICLR-23 paper acceptance at F1=0.66, significantly above the human baseline of 0.49.
-- [[EVD - GPT-4 Turbo ranked first in human review preference - @tyserAIDrivenReviewSystems2024|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]], Tyser et al. 2024: GPT-4 Turbo wins the Bradley-Terry preference contest at 0.558, humans prefer its reviews to alternatives.
-- [[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]], Idahl & Ahmadi 2025: OpenReviewer wins 60% vs GPT-4o, 76% vs Llama-3.1-70B in LLM-judge preference comparisons.
-- [[EVD - GPT-3.5 predicted review aspect scores at r=0.651 - @zhouLLMReliableReviewer2024|EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review]], Zhou et al. 2024: GPT-3.5 achieves Pearson r=0.651 with human aspect scores when given the human-written review as input, strong rank-correlation evidence.
+- [[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49]], Bougie & Watanabe 2024: GAR predicts ICLR-23 paper acceptance at F1=0.66, significantly above the human baseline of 0.49.
+- [[EVD - GPT-4 Turbo ranked first in human review preference|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]], Tyser et al. 2024: GPT-4 Turbo wins the Bradley-Terry preference contest at 0.558, humans prefer its reviews to alternatives.
+- [[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]], Idahl & Ahmadi 2025: OpenReviewer wins 60% vs GPT-4o, 76% vs Llama-3.1-70B in LLM-judge preference comparisons.
+- [[EVD - GPT-3.5 predicted review aspect scores at r=0.651|EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review]], Zhou et al. 2024: GPT-3.5 achieves Pearson r=0.651 with human aspect scores when given the human-written review as input, strong rank-correlation evidence.
 
 ## Connected discourse-graph nodes
 

@@ -27,7 +27,6 @@ EP_HEADER_RE = re.compile(
     r"\n### Cross-paper patterns[\s\S]*?(?=\n### |\Z)",
 )
 # An EVD wikilink ends with " - @citekey"
-EVD_CITEKEY_RE = re.compile(r" - @([^\]\s]+)$")
 # A QUE's source paper appears as [[@citekey]] under Key Papers Asking Question
 PAPER_LINK_RE = re.compile(r"\[\[@([^\]]+)\]\]")
 
@@ -43,8 +42,11 @@ def extract_evd_links(text: str) -> set[str]:
 
 
 def evd_to_citekey(evd_target: str) -> str | None:
-    """Pull the @citekey suffix from an EVD wikilink target."""
-    m = EVD_CITEKEY_RE.search(evd_target)
+    """Citekey of an EVD, read from the [[@citekey]] link in its `## Source` section."""
+    p = VAULT / 'evidence' / f'{evd_target.split('#')[0].strip()}.md'
+    if not p.exists():
+        return None
+    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
     return m.group(1) if m else None
 
 

@@ -38,8 +38,8 @@ title: "LLM-based peer review agents equipped with memory and persona modules ca
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49]]
+- [[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49]]
 
-- [[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation]]
+- [[EVD - GAR beat human reviewers on preference 0.684 vs 0.523|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation]]
 
-- [[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines]]
+- [[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines]]

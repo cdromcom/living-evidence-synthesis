@@ -10,7 +10,7 @@ tags:
   - cvt/severity/moderate
   - 5c/creativity
 appliesTo:
-  - "[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction - @wuAutomatedNoveltyEvaluationa|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]"
+  - "[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc7-76ed-a2da-304b27a6345b
@@ -36,4 +36,4 @@ All 2,432 papers in the dataset came exclusively from ICLR 2022, a top machine l
 
 ### Applies To
 
-[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction - @wuAutomatedNoveltyEvaluationa|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]
+[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]

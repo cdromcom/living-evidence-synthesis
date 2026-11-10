@@ -12,8 +12,8 @@ tags:
   - 5c/clarity
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]"
-  - "[[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]"
+  - "[[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]"
+  - "[[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba9-7686-b617-0de0beac864c
@@ -46,6 +46,6 @@ The human consensus benchmark used only two raters per publication, which may no
 
 ### Applies To
 
-- [[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]
+- [[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]
 
-- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]
+- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]

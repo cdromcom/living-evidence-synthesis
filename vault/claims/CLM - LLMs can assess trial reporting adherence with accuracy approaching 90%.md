@@ -30,16 +30,16 @@ title: "LLMs can assess clinical trial reporting guideline adherence with accept
 
 ### Grounding EVDs
 
-- [[EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions - @wrightsonGPTRCTsUsing2025|EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports]]
+- [[EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions|EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports]]
 
-- [[EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions - @wrightsonGPTRCTsUsing2025|EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions]]
+- [[EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions|EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions]]
 
 ### Supporting Evidence
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions - @wrightsonGPTRCTsUsing2025|EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions]]
+- [[EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions|EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions]]
 
-- [[EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions - @wrightsonGPTRCTsUsing2025|EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports]]
+- [[EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions|EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports]]
 
-- [[EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57% - @wrightsonGPTRCTsUsing2025|EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy]]
+- [[EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57%|EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy]]

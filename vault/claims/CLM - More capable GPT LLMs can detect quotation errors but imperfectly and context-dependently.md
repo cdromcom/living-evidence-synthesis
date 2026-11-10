@@ -33,14 +33,14 @@ title: "More capable GPT-class LLMs can detect quotation errors in scientific pa
 
 ### Grounding EVDs
 
-- [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
+- [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
 
-- [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context - @zhangDetectingReferenceErrors2024|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]
+- [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]
 
 ### Supporting Evidence
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context - @zhangDetectingReferenceErrors2024|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]
+- [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]
 
-- [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
+- [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]

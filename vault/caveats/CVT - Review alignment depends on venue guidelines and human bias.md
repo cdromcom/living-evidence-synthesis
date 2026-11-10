@@ -13,8 +13,8 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - GPT-4 Turbo ranked first in human review preference - @tyserAIDrivenReviewSystems2024|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]"
-  - "[[EVD - LLM reviews scored like human reviews on all 3 criteria - @tyserAIDrivenReviewSystems2024|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]"
+  - "[[EVD - GPT-4 Turbo ranked first in human review preference|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]"
+  - "[[EVD - LLM reviews scored like human reviews on all 3 criteria|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bac-717c-b0c4-aaa58e6a36e4
@@ -40,6 +40,6 @@ The review quality findings depend on venue-specific guidelines (code of ethics,
 
 ### Applies To
 
-- [[EVD - GPT-4 Turbo ranked first in human review preference - @tyserAIDrivenReviewSystems2024|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]
+- [[EVD - GPT-4 Turbo ranked first in human review preference|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]
 
-- [[EVD - LLM reviews scored like human reviews on all 3 criteria - @tyserAIDrivenReviewSystems2024|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]
+- [[EVD - LLM reviews scored like human reviews on all 3 criteria|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]

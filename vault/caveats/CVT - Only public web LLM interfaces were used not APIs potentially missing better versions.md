@@ -11,7 +11,7 @@ tags:
   - cvt/severity/low
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Four LLMs averaged 72.95% correct on QUADAS-2 - @leucutaRiskBiasAssessment2025|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]"
+  - "[[EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb2-76ba-b708-0b0c889ba6c5
@@ -37,4 +37,4 @@ All four LLMs were accessed via their public web-based chat interfaces at the ti
 
 ### Applies To
 
-[[EVD - Four LLMs averaged 72.95% correct on QUADAS-2 - @leucutaRiskBiasAssessment2025|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]
+[[EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]

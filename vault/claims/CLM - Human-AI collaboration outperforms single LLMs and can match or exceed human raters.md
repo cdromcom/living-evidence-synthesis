@@ -36,14 +36,14 @@ title: "Human-AI collaboration outperforms individual LLMs and can match or exce
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74% - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]
+- [[EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]
 
-- [[EVD - GPT-4 cost about 100x more than Mixtral-8x22B - @woelfleBenchmarkingHumanAICollaboration2024|EVD - GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal]]
+- [[EVD - GPT-4 cost about 100x more than Mixtral-8x22B|EVD - GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal]]
 
-- [[EVD - Human agreement fell from 91% on PRISMA to 57% on PRECIS-2 - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2]]
+- [[EVD - Human agreement fell from 91% on PRISMA to 57% on PRECIS-2|EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2]]
 
-- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]
+- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]
 
-- [[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]
+- [[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]
 
-- [[EVD - LLM-extracted quotes had 99% median similarity to source - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Median quote similarity with original full text was 99 percent across LLM extracted quotes]]
+- [[EVD - LLM-extracted quotes had 99% median similarity to source|EVD - Median quote similarity with original full text was 99 percent across LLM extracted quotes]]

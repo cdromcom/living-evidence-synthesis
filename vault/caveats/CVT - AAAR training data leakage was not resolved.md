@@ -13,8 +13,8 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline - @louAAAR10AssessingAIs2025|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]"
-  - "[[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1 - @louAAAR10AssessingAIs2025|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]"
+  - "[[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]"
+  - "[[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb9-72ce-a08c-0fe4f108105b
@@ -40,6 +40,6 @@ The AAAR benchmark data was collected from open platforms (arXiv, OpenReview), c
 
 ### Applies To
 
-- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline - @louAAAR10AssessingAIs2025|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
+- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
 
-- [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1 - @louAAAR10AssessingAIs2025|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
+- [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]

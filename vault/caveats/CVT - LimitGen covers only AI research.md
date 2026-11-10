@@ -10,8 +10,8 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG - @xuCanLLMsIdentify2025|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]"
-  - "[[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points - @xuCanLLMsIdentify2025|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]"
+  - "[[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]"
+  - "[[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bbe-7697-8790-1b06a6f7fb5f
@@ -37,6 +37,6 @@ LIMITGEN focused on AI/NLP research papers, limiting the generalizability of fin
 
 ### Applies To
 
-- [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG - @xuCanLLMsIdentify2025|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]
+- [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]
 
-- [[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points - @xuCanLLMsIdentify2025|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]
+- [[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]

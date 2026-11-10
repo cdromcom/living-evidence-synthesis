@@ -28,8 +28,8 @@ The pattern argues against a "humans vs. LLMs" framing of these tasks and toward
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]], Woelfle et al. 2024: pairing one human with one LLM exceeds individual human accuracy on the same systematic-review-appraisal task.
-- [[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction - @wuAutomatedNoveltyEvaluationa|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]], Wu et al. 2024: combining peer-review-derived knowledge (human judgment proxy) with LLM-generated method summaries reaches F1 0.83, beating LLM-only and human-knowledge-only baselines.
+- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]], Woelfle et al. 2024: pairing one human with one LLM exceeds individual human accuracy on the same systematic-review-appraisal task.
+- [[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]], Wu et al. 2024: combining peer-review-derived knowledge (human judgment proxy) with LLM-generated method summaries reaches F1 0.83, beating LLM-only and human-knowledge-only baselines.
 
 ## Connected discourse-graph nodes
 

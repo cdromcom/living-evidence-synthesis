@@ -29,10 +29,10 @@ title: "Citation quotation errors are subtle and currently challenging for NLP m
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - 39.18% of 3063 biomedical citations had accuracy errors - @sarolAssessingCitationIntegrity2024|EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors]]
+- [[EVD - 39.18% of 3063 biomedical citations had accuracy errors|EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors]]
 
-- [[EVD - MultiVerS reached micro-F1 0.59 on citation accuracy - @sarolAssessingCitationIntegrity2024|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification]]
+- [[EVD - MultiVerS reached micro-F1 0.59 on citation accuracy|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification]]
 
-- [[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate - @sarolAssessingCitationIntegrity2024|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]]
+- [[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]]
 
-- [[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31 - @sarolAssessingCitationIntegrity2024|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2]]
+- [[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2]]
