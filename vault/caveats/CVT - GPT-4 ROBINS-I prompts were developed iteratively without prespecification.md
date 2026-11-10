@@ -11,7 +11,7 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I - @hasanIntegratingLargeLanguage2024|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]"
+  - "[[EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I - @hasanIntegratingLargeLanguage2024|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb3-7436-879b-1255fa33fa74
@@ -37,4 +37,4 @@ The prompts used to instruct GPT-4 were developed iteratively throughout data co
 
 ### Applies To
 
-[[EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I - @hasanIntegratingLargeLanguage2024|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35 - @hasanIntegratingLargeLanguage2024]]
+[[EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I - @hasanIntegratingLargeLanguage2024|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]

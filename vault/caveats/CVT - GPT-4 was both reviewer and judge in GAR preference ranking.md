@@ -13,8 +13,8 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation - @bougieGenerativeAdversarialReviews2024a]]"
-  - "[[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines - @bougieGenerativeAdversarialReviews2024a]]"
+  - "[[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation]]"
+  - "[[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6baa-75e9-b1ee-459e05170c44
@@ -44,6 +44,6 @@ GAR agents are powered by GPT-4o-mini, and GPT-4o is used as the primary automat
 
 ### Applies To
 
-- [[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation - @bougieGenerativeAdversarialReviews2024a]]
+- [[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation]]
 
-- [[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines - @bougieGenerativeAdversarialReviews2024a]]
+- [[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines]]

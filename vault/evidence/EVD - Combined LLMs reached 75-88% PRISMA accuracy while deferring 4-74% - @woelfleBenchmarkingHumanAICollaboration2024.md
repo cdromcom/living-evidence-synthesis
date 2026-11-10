@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings - @woelfleBenchmarkingHumanAICollaboration2024"
+  - "EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b5e-73ca-b7dd-b90666c44ab3
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 67pct
-title: "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings - @woelfleBenchmarkingHumanAICollaboration2024"
+title: "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings"
 ---
 
 ## Source

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27% - @leucutaRiskBiasAssessment2025"
+  - "EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%"
 tags:
   - task/risk-of-bias-assessment
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b7d-71c9-8031-ad4be310e084
 appraisal_overall: L1-M2-H2
 tripod_llm_pct: 42pct
-title: "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27% - @leucutaRiskBiasAssessment2025"
+title: "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%"
 ---
 
 ## Source

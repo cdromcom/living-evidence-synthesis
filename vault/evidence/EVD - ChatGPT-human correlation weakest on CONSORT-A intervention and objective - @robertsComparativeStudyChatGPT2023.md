@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06 - @robertsComparativeStudyChatGPT2023"
+  - "EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/high-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b5c-74d1-b091-818677083593
 appraisal_overall: L0-M1-H4
 tripod_llm_pct: 26pct
-title: "ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06 - @robertsComparativeStudyChatGPT2023"
+title: "ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06"
 ---
 
 ## Source

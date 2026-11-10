@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a"
+  - "EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity"
 tags:
   - task/review-generation
   - appraisal/construct-validity/some-concerns
@@ -22,7 +22,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b83-7219-98f4-b40b414c76b7
 appraisal_overall: L1-M3-H1
 tripod_llm_pct: 55pct
-title: "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a"
+title: "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity"
 ---
 
 ## Source

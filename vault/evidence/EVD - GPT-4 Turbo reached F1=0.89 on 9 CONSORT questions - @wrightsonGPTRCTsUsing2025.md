@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports - @wrightsonGPTRCTsUsing2025"
+  - "EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b67-7718-805f-eff5bfc1e3cc
 appraisal_overall: L1-M2-H2
 tripod_llm_pct: 64pct
-title: "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports - @wrightsonGPTRCTsUsing2025"
+title: "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports"
 ---
 
 ## Source

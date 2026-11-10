@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025"
+  - "EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases"
 tags:
   - task/error-detection
   - appraisal/construct-validity/low-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b76-7366-b2d5-e2ef753a7363
 appraisal_overall: L1-M3-H1
 tripod_llm_pct: 63pct
-title: "LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025"
+title: "LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases"
 ---
 
 ## Source

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024"
+  - "EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b62-72b0-a3fa-eef30bcf71c7
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 43pct
-title: "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024"
+title: "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles"
 ---
 
 ## Source

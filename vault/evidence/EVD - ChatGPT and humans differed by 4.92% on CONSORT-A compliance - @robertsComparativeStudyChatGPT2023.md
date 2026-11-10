@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023"
+  - "EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/high-risk
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b5a-74fa-a013-72e50c0f1cfd
 appraisal_overall: L0-M1-H4
 tripod_llm_pct: 26pct
-title: "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023"
+title: "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A"
 ---
 
 ## Source

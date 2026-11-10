@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024"
+  - "EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested"
 tags:
   - task/decision-judgment
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b60-7553-8f1e-3b1f4f0ae628
 appraisal_overall: L0-M4-H1
 tripod_llm_pct: 46pct
-title: "Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024"
+title: "Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested"
 ---
 
 ## Source

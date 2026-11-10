@@ -10,8 +10,8 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - o3 led SPOT with 37.8% pass@4 - @sonWhenAICoScientists2025|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]]"
-  - "[[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication - @sonWhenAICoScientists2025|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]]"
+  - "[[EVD - o3 led SPOT with 37.8% pass@4 - @sonWhenAICoScientists2025|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]"
+  - "[[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication - @sonWhenAICoScientists2025|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb4-763c-994e-d9feb2027181
@@ -37,6 +37,6 @@ SPOT exclusively includes errors that were explicitly acknowledged by the origin
 
 ### Applies To
 
-- [[EVD - o3 led SPOT with 37.8% pass@4 - @sonWhenAICoScientists2025|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]]
+- [[EVD - o3 led SPOT with 37.8% pass@4 - @sonWhenAICoScientists2025|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]
 
-- [[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication - @sonWhenAICoScientists2025|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]]
+- [[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication - @sonWhenAICoScientists2025|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]

@@ -10,8 +10,8 @@ tags:
   - cvt/severity/moderate
   - 5c/clarity
 appliesTo:
-  - "[[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023]]"
-  - "[[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06 - @robertsComparativeStudyChatGPT2023]]"
+  - "[[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]"
+  - "[[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc1-769f-8444-83d2fec9eff7
@@ -38,6 +38,6 @@ Only ChatGPT3 (GPT-3.5 model) was evaluated against human reviewers. GPT-4 and o
 
 ### Applies To
 
-- [[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
+- [[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
 
-- [[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06 - @robertsComparativeStudyChatGPT2023]]
+- [[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]

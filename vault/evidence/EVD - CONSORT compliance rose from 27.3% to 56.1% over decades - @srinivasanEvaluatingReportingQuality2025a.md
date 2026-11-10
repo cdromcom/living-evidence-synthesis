@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs - @srinivasanEvaluatingReportingQuality2025a"
+  - "EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/high-risk
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b83-7219-98f4-b40a6fb82d6b
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 50pct
-title: "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs - @srinivasanEvaluatingReportingQuality2025a"
+title: "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs"
 ---
 
 ## Source

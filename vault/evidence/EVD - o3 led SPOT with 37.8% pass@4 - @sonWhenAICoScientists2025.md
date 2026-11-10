@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025"
+  - "EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4"
 tags:
   - task/error-detection
   - appraisal/construct-validity/low-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b88-7565-bf1e-945d5895aca5
 appraisal_overall: L1-M3-H1
 tripod_llm_pct: 63pct
-title: "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025"
+title: "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4"
 ---
 
 ## Source

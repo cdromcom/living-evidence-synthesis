@@ -10,8 +10,8 @@ tags:
   - cvt/severity/moderate
   - 5c/connectivity
 appliesTo:
-  - "[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024]]"
-  - "[[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context - @zhangDetectingReferenceErrors2024|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]"
+  - "[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]"
+  - "[[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context - @zhangDetectingReferenceErrors2024|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc8-7307-95d7-b3f0667e0ff7
@@ -37,6 +37,6 @@ All statement-reference pairs in the dataset came from journal articles and were
 
 ### Applies To
 
-- [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024]]
+- [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
 
-- [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context - @zhangDetectingReferenceErrors2024|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
+- [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context - @zhangDetectingReferenceErrors2024|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]

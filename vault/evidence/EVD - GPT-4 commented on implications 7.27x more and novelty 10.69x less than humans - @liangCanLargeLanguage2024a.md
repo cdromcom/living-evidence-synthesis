@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers - @liangCanLargeLanguage2024a"
+  - "EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers"
 tags:
   - task/novelty-assessment
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b6c-7583-b3b7-c100895b138d
 appraisal_overall: L1-M3-H1
 tripod_llm_pct: 55pct
-title: "GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers - @liangCanLargeLanguage2024a"
+title: "GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers"
 ---
 
 ## Source

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set - @shahidLiteratureGroundedNoveltyAssessment2025"
+  - "EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set"
 tags:
   - task/novelty-assessment
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b52-7182-bd9d-7c2686f81bb7
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 41pct
-title: "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set - @shahidLiteratureGroundedNoveltyAssessment2025"
+title: "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set"
 ---
 
 ## Source

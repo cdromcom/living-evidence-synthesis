@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria - @tyserAIDrivenReviewSystems2024"
+  - "EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria"
 tags:
   - task/review-generation
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b78-77d7-8711-497f3ed763af
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 25pct
-title: "LLM reviews scored comparably to human reviews on all three expert evaluation criteria - @tyserAIDrivenReviewSystems2024"
+title: "LLM reviews scored comparably to human reviews on all three expert evaluation criteria"
 ---
 
 ## Source

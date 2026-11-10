@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations - @sarolAssessingCitationIntegrity2024"
+  - "EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations"
 tags:
   - task/citation-integrity-checking
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b6b-7574-8bfa-47e8de80ab79
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 73pct
-title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations - @sarolAssessingCitationIntegrity2024"
+title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations"
 ---
 
 ## Source

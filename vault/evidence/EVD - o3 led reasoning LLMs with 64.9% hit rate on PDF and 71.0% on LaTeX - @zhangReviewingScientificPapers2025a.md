@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a"
+  - "EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers"
 tags:
   - task/error-detection
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b7f-7021-ba29-15252b4379b8
 appraisal_overall: L0-M4-H1
 tripod_llm_pct: 54pct
-title: "OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a"
+title: "OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers"
 ---
 
 ## Source

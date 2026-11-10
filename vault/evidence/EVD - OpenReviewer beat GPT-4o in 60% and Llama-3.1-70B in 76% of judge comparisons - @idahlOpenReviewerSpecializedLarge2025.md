@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025"
+  - "EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations"
 tags:
   - task/decision-judgment
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b81-7188-8476-cec09347ad21
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 56pct
-title: "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025"
+title: "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations"
 ---
 
 ## Source

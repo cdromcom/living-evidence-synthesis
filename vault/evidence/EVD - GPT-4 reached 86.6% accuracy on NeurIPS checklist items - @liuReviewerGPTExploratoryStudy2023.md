@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023"
+  - "EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs"
 tags:
   - task/reporting-compliance-checking
   - forensic/reproduction-check/match
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b6a-7323-b0e4-5812004cd33d
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 36pct
-title: "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs - @liuReviewerGPTExploratoryStudy2023"
+title: "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs"
 ---
 
 ## Source

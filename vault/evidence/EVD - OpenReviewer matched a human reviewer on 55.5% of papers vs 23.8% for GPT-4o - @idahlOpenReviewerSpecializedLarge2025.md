@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025"
+  - "EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o"
 tags:
   - task/decision-judgment
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b80-7713-af4a-5610dfbca6b6
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 56pct
-title: "OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o - @idahlOpenReviewerSpecializedLarge2025"
+title: "OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o"
 ---
 
 ## Source

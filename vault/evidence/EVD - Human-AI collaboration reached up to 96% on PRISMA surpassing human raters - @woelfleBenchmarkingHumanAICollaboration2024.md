@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024"
+  - "EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b73-751a-bbaf-1660b1f7b516
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 67pct
-title: "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024"
+title: "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters"
 ---
 
 ## Source

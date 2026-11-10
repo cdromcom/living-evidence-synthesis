@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors - @sarolAssessingCitationIntegrity2024"
+  - "EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors"
 tags:
   - task/citation-integrity-checking
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b4f-7657-91eb-6e0893973052
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 73pct
-title: "39.18% of 3063 annotated biomedical citation instances contained accuracy errors - @sarolAssessingCitationIntegrity2024"
+title: "39.18% of 3063 annotated biomedical citation instances contained accuracy errors"
 ---
 
 ## Source

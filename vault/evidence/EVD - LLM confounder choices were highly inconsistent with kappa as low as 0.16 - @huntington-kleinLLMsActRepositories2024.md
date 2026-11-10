@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations - @huntington-kleinLLMsActRepositories2024"
+  - "EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations"
 tags:
   - task/causal-inference-judgment
   - appraisal/construct-validity/low-risk
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b77-74dc-bfa6-3515fde9ce31
 appraisal_overall: L1-M3-H1
 tripod_llm_pct: 62pct
-title: "LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations - @huntington-kleinLLMsActRepositories2024"
+title: "LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations"
 ---
 
 ## Source

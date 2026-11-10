@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024"
+  - "EVD - Three AI platforms responded correctly to all 10 IRB case study queries"
 tags:
   - task/ethics-irb-review
   - appraisal/construct-validity/high-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b86-7207-8c7a-d917754579f2
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 23pct
-title: "Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024"
+title: "Three AI platforms responded correctly to all 10 IRB case study queries"
 ---
 
 ## Source

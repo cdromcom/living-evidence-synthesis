@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025"
+  - "EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses"
 tags:
   - task/ethics-irb-review
   - appraisal/construct-validity/high-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b55-768b-a2fe-e3234fa385dc
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 35pct
-title: "All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025"
+title: "All four LLMs answered all seven IRB ethics case queries with homogeneous responses"
 ---
 
 ## Source

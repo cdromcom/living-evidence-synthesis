@@ -36,12 +36,12 @@ title: "Current LLMs are not yet qualified as reliable automatic reviewers for s
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1 - @louAAAR10AssessingAIs2025|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
+- [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1 - @louAAAR10AssessingAIs2025|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
 
-- [[EVD - GPT-3.5 predicted review aspect scores at r=0.651 - @zhouLLMReliableReviewer2024|EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review - @zhouLLMReliableReviewer2024]]
+- [[EVD - GPT-3.5 predicted review aspect scores at r=0.651 - @zhouLLMReliableReviewer2024|EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review]]
 
-- [[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 - @zhouLLMReliableReviewer2024|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions - @zhouLLMReliableReviewer2024]]
+- [[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 - @zhouLLMReliableReviewer2024|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]
 
-- [[EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR - @louAAAR10AssessingAIs2025|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task - @louAAAR10AssessingAIs2025]]
+- [[EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR - @louAAAR10AssessingAIs2025|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]
 
-- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline - @louAAAR10AssessingAIs2025|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
+- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline - @louAAAR10AssessingAIs2025|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025"
+  - "EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments"
 tags:
   - task/error-detection
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b5d-7118-952d-e02a51aec515
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 57pct
-title: "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025"
+title: "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments"
 ---
 
 ## Source

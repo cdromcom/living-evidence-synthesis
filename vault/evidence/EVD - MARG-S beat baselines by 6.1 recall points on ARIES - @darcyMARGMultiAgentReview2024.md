@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus - @darcyMARGMultiAgentReview2024"
+  - "EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus"
 tags:
   - task/review-generation
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b7c-7466-b4e2-731e96fe9cb1
 appraisal_overall: L0-M4-H1
 tripod_llm_pct: 53pct
-title: "MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus - @darcyMARGMultiAgentReview2024"
+title: "MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus"
 ---
 
 ## Source

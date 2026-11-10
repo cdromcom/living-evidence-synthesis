@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024"
+  - "EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms"
 tags:
   - task/ethics-irb-review
   - appraisal/construct-validity/high-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b53-7236-a205-c04af0a5a2a7
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 23pct
-title: "AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024"
+title: "AI platforms drafted SOPs covering fundamental sections with variations across platforms"
 ---
 
 ## Source

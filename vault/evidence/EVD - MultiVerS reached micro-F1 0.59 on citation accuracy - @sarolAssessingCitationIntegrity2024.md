@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification - @sarolAssessingCitationIntegrity2024"
+  - "EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification"
 tags:
   - task/citation-integrity-checking
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b57-768e-af9b-1285c4a1158c
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 73pct
-title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification - @sarolAssessingCitationIntegrity2024"
+title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification"
 ---
 
 ## Source

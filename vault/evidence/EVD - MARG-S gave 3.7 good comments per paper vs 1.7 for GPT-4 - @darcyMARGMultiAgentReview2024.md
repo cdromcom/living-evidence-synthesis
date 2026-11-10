@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline - @darcyMARGMultiAgentReview2024"
+  - "EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline"
 tags:
   - task/review-generation
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b7b-76f9-ab59-4f34c339f6ab
 appraisal_overall: L0-M4-H1
 tripod_llm_pct: 53pct
-title: "MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline - @darcyMARGMultiAgentReview2024"
+title: "MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline"
 ---
 
 ## Source

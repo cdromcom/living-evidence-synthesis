@@ -11,8 +11,8 @@ tags:
   - cvt/severity/moderate
   - 5c/care
 appliesTo:
-  - "[[EVD - All four LLMs gave similar answers to all 7 IRB cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]"
-  - "[[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt - @sridharanLeveragingArtificialIntelligence2025|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]"
+  - "[[EVD - All four LLMs gave similar answers to all 7 IRB cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]"
+  - "[[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt - @sridharanLeveragingArtificialIntelligence2025|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bab-7188-9d83-7196a8794734
@@ -38,6 +38,6 @@ The study used only cloud-based LLMs and a small pilot sample of seven case scen
 
 ### Applies To
 
-- [[EVD - All four LLMs gave similar answers to all 7 IRB cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - All four LLMs gave similar answers to all 7 IRB cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]
 
-- [[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt - @sridharanLeveragingArtificialIntelligence2025|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt - @sridharanLeveragingArtificialIntelligence2025|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]

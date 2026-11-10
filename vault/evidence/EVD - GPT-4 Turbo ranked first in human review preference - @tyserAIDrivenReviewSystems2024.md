@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558 - @tyserAIDrivenReviewSystems2024"
+  - "EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558"
 tags:
   - task/review-generation
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b68-7025-a508-4eb106d8ce56
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 25pct
-title: "GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558 - @tyserAIDrivenReviewSystems2024"
+title: "GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558"
 ---
 
 ## Source

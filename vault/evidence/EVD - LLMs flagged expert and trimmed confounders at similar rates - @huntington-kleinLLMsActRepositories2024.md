@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams - @huntington-kleinLLMsActRepositories2024"
+  - "EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams"
 tags:
   - task/causal-inference-judgment
   - appraisal/construct-validity/low-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b7a-732c-ab07-30b53433883a
 appraisal_overall: L1-M3-H1
 tripod_llm_pct: 62pct
-title: "LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams - @huntington-kleinLLMsActRepositories2024"
+title: "LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams"
 ---
 
 ## Source

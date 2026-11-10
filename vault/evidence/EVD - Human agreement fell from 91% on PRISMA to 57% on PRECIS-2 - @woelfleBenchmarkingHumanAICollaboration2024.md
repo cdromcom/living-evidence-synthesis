@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2 - @woelfleBenchmarkingHumanAICollaboration2024"
+  - "EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b72-7793-93a6-8b8f7cce7291
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 67pct
-title: "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2 - @woelfleBenchmarkingHumanAICollaboration2024"
+title: "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2"
 ---
 
 ## Source

@@ -13,7 +13,7 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]"
+  - "[[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc6-7461-92c0-252c173dbcd9
@@ -39,4 +39,4 @@ The Review Arena evaluation uses GPT-4o (2024-11-20) as the sole judge to compar
 
 ### Applies To
 
-[[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]]
+[[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons - @idahlOpenReviewerSpecializedLarge2025|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]]

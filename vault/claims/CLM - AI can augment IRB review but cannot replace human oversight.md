@@ -36,16 +36,16 @@ title: "AI tools can augment IRB decision-making and improve review efficiency b
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - AI platforms drafted SOPs covering fundamental sections with variations - @sridharanAssessingDecisionMakingCapabilities2024|EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms - @sridharanAssessingDecisionMakingCapabilities2024]]
+- [[EVD - AI platforms drafted SOPs covering fundamental sections with variations - @sridharanAssessingDecisionMakingCapabilities2024|EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms]]
 
-- [[EVD - All AI platforms missed post-trial herbal medicine access - @sridharanAssessingDecisionMakingCapabilities2024|EVD - All AI platforms failed to address post-trial herbal medicine access in case study 10 - @sridharanAssessingDecisionMakingCapabilities2024]]
+- [[EVD - All AI platforms missed post-trial herbal medicine access - @sridharanAssessingDecisionMakingCapabilities2024|EVD - All AI platforms failed to address post-trial herbal medicine access in case study 10]]
 
-- [[EVD - All four LLMs gave similar answers to all 7 IRB cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - All four LLMs gave similar answers to all 7 IRB cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]
 
-- [[EVD - All four LLMs included core ICD elements in all 7 cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - All four LLMs included core ICD elements in all 7 cases - @sridharanLeveragingArtificialIntelligence2025|EVD - All four LLMs included fundamental ICD elements for all seven case scenarios]]
 
-- [[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt - @sridharanLeveragingArtificialIntelligence2025|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt - @sridharanLeveragingArtificialIntelligence2025]]
+- [[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt - @sridharanLeveragingArtificialIntelligence2025|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]
 
-- [[EVD - No AI platform recognized the IRB quorum requirement - @sridharanAssessingDecisionMakingCapabilities2024|EVD - None of three AI platforms recognized quorum requirement for initial proposal review - @sridharanAssessingDecisionMakingCapabilities2024]]
+- [[EVD - No AI platform recognized the IRB quorum requirement - @sridharanAssessingDecisionMakingCapabilities2024|EVD - None of three AI platforms recognized quorum requirement for initial proposal review]]
 
-- [[EVD - Three AI platforms answered all 10 IRB cases correctly - @sridharanAssessingDecisionMakingCapabilities2024|EVD - Three AI platforms responded correctly to all 10 IRB case study queries - @sridharanAssessingDecisionMakingCapabilities2024]]
+- [[EVD - Three AI platforms answered all 10 IRB cases correctly - @sridharanAssessingDecisionMakingCapabilities2024|EVD - Three AI platforms responded correctly to all 10 IRB case study queries]]

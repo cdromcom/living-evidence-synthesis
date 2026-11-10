@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models - @akyonEvaluatingCapabilitiesGenerative2024"
+  - "EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b7b-76f9-ab59-4f33dcf0757b
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 43pct
-title: "LLMs showed lowest accuracy on questions about statistical software used and study funding across all models - @akyonEvaluatingCapabilitiesGenerative2024"
+title: "LLMs showed lowest accuracy on questions about statistical software used and study funding across all models"
 ---
 
 ## Source

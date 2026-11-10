@@ -13,8 +13,8 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation - @bougieGenerativeAdversarialReviews2024a]]"
-  - "[[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]"
+  - "[[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation]]"
+  - "[[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba8-72e1-aaef-820cdb50beed
@@ -40,6 +40,6 @@ Papers from ICLR 2022 and 2023 used as the evaluation dataset may have been incl
 
 ### Applies To
 
-- [[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation - @bougieGenerativeAdversarialReviews2024a]]
+- [[EVD - GAR beat human reviewers on preference 0.684 vs 0.523 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation]]
 
-- [[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49 - @bougieGenerativeAdversarialReviews2024a]]
+- [[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49 - @bougieGenerativeAdversarialReviews2024a|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49]]

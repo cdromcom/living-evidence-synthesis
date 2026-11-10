@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review - @zhouLLMReliableReviewer2024"
+  - "EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review"
 tags:
   - task/review-generation
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b65-72ac-a24a-a127c940f7ed
 appraisal_overall: L0-M4-H1
 tripod_llm_pct: 43pct
-title: "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review - @zhouLLMReliableReviewer2024"
+title: "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review"
 ---
 
 ## Source

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Median quote similarity with original full text was 99 percent across LLM extracted quotes - @woelfleBenchmarkingHumanAICollaboration2024"
+  - "EVD - Median quote similarity with original full text was 99 percent across LLM extracted quotes"
 tags:
   - task/extraction-fidelity
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b7e-7568-87fd-f5411fb5606b
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 67pct
-title: "Median quote similarity with original full text was 99 percent across LLM extracted quotes - @woelfleBenchmarkingHumanAICollaboration2024"
+title: "Median quote similarity with original full text was 99 percent across LLM extracted quotes"
 ---
 
 ## Source

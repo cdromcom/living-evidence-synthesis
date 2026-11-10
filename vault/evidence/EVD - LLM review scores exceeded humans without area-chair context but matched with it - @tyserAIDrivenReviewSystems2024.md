@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - LLM review recommendation scores exceeded human scores without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024"
+  - "EVD - LLM review recommendation scores exceeded human scores without area-chair context but matched with it"
 tags:
   - task/decision-judgment
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b78-77d7-8711-497e13fd138d
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 25pct
-title: "LLM review recommendation scores exceeded human scores without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024"
+title: "LLM review recommendation scores exceeded human scores without area-chair context but matched with it"
 ---
 
 ## Source

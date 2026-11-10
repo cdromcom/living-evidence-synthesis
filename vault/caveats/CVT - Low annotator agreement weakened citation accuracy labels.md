@@ -10,9 +10,9 @@ tags:
   - cvt/severity/high
   - 5c/connectivity
 appliesTo:
-  - "[[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31 - @sarolAssessingCitationIntegrity2024|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2 - @sarolAssessingCitationIntegrity2024]]"
-  - "[[EVD - MultiVerS reached micro-F1 0.59 on citation accuracy - @sarolAssessingCitationIntegrity2024|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification - @sarolAssessingCitationIntegrity2024]]"
-  - "[[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate - @sarolAssessingCitationIntegrity2024|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations - @sarolAssessingCitationIntegrity2024]]"
+  - "[[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31 - @sarolAssessingCitationIntegrity2024|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2]]"
+  - "[[EVD - MultiVerS reached micro-F1 0.59 on citation accuracy - @sarolAssessingCitationIntegrity2024|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification]]"
+  - "[[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate - @sarolAssessingCitationIntegrity2024|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bae-7063-b6ba-086b938022c4
@@ -38,8 +38,8 @@ Inter-annotator agreement for evidence sentence identification and citation accu
 
 ### Applies To
 
-- [[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31 - @sarolAssessingCitationIntegrity2024|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2 - @sarolAssessingCitationIntegrity2024]]
+- [[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31 - @sarolAssessingCitationIntegrity2024|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2]]
 
-- [[EVD - MultiVerS reached micro-F1 0.59 on citation accuracy - @sarolAssessingCitationIntegrity2024|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification - @sarolAssessingCitationIntegrity2024]]
+- [[EVD - MultiVerS reached micro-F1 0.59 on citation accuracy - @sarolAssessingCitationIntegrity2024|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification]]
 
-- [[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate - @sarolAssessingCitationIntegrity2024|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations - @sarolAssessingCitationIntegrity2024]]
+- [[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate - @sarolAssessingCitationIntegrity2024|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]]

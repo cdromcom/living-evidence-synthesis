@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025"
+  - "EVD - All four LLMs included fundamental ICD elements for all seven case scenarios"
 tags:
   - task/ethics-irb-review
   - appraisal/construct-validity/high-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b56-71c3-9d05-1e7fa20ace95
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 35pct
-title: "All four LLMs included fundamental ICD elements for all seven case scenarios - @sridharanLeveragingArtificialIntelligence2025"
+title: "All four LLMs included fundamental ICD elements for all seven case scenarios"
 ---
 
 ## Source

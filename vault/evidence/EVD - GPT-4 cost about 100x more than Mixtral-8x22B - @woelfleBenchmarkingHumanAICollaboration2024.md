@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal - @woelfleBenchmarkingHumanAICollaboration2024"
+  - "EVD - GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b6d-739b-84bf-e74d3b7c68ac
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 67pct
-title: "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal - @woelfleBenchmarkingHumanAICollaboration2024"
+title: "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal"
 ---
 
 ## Source

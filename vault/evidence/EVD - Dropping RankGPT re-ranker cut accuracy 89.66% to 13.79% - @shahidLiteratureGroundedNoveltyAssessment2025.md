@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79% - @shahidLiteratureGroundedNoveltyAssessment2025"
+  - "EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%"
 tags:
   - task/novelty-assessment
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b85-7544-bc4e-40e88e0586c4
 appraisal_overall: L0-M2-H3
 tripod_llm_pct: 41pct
-title: "Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79% - @shahidLiteratureGroundedNoveltyAssessment2025"
+title: "Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%"
 ---
 
 ## Source

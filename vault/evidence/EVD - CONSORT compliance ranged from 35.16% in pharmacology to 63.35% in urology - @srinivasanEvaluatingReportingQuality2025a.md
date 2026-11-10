@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology - @srinivasanEvaluatingReportingQuality2025a"
+  - "EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/high-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b57-768e-af9b-1286eff09e0b
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 50pct
-title: "CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology - @srinivasanEvaluatingReportingQuality2025a"
+title: "CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology"
 ---
 
 ## Source

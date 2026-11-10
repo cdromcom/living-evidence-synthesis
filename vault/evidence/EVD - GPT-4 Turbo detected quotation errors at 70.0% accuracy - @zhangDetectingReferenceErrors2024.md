@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024"
+  - "EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts"
 tags:
   - task/citation-integrity-checking
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b66-7029-bece-dd450e4d9813
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 46pct
-title: "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024"
+title: "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts"
 ---
 
 ## Source

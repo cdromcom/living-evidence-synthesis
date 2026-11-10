@@ -10,7 +10,7 @@ tags:
   - cvt/severity/moderate
   - 5c/connectivity
 appliesTo:
-  - "[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024]]"
+  - "[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc9-75fb-a95b-cb0b5f2118f6
@@ -36,4 +36,4 @@ The annotation scheme used a simple three-way label (Unsubstantiated, Partially 
 
 ### Applies To
 
-[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024]]
+[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy - @zhangDetectingReferenceErrors2024|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]

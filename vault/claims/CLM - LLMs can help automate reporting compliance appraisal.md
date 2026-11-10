@@ -28,8 +28,8 @@ title: "LLMs can help automate appraisal of medical literature for reporting sta
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
+- [[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
 
-- [[EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764 - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A - @robertsComparativeStudyChatGPT2023]]
+- [[EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764 - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]
 
-- [[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06 - @robertsComparativeStudyChatGPT2023]]
+- [[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective - @robertsComparativeStudyChatGPT2023|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]

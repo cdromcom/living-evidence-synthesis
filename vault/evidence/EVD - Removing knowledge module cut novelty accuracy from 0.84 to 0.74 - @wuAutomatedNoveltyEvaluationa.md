@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74 - @wuAutomatedNoveltyEvaluationa"
+  - "EVD - Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74"
 tags:
   - task/novelty-assessment
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b86-7207-8c7a-d9161ee6cf98
 appraisal_overall: L1-M2-H2
 tripod_llm_pct: 53pct
-title: "Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74 - @wuAutomatedNoveltyEvaluationa"
+title: "Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74"
 ---
 
 ## Source

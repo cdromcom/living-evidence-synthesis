@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025"
+  - "EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication"
 tags:
   - task/error-detection
   - appraisal/construct-validity/low-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b87-72f6-b50c-edb52943a447
 appraisal_overall: L1-M3-H1
 tripod_llm_pct: 63pct
-title: "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025"
+title: "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication"
 ---
 
 ## Source

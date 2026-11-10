@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs - @srinivasanEvaluatingReportingQuality2025a"
+  - "EVD - Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/high-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b84-7793-a358-933a1d7afed7
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 50pct
-title: "Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs - @srinivasanEvaluatingReportingQuality2025a"
+title: "Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs"
 ---
 
 ## Source

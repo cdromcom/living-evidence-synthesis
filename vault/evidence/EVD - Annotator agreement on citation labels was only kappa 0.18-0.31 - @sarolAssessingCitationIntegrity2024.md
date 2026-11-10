@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2 - @sarolAssessingCitationIntegrity2024"
+  - "EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2"
 tags:
   - task/citation-integrity-checking
   - appraisal/construct-validity/some-concerns
@@ -20,7 +20,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b75-77f2-8f5f-2ee25d43c902
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 73pct
-title: "Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2 - @sarolAssessingCitationIntegrity2024"
+title: "Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2"
 ---
 
 ## Source

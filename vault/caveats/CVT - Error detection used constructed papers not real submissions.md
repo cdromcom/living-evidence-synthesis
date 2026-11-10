@@ -10,8 +10,8 @@ tags:
   - cvt/severity/high
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4 detected errors in 7 of 13 constructed papers - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]"
-  - "[[EVD - GPT-4 favored the worse abstract in 6 of 10 pairs - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]"
+  - "[[EVD - GPT-4 detected errors in 7 of 13 constructed papers - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]"
+  - "[[EVD - GPT-4 favored the worse abstract in 6 of 10 pairs - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc5-750b-9ed5-815fd0721d92
@@ -41,6 +41,6 @@ The 13 short papers and 10 abstract pairs used in the error detection and compar
 
 ### Applies To
 
-- [[EVD - GPT-4 detected errors in 7 of 13 constructed papers - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]
+- [[EVD - GPT-4 detected errors in 7 of 13 constructed papers - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]
 
-- [[EVD - GPT-4 favored the worse abstract in 6 of 10 pairs - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023]]
+- [[EVD - GPT-4 favored the worse abstract in 6 of 10 pairs - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract]]

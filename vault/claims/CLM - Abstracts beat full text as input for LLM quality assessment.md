@@ -32,6 +32,6 @@ title: "Abstracts are the optimal input for LLM-based research quality assessmen
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - Full text scored worse than abstracts for 3 ChatGPT models - @thelwallEvaluatingResearchQuality2024|EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]]
+- [[EVD - Full text scored worse than abstracts for 3 ChatGPT models - @thelwallEvaluatingResearchQuality2024|EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested]]
 
-- [[EVD - GPT-4o abstract scores correlated r=0.67 with humans - @thelwallEvaluatingResearchQuality2024|EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported - @thelwallEvaluatingResearchQuality2024]]
+- [[EVD - GPT-4o abstract scores correlated r=0.67 with humans - @thelwallEvaluatingResearchQuality2024|EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported]]

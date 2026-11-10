@@ -34,9 +34,9 @@ The pattern is not "reasoning LLMs are good at this in absolute terms", performa
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX - @zhangReviewingScientificPapers2025a|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a]], Zhang & Abernethy 2025: o3 leads on the WITHDRARXIV-CHECK quality-checker benchmark.
-- [[EVD - o3 led SPOT with 37.8% pass@4 - @sonWhenAICoScientists2025|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]], Son et al. 2025: o3 leads on the SPOT author-confirmed-error benchmark.
-- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline - @louAAAR10AssessingAIs2025|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]], Lou et al. 2025: o3-mini leads on the AAAR-1.0 EqInfer task (equation correctness).
+- [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX - @zhangReviewingScientificPapers2025a|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]], Zhang & Abernethy 2025: o3 leads on the WITHDRARXIV-CHECK quality-checker benchmark.
+- [[EVD - o3 led SPOT with 37.8% pass@4 - @sonWhenAICoScientists2025|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]], Son et al. 2025: o3 leads on the SPOT author-confirmed-error benchmark.
+- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline - @louAAAR10AssessingAIs2025|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]], Lou et al. 2025: o3-mini leads on the AAAR-1.0 EqInfer task (equation correctness).
 
 ## Connected discourse-graph nodes
 

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023"
+  - "EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers"
 tags:
   - task/error-detection
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b6d-739b-84bf-e74cc12a481a
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 36pct
-title: "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023"
+title: "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers"
 ---
 
 ## Source

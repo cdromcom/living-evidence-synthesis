@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported - @thelwallEvaluatingResearchQuality2024"
+  - "EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported"
 tags:
   - task/decision-judgment
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b70-756a-bcc7-52d8e587f5fd
 appraisal_overall: L0-M4-H1
 tripod_llm_pct: 46pct
-title: "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported - @thelwallEvaluatingResearchQuality2024"
+title: "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported"
 ---
 
 ## Source

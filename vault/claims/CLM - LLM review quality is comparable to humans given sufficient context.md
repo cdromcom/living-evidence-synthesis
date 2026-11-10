@@ -40,16 +40,16 @@ title: "LLM review quality is comparable to human review quality when provided w
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful - @liangCanLargeLanguage2024a|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers - @liangCanLargeLanguage2024a]]
+- [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful - @liangCanLargeLanguage2024a|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]
 
-- [[EVD - GPT-4 Turbo ranked first in human review preference - @tyserAIDrivenReviewSystems2024|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558 - @tyserAIDrivenReviewSystems2024]]
+- [[EVD - GPT-4 Turbo ranked first in human review preference - @tyserAIDrivenReviewSystems2024|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]
 
-- [[EVD - GPT-4 commented on implications 7.27x more and novelty 10.69x less than humans - @liangCanLargeLanguage2024a|EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers - @liangCanLargeLanguage2024a]]
+- [[EVD - GPT-4 commented on implications 7.27x more and novelty 10.69x less than humans - @liangCanLargeLanguage2024a|EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers]]
 
-- [[EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human - @liangCanLargeLanguage2024a|EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58% - @liangCanLargeLanguage2024a]]
+- [[EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human - @liangCanLargeLanguage2024a|EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%]]
 
-- [[EVD - LLM review scores exceeded humans without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024|EVD - LLM review recommendation scores exceeded human scores without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024]]
+- [[EVD - LLM review scores exceeded humans without area-chair context but matched with it - @tyserAIDrivenReviewSystems2024|EVD - LLM review recommendation scores exceeded human scores without area-chair context but matched with it]]
 
-- [[EVD - LLM reviews scored like human reviews on all 3 criteria - @tyserAIDrivenReviewSystems2024|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria - @tyserAIDrivenReviewSystems2024]]
+- [[EVD - LLM reviews scored like human reviews on all 3 criteria - @tyserAIDrivenReviewSystems2024|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]
 
-- [[EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling - @liangCanLargeLanguage2024a|EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a]]
+- [[EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling - @liangCanLargeLanguage2024a|EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity]]

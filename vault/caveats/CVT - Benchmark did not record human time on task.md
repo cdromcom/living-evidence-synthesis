@@ -11,7 +11,7 @@ tags:
   - 5c/clarity
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024]]"
+  - "[[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]"
   - "[[CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]"
 created: 2026-04-27
 updated: 2026-04-29
@@ -38,6 +38,6 @@ The benchmark datasets contain no time-on-task data for the human raters, so the
 
 ### Applies To
 
-- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters - @woelfleBenchmarkingHumanAICollaboration2024]]
+- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters - @woelfleBenchmarkingHumanAICollaboration2024|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]
 
 - [[CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]

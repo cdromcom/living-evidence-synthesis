@@ -10,7 +10,7 @@ tags:
   - cvt/severity/moderate
   - 5c/creativity
 appliesTo:
-  - "[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction - @wuAutomatedNoveltyEvaluationa|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction - @wuAutomatedNoveltyEvaluationa]]"
+  - "[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction - @wuAutomatedNoveltyEvaluationa|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bad-72be-98bd-00bfab87cc17
@@ -36,4 +36,4 @@ The LLM baselines (Llama 3.1, ChatGPT, GPT-4o, Claude) were tested exclusively u
 
 ### Applies To
 
-[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction - @wuAutomatedNoveltyEvaluationa|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction - @wuAutomatedNoveltyEvaluationa]]
+[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction - @wuAutomatedNoveltyEvaluationa|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]

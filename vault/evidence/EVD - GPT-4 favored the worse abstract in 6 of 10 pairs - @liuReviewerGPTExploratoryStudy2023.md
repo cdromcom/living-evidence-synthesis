@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023"
+  - "EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract"
 tags:
   - task/error-detection
   - appraisal/construct-validity/some-concerns
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b6f-75a2-a0f9-49f215d55499
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 36pct
-title: "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract - @liuReviewerGPTExploratoryStudy2023"
+title: "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract"
 ---
 
 ## Source

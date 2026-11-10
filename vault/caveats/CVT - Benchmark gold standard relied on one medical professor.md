@@ -11,9 +11,9 @@ tags:
   - 5c/clarity
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct - @akyonEvaluatingCapabilitiesGenerative2024|EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024]]"
-  - "[[EVD - GPT 4-0613 was lowest on STROBE questions at 44.1% - @akyonEvaluatingCapabilitiesGenerative2024|EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions - @akyonEvaluatingCapabilitiesGenerative2024]]"
-  - "[[EVD - LLMs were least accurate on software and funding questions - @akyonEvaluatingCapabilitiesGenerative2024|EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models - @akyonEvaluatingCapabilitiesGenerative2024]]"
+  - "[[EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct - @akyonEvaluatingCapabilitiesGenerative2024|EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles]]"
+  - "[[EVD - GPT 4-0613 was lowest on STROBE questions at 44.1% - @akyonEvaluatingCapabilitiesGenerative2024|EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions]]"
+  - "[[EVD - LLMs were least accurate on software and funding questions - @akyonEvaluatingCapabilitiesGenerative2024|EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc4-7637-a6b3-c6b968617a3b
@@ -39,8 +39,8 @@ The gold standard against which LLM performance was measured was established by 
 
 ### Applies To
 
-- [[EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct - @akyonEvaluatingCapabilitiesGenerative2024|EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles - @akyonEvaluatingCapabilitiesGenerative2024]]
+- [[EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct - @akyonEvaluatingCapabilitiesGenerative2024|EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles]]
 
-- [[EVD - GPT 4-0613 was lowest on STROBE questions at 44.1% - @akyonEvaluatingCapabilitiesGenerative2024|EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions - @akyonEvaluatingCapabilitiesGenerative2024]]
+- [[EVD - GPT 4-0613 was lowest on STROBE questions at 44.1% - @akyonEvaluatingCapabilitiesGenerative2024|EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions]]
 
-- [[EVD - LLMs were least accurate on software and funding questions - @akyonEvaluatingCapabilitiesGenerative2024|EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models - @akyonEvaluatingCapabilitiesGenerative2024]]
+- [[EVD - LLMs were least accurate on software and funding questions - @akyonEvaluatingCapabilitiesGenerative2024|EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models]]

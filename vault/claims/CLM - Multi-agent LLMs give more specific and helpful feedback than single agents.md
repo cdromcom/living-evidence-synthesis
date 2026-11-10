@@ -36,10 +36,10 @@ title: "Multi-agent LLM systems produce more specific and helpful scientific pap
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG - @xuCanLLMsIdentify2025|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
+- [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG - @xuCanLLMsIdentify2025|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]
 
-- [[EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4 - @darcyMARGMultiAgentReview2024|EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline - @darcyMARGMultiAgentReview2024]]
+- [[EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4 - @darcyMARGMultiAgentReview2024|EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline]]
 
-- [[EVD - MARG-S beat baselines by 6.1 recall points on ARIES - @darcyMARGMultiAgentReview2024|EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus - @darcyMARGMultiAgentReview2024]]
+- [[EVD - MARG-S beat baselines by 6.1 recall points on ARIES - @darcyMARGMultiAgentReview2024|EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus]]
 
-- [[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points - @xuCanLLMsIdentify2025|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn - @xuCanLLMsIdentify2025]]
+- [[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points - @xuCanLLMsIdentify2025|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]

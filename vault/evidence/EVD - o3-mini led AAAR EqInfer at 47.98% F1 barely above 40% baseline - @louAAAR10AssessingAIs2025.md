@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025"
+  - "EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline"
 tags:
   - task/error-detection
   - appraisal/construct-validity/some-concerns
@@ -21,7 +21,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b88-7565-bf1e-945e2d0d55c6
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 57pct
-title: "o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025"
+title: "o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline"
 ---
 
 ## Source

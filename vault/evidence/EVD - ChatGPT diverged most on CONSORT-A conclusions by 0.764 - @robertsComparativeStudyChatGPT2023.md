@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A - @robertsComparativeStudyChatGPT2023"
+  - "EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A"
 tags:
   - task/reporting-compliance-checking
   - appraisal/construct-validity/high-risk
@@ -19,7 +19,7 @@ updated: 2026-04-29
 nodeID: 019ddb4e-6b5b-713a-b0d8-3e1307eb62f0
 appraisal_overall: L0-M1-H4
 tripod_llm_pct: 26pct
-title: "ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A - @robertsComparativeStudyChatGPT2023"
+title: "ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A"
 ---
 
 ## Source
