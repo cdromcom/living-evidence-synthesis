@@ -80,6 +80,13 @@ curatedWithModelDate: 2026-08-25
 citekey: sarolAssessingCitationIntegrity2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f948-7194-abaf-ed408bc298aa
+zotero-key: XV3YB4GI
+year: "2024"
+journal: Bioinformatics
+itemType: journalArticle
+DOI: 10.1093/bioinformatics/btae420
+abstract: Citations have a fundamental role in scholarly communication and assessment. Citation accuracy and transparency is crucial for the integrity of scientific evidence. In this work, we focus on quotation errors, errors in citation content that can distort the scientific evidence and that are hard to detect for humans. We construct a corpus and propose natural language processing (NLP) methods to identify such errors in biomedical publications.We manually annotated 100 highly-cited biomedical publications (reference articles) and citations to them. The annotation involved labeling citation context in the citing article, relevant evidence sentences in the reference article, and the accuracy of the citation. A total of 3063 citation instances were annotated (39.18% with accuracy errors). For NLP, we combined a sentence retriever with a fine-tuned claim verification model to label citations as ACCURATE, NOT_ACCURATE, or IRRELEVANT. We also explored few-shot in-context learning with generative large language models. The best performing model—which uses citation sentences as citation context, the BM25 model with MonoT5 reranker for retrieving top-20 sentences, and a fine-tuned MultiVerS model for accuracy label classification—yielded 0.59 micro-F1 and 0.52 macro-F1 score. GPT-4 in-context learning performed better in identifying accurate citations, but it lagged for erroneous citations (0.65 micro-F1, 0.45 macro-F1). Citation quotation errors are often subtle, and it is currently challenging for NLP models to identify erroneous citations. With further improvements, the models could serve to improve citation quality and accuracy.We make the corpus and the best-performing NLP model publicly available at https://github.com/ScienceNLP-Lab/Citation-Integrity/.
+zotero: zotero://select/library/items/XV3YB4GI
 ---
 
 > [!success] **TL;DR**
