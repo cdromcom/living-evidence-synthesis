@@ -73,7 +73,7 @@ nodeInstanceId: 019dd17a-f951-7716-87b8-85d879b3e235
 
 ### Question
 
-When you ask ChatGPT to score how good a research paper is, what part of the paper should you actually feed it: the title, the title plus abstract, or the trimmed-down full text? The author tests three input formats across three OpenAI models and checks which one produces scores that line up best with a human expert's quality ratings. The benchmark is the UK's Research Excellence Framework (REF), a national exercise that grades research on a 1* to 4* scale, where 4* means "world-leading". See [[QUE - What is the optimal input format for LLM-based research quality assessment]].
+When you ask ChatGPT to score how good a research paper is, what part of the paper should you actually feed it: the title, the title plus abstract, or the trimmed-down full text? The author tests three input formats across three OpenAI models and checks which one produces scores that line up best with a human expert's quality ratings. The benchmark is the UK's Research Excellence Framework (REF), a national exercise that grades research on a 1* to 4* scale, where 4* means "world-leading". See [[QUE - What input format works best for LLM quality assessment|QUE - What is the optimal input format for LLM-based research quality assessment?]].
 
 ### Methods
 
@@ -123,17 +123,17 @@ flowchart TD
 
 ### Findings
 
-- **Title plus abstract beat full text across the board.** GPT-4o on title-plus-abstract reached a Spearman correlation of 0.678 with the author's REF scores after averaging 30 iterations; the highest the author has ever reported and above the prior benchmark of 0.51 from the ChatGPT-4 web interface on full PDFs. A linear regression mapping model scores onto the REF scale cut the average error by 31% versus simply guessing the corpus mean of 2.75. [[EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported - @thelwallEvaluatingResearchQuality2024]]
+- **Title plus abstract beat full text across the board.** GPT-4o on title-plus-abstract reached a Spearman correlation of 0.678 with the author's REF scores after averaging 30 iterations; the highest the author has ever reported and above the prior benchmark of 0.51 from the ChatGPT-4 web interface on full PDFs. A linear regression mapping model scores onto the REF scale cut the average error by 31% versus simply guessing the corpus mean of 2.75. [[EVD - GPT-4o abstract scores correlated r=0.67 with humans - @thelwallEvaluatingResearchQuality2024|EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported - @thelwallEvaluatingResearchQuality2024]]
 
-- **Feeding more text actually hurt the model.** All three ChatGPT models scored worse on truncated full text than on title-plus-abstract. GPT-3.5-turbo dropped from 0.674 (abstracts) to 0.625 (full text), GPT-4o-mini dropped from 0.571 to 0.506, and GPT-4o was essentially tied at 0.678 versus 0.675. Title-only input dropped further, to 0.434 for GPT-3.5-turbo. The author's interpretation is that the abstract concentrates the originality and significance signals while the full text dilutes them with noise the model partially attends to. [[EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]]
+- **Feeding more text actually hurt the model.** All three ChatGPT models scored worse on truncated full text than on title-plus-abstract. GPT-3.5-turbo dropped from 0.674 (abstracts) to 0.625 (full text), GPT-4o-mini dropped from 0.571 to 0.506, and GPT-4o was essentially tied at 0.678 versus 0.675. Title-only input dropped further, to 0.434 for GPT-3.5-turbo. The author's interpretation is that the abstract concentrates the originality and significance signals while the full text dilutes them with noise the model partially attends to. [[EVD - Full text scored worse than abstracts for 3 ChatGPT models - @thelwallEvaluatingResearchQuality2024|EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested - @thelwallEvaluatingResearchQuality2024]]
 
 ### Claim supported
 
-These findings collectively support the claim that [[CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]. The practical implication is counterintuitive but actionable: anyone building an LLM-assisted research-quality tool should default to feeding titles and abstracts rather than the whole paper, which is also faster and roughly 100x cheaper at API rates.
+These findings collectively support the claim that [[CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]. The practical implication is counterintuitive but actionable: anyone building an LLM-assisted research-quality tool should default to feeding titles and abstracts rather than the whole paper, which is also faster and roughly 100x cheaper at API rates.
 
 ### Caveats
 
-- **Single author, single field, self-scored ground truth.** The 51 articles are all written by the author and graded by the author against his own memory of the REF scale. The "human ground truth" is therefore one person's self-evaluation in one narrow subfield, not a panel-level REF score from independent reviewers. [[CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]]
+- **Single author, single field, self-scored ground truth.** The 51 articles are all written by the author and graded by the author against his own memory of the REF scale. The "human ground truth" is therefore one person's self-evaluation in one narrow subfield, not a panel-level REF score from independent reviewers. [[CVT - Thelwall dataset was 51 articles by one author|CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]]
 
 ## Quality appraisal
 

@@ -1,6 +1,6 @@
 formulas:
   node_type: if(file.inFolder("questions"), "QUE", if(file.inFolder("claims"), "CLM", if(file.inFolder("evidence"), "EVD", if(file.inFolder("caveats"), "CVT", "?"))))
-  short_title: link(file, file.name.replace("EVD - ", "").replace("CLM - ", "").replace("CVT - ", "").replace("QUE - ", ""))
+  short_title: link(file, if(note.title, note.title, file.name.replace("EVD - ", "").replace("CLM - ", "").replace("CVT - ", "").replace("QUE - ", "")))
   dim_5c: if(file.tags.contains("5c/credibility"), "credibility ", "") + if(file.tags.contains("5c/clarity"), "clarity ", "") + if(file.tags.contains("5c/creativity"), "creativity ", "") + if(file.tags.contains("5c/connectivity"), "connectivity ", "") + if(file.tags.contains("5c/care"), "care", "")
   tripod_compliance: if(file.tags.contains("tripod-llm/compliance/high"), "high", if(file.tags.contains("tripod-llm/compliance/moderate"), "moderate", if(file.tags.contains("tripod-llm/compliance/low"), "low", "—")))
   appraisal_external: if(file.tags.contains("appraisal/external-validity/high-risk"), "high-risk", if(file.tags.contains("appraisal/external-validity/some-concerns"), "some-concerns", if(file.tags.contains("appraisal/external-validity/low-risk"), "low-risk", "—")))

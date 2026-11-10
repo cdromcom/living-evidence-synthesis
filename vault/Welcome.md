@@ -114,16 +114,16 @@ Open any EVD and you'll find:
 
 
 See this example EVD. Hover then click:
-[[EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]
+[[EVD - GPT-4 detected errors in 7 of 13 constructed papers - @liuReviewerGPTExploratoryStudy2023|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers - @liuReviewerGPTExploratoryStudy2023]]
 
 
 CLMs, CVTs, and QUEs follow analogous structures with their own reverse-link sections. See these examples:
 
-[[CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
+[[CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
 
-[[CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely]]
+[[CVT - Only GPT-4 was tested as all other LLMs failed|CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely]]
 
-[[QUE - Can LLMs verify author-provided checklists in submitted papers]]
+[[QUE - Can LLMs verify author checklists in submissions|QUE - Can LLMs verify author-provided checklists in submitted papers?]]
 
 ---
 
