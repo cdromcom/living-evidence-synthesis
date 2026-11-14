@@ -1,0 +1,50 @@
+---
+NodeFormality: ReadyForInternal
+human_reviewed: no
+aliases:
+  - "QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?"
+tags:
+  - 5c/creativity
+created: 2026-04-17
+updated: 2026-04-29
+nodeID: 019ddb4e-6bd8-75ee-aa56-e3ab1e5fe067
+title: "Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?"
+---
+### Key Papers Asking Question
+
+> [!info] Papers
+> [[@shahidLiteratureGroundedNoveltyAssessment2025]]
+
+### Snippet: Quote(s) & Screenshots
+
+> [!info] Quotes
+> "Automated scientific idea generation systems have made remarkable progress, yet the automatic evaluation of idea novelty remains a critical and underexplored challenge. Manual evaluation of novelty through literature review is labor-intensive, prone to error due to subjectivity, and impractical at scale. To address these issues, we propose the Idea Novelty Checker, an LLM-based retrieval-augmented generation (RAG) framework that leverages a two-stage retrieve-then-rerank approach." (Shahid et al., 2025, p. 1)
+> ![[shahidLiteratureGroundedNoveltyAssessment2025-que-p1-1.png]]
+
+### Supporting Claims (with their evidence)
+
+> [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
+
+- [[CLM - LLMs can assess trial reporting adherence with accuracy approaching 90%|CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]]
+    - [[EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions|EVD - Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions]]
+    - [[EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions|EVD - GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports]]
+    - [[EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57%|EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy]]
+
+- [[CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
+    - [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
+    - [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]
+    - [[EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]
+    - [[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]
+    - [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
+
+- [[CLM - Expert in-context examples significantly improve LLM novelty classification|CLM - Expert-annotated in-context examples significantly improve LLM novelty classification accuracy over zero-shot and prompt-optimized baselines]]
+    - [[EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
+    - [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
+    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+
+### Cross-paper patterns
+
+> [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
+
+- [[EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]

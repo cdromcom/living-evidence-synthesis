@@ -27,10 +27,10 @@ The pattern says text/non-text input has a substantive effect on accuracy that r
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy - @wrightsonGPTRCTsUsing2025]], Wrightson et al. 2025: multimodal GPT-4 Vision correctly identifies *whether* a flow diagram exists (100%) but only catches missing participant details inside the diagram 57% of the time.
-- [[EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]], Son et al. 2025: o3 reaches 62.6% on equation-proof errors (text/LaTeX-encodable) but near-zero on figure-duplication errors (figure-only), a 60-percentage-point gap driven by input modality.
+- [[EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57%|EVD - GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy]], Wrightson et al. 2025: multimodal GPT-4 Vision correctly identifies *whether* a flow diagram exists (100%) but only catches missing participant details inside the diagram 57% of the time.
+- [[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]], Son et al. 2025: o3 reaches 62.6% on equation-proof errors (text/LaTeX-encodable) but near-zero on figure-duplication errors (figure-only), a 60-percentage-point gap driven by input modality.
 
 ## Connected discourse-graph nodes
 
-- **Caveats that flag this gap structurally:** [[CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal]], [[CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation]], these CVTs document the gap from the *evaluation* side; this EP documents it from the *finding* side.
+- **Caveats that flag this gap structurally:** [[CVT - Most LLMs were text-only and blind to figures and tables|CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal]], [[CVT - AAAR excluded figures and other non-text inputs|CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation]], these CVTs document the gap from the *evaluation* side; this EP documents it from the *finding* side.
 - **Adjacent pattern (per-item variance, related):** [[EP - Per-item LLM-human agreement varies sharply by item type]], visual-content items are one specific kind of item where LLMs struggle.

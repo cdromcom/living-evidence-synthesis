@@ -27,13 +27,13 @@ The pattern says: at zero-shot inference time, closed-source frontier LLMs are t
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]], Son et al. 2025: closed-source o3 leads SPOT; open-source Qwen2.5-VL-72B / Llama-4 / OLMo all score in the low single-digit percentages.
-- [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]], Lou et al. 2025: open-source LLMs cannot beat the trivial all-positive baseline (40% F1) on EqInfer; closed-source o3-mini reaches 47.98%.
-- [[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a]], Zhang & Abernethy 2025: Zhang only tested closed-source models, all of which lead.
-- *Counter-example (the fine-tuning exception):* [[EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations - @idahlOpenReviewerSpecializedLarge2025]], Idahl & Ahmadi 2025: fine-tuned 8B open-source OpenReviewer beats zero-shot GPT-4o on the deployment metric.
+- [[EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]], Son et al. 2025: closed-source o3 leads SPOT; open-source Qwen2.5-VL-72B / Llama-4 / OLMo all score in the low single-digit percentages.
+- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]], Lou et al. 2025: open-source LLMs cannot beat the trivial all-positive baseline (40% F1) on EqInfer; closed-source o3-mini reaches 47.98%.
+- [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]], Zhang & Abernethy 2025: Zhang only tested closed-source models, all of which lead.
+- *Counter-example (the fine-tuning exception):* [[EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]], Idahl & Ahmadi 2025: fine-tuned 8B open-source OpenReviewer beats zero-shot GPT-4o on the deployment metric.
 
 ## Connected discourse-graph nodes
 
-- **Within-paper claim this pattern generalizes:** [[CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]].
+- **Within-paper claim this pattern generalizes:** [[CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]].
 - **The fine-tuning exception:** [[EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]], fine-tuning is the path through which open-source models flip the closed-source default.
-- **Reproducibility caveat:** [[CVT - Only closed-source reasoning LLMs were evaluated as scientific paper quality checkers excluding open-source alternatives]], not all papers in the corpus tested open-source models, so the gap may be partially under-measured.
+- **Reproducibility caveat:** [[CVT - Only closed-source reasoning LLMs were tested as checkers|CVT - Only closed-source reasoning LLMs were evaluated as scientific paper quality checkers excluding open-source alternatives]], not all papers in the corpus tested open-source models, so the gap may be partially under-measured.

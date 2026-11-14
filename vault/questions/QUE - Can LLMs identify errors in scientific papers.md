@@ -2,6 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
+  - "QUE - Can LLMs identify errors in scientific papers?"
 tags:
   - 5c/credibility
 created: 2026-04-17
@@ -24,50 +25,50 @@ title: "Can LLMs identify errors in scientific papers?"
 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
 
-- [[CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
-    - [[EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0% - @zhangDetectingReferenceErrors2024]]
-    - [[EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts - @zhangDetectingReferenceErrors2024]]
+- [[CLM - More capable GPT LLMs can detect quotation errors but imperfectly and context-dependently|CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
+    - [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]
+    - [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
 
-- [[CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
-    - [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
-    - [[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
-    - [[EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task - @louAAAR10AssessingAIs2025]]
-    - [[EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn - @xuCanLLMsIdentify2025]]
-    - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
+- [[CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
+    - [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
+    - [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]
+    - [[EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]
+    - [[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]
+    - [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
 
-- [[CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]
-    - [[EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors - @sarolAssessingCitationIntegrity2024]]
-    - [[EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification - @sarolAssessingCitationIntegrity2024]]
-    - [[EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations - @sarolAssessingCitationIntegrity2024]]
-    - [[EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2 - @sarolAssessingCitationIntegrity2024]]
+- [[CLM - Quotation errors are subtle and currently hard for NLP models to catch|CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]
+    - [[EVD - 39.18% of 3063 biomedical citations had accuracy errors|EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors]]
+    - [[EVD - MultiVerS reached micro-F1 0.59 on citation accuracy|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification]]
+    - [[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]]
+    - [[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2]]
 
-- [[CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
-    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker - @zhangReviewingScientificPapers2025a]]
-    - [[EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers - @zhangReviewingScientificPapers2025a]]
-    - [[EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper - @zhangReviewingScientificPapers2025a]]
+- [[CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
+    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]]
+    - [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
+    - [[EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3|EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper]]
 
-- [[CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
-    - [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025]]
-    - [[EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]]
-    - [[EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]]
+- [[CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
+    - [[EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]
+    - [[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]
+    - [[EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]
 
-- [[CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]
-    - [[EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1% - @xuCanLLMsIdentify2025]]
-    - [[EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline - @darcyMARGMultiAgentReview2024]]
-    - [[EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus - @darcyMARGMultiAgentReview2024]]
-    - [[EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn - @xuCanLLMsIdentify2025]]
+- [[CLM - Multi-agent LLMs give more specific and helpful feedback than single agents|CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]
+    - [[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]
+    - [[EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4|EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline]]
+    - [[EVD - MARG-S beat baselines by 6.1 recall points on ARIES|EVD - MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus]]
+    - [[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]
 
-- [[CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
-    - [[EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases - @sonWhenAICoScientists2025]]
-    - [[EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication - @sonWhenAICoScientists2025]]
-    - [[EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4 - @sonWhenAICoScientists2025]]
+- [[CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
+    - [[EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]
+    - [[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]
+    - [[EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]
 
-- [[CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
-    - [[EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments - @louAAAR10AssessingAIs2025]]
-    - [[EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review - @zhouLLMReliableReviewer2024]]
-    - [[EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions - @zhouLLMReliableReviewer2024]]
-    - [[EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task - @louAAAR10AssessingAIs2025]]
-    - [[EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline - @louAAAR10AssessingAIs2025]]
+- [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
+    - [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
+    - [[EVD - GPT-3.5 predicted review aspect scores at r=0.651|EVD - GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review]]
+    - [[EVD - GPT-4 RR-MCQ macro accuracy was 0.276|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]
+    - [[EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]
+    - [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
 
 ### Cross-paper patterns
 

@@ -28,10 +28,10 @@ A common skeptical reading of LLM peer review is "the LLM just gives boilerplate
 
 > [!info] EVDs from independent papers that instantiate this pattern.
 
-- [[EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity - @liangCanLargeLanguage2024a]], Liang et al. 2024: pairwise overlap collapses from 30.85% (matched papers) to 0.43% (shuffled papers), direct empirical evidence that GPT-4 feedback is paper-driven.
-- [[EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline - @darcyMARGMultiAgentReview2024]], D'Arcy et al. 2024: multi-agent prompting generates 3.7 user-rated-as-specific-and-useful comments per paper vs. 1.7 for single-agent GPT-4, multi-agent decomposition produces more paper-specific feedback than single-agent prompting.
+- [[EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling|EVD - Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity]], Liang et al. 2024: pairwise overlap collapses from 30.85% (matched papers) to 0.43% (shuffled papers), direct empirical evidence that GPT-4 feedback is paper-driven.
+- [[EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4|EVD - MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline]], D'Arcy et al. 2024: multi-agent prompting generates 3.7 user-rated-as-specific-and-useful comments per paper vs. 1.7 for single-agent GPT-4, multi-agent decomposition produces more paper-specific feedback than single-agent prompting.
 
 ## Connected discourse-graph nodes
 
-- **Within-paper claims this pattern generalizes:** [[CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]], [[CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]].
+- **Within-paper claims this pattern generalizes:** [[CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]], [[CLM - Multi-agent LLMs give more specific and helpful feedback than single agents|CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]].
 - **Adjacent pattern (does not contradict):** [[EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]], feedback being paper-specific does not mean feedback is well-calibrated; specificity and accuracy are separable.

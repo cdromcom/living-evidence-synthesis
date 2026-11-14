@@ -80,6 +80,13 @@ curatedWithModelDate: 2026-08-25
 citekey: sarolAssessingCitationIntegrity2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f948-7194-abaf-ed408bc298aa
+zotero-key: XV3YB4GI
+year: "2024"
+journal: Bioinformatics
+itemType: journalArticle
+DOI: 10.1093/bioinformatics/btae420
+abstract: Citations have a fundamental role in scholarly communication and assessment. Citation accuracy and transparency is crucial for the integrity of scientific evidence. In this work, we focus on quotation errors, errors in citation content that can distort the scientific evidence and that are hard to detect for humans. We construct a corpus and propose natural language processing (NLP) methods to identify such errors in biomedical publications.We manually annotated 100 highly-cited biomedical publications (reference articles) and citations to them. The annotation involved labeling citation context in the citing article, relevant evidence sentences in the reference article, and the accuracy of the citation. A total of 3063 citation instances were annotated (39.18% with accuracy errors). For NLP, we combined a sentence retriever with a fine-tuned claim verification model to label citations as ACCURATE, NOT_ACCURATE, or IRRELEVANT. We also explored few-shot in-context learning with generative large language models. The best performing model—which uses citation sentences as citation context, the BM25 model with MonoT5 reranker for retrieving top-20 sentences, and a fine-tuned MultiVerS model for accuracy label classification—yielded 0.59 micro-F1 and 0.52 macro-F1 score. GPT-4 in-context learning performed better in identifying accurate citations, but it lagged for erroneous citations (0.65 micro-F1, 0.45 macro-F1). Citation quotation errors are often subtle, and it is currently challenging for NLP models to identify erroneous citations. With further improvements, the models could serve to improve citation quality and accuracy.We make the corpus and the best-performing NLP model publicly available at https://github.com/ScienceNLP-Lab/Citation-Integrity/.
+zotero: zotero://select/library/items/XV3YB4GI
 ---
 
 > [!success] **TL;DR**
@@ -89,7 +96,7 @@ nodeInstanceId: 019dd17a-f948-7194-abaf-ed408bc298aa
 
 ### Question
 
-Can a computer program automatically catch  moments where one paper claims another paper said X, but the cited paper never actually said X, or *citation integrity errors*? The authors focus on biomedical research, where these errors can distort clinical evidence and slip past human reviewers. They compare two approaches head-to-head: a smaller language model fine-tuned specifically for this task, versus a large general-purpose model (GPT-4) shown a handful of worked examples. See [[QUE - Can NLP models automatically identify citation integrity errors in biomedical publications]].
+Can a computer program automatically catch  moments where one paper claims another paper said X, but the cited paper never actually said X, or *citation integrity errors*? The authors focus on biomedical research, where these errors can distort clinical evidence and slip past human reviewers. They compare two approaches head-to-head: a smaller language model fine-tuned specifically for this task, versus a large general-purpose model (GPT-4) shown a handful of worked examples. See [[QUE - Can NLP models find citation errors in biomedical papers|QUE - Can NLP models automatically identify citation integrity errors in biomedical publications?]].
 
 ### Methods
 
@@ -133,23 +140,23 @@ flowchart TD
 
 ### Findings
 
-- **Citation errors are common.** Roughly 4 in 10 citations contained some error: 18% major (the citing paper contradicted or misrepresented the source) and 21% minor (oversimplifications, misquoted numbers, or ambiguous multi-citation style). Per paper, minor errors outnumbered major ones at a level unlikely to be chance (p=0.0085). Review articles and original research papers showed similar error rates (p=0.095, no real difference). [[EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors - @sarolAssessingCitationIntegrity2024]]
+- **Citation errors are common.** Roughly 4 in 10 citations contained some error: 18% major (the citing paper contradicted or misrepresented the source) and 21% minor (oversimplifications, misquoted numbers, or ambiguous multi-citation style). Per paper, minor errors outnumbered major ones at a level unlikely to be chance (p=0.0085). Review articles and original research papers showed similar error rates (p=0.095, no real difference). [[EVD - 39.18% of 3063 biomedical citations had accuracy errors|EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors]]
 
-- **The human labels themselves were noisy.** Different annotators agreed at only a "fair" level on which error type to assign (Cohen's kappa = 0.18 to 0.31, where 1.0 means perfect agreement and 0 means chance). They got somewhat better after the calibration phase: agreement on which sentences counted as the relevant evidence rose from 0.20 to 0.37. This label noise puts a ceiling on how well any model trained on this data can perform. [[EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2 - @sarolAssessingCitationIntegrity2024]]
+- **The human labels themselves were noisy.** Different annotators agreed at only a "fair" level on which error type to assign (Cohen's kappa = 0.18 to 0.31, where 1.0 means perfect agreement and 0 means chance). They got somewhat better after the calibration phase: agreement on which sentences counted as the relevant evidence rose from 0.20 to 0.37. This label noise puts a ceiling on how well any model trained on this data can perform. [[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2]]
 
-- **The fine-tuned model only reached modest accuracy.** The best MultiVerS variant scored 0.59 micro-F1 and 0.52 macro-F1 (F1 runs from 0 to 1; higher is better; macro-F1 is harder because it weighs each label equally rather than by frequency). When the authors handed the model the *correct* citation context and *correct* evidence sentences instead of search-retrieved ones, performance jumped to 0.75 / 0.78, meaning the real bottleneck is finding the right evidence, not classifying it. [[EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification - @sarolAssessingCitationIntegrity2024]]
+- **The fine-tuned model only reached modest accuracy.** The best MultiVerS variant scored 0.59 micro-F1 and 0.52 macro-F1 (F1 runs from 0 to 1; higher is better; macro-F1 is harder because it weighs each label equally rather than by frequency). When the authors handed the model the *correct* citation context and *correct* evidence sentences instead of search-retrieved ones, performance jumped to 0.75 / 0.78, meaning the real bottleneck is finding the right evidence, not classifying it. [[EVD - MultiVerS reached micro-F1 0.59 on citation accuracy|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification]]
 
-- **GPT-4 spotted accurate citations easily but missed inaccurate ones almost completely.** GPT-4 reached F1 = 0.80 on flagging accurate citations, the easy case. But on flagging inaccurate citations, the case any real deployment cares about, it scored only F1 = 0.09. GPT-3.5 did even worse at 0.05. Both significantly underperformed the fine-tuned MultiVerS on the error class. [[EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations - @sarolAssessingCitationIntegrity2024]]
+- **GPT-4 spotted accurate citations easily but missed inaccurate ones almost completely.** GPT-4 reached F1 = 0.80 on flagging accurate citations, the easy case. But on flagging inaccurate citations, the case any real deployment cares about, it scored only F1 = 0.09. GPT-3.5 did even worse at 0.05. Both significantly underperformed the fine-tuned MultiVerS on the error class. [[EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]]
 
 ### Claim supported
 
-These findings support the broader claim that [[CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]. Neither approach is yet ready for real use: a tool that misses 90% of inaccurate citations is not a tool a journal would deploy.
+These findings support the broader claim that [[CLM - Quotation errors are subtle and currently hard for NLP models to catch|CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]. Neither approach is yet ready for real use: a tool that misses 90% of inaccurate citations is not a tool a journal would deploy.
 
 ### Caveats
 
-- **The training labels carry real disagreement.** Because annotators agreed only at a fair level, the "ground truth" the models learn from contains genuine label noise, and the same noise applies to the test labels the models are scored against. [[CVT - Low inter-annotator agreement on citation accuracy labels limited quality of training and evaluation data]]
+- **The training labels carry real disagreement.** Because annotators agreed only at a fair level, the "ground truth" the models learn from contains genuine label noise, and the same noise applies to the test labels the models are scored against. [[CVT - Low annotator agreement weakened citation accuracy labels|CVT - Low inter-annotator agreement on citation accuracy labels limited quality of training and evaluation data]]
 
-- **Citations to tables, figures, and supplementary material were excluded.** The corpus only covers citations whose supporting evidence lives in the main body of the cited paper. Many real citations point to numbers in tables or panels in figures, and we don't know how either model would do on those harder cases. [[CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
+- **Citations to tables, figures, and supplementary material were excluded.** The corpus only covers citations whose supporting evidence lives in the main body of the cited paper. Many real citations point to numbers in tables or panels in figures, and we don't know how either model would do on those harder cases. [[CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
 
 ## Quality appraisal
 

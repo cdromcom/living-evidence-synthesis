@@ -23,7 +23,11 @@ def evd_filename_to_stem(name: str) -> str:
 
 
 def evd_stem_to_citekey(stem: str) -> str | None:
-    m = re.search(r'@([a-zA-Z][a-zA-Z0-9-]+)$', stem)
+    """Citekey of an EVD, read from the [[@citekey]] link in its `## Source` section."""
+    p = VAULT / 'evidence' / f'{stem}.md'
+    if not p.exists():
+        return None
+    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
     return m.group(1) if m else None
 
 

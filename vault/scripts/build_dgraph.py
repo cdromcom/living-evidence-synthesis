@@ -17,11 +17,29 @@ Structure:
 
 All node references are Obsidian wikilinks `[[Stem]]`.
 """
+import json
 import re
 from pathlib import Path
 from collections import defaultdict
 
 VAULT = Path('/Users/ppatel/Documents/living-synthesis')
+
+
+def wl(stem: str) -> str:
+    """Wikilink to a node, showing its full title (frontmatter `title`) when it has one."""
+    return f'[[{stem}|{TITLES[stem]}]]' if stem in TITLES else f'[[{stem}]]'
+
+
+TITLES: dict[str, str] = {}
+
+
+def load_titles():
+    """Map node stem -> 'PREFIX - full title' for nodes whose filename is a shortened title."""
+    for sub in ('questions', 'claims', 'evidence', 'caveats'):
+        for f in (VAULT / sub).glob('*.md'):
+            m = re.search(r'^title:\s*(".*")\s*$', f.read_text(), re.MULTILINE)
+            if m:
+                TITLES[f.stem] = f'{f.stem[:3]} - {json.loads(m.group(1))}'
 
 
 def parse_que_supporting_claims(que_path: Path) -> list[tuple[str, list[str]]]:
@@ -37,8 +55,8 @@ def parse_que_supporting_claims(que_path: Path) -> list[tuple[str, list[str]]]:
     results = []
     current_clm = None
     for line in body.split('\n'):
-        clm_m = re.match(r'^-\s*\[\[(CLM[^\]]+)\]\]', line)
-        evd_m = re.match(r'^\s+-\s*\[\[(EVD[^\]]+)\]\]', line)
+        clm_m = re.match(r'^-\s*\[\[(CLM[^\]|\\]+)[^\]]*\]\]', line)
+        evd_m = re.match(r'^\s+-\s*\[\[(EVD[^\]|\\]+)[^\]]*\]\]', line)
         if clm_m:
             current_clm = (clm_m.group(1), [])
             results.append(current_clm)
@@ -53,7 +71,7 @@ def parse_clm_supporting_evds(clm_path: Path) -> list[str]:
                   text, re.DOTALL)
     if not m:
         return []
-    return re.findall(r'\[\[(EVD[^\]]+)\]\]', m.group(1))
+    return re.findall(r'\[\[(EVD[^\]|\\]+)[^\]]*\]\]', m.group(1))
 
 
 def parse_cvt_appliesTo(cvt_path: Path) -> list[str]:
@@ -61,10 +79,11 @@ def parse_cvt_appliesTo(cvt_path: Path) -> list[str]:
     m = re.search(r'^appliesTo:\s*\n((?:^\s*-\s*"\[\[.*?\]\]"\s*\n?)+)', text, re.MULTILINE)
     if not m:
         return []
-    return re.findall(r'\[\[(EVD[^\]]+)\]\]', m.group(1))
+    return re.findall(r'\[\[(EVD[^\]|\\]+)[^\]]*\]\]', m.group(1))
 
 
 def main():
+    load_titles()
     # Inventory
     que_files = sorted((VAULT / 'questions').glob('QUE*.md'))
     clm_files = sorted((VAULT / 'claims').glob('CLM*.md'))
@@ -138,19 +157,19 @@ def main():
     lines.append('')
     for que in que_files:
         data = que_data[que.stem]
-        lines.append(f'### [[{que.stem}]]')
+        lines.append(f'### {wl(que.stem)}')
         lines.append('')
         if not data:
             lines.append('- *No supporting claims linked.*')
             lines.append('')
             continue
         for clm_stem, evds in data:
-            lines.append(f'- [[{clm_stem}]]')
+            lines.append(f'- {wl(clm_stem)}')
             for evd_stem in evds:
-                lines.append(f'    - [[{evd_stem}]]')
+                lines.append(f'    - {wl(evd_stem)}')
                 cvts = evd_to_cvts.get(evd_stem, [])
                 for cvt_stem in cvts:
-                    lines.append(f'        - ⚠️ [[{cvt_stem}]]')
+                    lines.append(f'        - ⚠️ {wl(cvt_stem)}')
             lines.append('')
 
     # Unattributed CLMs
@@ -163,12 +182,12 @@ def main():
         lines.append('*These CLMs exist in the vault but no QUE\'s nested structure currently includes them. Either the CLM has no QUE-relevant topic match, or the QUE→CLM keyword-overlap was too low.*')
         lines.append('')
         for clm in unlinked_clms:
-            lines.append(f'- [[{clm.stem}]]')
+            lines.append(f'- {wl(clm.stem)}')
             evds = parse_clm_supporting_evds(clm)
             for evd_stem in evds:
-                lines.append(f'    - [[{evd_stem}]]')
+                lines.append(f'    - {wl(evd_stem)}')
                 for cvt_stem in evd_to_cvts.get(evd_stem, []):
-                    lines.append(f'        - ⚠️ [[{cvt_stem}]]')
+                    lines.append(f'        - ⚠️ {wl(cvt_stem)}')
             lines.append('')
 
     # Orphan EVDs
@@ -188,9 +207,9 @@ def main():
             lines.append('*EVDs that are not currently surfaced through any QUE→CLM→EVD path. They still exist as standalone evidence and may be linked manually.*')
             lines.append('')
             for evd_stem in truly_orphan:
-                lines.append(f'- [[{evd_stem}]]')
+                lines.append(f'- {wl(evd_stem)}')
                 for cvt_stem in evd_to_cvts.get(evd_stem, []):
-                    lines.append(f'    - ⚠️ [[{cvt_stem}]]')
+                    lines.append(f'    - ⚠️ {wl(cvt_stem)}')
             lines.append('')
 
     # All caveats (flat)
@@ -202,9 +221,9 @@ def main():
     lines.append('')
     for cvt in cvt_files:
         evds = parse_cvt_appliesTo(cvt)
-        lines.append(f'- ⚠️ [[{cvt.stem}]]')
+        lines.append(f'- ⚠️ {wl(cvt.stem)}')
         for e in evds:
-            lines.append(f'    - applies to [[{e}]]')
+            lines.append(f'    - applies to {wl(e)}')
         if not evds:
             lines.append('    - *No EVDs currently linked.*')
         lines.append('')

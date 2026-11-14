@@ -27,9 +27,11 @@ This file is a quick-reference companion to `Skill.md`. Load it when you need:
 | Type | Pattern                           | Citekey in filename? | Example                                                                           |
 | ---- | --------------------------------- | -------------------- | --------------------------------------------------------------------------------- |
 | QUE  | `QUE - [question].md`             | No                   | `QUE - How well can LLMs rank study reports relative to human experts.md`         |
-| EVD  | `EVD - [finding] - @[citekey].md` | Yes                  | `EVD - GPT-4 detected errors in 7 of 13 papers - @liuReviewerGPT2023.md`          |
+| EVD  | `EVD - [finding].md`              | No                   | `EVD - GPT-4 detected errors in 7 of 13 papers.md`                                |
 | CLM  | `CLM - [claim].md`                | No                   | `CLM - LLMs are overall less accurate than human experts at quality appraisal.md` |
 | CVT  | `CVT - [limitation].md`           | No (usually)         | `CVT - The small sample limits generalizability.md`                               |
+
+Keep each path (`vault/<folder>/<filename>`) at 150 characters or less so the repo clones on Windows. When the filename is a shortened version of the title, put the full title in the note's `title:` and `aliases:` properties, and link to the note as `[[<short filename>|<PREFIX> - <full title>]]`. An EVD's citekey lives in its `## Source` section (`[[@citekey]]`), not in its filename.
 
 ### PNG naming
 
