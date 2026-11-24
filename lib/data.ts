@@ -456,7 +456,7 @@ export function getSpinSignal(node: Pick<GraphNode, "tags">) {
  * unless actually run: as of 2026-08 only sources whose Statistic Accuracy
  * check flagged an issue ("issues-found") have been checked, as a broader
  * integrity recheck prompted by that flag — absence of this tag means "not
- * yet checked," not "clean." See misc/scripts/pangram_check.py in the vault.
+ * yet checked," not "clean." See pipeline/misc/scripts/pangram_check.py in the vault.
  */
 export function getAiWritingCheck(node: Pick<GraphNode, "tags">) {
   return getTaggedCheck(node, "ai-writing-check", "integrity");
@@ -520,7 +520,7 @@ export function getCodeQualityFair(node: Pick<GraphNode, "tags">): CodeQualitySc
  * sources, the score is topped up +2 if the repo has a real LICENSE file
  * (per howfairis, which reads repo content directly rather than page
  * metadata) — a deliberate, documented hybrid, not a raw single-tool
- * score. See misc/data_quality_2026-08.md in the vault for exactly which
+ * score. See pipeline/misc/data_quality_2026-08.md in the vault for exactly which
  * sources got the license top-up and why.
  */
 export type DataQualityScore = number; // 0-24
@@ -701,7 +701,7 @@ export function getCurationStatusMatrix(): Record<
  * EVD's headline statistic from the paper's own *released raw data*
  * (results: match | mismatch | partial), where doing so was computationally
  * feasible without re-running an LLM or retraining a model — see
- * misc/reproducibility_triage_*.md in the vault for the full audit of which
+ * pipeline/misc/reproducibility_triage_*.md in the vault for the full audit of which
  * sources were attempted and why others were blocked.
  */
 export type ForensicCheckKind =

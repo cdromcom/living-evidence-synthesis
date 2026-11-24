@@ -4,12 +4,12 @@ import { ALL_NODES, type NodeType } from "./data";
 const idToFilename = new Map(ALL_NODES.map((n) => [n.id, n.filename]));
 
 const VAULT_DIR: Record<NodeType, string> = {
-  QUE: "questions",
-  CLM: "claims",
-  EVD: "evidence",
-  CVT: "caveats",
-  SRC: "source",
-  EP: "evd-patterns",
+  QUE: "sysrev/questions",
+  CLM: "sysrev/claims",
+  EVD: "sysrev/evidence",
+  CVT: "sysrev/caveats",
+  SRC: "sysrev/source",
+  EP: "sysrev/evd-patterns",
 };
 
 function wikilink(id: string): string {
@@ -127,7 +127,7 @@ export function buildContributionFiles(input: ContributionInput): {
         sections += `\n### Supporting Evidence\n\n${linkList(edges.supports)}\n`;
       }
       for (const queId of edges.addresses || []) {
-        const path = `vault/questions/${idToFilename.get(queId)}.md`;
+        const path = `vault/sysrev/questions/${idToFilename.get(queId)}.md`;
         patches.push({
           path,
           append: (current) =>
