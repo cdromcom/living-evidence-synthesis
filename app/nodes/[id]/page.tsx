@@ -6,12 +6,14 @@ import {
   getOutboundEdges,
   getReportingCompliance,
   getParentSource,
+  NODE_TYPE_LABELS,
 } from "@/lib/data";
 import { renderMarkdown } from "@/lib/markdown";
 import NodeTypeBadge from "@/components/NodeTypeBadge";
 import StatusBadge from "@/components/StatusBadge";
 import EdgeGroups from "@/components/EdgeGroup";
 import ReviewWidget from "@/components/ReviewWidget";
+import NodeIssuePanel from "@/components/NodeIssuePanel";
 import NodeArticle from "@/components/NodeArticle";
 import SourceToc from "@/components/SourceToc";
 import TopBadges from "@/components/TopBadges";
@@ -38,7 +40,12 @@ export async function generateMetadata({
     node.type === "SRC" && typeof node.extras.apaTitle === "string" && node.extras.apaTitle
       ? (node.extras.apaTitle as string)
       : node.title;
-  return { title: `${node.id} — ${titleText}` };
+  const typeLabel = NODE_TYPE_LABELS[node.type];
+  return {
+    title: `${node.id} — ${titleText}`,
+    description: `${typeLabel} node ${node.id} in the Living Evidence Synthesis discourse graph: ${titleText}`.slice(0, 300),
+    alternates: { canonical: `/nodes/${node.id}` },
+  };
 }
 
 const EXTRA_LABELS: Record<string, string> = {
@@ -155,7 +162,7 @@ export default async function NodeDetailPage({
   const tocItems = hasReferences ? [...toc, { id: "references", level: 2 as const, text: "References" }] : toc;
 
   return (
-    <main className="py-10">
+    <main id="main-content" tabIndex={-1} className="py-10">
       {/* Hero section and the footer below both use Header.tsx's own
           container (mx-auto max-w-6xl px-4 sm:px-6) exactly, so the title
           and the References heading line up with the turtle-icon logo
@@ -215,7 +222,7 @@ export default async function NodeDetailPage({
       </div>
 
       <div className="mx-auto mt-8 max-w-[1560px] px-4 sm:px-6">
-      <div className="grid gap-6 lg:grid-cols-[180px_1fr_240px] lg:items-start">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[180px_1fr_240px] lg:items-start">
         {tocItems.length > 0 ? (
           <SourceToc items={tocItems} />
         ) : (
@@ -224,8 +231,9 @@ export default async function NodeDetailPage({
 
         <NodeArticle html={html} />
 
-        <aside className="space-y-8">
+        <aside aria-label="Review and connections" className="space-y-8">
           <ReviewWidget nodeId={node.id} />
+          <NodeIssuePanel nodeId={node.id} nodeTitle={displayTitle} />
           <div>
             <h2 className="mb-2 border-b border-border pb-1.5 text-xs font-semibold uppercase tracking-wide text-ink/70">
               Inbound <span className="text-muted-ink">({inbound.length})</span>
