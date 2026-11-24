@@ -231,10 +231,101 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 
 ---
 
+## 🛠️ The data pipeline: from PDFs to the LIVES web app
+
+> [!info] Updated 2026-11-24 (pipeline v2)
+> Papers go through the steps below in **batches of five**, with human checks along the way. Details and rules are in `Skill.md`; models and tools are in `Tools-and-Models.md`; budget and the batch ledger are in `misc/evd-validation/2026-11-24-ingest-budget-and-batches.md`.
+
+```mermaid
+flowchart TB
+    subgraph IN["1. Ingest and read"]
+        A["Choose 5 papers<br/>PDFs, most recent version<br/>older versions go to the Archive folder"]
+        B["Preflight check (PyMuPDF)<br/>born-digital or scanned? columns?<br/>tables as images? page labels"]
+        C1["Read 1: GPT-6.2 Sol, High effort<br/>page-by-page markdown, HTML tables,<br/>printed page numbers"]
+        C2["Read 2: PDF text layer<br/>PyMuPDF"]
+        D{"Do the two reads<br/>agree?"}
+        E["Claude Opus 5.5 decides<br/>from the page image"]
+    end
+
+    subgraph EX["2. Extract (PICOST first)"]
+        F["PICOST record per finding, saved as JSON<br/>every number has page, table, row, column<br/>'Not reported' if the paper is silent<br/>Results give EVDs, Discussion gives CVTs and CLMs,<br/>Introduction gives QUEs"]
+        G["Spotlight: Sol returns the exact quote,<br/>PyMuPDF finds it and highlights the page<br/>a quote not found is a flag"]
+        H["Check: Liquid d1-ultra yes/no questions<br/>shadow mode in the pilot<br/>Opus 5.5 adjudicates low confidence"]
+        I["JP spot check A<br/>3 PICOST cards per paper<br/>an error stops the batch"]
+    end
+
+    subgraph WR["3. Write and crop"]
+        J["Opus 5.5 writes the nodes from PICOST<br/>QUE, CLM, EVD, CVT, SRC<br/>Sol, Medium effort, restyles questions"]
+        K["Crop screenshots<br/>PyMuPDF + pdftoppm<br/>whole quote, table or figure with caption"]
+        L{"Crop QA<br/>Sol checks every crop<br/>Opus 5.5 checks multi-page crops"}
+        M["Automatic audits<br/>quotes verbatim, numbers on the PICOST card,<br/>printed page map, links"]
+    end
+
+    subgraph RV["4. Review"]
+        N["Mirror Google Sheet<br/>vault_to_gsheet.py<br/>JP spot check B: crops and 2 numbers per EVD"]
+        O["Vault markdown in Obsidian updated<br/>only with JP's approval"]
+    end
+
+    subgraph PB["5. Publish"]
+        P["Pull request to the GitHub repo<br/>Claude reviews, then merges"]
+        Q["Build graph data<br/>scripts/build-graph.mjs<br/>graph-data.generated.json, node IDs kept"]
+        R["Vercel deploys<br/>the LIVES web app"]
+        S["Readers and reviewers<br/>accuracy reviews with galaxy names<br/>stored in Supabase"]
+    end
+
+    A --> B
+    B --> C1
+    B --> C2
+    C1 --> D
+    C2 --> D
+    D -->|"yes"| F
+    D -->|"no"| E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I -->|"pass"| J
+    I -.->|"error: fix the prompt, rerun"| C1
+    J --> K
+    K --> L
+    L -->|"pass"| M
+    L -.->|"fail: re-crop up to 2 times, then flag"| K
+    M --> N
+    N --> O
+    O --> P
+    P --> Q
+    Q --> R
+    R --> S
+    S -.->|"reviews flag errors"| N
+
+    classDef model fill:#E3F2FD,stroke:#1565C0,color:#0D47A1;
+    classDef tool fill:#F1F8E9,stroke:#2E7D32,color:#1B5E20;
+    classDef human fill:#FFF8E1,stroke:#F57F17,color:#5D4037;
+    classDef out fill:#FCE4EC,stroke:#AD1457,color:#880E4F;
+    class C1,E,J,H model;
+    class B,C2,G,K,M,Q tool;
+    class A,I,N,O,P human;
+    class F,R,S out;
+```
+
+**Legend.** Blue boxes are model steps (GPT-6.2 Sol, Claude Opus 5.5, Liquid d1-ultra). Green boxes are tools and scripts (PyMuPDF, `pdftoppm`, the audit and build scripts). Yellow boxes are human or approval steps. Pink boxes are the main outputs. Dashed arrows are loops back for fixes.
+
+| Step | Model or tool | Output | Human check |
+|---|---|---|---|
+| Preflight | PyMuPDF | PDF health report | none |
+| Read | GPT-6.2 Sol (High) + PDF text layer | page-by-page text and tables | Opus 5.5 on disagreements |
+| Extract | GPT-6.2 Sol (High) | PICOST JSON with locators and highlighted spans | spot check A |
+| Check | Liquid d1-ultra, Opus 5.5 | pass or flag per record | threshold set in the pilot |
+| Write | Opus 5.5; Sol (Medium) for question style and alt text | vault markdown nodes | none until review |
+| Crop | PyMuPDF, `pdftoppm`; Sol and Opus 5.5 QA | verified screenshots | spot check B |
+| Audit | scripts | verbatim, numbers, page and link checks | none |
+| Review | `vault_to_gsheet.py` | the mirror Google Sheet | JP judges accuracy there |
+| Publish | GitHub PR, `build-graph.mjs`, Vercel | the live LIVES web app | JP approves merges |
+
 ## 🔁 How to add a new paper
 
 > [!warning] For vault maintainers, not readers
-> This section is for someone *extending* the vault (you, a future collaborator, or yourself in 6 months), not for someone *browsing* it. If you're here to read evidence, jump back to **[How to navigate](#how-to-navigate)** above. The steps below assume you have the Python `venv` set up, the screenshot pipeline working, and write access to the discourse-graph nodes.
+> **The steps below are the older (v1) routine; the pipeline above supersedes steps 1 to 5.** This section is for someone *extending* the vault (you, a future collaborator, or yourself in 6 months), not for someone *browsing* it. If you're here to read evidence, jump back to **[How to navigate](#how-to-navigate)** above. The steps below assume you have the Python `venv` set up, the screenshot pipeline working, and write access to the discourse-graph nodes.
 
 **Per-paper extraction** (one PDF in, ~5 nodes + ~8 PNGs out):
 
