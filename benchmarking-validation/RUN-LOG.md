@@ -82,3 +82,8 @@ JP: for EVD 9, 11 and 21 the Missing-by-rule is wrong; teach the models that a t
 - **Remaining quote disagreements:** Perplexity EVD 7, 22; Liquid 22, 25; Jev 4, 7, 16, 22, 29, 35, 40, 42, 74; Opus 7, 11, 16, 22, 25, 35, 39, 40. EVD 22 is wrong in all four.
 - Caveats: wording written after seeing Run 5 and Run 6 errors on the same rows, so these are tuned, not held-out; NA is now effectively unused for table/figure.
 - The Run 6 and Run 7 results are in the repository but have not been published to the GSheets (tabs, LOG, summary).
+
+## Run 7 published as "Run 6" in the GSheets (2026-11-24)
+GSheets numbering: tabs Run 1 to Run 6 are run ids r1 (+r1fix), r2t, r3, r4, r5 and **r7**; the draft r6 is kept in LOG only, flagged superseded. The published Run 6 covers all four judgments. Perplexity, Liquid and Jev re-ran Selection Relevancy and Fidelity v4 (run id r7rf, merged into r7) as well as the new quote v7 and table/figure v7; Opus's relevancy and fidelity are carried from r5, and its quote and table/figure are the three blind subagents of r7.
+n=68 relevancy, 66 fidelity, 66 quote, 71 table/figure (after JP's exclusions), Run 6: relevancy Perplexity 95.6, Liquid 95.6, Jev 89.7, Opus 94.1 (baseline 92.6); fidelity 86.4, 93.9, 87.9, 92.4 (baseline 93.9); quote 97.0, 97.0, 86.4, 87.9 (baseline 81.8); table/figure 97.2, 97.2, 95.8, 97.2 (baseline 90.1).
+Label changes against Run 5 for the re-run judgments: relevancy 1, 3, 2 labels (Perplexity, Liquid, Jev); fidelity 0, 2, 2. EVD 16's table/figure cell is dropped (note added); Decision Models Summary (Run 6) is in the main GSheet.

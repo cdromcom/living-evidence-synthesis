@@ -34,8 +34,8 @@ for e in range(1, 78):
     row[22] = t.get("reason") or (" | ".join(f"{k} {v:.2f}" for k, v in sorted(tc.get("probabilities", {}).items(), key=lambda kv: -kv[1])[:3]) + (" (rule: no screenshot)" if t.get("rule_based") else ""))
     n = q.get("images_sent", t.get("images_sent", ""))
     row[23] = (f"{n} screenshot(s); connects to quote, quote task: {shots(qa)}; table task: {shots(ta)}").strip()
-    row[24] = f"{VER}; run {run}; 2026-11-24 UTC" + (" (relevancy/fidelity/quote = r2; table/figure rerun with Missing-by-rule when no table/figure-slot screenshot)" if run=="r2t" else "") + (" (quote re-run with the strict definitions; relevancy/fidelity/table = r2t)" if run=="r3" else "") + (" (fidelity v4 and quote v4 prompts; relevancy and table/figure = r3)" if run=="r4" else "") + ((" (repeat of Run 4 prompts, all four tasks)" if prov != "opus" else " (carried over from r4; Opus not re-run)") if run=="r5" else "")
-    for task, c0 in (("relevancy", 12), ("fidelity", 15), ("quote", 18)):
+    row[24] = f"{VER}; run {run if run != 'r7' else 'r7 (published as Run 6)'}; 2026-11-24 UTC" + (" (relevancy/fidelity/quote = r2; table/figure rerun with Missing-by-rule when no table/figure-slot screenshot)" if run=="r2t" else "") + (" (quote re-run with the strict definitions; relevancy/fidelity/table = r2t)" if run=="r3" else "") + (" (fidelity v4 and quote v4 prompts; relevancy and table/figure = r3)" if run=="r4" else "") + ((" (repeat of Run 4 prompts, all four tasks)" if prov != "opus" else " (carried over from r4; Opus not re-run)") if run=="r5" else "") + ((" (relevancy and fidelity re-run for Perplexity, Liquid, Jev, carried from r5 for Opus; quote v7 and table/figure v7 wording, no slot rule)") if run=="r7" else "")
+    for task, c0 in (("relevancy", 12), ("fidelity", 15), ("quote", 18), ("table", 21)):
         if e in EXC[task]["evds"]:
             row[c0] = "dropped from analysis (JP)"; row[c0 + 1] = ""; row[c0 + 2] = ""
     for col, v in row.items(): ws.cell(e + 1, col, v)
