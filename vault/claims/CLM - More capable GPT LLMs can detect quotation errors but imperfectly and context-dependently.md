@@ -9,7 +9,7 @@ tags:
   - 5c/connectivity
   - 5c/credibility
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-24
 nodeID: 019ddb4e-6b9e-7442-938a-0920fa082173
 title: "More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent"
 ---
@@ -21,13 +21,13 @@ title: "More capable GPT-class LLMs can detect quotation errors in scientific pa
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "Our results showed that large language models are able to detect erroneous citations with limited context and without fine-tuning." (Zhang & Abernethy, 2024, p. 1)
+> "Our results showed that large language models are able to detect erroneous citations with limited context and without fine-tuning." (Zhang & Abernethy, 2024, PDF p. 1)
 >
 > ![[zhangDetectingReferenceErrors2024-clm-p1-1.png]]
-> "Two-class performance (Figure 1) clearly shows that more reference information improved LLM predictions in general." (Zhang & Abernethy, 2024, p. 4)
+> "Two-class performance (Figure 1) clearly shows that more reference information improved LLM predictions in general." (Zhang & Abernethy, 2024, PDF p. 3)
 >
 > ![[zhangDetectingReferenceErrors2024-clm-p3-1.png]]
-> "Our results reveal misalignment in the comprehension of reference errors between humans and LLMs, which points the way to several promising avenues for further research." (Zhang & Abernethy, 2024, p. 5)
+> "Our results reveal misalignment in the comprehension of reference errors between humans and LLMs, which points the way to several promising avenues for further research." (Zhang & Abernethy, 2024, PDF p. 4)
 >
 > ![[zhangDetectingReferenceErrors2024-clm-p4-1.png]]
 

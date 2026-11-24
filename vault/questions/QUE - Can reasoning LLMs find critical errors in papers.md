@@ -6,7 +6,7 @@ aliases:
 tags:
   - 5c/credibility
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-24
 nodeID: 019ddb4e-6bda-7515-8d8a-2e09a7e3d642
 title: "Can reasoning LLMs identify critical errors and unsoundness problems in scientific papers?"
 ---
@@ -18,8 +18,8 @@ title: "Can reasoning LLMs identify critical errors and unsoundness problems in 
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "we consider the identification of critical errors and unsoundness problems as the main goal of an LLM-driven manuscript quality checker and present an extensible framework, including several baseline approaches and an automatic evaluation pipeline, to support related tasks." (Zhang & Abernethy, 2025, p. 1)
-> ![[zhangReviewingScientificPapers2025a-que-p1-1.png]]
+> "In this work, we consider the identification of critical errors and unsoundness problems that may invalidate the conclusions of a paper, a key sub-task in peer review, as the main goal of an LLM manuscript checker. We present an extensible framework including several baseline approaches and an automatic evaluation pipeline, which also supports other related tasks." (Zhang & Abernethy, 2026, p. 2)
+> ![[zhangReviewingScientificPapers2025a-v3-que-framework-p2.png]]
 
 ### Supporting Claims (with their evidence)
 
@@ -30,9 +30,9 @@ title: "Can reasoning LLMs identify critical errors and unsoundness problems in 
     - [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
 
 - [[CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
-    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]]
-    - [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
-    - [[EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3|EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper]]
+    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]
+    - [[EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
+    - [[EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3|EVD - o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.064 per paper]]
 
 - [[CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
     - [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
