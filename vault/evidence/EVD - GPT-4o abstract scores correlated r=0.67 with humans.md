@@ -28,7 +28,7 @@ title: "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 5
 
 ## Description
 
-> "The optimal input is the article title and abstract, with average ChatGPT scores based on these (30 iterations on a dataset of 51 papers) correlating at 0.67 with human scores, the highest ever reported." (Thelwall, 2024, p. 1)
+> "The optimal input is the article title and abstract, with average ChatGPT scores based on these (30 iterations on a dataset of 51 papers) correlating at 0.67 with human scores, the highest ever reported." (Thelwall, 2024, p. 7)
 
 > ![[thelwallEvaluatingResearchQuality2024-evd-p1-2.png]]
 >
@@ -50,7 +50,7 @@ title: "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 5
 >
 > **Independent variables / covariates:** model identity (3.5-turbo / 4o / 4o-mini); input format (title only / title+abstract / truncated full text); number of iterations averaged (1–30); system-prompt strategy (Strategies 0–6).
 >
-> "The overall research design was to run a series of experiments guided by the research questions on a set of 51 articles with quality scores, using the ChatGPT API environment. For each experiment, the ChatGPT completion requests were carried out consecutively and then repeated a further 29 times to give 30 scores for each article." (Thelwall, 2024, p. 3)
+> "The overall research design was to run a series of experiments guided by the research questions on a set of 51 articles with quality scores, using the ChatGPT API environment. For each experiment, the ChatGPT completion requests were carried out consecutively and then repeated a further 29 times to give 30 scores for each article." (Thelwall, 2024, p. 10)
 > ![[thelwallEvaluatingResearchQuality2024-evd-p3-2.png]]
 
 ### How?
@@ -70,7 +70,7 @@ title: "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 5
 >
 > **Annotators / scorers:** 1 (the author himself, who is also the corpus owner).
 >
-> "The raw data for this paper is a set of 51 information science journal articles that have either been published or prepared for submission and subsequently rejected or not submitted. All were written by the author, who has copyright, and were scored by him using the REF quality scale of 1*, 2*, 3* or 4* (REF, 2019), with which he is familiar." (Thelwall, 2024, p. 3)
+> "The raw data for this paper is a set of 51 information science journal articles that have either been published or prepared for submission and subsequently rejected or not submitted. All were written by the author, who has copyright, and were scored by him using the REF quality scale of 1*, 2*, 3* or 4* (REF, 2019), with which he is familiar." (Thelwall, 2024, p. 10)
 > ![[thelwallEvaluatingResearchQuality2024-evd-p3-3.png]]
 
 ## Other Notes

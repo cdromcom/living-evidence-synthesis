@@ -30,7 +30,7 @@ title: "RAG augmentation improved GPT-4o limitation identification coarse accura
 
 > GPT-4o coarse accuracy without RAG = 52.0%; with RAG = 64.2% (+12.2%); fine-grained fine score: 1.34 → 1.71 (+0.37) (Table 3, Xu et al., 2025, p. 9)
 >
-> "incorporating the RAG method can enhance LLM performance in refining their outputs." (Xu et al., 2025, p. 9)
+> "incorporating the RAG method can enhance LLM performance in refining their outputs." (Xu et al., 2025, p. 20659)
 >
 > ![[xuCanLLMsIdentify2025-evd-p8-2.png]]
 
@@ -55,7 +55,7 @@ title: "RAG augmentation improved GPT-4o limitation identification coarse accura
 
 > **Procedure:** (1) For each examined paper, look up its Semantic Scholar ID; if available, fetch up to 20 recommended papers from the Recommendation API; if unavailable, prompt GPT-4o to generate a query from the paper's abstract and use the Relevance API instead, top-3 results become seed papers and each seed yields 5 additional recommendations, producing a pool of 18 candidates. (2) GPT-4o-mini reranks the 18 candidates by abstract similarity to the input paper; top-5 are kept. (3) Because of context-window limits, GPT-4o-mini extracts content related to methodology, experimental design, result analysis, and literature review from each retained paper; the extracted snippets are concatenated and supplied as additional context to the limitation-generation prompt. For MARG, the expert agent issues the retrieval and refines the leader's draft limitations using the retrieved evidence. (4) Re-run the same coarse-grained automated evaluation pipeline (GPT-4o classifier on top-3 generated limitations) and the human evaluation (100-sample subset for LIMITGEN-Human) on each system with RAG enabled, and report the Δ vs. the no-RAG row.
 >
-> "Specifically, the retrieval process leverages the Semantic Scholar API and adapts based on the input paper's availability in the database. If the paper is available the database, we use its Semantic Scholar ID to fetch at most 20 recommended papers via the recommendation API… These retrieved papers are then reranked by GPT-4o-mini, which assesses the similarity between the input paper and the candidates. The top 5 papers are selected." (Xu et al., 2025, p. 7)
+> "Specifically, the retrieval process leverages the Semantic Scholar API and adapts based on the input paper's availability in the database. If the paper is available the database, we use its Semantic Scholar ID to fetch at most 20 recommended papers via the recommendation API… These retrieved papers are then reranked by GPT-4o-mini, which assesses the similarity between the input paper and the candidates. The top 5 papers are selected." (Xu et al., 2025, p. 20658)
 > ![[xuCanLLMsIdentify2025-evd-p7-3.png]]
 
 ### Who?
@@ -66,7 +66,7 @@ title: "RAG augmentation improved GPT-4o limitation identification coarse accura
 >
 > **Annotators / evaluators:** human evaluation on 100 examples per subset by NLP/AI experts (see Table 7). User-study generalization (Table 6) used 2 outside-domain experts (biomedical, computer networks) producing 5 papers each → 32 perturbed examples annotated, then 2 evaluators rated GPT-4o and Llama-3.3-70B outputs with vs. without RAG.
 >
-> "We collect a total of 9,844 papers and randomly sample 1,000 of them for experimentation." (Xu et al., 2025, p. 5)
+> "We collect a total of 9,844 papers and randomly sample 1,000 of them for experimentation." (Xu et al., 2025, p. 20657)
 > ![[xuCanLLMsIdentify2025-evd-p6-2.png]]
 
 ## Other Notes
