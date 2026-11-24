@@ -50,10 +50,15 @@ export function curationStatusTone(status: string): "draft" | "reviewed" | "othe
   return "other";
 }
 
+// Text colour for use ON a verdict colour, chosen so the pair reaches 4.5:1
+// (white on the bright greens/ambers/roses is only about 2:1 to 3.7:1).
+export const VERDICT_TEXT_ON_BRIGHT = "#1a1410";
+
 export const VERDICT_VOCAB = [
   {
     symbol: "✓",
     key: "correct",
+    textColor: VERDICT_TEXT_ON_BRIGHT,
     label: "Correct",
     color: "var(--color-verdict-correct)",
     description: "The AI-proposed content is accurate as stated; a human reviewer has confirmed it.",
@@ -61,6 +66,7 @@ export const VERDICT_VOCAB = [
   {
     symbol: "✎",
     key: "edit",
+    textColor: VERDICT_TEXT_ON_BRIGHT,
     label: "Edit",
     color: "var(--color-verdict-edit)",
     description: "Substantially right, but a human reviewer revised wording, scope, or polarity.",
@@ -68,6 +74,7 @@ export const VERDICT_VOCAB = [
   {
     symbol: "✎",
     key: "edit-major",
+    textColor: VERDICT_TEXT_ON_BRIGHT,
     label: "Edit: Major issues",
     color: "var(--color-verdict-edit-major)",
     description:
@@ -76,6 +83,7 @@ export const VERDICT_VOCAB = [
   {
     symbol: "✎",
     key: "edit-minor",
+    textColor: VERDICT_TEXT_ON_BRIGHT,
     label: "Edit: Minor issues",
     color: "var(--color-verdict-edit-minor)",
     description: "Accurate, but a human reviewer made a small wording/polish edit that doesn't change its meaning.",
@@ -83,6 +91,7 @@ export const VERDICT_VOCAB = [
   {
     symbol: "✗",
     key: "wrong",
+    textColor: VERDICT_TEXT_ON_BRIGHT,
     label: "Wrong",
     color: "var(--color-verdict-wrong)",
     description: "The AI-proposed content is incorrect and was rejected on review.",
@@ -90,6 +99,7 @@ export const VERDICT_VOCAB = [
   {
     symbol: "⟳",
     key: "missing",
+    textColor: "#ffffff",
     label: "Missing",
     color: "var(--color-verdict-missing)",
     description: "The AI missed something a human reviewer judged should be present.",
@@ -97,6 +107,7 @@ export const VERDICT_VOCAB = [
   {
     symbol: "—",
     key: "na",
+    textColor: "#ffffff",
     label: "N/A",
     color: "var(--color-muted-ink)",
     description: "Not applicable / not yet reviewed.",

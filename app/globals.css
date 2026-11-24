@@ -22,7 +22,7 @@
   --color-verdict-edit-major: #ea580c;
   --color-verdict-edit-minor: #fbbf24;
   --color-verdict-wrong: #f43f5e;
-  --color-verdict-missing: #8b5cf6;
+  --color-verdict-missing: #7c3aed;
 
   --color-node-question: #856404; /* dark gold */
   --color-node-claim: #166534; /* dark green */
@@ -763,4 +763,28 @@ h6 {
   border-top: 1px solid var(--color-border);
   font-size: 0.625rem;
   color: var(--color-muted-ink);
+}
+
+/* ---------------------------------------------------------------------------
+   Accessibility: a visible keyboard focus ring on every interactive element
+   (inputs keep their own border/ring styling and gain this outline too), and
+   no animation or smooth scrolling for people who ask for reduced motion.
+   --------------------------------------------------------------------------- */
+:where(a, button, summary, select, input, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

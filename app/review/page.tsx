@@ -3,7 +3,11 @@ import { VERDICT_VOCAB } from "@/lib/ui";
 import NodeTypeBadge from "@/components/NodeTypeBadge";
 import LiveReviewPanel from "@/components/LiveReviewPanel";
 
-export const metadata = { title: "Review — Living Evidence Synthesis" };
+export const metadata = {
+  title: "Review — Living Evidence Synthesis",
+  description:
+    "Curation status across the corpus and live reviewer verdicts on node accuracy, selection relevancy, fidelity, grounding and error types.",
+};
 
 export default function ReviewPage() {
   const matrix = getCurationStatusMatrix();
@@ -12,7 +16,7 @@ export default function ReviewPage() {
   ).sort();
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
       <h1 className="text-2xl font-semibold">Review status</h1>
       <p className="mt-1 max-w-[65ch] text-sm text-muted-ink">
         Curation status across the corpus (frozen at the last vault export),
@@ -30,22 +34,24 @@ export default function ReviewPage() {
         <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-ink">
           Curation status by node type
         </h2>
-        <div className="mt-3 overflow-x-auto rounded-lg border border-border">
+        <div className="mt-3 overflow-x-auto rounded-lg border border-border" tabIndex={0} role="region" aria-label="Curation status table">
           <table className="w-full min-w-[560px] border-collapse text-sm">
+            <caption className="sr-only">Number of nodes by type and curation status</caption>
             <thead>
               <tr className="bg-muted-surface">
-                <th className="p-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-ink">
+                <th scope="col" className="p-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-ink">
                   Type
                 </th>
                 {allStatuses.map((s) => (
                   <th
+                    scope="col"
                     key={s}
                     className="p-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-ink"
                   >
                     {s}
                   </th>
                 ))}
-                <th className="p-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-ink">
+                <th scope="col" className="p-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-ink">
                   Total
                 </th>
               </tr>
@@ -56,9 +62,9 @@ export default function ReviewPage() {
                 const total = Object.values(row).reduce((a, b) => a + b, 0);
                 return (
                   <tr key={t} className="border-t border-border">
-                    <td className="p-3">
+                    <th scope="row" className="p-3 text-left font-normal">
                       <NodeTypeBadge type={t} />
-                    </td>
+                    </th>
                     {allStatuses.map((s) => {
                       const count = row[s] || 0;
                       const pct = total ? (count / total) * 100 : 0;
@@ -99,7 +105,9 @@ export default function ReviewPage() {
           The spec&apos;s five-state vocabulary for human review of
           AI-proposed discourse-node content — extended with two
           severity-graded Edit states — the same options offered on each
-          node&apos;s review form above.
+          node&apos;s review form above. The form also offers the accuracy
+          review categories: selection relevancy, fidelity, quote grounding,
+          table or figure grounding, and seven error types.
         </p>
         <ul className="mt-4 space-y-2">
           {VERDICT_VOCAB.map((v) => (
@@ -108,8 +116,9 @@ export default function ReviewPage() {
               className="flex items-start gap-3 rounded-lg border border-border bg-card p-3.5"
             >
               <span
-                className="mono flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white"
-                style={{ backgroundColor: v.color }}
+                className="mono flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold"
+                aria-hidden
+                style={{ backgroundColor: v.color, color: v.textColor }}
               >
                 {v.symbol}
               </span>
