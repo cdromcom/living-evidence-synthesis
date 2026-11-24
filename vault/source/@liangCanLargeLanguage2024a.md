@@ -35,6 +35,9 @@ tags:
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
 doi: 10.1056/AIoa2400196
+license: "unknown"
+license_source: "none found (Crossref and OpenAlex)"
+oa_status: "green"
 nameConsistency: consistent
 citationCount: 159
 citationCountSource: OpenCitations

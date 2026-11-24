@@ -35,6 +35,9 @@ tags:
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
 doi: 10.1136/bmjopen-2024-088735
+license: "http://creativecommons.org/licenses/by-nc/4.0/"
+license_source: "Crossref (content-version: unspecified)"
+oa_status: "gold"
 citationCount: 9
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false

@@ -69,6 +69,9 @@ earlierVersionNote: "arXiv preprint 2408.06752 (2024), kept as the archived earl
 citekey: thelwallEvaluatingResearchQuality2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f951-7716-87b8-85d879b3e235
+license: "cc-by"
+license_source: "OpenAlex (primary location: Journal of Data and Information Science)"
+oa_status: "diamond"
 ---
 
 > [!success] **TL;DR**

@@ -32,7 +32,7 @@ title: "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 
 
 > Claude Opus best F1=21.99% on REVIEWCRITIQUE task across all models (Table 7, Lou et al., 2025, p. 11)
 >
-> "Closed-source models (GPT-4, Claude Opus, and Gemini 1.5) generally outperform open-source models (Llama3-8B and 70B, Qwen2-72B) in F1 score. Claude Opus achieves the highest F1 scores, with GPT-4 and Gemini 1.5 performing slightly worse." (Lou et al., 2025, p. 11)
+> "Closed-source models (GPT-4, Claude Opus, and Gemini 1.5) generally outperform open-source models (Llama3-8B and 70B, Qwen2-72B) in F1 score. Claude Opus achieves the highest F1 scores, with GPT-4 and Gemini 1.5 performing slightly worse." (Lou et al., 2025, p. 10)
 >
 > ![[louAAAR10AssessingAIs2025-evd-p10-1.png]]
 
@@ -66,7 +66,7 @@ title: "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 
 >
 > **Sample-size flow (REVIEWCRITIQUE corpus reused from Du et al. 2024):** ICLR initial submissions crawled from OpenReview → 100 papers retained, with 380 human reviews → each review split into sentence-level segments → **11,376 review segments (viewpoints) used as evaluation instances**, each labeled deficient/non-deficient by senior AI researchers with detailed human explanations.
 >
-> "We reuse the REVIEWCRITIQUE dataset from our recent work (Du et al., 2024), where we crawled papers' initial submissions along with their reviews from OpenReview and employed more than 40 AI research experts to label each review segment (i.e., deficient or not), with detailed human explanations. In total, there were 100 papers with 380 human reviews. Each review was divided into sentence-level segments, resulting in 11,376 review segments (viewpoints)." (Lou et al., 2025, p. 10)
+> "We reuse the REVIEWCRITIQUE dataset from our recent work (Du et al., 2024), where we crawled papers' initial submissions along with their reviews from OpenReview and employed more than 40 AI research experts to label each review segment (i.e., deficient or not), with detailed human explanations. In total, there were 100 papers with 380 human reviews. Each review was divided into sentence-level segments, resulting in 11,376 review segments (viewpoints)." (Lou et al., 2025, p. 6)
 > ![[louAAAR10AssessingAIs2025-evd-p6-2.png]]
 
 ## Other Notes

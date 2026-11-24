@@ -12,6 +12,9 @@ export function githubAuthorizeUrl(state: string) {
   const params = new URLSearchParams({
     client_id: process.env.GITHUB_CLIENT_ID!,
     redirect_uri: process.env.GITHUB_OAUTH_REDIRECT_URI!,
+    // public_repo is the minimum scope that lets us fork a public repo and push
+    // a branch to the user's fork so they can open a PR; narrower scopes
+    // (OAuth apps have no fork-only scope) cannot do that. Kept as is.
     scope: "public_repo",
     state,
   });
