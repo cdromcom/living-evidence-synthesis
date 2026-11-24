@@ -1,6 +1,6 @@
 # Permissions and licences for republished material
 
-Status: draft for JP to review. This is a data summary, not legal advice.
+Status: decisions made by Claude on JP's delegation (2026-11-24); JP can reverse any of them. **This is a data summary and a set of project decisions. It is not legal advice.** Fair use and similar exceptions depend on the country and the facts.
 
 The vault republishes screenshots (figure and table crops and quoted-text crops) from 27 source papers. This file records, for each paper, what licence the publisher metadata states, so JP can decide what is safe to keep online. Licences were looked up on 2026-11-23 from the Crossref REST API (`api.crossref.org/works/<doi>`) and, where Crossref had no licence, OpenAlex (`api.openalex.org/works/doi:<doi>`). Unpaywall was not needed. Nothing was guessed: "none found" means neither service listed a licence. The same values are in each source note's frontmatter (`license`, `license_source`, `oa_status`). Where the licence comes from OpenAlex it names a licence family (for example `cc-by`) without a version number, and it can describe the preprint copy rather than the published version, so check the paper's own page before relying on it.
 
@@ -50,9 +50,32 @@ How the last column was decided. CC BY allows copying and adaptation with credit
 - Keep a visible attribution (citation and DOI link) next to every crop, and keep a clear way for rights holders to ask for removal. When a request arrives, remove the crop promptly first, then discuss.
 - The repository history keeps removed images unless it is rewritten, so a takedown may also need a history clean-up.
 
-## Decisions only JP can make (placeholders)
+## Papers flagged for care
 
-- Repository LICENSE: **[JP TO DECIDE: no LICENSE file has been chosen or added. The choice should be checked against the CC BY-SA and CC BY-NC papers above.]**
-- Licence for JP's own ratings and appraisals (the review text, tags and scores): **[JP TO DECIDE]**
-- Takedown contact address: **[JP TO PROVIDE: no address has been invented. Add one here and on the site.]**
-- What to do with papers marked "not allowed" or "needs checking" (keep under fair use, replace by typed tables, or ask the publisher): **[JP TO DECIDE]**
+Four papers are marked "not allowed" and ten "needs checking" above. Decision: keep all crops for all 27 papers, as short excerpts and cropped tables or figures with citation, for scholarly critique, and treat the flagged papers as follows.
+
+| Source | Status | Licence | Reasoning |
+|---|---|---|---|
+| @bougieGenerativeAdversarialReviews2024a | needs checking | none found | No licence found (mostly preprint records); arXiv default terms give others no reuse right. Kept as short excerpts and cropped tables or figures with citation, relying on fair use for scholarly critique. |
+| @hasanIntegratingLargeLanguage2024 | not allowed | none found | Closed access (BMJ), no licence in Crossref or OpenAlex. |
+| @idahlOpenReviewerSpecializedLarge2025 | needs checking | none found | No licence found (mostly preprint records); arXiv default terms give others no reuse right. Kept as short excerpts and cropped tables or figures with citation, relying on fair use for scholarly critique. |
+| @liangCanLargeLanguage2024a | needs checking | none found | No licence found (mostly preprint records); arXiv default terms give others no reuse right. Kept as short excerpts and cropped tables or figures with citation, relying on fair use for scholarly critique. |
+| @liuReviewerGPTExploratoryStudy2023 | needs checking | none found | No licence found (mostly preprint records); arXiv default terms give others no reuse right. Kept as short excerpts and cropped tables or figures with citation, relying on fair use for scholarly critique. |
+| @louAAAR10AssessingAIs2025 | needs checking | none found | No licence found (mostly preprint records); arXiv default terms give others no reuse right. Kept as short excerpts and cropped tables or figures with citation, relying on fair use for scholarly critique. |
+| @sridharanAssessingDecisionMakingCapabilities2024 | not allowed | none found | SAGE bronze access (free to read, no reuse licence; Crossref lists only text-and-data-mining terms). |
+| @sridharanLeveragingArtificialIntelligence2025 | not allowed | none found | Closed access (BMJ), no licence in Crossref or OpenAlex. |
+| @srinivasanEvaluatingReportingQuality2025a | needs checking | http://creativecommons.org/licenses/by-nc/4.0/ | CC BY-NC: reuse is for non-commercial purposes only. The project is a non-commercial scholarly resource, so the crops stay, but it must stay non-commercial and credit the paper. |
+| @wrightsonGPTRCTsUsing2025 | needs checking | http://creativecommons.org/licenses/by-nc/4.0/ | CC BY-NC: reuse is for non-commercial purposes only. The project is a non-commercial scholarly resource, so the crops stay, but it must stay non-commercial and credit the paper. |
+| @wuAutomatedNoveltyEvaluationa | not allowed | none found | Wiley; Crossref lists only publisher terms and conditions, and only a repository copy is open, with no reuse licence. |
+| @zhangDetectingReferenceErrors2024 | needs checking | none found | No licence found (mostly preprint records); arXiv default terms give others no reuse right. Kept as short excerpts and cropped tables or figures with citation, relying on fair use for scholarly critique. |
+| @zhangReviewingScientificPapers2025a | needs checking | cc-by-sa | CC BY-SA: crops carry the same share-alike terms. Kept with attribution and the licence named here; the text around them is JP's own and licensed separately. |
+| @zhouLLMReliableReviewer2024 | needs checking | cc-by-nc | CC BY-NC: reuse is for non-commercial purposes only. The project is a non-commercial scholarly resource, so the crops stay, but it must stay non-commercial and credit the paper. |
+
+If a rights holder objects, the crops for that paper are removed first and discussed after. Where a paper is flagged, a typed table or a short quotation plus a link is the fallback.
+
+## Decisions (delegated to Claude by JP, 2026-11-24)
+
+- Repository code licence: MIT (`LICENSE` at the repository root). It covers the code only.
+- JP's own content: CC BY 4.0, stated in `vault/LICENSE-CONTENT.md` (original text, EVD statements, notes, ratings and appraisals). Quotes and republished screenshots stay under their source papers' licences, with attribution.
+- Screenshots: all kept, for all 27 papers, as scholarly critique with a visible citation and DOI.
+- Takedown route: **[PENDING: the repository's GitHub issues page was the intended route. Publishing it was blocked by the tool permission check, so it is left for JP to confirm. No email address has been invented.]**
