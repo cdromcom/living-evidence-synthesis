@@ -81,6 +81,9 @@ curatedWithModelDate: 2026-08-25
 citekey: shahidLiteratureGroundedNoveltyAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335
+license: "cc-by"
+license_source: "OpenAlex (primary location: Workshop on Scholarly Document Processing (SDP))"
+oa_status: "hybrid"
 ---
 
 > [!info] **Version**

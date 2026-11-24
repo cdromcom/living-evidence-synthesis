@@ -36,7 +36,7 @@ title: "GPT-4 commented on research implications 7.27x more than humans and on n
 >
 > Grounding figure context (p. 5): aspect distribution discussion alongside Fig. 3 reference.
 >
-> ![[liangCanLargeLanguage2024a-aspects-p5-5.png]]
+> ![[liangCanLargeLanguage2024a-aspects-p5-05.png]]
 
 ## Methods Context
 

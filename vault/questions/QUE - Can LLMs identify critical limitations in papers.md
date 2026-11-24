@@ -18,8 +18,10 @@ title: "Can LLMs identify critical limitations within scientific research papers
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "RQ1: How well do LLM-based systems perform in identifying limitations within scientific research?" (Xu et al., 2025, p. 1)
-> ![[xuCanLLMsIdentify2025-que-p1-1.png]]
+> "RQ1: How well do LLM-based systems perform in identifying limitations within scientific research?" (Xu et al., 2025, p. 20652)
+> ![[xuCanLLMsIdentify2025-acl-que-p1-1.png]]
+
+- PDF check 2026-11-24: ACL 2025 version used. Page citation (Xu et al., 2025) p. 1 -> p. 20652 (PDF page 1). Quote verbatim in the new version.
 
 ### Supporting Claims (with their evidence)
 

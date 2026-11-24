@@ -10,6 +10,56 @@ const VAULT = path.join(process.cwd(), "vault");
 const OUT = path.join(process.cwd(), "lib", "graph-data.generated.json");
 const ID_MAP = path.join(process.cwd(), "lib", "node-ids.json");
 
+/**
+ * Optional alt-text map: vault/_alt/alt-text.json = { "<image filename>": "<alt string>" }.
+ * Filled later (e.g. by a vision model); absent or partial is fine. Images
+ * without an entry get a generated alt from the nearest quote or table/figure
+ * label in the page, never the filename. See altFor() below.
+ */
+const ALT_MAP = (function loadAltMap() {
+  const f = path.join(VAULT, "_alt", "alt-text.json");
+  if (!fs.existsSync(f)) return {};
+  try {
+    const m = JSON.parse(fs.readFileSync(f, "utf8"));
+    return m && typeof m === "object" ? m : {};
+  } catch (e) {
+    console.warn(`Ignoring unreadable ${f}: ${e.message}`);
+    return {};
+  }
+})();
+
+/** Markdown-image-safe alt text: one line, no brackets or parentheses. */
+function cleanAlt(s) {
+  return s.replace(/\s+/g, " ").replace(/[\[\]()]/g, "").replace(/!/g, "").trim();
+}
+
+/**
+ * Alt text for an embed: the map entry if there is one, otherwise a description
+ * built from the text just before the image in the page (its nearest quote,
+ * with any Table/Figure label and the page number found there or in the crop's
+ * filename pattern `-p<page>`). Never returns the filename.
+ */
+function altFor(name, before) {
+  const mapped = ALT_MAP[name];
+  if (typeof mapped === "string" && mapped.trim()) return cleanAlt(mapped);
+  const window = before.slice(-900).replace(/^(?:\s*>\s?)+/gm, "");
+  // nearest preceding quote: "..." (Author, Year, p. N)
+  const quotes = [...window.matchAll(/["\u201c]([^"\u201d]{20,}?)["\u201d]\s*\(([^()]*?)(?:,\s*)?(?:pp?\.\s*([\w\u2013-]+))?\)/g)];
+  const q = quotes.length ? quotes[quotes.length - 1] : null;
+  const labels = [...window.matchAll(/\b(Table|Figure|Fig\.?|Box|Appendix)\s*([A-Z]?\d+[A-Za-z]?)/g)];
+  const label = labels.length ? `${labels[labels.length - 1][1].replace(/^Fig\.?$/, "Figure")} ${labels[labels.length - 1][2]}` : null;
+  const pageFromName = name.match(/-p(\d+)(?:[-_.]|$)/i);
+  const page = (q && q[3]) || (pageFromName ? pageFromName[1] : null);
+  const kind = /table/i.test(name) ? "Table" : /fig/i.test(name) ? "Figure" : null;
+  const what = label || kind || "Screenshot";
+  const pageText = page ? `, p. ${page}` : "";
+  if (q) {
+    const words = q[1].split(/\s+/).slice(0, 14).join(" ");
+    return cleanAlt(`${what} from the source paper${pageText}, next to the quote: ${words}\u2026`);
+  }
+  return cleanAlt(`${what} from the source paper${pageText}`);
+}
+
 const TYPE_CONFIG = [
   { type: "QUE", dir: "questions", expected: 27 },
   { type: "CLM", dir: "claims", expected: 31 },
@@ -326,7 +376,7 @@ function rewriteBody(body) {
   // from the vault. These used to be stripped outright, which is why every
   // figure and table crop was missing from the site while sitting in the repo
   // the whole time. Non-image embeds (there are none today) still drop out.
-  text = text.replace(/!\[\[([^\]]+)\]\]/g, (whole, inner) => {
+  text = text.replace(/!\[\[([^\]]+)\]\]/g, (whole, inner, offset, full) => {
     const name = inner.split("|")[0].trim();
     if (!/\.(png|jpe?g|gif|webp|svg)$/i.test(name)) return "";
     // A handful of embeds point at crops that were never committed. Emit a
@@ -335,7 +385,7 @@ function rewriteBody(body) {
     if (!AVAILABLE_IMAGES.has(name)) {
       return `<span class="figure-missing">Figure not available: ${name}</span>`;
     }
-    return `![${name}](/vault-img/${encodeURIComponent(name)})`;
+    return `![${altFor(name, full.slice(0, offset))}](/vault-img/${encodeURIComponent(name)})`;
   });
   // rewrite [[Target|Alias]] / [[Target#^anchor]] / [[Target]]
   text = text.replace(/\[\[([^\]]+)\]\]/g, (whole, inner) => {

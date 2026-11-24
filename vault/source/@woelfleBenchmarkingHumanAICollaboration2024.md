@@ -36,6 +36,9 @@ tags:
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
 doi: 10.1016/j.jclinepi.2024.111533
+license: "http://creativecommons.org/licenses/by/4.0/"
+license_source: "Crossref (content-version: vor)"
+oa_status: "hybrid"
 citationCount: 22
 citationCountSource: EuropePMC
 predatoryPublisherFlag: false

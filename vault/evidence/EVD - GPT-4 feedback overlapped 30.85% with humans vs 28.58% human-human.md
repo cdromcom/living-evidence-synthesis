@@ -36,7 +36,7 @@ title: "GPT-4 feedback overlapped 30.85% with individual human reviewers on Natu
 >
 > Grounding figure context (p. 3): overlap discussion with Fig. 2a reference.
 >
-> ![[liangCanLargeLanguage2024a-overlap-p3-3.png]]
+> ![[liangCanLargeLanguage2024a-overlap-p3-03.png]]
 
 ## Methods Context
 

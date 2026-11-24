@@ -15,7 +15,7 @@ tags:
   - tripod-llm/proportion/73pct
   - 5c/connectivity
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-17
 nodeID: 019ddb4e-6b57-768e-af9b-1285c4a1158c
 appraisal_overall: L2-M2-H1
 tripod_llm_pct: 73pct
@@ -73,6 +73,7 @@ title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52
 ## Other Notes
 
 - Differences across MultiVerS retrieval conditions were not statistically significant from the title+abstract baseline. Difference between best MultiVerS (top-20) and GPT-4 was significant (McNemar p≤.05).
+- Against the LLM baselines (Table 4, p. 6), MultiVerS top-20 is best on macro-F1 (0.52 vs. GPT-4 0.45, GPT-3.5 0.38) and on NOT_ACCURATE citations (F1 0.43 vs. GPT-4 0.09), but GPT-4 has the higher micro-F1 (0.65 vs. 0.59) because it does better on ACCURATE citations ("GPT-4 in-context learning performed better in identifying accurate citations, but it lagged for erroneous citations (0.65 micro-F1, 0.45 macro-F1)", Sarol et al., 2024, p. 1). So "best model" holds for macro-F1, not micro-F1. GPT rows added 2026-11-17 from the source PDF.
 - Oracle conditions show the ceiling: gold context + gold evidence reached 0.75/0.78 (micro/macro-F1), illustrating how much further evidence-retrieval improvements could plausibly push the supervised pipeline.
 
 > [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
@@ -82,10 +83,12 @@ title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52
 | MultiVerS title+abstract (baseline) | 0.56 | 0.43 | 0.69 | 0.38 | 0.20 |
 | MultiVerS top-5 | 0.58 | 0.50 | 0.69 | 0.43 | 0.37 |
 | MultiVerS top-10 | 0.56 | 0.48 | 0.67 | 0.41 | 0.36 |
-| **MultiVerS top-20 (best)** | **0.59** | **0.52** | **0.69** | **0.43** | **0.42** |
+| **MultiVerS top-20 (best MultiVerS)** | **0.59** | **0.52** | **0.69** | **0.43** | **0.42** |
 | MultiVerS top-20 + annotated evidence | 0.58 | 0.50 | 0.69 | 0.43 | 0.38 |
 | Oracle (gold evidence) | 0.73 | 0.75 | 0.79 | 0.52 | 0.93 |
 | Oracle (gold context + gold evidence) | 0.75 | 0.78 | 0.80 | 0.57 | 0.96 |
+| In-context learning: GPT-3.5-turbo (top-5 evidence) | 0.57 | 0.38 | 0.73 | 0.05 | 0.34 |
+| In-context learning: GPT-4 (top-5 evidence) | 0.65 | 0.45 | 0.80 | 0.09 | 0.48 |
 
 | Sub-task | Result |
 | --- | --- |

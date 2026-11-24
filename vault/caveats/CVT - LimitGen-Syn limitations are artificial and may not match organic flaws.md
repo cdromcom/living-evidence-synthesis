@@ -30,9 +30,11 @@ LIMITGEN-Syn creates test cases by systematically perturbing high-quality papers
 ### Supporting Quote
 
 > [!info] Quotes
-> "LIMITGEN-Syn systematically introduces controlled perturbations to high-quality papers to create scenarios where specific limitations are present. These perturbations include selective removal of crucial information such as experimental details, inadequate evaluation metrics, omission of key baseline comparisons, and constraints on datasets or methodologies." (Xu et al., 2025, p. 2) [Inferred: Artificially introduced limitations following a fixed taxonomy may be systematically easier or harder to detect than the complex, intertwined limitations found in real submitted papers, limiting ecological validity.]
+> "LIMITGEN-Syn systematically introduces controlled perturbations to high-quality papers to create scenarios where specific limitations are present. These perturbations include selective removal of crucial information such as experimental details, inadequate evaluation metrics, omission of key baseline comparisons, and constraints on datasets or methodologies." (Xu et al., 2025, p. 20653) [Inferred: Artificially introduced limitations following a fixed taxonomy may be systematically easier or harder to detect than the complex, intertwined limitations found in real submitted papers, limiting ecological validity.]
 >
-> ![[xuCanLLMsIdentify2025-cvt-p2-1.png]]
+> ![[xuCanLLMsIdentify2025-acl-cvt-p2-1.png]]
+
+- PDF check 2026-11-24: ACL 2025 version used. Page citation (Xu et al., 2025) p. 2 -> p. 20653. Quote verbatim in the new version.
 
 ### Applies To
 

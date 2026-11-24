@@ -6,7 +6,7 @@ aliases:
 tags:
   - 5c/credibility
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-24
 nodeID: 019ddb4e-6be6-7074-b0d5-ef39feb142ab
 title: "What is the optimal input format for LLM-based research quality assessment?"
 ---
@@ -18,8 +18,8 @@ title: "What is the optimal input format for LLM-based research quality assessme
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "RQ1: What is the optimal input for ChatGPT post-publication research quality assessment: full text, abstract, or title only?" (Thelwall, 2024, p. 3)
-> ![[thelwallEvaluatingResearchQuality2024-que-p3-1.png]]
+> "RQ1: What is the optimal input for ChatGPT post-publication research quality assessment: full text, abstract, or title only?" (Thelwall, 2025, p. 9)
+> ![[thelwallEvaluatingResearchQuality2024-que-p3-2.png]]
 
 ### Supporting Claims (with their evidence)
 
@@ -39,3 +39,8 @@ title: "What is the optimal input format for LLM-based research quality assessme
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
 - [[EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
+
+### PDF check
+
+- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - Thelwall - 2024.pdf"
+- PDF check 2026-11-24: citation of "RQ1: What is the optimal input for ChatGPT post-publication ..." (Thelwall, 2024, p. 3) -> (Thelwall, 2025, p. 9)
