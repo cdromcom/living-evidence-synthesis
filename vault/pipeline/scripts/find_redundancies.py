@@ -37,7 +37,7 @@ def jaccard(a: set, b: set) -> float:
 
 def evd_citekey(stem: str) -> str | None:
     """Citekey of an EVD, read from the [[@citekey]] link in its `## Source` section."""
-    p = VAULT / 'evidence' / f'{stem}.md'
+    p = VAULT / 'sysrev' / 'evidence' / f'{stem}.md'
     if not p.exists():
         return None
     m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
@@ -68,7 +68,7 @@ def main():
     print('=' * 80)
 
     print('\n## QUE pairs (threshold 0.30)\n')
-    pairs = find_pairs(sorted((VAULT/'questions').glob('QUE*.md')), 'QUE', 0.30)
+    pairs = find_pairs(sorted((VAULT / 'sysrev' / 'questions').glob('QUE*.md')), 'QUE', 0.30)
     print(f'Found {len(pairs)} candidate pairs:\n')
     for sim, a, b, shared, _ in pairs:
         print(f'[{sim:.2f}] shared: {", ".join(sorted(shared))}')
@@ -77,7 +77,7 @@ def main():
         print()
 
     print('\n## CLM pairs (threshold 0.30)\n')
-    pairs = find_pairs(sorted((VAULT/'claims').glob('CLM*.md')), 'CLM', 0.30)
+    pairs = find_pairs(sorted((VAULT / 'sysrev' / 'claims').glob('CLM*.md')), 'CLM', 0.30)
     print(f'Found {len(pairs)} candidate pairs:\n')
     for sim, a, b, shared, _ in pairs:
         print(f'[{sim:.2f}] shared: {", ".join(sorted(shared))}')
@@ -86,7 +86,7 @@ def main():
         print()
 
     print('\n## EVD pairs (threshold 0.40, marking same-paper pairs)\n')
-    pairs = find_pairs(sorted((VAULT/'evidence').glob('EVD*.md')), 'EVD', 0.40, citekey_aware=True)
+    pairs = find_pairs(sorted((VAULT / 'sysrev' / 'evidence').glob('EVD*.md')), 'EVD', 0.40, citekey_aware=True)
     print(f'Found {len(pairs)} candidate pairs:\n')
     for sim, a, b, shared, same in pairs:
         marker = ' [SAME PAPER]' if same else ''
@@ -96,7 +96,7 @@ def main():
         print()
 
     print('\n## CVT pairs (threshold 0.30)\n')
-    pairs = find_pairs(sorted((VAULT/'caveats').glob('CVT*.md')), 'CVT', 0.30)
+    pairs = find_pairs(sorted((VAULT / 'sysrev' / 'caveats').glob('CVT*.md')), 'CVT', 0.30)
     print(f'Found {len(pairs)} candidate pairs:\n')
     for sim, a, b, shared, _ in pairs:
         print(f'[{sim:.2f}] shared: {", ".join(sorted(shared))}')

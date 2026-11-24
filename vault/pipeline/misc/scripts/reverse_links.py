@@ -64,7 +64,7 @@ def main():
     # 1) Build mappings
     cvt_to_evds = {}  # cvt_filename → list[evd_stem]
     evd_to_cvts = defaultdict(list)  # evd_stem → list[cvt_stem]
-    for f in sorted((VAULT / 'caveats').glob('CVT*.md')):
+    for f in sorted((VAULT / 'sysrev' / 'caveats').glob('CVT*.md')):
         text = f.read_text()
         evd_stems = parse_appliesTo(text)
         cvt_stem = f.stem
@@ -74,7 +74,7 @@ def main():
 
     clm_to_papers = {}  # clm_filename → list[citekey]
     paper_to_clms = defaultdict(list)  # citekey → list[clm_stem]
-    for f in sorted((VAULT / 'claims').glob('CLM*.md')):
+    for f in sorted((VAULT / 'sysrev' / 'claims').glob('CLM*.md')):
         text = f.read_text()
         papers = parse_clm_papers(text)
         clm_to_papers[f.name] = papers
@@ -83,7 +83,7 @@ def main():
 
     # 2) Process EVDs: add ## Caveats and ## Supports Claim(s)
     evd_count = 0
-    for f in sorted((VAULT / 'evidence').glob('EVD*.md')):
+    for f in sorted((VAULT / 'sysrev' / 'evidence').glob('EVD*.md')):
         text = f.read_text()
         stem = f.stem
         citekey = evd_stem_to_citekey(stem)
@@ -111,13 +111,13 @@ def main():
     # 3) Process CLMs: add ### Supporting Evidence
     # Build paper → list[evd_stem]
     paper_to_evds = defaultdict(list)
-    for f in (VAULT / 'evidence').glob('EVD*.md'):
+    for f in (VAULT / 'sysrev' / 'evidence').glob('EVD*.md'):
         ck = evd_stem_to_citekey(f.stem)
         if ck:
             paper_to_evds[ck].append(f.stem)
 
     clm_count = 0
-    for f in sorted((VAULT / 'claims').glob('CLM*.md')):
+    for f in sorted((VAULT / 'sysrev' / 'claims').glob('CLM*.md')):
         text = f.read_text()
         papers = parse_clm_papers(text)
         if not papers:

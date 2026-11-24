@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Add a TL;DR callout to every source/@*.md page.
+Add a TL;DR callout to every sysrev/source/@*.md page.
 
 For each source page, derive a 1-3 sentence TL;DR from the existing
 **Bottom line.** paragraph in the Critical appraisal section, and insert
@@ -16,7 +16,7 @@ import re
 from pathlib import Path
 
 VAULT = Path("/Users/ppatel/Documents/living-synthesis")
-SOURCE_DIR = VAULT / "source"
+SOURCE_DIR = VAULT / "sysrev" / "source"
 
 FRONTMATTER_RE = re.compile(r"^(---\n.*?\n---\n)", re.DOTALL)
 BOTTOM_LINE_RE = re.compile(

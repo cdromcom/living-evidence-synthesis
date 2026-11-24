@@ -8,7 +8,7 @@ Differences from v3:
   clipped at the bottom.
 - Cropped screenshots include a coloured highlight over the matched text:
     EVD = light red, CLM = light green, QUE = light blue, CVT = light gold.
-- QUE files (under questions/) are now processed using the same per-quote
+- QUE files (under sysrev/questions/) are now processed using the same per-quote
   citekey attribution logic as CLMs.
 - A `--force` flag regenerates existing screenshots in place (preserving the
   original filename), rather than skipping quotes that already have an embed.
@@ -24,8 +24,8 @@ from pathlib import Path
 import fitz
 
 VAULT = Path('/Users/ppatel/Documents/living-synthesis')
-PDFS = VAULT / 'source' / 'pdfs'
-ATTACH = VAULT / 'evidence' / 'Attachments'
+PDFS = VAULT / 'sysrev' / 'source' / 'pdfs'
+ATTACH = VAULT / 'sysrev' / 'evidence' / 'Attachments'
 
 # Light pastel highlight colours, as RGB tuples in [0, 1].
 COLORS = {
@@ -432,10 +432,10 @@ def main():
     targets = args if args else ['evd', 'clm', 'cvt', 'que']
 
     folders = {
-        'evd': (VAULT / 'evidence', 'EVD*.md'),
-        'clm': (VAULT / 'claims', 'CLM*.md'),
-        'cvt': (VAULT / 'caveats', 'CVT*.md'),
-        'que': (VAULT / 'questions', 'QUE*.md'),
+        'evd': (VAULT / 'sysrev' / 'evidence', 'EVD*.md'),
+        'clm': (VAULT / 'sysrev' / 'claims', 'CLM*.md'),
+        'cvt': (VAULT / 'sysrev' / 'caveats', 'CVT*.md'),
+        'que': (VAULT / 'sysrev' / 'questions', 'QUE*.md'),
     }
 
     totals = {'added': 0, 'regen': 0, 'failed': 0}

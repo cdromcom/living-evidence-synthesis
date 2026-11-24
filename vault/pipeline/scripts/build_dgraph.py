@@ -1,4 +1,4 @@
-"""Build indexes/dgraph.md — a comprehensive nested view of the discourse graph.
+"""Build sysrev/indexes/dgraph.md — a comprehensive nested view of the discourse graph.
 
 Structure:
   # Discourse Graph
@@ -85,10 +85,10 @@ def parse_cvt_appliesTo(cvt_path: Path) -> list[str]:
 def main():
     load_titles()
     # Inventory
-    que_files = sorted((VAULT / 'questions').glob('QUE*.md'))
-    clm_files = sorted((VAULT / 'claims').glob('CLM*.md'))
-    evd_files = sorted((VAULT / 'evidence').glob('EVD*.md'))
-    cvt_files = sorted((VAULT / 'caveats').glob('CVT*.md'))
+    que_files = sorted((VAULT / 'sysrev' / 'questions').glob('QUE*.md'))
+    clm_files = sorted((VAULT / 'sysrev' / 'claims').glob('CLM*.md'))
+    evd_files = sorted((VAULT / 'sysrev' / 'evidence').glob('EVD*.md'))
+    cvt_files = sorted((VAULT / 'sysrev' / 'caveats').glob('CVT*.md'))
 
     # Build EVD → [CVT stems] mapping
     evd_to_cvts = defaultdict(list)
@@ -113,8 +113,8 @@ def main():
     # YAML frontmatter (Obsidian properties)
     from datetime import date
     today = date.today().isoformat()
-    # Preserve created date if indexes/dgraph.md already has one
-    out = VAULT / 'indexes' / 'dgraph.md'
+    # Preserve created date if sysrev/indexes/dgraph.md already has one
+    out = VAULT / 'sysrev' / 'indexes' / 'dgraph.md'
     created_date = today
     if out.exists():
         existing = out.read_text()
@@ -141,7 +141,7 @@ def main():
     lines.append('')
     lines.append('> [!info] How this page is generated')
     lines.append('>')
-    lines.append('> Auto-generated from each QUE\'s `### Supporting Claims (with their evidence)` section, each CLM\'s `### Supporting Evidence`, and each CVT\'s `appliesTo`. Re-run `scripts/build_dgraph.py` to regenerate after any structural change to the vault.')
+    lines.append('> Auto-generated from each QUE\'s `### Supporting Claims (with their evidence)` section, each CLM\'s `### Supporting Evidence`, and each CVT\'s `appliesTo`. Re-run `pipeline/scripts/build_dgraph.py` to regenerate after any structural change to the vault.')
     lines.append('')
     lines.append('> [!tip] How to read this page')
     lines.append('>')

@@ -15,7 +15,7 @@ from pathlib import Path
 
 import fitz  # PyMuPDF
 
-PDF_DIR = Path("/Users/ppatel/Documents/living-synthesis/source/pdfs")
+PDF_DIR = Path("/Users/ppatel/Documents/living-synthesis/sysrev/source/pdfs")
 
 # word -> regex pattern (case-insensitive, word-boundary applied at use site)
 WORDS = {

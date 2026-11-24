@@ -15,7 +15,7 @@ from collections import defaultdict
 import fitz
 
 VAULT = Path('/Users/ppatel/Documents/living-synthesis')
-PDFS = VAULT / 'source' / 'pdfs'
+PDFS = VAULT / 'sysrev' / 'source' / 'pdfs'
 
 sys.path.insert(0, '/tmp')
 from quote_pipeline_v3 import find_pdf, normalize, CITEKEY_TO_PDF_HINT
@@ -108,7 +108,7 @@ def main():
     paraphrases = []  # (file, quote_text_first_120, citekey, cited_page, found_page, snippet)
     pdf_doc_cache = {}
     for kind, dir_name in [('EVD', 'evidence'), ('CLM', 'claims'), ('CVT', 'caveats')]:
-        for f in sorted((VAULT / dir_name).glob(f'{kind}*.md')):
+        for f in sorted((VAULT / 'sysrev' / dir_name).glob(f'{kind}*.md')):
             text = f.read_text()
             if kind == 'CLM':
                 citekeys = get_clm_citekeys(text)

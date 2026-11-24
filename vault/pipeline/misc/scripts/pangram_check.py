@@ -15,10 +15,10 @@ is a research preview with no documented stable API, so it's skipped here.
 
 Usage:
     export PANGRAM_API_KEY=...
-    python3 misc/scripts/pangram_check.py
+    python3 pipeline/misc/scripts/pangram_check.py
 
 Prints a JSON report to stdout and writes it to
-misc/pangram_check_<date>.json for reference.
+pipeline/misc/pangram_check_<date>.json for reference.
 """
 import json
 import os
@@ -30,8 +30,8 @@ from pathlib import Path
 import fitz  # PyMuPDF
 from pangram import Pangram
 
-VAULT = Path(__file__).resolve().parents[2]
-PDF_DIR = VAULT / "source" / "pdfs"
+VAULT = Path(__file__).resolve().parents[3]
+PDF_DIR = VAULT / "sysrev" / "source" / "pdfs"
 MODEL = "pangram-4"
 
 # citekey -> (SRC node id, PDF filename)
@@ -151,7 +151,7 @@ def main() -> int:
     if missing:
         print(f"No result returned for: {sorted(missing)}", file=sys.stderr)
 
-    out_path = VAULT / "misc" / f"pangram_check_{date.today().isoformat()}.json"
+    out_path = VAULT / "pipeline" / "misc" / f"pangram_check_{date.today().isoformat()}.json"
     out_path.write_text(json.dumps(results, indent=2))
     print(json.dumps(results, indent=2))
     print(f"\nWrote {out_path}", file=sys.stderr)

@@ -18,8 +18,8 @@ import re
 from pathlib import Path
 
 VAULT = Path("/Users/ppatel/Documents/living-synthesis")
-QUE_DIR = VAULT / "questions"
-EP_DIR = VAULT / "evd-patterns"
+QUE_DIR = VAULT / "sysrev" / "questions"
+EP_DIR = VAULT / "sysrev" / "evd-patterns"
 
 WIKILINK_RE = re.compile(r"\[\[([^\]]+?)\]\]")
 EVD_PREFIX = "EVD -"
