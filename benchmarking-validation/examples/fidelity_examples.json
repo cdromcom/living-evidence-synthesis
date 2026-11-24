@@ -1,0 +1,26 @@
+{
+ "note": "Worked examples from EVD 1-3 using JP's Fidelity ratings (column M), rewritten 2026-11-23 to JP's gist rule: the gist of the headline EVD must be in the Description quote; matching specifics are a bonus. Reasons paraphrase JP's notes; edit freely. EVD 1-3 are excluded from every held-out comparison.",
+ "examples": [
+  {
+   "evd": 1,
+   "label": "Met",
+   "why": "The gist (a large share of citations had accuracy errors) is in the quote: it says 60.82% were accurate and gives the 21.16% minor and 18.02% major error shares, so 39.18% follows directly. The exact figure is a bonus.",
+   "evd_statement": "39.18% of 3063 annotated biomedical citation instances contained accuracy errors",
+   "quote_text": "\"A total of 3063 citation instances corresponding 3420 citation context sentences and 3791 evidence sentences were annotated (1.12 context and 1.24 evidence sentences per citation). The majority of citations were deemed accurate (60.82%). There were slightly more minor errors than major errors (21.16% versus 18.02%).\" (Sarol et al., 2024, p. 5)"
+  },
+  {
+   "evd": 2,
+   "label": "Met",
+   "why": "The gist (more than half found the feedback helpful, and 82.4% found it more beneficial than at least some human reviewers) is in the quote and the numbers match. The number of researchers (308) is context and does not need to be in the quote.",
+   "evd_statement": "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers",
+   "quote_text": "\"more than half (57.4%) of the users found GPT-4 generated feedback helpful/very helpful and 82.4% found it more beneficial than feedback from at least some human reviewers.\" (Liang et al., 2024, p. 1, Abstract)"
+  },
+  {
+   "evd": 3,
+   "label": "Met",
+   "why": "The gist (the platforms covered the fundamental sections, with variations) is in the quote. A faithful paraphrase with no numbers to check.",
+   "evd_statement": "AI platforms drafted SOPs covering fundamental sections with variations across platforms",
+   "quote_text": "\"The SOP-related outputs from the AI platforms are set out in Electronic Supplementary Material 4. Overall, these platforms managed to cover the fundamental sections of the SOPs requested, including purpose, scope, definitions, procedures, and responsibilities. Despite variations in wording, the core content remained strikingly similar. Distinctive differences in the SOPs crafted by the AI tools are presented in Table 2.\" (Sridharan & Sivaramakrishnan, 2024, p. 85)"
+  }
+ ]
+}

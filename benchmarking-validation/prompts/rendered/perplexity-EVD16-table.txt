@@ -1,0 +1,36 @@
+MODEL pplx-decider-v1.3
+QUESTIONS
+{
+ "table_fig_grounding": {
+  "type": "choice",
+  "instructions": "Does the evidence page show the correct table or figure for the EVD statement's numbers?",
+  "criteria": {
+   "Correct": "A screenshot shows the table or figure that holds the EVD statement's numbers or main finding (the one the caption describes), complete enough to read the relevant values.",
+   "Partially Correct": "The right table or figure, but cropped so the relevant cells are missing, or only one of several needed.",
+   "Incorrect": "A screenshot labelled as a table or figure shows something else, such as body text or a different table or figure.",
+   "Missing": "The EVD statement's numbers appear to come from a table or figure (the caption mentions one, or the numbers are too detailed to come from the quote alone) but no screenshot of it is shown.",
+   "NA": "The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed."
+  }
+ },
+ "screenshots_contain_numbers": {
+  "type": "noul",
+  "instructions": "Do the screenshots shown contain the EVD statement's key numbers?"
+ }
+}
+
+STATE (what the model sees)
+EVD STATEMENT (the claim being checked):
+Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings
+
+QUOTED TEXT:
+"Combined LLM ratings led to accuracies of 75%−88% for PRISMA (4%−74% deferred), 74%−89% for AMSTAR (6%−84% deferred), and 64%−79% for PRECIS-2 (29%−88% deferred)." (Woelfle et al., 2024, p. 1 [Abstract])
+
+TABLE/FIGURE CAPTION shown on the evidence page (may be empty):
+Grounding figure (Fig 3, p. 4): accuracy vs. deferring fraction across consistency thresholds.
+Grounding table (Table 3, p. 7): combined-LLM accuracies and deferring fractions.
+
+TABLE/FIGURE SCREENSHOT shown on the evidence page 1:
+<<image tablefig-2.png>>
+
+TABLE/FIGURE SCREENSHOT shown on the evidence page 2:
+<<image tablefig-3.png>>

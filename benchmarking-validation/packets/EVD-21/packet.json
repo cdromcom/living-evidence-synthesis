@@ -1,0 +1,23 @@
+{
+ "evd": 21,
+ "evd_statement": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines",
+ "review_questions": "How well can LLMs review research reports?",
+ "citekey": "bougieGenerativeAdversarialReviews2024a",
+ "pdf": "Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+ "quote_text": "\"As shown in Table 7, our method significantly outperforms AI-Scientist in generating reviews that align closely with human feedback. GAR scores are consistently higher, suggesting that the inclusion of graph-based memory and profile modules enhances the human-likeness of reviews.\" (Bougie & Watanabe, 2024, p. 14)",
+ "description_other_text": "*Table 7 row for the GAR reviewer agent (values reformatted as inline text):* \"GAR: NeurIPS 3.89 \u00b1 0.11\\*, ICLR 22 4.02 \u00b1 0.10\\*, ICLR 23 3.99 \u00b1 0.09\\*\" (Bougie & Watanabe, 2024, p. 15, Table 7)",
+ "grounding_table_text": "",
+ "methods_context": "### What?\n\n**Study design:** LLM-as-a-judge cross-dataset evaluation of review human-likeness.\n\n**Method type:** zero-shot prompting of GPT-4o to rate, on a 5-point Likert scale, whether each generated review reads as AI-generated or human-like; means \u00b1 standard error reported and significance vs. best baseline marked with an asterisk.\n\n**Tools:** GPT-4o evaluator; reviewer agents GAR (GPT-4o-mini backbone in main run), AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review; NeurIPS 2023, ICLR 2022, and ICLR 2023 OpenReview datasets; in \u00a75.11 the same protocol is rerun with GPT-4o, Mistral-7b Instruct, Llama-3.1 (8b), and Llama-3.1 (70b) as GAR backbones.\n\n**Dependent variable:** human-likeness score (1 = AI-generated, 5 = human-like).\n\n**Independent variables:** reviewer type (5 LLM agents) and conference dataset (NeurIPS / ICLR 22 / ICLR 23); foundation LLM in \u00a75.11.\n\n\"Specifically, we collect agent-generated reviews and prompted GPT-4o to evaluate whether these reviews were AI-generated or human-like. A 5-point Likert scale was used, where higher scores indicate a stronger resemblance to human reviewers' style and consistency.\" (Bougie & Watanabe, 2024, pp. 14\u201315)\n\n### How?\n\n**Procedure:** for each conference dataset, the five reviewer agents generate reviews on a 1,000-paper subset; GPT-4o is then prompted to score each review on the 1\u20135 human-likeness scale. Means \u00b1 SE are aggregated per (reviewer \u00d7 dataset) cell and statistical significance over the best baseline is marked with an asterisk (t-test at p<0.05, per the convention used elsewhere in the paper). Each Llama-3.1 (8b) run takes \u224820 minutes on a single NVIDIA A100 40G; all results are averaged over 20 independent runs to ensure reliability and robustness.\n\n\"All agents are powered by the GPT-4o-mini version of ChatGPT (OpenAI et al., 2024). In some experiments, we also use the following state-of-the-art LLMs as the backend of reviewer agents: GPT-4o (OpenAI et al., 2024) and Llama-3.1 (8b and 70b) (Grattafiori et al., 2024). \u2026 Each run on Llama-3.1 (8b) takes approximately 20 minutes, and all results reported are averaged over 20 independent runs to ensure reliability and robustness of the findings.\" (Bougie & Watanabe, 2024, p. 9)\n\n### Who?\n\n**Models:** five reviewer agents (GAR, AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review). GAR's foundation LLM in the main run is GPT-4o-mini; \u00a75.11 (Table 8) repeats with GPT-4o, Mistral-7b Instruct, Llama-3.1 (8b), and Llama-3.1 (70b).\n\n**Sample-size flow / data:** ICLR 2023 = 3,797 OpenReview papers \u2192 1,000-paper evaluation subset; NeurIPS 2023 and ICLR 2022 likewise sampled at 1,000 papers each (the remaining ~2,797 ICLR 23 reviews initialise the memory module per \u00a75.3). All three datasets are scored by GPT-4o. No human evaluators in this experiment.\n\n\"We primary conduct the experiments on the ICLR 2023 dataset, which consists of 3,797 papers obtained from Openreview. Each paper was retrieved by at least three reviewers. In some experiments, we also conducted experiments on the ICLR 2022, and NeurIPS 2023 (Beygelzimer et al., 2021) datasets.\" (Bougie & Watanabe, 2024, p. 9)",
+ "images": [
+  {
+   "file": "quote-1.png",
+   "kind": "quote",
+   "orig": "bougieGenerativeAdversarialReviews2024a-evd-p15-1.png"
+  },
+  {
+   "file": "quote-2.png",
+   "kind": "quote",
+   "orig": "bougieGenerativeAdversarialReviews2024a-evd-table7-p15.png"
+  }
+ ]
+}

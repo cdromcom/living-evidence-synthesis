@@ -1,0 +1,695 @@
+[
+ {
+  "evd": 1,
+  "title": "39.18% of 3063 annotated biomedical citation instances contained accuracy errors",
+  "page": "EVD - 39.18% of 3063 biomedical citations had accuracy errors.md",
+  "pdf": "Sarol et al. - 2024 - Assessing citation integrity.pdf",
+  "quote_images": 1,
+  "tablefig_images": 1,
+  "quote_chars": 346
+ },
+ {
+  "evd": 2,
+  "title": "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers",
+  "page": "EVD - 57.4% of 308 researchers found GPT-4 feedback helpful.md",
+  "pdf": "Liang et al. - 2024 - Can Large Language Models Provide Useful Feedback on Research Papers A Large-Scale Empirical Analys.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 211
+ },
+ {
+  "evd": 3,
+  "title": "AI platforms drafted SOPs covering fundamental sections with variations across platforms",
+  "page": "EVD - AI platforms drafted SOPs covering fundamental sections with variations.md",
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Assessing the Decision-Making Capabilities of AI.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 469
+ },
+ {
+  "evd": 4,
+  "title": "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set",
+  "page": "EVD - AI Scientist reached 0.47 accuracy on novelty test set.md",
+  "pdf": "Archive - Shahid et al. - 2025.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 194
+ },
+ {
+  "evd": 5,
+  "title": "All AI platforms failed to address post-trial herbal medicine access in case study 10",
+  "page": "EVD - All AI platforms missed post-trial herbal medicine access.md",
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Assessing the Decision-Making Capabilities of AI.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 253
+ },
+ {
+  "evd": 6,
+  "title": "All four LLMs answered all seven IRB ethics case queries with homogeneous responses",
+  "page": "EVD - All four LLMs gave similar answers to all 7 IRB cases.md",
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Leveraging artificial intelligence.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 424
+ },
+ {
+  "evd": 7,
+  "title": "All four LLMs included fundamental ICD elements for all seven case scenarios",
+  "page": "EVD - All four LLMs included core ICD elements in all 7 cases.md",
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Leveraging artificial intelligence.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 270
+ },
+ {
+  "evd": 8,
+  "title": "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification",
+  "page": "EVD - MultiVerS reached micro-F1 0.59 on citation accuracy.md",
+  "pdf": "Sarol et al. - 2024 - Assessing citation integrity.pdf",
+  "quote_images": 1,
+  "tablefig_images": 1,
+  "quote_chars": 288
+ },
+ {
+  "evd": 9,
+  "title": "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028)",
+  "page": "EVD - ChatGPT matched humans on 3 of 12 PRISMA items but not on eligibility criteria.md",
+  "pdf": "Alharbi and Asiri - 2024 - Automated Assessment of Reporting Completeness in Orthodontic Research Using LLMs An Observational.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 471
+ },
+ {
+  "evd": 10,
+  "title": "ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001)",
+  "page": "EVD - ChatGPT matched humans on 6 of 17 CONSORT-A items but not on randomization.md",
+  "pdf": "Alharbi and Asiri - 2024 - Automated Assessment of Reporting Completeness in Orthodontic Research Using LLMs An Observational.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 624
+ },
+ {
+  "evd": 11,
+  "title": "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A",
+  "page": "EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance.md",
+  "pdf": "Roberts et al. 2023 - Comparative study of ChatGPT and human evaluators.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 155
+ },
+ {
+  "evd": 12,
+  "title": "ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A",
+  "page": "EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764.md",
+  "pdf": "Roberts et al. 2023 - Comparative study of ChatGPT and human evaluators.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 217
+ },
+ {
+  "evd": 13,
+  "title": "ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06",
+  "page": "EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective.md",
+  "pdf": "Roberts et al. 2023 - Comparative study of ChatGPT and human evaluators.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 466
+ },
+ {
+  "evd": 14,
+  "title": "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker",
+  "page": "EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+  "pdf": "Archive - Zhang and Abernethy - 2025.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 163
+ },
+ {
+  "evd": 15,
+  "title": "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments",
+  "page": "EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1.md",
+  "pdf": "Lou et al. - 2025 - AAAR-1.0 Assessing AI's Potential to Assist Resea.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 266
+ },
+ {
+  "evd": 16,
+  "title": "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings",
+  "page": "EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%.md",
+  "pdf": "Woelfle et al. - 2024 - Benchmarking Human\u2013AI collaboration for common evidence appraisal tools.pdf",
+  "quote_images": 1,
+  "tablefig_images": 2,
+  "quote_chars": 204
+ },
+ {
+  "evd": 17,
+  "title": "CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology",
+  "page": "EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology.md",
+  "pdf": "Srinivasan et al. - 2025 - Evaluating the reporting quality of 21,041 randomized controlled trial articles.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 385
+ },
+ {
+  "evd": 18,
+  "title": "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions",
+  "page": "EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions.md",
+  "pdf": "Wrightson et al. - 2025 - GPT for RCTs Using AI to determine adherence to clinical trial reporting guidelines.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 281
+ },
+ {
+  "evd": 19,
+  "title": "Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested",
+  "page": "EVD - Full text scored worse than abstracts for 3 ChatGPT models.md",
+  "pdf": "Archive - Thelwall - 2024.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 258
+ },
+ {
+  "evd": 20,
+  "title": "GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation",
+  "page": "EVD - GAR beat human reviewers on preference 0.684 vs 0.523.md",
+  "pdf": "Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 243
+ },
+ {
+  "evd": 21,
+  "title": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines",
+  "page": "EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines.md",
+  "pdf": "Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "quote_images": 2,
+  "tablefig_images": 0,
+  "quote_chars": 315
+ },
+ {
+  "evd": 22,
+  "title": "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49",
+  "page": "EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49.md",
+  "pdf": "Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 369
+ },
+ {
+  "evd": 23,
+  "title": "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles",
+  "page": "EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct.md",
+  "pdf": "Akyon et al. - 2024 - Evaluating the capabilities of generative AI tools in understanding medical papers Qualitative stud.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 263
+ },
+ {
+  "evd": 24,
+  "title": "GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions",
+  "page": "EVD - GPT 4-0613 was lowest on STROBE questions at 44.1%.md",
+  "pdf": "Akyon et al. - 2024 - Evaluating the capabilities of generative AI tools in understanding medical papers Qualitative stud.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 204
+ },
+ {
+  "evd": 25,
+  "title": "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review",
+  "page": "EVD - GPT-3.5 predicted review aspect scores at r=0.651.md",
+  "pdf": "Zhou - Is LLM a Reliable Reviewer A Comprehensive Evalua.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 207
+ },
+ {
+  "evd": 26,
+  "title": "GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%",
+  "page": "EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context.md",
+  "pdf": "Zhang and Abernethy - 2024 - Detecting Reference Errors in Scientific Literature with Large Language Models.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 202
+ },
+ {
+  "evd": 27,
+  "title": "GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35",
+  "page": "EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I.md",
+  "pdf": "Hasan et al_2024_Integrating large language models in systematic reviews.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 124
+ },
+ {
+  "evd": 28,
+  "title": "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs",
+  "page": "EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items.md",
+  "pdf": "Liu and Shah - 2023 - ReviewerGPT An Exploratory Study on Using Large Language Models for Paper Reviewing.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 529
+ },
+ {
+  "evd": 29,
+  "title": "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations",
+  "page": "EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate.md",
+  "pdf": "Sarol et al. - 2024 - Assessing citation integrity.pdf",
+  "quote_images": 1,
+  "tablefig_images": 1,
+  "quote_chars": 326
+ },
+ {
+  "evd": 30,
+  "title": "GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers",
+  "page": "EVD - GPT-4 commented on implications 7.27x more and novelty 10.69x less than humans.md",
+  "pdf": "Liang et al. - 2024 - Can Large Language Models Provide Useful Feedback on Research Papers A Large-Scale Empirical Analys.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 198
+ },
+ {
+  "evd": 31,
+  "title": "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers",
+  "page": "EVD - GPT-4 detected errors in 7 of 13 constructed papers.md",
+  "pdf": "Liu and Shah - 2023 - ReviewerGPT An Exploratory Study on Using Large Language Models for Paper Reviewing.pdf",
+  "quote_images": 1,
+  "tablefig_images": 1,
+  "quote_chars": 367
+ },
+ {
+  "evd": 32,
+  "title": "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal",
+  "page": "EVD - GPT-4 cost about 100x more than Mixtral-8x22B.md",
+  "pdf": "Woelfle et al. - 2024 - Benchmarking Human\u2013AI collaboration for common evidence appraisal tools.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 171
+ },
+ {
+  "evd": 33,
+  "title": "GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%",
+  "page": "EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human.md",
+  "pdf": "Liang et al. - 2024 - Can Large Language Models Provide Useful Feedback on Research Papers A Large-Scale Empirical Analys.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 351
+ },
+ {
+  "evd": 34,
+  "title": "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract",
+  "page": "EVD - GPT-4 favored the worse abstract in 6 of 10 pairs.md",
+  "pdf": "Liu and Shah - 2023 - ReviewerGPT An Exploratory Study on Using Large Language Models for Paper Reviewing.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 645
+ },
+ {
+  "evd": 35,
+  "title": "GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions",
+  "page": "EVD - GPT-4 RR-MCQ macro accuracy was 0.276.md",
+  "pdf": "Zhou - Is LLM a Reliable Reviewer A Comprehensive Evalua.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 160
+ },
+ {
+  "evd": 36,
+  "title": "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts",
+  "page": "EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy.md",
+  "pdf": "Zhang and Abernethy - 2024 - Detecting Reference Errors in Scientific Literature with Large Language Models.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 201
+ },
+ {
+  "evd": 37,
+  "title": "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports",
+  "page": "EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions.md",
+  "pdf": "Wrightson et al. - 2025 - GPT for RCTs Using AI to determine adherence to clinical trial reporting guidelines.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 206
+ },
+ {
+  "evd": 38,
+  "title": "GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558",
+  "page": "EVD - GPT-4 Turbo ranked first in human review preference.md",
+  "pdf": "Tyser et al. - 2024 - AI-Driven Review Systems Evaluating LLMs in Scalable and Bias-Aware Academic Reviews.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 0
+ },
+ {
+  "evd": 39,
+  "title": "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy",
+  "page": "EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57%.md",
+  "pdf": "Wrightson et al. - 2025 - GPT for RCTs Using AI to determine adherence to clinical trial reporting guidelines.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 256
+ },
+ {
+  "evd": 40,
+  "title": "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported",
+  "page": "EVD - GPT-4o abstract scores correlated r=0.67 with humans.md",
+  "pdf": "Archive - Thelwall - 2024.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 308
+ },
+ {
+  "evd": 41,
+  "title": "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%",
+  "page": "EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG.md",
+  "pdf": "Archive - Xu et al. - 2025.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 146
+ },
+ {
+  "evd": 42,
+  "title": "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent",
+  "page": "EVD - GPT-4o-mini reached F1 0.85 on CONSORT-TM beating prior SOTA by over 40%.md",
+  "pdf": "Srinivasan et al. - 2025 - Evaluating the reporting quality of 21,041 randomized controlled trial articles.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 540
+ },
+ {
+  "evd": 43,
+  "title": "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2",
+  "page": "EVD - Human agreement fell from 91% on PRISMA to 57% on PRECIS-2.md",
+  "pdf": "Woelfle et al. - 2024 - Benchmarking Human\u2013AI collaboration for common evidence appraisal tools.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 185
+ },
+ {
+  "evd": 44,
+  "title": "Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task",
+  "page": "EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR.md",
+  "pdf": "Lou et al. - 2025 - AAAR-1.0 Assessing AI's Potential to Assist Resea.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 259
+ },
+ {
+  "evd": 45,
+  "title": "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters",
+  "page": "EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters.md",
+  "pdf": "Woelfle et al. - 2024 - Benchmarking Human\u2013AI collaboration for common evidence appraisal tools.pdf",
+  "quote_images": 0,
+  "tablefig_images": 2,
+  "quote_chars": 224
+ },
+ {
+  "evd": 46,
+  "title": "Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset",
+  "page": "EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines.md",
+  "pdf": "Archive - Shahid et al. - 2025.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 162
+ },
+ {
+  "evd": 47,
+  "title": "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans",
+  "page": "EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans.md",
+  "pdf": "Woelfle et al. - 2024 - Benchmarking Human\u2013AI collaboration for common evidence appraisal tools.pdf",
+  "quote_images": 1,
+  "tablefig_images": 1,
+  "quote_chars": 227
+ },
+ {
+  "evd": 48,
+  "title": "Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2",
+  "page": "EVD - Annotator agreement on citation labels was only kappa 0.18-0.31.md",
+  "pdf": "Sarol et al. - 2024 - Assessing citation integrity.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 274
+ },
+ {
+  "evd": 49,
+  "title": "LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases",
+  "page": "EVD - LLM confidence was near zero across 498 SPOT evaluations.md",
+  "pdf": "Son et al. - 2025 - When AI Co-Scientists Fail SPOT-a Benchmark for Automated Verification of Scientific Research.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 247
+ },
+ {
+  "evd": 50,
+  "title": "LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations",
+  "page": "EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16.md",
+  "pdf": "Archive - Huntington-Klein and Murray - 2024.pdf",
+  "quote_images": 2,
+  "tablefig_images": 0,
+  "quote_chars": 656
+ },
+ {
+  "evd": 51,
+  "title": "LLM review recommendation scores exceeded human scores without area-chair context but matched with it",
+  "page": "EVD - LLM review scores exceeded humans without area-chair context but matched with it.md",
+  "pdf": "Tyser et al. - 2024 - AI-Driven Review Systems Evaluating LLMs in Scalable and Bias-Aware Academic Reviews.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 577
+ },
+ {
+  "evd": 52,
+  "title": "LLM reviews scored comparably to human reviews on all three expert evaluation criteria",
+  "page": "EVD - LLM reviews scored like human reviews on all 3 criteria.md",
+  "pdf": "Tyser et al. - 2024 - AI-Driven Review Systems Evaluating LLMs in Scalable and Bias-Aware Academic Reviews.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 468
+ },
+ {
+  "evd": 53,
+  "title": "LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design",
+  "page": "EVD - LLMs made systematic QUADAS-2 patient selection errors.md",
+  "pdf": "Leucuta et al. 2025 - Risk of Bias Assessment of Diagnositic Accuracy Studies.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 392
+ },
+ {
+  "evd": 54,
+  "title": "LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams",
+  "page": "EVD - LLMs flagged expert and trimmed confounders at similar rates.md",
+  "pdf": "Archive - Huntington-Klein and Murray - 2024.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 367
+ },
+ {
+  "evd": 55,
+  "title": "LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt",
+  "page": "EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt.md",
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Leveraging artificial intelligence.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 313
+ },
+ {
+  "evd": 56,
+  "title": "LLMs showed lowest accuracy on questions about statistical software used and study funding across all models",
+  "page": "EVD - LLMs were least accurate on software and funding questions.md",
+  "pdf": "Akyon et al. - 2024 - Evaluating the capabilities of generative AI tools in understanding medical papers Qualitative stud.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 324
+ },
+ {
+  "evd": 57,
+  "title": "MARG-S generated 3.7 good comments per paper rated by users compared to 1.7 for single-agent GPT-4 baseline",
+  "page": "EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4.md",
+  "pdf": "D'Arcy et al. - 2024 - MARG Multi-Agent Review Generation for Scientific Papers.pdf",
+  "quote_images": 2,
+  "tablefig_images": 0,
+  "quote_chars": 351
+ },
+ {
+  "evd": 58,
+  "title": "MARG-S outperformed all baselines by 6.1 recall points in automated evaluation on ARIES corpus",
+  "page": "EVD - MARG-S beat baselines by 6.1 recall points on ARIES.md",
+  "pdf": "D'Arcy et al. - 2024 - MARG Multi-Agent Review Generation for Scientific Papers.pdf",
+  "quote_images": 2,
+  "tablefig_images": 0,
+  "quote_chars": 339
+ },
+ {
+  "evd": 59,
+  "title": "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%",
+  "page": "EVD - Four LLMs averaged 72.95% correct on QUADAS-2.md",
+  "pdf": "Leucuta et al. 2025 - Risk of Bias Assessment of Diagnositic Accuracy Studies.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 470
+ },
+ {
+  "evd": 60,
+  "title": "Median quote similarity with original full text was 99 percent across LLM extracted quotes",
+  "page": "EVD - LLM-extracted quotes had 99% median similarity to source.md",
+  "pdf": "Woelfle et al. - 2024 - Benchmarking Human\u2013AI collaboration for common evidence appraisal tools.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 182
+ },
+ {
+  "evd": 61,
+  "title": "None of three AI platforms recognized quorum requirement for initial proposal review",
+  "page": "EVD - No AI platform recognized the IRB quorum requirement.md",
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Assessing the Decision-Making Capabilities of AI.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 209
+ },
+ {
+  "evd": 62,
+  "title": "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication",
+  "page": "EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication.md",
+  "pdf": "Son et al. - 2025 - When AI Co-Scientists Fail SPOT-a Benchmark for Automated Verification of Scientific Research.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 438
+ },
+ {
+  "evd": 63,
+  "title": "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4",
+  "page": "EVD - o3 led SPOT with 37.8% pass@4.md",
+  "pdf": "Son et al. - 2025 - When AI Co-Scientists Fail SPOT-a Benchmark for Automated Verification of Scientific Research.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 185
+ },
+ {
+  "evd": 64,
+  "title": "o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline",
+  "page": "EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline.md",
+  "pdf": "Lou et al. - 2025 - AAAR-1.0 Assessing AI's Potential to Assist Resea.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 682
+ },
+ {
+  "evd": 65,
+  "title": "o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper",
+  "page": "EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+  "pdf": "Archive - Zhang and Abernethy - 2025.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 99
+ },
+ {
+  "evd": 66,
+  "title": "OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers",
+  "page": "EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+  "pdf": "Archive - Zhang and Abernethy - 2025.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 138
+ },
+ {
+  "evd": 67,
+  "title": "OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers",
+  "page": "EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o.md",
+  "pdf": "Idahl and Ahmadi - 2025 - OpenReviewer A Specialized LLM.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 266
+ },
+ {
+  "evd": 68,
+  "title": "OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o",
+  "page": "EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o.md",
+  "pdf": "Idahl and Ahmadi - 2025 - OpenReviewer A Specialized LLM.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 289
+ },
+ {
+  "evd": 69,
+  "title": "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations",
+  "page": "EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons.md",
+  "pdf": "Idahl and Ahmadi - 2025 - OpenReviewer A Specialized LLM.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 202
+ },
+ {
+  "evd": 70,
+  "title": "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction",
+  "page": "EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction.md",
+  "pdf": "Wu et al. - 2024 - Automated novelty evaluation.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 326
+ },
+ {
+  "evd": 71,
+  "title": "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs",
+  "page": "EVD - CONSORT compliance rose from 27.3% to 56.1% over decades.md",
+  "pdf": "Srinivasan et al. - 2025 - Evaluating the reporting quality of 21,041 randomized controlled trial articles.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 490
+ },
+ {
+  "evd": 72,
+  "title": "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity",
+  "page": "EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling.md",
+  "pdf": "Liang et al. - 2024 - Can Large Language Models Provide Useful Feedback on Research Papers A Large-Scale Empirical Analys.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 248
+ },
+ {
+  "evd": 73,
+  "title": "RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn",
+  "page": "EVD - RAG raised GPT-4o limitation accuracy by 12.2 points.md",
+  "pdf": "Archive - Xu et al. - 2025.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 109
+ },
+ {
+  "evd": 74,
+  "title": "Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs",
+  "page": "EVD - Only 9.7% of RCTs reported sequence generation and 15.25% allocation concealment.md",
+  "pdf": "Srinivasan et al. - 2025 - Evaluating the reporting quality of 21,041 randomized controlled trial articles.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 179
+ },
+ {
+  "evd": 75,
+  "title": "Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%",
+  "page": "EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%.md",
+  "pdf": "Archive - Shahid et al. - 2025.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 178
+ },
+ {
+  "evd": 76,
+  "title": "Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74",
+  "page": "EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74.md",
+  "pdf": "Wu et al. - 2024 - Automated novelty evaluation.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 309
+ },
+ {
+  "evd": 77,
+  "title": "Three AI platforms responded correctly to all 10 IRB case study queries",
+  "page": "EVD - Three AI platforms answered all 10 IRB cases correctly.md",
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Assessing the Decision-Making Capabilities of AI.pdf",
+  "quote_images": 1,
+  "tablefig_images": 0,
+  "quote_chars": 668
+ }
+]
