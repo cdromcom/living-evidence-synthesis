@@ -44,7 +44,7 @@ How the last column was decided. CC BY allows copying and adaptation with credit
 
 Version update, 2026-11-24. Five rows were changed when the vault pages moved to each paper's most recent report. Each row now gives the DOI of that version, and the licence was re-checked for it:
 
-- @xuCanLLMsIdentify2025: ACL 2025 (Findings of the main conference proceedings), CC BY 4.0 (ACL Anthology page and OpenAlex). OpenAlex lists the OA status as hybrid, so the table uses that (the source note says gold).
+- @xuCanLLMsIdentify2025: ACL 2025 long paper (proceedings), CC BY 4.0 (ACL Anthology page and OpenAlex). OpenAlex lists the OA status as hybrid, so the table uses that (the source note says gold).
 - @shahidLiteratureGroundedNoveltyAssessment2025: SDP 2025 workshop paper, CC BY 4.0 (ACL Anthology page, Crossref has no licence, OpenAlex says cc-by).
 - @thelwallEvaluatingResearchQuality2024: 2025 journal article (Journal of Data and Information Science), CC BY 4.0 (Crossref and OpenAlex). The note filename still says 2024.
 - @huntington-kleinLLMsActRepositories2024: 2026 journal article (Journal of Causal Inference), CC BY 4.0 (Crossref and OpenAlex). The note filename still says 2024.
