@@ -113,7 +113,8 @@ python3 make_summary_tab.py r1                 # -> sheets/decision-models-summa
 
 * `MANIFEST.sha256` lists a checksum for every file here: `shasum -a 256 -c MANIFEST.sha256`.
 * `prompts/PROMPTS.md` holds every rubric and question; `prompts/rendered/` shows the exact request text for sample EVDs.
-* `sheets/*.csv` are exports of the four model-only GSheets. Google Sheets drops image cells on export, so `merge_image_urls.py`
+* Each model-only GSheet has tabs **Run 1** (r1, frozen), **Run 2** (same layout, answers cleared, for the second run), **ABOUT** and **LOG** (prompt text per run, example requests, every output record; built by `make_log_tab.py` from `log_src/` and `results/`). Fidelity (model) for EVD 1-3 reads "test data - ignored".
+* `sheets/*-run1.csv` are exports of the four Run 1 tabs; `sheets/log-*.xlsx` are the LOG tabs. Google Sheets drops image cells on export, so `merge_image_urls.py`
   puts the screenshot URLs back. `sheets/decision-models-summary-r1.xlsx` is the summary tab.
 * Records in `results/*.r1fix.jsonl` override the same EVD and task in `results/*.r1.jsonl` (see Known issues); the analysis scripts apply that rule.
 * Re-running the models will not give identical numbers: no sampling controls are exposed and vendors may update a model behind an alias.

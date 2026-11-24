@@ -1,0 +1,40 @@
+MODEL pplx-decider-v1.3
+QUESTIONS
+{
+ "table_fig_grounding": {
+  "type": "choice",
+  "instructions": "Does the evidence page show the correct table or figure for the EVD statement's numbers?",
+  "criteria": {
+   "Correct": "A screenshot shows the table or figure that holds the EVD statement's numbers or main finding (the one the caption or the paraphrased text describes), complete enough to read the relevant values.",
+   "Partially Correct": "The right table or figure, but cropped so the relevant cells are missing, or only one of several needed.",
+   "Incorrect": "The screenshots shown are not that table or figure (for example body text only, or a different table or figure).",
+   "Missing": "The EVD statement's numbers appear to come from a table or figure (the caption or paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but none of the screenshots shown is that table or figure.",
+   "NA": "The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed."
+  }
+ },
+ "screenshots_contain_numbers": {
+  "type": "noul",
+  "instructions": "Do the screenshots shown contain the EVD statement's key numbers?"
+ },
+ "shot1_connects_to_quote": {
+  "type": "noul",
+  "instructions": "Does SCREENSHOT 1 show text or a table or figure that connects to the quoted text?"
+ }
+}
+
+STATE (what the model sees)
+EVD STATEMENT (the claim being checked):
+Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%
+
+QUOTED TEXT:
+"Table 2 shows that the complete system, which employs facet-based re-ranking in RankGPT, significantly outperforms its ablated variants in accuracy." (Shahid et al., 2025, p. 7)
+
+TABLE/FIGURE CAPTION shown on the evidence page (may be empty):
+(none)
+
+PARAPHRASED TEXT shown under the table/figure (unquoted; may be empty):
+Complete system accuracy for 'not novel' prediction: 89.66%; removing RankGPT relevance re-ranker: 13.79%; removing embedding filtering: 10.34%. (Shahid et al., 2025, p. 7, Table 2)
+[Screenshot: Table 2, p. 7, accuracy of predicting 'not novel' under ablation conditions]
+
+SCREENSHOT 1 on the evidence page:
+<<image quote-1.png>>
