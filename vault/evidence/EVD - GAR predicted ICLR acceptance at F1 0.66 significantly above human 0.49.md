@@ -17,7 +17,7 @@ tags:
   - 5c/clarity
   - 5c/creativity
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-17
 nodeID: 019ddb4e-6b60-7553-8f1e-3b20a48e06fa
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 37pct
@@ -69,6 +69,8 @@ title: "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction sig
 
 ## Other Notes
 
+- Checked against the source PDF (Bougie & Watanabe, 2024, Table 3, p. 12) on 2026-11-17. The quoted "average f1 score of 0.66" does not match Table 3: 0.66 is GAR's ICLR 2022 F1, and its mean across the three datasets is about 0.62 (0.61, 0.66, 0.60). AI-Scientist's 0.54 is a true three-dataset mean (0.51, 0.57, 0.55). The page title's "ICLR 23" is also wrong (ICLR 23 F1 = 0.60). The best variant is GAR^> (score threshold 6; F1 0.62-0.69). The human F1 of 0.49 comes from a separate NeurIPS consistency experiment (Beygelzimer et al.), not from human reviews of these papers. Table below corrected to the PDF (Random and Always Reject on ICLR 22, AI-Review on ICLR 22 and 23, and four +/- values).
+
 GAR^> achieved F1 = 0.62 ± 0.05 on NeurIPS 23 (vanilla GAR 0.61 ± 0.04); on ICLR 23 GAR^> reached Balanced Accuracy 0.70 ± 0.05 and F1 0.69 ± 0.05. AI-Scientist sat at 0.51–0.57 F1 across datasets; OpenReviewer 0.39–0.47. The §5.4 ablation (Table 4) shows the persona-initialisation choice matters: NN-optimised persona pushes ICLR 23 Balanced Acc to 0.74 ± 0.06 (GAR^> 0.74 ± 0.06 / F1 0.70 ± 0.06); removing the memory module drops it to 0.61 ± 0.06 / 0.52 ± 0.05. §5.12 (Table 9) shows GPT-4o backbone reaches F1 0.73 ± 0.03 on ICLR 23 (GAR^> 0.71 ± 0.03), confirming GAR's gains are robust across foundation models.
 
 > [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
@@ -76,16 +78,16 @@ GAR^> achieved F1 = 0.62 ± 0.05 on NeurIPS 23 (vanilla GAR 0.61 ± 0.04); on IC
 | Method (GPT-4o-mini) | NeurIPS 23 BalAcc / F1 | ICLR 22 BalAcc / F1 | ICLR 23 BalAcc / F1 |
 | --- | :---: | :---: | :---: |
 | Human\* | 0.66 / 0.49 | 0.66 / 0.49 | 0.66 / 0.49 |
-| Random Decision | 0.50 / 0.33 | 0.50 / 0.50 | 0.50 / 0.40 |
-| Always Reject | 0.50 / 0.00 | 0.50 / 0.38 | 0.50 / 0.00 |
-| AI-Scientist | 0.58 ± 0.04 / 0.51 ± 0.05 | 0.65 ± 0.04 / 0.57 ± 0.05 | 0.63 ± 0.05 / 0.55 ± 0.06 |
-| OpenReviewer | 0.39 ± 0.05 / 0.39 ± 0.04 | 0.49 ± 0.05 / 0.47 ± 0.05 | 0.50 ± 0.04 / 0.45 ± 0.05 |
-| ReviewerGPT | 0.41 ± 0.06 / 0.40 ± 0.05 | 0.54 ± 0.06 / 0.52 ± 0.05 | 0.55 ± 0.07 / 0.51 ± 0.05 |
-| AI-Review | 0.59 ± 0.04 / 0.49 ± 0.05 | 0.64 ± 0.06 / 0.61 ± 0.06 | 0.55 ± 0.04 / 0.53 ± 0.07 |
+| Random Decision | 0.50 / 0.33 | 0.50 / 0.38 | 0.50 / 0.40 |
+| Always Reject | 0.50 / 0.00 | 0.50 / 0.00 | 0.50 / 0.00 |
+| AI-Scientist | 0.58 ± 0.04 / 0.51 ± 0.06 | 0.65 ± 0.04 / 0.57 ± 0.05 | 0.63 ± 0.05 / 0.55 ± 0.06 |
+| OpenReviewer | 0.39 ± 0.05 / 0.39 ± 0.04 | 0.49 ± 0.05 / 0.47 ± 0.05 | 0.50 ± 0.06 / 0.45 ± 0.05 |
+| ReviewerGPT | 0.41 ± 0.06 / 0.40 ± 0.05 | 0.54 ± 0.04 / 0.52 ± 0.06 | 0.55 ± 0.07 / 0.51 ± 0.05 |
+| AI-Review | 0.59 ± 0.04 / 0.49 ± 0.05 | 0.64 ± 0.06 / 0.55 ± 0.04 | 0.61 ± 0.06 / 0.53 ± 0.07 |
 | GAR | 0.64 ± 0.05 / 0.61 ± 0.04 | 0.68 ± 0.03 / **0.66 ± 0.05** | 0.66 ± 0.04 / 0.60 ± 0.04 |
 | **GAR^>** | **0.68 ± 0.05 / 0.62 ± 0.05** | **0.71 ± 0.04 / 0.67 ± 0.06** | **0.70 ± 0.05 / 0.69 ± 0.05** |
 | Significance (GAR vs. AI-Scientist) | t-test p<0.05 | t-test p<0.05 | t-test p<0.05 |
-| Significance (GAR vs. Human F1=0.49) | paired t-test p<0.002 | paired t-test p<0.002 | paired t-test p<0.002 |
+| Significance (GAR vs. Human F1=0.49) | paired t-test p<0.002 (reported once in the text for the "average" F1, not per dataset) | | |
 
 ## Caveats
 
