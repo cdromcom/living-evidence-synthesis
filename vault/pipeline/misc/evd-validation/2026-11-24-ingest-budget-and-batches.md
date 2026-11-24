@@ -20,6 +20,16 @@ JP topped up OpenAI and Anthropic with USD 100 each (USD 200 in all). Work proce
 
 A five-paper batch is about USD 6.5 standard or 3.3 by batch. Pilot (5 papers read at Medium, High and Max, reading only): about USD 7 on OpenAI.
 
+## Pilot (JP, 2026-11-24): re-extract five seed papers whose content is already audited
+Sample of the five seed papers with the most EVDs (the first five; Woelfle also carries earlier table and quote errors, EVD 16, 45 and 47): Woelfle et al. 2024 (6 EVDs), Sarol et al. 2024, Liang et al. 2024 (the vault PDF, preprint), Sridharan & Sivaramakrishnan 2024 and Srinivasan et al. 2025a (4 EVDs each). Add four papers where the first iteration had fidelity or grounding errors, so we can see whether the pipeline fixes them: Tyser et al. 2024 (quote EVD 51; fidelity EVD 38 and 52), Bougie et al. 2024 (quote EVD 22; fidelity and table EVD 21), Wrightson et al. 2025 (quote EVD 18 and 39) and Alharbi and Asiri 2024 (quote and table EVD 9). That is nine papers, about USD 12 at standard prices. Run the new pipeline on their PDFs blind (never show the model the existing pages) and compare with the audited vault content: recall of the existing EVDs, number accuracy against the corrected values, verbatim quotes, page citations, crop QA pass rate and your verdict on crops, and whether the question wording needs edits. Standard API for the first three papers, then iterate, then the other two; Batch APIs only after an external reviewer's feedback.
+
+## Staged pilot to keep the cost down (JP: USD 12 is a bit much)
+Fidelity errors in the first iteration are ignored: those EVDs were poorly written, and the new Phase 2 style removes the cause. The extra papers are kept only for their grounding errors.
+- **Stage 1 (three papers, standard API, about USD 3 to 4):** Woelfle (6 EVDs; table and quote errors), Bougie (quote 22, table 21) and Tyser (quote 51). Review, then fix prompts.
+- **Stage 2 (three papers, about USD 3):** Sarol (table errors EVD 8 and 29), Alharbi (EVD 9) and Wrightson (EVD 18, 39).
+- **Stage 3 (optional, about USD 2 to 3):** Liang, Sridharan 2024 and Srinivasan 2025a, only if stages 1 and 2 look good.
+- **Cost levers inside the pilot:** read only Results, Discussion, Introduction and tables first (about 40% fewer tokens); send page images only for table and figure pages; Sol High for reading, Medium for the rest; test Claude Sonnet 5.5 ($2 in, $10 out) against Opus 5.5 ($4, $20) for node writing on one paper; write nodes with Opus only for papers that pass spot check A; d1-ultra shadow checks cost almost nothing; stop a stage if it passes 1.5 times its estimate. Expected pilot total about USD 7 to 10.
+
 ## Guardrails
 - Per-batch cap: USD 5 per provider; stop and review if a batch costs more than 1.5 times its estimate.
 - Keep USD 15 per provider in reserve for reruns. About 20 batches (100 papers) fit in the remaining USD 170 at standard prices; plan for 60 to 100 papers.

@@ -70,7 +70,8 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
 
 ## B. Vault and PDF audit
 
-- [ ] **0d. NEXT WEEK, after the Skill refinement: decide which version the EVD pages cite**  
+- [x] **0d. NEXT WEEK, after the Skill refinement: decide which version the EVD pages cite**  
+  **Done 2026-11-24:** most recent report is cited: Thelwall 2025 journal (PR 11), Xu ACL 2025 (12), Shahid SDP 2025 (13), Zhang & Abernethy 2025 arXiv v3 (14), Huntington-Klein 2026 journal (15). Older PDFs go to sysrev/source/pdfs/Archive - superseded versions/. Akyon and Liang published versions still need JP's download (0b).
   Where: EVD pages for Thelwall, Huntington-Klein, Shahid, Xu (and Akyon, Liang once downloaded)  
   Citing the published versions shifts page numbers, some quote wording and screenshots. Calendar reminder: Wed 2026-11-25, 10:00 ET.  
   *Source: prompt 48*
@@ -90,7 +91,8 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   Where: Same file, search 'HELD' (ids 26, 27, 44, 45, 77, 78, 79, 80, 82, 83)  
   These change only the page number in a quote's citation, which touches quotes you are still benchmarking.  
   *Source: Prompt 32*
-- [ ] **15. After benchmarking, decide whether Zhang & Abernethy titles and quotes move to v3**  
+- [x] **15. After benchmarking, decide whether Zhang & Abernethy titles and quotes move to v3**  
+  **Done 2026-11-24:** Zhang & Abernethy 2025 titles, quotes and screenshots moved to arXiv v3 (PR 14). Zhang & Abernethy 2024 (reference errors) is a different paper and stays on arXiv v1 by JP's decision; its published AMIA version (PMC12919499) is not needed.
   Where: Vault: the 3 Zhang & Abernethy EVD pages  
   Tables and notes were drafted for v3; titles, quotes and screenshots still carry v1 numbers (e.g. HR@5 16.3% in v1, 11.0% in v3).  
   *Source: Prompt 32*

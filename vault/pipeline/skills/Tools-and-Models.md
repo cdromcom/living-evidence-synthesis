@@ -62,6 +62,7 @@ Model names such as GPT-4 or o3-mini that appear in these files are models studi
 | Writing, judging, tie-breaks, spot checks | **Claude Opus 5.5** ($4 and $20; batch $2 and $10) | fallbacks to compare: Fable 5.2, GPT 6.2 Sol |
 | QA of PICOST extractions | Liquid d1-ultra decision model | **on hold (JP, 2026-11-24); remind JP after the first new batch**; Opus 5.5 on parser disagreements plus a 10% sample meanwhile |
 | Unattended runs | **Batch APIs** (Anthropic, OpenAI) | about half price; cached Skill instructions; standard API only for pilots |
+| EVD candidate voting | GPT-6.2 Sol (Medium) + Inkling 2 on Tinker | JP loaded USD 50 on Tinker (2026-11-24); Inkling 2 Small is listed at about USD 0.30 in and 1.00 out per million tokens on third-party sites (confirm on Tinker's pricing page); needs `TINKER_API_KEY` |
 | Embeddings, deduplication, linking | tabled | not needed at 77 EVDs from 27 papers |
 
 Open: Anthropic and OpenAI API keys are not set (Google dropped: no key available) in `~/.config/lives-ai-raters/.env` (only Perplexity, Liquid and Jev are).
