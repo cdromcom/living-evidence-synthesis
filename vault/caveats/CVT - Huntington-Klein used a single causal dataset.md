@@ -11,7 +11,7 @@ tags:
   - 5c/credibility
 appliesTo:
   - "[[EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]"
-  - "[[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations]]"
+  - "[[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bba-70a7-8bd7-a8dbca60a07c
@@ -31,12 +31,14 @@ The study examined LLM causal knowledge using a single, well-known case study (t
 ### Supporting Quote
 
 > [!info] Quotes
-> "we use the case of confounding in the Coronary Drug Project (CDP), for which there are several studies listing expert-selected confounders that can serve as a ground truth." (Huntington-Klein & Murray, 2024, p. 1) [Inferred: Using a single, famous case study limits the scope of conclusions. The CDP is specifically chosen because it is likely in LLM training data, but this selection criterion means findings may not generalize to cases where expert knowledge is less available in training corpora.]
+> "We use the case of confounding in the Coronary Drug Project (CDP), for which there are several studies listing expert-selected confounders that can serve as a ground truth." (Huntington-Klein & Murray, 2026, p. 1) [Inferred: Using a single, famous case study limits the scope of conclusions. The CDP is specifically chosen because it is likely in LLM training data, but this selection criterion means findings may not generalize to cases where expert knowledge is less available in training corpora.]
 >
-> ![[huntington-kleinLLMsActRepositories2024-cvt-p1-1.png]]
+> ![[huntington-kleinLLMsActRepositories2024-cvt-v2026-p1-1.png]]
+
+- PDF check 2026-11-24: quote "we use the case of confounding in the Coronary Drug Project (CDP), ..." (Huntington-Klein & Murray, 2024, p. 1) -> "We use the case of confounding in the Coronary Drug Project (CDP), for which there are several studies listing expert-selected confounders that can serve as a ground truth." (Huntington-Klein & Murray, 2026, p. 1); the old quote began with a lowercase "we"; screenshot recreated from the 2026 PDF
 
 ### Applies To
 
 - [[EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]
 
-- [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations]]
+- [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]
