@@ -24,9 +24,11 @@ title: "LLMs cannot reliably identify scientific paper limitations at the level 
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "Even the best-performing LLM, GPT-4o, can only identify about half of the limitations that humans consider very obvious." (Xu et al., 2025, p. 9)
+> "Even the best-performing LLM, GPT-4o, can only identify about half of the limitations that humans consider very obvious." (Xu et al., 2025, p. 20659)
 >
-> ![[xuCanLLMsIdentify2025-clm-p8-1.png]]
+> ![[xuCanLLMsIdentify2025-acl-clm-p8-1.png]]
+
+- PDF check 2026-11-24: ACL 2025 version used. Page citation (Xu et al., 2025) p. 9 -> p. 20659 (PDF page 8). Quote verbatim in the new version.
 >
 > "In PAPERWEAKNESS, LLM-identified weaknesses often lack depth and specificity, making them broadly applicable and less useful for providing feedback on paper drafts." (Lou et al., 2025, p. 2)
 >

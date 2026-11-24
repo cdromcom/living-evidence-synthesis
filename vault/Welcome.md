@@ -44,7 +44,7 @@ Instead of one long literature-review document, the vault decomposes findings in
 > ```
 > ❓ QUE: Can LLMs identify errors in scientific papers?
 >     ↳ 💡 CLM: Reasoning LLMs outperform non-reasoning models at error detection.
->         ↳ 🔬 EVD: OpenAI o3 achieved 64.9% hit rate on PDF inputs.
+>         ↳ 🔬 EVD: OpenAI o3 achieved 48.2% hit rate on PDF inputs.
 >             ↳ ⚠️ CVT: Only closed-source reasoning LLMs were evaluated.
 >
 > 🕸️ EP: Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks.

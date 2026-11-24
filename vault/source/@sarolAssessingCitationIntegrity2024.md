@@ -36,6 +36,9 @@ tags:
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
 doi: 10.1093/bioinformatics/btae420
+license: "https://creativecommons.org/licenses/by/4.0/"
+license_source: "Crossref (content-version: vor)"
+oa_status: "gold"
 nameConsistency: consistent
 citationCount: 4
 citationCountSource: OpenCitations

@@ -6,9 +6,9 @@ Synthesis drawn from the vault's source papers on LLM-based scientific paper cla
 
 - **Retrieval quality dominates minority-class accuracy.** Removing Shahid 2025's facet-based RankGPT re-ranker dropped *not-novel* prediction accuracy from 89.66% → 13.79% while the majority class was barely affected. When the minority class is the one of interest, invest in retrieval/grounding before model choice.
 - **LLMs collapse onto the majority class by default.** Idahl & Ahmadi 2025 showed GPT-4o averaged a 7.7 acceptance recommendation vs human 5.4 — a positivity bias that hides the reject class. Fine-tuning on peer-review data (OpenReviewer) pulled the mean back to 5.4 and lifted minority-class agreement 23.8% → 55.5%.
-- **"Found no problem" is the imbalance failure mode.** Zhang & Abernethy 2025: Claude 3.7 Sonnet returned no problem on 64.9% of papers (HR@5 = 16.3%). Always measure how often the model picks the majority/abstain class, not just overall accuracy.
+- **"Found no problem" is the imbalance failure mode.** Zhang & Abernethy 2026: Claude 3.7 Sonnet returned no problem on 64.9% of papers (HR@5 = 11.0%). Always measure how often the model picks the majority/abstain class, not just overall accuracy.
 - **Macro-F1 lags micro-F1 when minority is hard.** Sarol 2024's best NLP model hit micro-F1 0.59 but macro-F1 0.52 on citation-accuracy classification — the gap is the minority-class tax. Report both.
-- **Reasoning models recover minority-class recall.** o3 reached 64.9–71% hit rate vs Claude 3.7 Sonnet 16.3% on the same error-detection task (Zhang 2025); Son 2025 reports proprietary reasoning models hold meaningful recall (o3 21.1%) on SPOT errors where open-source collapses to ~0.
+- **Reasoning models recover minority-class recall.** o3 reached 48.2–50.6% hit rate vs Claude 3.7 Sonnet 11.0% (PDF) on the same error-detection task (Zhang 2026); Son 2025 reports proprietary reasoning models hold meaningful recall (o3 21.1%) on SPOT errors where open-source collapses to ~0.
 - **RAG augmentation lifts minority-class recall by giving the model the comparison cases it lacks.** +12.2pp coarse accuracy in Xu 2025 for limitation identification.
 - **Multi-agent / multi-prompt decomposition surfaces minority instances.** D'Arcy 2024's MARG cut generic-comment rate 60% → 29%; Sridharan 2025 found single prompts missed ethical issues that multi-prompt setups caught. Single-pass classifiers under-predict the minority class.
 - **Per-item-type variance is huge** (Alharbi 2024, Leucuta 2025, Akyon 2024). Within a single checklist, factual items reach ~80% while methodological-judgment items sit at ~35–45%. Don't average across item types — route the hard (often imbalanced) subtypes to heavier techniques.
@@ -40,7 +40,7 @@ Synthesis drawn from the vault's source papers on LLM-based scientific paper cla
 - Report per-class precision/recall/F1 and macro-F1. Never report accuracy alone on imbalanced data.
 - Track the model's empirical class distribution vs the data's — a model that predicts the minority at half its true rate is broken even if accuracy looks fine.
 - Stratify error analysis by minority subtype — the easy items mask failures on the hard ones (Alharbi/Leucuta/Akyon pattern).
-- Include a minority-only evaluation slice to expose collapse-to-majority behavior (the Claude-3.7-Sonnet pattern from Zhang 2025).
+- Include a minority-only evaluation slice to expose collapse-to-majority behavior (the Claude-3.7-Sonnet pattern from Zhang 2026).
 - Use human inter-rater reliability on the same task as a ceiling — Woelfle showed human agreement itself drops from 91% (PRISMA) to 57% (PRECIS-2), and no LLM should be benchmarked against a ceiling it can't see.
 
 ### Cost / deployment

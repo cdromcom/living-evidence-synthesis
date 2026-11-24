@@ -36,6 +36,9 @@ tags:
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
 doi: 10.1002/asi.70005
+license: "unknown"
+license_source: "Crossref lists only the publisher terms and conditions, no reuse licence"
+oa_status: "green"
 citationCount: 3
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false

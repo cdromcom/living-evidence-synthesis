@@ -35,6 +35,9 @@ tags:
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/not-addressed
 doi: 10.3390/app142210323
+license: "https://creativecommons.org/licenses/by/4.0/"
+license_source: "Crossref (content-version: vor)"
+oa_status: "gold"
 nameConsistency: consistent
 citationCount: 3
 citationCountSource: OpenCitations

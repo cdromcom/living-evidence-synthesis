@@ -69,6 +69,9 @@ curatedWithModelDate: 2026-08-25
 citekey: huntington-kleinLLMsActRepositories2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757
+license: "cc-by"
+license_source: "OpenAlex (primary location: Journal of Causal Inference)"
+oa_status: "gold"
 ---
 
 > [!info] **Version used:** Journal of Causal Inference 14(1), article 20240072, printed pp. 1–30, published online 20 May 2026, doi 10.1515/jci-2024-0072. PDF: `Huntington-Klein and Murray - 2026 - Do LLMs act as repositories of causal knowledge.pdf`.

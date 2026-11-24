@@ -43,9 +43,9 @@ title: "Can LLMs identify errors in scientific papers?"
     - [[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2]]
 
 - [[CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
-    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]]
-    - [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
-    - [[EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3|EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper]]
+    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]
+    - [[EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
+    - [[EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3|EVD - o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.064 per paper]]
 
 - [[CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
     - [[EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]

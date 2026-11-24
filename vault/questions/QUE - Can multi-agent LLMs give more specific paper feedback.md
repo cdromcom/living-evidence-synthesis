@@ -34,9 +34,9 @@ title: "Can multi-agent LLM systems improve the specificity and helpfulness of s
     - [[EVD - RAG raised GPT-4o limitation accuracy by 12.2 points|EVD - RAG augmentation improved GPT-4o limitation identification coarse accuracy by 12.2 percentage points on LimitGen-Syn]]
 
 - [[CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
-    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]]
-    - [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
-    - [[EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3|EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper]]
+    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]
+    - [[EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
+    - [[EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3|EVD - o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.064 per paper]]
 
 - [[CLM - More capable GPT LLMs can detect quotation errors but imperfectly and context-dependently|CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
     - [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]
@@ -64,7 +64,7 @@ title: "Can multi-agent LLM systems improve the specificity and helpfulness of s
 - [[CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]
     - [[EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
     - [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
     - [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]

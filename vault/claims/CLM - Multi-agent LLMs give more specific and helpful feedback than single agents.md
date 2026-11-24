@@ -28,9 +28,11 @@ title: "Multi-agent LLM systems produce more specific and helpful scientific pap
 >
 > ![[darcyMARGMultiAgentReview2024-clm-multiagent-1-p1.png]]
 >
-> "Although MARG leverages multi-agent collaboration and generates more comments, successfully identifying more limitations, the feedback it provides still lacks specificity, which is reflected in the fine-grained scores." (Xu et al., 2025, p. 9)
+> "Although MARG leverages multi-agent collaboration and generates more comments, successfully identifying more limitations, the feedback it provides still lacks specificity, which is reflected in the fine-grained scores." (Xu et al., 2025, p. 20659)
 >
-> ![[xuCanLLMsIdentify2025-clm-p8-2.png]]
+> ![[xuCanLLMsIdentify2025-acl-clm-p8-2.png]]
+
+- PDF check 2026-11-24: ACL 2025 version used. Page citation (Xu et al., 2025) p. 9 -> p. 20659 (PDF page 8). The quote is verbatim; its last clause continues at the top of the right-hand column (below Table 4), so the screenshot stitches the two column pieces.
 
 ### Supporting Evidence
 

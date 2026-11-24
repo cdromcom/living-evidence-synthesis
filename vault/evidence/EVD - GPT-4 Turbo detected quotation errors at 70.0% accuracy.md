@@ -15,7 +15,7 @@ tags:
   - tripod-llm/proportion/46pct
   - 5c/connectivity
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-24
 nodeID: 019ddb4e-6b66-7029-bece-dd450e4d9813
 appraisal_overall: L0-M3-H2
 tripod_llm_pct: 46pct
@@ -28,8 +28,8 @@ title: "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection
 
 ## Description
 
-> "GPT-4 Turbo and GPT-4o performed much better than GPT-3.5 Turbo at detecting Unsubstantiated cases, especially when information about the reference article is limited." (Zhang & Abernethy, 2024, p. 3)
-> Table 3 shows GPT-4 Turbo with Title+Abstract+Excerpts achieved overall accuracy 70.0%, with PDF (Assistant) 67.6% (p. 4).
+> "GPT-4 Turbo and GPT-4o performed much better than GPT-3.5 Turbo at detecting Unsubstantiated cases, especially when information about the reference article is limited." (Zhang & Abernethy, 2024, PDF p. 3)
+> Table 3 shows GPT-4 Turbo with Title+Abstract+Excerpts achieved overall accuracy 70.0%, with PDF (Assistant) 67.6% (PDF p. 4).
 >
 > ![[zhangDetectingReferenceErrors2024-results-p4-1.png]]
 
@@ -47,14 +47,14 @@ title: "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection
 >
 > **Independent variable(s) / covariates:** model version (3 levels) × reference-information setting (4 levels: Title; Title+Abstract; Title+Abstract+Excerpts; Title+PDF via Assistant).
 >
-> "Three LLMs in OpenAI's GPT family were evaluated in the experiment: gpt-3.5-turbo-0125, gpt-4-0125-preview, and gpt-4o-2024-05-13. LLMs were prompted to respond with a JSON object containing a predicted label and an explanation for their selection. All LLM experiments were conducted using OpenAI's Python API with temperature set to 0. Model performance was measured by label accuracy." (Zhang & Abernethy, 2024, p. 3)
+> "Three LLMs in OpenAI's GPT family were evaluated in the experiment: gpt-3.5-turbo-0125, gpt-4-0125-preview, and gpt-4o-2024-05-13. LLMs were prompted to respond with a JSON object containing a predicted label and an explanation for their selection. All LLM experiments were conducted using OpenAI's Python API with temperature set to 0. Model performance was measured by label accuracy." (Zhang & Abernethy, 2024, PDF p. 3)
 > ![[zhangDetectingReferenceErrors2024-evd-p3-2.png]]
 
 ### How?
 
 > **Procedure:** A fixed prompt template (Appendix C) was finalized before the experiment. The user prompt instructed the model as "an experienced scientific writer and editor", supplied the 3 label definitions, requested a JSON response with `label` and `explanation`, and inserted the citing-article title, the statement, the reference title, the reference abstract, and reference excerpts (when applicable). For the excerpt setting, the reference PDF was parsed by GROBID, split into 256-token chunks with 20-token overlap (LlamaIndex), the statement was embedded, and the top-3 chunks by embedding similarity to the statement were inserted into the prompt. For the Assistant setting, the same prompt header was sent with instructions to read the attached PDF (proprietary OpenAI RAG). Each of the 3 models was run on each of the 4 information settings (12 runs) at temperature = 0. Performance was scored as exact-match label accuracy against the gold label, both per-class and overall. As a comparison baseline, models from Wadden et al. (2020) scientific claim verification were also tested but predicted "Not Enough Information" for all pairs and were excluded from Table 3. A secondary two-class analysis collapsed Partially + Fully substantiated for Figure 1.
 >
-> "Local retrieval of excerpts from the main body of a reference followed a 3-step retrieval-augmented generation (RAG) (Gao et al., 2024) pipeline. First, the full text of a reference was extracted from its PDF file by GROBID. The extracted full text was then split into 256-token chunks with 20-token overlaps using LlamaIndex. In the experiment, the embeddings of the chunks were compared to that of the input statement using LlamaIndex, and the top 3 chunks with the highest match to the statement were retrieved and included in the prompt to the LLMs." (Zhang & Abernethy, 2024, p. 3)
+> "Local retrieval of excerpts from the main body of a reference followed a 3-step retrieval-augmented generation (RAG) (Gao et al., 2024) pipeline. First, the full text of a reference was extracted from its PDF file by GROBID. The extracted full text was then split into 256-token chunks with 20-token overlaps using LlamaIndex. In the experiment, the embeddings of the chunks were compared to that of the input statement using LlamaIndex, and the top 3 chunks with the highest match to the statement were retrieved and included in the prompt to the LLMs." (Zhang & Abernethy, 2024, PDF p. 3)
 > ![[zhangDetectingReferenceErrors2024-evd-p3-3.png]]
 
 ### Who?
@@ -69,10 +69,12 @@ title: "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection
 >
 > **Reference availability:** has abstract 242 (96.8%), has PDF 244 (97.6%), has abstract or PDF 250 (100%).
 >
-> "Statement-reference pairs in the dataset were collected through the following channels: (1) 163 (65.2%) pairs are from previous citation verification studies that either provided traceable examples of quotation errors or shared annotated datasets… (2) 80 (32.0%) pairs are from PubPeer, a platform for researchers to leave comments on others' publications… (3) 7 (2.8%) pairs are from corrections, errata, and corrigenda available in the PubMed database." (Zhang & Abernethy, 2024, p. 7)
+> "Statement-reference pairs in the dataset were collected through the following channels: (1) 163 (65.2%) pairs are from previous citation verification studies that either provided traceable examples of quotation errors or shared annotated datasets… (2) 80 (32.0%) pairs are from PubPeer, a platform for researchers to leave comments on others' publications… (3) 7 (2.8%) pairs are from corrections, errata, and corrigenda available in the PubMed database." (Zhang & Abernethy, 2024, PDF p. 7)
 > ![[zhangDetectingReferenceErrors2024-evd-p7-2.png]]
 
 ## Other Notes
+
+- PDF check 2026-11-24: every number and quote on this page was checked against the vault PDF (arXiv:2411.06101v1, 9 Nov 2024; rendered Table 3 on PDF p. 4); no number changed. This preprint prints no page numbers, so citations now read "PDF p. N". A published version exists (AMIA Annu Symp Proc 2024:1549-1556, published 22 May 2025; PMC12919499). Its Table 3 values are the same as this page's table (checked in the PMC web text), but its PDF could not be downloaded automatically, so quotes, page numbers and screenshots have not been moved to it (listed for JP).
 
 > [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting]].
 

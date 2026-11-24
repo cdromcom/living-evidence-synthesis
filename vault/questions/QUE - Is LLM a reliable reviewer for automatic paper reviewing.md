@@ -47,9 +47,9 @@ title: "Is LLM a reliable reviewer for automatic paper reviewing tasks?"
     - [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
 
 - [[CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
-    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]]
-    - [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
-    - [[EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3|EVD - o4-mini achieved 59.6% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.321 per paper]]
+    - [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]
+    - [[EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
+    - [[EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3|EVD - o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.064 per paper]]
 
 - [[CLM - Multiple prompts elicit more complete and nuanced LLM ethics review than single prompts|CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
     - [[EVD - All four LLMs gave similar answers to all 7 IRB cases|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]
@@ -69,7 +69,7 @@ title: "Is LLM a reliable reviewer for automatic paper reviewing tasks?"
 - [[CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]
     - [[EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
     - [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
     - [[EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items|EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs]]

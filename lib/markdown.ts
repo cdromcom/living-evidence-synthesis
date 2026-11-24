@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import katex from "katex";
+import { sanitizeRenderedHtml } from "./sanitize";
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -307,9 +308,13 @@ function figureIconSvg(): string {
 function renderFigureEmbeds(html: string): string {
   return html.replace(
     /<p>\s*<img src="\/vault-img\/([^"]+)" alt="([^"]*)"\s*\/?>\s*<\/p>/g,
-    (_m, src, alt) => {
+    (_m, src, alt: string) => {
       const filename = decodeURIComponent(src);
       const { label, page } = describeCrop(filename);
+      // Never show a filename as alt text: fall back to the crop's caption.
+      if (!alt.trim() || /\.(png|jpe?g|gif|webp|svg)$/i.test(alt.trim())) {
+        alt = page ? `${label} from the source paper, p. ${page}` : `${label} from the source paper`;
+      }
       const cite = page ? `${label} — reproduced from the source paper, p.&nbsp;${page}` : `${label} — reproduced from the source paper`;
       const summary = page ? `${label} · p.&nbsp;${page}` : label;
       return (
@@ -693,7 +698,23 @@ function openPredicate(policy: AccordionPolicy) {
   };
 }
 
+/**
+ * Renders vault markdown to HTML and sanitises the result: the output goes
+ * straight into dangerouslySetInnerHTML, and vault pages (and contributed
+ * nodes) may contain raw HTML.
+ */
 export function renderMarkdown(
+  md: string,
+  policy: AccordionPolicy = "open",
+  procedureBlock = "",
+  atAGlanceBlock = ""
+): { html: string; toc: TocItem[] } {
+  const out = renderMarkdownUnsanitized(md, policy, procedureBlock, atAGlanceBlock);
+  return { html: sanitizeRenderedHtml(out.html), toc: out.toc };
+}
+
+/** The renderer without the sanitising step; exported only for scripts/check-sanitize.ts. */
+export function renderMarkdownUnsanitized(
   md: string,
   policy: AccordionPolicy = "open",
   /** Optional HTML dropped in after the Procedure entry (see insertAfterProcedure). */

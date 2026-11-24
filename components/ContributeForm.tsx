@@ -28,6 +28,11 @@ export default function ContributeForm() {
   const [title, setTitle] = useState("");
   const [citekey, setCitekey] = useState("");
   const [body, setBody] = useState("");
+  const [quote, setQuote] = useState("");
+  const [citation, setCitation] = useState("");
+  const [page, setPage] = useState("");
+  const [figureRef, setFigureRef] = useState("");
+  const [screenshot, setScreenshot] = useState("");
   const [addresses, setAddresses] = useState<string[]>([]);
   const [supports, setSupports] = useState<string[]>([]);
   const [derivedFrom, setDerivedFrom] = useState<string[]>([]);
@@ -63,10 +68,14 @@ export default function ContributeForm() {
     setRelatesTo([]);
   }
 
+  function quoteOk() {
+    return quote.trim().length > 0 && /^[A-Za-z]{0,3}\d{1,5}([\u2013-]\d{1,5})?$/.test(page.trim());
+  }
+
   function requiredEdgesOk() {
     if (type === "CLM") return addresses.length > 0;
-    if (type === "EVD") return derivedFrom.length > 0;
-    if (type === "CVT") return qualifies.length > 0;
+    if (type === "EVD") return derivedFrom.length > 0 && quoteOk();
+    if (type === "CVT") return qualifies.length > 0 && quoteOk();
     if (type === "EP") return instantiates.length > 0;
     return true;
   }
@@ -84,6 +93,7 @@ export default function ContributeForm() {
           title,
           body,
           citekey: type === "SRC" ? citekey : undefined,
+          ...(type === "EVD" || type === "CVT" ? { quote, citation, page, figureRef, screenshot } : {}),
           edges: { addresses, supports, derivedFrom, qualifies, instantiates, relatesTo },
         }),
       });
@@ -142,6 +152,11 @@ export default function ContributeForm() {
             setResult(null);
             setTitle("");
             setBody("");
+            setQuote("");
+            setCitation("");
+            setPage("");
+            setFigureRef("");
+            setScreenshot("");
             resetEdges();
           }}
           className="ml-3 text-sm text-muted-ink hover:text-ink"
@@ -250,6 +265,78 @@ export default function ContributeForm() {
         />
       </div>
 
+      {(type === "EVD" || type === "CVT") && (
+        <div className="mt-4 space-y-4">
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wide text-muted-ink" htmlFor="quote">
+              Verbatim quote (required)
+            </label>
+            <textarea
+              id="quote"
+              rows={3}
+              maxLength={1500}
+              value={quote}
+              onChange={(e) => setQuote(e.target.value)}
+              placeholder="Copy the exact sentence(s) from the paper that ground this node."
+              className="mt-1.5 w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wide text-muted-ink" htmlFor="citation">
+                Citation
+              </label>
+              <input
+                id="citation"
+                value={citation}
+                onChange={(e) => setCitation(e.target.value)}
+                placeholder="e.g. Sarol et al., 2024"
+                className="mt-1.5 w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wide text-muted-ink" htmlFor="page">
+                Printed journal page (required)
+              </label>
+              <input
+                id="page"
+                value={page}
+                onChange={(e) => setPage(e.target.value)}
+                placeholder="e.g. 5 (the number printed on the page, not the PDF page position)"
+                className="mt-1.5 w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wide text-muted-ink" htmlFor="figureRef">
+                Table or figure reference
+              </label>
+              <input
+                id="figureRef"
+                value={figureRef}
+                onChange={(e) => setFigureRef(e.target.value)}
+                placeholder="e.g. Table 1"
+                className="mt-1.5 w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wide text-muted-ink" htmlFor="screenshot">
+                Screenshot filename
+              </label>
+              <input
+                id="screenshot"
+                value={screenshot}
+                onChange={(e) => setScreenshot(e.target.value)}
+                placeholder="e.g. smithExample2026-evd-p5-1.png"
+                className="mt-1.5 w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
+              />
+              <p className="mt-1 text-xs text-muted-ink">
+                Add the image file to the pull request under vault/**/Attachments/.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mt-4 space-y-4">
         {type === "CLM" && (
           <>
@@ -341,7 +428,7 @@ export default function ContributeForm() {
                 • Body must be {MIN_WORDS}-{MAX_WORDS} words (currently {words}).
               </li>
             )}
-            {!requiredEdgesOk() && <li>• Fill in the required link(s) above for this node type.</li>}
+            {!requiredEdgesOk() && <li>• Fill in the required link(s) and, for Evidence and Caveats, the quote and printed page.</li>}
           </ul>
         )}
       </div>
