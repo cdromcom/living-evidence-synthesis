@@ -35,6 +35,9 @@ export default function Footer() {
           <Link href="/about" className="transition-colors hover:text-ink">
             What is a discourse graph?
           </Link>
+          <Link href="/pipeline" className="transition-colors hover:text-ink">
+            Data pipeline
+          </Link>
           <Link href="/nodes" className="transition-colors hover:text-ink">
             Browse all nodes
           </Link>

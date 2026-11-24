@@ -4,7 +4,7 @@ Status: decisions made by Claude on JP's delegation (2026-11-24); JP can reverse
 
 The vault republishes screenshots (figure and table crops and quoted-text crops) from 27 source papers. This file records, for each paper, what licence the publisher metadata states, so JP can decide what is safe to keep online. Licences were looked up on 2026-11-23 from the Crossref REST API (`api.crossref.org/works/<doi>`) and, where Crossref had no licence, OpenAlex (`api.openalex.org/works/doi:<doi>`). Unpaywall was not needed. Nothing was guessed: "none found" means neither service listed a licence. The same values are in each source note's frontmatter (`license`, `license_source`, `oa_status`). Where the licence comes from OpenAlex it names a licence family (for example `cc-by`) without a version number, and it can describe the preprint copy rather than the published version, so check the paper's own page before relying on it.
 
-Screenshot counts are the distinct image files from that paper embedded in vault pages and present in `vault/evidence/Attachments` (443 in total).
+Screenshot counts are the distinct image files from that paper embedded in vault pages and present in `vault/sysrev/evidence/Attachments` (443 in total).
 
 ## Per-paper table
 
@@ -86,6 +86,6 @@ If a rights holder objects, the crops for that paper are removed first and discu
 ## Decisions (delegated to Claude by JP, 2026-11-24)
 
 - Repository code licence: MIT (`LICENSE` at the repository root). It covers the code only.
-- JP's own content: CC BY 4.0, stated in `vault/LICENSE-CONTENT.md` (original text, EVD statements, notes, ratings and appraisals). Quotes and republished screenshots stay under their source papers' licences, with attribution.
+- JP's own content: CC BY 4.0, stated in `vault/pipeline/legal/LICENSE-CONTENT.md` (original text, EVD statements, notes, ratings and appraisals). Quotes and republished screenshots stay under their source papers' licences, with attribution.
 - Screenshots: all kept, for all 27 papers, as scholarly critique with a visible citation and DOI.
 - Takedown route: **the repository's GitHub issues page, https://github.com/cdromcom/living-evidence-synthesis/issues** (JP, 2026-11-24). No email address is published.

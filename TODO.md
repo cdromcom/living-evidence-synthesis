@@ -170,13 +170,13 @@ Do not hand this section to an agent to "fix." Ordered by how much is at stake.
   standard for *future* extractions, but the vault's *existing* papers
   haven't themselves been re-extracted to match. A real, separate,
   multi-batch job if/when wanted.
-- **darcy's Data Leakage row** (`vault/source/@darcyMARGMultiAgentReview2024.md`)
+- **darcy's Data Leakage row** (`vault/sysrev/source/@darcyMARGMultiAgentReview2024.md`)
   grounds its "partial" rating in two verified facts rather than one
   direct quote, since the paper never explicitly discusses training-data
   contamination. Not wrong, but worth a second look against the pilot's
   stricter single-quote convention.
 - **zhangReviewingScientificPapers2025a version mismatch**
-  (`vault/source/@zhangReviewingScientificPapers2025a.md`) — the cached
+  (`vault/sysrev/source/@zhangReviewingScientificPapers2025a.md`) — the cached
   PDF (`.cache/source-pdfs/zhangReviewingScientificPapers2025a.pdf`) is a
   later arXiv revision than what the file's existing Findings/TL;DR prose
   was written against (different headline numbers in Table 2, e.g. o3
@@ -218,7 +218,7 @@ Do not hand this section to an agent to "fix." Ordered by how much is at stake.
   enumerations.
 - ~~**FAIR data-quality signals.**~~ Done 2026-08-31 — shipped as the
   "Data Quality" chip (FAIR-Checker + license top-up hybrid, 14 sources
-  scored). See `misc/data_quality_2026-08.md` in the vault.
+  scored). See `pipeline/misc/data_quality_2026-08.md` in the vault.
 
 ## Awaiting a decision
 
@@ -242,7 +242,7 @@ Do not hand this section to an agent to "fix." Ordered by how much is at stake.
   beginning with a single `/`, rejecting `//` and `/\` protocol-relative
   targets and anything that fails to decode.
 - **Git history still contains the removed Woelfle full-text file.**
-  `vault/evidence/Attachments/woelfleBenchmarkingHumanAICollaboration2024-bbox.html`
+  `vault/sysrev/evidence/Attachments/woelfleBenchmarkingHumanAICollaboration2024-bbox.html`
   was deleted on 2026-09-18, but it remains in earlier commits on GitHub.
   Fully removing it needs a history rewrite (e.g. `git filter-repo`) and a
   force-push, which changes every commit hash. Decide whether that is worth

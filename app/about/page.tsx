@@ -102,6 +102,13 @@ export default function AboutPage() {
           </Link>{" "}
           for the full network.
         </p>
+        <p>
+          For how papers get from PDFs to this site, see the{" "}
+          <Link href="/pipeline" className="text-forest">
+            data pipeline
+          </Link>
+          .
+        </p>
         <h2>What this site is not</h2>
         <p>
           The corpus itself is a static, read-only rendering of a vault

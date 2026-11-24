@@ -103,12 +103,18 @@ extend the discourse graph directly:
 
 1. Clone the repo: `git clone https://github.com/cdromcom/living-evidence-synthesis.git`
 2. In Obsidian, choose **Open folder as vault** and select the `vault/` folder.
-3. Node templates are in `vault/templates/`; the `.base` files (`ESS.base`,
-   `EvidencePattern Nodes.base`) are saved table views of the nodes.
+3. Node templates are in `vault/pipeline/templates/`; the `.base` files (`vault/sysrev/indexes/ESS.base`,
+   `vault/sysrev/indexes/EvidencePattern Nodes.base`) are saved table views of the nodes.
 4. Every node carries a `human_reviewed` field (`yes`/`no`) in its frontmatter,
    so you can tell AI-drafted nodes from human-checked ones.
 
-Curation scripts and audit reports are in `vault/scripts/` and `vault/misc/`.
+The vault has two parent folders: `vault/sysrev/` holds the systematic-review content
+(questions, claims, evidence and its `Attachments/`, caveats, evd-patterns, source, indexes,
+reference) and `vault/pipeline/` holds the meta content about how the review is built and
+published (skills, templates, scripts, logs, legal, misc). Only `vault/Welcome.md` sits at
+the vault root.
+
+Curation scripts and audit reports are in `vault/pipeline/scripts/` and `vault/pipeline/misc/`.
 The screening data for the underlying systematic review is in `data/` (see
 [`data/README.md`](data/README.md)).
 
@@ -127,7 +133,7 @@ at `vault/` into `lib/graph-data.generated.json`. Re-run it
 (`node scripts/build-graph.mjs`) after editing the vault, and commit both
 the vault change and the regenerated JSON together.
 
-Note: `vault/source/pdfs/` (the full source paper PDFs) is deliberately
+Note: `vault/sysrev/source/pdfs/` (the full source paper PDFs) is deliberately
 excluded from this repo; publishing entire copyrighted articles publicly
 isn't something this project does. The embedded screenshot crops of
 individual tables/figures inside node markdown files are committed, under
@@ -392,7 +398,7 @@ recurring:
 
 ## Source page design (SRC nodes)
 
-Each `SRC` node page (`vault/source/*.md`) renders its trust signals as a
+Each `SRC` node page (`vault/sysrev/source/*.md`) renders its trust signals as a
 **nutrition-style panel** behind the "Show Quality Signals" button
 (`components/QualitySignalsTable.tsx`): one row per signal, grouped under
 Transparency / Openness / Rigor / Integrity, with Rigor's bands (Validity,
@@ -497,4 +503,4 @@ one.
 
 ---
 
-**Licence and takedown.** Code is MIT (`LICENSE`); original vault content is CC BY 4.0 while quotes and screenshots keep their source papers' licences (`vault/LICENSE-CONTENT.md`, `docs/PERMISSIONS.md`). Takedown route: open an issue at https://github.com/cdromcom/living-evidence-synthesis/issues. Not legal advice.
+**Licence and takedown.** Code is MIT (`LICENSE`); original vault content is CC BY 4.0 while quotes and screenshots keep their source papers' licences (`vault/pipeline/legal/LICENSE-CONTENT.md`, `docs/PERMISSIONS.md`). Takedown route: open an issue at https://github.com/cdromcom/living-evidence-synthesis/issues. Not legal advice.
