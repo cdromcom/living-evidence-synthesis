@@ -31,9 +31,11 @@ LIMITGEN focused on AI/NLP research papers, limiting the generalizability of fin
 ### Supporting Quote
 
 > [!info] Quotes
-> "our taxonomy and benchmark focus primarily on AI, as this is the field we are most familiar with. Although we conducted a user study to assess its applicability to other domains, the nuances of different scientific disciplines may introduce challenges and limitation types that our framework does not fully address." (Xu et al., 2025, p. 12)
+> "our taxonomy and benchmark focus primarily on AI, as this is the field we are most familiar with. Although we conducted a user study to assess its applicability to other domains, the nuances of different scientific disciplines may introduce challenges and limitation types that our framework does not fully address." (Xu et al., 2025, p. 20661)
 >
-> ![[xuCanLLMsIdentify2025-cvt-p10-1.png]]
+> ![[xuCanLLMsIdentify2025-acl-cvt-p10-1.png]]
+
+- PDF check 2026-11-24: ACL 2025 version used. Page citation (Xu et al., 2025) p. 12 -> p. 20661 (Limitations section, PDF page 10; the old p. 12 was wrong). Quote verbatim in the new version.
 
 ### Applies To
 
