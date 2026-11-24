@@ -78,6 +78,38 @@ QUOTE_V4 = {
     "Missing": "No screenshot at all is shown on the evidence page.",
     "NA": "There is no quote to check.",
 }
+QUOTE_V6 = {
+    "Correct": "Every word of the quoted text is visible and legible in a screenshot, and the screenshot is a clean capture of the quote: at most the few lines of the same paragraph immediately around it, with or without highlighting. Extraneous content makes it NOT Correct: another table, figure or caption, a whole journal page, or several unrelated paragraphs. A wrong or different page number in the citation does not matter.",
+    "Partially Correct": "The screenshot shows the right passage but is not a clean, complete capture: (a) part of the quote is cut off or missing, or its words are changed (not just punctuation or hyphenation), or (b) the full quote is there but with extraneous content around it (another table, figure or caption, a whole page, or several unrelated paragraphs). Extraneous content always lowers Correct to Partially Correct.",
+    "Incorrect": "A screenshot is present but shows a different passage from the quote, so the quoted words do not appear in it.",
+    "Missing": "No screenshot at all is shown on the evidence page.",
+    "NA": "There is no quote to check.",
+}
+QUOTE_EXAMPLES_V6 = (
+    "Worked examples (text descriptions of screenshots; the screenshots to judge follow below):\n"
+    "- Highlighted quote with a couple of lines of its own paragraph above and below, all words legible -> Correct.\n"
+    "- Whole quote visible, but a table and its caption fill the lower half of the image -> Partially Correct (right passage, extraneous content).\n"
+    "- Whole quote visible inside a full journal page with several other paragraphs -> Partially Correct (extraneous content).\n"
+    "- The first sentence of a two-sentence quote is visible and the second is cut off -> Partially Correct (incomplete).\n"
+    "- The screenshot shows a different paragraph of the same paper -> Incorrect.\n"
+    "- No screenshot on the page -> Missing.\n\n--- ITEM TO JUDGE ---\n"
+)
+TABLE_V6 = {
+    "Correct": "A screenshot shows the whole table or figure that holds the EVD statement's numbers or main finding (the one the caption or the paraphrased text describes), with its caption, readable in full, and nothing else substantial: no body-text paragraphs, no other table or figure, no whole journal page around it. Extraneous content makes it NOT Correct.",
+    "Partially Correct": "The right table or figure is shown but not as a clean, complete capture: (a) it comes with extraneous content (surrounding body text, another table or figure, or a whole journal page), or (b) it is cropped so relevant cells, rows or the caption are missing, or (c) only one of several needed tables or figures is shown. Extraneous content always lowers Correct to Partially Correct.",
+    "Incorrect": "A table or figure screenshot is present but none of the screenshots shows the right table or figure (a different table or figure, or body text only).",
+    "Missing": "The EVD statement's numbers come from a table or figure (the caption or paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but the page shows no screenshot of any table or figure.",
+    "NA": "The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed.",
+}
+TABLE_EXAMPLES_V6 = (
+    "Worked examples (text descriptions of screenshots; the screenshots to judge follow below):\n"
+    "- Only Table 3 and its caption, cleanly cropped, all rows visible -> Correct.\n"
+    "- Table 3 and its caption in the lower half of a full journal page, with paragraphs of body text above it -> Partially Correct (right table, extraneous content).\n"
+    "- Table 3 with its caption plus a second table or a figure in the same screenshot -> Partially Correct (extraneous content).\n"
+    "- Table 3 with the bottom rows cut off -> Partially Correct (incomplete).\n"
+    "- The statement's numbers are in Table 3 but the screenshot shows Table 1 -> Incorrect.\n"
+    "- The statement's numbers come from a table but the page shows only a text screenshot of the quote and no table or figure -> Missing.\n\n--- ITEM TO JUDGE ---\n"
+)
 QUOTE = {
     "Correct": "The full quoted text is shown word for word in a screenshot on the evidence page, with no extraneous content getting in the way (trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.",
     "Partially Correct": "A screenshot shows the right passage but incomplete or cropped: only part of the quoted text is visible, or the quote text has unmarked edits or omissions compared with the screenshot, or other content gets in the way of reading the quote.",
@@ -118,7 +150,7 @@ def example_evds():
     return {e["evd"] for e in json.loads(EXAMPLES.read_text())["examples"]} if EXAMPLES.exists() else set()
 
 
-def build_task(task, p, with_images, fid_v=1, quote_v=3):
+def build_task(task, p, with_images, fid_v=1, quote_v=3, table_v=5):
     """Return (parts, questions, n_images). parts = [{'text':..}|{'image': path}]."""
     parts, evd = [], f"EVD STATEMENT (the claim being checked):\n{p['evd_statement']}"
     imgs = [i for i in p["images"] if with_images]
@@ -149,24 +181,24 @@ def build_task(task, p, with_images, fid_v=1, quote_v=3):
     def shot_qs(n):
         return {f"shot{k}_connects_to_quote": noul(f"Does SCREENSHOT {k} show text or a table or figure that connects to the quoted text?") for k in range(1, n + 1)}
     if task == "quote":
-        parts.append({"text": f"{evd}\n\nQUOTED TEXT (as shown on the evidence page, with its cited page number):\n{p['quote_text']}"})
+        parts.append({"text": (QUOTE_EXAMPLES_V6 if quote_v == 6 else "") + f"{evd}\n\nQUOTED TEXT (as shown on the evidence page, with its cited page number):\n{p['quote_text']}"})
         n = add_all_images()
         if not n:
             parts.append({"text": "\n\n(No screenshot is shown on the evidence page.)"})
-        qs = {"quote_grounding": choice("Do the screenshots on the evidence page correctly show the quoted text?", QUOTE_V4 if quote_v == 4 else QUOTE)}
+        qs = {"quote_grounding": choice("Do the screenshots on the evidence page correctly show the quoted text?", QUOTE_V6 if quote_v == 6 else (QUOTE_V4 if quote_v == 4 else QUOTE))}
         if n:
             qs["screenshot_shows_quote"] = noul("Does any SCREENSHOT show the quoted passage?")
-            if quote_v == 4:
+            if quote_v in (4, 6):
                 qs["quote_fully_visible"] = noul("Is every word of the quoted text visible and legible in the screenshots (surrounding text, highlighting and neighbouring content do not matter)?")
             qs.update(shot_qs(n))
         return parts, qs, n
     if task == "table":
         para = p.get("description_other_text", "").strip() or "(none)"
-        parts.append({"text": f"{evd}\n\nQUOTED TEXT:\n{p['quote_text']}\n\nTABLE/FIGURE CAPTION shown on the evidence page (may be empty):\n{p['grounding_table_text'] or '(none)'}\n\nPARAPHRASED TEXT shown under the table/figure (unquoted; may be empty):\n{para}"})
+        parts.append({"text": (TABLE_EXAMPLES_V6 if table_v == 6 else "") + f"{evd}\n\nQUOTED TEXT:\n{p['quote_text']}\n\nTABLE/FIGURE CAPTION shown on the evidence page (may be empty):\n{p['grounding_table_text'] or '(none)'}\n\nPARAPHRASED TEXT shown under the table/figure (unquoted; may be empty):\n{para}"})
         n = add_all_images()
         if not n:
             parts.append({"text": "\n\n(No screenshot is shown on the evidence page.)"})
-        qs = {"table_fig_grounding": choice("Does the evidence page show the correct table or figure for the EVD statement's numbers?", TABLE),
+        qs = {"table_fig_grounding": choice("Does the evidence page show the correct table or figure for the EVD statement's numbers?", TABLE_V6 if table_v == 6 else TABLE),
               "screenshots_contain_numbers": noul("Do the screenshots shown contain the EVD statement's key numbers?")}
         qs.update(shot_qs(n))
         return parts, qs, n
@@ -278,7 +310,7 @@ def cmd_run(a):
     prepared = []
     for pv, e, t in jobs:
         p = json.loads((PACKETS / f"EVD-{e:02d}" / "packet.json").read_text())
-        parts, qs, n_img = build_task(t, p, with_images=True, fid_v=a.fidelity_version, quote_v=a.quote_version)
+        parts, qs, n_img = build_task(t, p, with_images=True, fid_v=a.fidelity_version, quote_v=a.quote_version, table_v=a.table_version)
         if t == "table" and a.table_slot_rule and not any(i["kind"] == "tablefig" for i in p["images"]):
             n_img = 0  # JP rule: no screenshot in the table/figure slot of the evidence page -> Missing, no model call
         model = a.jev_model if pv == "jev" else (a.liquid_model if pv == "liquid" else MODELS[pv])
@@ -384,7 +416,8 @@ def main():
     r.add_argument("--run-id", default="r1", help="label for this pass; results/<provider>.<run-id>.jsonl (r1 = judgment of record)")
     r.add_argument("--fidelity-version", type=int, choices=(1, 2, 3, 4), default=3, help="1 = original rubric; 2 = gist rule (JP, 2026-11-23): Met when the headline EVD's gist is in the quote; 3 = version 2 plus worked examples from EVD 1-3 (those EVDs are skipped for fidelity)")
     r.add_argument("--table-slot-rule", action="store_true", help="Missing by rule when the page has no screenshot in the table/figure slot (run r2t)")
-    r.add_argument("--quote-version", type=int, choices=(3, 4), default=3, help="3 = Run 3 strict definitions; 4 = Run 4 clarified definitions (surrounding text is not extraneous)")
+    r.add_argument("--quote-version", type=int, choices=(3, 4, 6), default=3, help="3 = Run 3 strict definitions; 4 = Run 4 clarified definitions; 6 = Run 6: extraneous content makes Correct into Partially Correct, with worked examples")
+    r.add_argument("--table-version", type=int, choices=(5, 6), default=5, help="5 = rubric of runs 2-5; 6 = Run 6: extraneous content makes Correct into Partially Correct, with worked examples")
     r.add_argument("--dry-run", action="store_true")
     r.add_argument("--dry-limit", type=int, default=12)
     r.set_defaults(fn=cmd_run)

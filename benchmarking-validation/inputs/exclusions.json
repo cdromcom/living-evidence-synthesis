@@ -1,6 +1,46 @@
 {
  "decided_by": "JP, 2026-11-24",
- "relevancy": {"evds": [7, 17, 49, 72, 75, 76], "reason": "JP's notes say these are not true EVDs (second-tier, too granular, should be CVT, or the review question changed), so they are dropped from the relevancy analysis. EVD 32 stays (JP: 'good')."},
- "fidelity": {"evds": [4, 19, 26, 36, 38, 54, 56, 65], "reason": "The EVD statement cannot be matched from the quote shown: the quote is paraphrased text about a table's contents (EVD 4, 38, 26, 36, 65: numbers only in a table or unquoted paraphrase) or the snippet needs methods context to give rise to the headline EVD (EVD 19, 54, 56). This comes from how JP guided earlier Claude Sonnet and Opus models to write headline EVDs, not from the raters. Chosen as the rows all four raters got wrong, so the exclusion is outcome-selected; the all-rows figures are reported next to it."},
- "quote": {"evds": [5, 6, 9, 18, 45, 51, 53, 66], "reason": "JP's quote labels on these rows predate the strict definition of Correct (the full quote shown with no extraneous content): the screenshot is a different passage (5, 6, 18, 66), is cropped (9, 51, 53) or does not contain the quote (45). Pending JP re-rating. Chosen as the rows all four raters got wrong, so the exclusion is outcome-selected; the all-rows figures are reported next to it."}
+ "relevancy": {
+  "evds": [
+   7,
+   17,
+   49,
+   72,
+   75,
+   76
+  ],
+  "reason": "JP's notes say these are not true EVDs (second-tier, too granular, should be CVT, or the review question changed), so they are dropped from the relevancy analysis. EVD 32 stays (JP: 'good')."
+ },
+ "fidelity": {
+  "evds": [
+   4,
+   19,
+   26,
+   36,
+   38,
+   54,
+   56,
+   65
+  ],
+  "reason": "The EVD statement cannot be matched from the quote shown: the quote is paraphrased text about a table's contents (EVD 4, 38, 26, 36, 65: numbers only in a table or unquoted paraphrase) or the snippet needs methods context to give rise to the headline EVD (EVD 19, 54, 56). This comes from how JP guided earlier Claude Sonnet and Opus models to write headline EVDs, not from the raters. Chosen as the rows all four raters got wrong, so the exclusion is outcome-selected; the all-rows figures are reported next to it."
+ },
+ "quote": {
+  "evds": [
+   5,
+   6,
+   9,
+   18,
+   45,
+   51,
+   53,
+   66
+  ],
+  "reason": "JP's quote labels on these rows predate the strict definition of Correct (the full quote shown with no extraneous content): the screenshot is a different passage (5, 6, 18, 66), is cropped (9, 51, 53) or does not contain the quote (45). Pending JP re-rating. Chosen as the rows all four raters got wrong, so the exclusion is outcome-selected; the all-rows figures are reported next to it."
+ },
+ "table": {
+  "evds": [
+   16
+  ],
+  "reason": "JP, 2026-11-24: EVD 16 cannot be Missing because its page has Fig 3 and Table 3 screenshots (each a full journal page with body text around it, so under the extraneous-content rule Partially Correct is the consistent label). JP's recorded label (Missing) is wrong; excluded from the table/figure analysis until JP sets the label."
+ }
 }
