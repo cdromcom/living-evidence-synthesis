@@ -84,7 +84,7 @@ nodeInstanceId: 019dd17a-f95b-77a4-8120-c69bff843bd2
 
 > [!info] **Version used**
 > ACL 2025 long paper, Proceedings of the 63rd Annual Meeting of the ACL (Volume 1: Long Papers), pp. 20652-20706, doi 10.18653/v1/2025.acl-long.1009. PDF: `Xu et al. - 2025 - Can LLMs Identify Critical Limitations within Scientific Research A Systematic Evaluation on AI Res.pdf`. Page numbers on this page are the printed proceedings pages (PDF page N is p. 20651+N).
-> Earlier version: arXiv v1 (2507.02694), superseded 2026-11-24 (archived as `Archive - Xu et al. - 2025.pdf`).
+> Earlier version: arXiv v1 (2507.02694), superseded 2026-11-24 (archived as `Archive - superseded versions/Archive - Xu et al. - 2025.pdf`).
 >
 > - PDF check 2026-11-24: Findings, Qwen-2.5-72B RAG gain +1.3 -> +1.2 points (Table 3, p. 20659).
 > - PDF check 2026-11-24: Procedure and Sample, human baseline 50 examples -> 50 examples from each subset (Appendix A.4, p. 20666).

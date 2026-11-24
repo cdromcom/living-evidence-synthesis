@@ -12,10 +12,10 @@ status: awaiting JP review - nothing below has been applied
 
 > [!warning] PDF files renamed on 2026-11-20
 > Newer published versions were added to `source/pdfs`, and the versions this audit was checked against were renamed with an "Archive - " prefix (same convention as Zhang & Abernethy). Page numbers below refer to the **Archive** files:
-> - `Thelwall - 2024 - ...pdf` is now `Archive - Thelwall - 2024.pdf` (new: `Thelwall - 2025 - ...pdf`, JDIS 2025)
-> - `Huntington-Klein and Murray - 2024. - ...pdf` is now `Archive - Huntington-Klein and Murray - 2024.pdf` (new: `... - 2026 - ...pdf`, J Causal Inference)
-> - `Shahid et al. - 2025 - ...pdf` (arXiv v1) is now `Archive - Shahid et al. - 2025.pdf` (new: the SDP 2025 version under the old name)
-> - `Xu et al. - 2025 - ...pdf` (arXiv v1) is now `Archive - Xu et al. - 2025.pdf` (new: the ACL 2025 version under the old name)
+> - `Thelwall - 2024 - ...pdf` is now `Archive - superseded versions/Archive - Thelwall - 2024.pdf` (new: `Thelwall - 2025 - ...pdf`, JDIS 2025)
+> - `Huntington-Klein and Murray - 2024. - ...pdf` is now `Archive - superseded versions/Archive - Huntington-Klein and Murray - 2024.pdf` (new: `... - 2026 - ...pdf`, J Causal Inference)
+> - `Shahid et al. - 2025 - ...pdf` (arXiv v1) is now `Archive - superseded versions/Archive - Shahid et al. - 2025.pdf` (new: the SDP 2025 version under the old name)
+> - `Xu et al. - 2025 - ...pdf` (arXiv v1) is now `Archive - superseded versions/Archive - Xu et al. - 2025.pdf` (new: the ACL 2025 version under the old name)
 > What changed between versions: `misc/evd-validation/2026-11-20-pdf-version-diff/`.
 
 **Totals:** 147 proposed corrections on 57 of 77 EVD pages, from 5 auditor agents. A separate checker agent re-verified each one against the PDF: 142 accepted as proposed, 5 accepted with adjusted wording (the adjusted text is shown), 0 rejected.

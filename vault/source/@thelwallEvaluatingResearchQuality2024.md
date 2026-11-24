@@ -64,7 +64,7 @@ peerReviewStatus: peer-reviewed
 peerReviewNote: "Journal article; front matter gives received 22 Aug 2024, revised 7 and 29 Nov 2024, accepted 11 Dec 2024"
 curatedWithModel: "Claude Sonnet 5"
 curatedWithModelDate: 2026-08-25
-earlierVersion: "Archive - Thelwall - 2024.pdf"
+earlierVersion: "Archive - superseded versions/Archive - Thelwall - 2024.pdf"
 earlierVersionNote: "arXiv preprint 2408.06752 (2024), kept as the archived earlier version; the citekey keeps the 2024 label"
 citekey: thelwallEvaluatingResearchQuality2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
@@ -234,7 +234,7 @@ These findings collectively support the claim that [[CLM - Abstracts beat full t
 
 ## PDF check
 
-- PDF check 2026-11-24: source version: the page set now cites the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011), with printed journal page numbers; the 2024 preprint (arXiv 2408.06752) is kept as "Archive - Thelwall - 2024.pdf". The citekey and filename keep "2024".
+- PDF check 2026-11-24: source version: the page set now cites the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011), with printed journal page numbers; the 2024 preprint (arXiv 2408.06752) is kept as "Archive - superseded versions/Archive - Thelwall - 2024.pdf". The citekey and filename keep "2024".
 - PDF check 2026-11-24: metadata doi: 10.48550/arXiv.2408.06752 -> doi: 10.2478/jdis-2025-0011
 - PDF check 2026-11-24: metadata pubType: preprint -> pubType: journal-article
 - PDF check 2026-11-24: metadata apaTitle: "Evaluating Research Quality with Large Language Models: An Analysis of ChatGPT's Effectiveness with Different Settings and Inputs" -> apaTitle: "Evaluating research quality with Large Language Models: An analysis of ChatGPT's effectiveness with different settings and inputs"
@@ -246,7 +246,7 @@ These findings collectively support the claim that [[CLM - Abstracts beat full t
 - PDF check 2026-11-24: metadata critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)" -> critiqueNote: "Not re-checked for the 2025 journal version (the earlier note covered the arXiv preprint)"
 - PDF check 2026-11-24: metadata apaYear: 2024 -> apaYear: 2025
 - PDF check 2026-11-24: metadata added apaVolume: "10", apaIssue: "1", apaPages: "7-25"
-- PDF check 2026-11-24: metadata added earlierVersion: "Archive - Thelwall - 2024.pdf" (arXiv 2408.06752, 10.48550/arXiv.2408.06752); citekey and filename unchanged
+- PDF check 2026-11-24: metadata added earlierVersion: "Archive - superseded versions/Archive - Thelwall - 2024.pdf" (arXiv 2408.06752, 10.48550/arXiv.2408.06752); citekey and filename unchanged
 - PDF check 2026-11-24: citation of "it should not be used for peer review of conference pap..." `§5 Conclusion, p.15` -> p.21
 - PDF check 2026-11-24: citation of "ChatGPT might have learned that some of the articles ha..." `§4 Discussion, p.12` -> p.18
 - PDF check 2026-11-24: citation of "This study has many limitations, the most important of ..." `§4 Discussion, p.12` -> p.18

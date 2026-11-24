@@ -716,7 +716,7 @@ You have no prior context; work only from files. Do NOT edit any vault file or P
 Three evidence pages in a research-synthesis vault were built from arXiv version 1 of Zhang & Abernethy, "Reviewing Scientific Papers for Critical Problems With Reasoning LLMs". The owner wants them updated to the current version 3.
 - Pages: every file in /Users/ppatel/Documents/living-synthesis/evidence/ whose `## Source` section links [[@zhangReviewingScientificPapers2025a]] (find them with grep).
 - Version 3 PDF (current): "/Users/ppatel/Documents/living-synthesis/source/pdfs/Zhang and Abernethy - 2026 - Reviewing Scientific Papers for Critical Problems With Reasoning LLMs.pdf"; text: /private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/zhangReviewingScientificPapers2025a.txt
-- Version 1 PDF (what the pages were built from): "/Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - Zhang and Abernethy - 2025.pdf"; text: /private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/zhangReviewingScientificPapers2025a_extra.txt
+- Version 1 PDF (what the pages were built from): "/Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - superseded versions/Archive - Zhang and Abernethy - 2025.pdf"; text: /private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/zhangReviewingScientificPapers2025a_extra.txt
 For tables, render pages and look at them: `mkdir -p /private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/zhang_img && pdftoppm -r 150 -f N -l N -png "<pdf>" /private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/zhang_img/v3-pN` then Read the PNG.
 
 HARD RULES (the owner is benchmarking these): do NOT change verbatim quotes (lines starting `> "` with a citation), image embeds/screenshots (`![[...]]`), page titles, frontmatter `title:`/aliases, filenames or wikilinks. Change only numbers and wording in tables, Other Notes bullets and Methods Context prose (outside quotes) so they reflect version 3, citing v3 page/table. Where v3 removes or renames a model, condition or metric, say so in a note rather than inventing a value. Add ONE note bullet per page in Other Notes, starting "- Version update 2026-11-17: ", stating that tables and notes now follow arXiv v3 (give v3 date/version string from the PDF) while the title, quotes and screenshots still reflect v1, and listing the headline v1 -> v3 changes for that page's finding.
@@ -810,7 +810,7 @@ OUTPUT: write a JSON list to /private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8
 ```text
 Compare two versions of one research paper and check the evidence pages built from the old version. You have no prior context. Do NOT edit, move or rename any existing file; only write the two output files named below.
 
-OLD (version the evidence pages were built from): /Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - Thelwall - 2024.pdf
+OLD (version the evidence pages were built from): /Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - superseded versions/Archive - Thelwall - 2024.pdf
 NEW (published version, Journal of Data and Information Science 2025, 10(1), 7-25, doi 10.2478/jdis-2025-0011): /Users/ppatel/Documents/living-synthesis/source/pdfs/Thelwall - 2025 - Evaluating research quality with Large Language Models An analysis of ChatGPT's effectiveness with.pdf
 EVIDENCE PAGES (read in full): /Users/ppatel/Documents/living-synthesis/evidence/EVD - Full text scored worse than abstracts for 3 ChatGPT models.md ; /Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4o abstract scores correlated r=0.67 with humans.md
 
@@ -826,7 +826,7 @@ OUTPUT: (1) JSON at /Users/ppatel/Documents/living-synthesis/misc/evd-validation
 ```text
 Compare two versions of one research paper and check the evidence pages built from the old version. You have no prior context. Do NOT edit, move or rename any existing file; only write the two output files named below.
 
-OLD (version the evidence pages were built from; arXiv 2412.10635v1): /Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - Huntington-Klein and Murray - 2024.pdf
+OLD (version the evidence pages were built from; arXiv 2412.10635v1): /Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - superseded versions/Archive - Huntington-Klein and Murray - 2024.pdf
 NEW (published version, Journal of Causal Inference 2026; 14(1): 20240072, doi 10.1515/jci-2024-0072): /Users/ppatel/Documents/living-synthesis/source/pdfs/Huntington-Klein and Murray - 2026 - Do LLMs act as repositories of causal knowledge.pdf
 EVIDENCE PAGES (read in full): /Users/ppatel/Documents/living-synthesis/evidence/EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16.md ; /Users/ppatel/Documents/living-synthesis/evidence/EVD - LLMs flagged expert and trimmed confounders at similar rates.md
 
@@ -842,7 +842,7 @@ OUTPUT: (1) JSON at /Users/ppatel/Documents/living-synthesis/misc/evd-validation
 ```text
 Compare two versions of one research paper and check the evidence pages built from the old version. You have no prior context. Do NOT edit, move or rename any existing file; only write the two output files named below.
 
-OLD (version the evidence pages were built from; arXiv 2506.22026v1): /Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - Shahid et al. - 2025.pdf
+OLD (version the evidence pages were built from; arXiv 2506.22026v1): /Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - superseded versions/Archive - Shahid et al. - 2025.pdf
 NEW (published version, Proceedings of the Fifth Workshop on Scholarly Document Processing (SDP 2025), pages 96-113, doi 10.18653/v1/2025.sdp-1.9): /Users/ppatel/Documents/living-synthesis/source/pdfs/Shahid et al. - 2025 - Literature-Grounded Novelty Assessment of Scientific Ideas.pdf
 EVIDENCE PAGES (read in full): /Users/ppatel/Documents/living-synthesis/evidence/EVD - AI Scientist reached 0.47 accuracy on novelty test set.md ; /Users/ppatel/Documents/living-synthesis/evidence/EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%.md ; /Users/ppatel/Documents/living-synthesis/evidence/EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines.md
 
@@ -858,7 +858,7 @@ OUTPUT: (1) JSON at /Users/ppatel/Documents/living-synthesis/misc/evd-validation
 ```text
 Compare two versions of one research paper and check the evidence pages built from the old version. You have no prior context. Do NOT edit, move or rename any existing file; only write the two output files named below.
 
-OLD (version the evidence pages were built from; arXiv 2507.02694v1): /Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - Xu et al. - 2025.pdf
+OLD (version the evidence pages were built from; arXiv 2507.02694v1): /Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - superseded versions/Archive - Xu et al. - 2025.pdf
 NEW (published version, Proceedings of the 63rd Annual Meeting of the ACL (Volume 1: Long Papers), pages 20652-20706, doi 10.18653/v1/2025.acl-long.1009): /Users/ppatel/Documents/living-synthesis/source/pdfs/Xu et al. - 2025 - Can LLMs Identify Critical Limitations within Scientific Research A Systematic Evaluation on AI Res.pdf
 EVIDENCE PAGES (read in full): /Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG.md ; /Users/ppatel/Documents/living-synthesis/evidence/EVD - RAG raised GPT-4o limitation accuracy by 12.2 points.md
 

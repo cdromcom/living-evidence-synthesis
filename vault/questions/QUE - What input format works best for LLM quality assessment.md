@@ -42,5 +42,5 @@ title: "What is the optimal input format for LLM-based research quality assessme
 
 ### PDF check
 
-- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - Thelwall - 2024.pdf"
+- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - superseded versions/Archive - Thelwall - 2024.pdf"
 - PDF check 2026-11-24: citation of "RQ1: What is the optimal input for ChatGPT post-publication ..." (Thelwall, 2024, p. 3) -> (Thelwall, 2025, p. 9)

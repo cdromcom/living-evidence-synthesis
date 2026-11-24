@@ -81,7 +81,7 @@ title: "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 5
 - The dataset is explicitly acknowledged as a convenience sample from a single author's work and a single field; author scores are self-evaluations, not REF panel scores.
 - Linear regression (intercept −3.40, coefficient 2.05 for GPT-4o Abstracts) maps model scores onto the REF scale and reduces MAD by 31% vs. the baseline of guessing the corpus mean (2.75).
 - Paper-level mean correlation between GPT-4o-Abstract predictions and predictions from other (model × input) cells is very high (e.g., 0.875 with GPT-3.5-turbo Abstracts), suggesting the underlying language models extract similar quality signals.
-- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - Thelwall - 2024.pdf"
+- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - superseded versions/Archive - Thelwall - 2024.pdf"
 - PDF check 2026-11-24: citation of "The optimal input is the article title and abstract, with av..." (Thelwall, 2024, p. 1) -> (Thelwall, 2025, p. 7)
 - PDF check 2026-11-24: citation (Table 1, Thelwall, 2024, p. 8) -> (Table 1, Thelwall, 2025, p. 15)
 - PDF check 2026-11-24: citation of "The overall research design was to run a series of experimen..." (Thelwall, 2024, p. 3) -> (Thelwall, 2025, p. 10)

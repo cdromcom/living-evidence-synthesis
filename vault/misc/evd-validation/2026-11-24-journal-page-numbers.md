@@ -18,7 +18,7 @@ Notes: Zhang & Abernethy (2025, Archive v1) pages are intentionally on v1 number
 | bougie 2024 | Bougie et al. - 2024 - Generative Adversarial Reviews.pdf | 25 | header/footer numbers (equal to PDF position) | 0 | 25/25 |
 | d'arcy 2024 | D'Arcy et al. - 2024 - MARG Multi-Agent Review Generation for Scientific Papers.pdf | 52 | PDF position only | n/a (PDF position only) | - |
 | hasan 2024 | Hasan et al_2024_Integrating large language models in systematic reviews.pdf | 5 | header/footer numbers (equal to PDF position) | 0 | 5/5 |
-| huntington-klein 2024 | Archive - Huntington-Klein and Murray - 2024.pdf | 27 | PDF position only | n/a (PDF position only) | - |
+| huntington-klein 2024 | Archive - superseded versions/Archive - Huntington-Klein and Murray - 2024.pdf | 27 | PDF position only | n/a (PDF position only) | - |
 | idahl 2025 | Idahl and Ahmadi - 2025 - OpenReviewer A Specialized LLM.pdf | 13 | header/footer numbers (equal to PDF position) | 0 | 13/13 |
 | leucuta 2025 | Leucuta et al. 2025 - Risk of Bias Assessment of Diagnositic Accuracy Studies.pdf | 20 | header/footer numbers (equal to PDF position) | 0 | 20/20 |
 | liang 2024 | Liang et al. - 2024 - Can Large Language Models Provide Useful Feedback on Research Papers A Large-Scale Empirical Analys.pdf | 39 | header/footer numbers (equal to PDF position) | 0 | 38/39 |
@@ -38,7 +38,7 @@ Notes: Zhang & Abernethy (2025, Archive v1) pages are intentionally on v1 number
 | wu 2024 | Wu et al. - 2024 - Automated novelty evaluation.pdf | 18 | header/footer numbers | 1451 | 18/18 |
 | xu 2025 | Xu et al. - 2025 - Can LLMs Identify Critical Limitations within Scientific Research A Systematic Evaluation on AI Res.pdf | 55 | PDF page labels | 20651 | 55/55 |
 | zhang 2024 | Zhang and Abernethy - 2024 - Detecting Reference Errors in Scientific Literature with Large Language Models.pdf | 8 | PDF position only | n/a (PDF position only) | - |
-| zhang 2025 | Archive - Zhang and Abernethy - 2025.pdf | 8 | PDF position only | n/a (PDF position only) | - |
+| zhang 2025 | Archive - superseded versions/Archive - Zhang and Abernethy - 2025.pdf | 8 | PDF position only | n/a (PDF position only) | - |
 | zhou 2024 | Zhou - Is LLM a Reliable Reviewer A Comprehensive Evalua.pdf | 12 | header/footer numbers | 9339 | 12/12 |
 
 ## Citations

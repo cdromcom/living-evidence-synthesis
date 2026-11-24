@@ -1,6 +1,6 @@
 {
   "paper": "Thelwall, M. Evaluating research quality with Large Language Models: An analysis of ChatGPT's effectiveness with different settings and inputs. Preprint (2024) vs Journal of Data and Information Science 2025, 10(1), 7-25, doi 10.2478/jdis-2025-0011",
-  "old_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - Thelwall - 2024.pdf",
+  "old_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - superseded versions/Archive - Thelwall - 2024.pdf",
   "new_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Thelwall - 2025 - Evaluating research quality with Large Language Models An analysis of ChatGPT's effectiveness with.pdf",
   "page_numbering_note": "OLD is 18 PDF pages, printed page numbers equal PDF page numbers. NEW is 19 PDF pages, printed journal pages 7-25, so NEW PDF page n = journal page n+6. All page numbers below are PDF pages; journal page given in parentheses where useful.",
   "method_note": "Both PDFs extracted with pdftotext -layout and compared with a word-level diff. Every numeric token was compared as a multiset: the only differences are DOI/licence/CSTR numbers in the NEW front matter and a '3.5' vs 'GPT-3.5' label split in the Table 1 header. Table 1 and Figure 1 were rendered and inspected in both versions and are identical in content. Tables 2 and 3 were compared from extracted text (all values identical). Figures 2-5 were compared by caption text only; their images were not rendered.",

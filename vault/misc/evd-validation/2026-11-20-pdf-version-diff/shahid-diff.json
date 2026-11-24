@@ -1,6 +1,6 @@
 {
   "paper": "Shahid, Radensky, Fok, Siangliulue, Weld, Hope (2025). Literature-Grounded Novelty Assessment of Scientific Ideas. OLD = arXiv 2506.22026v1 (27 Jun 2025); NEW = Proceedings of the Fifth Workshop on Scholarly Document Processing (SDP 2025), pp. 96-113, doi 10.18653/v1/2025.sdp-1.9",
-  "old_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - Shahid et al. - 2025.pdf",
+  "old_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - superseded versions/Archive - Shahid et al. - 2025.pdf",
   "new_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Shahid et al. - 2025 - Literature-Grounded Novelty Assessment of Scientific Ideas.pdf",
   "summary": "No change to title, authors, abstract, section structure, data, sample sizes, models, prompts, dates, or any number in Tables 1-4 or Figures 1-7. Both versions are 18 A4 pages. Differences are limited to citation style (years added), the code link, one Limitations sentence, one Figure 5 caption rewording, reference-list cleanup, and reflow. NEW PDF page n carries printed page number 95+n (PDF p1 = p.96, p5 = p.100, p6 = p.101, p7 = p.102).",
   "substantive_changes": [
