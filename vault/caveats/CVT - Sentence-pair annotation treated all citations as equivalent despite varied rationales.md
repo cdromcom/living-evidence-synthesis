@@ -12,7 +12,7 @@ tags:
 appliesTo:
   - "[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]"
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-24
 nodeID: 019ddb4e-6bc9-75fb-a95b-cb0b5f2118f6
 type: author-stated
 severity: moderate
@@ -30,7 +30,7 @@ The annotation scheme used a simple three-way label (Unsubstantiated, Partially 
 ### Supporting Quote
 
 > [!info] Quotes
-> "Other limitations included our reliance on publicized and crowd-sourced datasets, the use of a simple sentence pair annotation scheme, and the treatment of all reference pairs as being equivalent despite potential multiple rationales for citation." (Zhang & Abernethy, 2024, p. 5)
+> "Other limitations included our reliance on publicized and crowd-sourced datasets, the use of a simple sentence pair annotation scheme, and the treatment of all reference pairs as being equivalent despite potential multiple rationales for citation." (Zhang & Abernethy, 2024, PDF p. 5)
 >
 > ![[zhangDetectingReferenceErrors2024-cvt-p5-2.png]]
 
