@@ -27,9 +27,9 @@ const STEPS = [
     title: "File it correctly",
     body: (
       <>
-        Each node type lives in its own vault folder (<code>questions/</code>
-        , <code>claims/</code>, <code>evidence/</code>, <code>caveats/</code>,{" "}
-        <code>source/</code>, <code>evd-patterns/</code>) with a{" "}
+        Each node type lives in its own folder under <code>vault/sysrev/</code>{" "}
+        (<code>questions/</code>, <code>claims/</code>, <code>evidence/</code>,{" "}
+        <code>caveats/</code>, <code>source/</code>, <code>evd-patterns/</code>) with a{" "}
         <code>PREFIX - Title.md</code> filename and YAML frontmatter including{" "}
         <code>NodeFormality: draft</code> to mark it as an unreviewed AI
         proposal.

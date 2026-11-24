@@ -61,12 +61,12 @@ function altFor(name, before) {
 }
 
 const TYPE_CONFIG = [
-  { type: "QUE", dir: "questions", expected: 27 },
-  { type: "CLM", dir: "claims", expected: 31 },
-  { type: "EVD", dir: "evidence", expected: 77 },
-  { type: "CVT", dir: "caveats", expected: 49 },
-  { type: "SRC", dir: "source", expected: 27 }, // spec said 28; actual vault has 27 .md files
-  { type: "EP", dir: "evd-patterns", expected: 21 },
+  { type: "QUE", dir: "sysrev/questions", expected: 27 },
+  { type: "CLM", dir: "sysrev/claims", expected: 31 },
+  { type: "EVD", dir: "sysrev/evidence", expected: 77 },
+  { type: "CVT", dir: "sysrev/caveats", expected: 49 },
+  { type: "SRC", dir: "sysrev/source", expected: 27 }, // spec said 28; actual vault has 27 .md files
+  { type: "EP", dir: "sysrev/evd-patterns", expected: 21 },
 ];
 
 /**

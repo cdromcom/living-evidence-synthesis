@@ -51,7 +51,7 @@ next-env.d.ts
 public/vault-img/
 
 # vault: keep out copyrighted full texts, local environments, and editor cruft
-vault/source/pdfs/
+vault/sysrev/source/pdfs/
 **/.venv/
 **/__pycache__/
 .Rhistory
