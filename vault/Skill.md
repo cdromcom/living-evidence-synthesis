@@ -10,12 +10,12 @@ You are extracting a complete set of discourse graph nodes from scientific paper
 
 For one paper, in order:
 
-1. **Read the paper** in chunks; track candidate QUE/EVD/CLM/CVT nodes and Methods passages.
+1. **Parse the paper and extract PICOST records first (v2, 2026-11-24)** — LlamaParse Agentic Plus plus the PDF text layer as a second vote, then one PICOST record with locators per finding; see [Step 1](#step-1-read-the-paper). The older chunked PDF reading is the fallback.
 2. **Identify all nodes** with atomicity (one finding per EVD, one limitation per CVT, etc.).
 3. **Render screenshots** — full-page figure/table images via `pdftoppm`, plus quote-region crops via PyMuPDF (`fitz`). The pipeline automatically inserts canonical `{citekey}-{kind}-p{N}-{idx}.png` embeds with per-kind colour highlights — do NOT hand-write quote-region embed lines.
 4. **Write the node files** following the templates below. EVD Methods Context uses the **What/How/Who schema** (`Study design` + `Method type` + `Tools` + DV/IV; `Procedure`; `Models / participants` + `Sample-size flow`) — see [Step 4](#step-4-write-the-node-files) and [Step 4b](#step-4b-paper-level-tripod-llm-table-in-the-source-file).
 5. **Write the source-file TRIPOD-LLM table** in `source/@<citekey>.md` — 42 rows (Title/Abstract/Background/Objectives items 1–4 + Methods 5a–15 + Results 16a–18), with a **`Quote` column** (verbatim quote + `§/page` locator from the PDF, not a paraphrase — `Not reported`/`Not applicable` when the paper genuinely doesn't say it) alongside the ✅/⚠️/❌/➖ compliance icon per row. Item 17 (Performance) is per-EVD; the source-file row reads `` `per-EVD` `` as a code span.
-6. **Synthesize the source-page top matter** at the top of `source/@<citekey>.md`, above the TRIPOD-LLM table. Three sections, all derived from the paper's discourse-graph nodes (no PDF re-read): (a) **structured abstract** with Mermaid Methods + Results visualizations, and (b) **Quality Appraisal** — a 10–11-row `Domain/Rating/Quote` table: the 5 methodological-quality domains plus one row per chip-backed Rigor signal (Data Leakage, Baseline Adequacy, Train/Dev/Test Hygiene, Multiple-Comparisons Correction, Human-Baseline Comparability, and Statistical Power only when the paper reports one), each rating grounded in a verbatim quote the same way as the TRIPOD-LLM table. See [Step 6 details](#step-6-structured-abstract-on-the-source-page).
+6. **Synthesize the source-page top matter** at the top of `source/@<citekey>.md`, above the TRIPOD-LLM table. Three sections, all derived from the paper's discourse-graph nodes (no PDF re-read): (a) **structured abstract** with a Mermaid Results visualization (the Methods flowchart was dropped 2026-11-24), and (b) **Quality Appraisal** — a 10–11-row `Domain/Rating/Quote` table: the 5 methodological-quality domains plus one row per chip-backed Rigor signal (Data Leakage, Baseline Adequacy, Train/Dev/Test Hygiene, Multiple-Comparisons Correction, Human-Baseline Comparability, and Statistical Power only when the paper reports one), each rating grounded in a verbatim quote the same way as the TRIPOD-LLM table. See [Step 6 details](#step-6-structured-abstract-on-the-source-page).
 7. **Run the screenshot pipeline:** `python3 scripts/quote_pipeline.py` — inserts canonical embeds for every quote that doesn't already have one. Use `--force` only when regenerating existing embeds in place.
 8. **Build reverse links** with `scripts/reverse_links.py` (idempotent).
 9. **Audit** — graph-attachment invariants (`scripts/` outline below) and verbatim-quote audit (`scripts/verbatim_audit.py`).
@@ -295,6 +295,45 @@ The user will provide:
 
 ## Step 1: Read the Paper
 
+### v2 process (2026-11-24): parse, then PICOST first
+
+> [!info] Why
+> The 2026-11-17 audit of the 77 EVD pages found 147 suspected errors (wrong numbers 49, claims not in the paper 33, paper contradicting itself 19, wrong page 18, wrong model or rater 17, missing comparator 8, row or column shift 3). Every one of them passed the quote check. The steps below add the controls that were missing. Tool and model choices are in `Tools-and-Models.md` (v2 section).
+
+1. **Parse with two independent reads.** (a) **GPT-6.2 Sol** reads the PDF directly (PDF input; reasoning effort High) and returns page-by-page markdown with each table as HTML, the printed journal page for every page, and every figure caption. (b) The PDF's own text layer with PyMuPDF for born-digital PDFs. Accept text, numbers and table cells only where the two agree. Where they disagree, or a page has no text layer, decide from the **rendered page image** (`pdftoppm -r 150 -f N -l N -png`), by Claude Opus 5.5 or a human; never from either extraction alone. Do not use `pdftotext -layout` for tables. (LlamaParse Agentic Plus was the first choice, then Gemini 4 Neon; JP could not get a Google API key on 2026-11-24 and chose GPT-6.2 Sol, so one model reads and extracts. Keep LlamaParse as the fallback if Sol misreads tables in the pilot.)
+2. **Page map, built once per paper.** Record for every page both the PDF page position and the **printed journal page** (PyMuPDF page labels first, otherwise the number printed in the header or footer; mark preprints without printed numbers "PDF position only"). Every citation uses the printed page.
+3. **Send Methods and Results first** (with their tables), and other sections only when a field is missing.
+4. **PICOST first.** For each candidate finding write one record as JSON: Population, Intervention, Comparator, Outcome, Study design, Timeframe, the finding in one sentence, and every number. **Every number and every PICOST value carries a locator**: journal page, table or figure, row label, column label. Anything the paper does not state is `Not reported`; never fill a slot with plausible standard detail. The bulk extraction model is GPT-6.2 Sol at reasoning effort High (Medium for simple steps such as restyling, alt text and link repair; Max only if the pilot shows it removes errors that High leaves); Claude Opus 5.5 handles disagreements and tricky cases.
+5. **Reconcile prose against tables.** When the text and the paper's own table disagree, use the table and record the disagreement in a note (`- PDF check <date>: ...`); never edit the quote.
+6. **Check the whole table before "best".** Before any EVD says best, beat, matched or highest, read every row of the table and list every comparator that could change the claim (other models, human baselines, combined methods).
+7. **QA gate (Step 6c), deferred.** The Liquid d1-ultra check of each PICOST record is on hold (JP, 2026-11-24); until it is switched on, the check is Opus 5.5 on every record flagged by a parser disagreement plus a 10% random sample, and a human spot check. Remind JP to revisit it after the first batch of new papers.
+8. **Write the EVD from the PICOST cells.** The EVD statement may contain only numbers that appear in its PICOST record, so the statement, the PICOST row and the screenshot agree.
+9. **Work from the most recent report (JP, 2026-11-24).** Prefer the published journal or proceedings version over a preprint, and the latest preprint version over earlier ones; keep the older PDF as `Archive - ...` in `source/pdfs/Archive - superseded versions/`, and cite the printed page of the version used. Do not silently move an existing page to a newer version: list it for JP (TODO 0d).
+10. **Fix page-number errors when you find them (JP, 2026-11-24).** Whenever any step turns up a wrong page citation (printed versus PDF page, a quote that is not on the cited page), correct the citation in both the local vault and the repository copy, add the old and new value to the page's `PDF check` note, and log it; do not wait for a separate audit. Cite the version of the paper the page was built from (a version question goes to TODO 0d).
+11. **Batch API for unattended runs, on every provider.** Run bulk steps (reading, PICOST extraction, drafting, verification) through each provider's Batch API: Anthropic Message Batches (50% off, stacks with prompt caching), OpenAI Batch (about half price; GPT-6.2 Sol $1 in and $5 out per million tokens, from third-party pages, to confirm on OpenAI's pricing page) and Gemini Batch if a Google key is ever available. Put the Skill instructions first and unchanged in every request so they are cached. Use the standard API only for pilots and when someone is waiting. Decision models such as d1-ultra have no batch mode and cost too little to matter. Log tokens, cost and time per paper and step.
+
+Question rules for the QUEs you propose here are in Step 2 and in `Skill-templates.md` (QUE title phrasing rule, rules 1 to 12; keep each QUE's original wording as a quote).
+
+### Cost controls (v2, 2026-11-24)
+
+Follow these every run so JP does not have to remember them. Budget, per-batch caps and the ledger are in `misc/evd-validation/2026-11-24-ingest-budget-and-batches.md`.
+
+1. **Work five papers at a time** with the human spot checks A and B in that file; stop a batch that costs more than 1.5 times its estimate or that shows an error at a check.
+2. **Batch APIs for everything nobody is waiting on** (reading, extraction, writing, verification); standard API only for the pilot and the first batch.
+3. **Cache the Skill:** put the Skill and instructions first and unchanged in every request.
+4. **Send only what is needed:** Methods and Results with their tables first; skip references, appendices and acknowledgements; fall back to other sections only when a field is missing.
+5. **Use the free second read:** the PDF text layer is the second vote; send page images to the model only for pages with tables or figures.
+6. **Escalate by exception:** Opus 5.5 only where the two reads disagree, plus a 10% random sample, not on every record.
+7. **Short structured output:** PICOST as compact JSON; GPT-6.2 Sol at High for reading and extraction, Medium for restyling, alt text and link repair; never Max unless a pilot shows it removes errors High leaves.
+8. **Screen before reading:** remove duplicates and off-topic papers with a cheap relevance call (Perplexity Decider 1.3 or Liquid d1-ultra) before the full read.
+9. **Pilot, then reuse:** fix the prompts on five papers, save every step's output, and resume instead of rerunning.
+10. **Describe screenshots in one batch call** at Medium; skip alt text for purely decorative crops.
+11. **Log tokens and dollars per paper and step** in the ledger and keep a hard spending cap on each provider account.
+
+### Fallback: reading the PDF in chunks
+
+(The v1 procedure, kept for when the parsers are unavailable.)
+
 Read the PDF in page chunks (the Read tool supports a `pages` parameter for PDFs). Start with pages 1–5 to understand structure, then read the results, discussion, conclusion sections thoroughly.
 
 As you read, track:
@@ -315,6 +354,9 @@ As you read, track:
 ## Step 2: Identify All Nodes
 
 Produce a node inventory before writing any files.
+
+> [!tip] Questions (v2)
+> Apply rules 1 to 12 of the QUE title phrasing rule in `Skill-templates.md`: one construct per question, no yes/no, neutral "LLMs" and "research reports", do not mirror the authors' wording, generalize beyond the sample, name the template used, and keep the original wording as a `### Original wording` quote on every QUE (split questions keep the full compound wording in each part).
 
 **Questions (QUE):** What is the main research question? Are there sub-questions (different tasks, analytical angles, or comparisons)? Each distinct research question = one QUE node. Phrase every QUE title per the **QUE title phrasing rule** in `Skill-templates.md` (canonical template table, "LLMs"/"research reports" as subject/object, degree framing, splitting compound questions) — check the template table before coining a new phrasing.
 
@@ -405,12 +447,21 @@ Edge cases:
 - **No text layer (scanned PDF)** — fitz returns empty word lists. Fall back to a full-page screenshot and flag the paper as needing OCR before quote-region extraction is possible.
 - **Cited page ≠ PDF page** — journals use article-internal page numbers (e.g., `p. 9341` in a 12-page PDF). The pipeline already searches all pages if the cited page misses.
 - **MuPDF warnings** like `format error: No common ancestor in structure tree` or `syntax error: could not parse color space` are non-fatal — the screenshot is still produced.
+- **Use the rendered table image as the source for numbers** (Step 6b). Do not retype a table from extracted text alone; a 2026-11-17 audit found row shifts, column shifts and swapped ± values caused by this.
 
 ---
 
+### 3c. Cropping, highlighting and page numbers (v2)
+
+- **Crop with coordinates, then verify.** Locate each quote or table with PyMuPDF word coordinates (not `pdftotext -bbox` alone), crop with `pdftoppm -x -y -W -H`, and re-run text search on the cropped image's OCR or on the crop region to confirm the whole quote is inside the crop. Reject a crop whose first or last word is cut off.
+- **Table and figure crops** contain the table or figure and its caption only, every row, column and panel, no body text (see the grounding rules in `Skill-templates.md`). Do not screenshot the full page. Methods tables and method diagrams are cropped and embedded the same way.
+- **Cross-check against the audit.** Compare each cropped table against the structured cells from Step 1 (two-tool agreement) before the screenshot is accepted: a mismatched row or column shift is the audit's error type 7, a value next to the wrong label is type 5.
+- **Printed page in every citation.** Use the page map from Step 1. The screenshot filename may keep the PDF index (`p6`); the citation may not. If the paper has no printed numbers, write `PDF p. N` so a reader knows.
+- **Alt text.** Add each screenshot's description to the alt-text map; the filename is never the alt text.
+
 ## Step 4: Write the Node Files → see `Skill-templates.md`
 
-Each of the five node types has a body schema with required slots. The full templates (EVD with What/How/Who, CLM, CVT with author-stated/inferred distinction, QUE with the question-only quote rule) live in **`Skill-templates.md`**, along with the `Step 4b` paper-level TRIPOD-LLM table format (42 items × 4 columns, including a verbatim-quote `Quote` column), and `Step 6` structured-abstract specifics (5-section schema + Mermaid Methods/Results visualizations + the 10–11-row, quote-grounded Quality Appraisal table).
+Each of the five node types has a body schema with required slots. The full templates (EVD with What/How/Who, CLM, CVT with author-stated/inferred distinction, QUE with the question-only quote rule) live in **`Skill-templates.md`**, along with the `Step 4b` paper-level TRIPOD-LLM table format (42 items × 4 columns, including a verbatim-quote `Quote` column), and `Step 6` structured-abstract specifics (5-section schema + a Mermaid Results visualization + the 10–11-row, quote-grounded Quality Appraisal table).
 
 EP node format is in **`Skill-synthesis.md` Step 11** (different shape — pattern statement + ≥2 papers' EVDs + cross-paper triangulation argument).
 
@@ -422,13 +473,34 @@ Run `misc/scripts/reverse_links.py` to populate inbound sections (`## Caveats`, 
 
 `misc/scripts/verbatim_audit.py` compares every quote against its source PDF (NFKD + alnum normalization). Saves report as `paraphrase_audit_<date>.tsv`. Severity tiers (Tier 1: 0% match, Tier 2: <50%, Tier 3: 50–90%, Tier 4: >90%) and known false positives (en-dash mangling) are documented in `Skill-templates.md`.
 
+> [!warning] The verbatim audit checks quotes only, not numbers
+> Added 2026-11-17. A PDF audit of all 77 EVD pages found 147 suspected errors in numbers, tables, page references and attributions, while every quote had passed this step. Quotes passing is not evidence that a page is correct. Run Step 6b as well.
+
+## Step 6b: Numeric audit (added 2026-11-17)
+
+Every number outside a verbatim quote (Other Notes tables and bullets, Methods Context N / dates / settings, cited page and table numbers, and words like "best", "highest", "significant") must be traced to a specific place in the PDF before a page leaves `draft`.
+
+1. **Record provenance as you write.** For every table or number, note the PDF page and table/figure it came from, e.g. `(Table 3, p. 7)`.
+2. **Read tables from the image, not only from extracted text.** `pdftotext -layout` interleaves two-column pages and loses column alignment. Render the page (`pdftoppm -r 150 -f N -l N -png`) and read it. Check the rows above and below, and the columns either side, of every value you copy.
+3. **Check the whole table before writing "best", "beat" or "matched".** Include every comparator that could change the claim (other models, human baselines, combined methods), with its value.
+4. **If the paper's text and its own table disagree, use the table and add a note** (`- PDF check <date>: ...`). Do not edit the quote.
+5. **Use the exact PDF version the page was built from**, and store it in `source/pdfs/` (with supplements). Record the version (e.g. arXiv v3, date) on the source page.
+6. **Second pass by a fresh-context checker** that sees only the page and the PDF, never the drafter's reasoning. It verifies each number and proposes exact `{old, new}` fixes; only verified fixes are applied.
+7. **Propagate fixes downstream.** A corrected page must also be corrected in every copy that uses it (the GSheet, PICOST, and the GitHub vault that builds the LIVES site), or the pending copies must be logged.
+
+Full record of the 2026-11-17 audit, the seven error types it found and why they happened: `misc/evd-validation/2026-11-17-pdf-number-audit.md`.
+
+## Step 6c: QA gate with a decision model (v2, deferred 2026-11-24)
+
+After extraction and before drafting EVDs, send every PICOST record to the **Liquid d1-ultra** decision model (`d1-ultra`, `api.liquid.ai/decisions/v1/systemone`; keys in `~/.config/lives-ai-raters/.env`). Ask calibrated yes/no questions with the table or page image attached, for example: *Does this table show the value V in the row labelled R and the column labelled C?* and *Is V attributed to model M and not to a neighbouring row?* Records with P(yes) below 0.9, and any record whose quote or numbers the two parsers disagreed on, go to a human or to the Opus 5.5 spot check. **Status: untested and on hold (JP, 2026-11-24); remind JP after the first batch of new papers.** Before relying on it, measure it on the 2026-11-17 audit's 147 corrections (wrong and corrected values) and set the threshold from that. Our benchmark (`benchmarking-validation/`) found the decision models reliable on quote and table/figure grounding (about 97%) and not on fidelity, so use the gate for grounding and numbers, not for judging whether a headline is supported.
+
 ## Step 7: Readability Formatting → see `Skill-templates.md`
 
 `misc/scripts/readability_pass.py` applies four mechanical formatting passes (blank line after headings, `>` separator before screenshot embeds, blank line between consecutive list-item wikilinks, collapse triple-newlines).
 
 ## Step 8: Promote NodeFormality → see `Skill-templates.md`
 
-Promote `draft → ReadyForInternal` once Steps 5–7 pass and the structural-completeness bar is met. `ReadyToShare` is a manual-review-only state.
+Promote `draft → ReadyForInternal` once Steps 5–7 and the Step 6b numeric audit pass and the structural-completeness bar is met. `ReadyToShare` is a manual-review-only state.
 
 ## Step 9: Regenerate DGRAPH.md → see `Skill-templates.md`
 

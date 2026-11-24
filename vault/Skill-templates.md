@@ -157,20 +157,12 @@ Each `source/@<citekey>.md` carries a plain-language **structured abstract** at 
 
 The Sarol source file (`source/@sarolAssessingCitationIntegrity2024.md`) is the canonical example — match its tone and depth.
 
-##### Step 6.b: Methods + Results visualizations (Mermaid)
+##### Step 6.b: Results visualization (Mermaid)
 
-Each structured abstract carries two visualization sub-sections — `### Methods at a glance` and `### Results at a glance` — placed after the Caveats sub-section. Use Mermaid (Obsidian-native; renders in preview).
+Each structured abstract carries one visualization sub-section, `### Results at a glance`, placed after the Caveats sub-section. Use Mermaid (Obsidian-native; renders in preview).
 
-**Methods at a glance** — a `flowchart TD` showing the pipeline. Stick to information already in the EVDs. Recommended four-class palette:
-
-```
-classDef data fill:#E3F2FD,stroke:#1565C0,color:#0D47A1;     /* data sources & sample-size milestones */
-classDef step fill:#FFF8E1,stroke:#F57F17,color:#5D4037;     /* preprocessing / annotation steps */
-classDef model fill:#F1F8E9,stroke:#2E7D32,color:#1B5E20;    /* models / pipelines */
-classDef result fill:#FCE4EC,stroke:#AD1457,color:#880E4F;   /* evaluation metrics */
-```
-
-Bold key sample-size milestones inside node labels with `<b>...</b>`. Wrap long labels with `<br/>` rather than letting them sprawl.
+> [!note] The "Methods at a glance" flowchart was dropped (JP, 2026-11-24)
+> Do not generate a Mermaid Methods flowchart on source pages or in Methods Context. Describe the pipeline in the Methods sub-section in words, and ground it with the screenshot of the relevant method table or figure (see the grounding rules above).
 
 **Results at a glance** — one to three Mermaid charts that visualize the headline numbers. Pick from:
 - `xychart-beta` bar chart for model/condition comparisons (typical: micro-F1 or macro-F1 across model variants).
@@ -299,6 +291,24 @@ For non-clinical NLP papers, healthcare-specific items (16a–c patient/EHR flow
 
 The louAAAR10 source file (`@louAAAR10AssessingAIs2025.md`) is the canonical example for the current (2026-08) 42-row Quote-column format — same caveat as Step 6.c above: it lives in `living-synthesis-site`'s own `vault/source/` copy, not this vault. Read it there in full before writing a new file in this vault to the same standard.
 
+### Grounding rules for screenshots (v2, 2026-11-24)
+
+Derived from the benchmark of the 77 EVD pages (`benchmarking-validation/` in the repository: six runs of four models against JP's ratings). They apply to every EVD, SRC and other node page.
+
+**Quote screenshot (Grounding: Quote).**
+- The verbatim quote must appear in full in the screenshot, every word legible, as a clean capture: at most the few lines of its own paragraph around it. Highlighting is optional.
+- A whole journal page, several unrelated paragraphs, a cut-off first or last line, or changed words is Partially Correct at best. A screenshot of a different passage is Incorrect.
+- The citation uses the **printed journal page number**, not the PDF page position (see Step 3c). The screenshot filename may keep the PDF index; the citation may not.
+
+**Table/figure screenshot (Grounding: Table/Fig).**
+- Whenever the EVD's numbers come from a table or figure, embed a screenshot of it. A page with no table or figure screenshot scores Missing.
+- Crop to the table or figure and its caption only. Include every row, column and panel; do not crop rows, columns or the caption away (trimmed is Partially Correct). No body-text paragraphs, no neighbouring tables or figures, no whole journal page around it (extra content is Partially Correct).
+- One screenshot per table or figure. Put it under its own `Grounding table` or `Grounding figure` line (with the caption in one line) so the page shows which table backs which number.
+- **Methods tables** (design tables, sample-flow tables, prompt or parameter tables in an EVD's Methods Context, SRC pages or any other node page) follow the same rule: a table-or-figure screenshot under the line that cites it. A method pipeline diagram is grounded as a figure.
+- Do not draw Mermaid diagrams of the Methods in a node page; the screenshot is the evidence.
+
+**Alt text.** Every screenshot needs a real description of what it shows (what table or passage, with its label), never the filename. The alt-text map `vault/_alt/alt-text.json` is filled by a vision model and checked.
+
 ### CLM template body
 
 ```
@@ -385,6 +395,12 @@ updated: <YYYY-MM-DD>
 nodeID: <UUIDv7 — generate with `python3 -c "import uuid; print(uuid.uuid7())"`>
 ---
 
+### Original wording
+
+> [!quote] Original wording (kept for readers; the title above is the restyled question)
+>
+> "<the question exactly as the paper or the first LLM draft worded it; if this QUE was split from a compound question, quote the full compound wording>" (<Author>, <year>, p. <N journal page>)
+
 ### Key Papers Asking Question
 
 > [!info] Papers
@@ -459,6 +475,11 @@ When a QUE quote is mixed (one sentence has the aim, the next sentence reports t
 7. **Split compound questions.** If the paper's question (or your first-draft title) bundles two or more distinct evaluative dimensions joined by "and" — e.g., quality *and* preference; reporting-guideline alignment *and* methodological rigor *and* applicability — split into N separate single-dimension QUEs, one per instrument/claim, rather than one compound QUE. Use the possessive construction (`research reports' methodological rigor`, `research reports' fitness for purpose`) across the split set for parallelism.
 
 8. **Drop questions that aren't really capability questions.** A pure implementation/methods question ("What is the optimal input format for X?") or a comparison-selection framing that isn't the paper's actual evaluative contribution doesn't need a QUE at all — note it in EVD Methods Context instead and skip filing the node.
+
+9. **Do not mirror the authors' wording (JP, 2026-11).** In the maintainer's review of 26 LLM-drafted QUE titles, 22 were edited and 15 of those for style: Claude had copied the authors' own sentence instead of writing a neutral, general question. Write the title from the template table and the canonical subject and object. The authors' phrasing is kept, not discarded: see the `### Original wording` block in the QUE template.
+10. **Generalize beyond the sample.** Do not carry sample-specific words into the title (a specialty such as sports medicine, "clinical trial reports", a named model or dataset). Ask the question at the level the evidence supports, with "LLMs" and "research reports".
+11. **One construct per question, no yes/no.** Split on "and" and "or", on yes/no pairs and on multi-part questions (4 of the 26 drafts needed splitting; 7 needed a yes/no turned into "how well"). Each split QUE keeps the full original wording in its own `### Original wording` block, so a reader can see what was split.
+12. **Say which template you used.** Name the row of the template table in the History.md log. If none fits, say so, keep the title short, and add a new row only with the maintainer's approval.
 
 When in doubt, prefer the shortest phrasing that (a) names the capability dimension from the template table, (b) uses "LLMs" and "research reports" as the subject/object, and (c) asks "how well/accurately/much" rather than "can."
 

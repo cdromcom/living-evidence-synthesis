@@ -49,7 +49,7 @@ The entire dataset consists of 51 articles written by a single author (the resea
 
 ### PDF check
 
-- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - Thelwall - 2024.pdf"
+- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - superseded versions/Archive - Thelwall - 2024.pdf"
 - PDF check 2026-11-24: citation of "The data is a convenience sample of the work of a single aut..." (Thelwall, 2024, p. 1) -> (Thelwall, 2025, p. 7)
 - PDF check 2026-11-24: quote "this dataset is not ideal since (a) it is part of a single author's ou..." -> verbatim journal wording: "This dataset is not ideal since (a) it is part of a single author's output and therefore not representative even of its field, (b) the author's scores are less relevant than the scores of more independent and less expert (on this topic) senior researchers, who would be the ones forming the evaluations in the most important context (e.g., the REF or promotion/appointment)." (journal sentence starts with a capital "This"; the old quote ended "senior researchers." with a full stop the paper does not have, so the quote now runs to the end of the sentence)
 - PDF check 2026-11-24: citation of "this dataset is not ideal since (a) it is part of a single a..." (Thelwall, 2024, p. 3) -> (Thelwall, 2025, p. 10)

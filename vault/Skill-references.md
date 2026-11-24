@@ -128,6 +128,30 @@ for png, refs in embeds.items():
 
 Concrete mistakes that have happened before. Read this once before starting work.
 
+### Screenshots, page numbers and questions (2026-11 benchmark and QUE review)
+
+- **Table/figure screenshots.** A page whose numbers come from a table needs a screenshot of that table, cropped to the table and caption with all rows, columns and panels. Missing a screenshot, trimming the table, or leaving the whole journal page around it each lowered the benchmark score (Missing, Partially Correct, Partially Correct).
+- **Quote screenshots.** The whole verbatim quote in a clean capture. Several pages had a screenshot of a different sentence from the same paper (a cause of Incorrect), or one cropped through the quote.
+- **Headline versus quote.** A headline EVD must be supported by the quote shown with it. Headlines that rested on a table paraphrase or on methods context were the main cause of fidelity disagreement; write the EVD from its PICOST record and quote the sentence that states the finding.
+- **Page numbers.** 90 of 313 quote and screenshot pairs showed different pages in the citation and in the screenshot filename. Cite the printed journal page; keep PDF positions out of citations.
+- **Questions.** 22 of 26 LLM-drafted QUE titles were edited by the maintainer: mirrored author wording (15 style fixes), yes/no instead of "how well" (7), compound questions that needed splitting (4), titles too specific to the sample. Use the template table and keep the original wording as a quote.
+
+### Numbers copied from PDFs (2026-11-17 audit of all 77 EVD pages)
+
+> [!warning] What went wrong
+> In Phase 22 (2026-04-28) 26 parallel subagents rewrote the EVD pages. Quotes were machine-checked against the PDFs; numbers were retyped and never checked. A 2026-11-17 audit proposed 147 corrections in seven categories: wrong values (49), claims not in the paper (33), paper self-contradictions copied without comment (19), wrong page references (18), results credited to the wrong model or condition (17), missing comparators (8), and row or column shifts (3).
+
+- **Reading a table from extracted text.** Two-column PDF text interleaves columns, so a value lands in the wrong row or column (e.g. "Always Reject" took "Random Decision"'s value from the row above). Read the rendered page image.
+- **Filling gaps with plausible detail.** Agents added things the paper never says ("double-annotated", "McNemar test", "1,000-paper subset", "21 items retained"). If the paper does not state it, do not write it.
+- **Trusting the paper's prose over its table.** Papers contradict themselves (an "average" that is one dataset's score, a "best" model that is not best in the table). Cite the table and add a `PDF check` note.
+- **Page numbers.** Journal page numbers differ from PDF page numbers, preprints have none, and an agent's page count drifts by one. Cite the page printed on the PDF page and check it.
+- **Attribution.** A value from one model, rater or condition credited to a neighbour (e.g. rater 1 vs rater 2, full paper vs selected sections). Check the row label of every value.
+- **Missing comparators.** Reporting only the row that supports the headline ("MultiVerS was best") without the row that contradicts it (GPT-4 higher on micro-F1).
+- **Version drift.** Pages built from arXiv v1 while the vault holds v3; every number differs. Keep and cite the exact version.
+- **Copies drift apart.** The GSheet, PICOST and the GitHub vault behind the live site each hold their own copy; fixing one does not fix the others.
+
+Prevention: Skill.md Step 6b (numeric audit). Full record: `misc/evd-validation/2026-11-17-pdf-number-audit.md`.
+
 ### Methods Context schema — getting What/How/Who right
 
 - **What** is *the design* (study type, method category, tools, dependent variables, independent variables) — NOT the result. Don't put F1 scores or kappa values here.

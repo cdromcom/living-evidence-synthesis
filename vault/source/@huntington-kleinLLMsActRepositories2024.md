@@ -75,7 +75,7 @@ oa_status: "gold"
 ---
 
 > [!info] **Version used:** Journal of Causal Inference 14(1), article 20240072, printed pp. 1–30, published online 20 May 2026, doi 10.1515/jci-2024-0072. PDF: `Huntington-Klein and Murray - 2026 - Do LLMs act as repositories of causal knowledge.pdf`.
-> Earlier version: arXiv v1 (2024, doi 10.48550/arXiv.2412.10635), superseded 2026-11-24 (kept as `Archive - Huntington-Klein and Murray - 2024.pdf`).
+> Earlier version: arXiv v1 (2024, doi 10.48550/arXiv.2412.10635), superseded 2026-11-24 (kept as `Archive - superseded versions/Archive - Huntington-Klein and Murray - 2024.pdf`).
 
 > [!success] **TL;DR**
 > The headline finding, that GPT-4o and Claude flag expert-rejected variables as confounders at 65 to 74 percent rates and flip 16 percent of their answers on option-order alone, is methodologically credible and lands the central claim cleanly. The biggest open question is generalization: a single famous case study, deliberately chosen because it is in the training data, is the easiest possible test, and the models still fail it.

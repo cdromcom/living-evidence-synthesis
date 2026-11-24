@@ -1,0 +1,133 @@
+{
+  "paper": "Shahid, Radensky, Fok, Siangliulue, Weld, Hope (2025). Literature-Grounded Novelty Assessment of Scientific Ideas. OLD = arXiv 2506.22026v1 (27 Jun 2025); NEW = Proceedings of the Fifth Workshop on Scholarly Document Processing (SDP 2025), pp. 96-113, doi 10.18653/v1/2025.sdp-1.9",
+  "old_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - superseded versions/Archive - Shahid et al. - 2025.pdf",
+  "new_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Shahid et al. - 2025 - Literature-Grounded Novelty Assessment of Scientific Ideas.pdf",
+  "summary": "No change to title, authors, abstract, section structure, data, sample sizes, models, prompts, dates, or any number in Tables 1-4 or Figures 1-7. Both versions are 18 A4 pages. Differences are limited to citation style (years added), the code link, one Limitations sentence, one Figure 5 caption rewording, reference-list cleanup, and reflow. NEW PDF page n carries printed page number 95+n (PDF p1 = p.96, p5 = p.100, p6 = p.101, p7 = p.102).",
+  "substantive_changes": [
+    {
+      "area": "Code/data link (footnote 1, Introduction contributions)",
+      "old": "github.com/simra-shahid/idea_novelty_checker",
+      "new": "anonymous.4open.science/r/idea_novelty_checker",
+      "old_page": 2,
+      "new_page": 2,
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Limitations & Future Work (tools for expanding literature scope)",
+      "old": "\"expanding the literature scope using tools such as OpenAI Deep Research and ScholarQA (Singh et al.)\"",
+      "new": "\"expanding the literature scope using tools such as DeepResearch and ScholarQA\" (now cited as web references DeepResearch and ScholarQA; the Singh et al. Ai2 Scholar QA paper reference is removed)",
+      "old_page": 9,
+      "new_page": 9,
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Figure 5 caption (TextGRAD prompt optimization)",
+      "old": "\"The final test accuracy was 0.78125, so none of the optimized prompts (1 – 12) out-performed the original.\"",
+      "new": "\"The final test accuracy was 0.78125, showing that none of the optimized prompts (1 to 12) improved over the original.\"",
+      "old_page": 16,
+      "new_page": 16,
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Citations in Introduction/Related Work: reattributed sources",
+      "old": "\"(... Xu et al.; Mahajan et al.)\" (p1); \"(Portenoy et al.; Kang et al., b; Chan and Chang; ...)\" (p3)",
+      "new": "\"(... Xu et al., 2014; Freestone and Karmaker, 2024)\" (p1; same paper 'Revisiting word embeddings in the LLM era', author list now two names); \"(... Chan et al., 2018; ...)\" (p3; Solvent paper, full author list)",
+      "old_page": 1,
+      "new_page": 1,
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Reference list",
+      "old": "Zotero-style entries ('Publisher: arXiv Version Number: N', ISBN, Place); Singh et al. Ai2 Scholar QA entry; Mahajan, Freestone, Aakur, Karmaker entry; Joshi et al. lists 'Shreeya Manasvi Venneti'",
+      "new": "ACL-style entries ('ArXiv, abs/...'), lowercased titles; Singh et al. removed; Freestone and Karmaker (2024) replaces Mahajan et al.; new web entries for OpenReview, DeepResearch, ScholarQA; Sun et al. 2023a (RankGPT, 'Is ChatGPT good at search?') added and RankGPT re-ranker now cited as Sun et al., 2023b; Kinney et al. author list expanded; 'Manasvi' dropped from Joshi et al.",
+      "old_page": "9-11",
+      "new_page": "9-11",
+      "matters_for_EVDs": false
+    }
+  ],
+  "cosmetic_changes": [
+    "arXiv side stamp 'arXiv:2506.22026v1 [cs.IR] 27 Jun 2025' removed from p1; NEW adds ACL footer 'Proceedings of the Fifth Workshop on Scholarly Document Processing (SDP 2025), pages 96–113, July 31, 2025 ©2025 ACL' and printed page numbers 96-113.",
+    "In-text citations change from author-only to author-year throughout, e.g. '(Lu et al.)' -> '(Lu et al., 2024)', '(Si et al.)' -> '(Si et al., 2024)', '(Cohan et al.)' -> '(Cohan et al., 2020)', '(Khattab et al.)' -> '(Khattab et al., 2023)', '(Yuksekgonul et al.)' -> '(Yuksekgonul et al., 2024)', '(Sun et al.)' -> '(Sun et al., 2023b)'. This breaks word-for-word matching of EVD quotes that contain citations.",
+    "'OpenReview API' -> 'OpenReview API (OpenReview)' (p5) with a new web reference.",
+    "Diacritics typeset differently: 'Gómez-Pérez' -> 'G’omez-P’erez'.",
+    "Typo fixes: 'Idea Novelty Checkerfirst' -> 'Idea Novelty Checker first' (abstract, p1); 'facetbased' -> 'facet-based' (p4).",
+    "Reflow shifts some section starts: 4.1 Most Relevant Papers to Idea p3 -> p4; Limitations & Future Work heading p8 -> p9. All other section, table, and figure pages unchanged (Tables 1-2 p7, Table 3 p8, Table 4 p12, Figures 2-7 pp13-18).",
+    "PDF producer changed (arXiv GenPDF/pikepdf -> pdfTeX); same page count (18) and page size (A4); same number of embedded images (pdfimages list identical length)."
+  ],
+  "unchanged_checked": [
+    "Title and author list/affiliations identical.",
+    "Abstract identical apart from the 'Checkerfirst' typo fix.",
+    "Section numbering and names identical (1-7, Limitations, References, Appendix).",
+    "Formative study: 51 ideas (46 Scideator + 5 OpenReview first round; 34 + 17 second round), kappa 0.64 and 0.68, 8 disagreements: identical.",
+    "Dataset 67 examples (39 novel/28 not), 35 train/32 test; ~8,156 OpenReview submissions; 20 idea-review pairs; N=100, k=10; 15 in-context examples, seed 100; DSPy 2 bootstrapped examples; 12 prompt iterations; gpt-4o Aug-Sep 2024; o3-mini for ablation novelty step; 58 ablation ideas (13 + 45): identical.",
+    "Table 1 (p7 both): every cell identical (rendered and compared visually); only change is '(Lu et al.)'/'(Si et al.)' -> '(Lu et al., 2024)'/'(Si et al., 2024)' in row labels.",
+    "Table 2 (p7 both): 89.66%, 13.79%, 10.34%, 8.62%, 5.17% identical.",
+    "Table 3 (p8 both): 7.97/0.67, 7.93/0.84, 2.88/1.85, 1.17/1.39 identical.",
+    "Text claims: 'over 10 times more agreement', 'approximately 13% higher agreement', '18 out of 32 times', 'Approximately 30% of the papers differ', 'train=25, validation = 10, test = 32': identical."
+  ],
+  "evd_checks": [
+    {
+      "page": "EVD - AI Scientist reached 0.47 accuracy on novelty test set",
+      "quotes": [
+        {"quote_start": "Our approach achieved over 10 times more agreement (Description)", "still_verbatim": true, "new_page": 6, "cited_page": 7, "note": "On PDF p6 in OLD and NEW (NEW printed p.101), not p7. Quote ends at 'AI Researcher' with a period; the paper's sentence continues ', further validating the effectiveness of our novelty checker.'"},
+        {"quote_start": "In addition to these baselines, we also compare (Methods/What)", "still_verbatim": false, "new_page": "5-6", "cited_page": 5, "note": "NEW reads '(Lu et al., 2024)' and '(Si et al., 2024)'. Passage spans p5-6 in both versions (second sentence finishes on p6)."},
+        {"quote_start": "It is important to note that AI Scientist defaults (Methods/How)", "still_verbatim": true, "new_page": 6, "cited_page": 7, "note": "On p6 in both versions, not p7. Paper uses double quotes around \"not novel\"; EVD uses single quotes."},
+        {"quote_start": "we standardize the most relevant papers (Methods/Who)", "still_verbatim": true, "new_page": 6, "cited_page": 6}
+      ],
+      "numbers": [
+        {"value": "0.47 / 0.55 / 0.53 / 0.44 / 0.05 (AI Scientist acc/P/R/F1/kappa)", "status": "same", "note": "Table 1, p7 both"},
+        {"value": "0.78 / 0.81 / 0.74 / 0.75 / 0.52 (AI Researcher gpt-4o)", "status": "same", "note": "Table 1, p7"},
+        {"value": "0.56 / 0.63 / 0.61 / 0.56 / 0.19 (AI Researcher Claude-3.5-Sonnet)", "status": "same", "note": "Table 1, p7"},
+        {"value": "0.81 / 0.84 / 0.78 / 0.79 / 0.59 (Idea Novelty Checker)", "status": "same", "note": "Table 1, p7"},
+        {"value": "18 / 32 (56%) default 'not novel'", "status": "same", "note": "'18 out of 32 times', p6; 56% is the EVD's own calculation (18/32 = 56.25%)"},
+        {"value": "over 10 times; approximately 13%", "status": "same", "note": "p6"},
+        {"value": "top 10 papers; 32-idea test set; 51 ideas (34 + 17); 67 ideas (39/28); 15 in-context examples", "status": "same", "note": "pp3, 5, 6"}
+      ],
+      "screenshots_note": "Screenshots were cut from the OLD PDF (citations lack years, e.g. evd-p5-1 shows '(Lu et al.)'). Filename page numbers equal the real PDF page and still match NEW pages (p5, p6). evd-p6-1 is a text highlight of the '10 times' sentence on p6, but its caption says '[Screenshot: Table 1, p. 7]' and the citation says p. 7; it does not show Table 1. Table 1 itself is on p7 in both versions. evd-p5-1 would now show different citation text in NEW.",
+      "evd_statement_holds": true,
+      "statement_note": "All AI Scientist figures are unchanged in NEW.",
+      "recommended_page_changes": "Change the citation of the '10 times' quote and the 'It is important to note' quote from p. 7 to p. 6 (NEW printed p. 101). Fix the screenshot caption: evd-p6-1 shows the p6 text, not Table 1 (or add a real Table 1 crop from p7). Update the Methods quote to '(Lu et al., 2024)' / '(Si et al., 2024)' if re-sourcing to NEW. If switching the source to the published version, convert PDF pages to printed pages (95 + PDF page)."
+    },
+    {
+      "page": "EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%",
+      "quotes": [
+        {"quote_start": "Table 2 shows that the complete system (Description)", "still_verbatim": true, "new_page": 7, "cited_page": 7, "note": "'re-ranking' is hyphenated across a line break in both versions."},
+        {"quote_start": "To assess the contribution of each component (Methods/What)", "still_verbatim": true, "new_page": 6, "cited_page": 6},
+        {"quote_start": "We use o3-mini for evaluating novelty (Methods/How)", "still_verbatim": true, "new_page": 7, "cited_page": 7},
+        {"quote_start": "ablation studies using 58 ideas (Methods/Who)", "still_verbatim": true, "new_page": 6, "cited_page": 6}
+      ],
+      "numbers": [
+        {"value": "89.66% / 13.79% / 10.34% / 8.62% / 5.17%", "status": "same", "note": "Table 2, p7 both"},
+        {"value": "Table 3: 7.97/0.67, 7.93/0.84, 2.88/1.85, 1.17/1.39", "status": "same", "note": "p8 both"},
+        {"value": "58 ideas = 13 + 45", "status": "same", "note": "p6"},
+        {"value": "~30% of top-10 papers differ; <3 of 10 overlap without re-ranker", "status": "same", "note": "'Approximately 30%' p7; <3 is the EVD's reading of 2.88 and 1.17"}
+      ],
+      "screenshots_note": "Filenames (p6-4, p6-5, p7-1, p7-2) match NEW pages. evd-p7-1 is a text highlight of the 'Table 2 shows' sentence, not Table 2, although its caption says '[Screenshot: Table 2, p. 7 ...]'. Table 2 is on p7 in both versions.",
+      "evd_statement_holds": false,
+      "statement_note": "The numbers are unchanged, but the statement misdescribes the 13.79% condition in both versions. Per the paper (p6-7), 13.79% is 'Relevance RankGPT': the RankGPT re-ranker is kept and only its facet-based prompt is replaced by a general-relevance one. Removing the LLM re-ranker entirely is the 'Embedding Filtering' condition, 10.34%. So the accurate statement is 'Replacing facet-based with general-relevance RankGPT re-ranking cut not-novel accuracy from 89.66% to 13.79%'. The third Other Notes bullet is also backwards: swapping facet-based for general relevance accounts for most of the drop (89.66 to 13.79, about 76 points), while removing the re-ranker entirely costs only about 3.5 more points (to 10.34). This is a pre-existing error, not caused by the version change.",
+      "recommended_page_changes": "Retitle (and alias) to describe the condition as replacing the facet-based re-ranking prompt with a general-relevance one, not dropping RankGPT. Fix the Description line 'removing RankGPT relevance re-ranker: 13.79%'. Rewrite Other Notes bullet 3 so facet-awareness is the dominant driver. Fix the screenshot caption for evd-p7-1 or add a Table 2 crop. Page citations are otherwise correct for NEW (printed pages: p6 = 101, p7 = 102)."
+    },
+    {
+      "page": "EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines",
+      "quotes": [
+        {"quote_start": "Our extensive experiments demonstrate (Description)", "still_verbatim": true, "new_page": 1, "cited_page": 1},
+        {"quote_start": "We evaluated multiple baselines to benchmark (Methods/What)", "still_verbatim": false, "new_page": 5, "cited_page": 5, "note": "Was already not verbatim in OLD: the paper says 'created from formative study examples', not 'data'. NEW also adds '(Khattab et al., 2023)' and '(Yuksekgonul et al., 2024)'."},
+        {"quote_start": "For our novelty evaluation system, we use SPECTER-2 (Methods/How)", "still_verbatim": false, "new_page": 6, "cited_page": 6, "note": "NEW reads '(Cohan et al., 2020)'. Otherwise same (paper has footnote marker 7 after gpt-4o)."},
+        {"quote_start": "From our formative study, we collected 67 (Methods/Who)", "still_verbatim": true, "new_page": 5, "cited_page": 5},
+        {"quote_start": "We used the model \"gpt-4o\" during August and September 2024 (Methods/Who, footnote 7)", "still_verbatim": true, "new_page": 6, "cited_page": "not cited"}
+      ],
+      "numbers": [
+        {"value": "0.81 / 0.84 / 0.78 / 0.79 / 0.59 (best row)", "status": "same", "note": "Table 1, p7 both"},
+        {"value": "All other Table 1 rows (0.68/0.76/0.64/0.65; 0.68/0.70/0.64/0.64; 0.68/0.83/0.62/0.58; 0.66/0.82/0.58/0.52; 0.78/0.76/0.76/0.76; 0.59/0.55/0.51/0.43; 0.75/0.76/0.77/0.75; 0.78/0.77/0.76/0.77)", "status": "same", "note": "Table 1, p7"},
+        {"value": "approximately 13%", "status": "same", "note": "p1 and p6"},
+        {"value": "51 ideas (34 + 17; first round 46 + 5); 67 (39/28); 35/32 split", "status": "same", "note": "pp3, 5"},
+        {"value": "~8,156 OpenReview submissions; 20 pairs; 5 pairs in best OpenReview setup", "status": "same", "note": "pp5-6"},
+        {"value": "N=100, k=10, 15 examples, seed 100, 2 bootstrapped examples, 12 iterations, Aug-Sep 2024", "status": "same", "note": "p6"}
+      ],
+      "screenshots_note": "Filenames (p1-1, p5-2, p5-3, p6-3) match NEW pages. evd-p1-1 is the abstract sentence on p1, but its caption says '[Screenshot: Table 1, p. 7 ...]'; it does not show Table 1. Table 1 is on p7 in both versions. Crops from OLD will differ from NEW only where citations gained years (p5-2, p6-3).",
+      "evd_statement_holds": true,
+      "statement_note": "All values unchanged. Minor pre-existing imprecision: Other Notes says kappa was reported 'only for the in-context settings'; Table 1 actually reports kappa only for the best expert-labeled row and the Other Novelty Checkers rows.",
+      "recommended_page_changes": "Correct 'formative study data' to 'formative study examples' in the baselines quote. Add citation years if re-sourcing to NEW (Khattab 2023, Yuksekgonul 2024, Cohan 2020). Fix the evd-p1-1 caption (it shows the abstract, not Table 1). Optionally tighten the kappa note. If switching to the published version, convert PDF pages to printed pages (95 + PDF page)."
+    }
+  ]
+}

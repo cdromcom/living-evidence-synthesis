@@ -50,5 +50,5 @@ Synthesis drawn from the vault's source papers on LLM-based scientific paper cla
 - Reporting overall accuracy or micro-F1 only.
 - Few-shot prompts that mirror the natural (imbalanced) prior — model learns to predict majority.
 - Single-pass binary classification on a composite construct (e.g., "is this paper sound?") — decompose into sub-checks.
-- Using full-text input on the assumption that more context always helps — Thelwall 2024 found abstracts beat full text for quality scoring; long context can dilute minority-class signals.
+- Using full-text input on the assumption that more context always helps — Thelwall 2025 found abstracts beat full text for quality scoring; long context can dilute minority-class signals.
 - Treating the LLM's verbalized confidence as calibrated without checking — Son 2025 found LLM confidence approaches zero across 498 SPOT evaluations even when the model is correct.

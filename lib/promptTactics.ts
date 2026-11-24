@@ -704,7 +704,7 @@ export const PROMPT_TACTICS: PromptTactics[] = [
   {
     "srcId": "SRC-019",
     "author": "Thelwall",
-    "year": 2024,
+    "year": 2025,
     "tactics": [
       "zero",
       "inputIter",

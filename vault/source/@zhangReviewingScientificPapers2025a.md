@@ -79,7 +79,7 @@ nodeInstanceId: 019dd17a-f95d-7879-86c1-70337328c988
 > [!info] **Version used (updated 2026-11-24)**
 > arXiv:2505.23824v3 [cs.CL], 1 Apr 2026 (NeurIPS 2025 Workshop: AI for Science; arXiv comments: "Accepted and presented at NeurIPS 2025 AI for Science Workshop"; no journal reference). DOI 10.48550/arXiv.2505.23824. Printed page numbers equal PDF positions, pp. 1 to 11 (body pp. 1 to 8, references pp. 8 to 10, appendices pp. 10 to 11); page 1 prints no page number. PDF: `source/pdfs/Zhang and Abernethy - 2026 - Reviewing Scientific Papers for Critical Problems With Reasoning LLMs.pdf`.
 >
-> Earlier version: arXiv v1 (28 May 2025; `source/pdfs/Archive - Zhang and Abernethy - 2025.pdf`), superseded 2026-11-24. An arXiv v2 (7 Jul 2025) exists and was not compared.
+> Earlier version: arXiv v1 (28 May 2025; `source/pdfs/Archive - superseded versions/Archive - Zhang and Abernethy - 2025.pdf`), superseded 2026-11-24. An arXiv v2 (7 Jul 2025) exists and was not compared.
 
 - PDF check 2026-11-24: Findings and TL;DR numbers moved from v1 to v3: o3 HR@5 64.9%/71.0% -> 48.2%/50.6%; o4-mini 59.6%/61.6% -> 38.0%/38.8%; Claude 3.7 Sonnet 16.3%/33.1% -> 11.0%/24.1%; o3 cost $0.321/$0.383 -> $0.064/$0.077 per paper (v3 Table 2, p. 5); single-judge o3 HR@5 72.7%/75.5% (Gemini judge) and 75.5%/80.4% (o3 judge) -> 80.4%/79.2% and 50.2%/51.4% (v3 Table 3, p. 6).
 - PDF check 2026-11-24: "tripled the average problems submitted (1.6 to 3.4)" -> "raised ... 1.6 to 3.4" (a 2.1-fold rise; v3 Table 2, p. 5).

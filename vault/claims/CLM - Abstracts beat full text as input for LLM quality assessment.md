@@ -38,7 +38,7 @@ title: "Abstracts are the optimal input for LLM-based research quality assessmen
 
 ### PDF check
 
-- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - Thelwall - 2024.pdf"
+- PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - superseded versions/Archive - Thelwall - 2024.pdf"
 - PDF check 2026-11-24: citation of "The optimal input is the article title and abstract, with av..." (Thelwall, 2024, p. 1) -> (Thelwall, 2025, p. 7)
 - PDF check 2026-11-24: quote "article full texts might confuse LLM research quality evaluations, eve..." -> verbatim journal wording: "article full texts might confuse LLM research quality evaluations, even though complex system instructions for the task are more effective than simple ones." (the old quote continued "Thus, whilst abstracts contain insufficient information ... strong pointers about originality and significance", which now runs across the page break pp. 7-8; shortened to the sentence that stays on p. 7)
 - PDF check 2026-11-24: citation of "article full texts might confuse LLM research quality evalua..." (Thelwall, 2024, p. 1) -> (Thelwall, 2025, p. 7)
