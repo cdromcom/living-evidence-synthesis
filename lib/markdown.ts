@@ -308,9 +308,13 @@ function figureIconSvg(): string {
 function renderFigureEmbeds(html: string): string {
   return html.replace(
     /<p>\s*<img src="\/vault-img\/([^"]+)" alt="([^"]*)"\s*\/?>\s*<\/p>/g,
-    (_m, src, alt) => {
+    (_m, src, alt: string) => {
       const filename = decodeURIComponent(src);
       const { label, page } = describeCrop(filename);
+      // Never show a filename as alt text: fall back to the crop's caption.
+      if (!alt.trim() || /\.(png|jpe?g|gif|webp|svg)$/i.test(alt.trim())) {
+        alt = page ? `${label} from the source paper, p. ${page}` : `${label} from the source paper`;
+      }
       const cite = page ? `${label} — reproduced from the source paper, p.&nbsp;${page}` : `${label} — reproduced from the source paper`;
       const summary = page ? `${label} · p.&nbsp;${page}` : label;
       return (

@@ -1,0 +1,43 @@
+name: Regenerate graph data
+
+# When the vault or the graph builder changes on main, rebuild
+# lib/graph-data.generated.json (and lib/node-ids.json) and commit the result.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "vault/**"
+      - "scripts/build-graph.mjs"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: regenerate-graph
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    # Commits made by this job use GITHUB_TOKEN, which does not retrigger workflows,
+    # but guard against loops anyway.
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node scripts/build-graph.mjs
+      - name: Commit regenerated files if they changed
+        run: |
+          if git diff --quiet -- lib/graph-data.generated.json lib/node-ids.json; then
+            echo "No change to generated graph data."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/graph-data.generated.json lib/node-ids.json
+          git commit -m "chore: regenerate graph data from vault [skip ci]"
+          git push
