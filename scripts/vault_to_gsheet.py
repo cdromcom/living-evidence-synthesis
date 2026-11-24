@@ -13,15 +13,15 @@ Usage
 
 Options (all optional)
     --graph PATH        graph-data.generated.json
-                        (default /Users/ppatel/.cache/lives-bench/wt-final/lib/graph-data.generated.json)
+                        (default lib/graph-data.generated.json in the repository)
     --picost DIR        folder of <EVD-id>.json files
-                        (default /Users/ppatel/Documents/living-synthesis/picost; in the repo: vault/picost)
+                        (default vault/sysrev/picost in the repository)
     --out PATH          output .xlsx
                         (default /Users/ppatel/Documents/living-synthesis/misc/evd-validation/2026-11-24-vault-mirror.xlsx)
     --pdf-dir DIR       source PDF folder, used only to name each paper's PDF file
                         (default /Users/ppatel/Documents/living-synthesis/source/pdfs)
     --permissions PATH  PERMISSIONS.md, used only for the licence column
-                        (default /Users/ppatel/Documents/living-synthesis/PERMISSIONS.md)
+                        (default docs/PERMISSIONS.md in the repository)
     --img-base URL      prefix for screenshots
                         (default https://living-evidence-synthesis.vercel.app/vault-img/)
     --build-date DATE   date shown in the README and stored in the file properties (default today)
@@ -34,6 +34,9 @@ Idempotent: the same inputs and the same --build-date produce the same cells, an
 output file is overwritten. To refresh the Google Sheet, upload the new .xlsx; JP's
 judgments live in the Sheet, so upload to a new Sheet or copy them over first.
 """
+from pathlib import Path as _P
+REPO = _P(__file__).resolve().parent.parent
+
 import argparse
 import datetime as dt
 import glob
@@ -259,11 +262,11 @@ def match_pdf(src, pdfs):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--graph", default="/Users/ppatel/.cache/lives-bench/wt-final/lib/graph-data.generated.json")
-    ap.add_argument("--picost", default="/Users/ppatel/Documents/living-synthesis/picost")
+    ap.add_argument("--graph", default=str(REPO / "lib/graph-data.generated.json"))
+    ap.add_argument("--picost", default=str(REPO / "vault/sysrev/picost"))
     ap.add_argument("--out", default="/Users/ppatel/Documents/living-synthesis/misc/evd-validation/2026-11-24-vault-mirror.xlsx")
     ap.add_argument("--pdf-dir", default="/Users/ppatel/Documents/living-synthesis/source/pdfs")
-    ap.add_argument("--permissions", default="/Users/ppatel/Documents/living-synthesis/PERMISSIONS.md")
+    ap.add_argument("--permissions", default=str(REPO / "docs/PERMISSIONS.md"))
     ap.add_argument("--img-base", default="https://living-evidence-synthesis.vercel.app/vault-img/")
     ap.add_argument("--build-date", default=dt.date.today().isoformat())
     ap.add_argument("--commit", default=None)
