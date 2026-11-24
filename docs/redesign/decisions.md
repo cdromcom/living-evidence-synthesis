@@ -44,5 +44,26 @@ Tests: Playwright keyboard-only scripts for the flows above, axe-core in CI, and
 
 ## Models for design and build
 
-- **Design Arena and "Muse Wonder Max":** this could not be confirmed. Searches on 2026-11-24 find Muse Wonder (Max) on arena.ai's boards (Text Arena near the top; WebDev Arena around #15 to #26), not first on Design Arena's website board. Design Arena's own leaders in the sources found are other models (Kimi K3, Muse Spark 1.3, GPT-5.6 Sol, depending on the board and date), and the boards disagree. Kimi K3 is excluded by the US-only model-origin policy; Meta is a US developer, so Muse models pass that policy.
-- **Decision:** do not pick the build model from a leaderboard. Claude Opus 5.5 writes the code in this repository. Muse Wonder Max (and GPT-6.2 Sol) are candidates for a **one-page bake-off** on the EVD node page, judged on axe violations, keyboard-test passes, Lighthouse accessibility and performance, visual diff against Direction A, and JP's review. The winner can replace the default; a different model family reviews every change either way.
+- **Build model: Claude Fable 5.2** (`claude-fable-5-2`), chosen by JP on 2026-11-24, replacing the Muse Wonder Max idea. The current site's commits were co-authored mostly by Claude Sonnet 5 (63 of the app, component and lib commits), then Opus 5, Sonnet 5.5 and Opus 5.5, never a Fable model, which supports the switch.
+- **What the evidence says:** Fable 5.2 is first on arena.ai's [Code Arena WebDev](https://arena.ai/leaderboard/code/webdev/models/claude-fable-5.2-xhigh-dum1) (1,824) and on its Agent Arena Index. I could not find a Fable 5.2 entry on Design Arena itself; the Design Arena website figure I found is for Fable 5 (1,332), and boards disagree on the leader. So the claim "Fable 5.2 wins on Design Arena" is unconfirmed; "wins on WebDev Arena" is supported.
+- **Effort:** run at `high`, not `xhigh` or `max`; raise it only on a task where a measured gain pays for itself.
+- **Review by another family:** every change is reviewed by a model from a different family (GPT-6.2 Sol), plus axe, Playwright keyboard tests and Lighthouse in CI.
+- **Muse Wonder Max** stays a possible one-page comparison later, not the default.
+
+## Cost, time and accuracy (my estimates, not measurements)
+
+Prices (Anthropic list, per million tokens, input and output): Fable 5.2 $8 and $40; Opus 5.5 $4 and $20; Sonnet 5.5 $2 and $10. Cached input is $0.20; the Batch API is half price but not for interactive work.
+
+Assumption per build phase: 60 agent turns, 1.0M fresh input tokens, 8M cached input tokens, 250K output tokens including thinking. That is about **$20 per phase on Fable 5.2** (range $12 to $40) and **$11 on Opus 5.5** (range $6 to $22).
+
+| Plan | Phases | Model cost | Review and tests | Elapsed time |
+|---|---|---|---|---|
+| All five on Fable 5.2 | tokens and primitives; header, menu, skip link; node page; graph list and keyboard; tests and CI | about $100 (range $60 to $200) | about $10 to $20 | 2 to 3 working days with JP's review after each phase |
+| Hybrid: Fable 5.2 for the first four, Opus 5.5 for tests and CI | same | about $90 | about $10 to $20 | same |
+| All five on Opus 5.5 | same | about $55 (range $30 to $110) | about $10 to $20 | same |
+
+The design doc puts Direction A at 3 to 4 human working days; agent time is shorter, but JP's review and fix rounds set the pace.
+
+**Accuracy** here means passing acceptance tests: 0 serious axe violations, every keyboard flow in the checklist passing, Lighthouse accessibility at least 95, graph still 232 nodes and 784 edges, no visual change beyond the planned one. First-pass rates are unknown; I assume one or two fix rounds per phase and will log the real tokens, dollars and pass rates in a ledger after phase 1 so the rest can be re-estimated.
+
+**Recommendation:** pilot phase 1 on Fable 5.2 (about $20), measure, then decide between all-Fable and hybrid.
