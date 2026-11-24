@@ -103,8 +103,8 @@ extend the discourse graph directly:
 
 1. Clone the repo: `git clone https://github.com/cdromcom/living-evidence-synthesis.git`
 2. In Obsidian, choose **Open folder as vault** and select the `vault/` folder.
-3. Node templates are in `vault/templates/`; the `.base` files (`ESS.base`,
-   `EvidencePattern Nodes.base`) are saved table views of the nodes.
+3. Node templates are in `vault/templates/`; the `.base` files (`vault/indexes/ESS.base`,
+   `vault/indexes/EvidencePattern Nodes.base`) are saved table views of the nodes.
 4. Every node carries a `human_reviewed` field (`yes`/`no`) in its frontmatter,
    so you can tell AI-drafted nodes from human-checked ones.
 
@@ -497,4 +497,4 @@ one.
 
 ---
 
-**Licence and takedown.** Code is MIT (`LICENSE`); original vault content is CC BY 4.0 while quotes and screenshots keep their source papers' licences (`vault/LICENSE-CONTENT.md`, `docs/PERMISSIONS.md`). Takedown route: open an issue at https://github.com/cdromcom/living-evidence-synthesis/issues. Not legal advice.
+**Licence and takedown.** Code is MIT (`LICENSE`); original vault content is CC BY 4.0 while quotes and screenshots keep their source papers' licences (`vault/legal/LICENSE-CONTENT.md`, `docs/PERMISSIONS.md`). Takedown route: open an issue at https://github.com/cdromcom/living-evidence-synthesis/issues. Not legal advice.
