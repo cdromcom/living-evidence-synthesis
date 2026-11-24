@@ -29,7 +29,7 @@ The pattern is a measurement-ceiling argument: if humans don't reliably agree wi
 
 - [[EVD - Annotator agreement on citation labels was only kappa 0.18-0.31|EVD - Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2]], Sarol et al. 2024: human kappa 0.18–0.31 on citation-accuracy categorization, even after multiple reconciliation phases, fair agreement, not strong.
 - [[EVD - Human agreement fell from 91% on PRISMA to 57% on PRECIS-2|EVD - Human inter-rater reliability dropped from 91 percent on PRISMA to 57 percent on PRECIS-2]], Woelfle et al. 2024: human IRR drops from 91% on objective PRISMA-style reporting checks to 57% on subjective PRECIS-2 pragmatism judgment, IRR is a function of task subjectivity.
-- [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations]], Huntington-Klein & Murray 2024: LLM-vs-LLM inter-prompt agreement is as low as 0.16, LLMs themselves disagree at the same fair-agreement level as humans on subjective tasks.
+- [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]], Huntington-Klein & Murray 2026: LLM-vs-LLM inter-prompt agreement is as low as 0.13, LLMs themselves disagree at the same fair-agreement level as humans on subjective tasks.
 
 ## Connected discourse-graph nodes
 

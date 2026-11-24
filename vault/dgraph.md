@@ -172,7 +172,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
 ### [[QUE - Can LLMs supply causal knowledge to select confounders|QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research?]]
 
 - [[CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
-    - [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.16 across prompt variations]]
+    - [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]
     - [[EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]
         - ⚠️ [[CVT - Huntington-Klein used a single causal dataset|CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge]]
 
