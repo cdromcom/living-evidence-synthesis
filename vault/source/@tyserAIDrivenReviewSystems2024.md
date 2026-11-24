@@ -35,6 +35,9 @@ tags:
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2408.10365
+license: "cc-by"
+license_source: "OpenAlex (primary location: arXiv (Cornell University))"
+oa_status: "green"
 nameConsistency: consistent
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
