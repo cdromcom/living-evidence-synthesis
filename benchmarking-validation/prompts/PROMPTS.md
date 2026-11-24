@@ -30,10 +30,10 @@ Question: *Does the screenshot shown with the quote correctly show the quoted te
 
 ### Options
 
-- **Correct**: The screenshot shows the quoted text word for word (the screenshot must match the text above it; trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.
-- **Partially Correct**: The screenshot shows only part of the quoted text, or the quote text has small unmarked edits or omissions compared with the text in the screenshot.
-- **Incorrect**: The screenshot shows a different passage from the quote, or the quote text is materially different from the text in the screenshot.
-- **Missing**: No screenshot is shown for the quote.
+- **Correct**: A screenshot on the evidence page shows the quoted text word for word (the screenshot must match the quote text; trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.
+- **Partially Correct**: The screenshots show only part of the quoted text, or the quote text has small unmarked edits or omissions compared with the text in the screenshots.
+- **Incorrect**: The screenshots show a different passage from the quote, or the quote text is materially different from the text in the screenshots.
+- **Missing**: No screenshot is shown on the evidence page.
 - **NA**: There is no quote to check.
 
 ## Grounding: Table/Figure
@@ -42,10 +42,10 @@ Question: *Does the evidence page show the correct table or figure for the EVD s
 
 ### Options
 
-- **Correct**: A screenshot shows the table or figure that holds the EVD statement's numbers or main finding (the one the caption describes), complete enough to read the relevant values.
+- **Correct**: A screenshot shows the table or figure that holds the EVD statement's numbers or main finding (the one the caption or the paraphrased text describes), complete enough to read the relevant values.
 - **Partially Correct**: The right table or figure, but cropped so the relevant cells are missing, or only one of several needed.
-- **Incorrect**: A screenshot labelled as a table or figure shows something else, such as body text or a different table or figure.
-- **Missing**: The EVD statement's numbers appear to come from a table or figure (the caption mentions one, or the numbers are too detailed to come from the quote alone) but no screenshot of it is shown.
+- **Incorrect**: The screenshots shown are not that table or figure (for example body text only, or a different table or figure).
+- **Missing**: The EVD statement's numbers appear to come from a table or figure (the caption or paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but none of the screenshots shown is that table or figure.
 - **NA**: The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed.
 
 Rule (JP, 2026-11-23): if no table/figure screenshot is shown the answer is Missing and no model is called.

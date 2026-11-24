@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Build the three model-only tracking workbooks (xlsx) from the vault. No ratings from JP or Claude are read."""
+"""Build the ORIGINAL layout of the model-only tracking workbooks (xlsx) from the vault. No ratings from JP or Claude are read.
+SUPERSEDED: the live GSheets were later changed through the Sheets API (interleaved notes columns, review-question column,
+paraphrased-text column, Opus sheet). The CSV exports in sheets/ are the source of truth for the current layout."""
 import re, sys, json, concurrent.futures as cf
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -22,7 +24,7 @@ for n, (title, f, body) in enumerate(pages, 1):
     quotes, grounding, other, shots = bp.split_description(sec.get("Description", ""))
     meth = re.findall(r"!\[\[(.*?)\]\]", sec.get("Methods Context", ""))
     ck = bp.citekey_of(sec.get("Source", "")); pdf = bp.resolve_pdf(ck) if ck else None
-    recs.append(dict(evd=n, title=title, quote="\n".join(quotes), grounding="\n".join(grounding), pdf=pdf.name if pdf else "",
+    recs.append(dict(evd=n, title=title, quote="\n".join(quotes), grounding="\n".join(grounding), para="\n".join(other), pdf=pdf.name if pdf else "", questions=json.loads((Path(__file__).resolve().parent / "questions_by_evd.json").read_text())[str(n)],
                      tf=[s["file"] for s in shots if s["kind"] == "tablefig"],
                      qs=[s["file"] for s in shots if s["kind"] == "quote"], meth=meth))
 names = sorted({x for r in recs for k in ("tf", "qs", "meth") for x in r[k]})
@@ -42,11 +44,11 @@ MODELS = {
  "liquid": ("Liquid d1-ultra", "d1-ultra (the id JP asked for). Liquid's docs list d1-ultra as deprecated, replaced by d1.2-ultra (same request format and price); results from the two are not interchangeable. Record the id and run date in column R.", "d1-ultra's context is about 32K tokens (gateway page; unconfirmed), so for the Quote and Table/Fig tasks it was sent only the ~16K tokens of paper pages that best overlap the quote and EVD statement, not the whole paper. The other two models see the full paper text. Report this difference in the write-up."),
  "jev": ("Jev", "jev-1.14.0 by default (the pin is recorded in column R; jev-1.13.0 is the other listed version).", "Jev was sent TEXT ONLY (its image input is a preview feature), so its Table/Fig answers rest on the paper text and the page's table note, not the screenshots."),
 }
-HDR = ["EVD", "EVD statement (headline)", "Description quote text", "Review question(s) (JP-edited)", "Table/Figure screenshot 1", "Table/Figure screenshot 2", "Table/Figure caption",
+HDR = ["EVD", "EVD statement (headline)", "Description quote text", "Review question(s) (JP-edited)", "Table/Figure screenshot 1", "Table/Figure screenshot 2", "Table/Figure caption", "Paraphrased text under Grounding Table/Fig",
        "Quote screenshot 1", "Quote screenshot 2", "Source PDF used", "Relevancy (model)", "P(Relevant)", "Fidelity (model)", "P(every number in quote)",
        "Grounding: Quote (model)", "P(quote verbatim in paper)", "Grounding: Table/Fig (model)", "Images the model was sent", "Run date / model version",
        "{M} Notes", "Methods Context quote screenshot 1", "Methods Context quote screenshot 2", "Methods Context quote screenshot 3", "Quote screenshot 3 (extra)"]
-WID = [50, 240, 400, 320, 320, 220, 320, 320, 200, 110, 90, 110, 100, 120, 100, 120, 110, 130, 260, 320, 320, 320, 320]
+WID = [50, 240, 400, 320, 320, 220, 300, 320, 320, 200, 110, 90, 110, 100, 120, 100, 120, 110, 130, 260, 320, 320, 320, 320]
 GREEN, BROWN, RED, GRAY = "D9EAD3", "FFF2CC", "F4CCCC", "EFEFEF"
 
 def build(key):

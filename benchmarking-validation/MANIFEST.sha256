@@ -9,7 +9,7 @@ a3f11ffae944037a083e00f0ddfeb0bb4d1597821e113d3be66d0a03886702ba  ./dump_prompts
 7de336663d26100adfec1e2133f6d97687c6c431cd6c01bbe462d76e95d03452  ./image_url_status.json
 b35da2ef8e7637c51c3c6704a350275ef47a0b395522f89f254092bf6ae01fac  ./inputs/que_tab.csv
 967267e56190d67e77ac609e580770d107f1aa571e80c602e30fe6824a9fca6d  ./make_questions.py
-eab7bd0b7458c194a14f62bf6b639babd99e93df46536bfccd689a405d241e0c  ./make_sheets.py
+48085a2cc52ec58d77f6c3a8e61f74437be2f175d719e86b4ae053ffcdb87e86  ./make_sheets.py
 841dc931c27c4736ceec3875ed808b82e5f8d3b1b6d2093e4e0d4dcef27a224b  ./make_summary_tab.py
 3682f58e8dbcb1fd14bb7f36585e4ce83dcfea0f8f6701a39160dbdcb1d49700  ./merge_image_urls.py
 1efdcf770a9106340eb517349277ef8485140525b6f4154f36176485aa46650c  ./metrics.py
@@ -183,7 +183,7 @@ f047143a82410c9dd9bd3a7034c7e3140b7e3a5cae6a0fbe0c19d183c5c5fb01  ./packets/EVD-
 bc83b39a7930d62752d82a267c5536970252bc61d093304c6ee6e6cb7c7a2ca4  ./packets/EVD-77/quote-1.png
 e2003eb7bead72c385b478a6052a5ac5b9eb49a4b63e69baea60fe6db46cc1a4  ./packets/manifest.json
 d6d9de5f0fe8150906d17b9f989dedd719128cbc2b9dc1f488785dd46b925a08  ./prompts/OPUS_RATER_INSTRUCTIONS.md
-7abcd6f4d1b502b9327b2887ed1fde3b244ca85fa822e219cf62ecf74623da7b  ./prompts/PROMPTS.md
+aa80b7803bb82adc49ff9d8325876b7eb0c168b333d33822ec611a368aef8a3d  ./prompts/PROMPTS.md
 7b2f736b377f4c7805d948405deaf60e1600ee6bb266e45f513e18b2e1a3e679  ./prompts/rendered/perplexity-EVD04-fidelity.txt
 60ac5e9565f2a6338a7b46125fa36a49048d6f817703b509f86ee4f22051632c  ./prompts/rendered/perplexity-EVD04-quote.txt
 292f8e1af00f5d7f5c8857df343c3caa122910dba4aef5b25e9bfd47035dd6aa  ./prompts/rendered/perplexity-EVD04-relevancy.txt
@@ -291,10 +291,10 @@ ff87c46115e193edec0e324de88417b4f000a03652c30f97f6c411f781b36406  ./results/opus
 7ce1ec36454a3883ec6f2e683ac1fd726e9aff83b39c8cf281f550b89fa37319  ./results/perplexity.r1fix.jsonl
 b4c4ae65ab5bc2abe9dbe35a48a1b312fd83d4b0b6eb5896eb707960cb47182e  ./results/perplexity.smoke.jsonl
 a420eca9dfdb1bb7fbd7c8947bd521e7a6ea7b99f765ad9c6838046be0f814d5  ./results/summary-r1.csv
-5ea0dcc9c48e94f5fe30649b7f605a1f1cc98f3b08ebeb6de6f2cc5619c5f13f  ./run_raters.py
+7fd8c4f2ed4959351b88c8f6ff765e5ec7ac9e32ae4ea5cec2151ef1b2027ace  ./run_raters.py
 dd90a000e047893e71de5832c3307f82d240cb4bf9140cdbcc8becc9963294ad  ./RUN-LOG.md
 f16a74f3a1e9a10d5a35e47d1105e7ffd1ac7286ab51f9fdfbc7ae0e1924d3fa  ./sheets/decision-models-summary-r1.xlsx
-afba3b4df646eb08f9fb2d44640a0615e9af2d3f1b7d130f5e6cec7d9a9fe7fd  ./sheets/LIVES-AI-Rater-Claude-Opus-5.5.csv
-eb745f5150ee33e4c89f8791ad952b084dd08d2363b1f577db08e635e5347dc9  ./sheets/LIVES-AI-Rater-Jev.csv
-083bb757835d9cf7b06f6c82c837b6650d7ae57161dc97d2ff06aead48c3ddbd  ./sheets/LIVES-AI-Rater-Liquid-d1-ultra.csv
-9746503cbc538027b9c192d54be6dd3328c156b906876e4458e4d9214a26af99  ./sheets/LIVES-AI-Rater-Perplexity-Decider-1.3.csv
+e212c7328df0642552bf69fa12fdf0b9d6ff7c19a4c35f35cf722ba65aa8af8d  ./sheets/LIVES-AI-Rater-Claude-Opus-5.5.csv
+819aa1bf574615da251a1a4f4be3ad9b42147b299e9e5819955661639d4544a3  ./sheets/LIVES-AI-Rater-Jev.csv
+3dba5e1c4bbab139d607ea86dd4e5655ed911590d7534c72113821a727baf4f7  ./sheets/LIVES-AI-Rater-Liquid-d1-ultra.csv
+d0dd77806d66e18f3b0dde8575cb0cc2172f23a19a8c4ae6dbe4f3db5fb07df7  ./sheets/LIVES-AI-Rater-Perplexity-Decider-1.3.csv

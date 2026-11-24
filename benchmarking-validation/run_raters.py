@@ -67,17 +67,17 @@ FIDELITY_V2 = {
     "Unmet": "The main finding of the EVD statement is not in the quoted text, or the quote contradicts it.",
 }
 QUOTE = {
-    "Correct": "The screenshot shows the quoted text word for word (the screenshot must match the text above it; trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.",
-    "Partially Correct": "The screenshot shows only part of the quoted text, or the quote text has small unmarked edits or omissions compared with the text in the screenshot.",
-    "Incorrect": "The screenshot shows a different passage from the quote, or the quote text is materially different from the text in the screenshot.",
-    "Missing": "No screenshot is shown for the quote.",
+    "Correct": "A screenshot on the evidence page shows the quoted text word for word (the screenshot must match the quote text; trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.",
+    "Partially Correct": "The screenshots show only part of the quoted text, or the quote text has small unmarked edits or omissions compared with the text in the screenshots.",
+    "Incorrect": "The screenshots show a different passage from the quote, or the quote text is materially different from the text in the screenshots.",
+    "Missing": "No screenshot is shown on the evidence page.",
     "NA": "There is no quote to check.",
 }
 TABLE = {
-    "Correct": "A screenshot shows the table or figure that holds the EVD statement's numbers or main finding (the one the caption describes), complete enough to read the relevant values.",
+    "Correct": "A screenshot shows the table or figure that holds the EVD statement's numbers or main finding (the one the caption or the paraphrased text describes), complete enough to read the relevant values.",
     "Partially Correct": "The right table or figure, but cropped so the relevant cells are missing, or only one of several needed.",
-    "Incorrect": "A screenshot labelled as a table or figure shows something else, such as body text or a different table or figure.",
-    "Missing": "The EVD statement's numbers appear to come from a table or figure (the caption mentions one, or the numbers are too detailed to come from the quote alone) but no screenshot of it is shown.",
+    "Incorrect": "The screenshots shown are not that table or figure (for example body text only, or a different table or figure).",
+    "Missing": "The EVD statement's numbers appear to come from a table or figure (the caption or paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but none of the screenshots shown is that table or figure.",
     "NA": "The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed.",
 }
 
@@ -111,15 +111,6 @@ def build_task(task, p, with_images, fid_v=1):
     parts, evd = [], f"EVD STATEMENT (the claim being checked):\n{p['evd_statement']}"
     imgs = [i for i in p["images"] if with_images]
 
-    def add_images(kind, label):
-        n = 0
-        for i in imgs:
-            if i["kind"] == kind:
-                n += 1
-                parts.append({"text": f"\n{label} {n}:"})
-                parts.append({"image": str(PACKETS / f"EVD-{p['evd']:02d}" / i["file"])})
-        return n
-
     if task == "relevancy":
         parts.append({"text": f"REVIEW QUESTION(S) this EVD was found under:\n{p['review_questions']}\n\nREVIEW CRITERION:\n{CRITERION}\n\n{evd}\n\nQUOTED EVIDENCE FROM THE PAPER:\n{p['quote_text']}\n\n"
                               f"TABLE/FIGURE CAPTION shown on the evidence page (may be empty):\n{p['grounding_table_text'] or '(none)'}"})
@@ -135,22 +126,35 @@ def build_task(task, p, with_images, fid_v=1):
         qs = {"fidelity": choice("Does the EVD statement match what the quoted text says?", FIDELITY),
               "all_numbers_in_quote": noul("Does every number in the EVD statement appear in the quoted text (rounding allowed)?")}
         return parts, qs, 0
+    def add_all_images():                 # every screenshot on the evidence page, whichever slot the vault page put it in
+        n = 0
+        for i in p["images"]:
+            if with_images:
+                n += 1
+                parts.append({"text": f"\nSCREENSHOT {n} on the evidence page:"})
+                parts.append({"image": str(PACKETS / f"EVD-{p['evd']:02d}" / i["file"])})
+        return n
+    def shot_qs(n):
+        return {f"shot{k}_connects_to_quote": noul(f"Does SCREENSHOT {k} show text or a table or figure that connects to the quoted text?") for k in range(1, n + 1)}
     if task == "quote":
         parts.append({"text": f"{evd}\n\nQUOTED TEXT (as shown on the evidence page, with its cited page number):\n{p['quote_text']}"})
-        n = add_images("quote", "SCREENSHOT shown with the quote")
+        n = add_all_images()
         if not n:
-            parts.append({"text": "\n\n(No screenshot is shown for the quote.)"})
-        qs = {"quote_grounding": choice("Does the screenshot shown with the quote correctly show the quoted text?", QUOTE)}
+            parts.append({"text": "\n\n(No screenshot is shown on the evidence page.)"})
+        qs = {"quote_grounding": choice("Do the screenshots on the evidence page correctly show the quoted text?", QUOTE)}
         if n:
-            qs["screenshot_shows_quote"] = noul("Does the SCREENSHOT shown with the quote show the quoted passage?")
+            qs["screenshot_shows_quote"] = noul("Does any SCREENSHOT show the quoted passage?")
+            qs.update(shot_qs(n))
         return parts, qs, n
     if task == "table":
-        parts.append({"text": f"{evd}\n\nQUOTED TEXT:\n{p['quote_text']}\n\nTABLE/FIGURE CAPTION shown on the evidence page (may be empty):\n{p['grounding_table_text'] or '(none)'}"})
-        n = add_images("tablefig", "TABLE/FIGURE SCREENSHOT shown on the evidence page")
+        para = p.get("description_other_text", "").strip() or "(none)"
+        parts.append({"text": f"{evd}\n\nQUOTED TEXT:\n{p['quote_text']}\n\nTABLE/FIGURE CAPTION shown on the evidence page (may be empty):\n{p['grounding_table_text'] or '(none)'}\n\nPARAPHRASED TEXT shown under the table/figure (unquoted; may be empty):\n{para}"})
+        n = add_all_images()
         if not n:
-            parts.append({"text": "\n\n(No table or figure screenshot is shown on the evidence page.)"})
+            parts.append({"text": "\n\n(No screenshot is shown on the evidence page.)"})
         qs = {"table_fig_grounding": choice("Does the evidence page show the correct table or figure for the EVD statement's numbers?", TABLE),
               "screenshots_contain_numbers": noul("Do the screenshots shown contain the EVD statement's key numbers?")}
+        qs.update(shot_qs(n))
         return parts, qs, n
     raise ValueError(task)
 
@@ -283,7 +287,7 @@ def cmd_run(a):
 
     def work(job):
         pv, e, t, parts, qs, n_img, model, tok = job
-        if t == "table" and n_img == 0:  # JP's rule (2026-11-23): no table/figure screenshot shown -> Missing, no model call
+        if t == "table" and n_img == 0:  # no screenshot at all on the evidence page -> Missing, no model call (models now see every screenshot and decide)
             rec = {"run_id": a.run_id, "fidelity_version": None, "evd": e, "task": t, "provider": pv, "model": "rule",
                    "requested_model": "rule", "rule_based": True, "ts": datetime.now(timezone.utc).isoformat(), "est_input_tokens": 0,
                    "images_sent": 0, "images_available": 0, "error": None, "usage": None,
