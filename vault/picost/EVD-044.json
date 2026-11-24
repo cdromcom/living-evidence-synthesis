@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-044",
+  "evd_title": "Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task",
+  "citekey": "louAAAR10AssessingAIs2025",
+  "source_id": "SRC-011",
+  "finding": "Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task",
+  "P": "993 ICLR 2023 papers with multi-reviewer weakness lists (AAAR-1.0 Weakness task)",
+  "I": "10 LLMs (GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, o1-preview, o3-mini, open-source) + AI-SCI, zero-shot, split-combine full text",
+  "C": "Human ICLR 2023 reviewer weaknesses; other LLMs; AI-SCI agent (GPT-4o)",
+  "O": "ITF-IDF diversity: humans 7.69 vs GPT-4o 5.95 (best LLM); S-F1 GPT-4o 47.73%; AI-SCI 2.23",
+  "S": "Cross-sectional benchmark (zero-shot)",
+  "T": "ICLR 2023 submissions; paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

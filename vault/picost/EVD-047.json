@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-047",
+  "evd_title": "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans",
+  "citekey": "woelfleBenchmarkingHumanAICollaboration2024",
+  "source_id": "SRC-021",
+  "finding": "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans",
+  "P": "112 SRs/MAs in pediatric surgery (Cullis et al.); PRISMA 27 items || 112 SRs/MAs in pediatric surgery (Cullis et al.); AMSTAR 11 items || 56 RCTs from PragMeta database; PRECIS-2 9 domains",
+  "I": "Claude-3-Opus (PNG pages), Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B; extract-quote-rate prompt, temp 0; zero-shot, 2 runs || Claude-3-Opus (PNG pages), Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B; extract-quote-rate prompt, temp 0; zero-shot, 2 runs || Claude-3-Opus (PNG pages), Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B; extract-quote-rate prompt, temp 0; zero-shot, 2 runs",
+  "C": "Human rater 1 (89%, kappa 0.81); human consensus of 2 raters as reference || Human rater 1 (89%, kappa 0.80); human consensus of 2 raters as reference || Human rater 1 (75%, weighted kappa 0.57); human consensus of 2 raters as reference",
+  "O": "PRISMA accuracy 63% (GPT-3.5) to 70% (Claude-3-Opus/Claude-2); kappa 0.40-0.51 vs human 89% || AMSTAR accuracy 53% (GPT-3.5) to 74% (Claude-3-Opus); kappa 0.27-0.56 vs human 89% || PRECIS-2 accuracy 38% (GPT-4) to 55% (GPT-3.5); weighted kappa 0.01-0.12 vs human 75%",
+  "S": "Cross-sectional benchmark (individual zero-shot LLMs) || Cross-sectional benchmark (individual zero-shot LLMs) || Cross-sectional benchmark (individual zero-shot LLMs)",
+  "T": "Not reported on page; models queried Aug 2023-Apr 2024 per Woelfle cost EVD (paper 2024) || Not reported on page; models queried Aug 2023-Apr 2024 per Woelfle cost EVD (paper 2024) || Not reported on page; models queried Aug 2023-Apr 2024 per Woelfle cost EVD (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

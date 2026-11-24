@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-030",
+  "evd_title": "GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers",
+  "citekey": "liangCanLargeLanguage2024a",
+  "source_id": "SRC-009",
+  "finding": "GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers",
+  "P": "Random 500 of 1,709 ICLR 2022+2023 papers (OpenReview), ML",
+  "I": "GPT-4 zero-shot single-pass 4-section feedback; comments extracted by GPT-4; human aspect-coding (11 aspects)",
+  "C": "Human reviewer comments on same papers; coded by 2 ML annotators",
+  "O": "Log frequency ratio GPT-4/human: implications 7.27x more; novelty 10.69x less; ablations 6.71x less; more datasets 2.19x more",
+  "S": "Retrospective comparative content analysis",
+  "T": "ICLR 2022 + 2023 papers (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-070",
+  "evd_title": "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction",
+  "citekey": "wuAutomatedNoveltyEvaluationa",
+  "source_id": "SRC-023",
+  "finding": "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction",
+  "P": "2,432 ICLR 2022 papers (method sections + reviews), binary method novelty; test ~244",
+  "I": "Ours-SciBERT: fine-tuned SciBERT + knowledge-guided sparse attention; inputs human review sentences + ChatGPT (gpt-3.5-turbo) summaries",
+  "C": "5 fine-tuned PLMs (BERT, RoBERTa, SciBERT, XLNet, ALBERT); zero-shot LLaMA-3.1-8B, ChatGPT, GPT-4o, Claude-3.5-Sonnet",
+  "O": "Weighted F1 0.83, Acc 0.84 vs SciBERT 0.73, Claude-3.5 0.69, GPT-4o 0.68",
+  "S": "Cross-sectional supervised-learning benchmark",
+  "T": "ICLR 2022 papers; paper 2024",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

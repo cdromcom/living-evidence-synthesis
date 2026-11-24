@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-008",
+  "evd_title": "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification",
+  "citekey": "sarolAssessingCitationIntegrity2024",
+  "source_id": "SRC-013",
+  "finding": "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification",
+  "P": "Held-out test citations from Sarol corpus (100 PMC-OA biomedical refs, 3063 citations)",
+  "I": "MultiVerS (Longformer) fine-tuned on HealthVER + Sarol train; BM25+MonoT5 top-20 evidence retrieval",
+  "C": "GPT-3.5-turbo-0613 and GPT-4 (in-context learning, top-5 evidence); other MultiVerS variants; oracle conditions",
+  "O": "MultiVerS top-20: macro-F1 0.52 vs GPT-4 0.45, GPT-3.5 0.38; micro-F1 0.59 vs GPT-4 0.65, GPT-3.5 0.57; N_ACC F1 0.43 vs GPT-4 0.09 (PDF Table 4)",
+  "S": "NLP model benchmark (held-out evaluation)",
+  "T": "Not reported (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

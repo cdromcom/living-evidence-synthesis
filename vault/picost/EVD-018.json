@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-018",
+  "evd_title": "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions",
+  "citekey": "wrightsonGPTRCTsUsing2025",
+  "source_id": "SRC-022",
+  "finding": "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions",
+  "P": "TEST split (20%) of 113 sports-medicine RCT reports (Schulz et al. 2020 dataset), 8 CONSORT text items",
+  "I": "Llama 2 70B (TogetherAI), zero-shot base vs fine-tuned on GPT-4-correct TRAIN labels; paper split into sections",
+  "C": "Base Llama 2 70B (pre-fine-tuning); Schulz et al. labels as ground truth; ref GPT-4 Turbo F1 0.89",
+  "O": "Pooled F1 0.63 -> 0.84; accuracy 64% (57-71%) -> 83% (77-88%)",
+  "S": "Within-model before/after comparison on held-out test split",
+  "T": "Papers published 2020; Llama 2 version on TogetherAI mid-2024; paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

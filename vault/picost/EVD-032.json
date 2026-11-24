@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-032",
+  "evd_title": "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal",
+  "citekey": "woelfleBenchmarkingHumanAICollaboration2024",
+  "source_id": "SRC-021",
+  "finding": "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in evidence appraisal",
+  "P": "112 SRs/MAs in pediatric surgery (Cullis et al.) for PRISMA/AMSTAR; 56 RCTs from PragMeta for PRECIS-2",
+  "I": "Claude-3-Opus (PNG pages), Claude-2, GPT-4-32k-0613, GPT-3.5-turbo-16k-0613, Mixtral-8x22B; extract-quote-rate prompt, temp 0; API cost logged",
+  "C": "Other LLMs (cost comparison)",
+  "O": "Median cost per 100 papers: GPT-4 $115.00 vs Mixtral-8x22B $1.20 (~96x); Claude-3-Opus $40, Claude-2 $19, GPT-3.5 $6",
+  "S": "Cross-sectional benchmark (efficiency logging)",
+  "T": "Models queried Aug 2023-Apr 2024 (GPT-4 Sep 2023) (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

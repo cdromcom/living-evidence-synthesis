@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-020",
+  "evd_title": "GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation",
+  "citekey": "bougieGenerativeAdversarialReviews2024a",
+  "source_id": "SRC-003",
+  "finding": "GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation",
+  "P": "200 ICLR 2023 papers (OpenReview), 2 randomly assigned reviews per paper",
+  "I": "GAR reviewer agent (graph-based paper representation, memory, persona modules), GPT-4o-mini backbone",
+  "C": "Human OpenReview reviews; AI-Scientist, ReviewerGPT (anchor), AI-Review, OpenReviewer (all GPT-4o-mini)",
+  "O": "Bradley-Terry (GPT-4o judge): GAR 0.684 vs human 0.523, AI-Scientist 0.242, ReviewerGPT 0.000, OpenReviewer -0.632; paired t p<0.002",
+  "S": "Pairwise-preference benchmark, LLM-as-judge (GPT-4o)",
+  "T": "ICLR 2023 submissions (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}
