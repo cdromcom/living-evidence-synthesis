@@ -30,8 +30,8 @@ Question: *Do the screenshots on the evidence page correctly show the quoted tex
 
 ### Options
 
-- **Correct**: Every word of the quoted text is visible and legible in a screenshot, and the screenshot is a clean capture of the quote: at most the few lines of the same paragraph immediately around it, with or without highlighting. Extraneous content makes it NOT Correct: another table, figure or caption, a whole journal page, or several unrelated paragraphs. A wrong or different page number in the citation does not matter.
-- **Partially Correct**: The screenshot shows the right passage but is not a clean, complete capture: (a) part of the quote is cut off or missing, or its words are changed (not just punctuation or hyphenation), or (b) the full quote is there but with extraneous content around it (another table, figure or caption, a whole page, or several unrelated paragraphs). Extraneous content always lowers Correct to Partially Correct.
+- **Correct**: Every word of the quoted text is visible and legible in a screenshot, and the screenshot is a clean capture of the quote: at most the few lines of the same paragraph immediately around it, with or without highlighting. A table or figure that shares the screenshot is judged separately under Table/Figure and does not count against the quote. Extraneous content makes it NOT Correct when it covers or interrupts the quote, or when a whole journal page or several unrelated paragraphs surround it. A wrong or different page number in the citation does not matter.
+- **Partially Correct**: The screenshot shows the right passage but is not a clean, complete capture: (a) part of the quote is cut off or missing, or its words are changed (not just punctuation or hyphenation), or (b) the full quote is there but buried in extraneous content (a whole journal page or several unrelated paragraphs, or something covering the text). Extraneous content always lowers Correct to Partially Correct.
 - **Incorrect**: A screenshot is present but shows a different passage from the quote, so the quoted words do not appear in it.
 - **Missing**: No screenshot at all is shown on the evidence page.
 - **NA**: There is no quote to check.
@@ -43,17 +43,17 @@ Question: *Does the evidence page show the correct table or figure for the EVD s
 ### Options
 
 - **Correct**: A screenshot shows the whole table or figure that holds the EVD statement's numbers or main finding (the one the caption or the paraphrased text describes), with its caption, readable in full, and nothing else substantial: no body-text paragraphs, no other table or figure, no whole journal page around it. Extraneous content makes it NOT Correct.
-- **Partially Correct**: The right table or figure is shown but not as a clean, complete capture: (a) it comes with extraneous content (surrounding body text, another table or figure, or a whole journal page), or (b) it is cropped so relevant cells, rows or the caption are missing, or (c) only one of several needed tables or figures is shown. Extraneous content always lowers Correct to Partially Correct.
-- **Incorrect**: A table or figure screenshot is present but none of the screenshots shows the right table or figure (a different table or figure, or body text only).
-- **Missing**: The EVD statement's numbers come from a table or figure (the caption or paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but the page shows no screenshot of any table or figure.
-- **NA**: The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed.
+- **Partially Correct**: The right table or figure is shown but not as a clean, complete capture: (a) it comes with extraneous content (surrounding body text, another table or figure, or a whole journal page), or (b) it is trimmed or cropped so that rows, columns, panels or the caption are cut off or only part of it is visible, or (c) only one of several needed tables or figures is shown. A trimmed or partly shown table or figure is always Partially Correct, never Missing. Extraneous content always lowers Correct to Partially Correct.
+- **Incorrect**: A table or figure is shown in the screenshots, but it is a different table or figure from the one that holds the EVD statement's numbers.
+- **Missing**: No table or figure is shown in any of the screenshots. This is the default whenever the screenshots contain only text (for example only the quoted passage), even if every number in the EVD statement also appears in the quoted text and even if the caption is empty. A table or figure that is trimmed or only partly shown is NOT Missing.
+- **NA**: Reserved for the rare case in which the source paper has no relevant table or figure at all, so none could ever be shown. You cannot tell that from this page, so when no table or figure is shown choose Missing, not NA.
 
 Run 2 inputs: every Description screenshot on the page is shown without slot labels, with the caption and the paraphrased text under the table/figure. Also asked per screenshot k: *Does SCREENSHOT k show text or a table or figure that connects to the quoted text?* Missing by rule only when the page has no screenshot at all (no model call).
 
 
 Worked examples (text descriptions of screenshots; the screenshots to judge follow below):
 - Highlighted quote with a couple of lines of its own paragraph above and below, all words legible -> Correct.
-- Whole quote visible, but a table and its caption fill the lower half of the image -> Partially Correct (right passage, extraneous content).
+- Whole quote visible, with a table and its caption below it in the same screenshot -> Correct for the quote (the table is judged under Table/Figure).
 - Whole quote visible inside a full journal page with several other paragraphs -> Partially Correct (extraneous content).
 - The first sentence of a two-sentence quote is visible and the second is cut off -> Partially Correct (incomplete).
 - The screenshot shows a different paragraph of the same paper -> Incorrect.
@@ -65,9 +65,10 @@ Worked examples (text descriptions of screenshots; the screenshots to judge foll
 - Only Table 3 and its caption, cleanly cropped, all rows visible -> Correct.
 - Table 3 and its caption in the lower half of a full journal page, with paragraphs of body text above it -> Partially Correct (right table, extraneous content).
 - Table 3 with its caption plus a second table or a figure in the same screenshot -> Partially Correct (extraneous content).
-- Table 3 with the bottom rows cut off -> Partially Correct (incomplete).
-- The statement's numbers are in Table 3 but the screenshot shows Table 1 -> Incorrect.
-- The statement's numbers come from a table but the page shows only a text screenshot of the quote and no table or figure -> Missing.
+- Table 3 with the bottom rows or the caption cut off, or a figure with only some of its panels visible -> Partially Correct (trimmed), not Missing.
+- A table appears in the same screenshot as the quoted passage (below or beside the quote) -> it counts as shown: Correct if clean and complete, otherwise Partially Correct.
+- The statement's numbers are in Table 3 but the screenshots show only Table 1 -> Incorrect.
+- The screenshots are only text passages and no table or figure appears -> Missing (even if the caption is empty and the numbers are also in the quote; not Incorrect, not NA).
 
 --- ITEM TO JUDGE ---
 

@@ -1,0 +1,35 @@
+{
+ "evd": 8,
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.9,
+   "Partially Correct": 0.08,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 1,
+  "quote_fully_visible": 1,
+  "shot_connects": [
+   1,
+   0.3
+  ],
+  "reason": "Shot 1 cleanly shows the full highlighted quote within its abstract paragraph."
+ },
+ "table": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.93,
+   "Incorrect": 0.03,
+   "Missing": 0.02,
+   "NA": 0
+  },
+  "shot_connects": [
+   0.02,
+   0.95
+  ],
+  "reason": "Table 4 is shown complete but on a whole journal page with Table 3 and body text."
+ }
+}

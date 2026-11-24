@@ -43,10 +43,10 @@ Question: *Does the evidence page show the correct table or figure for the EVD s
 ### Options
 
 - **Correct**: A screenshot shows the whole table or figure that holds the EVD statement's numbers or main finding (the one the caption or the paraphrased text describes), with its caption, readable in full, and nothing else substantial: no body-text paragraphs, no other table or figure, no whole journal page around it. Extraneous content makes it NOT Correct.
-- **Partially Correct**: The right table or figure is shown but not as a clean, complete capture: (a) it comes with extraneous content (surrounding body text, another table or figure, or a whole journal page), or (b) it is cropped so relevant cells, rows or the caption are missing, or (c) only one of several needed tables or figures is shown. Extraneous content always lowers Correct to Partially Correct.
-- **Incorrect**: A table or figure screenshot is present but none of the screenshots shows the right table or figure (a different table or figure, or body text only).
-- **Missing**: The EVD statement's numbers come from a table or figure (the caption or paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but the page shows no screenshot of any table or figure.
-- **NA**: The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed.
+- **Partially Correct**: The right table or figure is shown but not as a clean, complete capture: (a) it comes with extraneous content (surrounding body text, another table or figure, or a whole journal page), or (b) it is trimmed or cropped so that rows, columns, panels or the caption are cut off or only part of it is visible, or (c) only one of several needed tables or figures is shown. A trimmed or partly shown table or figure is always Partially Correct, never Missing. Extraneous content always lowers Correct to Partially Correct.
+- **Incorrect**: A table or figure is shown in the screenshots, but it is a different table or figure from the one that holds the EVD statement's numbers.
+- **Missing**: The EVD statement's numbers come from a table or figure (the caption or the paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but none of the screenshots shows any table or figure. A text-only screenshot (such as the quoted passage) is not a table or figure. A table or figure that is trimmed or only partly shown is NOT Missing.
+- **NA**: Neither the caption nor the paraphrased text refers to a table or figure, and the EVD statement's numbers are fully given in the quoted text, so none is needed.
 
 Run 2 inputs: every Description screenshot on the page is shown without slot labels, with the caption and the paraphrased text under the table/figure. Also asked per screenshot k: *Does SCREENSHOT k show text or a table or figure that connects to the quoted text?* Missing by rule only when the page has no screenshot at all (no model call).
 
@@ -65,9 +65,11 @@ Worked examples (text descriptions of screenshots; the screenshots to judge foll
 - Only Table 3 and its caption, cleanly cropped, all rows visible -> Correct.
 - Table 3 and its caption in the lower half of a full journal page, with paragraphs of body text above it -> Partially Correct (right table, extraneous content).
 - Table 3 with its caption plus a second table or a figure in the same screenshot -> Partially Correct (extraneous content).
-- Table 3 with the bottom rows cut off -> Partially Correct (incomplete).
-- The statement's numbers are in Table 3 but the screenshot shows Table 1 -> Incorrect.
-- The statement's numbers come from a table but the page shows only a text screenshot of the quote and no table or figure -> Missing.
+- Table 3 with the bottom rows or the caption cut off, or a figure with only some of its panels visible -> Partially Correct (trimmed), not Missing.
+- A table appears in the same screenshot as the quoted passage (below or beside the quote) -> it counts as shown: Correct if clean and complete, otherwise Partially Correct.
+- The statement's numbers are in Table 3 but the screenshots show only Table 1 -> Incorrect.
+- The caption says Table 3 holds the numbers, but the only screenshots are text passages and no table or figure appears -> Missing (not Incorrect, not NA).
+- The caption and paraphrased text mention no table or figure and every number is in the quoted text -> NA.
 
 --- ITEM TO JUDGE ---
 

@@ -1,0 +1,37 @@
+{
+ "evd": 16,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.2,
+   "Partially Correct": 0.75,
+   "Incorrect": 0.04,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.98,
+  "quote_fully_visible": 0.95,
+  "shot_connects": [
+   0.95,
+   0.3,
+   0.4
+  ],
+  "reason": "Full quote visible in abstract but surrounded by conclusion, keywords, footnotes and introduction; only first words highlighted."
+ },
+ "table": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.93,
+   "Incorrect": 0.02,
+   "Missing": 0.01,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.03,
+   0.95,
+   0.95
+  ],
+  "reason": "Figure 3 and Table 3 are both shown complete but each on a full journal page with other figures and text."
+ }
+}

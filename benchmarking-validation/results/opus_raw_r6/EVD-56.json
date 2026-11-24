@@ -1,0 +1,33 @@
+{
+ "evd": 56,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.96,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.05
+  ],
+  "reason": "Screenshot shows QUADAS-2 study aim passage, not the Q12/Q8 percentage passage."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.03,
+   "Missing": 0.3,
+   "NA": 0.67
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "No caption or paraphrase cites a table; mapping of questions to topics may need one; none shown."
+ }
+}

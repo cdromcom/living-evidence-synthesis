@@ -1,0 +1,33 @@
+{
+ "evd": 39,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.4,
+   "Partially Correct": 0.57,
+   "Incorrect": 0.03,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.98,
+  "quote_fully_visible": 0.55,
+  "shot_connects": [
+   0.98
+  ],
+  "reason": "Right passage, but screenshot reads 'was inaccurate at' where quote says 'was less accurate at'."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.96,
+   "NA": 0.0
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Only text shown; no table or figure."
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "evd": 26,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.04,
+   "Incorrect": 0.95,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.04,
+  "quote_fully_visible": 0,
+  "shot_connects": [
+   0.4
+  ],
+  "reason": "Screenshot shows a GPT-4 versus GPT-3.5 Unsubstantiated-cases sentence, not the quoted strictness sentence."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.01,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.02
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "Accuracy values come from Table 3 per paraphrase, but no table is shown."
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "evd": 9,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.01,
+   "Partially Correct": 0.6,
+   "Incorrect": 0.37,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.6,
+  "quote_fully_visible": 0.03,
+  "shot_connects": [
+   0.6
+  ],
+  "reason": "Only the tail of the quote's last sentence is visible; first two sentences missing, and Table 2 dominates."
+ },
+ "table": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.85,
+   "Incorrect": 0.03,
+   "Missing": 0.05,
+   "NA": 0.05
+  },
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Table 2 holding p=0.028 is shown but cut off after eligibility rows, with body text above."
+ }
+}

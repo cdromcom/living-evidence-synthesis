@@ -1,0 +1,33 @@
+{
+ "evd": 66,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.08,
+   "Incorrect": 0.9,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.05,
+  "quote_fully_visible": 0.02,
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "Shows the p.3 'o4-mini most cost-effective' sentence, not the quoted p.1 'o3 performed the best' sentence."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Screenshots show only text; Table 2 not shown."
+ }
+}

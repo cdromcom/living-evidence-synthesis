@@ -1,0 +1,33 @@
+{
+ "evd": 40,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.1,
+   "Partially Correct": 0.86,
+   "Incorrect": 0.04,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "quote_fully_visible": 0.15,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "First sentence shown cleanly; second quoted item, Table 1 GPT-4o 0.678, is not shown."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.96,
+   "NA": 0.0
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "Only abstract text shown; Table 1 is not displayed."
+ }
+}
