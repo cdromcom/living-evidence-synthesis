@@ -19,7 +19,7 @@ import re
 from pathlib import Path
 
 VAULT = Path("/Users/ppatel/Documents/living-synthesis")
-TOPICS = VAULT / "Review-Arena.md"
+TOPICS = VAULT / "indexes" / "Review-Arena.md"
 QUE_DIR = VAULT / "questions"
 
 # Match the QUE wikilink in a Details cell.
