@@ -26,7 +26,7 @@ Worked examples (EVD 1-3, JP's Fidelity ratings; EVD 1-3 are skipped for this ta
 
 ## Grounding: Quote
 
-Question: *Does the screenshot shown with the quote correctly show the quoted text?*
+Question: *Do the screenshots on the evidence page correctly show the quoted text?* Also asked: *Does any SCREENSHOT show the quoted passage?* and, for each screenshot k, *Does SCREENSHOT k show text or a table or figure that connects to the quoted text?* (Run 1 asked only about the screenshot in the quote slot.)
 
 ### Options
 
@@ -48,4 +48,4 @@ Question: *Does the evidence page show the correct table or figure for the EVD s
 - **Missing**: The EVD statement's numbers appear to come from a table or figure (the caption or paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but none of the screenshots shown is that table or figure.
 - **NA**: The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed.
 
-Rule (JP, 2026-11-23): if no table/figure screenshot is shown the answer is Missing and no model is called.
+Run 2 inputs: every Description screenshot on the page is shown without slot labels, with the caption and the paraphrased text under the table/figure. Also asked per screenshot k: *Does SCREENSHOT k show text or a table or figure that connects to the quoted text?* Missing by rule only when the page has no screenshot at all (no model call).

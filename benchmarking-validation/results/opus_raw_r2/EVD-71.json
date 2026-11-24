@@ -1,0 +1,46 @@
+{
+ "evd": 71,
+ "relevancy": {
+  "label": "Irrelevant",
+  "p_relevant": 0.2,
+  "reason": "CONSORT compliance trend is a meta-research finding produced with an LLM, not the LLM's accuracy."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.92,
+   "Partially Met": 0.06,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives 27.3% in 1966-1990 rising to 56.1% in 2010-2024."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.2,
+   "Incorrect": 0.74,
+   "Missing": 0,
+   "NA": 0.03
+  },
+  "p_screenshot_shows_quote": 0.05,
+  "shot_connects": [
+   0.45
+  ],
+  "reason": "Screenshot shows a discussion passage on underreporting (9.7%, 15.25%), not the quoted 27.3%-to-56.1% trend passage."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.25,
+   "Missing": 0.05,
+   "NA": 0.6
+  },
+  "shot_connects": [
+   0.45
+  ],
+  "reason": "27.3% and 56.1% are in the quote; no table needed, though screenshot is a different passage."
+ }
+}

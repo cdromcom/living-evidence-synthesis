@@ -1,0 +1,46 @@
+{
+ "evd": 38,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.78,
+  "reason": "GPT-4 Turbo ranked above humans in preference for review quality (0.558 vs 0.501); answers the human-preference question."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.93,
+   "Partially Met": 0.05,
+   "Unmet": 0.02
+  },
+  "reason": "Quote's Table 1 rows show GPT-4 Turbo rank 1 with score 0.558."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.92,
+   "Missing": 0,
+   "NA": 0.03
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "shot_connects": [
+   0.12
+  ],
+  "reason": "Screenshot shows a passage about GPT-4 P5 score distributions, not Table 1 ranks or the 0.558 score."
+ },
+ "table": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.88,
+   "Missing": 0,
+   "NA": 0.07
+  },
+  "shot_connects": [
+   0.12
+  ],
+  "reason": "The 0.558 score comes from Table 1, but the screenshot is body text about score distributions."
+ }
+}

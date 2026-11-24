@@ -18,9 +18,13 @@ with open(HERE / f"results/opus.{run}.jsonl", "w") as out:
         if d.get("fidelity"):
             x = d["fidelity"]; out.write(json.dumps({**base, "task": "fidelity", "fidelity_version": 3, "answers": {"fidelity": {"type": "choice", "choice": x["label"], "probabilities": x["probs"], "confidence": max(x["probs"].values())}}, "reason": x["reason"]}) + "\n")
         x = d["quote"]
-        out.write(json.dumps({**base, "task": "quote", "answers": {"quote_grounding": {"type": "choice", "choice": x["label"], "probabilities": x["probs"], "confidence": max(x["probs"].values())}, "screenshot_shows_quote": {"type": "noul", "noul": float(x["p_screenshot_shows_quote"])}}, "reason": x["reason"]}) + "\n")
+        qa = {"quote_grounding": {"type": "choice", "choice": x["label"], "probabilities": x["probs"], "confidence": max(x["probs"].values())}, "screenshot_shows_quote": {"type": "noul", "noul": float(x["p_screenshot_shows_quote"])}}
+        for k, v in enumerate(x.get("shot_connects") or [], 1): qa[f"shot{k}_connects_to_quote"] = {"type": "noul", "noul": float(v)}
+        out.write(json.dumps({**base, "task": "quote", "images_sent": len(x.get("shot_connects") or []), "answers": qa, "reason": x["reason"]}) + "\n")
         if d.get("table"):
-            x = d["table"]; out.write(json.dumps({**base, "task": "table", "answers": {"table_fig_grounding": {"type": "choice", "choice": x["label"], "probabilities": x["probs"], "confidence": max(x["probs"].values())}}, "reason": x["reason"]}) + "\n")
+            x = d["table"]; ta = {"table_fig_grounding": {"type": "choice", "choice": x["label"], "probabilities": x["probs"], "confidence": max(x["probs"].values())}}
+            for k, v in enumerate(x.get("shot_connects") or [], 1): ta[f"shot{k}_connects_to_quote"] = {"type": "noul", "noul": float(v)}
+            out.write(json.dumps({**base, "task": "table", "images_sent": len(x.get("shot_connects") or []), "answers": ta, "reason": x["reason"]}) + "\n")
         else:
             out.write(json.dumps({**base, "task": "table", "model": "rule", "rule_based": True, "answers": {"table_fig_grounding": {"type": "choice", "choice": "Missing", "probabilities": {"Missing": 1.0}, "confidence": 1.0}}, "reason": "Rule: no table/figure screenshot shown, so Missing."}) + "\n")
         n_ok += 1

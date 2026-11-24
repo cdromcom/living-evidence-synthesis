@@ -1,0 +1,46 @@
+{
+ "evd": 77,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.65,
+  "reason": "AI platforms handling IRB case queries is an evaluation task, though 'correctly' is loosely quantified."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.6,
+   "Partially Met": 0.32,
+   "Unmet": 0.08
+  },
+  "reason": "Quote says platforms successfully responded to all case studies; 'correctly' and '10' are not explicit."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.08,
+   "Incorrect": 0.87,
+   "Missing": 0,
+   "NA": 0.03
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "shot_connects": [
+   0.4
+  ],
+  "reason": "Screenshot shows the study-aim sentence about 10 case scenarios, not the quoted 'trio of AI platforms successfully responded' passage."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.3,
+   "Missing": 0.1,
+   "NA": 0.5
+  },
+  "shot_connects": [
+   0.4
+  ],
+  "reason": "No numbers beyond 10 case studies; results are in Supplementary Material 3, not shown."
+ }
+}

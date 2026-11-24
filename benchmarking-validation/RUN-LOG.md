@@ -27,3 +27,6 @@ request 0.27 s, 0.23 s and 0.12 s. Sheets were filled from these results; every 
 ## Pilot caveats
 
 `smoke` and `lat` used earlier prompt versions and are kept only as an audit trail of how the setup changed. Do not combine them with `r1`.
+
+## Run 2 (r2, 2026-11-24 UTC)
+All four raters, all 77 EVDs, new input rules: every Description screenshot shown without slot labels, per-screenshot "connects to the quote" questions, paraphrased text under the table/figure sent in the table task. Fidelity and relevancy prompts unchanged. Decision models: 305 records each, 0 errors. Opus 5.5: six blind subagents on a folder with neutral screenshot names (results/opus_raw_r2/). Scored against JP's original ratings, which were made under the Run 1 slot rule, so table/figure scores are not comparable with Run 1. Metrics: results/metrics-r2.json.

@@ -1,0 +1,46 @@
+{
+ "evd": 53,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.8,
+  "reason": "Specific qualitative finding on LLM reasoning errors in QUADAS-2 patient selection risk-of-bias judgments."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.9,
+   "Partially Met": 0.08,
+   "Unmet": 0.02
+  },
+  "reason": "Quote names consecutive sampling misinterpretation in case-control designs in patient selection domain; gist fully present."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.1,
+   "Partially Correct": 0.85,
+   "Incorrect": 0.03,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.35,
+  "shot_connects": [
+   0.9
+  ],
+  "reason": "Screenshot is cropped: shows only the first lines up to 'incorrect assumptions about'; rest of quote, including justified exclusions sentence, absent."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.1,
+   "Missing": 0.02,
+   "NA": 0.8
+  },
+  "shot_connects": [
+   0.85
+  ],
+  "reason": "No numbers; finding is qualitative and fully in quoted text, so no table needed."
+ }
+}

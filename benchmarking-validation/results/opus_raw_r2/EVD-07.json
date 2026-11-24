@@ -1,0 +1,46 @@
+{
+ "evd": 7,
+ "relevancy": {
+  "label": "Irrelevant",
+  "p_relevant": 0.3,
+  "reason": "Concerns LLMs generating informed consent documents, which is document generation rather than evaluating research."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.93,
+   "Partially Met": 0.05,
+   "Unmet": 0.02
+  },
+  "reason": "Quote states each LLM included all fundamental ICD elements for all case scenarios, matching the EVD."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.85,
+   "Partially Correct": 0.1,
+   "Incorrect": 0.03,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.9,
+  "shot_connects": [
+   0.9
+  ],
+  "reason": "Abstract in screenshot shows 'Each of the LLMs included all of the fundamental elements of the ICD for all case scenarios...' word for word."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.08,
+   "Missing": 0,
+   "NA": 0.85
+  },
+  "shot_connects": [
+   0.9
+  ],
+  "reason": "No numbers; the finding is fully in the quoted text and no table or figure is referenced."
+ }
+}

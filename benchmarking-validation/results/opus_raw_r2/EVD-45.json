@@ -1,0 +1,48 @@
+{
+ "evd": 45,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "Human-AI collaboration accuracy up to 96% PRISMA, 95% AMSTAR; AI-assisted appraisal performance."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.85,
+   "Partially Met": 0.13,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives 89-96% PRISMA and 91-95% AMSTAR as best accuracies; 'surpassing humans' not stated but gist present."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.25,
+   "Incorrect": 0.68,
+   "Missing": 0.02,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.1,
+  "shot_connects": [
+   0.6,
+   0.85
+  ],
+  "reason": "Abstract sentence is not in either page screenshot; page 7 text has a related but different passage (89% to 96%)."
+ },
+ "table": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.82,
+   "Partially Correct": 0.12,
+   "Incorrect": 0.04,
+   "Missing": 0.01,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.6,
+   0.85
+  ],
+  "reason": "Screenshots show Fig 2 (Best Human-AI 96%/95%) and Table 3 with human-AI accuracies, matching the caption."
+ }
+}
