@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function PromptTacticsPage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <p className="mb-3 font-mono text-[0.6875rem] uppercase tracking-wide text-muted-ink">
         Methods audit
       </p>

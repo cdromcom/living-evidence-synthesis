@@ -2,7 +2,11 @@ import { getNodesByType, getParentSource, getEvidencePatternsForEvd } from "@/li
 import { QUALITY_COLUMNS } from "@/lib/qualityColumns";
 import EvidenceQualityTable, { type QualityRow } from "@/components/EvidenceQualityTable";
 
-export const metadata = { title: "Evidence Quality — Living Evidence Synthesis" };
+export const metadata = {
+  title: "Evidence Quality — Living Evidence Synthesis",
+  description:
+    "Quality and trust signals for each evidence node, side by side.",
+};
 
 export default function EvidenceQualityPage() {
   const evds = getNodesByType("EVD");
@@ -18,7 +22,7 @@ export default function EvidenceQualityPage() {
   });
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <h1 className="text-2xl font-semibold">Evidence Quality</h1>
       <p className="mt-1 max-w-[70ch] text-sm text-muted-ink">
         One row per Evidence node ({evds.length} total). Transparency and the four

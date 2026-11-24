@@ -31,8 +31,8 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-1 sm:items-end">
-          <Link href="/about" className="transition-colors hover:text-ink">
+        <nav aria-label="Footer" className="flex flex-col gap-1 sm:items-end">
+          <Link href="/about" className="py-0.5 transition-colors hover:text-ink">
             What is a discourse graph?
           </Link>
           <Link href="/pipeline" className="transition-colors hover:text-ink">
@@ -51,9 +51,9 @@ export default function Footer() {
             className="inline-flex items-center gap-1.5 transition-colors hover:text-ink"
           >
             <GithubIcon className="h-3.5 w-3.5" />
-            Methodology source
+            Methodology source<span className="sr-only"> (GitHub, opens in a new tab)</span>
           </a>
-        </div>
+        </nav>
       </div>
     </footer>
   );

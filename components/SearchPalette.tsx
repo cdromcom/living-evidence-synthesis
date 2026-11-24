@@ -75,7 +75,10 @@ export default function SearchPalette() {
           setQuery("");
           setOpen(true);
         }}
-        className="flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-1.5 text-sm text-muted-ink transition-colors hover:border-forest hover:text-ink"
+        aria-label="Search nodes"
+        aria-haspopup="dialog"
+        aria-keyshortcuts="Control+K Meta+K"
+        className="flex min-h-8 items-center gap-2 rounded-md border border-border bg-card px-2.5 py-1.5 pointer-coarse:min-h-11 pointer-coarse:min-w-11 pointer-coarse:justify-center text-sm text-muted-ink transition-colors hover:border-forest hover:text-ink"
       >
         <Search className="h-3.5 w-3.5" aria-hidden />
         <span className="hidden sm:inline">Search</span>
@@ -86,6 +89,9 @@ export default function SearchPalette() {
 
       {open && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Search nodes"
           className="fixed inset-0 z-50 flex items-start justify-center bg-ink/40 px-4 pt-24"
           onClick={() => setOpen(false)}
         >
@@ -96,6 +102,7 @@ export default function SearchPalette() {
             <input
               ref={inputRef}
               type="search"
+              aria-label="Search nodes by title, tag, or id"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => {
@@ -108,14 +115,14 @@ export default function SearchPalette() {
             />
             <ul className="max-h-96 overflow-y-auto">
               {results.length === 0 && query.trim() && (
-                <li className="px-4 py-3 text-sm text-muted-ink">No matches.</li>
+                <li role="status" className="px-4 py-3 text-sm text-muted-ink">No matches.</li>
               )}
               {results.map((r) => (
                 <li key={r.item.id}>
                   <button
                     type="button"
                     onClick={() => goTo(r.item.id)}
-                    className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm hover:bg-muted-surface"
+                    className="flex min-h-11 w-full items-center gap-2 px-4 py-2.5 text-left text-sm hover:bg-muted-surface"
                   >
                     <NodeTypeBadge type={r.item.type} />
                     <span className="truncate">{r.item.title}</span>

@@ -141,15 +141,17 @@ export default function PromptTacticsExplorer({ rows }: { rows: PromptTactics[] 
           </span>
         </div>
 
-        <div className="mt-3 overflow-x-auto rounded-md border border-border bg-card">
+        <div className="mt-3 overflow-x-auto rounded-md border border-border bg-card" tabIndex={0} role="region" aria-label="Prompt tactics table">
           <table className="w-full min-w-[54rem] border-collapse text-sm">
+            <caption className="sr-only">Prompt tactics used by each source paper</caption>
             <thead>
               <tr className="bg-muted-surface">
-                <th className="sticky left-0 z-10 bg-muted-surface px-4 py-2 text-left font-mono text-[0.625rem] uppercase tracking-wide text-muted-ink">
+                <th scope="col" className="sticky left-0 z-10 bg-muted-surface px-4 py-2 text-left font-mono text-[0.625rem] uppercase tracking-wide text-muted-ink">
                   Source
                 </th>
                 {PROMPT_DIMENSIONS.map((d) => (
                   <th
+                    scope="col"
                     key={d.key}
                     className={`px-1.5 py-2 text-center align-bottom font-mono text-[0.625rem] font-medium uppercase leading-tight tracking-wide text-muted-ink ${
                       d.group !== "shot" && PROMPT_DIMENSIONS.find((x) => x.group === d.group)?.key === d.key

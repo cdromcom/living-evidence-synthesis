@@ -2,7 +2,11 @@ import Link from "next/link";
 import { NODE_TYPE_ORDER, getCounts } from "@/lib/data";
 import NodeTypeBadge from "@/components/NodeTypeBadge";
 
-export const metadata = { title: "About — Living Evidence Synthesis" };
+export const metadata = {
+  title: "About — Living Evidence Synthesis",
+  description:
+    "What a discourse graph is, how this corpus is built, and how to read a node.",
+};
 
 const TYPE_DESCRIPTIONS: Record<string, string> = {
   QUE: "The unknown a body of work addresses. Claims “address” a question; a question can have many competing or complementary claims answering it.",
@@ -16,7 +20,7 @@ const TYPE_DESCRIPTIONS: Record<string, string> = {
 export default function AboutPage() {
   const counts = getCounts();
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
       <h1 className="text-2xl font-semibold">About this corpus</h1>
 
       <section className="prose-node mt-6">

@@ -3,6 +3,7 @@ import { Turtle } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import AuthStatus from "./AuthStatus";
 import SearchPalette from "./SearchPalette";
+import MobileNav from "./MobileNav";
 
 const METHOD_SOURCE_URL =
   "https://github.com/oasisresearchlab/language-and-health-open-synthesis/tree/review-app-prototype/discourse-extraction";
@@ -33,22 +34,22 @@ function GithubIcon({ className }: { className?: string }) {
 
 export default function Header() {
   return (
-    <header className="border-b border-border bg-paper">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4 sm:px-6">
+    <header className="relative border-b border-border bg-paper">
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 min-[1180px]:gap-6 sm:px-6">
         <Link
           href="/"
-          className="flex shrink-0 items-center gap-2 font-heading text-base font-semibold tracking-tight"
+          className="flex min-w-0 items-center gap-2 font-heading text-base font-semibold tracking-tight"
         >
-          <Turtle className="h-5 w-5 text-forest" aria-hidden />
-          <span>Living Evidence Synthesis</span>
+          <Turtle className="h-5 w-5 shrink-0 text-forest" aria-hidden />
+          <span className="truncate">Living Evidence Synthesis</span>
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm text-muted-ink md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-5 whitespace-nowrap text-sm text-muted-ink min-[1180px]:flex">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="transition-colors hover:text-ink"
+              className="inline-flex min-h-6 items-center transition-colors hover:text-ink"
             >
               {item.label}
             </Link>
@@ -62,14 +63,15 @@ export default function Header() {
             href={METHOD_SOURCE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="View the discourse-extraction methodology source"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-ink transition-colors hover:bg-secondary-surface hover:text-ink"
+            aria-label="View the discourse-extraction methodology source (GitHub, opens in a new tab)"
+            className="hidden h-8 w-8 sm:inline-flex pointer-coarse:h-11 pointer-coarse:w-11 items-center justify-center rounded-md text-muted-ink transition-colors hover:bg-secondary-surface hover:text-ink"
           >
             <GithubIcon className="h-4 w-4" />
           </a>
 
           <AuthStatus />
           <ThemeToggle />
+          <MobileNav items={NAV} />
         </div>
       </div>
     </header>

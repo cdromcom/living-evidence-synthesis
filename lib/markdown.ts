@@ -1,6 +1,22 @@
 import { marked } from "marked";
 import katex from "katex";
 import { sanitizeRenderedHtml } from "./sanitize";
+import { openSync, readSync, closeSync } from "node:fs";
+import { join } from "node:path";
+
+/** Pixel size of a synced PNG in public/vault-img (read from its header), so the img can reserve its space. */
+function pngSize(filename: string): { width: number; height: number } | null {
+  try {
+    const fd = openSync(join(process.cwd(), "public", "vault-img", filename), "r");
+    const buf = Buffer.alloc(24);
+    readSync(fd, buf, 0, 24, 0);
+    closeSync(fd);
+    if (buf.toString("ascii", 1, 4) !== "PNG") return null;
+    return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+  } catch {
+    return null;
+  }
+}
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -321,7 +337,10 @@ function renderFigureEmbeds(html: string): string {
         `<details class="figure-embed">` +
         `<summary>${figureIconSvg()}<span>${summary}</span></summary>` +
         `<figure class="figure-embed-body">` +
-        `<img src="/vault-img/${src}" alt="${escapeHtml(alt)}" loading="lazy" />` +
+        `<img src="/vault-img/${src}" alt="${escapeHtml(alt)}" loading="lazy"${(() => {
+          const d = pngSize(filename);
+          return d ? ` width="${d.width}" height="${d.height}"` : "";
+        })()} />` +
         `<figcaption>${cite}</figcaption>` +
         `</figure></details>`
       );

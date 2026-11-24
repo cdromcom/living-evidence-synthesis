@@ -248,17 +248,18 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
         </div>
       )}
 
-      <div className="mt-4 overflow-x-auto">
+      <div className="mt-4 overflow-x-auto" tabIndex={0} role="region" aria-label="Evidence quality table">
         <table className="w-full min-w-[720px] border-collapse text-sm">
+          <caption className="sr-only">Evidence quality signals by evidence node</caption>
           <thead>
             <tr className="border-b border-border text-left text-[0.6875rem] uppercase tracking-wide text-muted-ink">
-              <th className="py-2 pr-4">
+              <th scope="col" className="py-2 pr-4">
                 <button type="button" onClick={() => toggleSort("ep")} className="inline-flex items-center hover:text-ink">
                   EP
                   <SortIndicator active={sort?.key === "ep"} direction={sort?.direction} />
                 </button>
               </th>
-              <th className="py-2 pr-4">
+              <th scope="col" className="py-2 pr-4">
                 <button
                   type="button"
                   onClick={() => toggleSort("evidence")}
@@ -269,7 +270,7 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
                 </button>
               </th>
               {showSource && (
-                <th className="py-2 pr-4">
+                <th scope="col" className="py-2 pr-4">
                   <button
                     type="button"
                     onClick={() => toggleSort("source")}
@@ -281,7 +282,7 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
                 </th>
               )}
               {columns.map((c) => (
-                <th key={c.id} className="py-2 pr-4 text-left">
+                <th scope="col" key={c.id} className="py-2 pr-4 text-left">
                   <button
                     type="button"
                     onClick={() => toggleSort(c.id)}
