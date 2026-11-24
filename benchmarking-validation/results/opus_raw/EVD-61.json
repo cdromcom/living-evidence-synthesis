@@ -1,0 +1,30 @@
+{
+ "evd": 61,
+ "relevancy": {
+  "label": "Irrelevant",
+  "p_relevant": 0.45,
+  "reason": "Concerns AI drafting IRB SOPs, closer to document generation than evaluating research; specific but borderline for the criterion."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote: none of the AI platforms recognized the need for a quorum in initial proposal review SOP."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.0,
+   "Missing": 0.02,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.96,
+  "reason": "Screenshot shows the quorum sentence word for word under a 'Table 2.' label."
+ },
+ "table": null
+}

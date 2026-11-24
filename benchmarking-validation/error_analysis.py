@@ -14,7 +14,8 @@ packets = {n: json.load(open(HERE / f"packets/EVD-{n:02d}/packet.json")) for n i
 col = {"relevancy": "jp_relevancy", "fidelity": "jp_fidelity", "quote": "jp_quote", "table": "jp_tablefig"}
 R = {p: {} for p in P}
 for p in P:
-    for r in map(json.loads, open(HERE / f"results/{p}.{RUN}.jsonl")):
+    _files = [HERE / f"results/{p}.{RUN}.jsonl"] + sorted((HERE / "results").glob(f"{p}.{RUN}fix*.jsonl"))   # fix runs override
+    for r in (x for f in _files for x in map(json.loads, open(f))):
         if r.get("error") or not r.get("answers"): continue
         A, e, t = r["answers"], r["evd"], r["task"]
         if t == "relevancy": R[p][(e, t)] = ("Relevant" if A["relevant"]["noul"] >= .5 else "Irrelevant", A["relevant"]["noul"], A)

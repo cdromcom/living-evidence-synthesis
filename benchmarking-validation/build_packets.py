@@ -74,7 +74,7 @@ def split_description(desc):
         if re.match(r"Grounding (table|figure)", body, re.I):
             mode = "tablefig"
             grounding.append(body)
-        elif body.startswith('"'):
+        elif body.startswith('"') or re.search(r'"[^"]{30,}"\s*\([^)]*\d{4}', body):  # a quotation, also when a note precedes it
             mode = "quote"
             quotes.append(body)
         else:

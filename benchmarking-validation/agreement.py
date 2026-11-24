@@ -14,7 +14,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 RES, REF = HERE / "results", HERE / "reference" / "reference.csv"
-PROVIDERS = {"perplexity": "Perplexity Decider 1.3", "liquid": "Liquid d1-ultra", "jev": "Jev"}
+PROVIDERS = {"perplexity": "Perplexity Decider 1.3", "liquid": "Liquid d1-ultra", "jev": "Jev", "opus": "Claude Opus 5.5 (blind rerun)"}
 TASKS = {"relevancy": {"Relevant", "Irrelevant"},
          "fidelity": {"Met", "Partially Met", "Unmet", "NA"},
          "quote": {"Correct", "Partially Correct", "Incorrect", "Missing", "NA"},
@@ -22,11 +22,10 @@ TASKS = {"relevancy": {"Relevant", "Irrelevant"},
 
 
 def model_labels(provider, run):
-    f = RES / f"{provider}.{run}.jsonl"
     out = {t: {} for t in TASKS}
-    if not f.exists():
-        return out
-    for r in map(json.loads, f.read_text().splitlines()):
+    files = [RES / f"{provider}.{run}.jsonl"] + sorted(RES.glob(f"{provider}.{run}fix*.jsonl"))   # fix runs override
+    recs = [r for f in files if f.exists() for r in map(json.loads, f.read_text().splitlines())]
+    for r in recs:
         if r.get("error") or not r.get("answers"):
             continue
         A, e = r["answers"], r["evd"]
@@ -73,7 +72,7 @@ def main():
         for who in ("jp",) + (() if a.no_claude else ("claude",)):
             for t in TASKS:
                 d = {int(r["EVD"]): r[f"{who}_{t}"] for r in rows if r[f"{who}_{t}"] in TASKS[t]}
-                raters[t]["JP (human expert)" if who == "jp" else "Claude Opus 5.5"] = d
+                raters[t]["JP (human expert)" if who == "jp" else "Claude Opus 5.5 (earlier ratings, main sheet)"] = d
     for t in TASKS:
         for nm in raters[t]:
             raters[t][nm] = {e: v for e, v in raters[t][nm].items() if e not in skip}
@@ -92,9 +91,9 @@ def main():
         for x, y in itertools.combinations(names, 2):
             r = [o for o in out if o["task"] == t and o["rater_a"] == x and o["rater_b"] == y][0]
             print(f"  {x:<26} vs {y:<26} {r['pct']}% (kappa {r['kappa']}), n={r['n']}")
-        if all(p in raters[t] for p in PROVIDERS.values()):
-            ev = sorted(set.intersection(*[set(raters[t][p]) for p in PROVIDERS.values()]))
-            un = sum(len({raters[t][p][e] for p in PROVIDERS.values()}) == 1 for e in ev)
+        if all(p in raters[t] for p in list(PROVIDERS.values())[:3]):
+            ev = sorted(set.intersection(*[set(raters[t][p]) for p in list(PROVIDERS.values())[:3]]))
+            un = sum(len({raters[t][p][e] for p in list(PROVIDERS.values())[:3]}) == 1 for e in ev)
             print(f"  all three models unanimous: {un}/{len(ev)}")
             out.append({"task": t, "rater_a": "all 3 models", "rater_b": "unanimous", "n": len(ev), "agree": un,
                         "pct": round(100 * un / len(ev), 1) if ev else "", "kappa": ""})

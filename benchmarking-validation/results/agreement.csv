@@ -1,85 +1,125 @@
 task,rater_a,rater_b,n,agree,pct,kappa
 relevancy,Perplexity Decider 1.3,Liquid d1-ultra,74,71,95.9,0.8
 relevancy,Perplexity Decider 1.3,Jev,74,65,87.8,0.58
+relevancy,Perplexity Decider 1.3,Claude Opus 5.5 (blind rerun),74,71,95.9,0.8
 relevancy,Perplexity Decider 1.3,JP (human expert),74,65,87.8,0.4
-relevancy,Perplexity Decider 1.3,Claude Opus 5.5,74,69,93.2,0.67
+relevancy,Perplexity Decider 1.3,"Claude Opus 5.5 (earlier ratings, main sheet)",74,69,93.2,0.67
 relevancy,Liquid d1-ultra,Perplexity Decider 1.3,74,71,95.9,0.8
 relevancy,Liquid d1-ultra,Jev,74,66,89.2,0.63
+relevancy,Liquid d1-ultra,Claude Opus 5.5 (blind rerun),74,72,97.3,0.87
 relevancy,Liquid d1-ultra,JP (human expert),74,66,89.2,0.49
-relevancy,Liquid d1-ultra,Claude Opus 5.5,74,70,94.6,0.75
+relevancy,Liquid d1-ultra,"Claude Opus 5.5 (earlier ratings, main sheet)",74,70,94.6,0.75
 relevancy,Jev,Perplexity Decider 1.3,74,65,87.8,0.58
 relevancy,Jev,Liquid d1-ultra,74,66,89.2,0.63
+relevancy,Jev,Claude Opus 5.5 (blind rerun),74,66,89.2,0.63
 relevancy,Jev,JP (human expert),74,58,78.4,0.27
-relevancy,Jev,Claude Opus 5.5,74,62,83.8,0.45
+relevancy,Jev,"Claude Opus 5.5 (earlier ratings, main sheet)",74,62,83.8,0.45
+relevancy,Claude Opus 5.5 (blind rerun),Perplexity Decider 1.3,74,71,95.9,0.8
+relevancy,Claude Opus 5.5 (blind rerun),Liquid d1-ultra,74,72,97.3,0.87
+relevancy,Claude Opus 5.5 (blind rerun),Jev,74,66,89.2,0.63
+relevancy,Claude Opus 5.5 (blind rerun),JP (human expert),74,64,86.5,0.37
+relevancy,Claude Opus 5.5 (blind rerun),"Claude Opus 5.5 (earlier ratings, main sheet)",74,70,94.6,0.75
 relevancy,JP (human expert),Perplexity Decider 1.3,74,65,87.8,0.4
 relevancy,JP (human expert),Liquid d1-ultra,74,66,89.2,0.49
 relevancy,JP (human expert),Jev,74,58,78.4,0.27
-relevancy,JP (human expert),Claude Opus 5.5,74,64,86.5,0.37
-relevancy,Claude Opus 5.5,Perplexity Decider 1.3,74,69,93.2,0.67
-relevancy,Claude Opus 5.5,Liquid d1-ultra,74,70,94.6,0.75
-relevancy,Claude Opus 5.5,Jev,74,62,83.8,0.45
-relevancy,Claude Opus 5.5,JP (human expert),74,64,86.5,0.37
+relevancy,JP (human expert),Claude Opus 5.5 (blind rerun),74,64,86.5,0.37
+relevancy,JP (human expert),"Claude Opus 5.5 (earlier ratings, main sheet)",74,64,86.5,0.37
+relevancy,"Claude Opus 5.5 (earlier ratings, main sheet)",Perplexity Decider 1.3,74,69,93.2,0.67
+relevancy,"Claude Opus 5.5 (earlier ratings, main sheet)",Liquid d1-ultra,74,70,94.6,0.75
+relevancy,"Claude Opus 5.5 (earlier ratings, main sheet)",Jev,74,62,83.8,0.45
+relevancy,"Claude Opus 5.5 (earlier ratings, main sheet)",Claude Opus 5.5 (blind rerun),74,70,94.6,0.75
+relevancy,"Claude Opus 5.5 (earlier ratings, main sheet)",JP (human expert),74,64,86.5,0.37
 relevancy,all 3 models,unanimous,74,64,86.5,
-fidelity,Perplexity Decider 1.3,Liquid d1-ultra,74,66,89.2,0.74
-fidelity,Perplexity Decider 1.3,Jev,74,64,86.5,0.69
-fidelity,Perplexity Decider 1.3,JP (human expert),74,55,74.3,0.26
-fidelity,Perplexity Decider 1.3,Claude Opus 5.5,74,51,68.9,0.42
-fidelity,Liquid d1-ultra,Perplexity Decider 1.3,74,66,89.2,0.74
-fidelity,Liquid d1-ultra,Jev,74,66,89.2,0.71
-fidelity,Liquid d1-ultra,JP (human expert),74,60,81.1,0.29
-fidelity,Liquid d1-ultra,Claude Opus 5.5,74,45,60.8,0.29
-fidelity,Jev,Perplexity Decider 1.3,74,64,86.5,0.69
-fidelity,Jev,Liquid d1-ultra,74,66,89.2,0.71
-fidelity,Jev,JP (human expert),74,56,75.7,0.17
-fidelity,Jev,Claude Opus 5.5,74,45,60.8,0.3
-fidelity,JP (human expert),Perplexity Decider 1.3,74,55,74.3,0.26
-fidelity,JP (human expert),Liquid d1-ultra,74,60,81.1,0.29
-fidelity,JP (human expert),Jev,74,56,75.7,0.17
-fidelity,JP (human expert),Claude Opus 5.5,74,39,52.7,0.1
-fidelity,Claude Opus 5.5,Perplexity Decider 1.3,74,51,68.9,0.42
-fidelity,Claude Opus 5.5,Liquid d1-ultra,74,45,60.8,0.29
-fidelity,Claude Opus 5.5,Jev,74,45,60.8,0.3
-fidelity,Claude Opus 5.5,JP (human expert),74,39,52.7,0.1
-fidelity,all 3 models,unanimous,74,61,82.4,
+fidelity,Perplexity Decider 1.3,Liquid d1-ultra,74,66,89.2,0.72
+fidelity,Perplexity Decider 1.3,Jev,74,63,85.1,0.64
+fidelity,Perplexity Decider 1.3,Claude Opus 5.5 (blind rerun),74,58,78.4,0.37
+fidelity,Perplexity Decider 1.3,JP (human expert),74,54,73.0,0.16
+fidelity,Perplexity Decider 1.3,"Claude Opus 5.5 (earlier ratings, main sheet)",74,51,68.9,0.42
+fidelity,Liquid d1-ultra,Perplexity Decider 1.3,74,66,89.2,0.72
+fidelity,Liquid d1-ultra,Jev,74,65,87.8,0.65
+fidelity,Liquid d1-ultra,Claude Opus 5.5 (blind rerun),74,66,89.2,0.59
+fidelity,Liquid d1-ultra,JP (human expert),74,59,79.7,0.17
+fidelity,Liquid d1-ultra,"Claude Opus 5.5 (earlier ratings, main sheet)",74,45,60.8,0.28
+fidelity,Jev,Perplexity Decider 1.3,74,63,85.1,0.64
+fidelity,Jev,Liquid d1-ultra,74,65,87.8,0.65
+fidelity,Jev,Claude Opus 5.5 (blind rerun),74,62,83.8,0.46
+fidelity,Jev,JP (human expert),74,56,75.7,0.13
+fidelity,Jev,"Claude Opus 5.5 (earlier ratings, main sheet)",74,46,62.2,0.32
+fidelity,Claude Opus 5.5 (blind rerun),Perplexity Decider 1.3,74,58,78.4,0.37
+fidelity,Claude Opus 5.5 (blind rerun),Liquid d1-ultra,74,66,89.2,0.59
+fidelity,Claude Opus 5.5 (blind rerun),Jev,74,62,83.8,0.46
+fidelity,Claude Opus 5.5 (blind rerun),JP (human expert),74,61,82.4,0.0
+fidelity,Claude Opus 5.5 (blind rerun),"Claude Opus 5.5 (earlier ratings, main sheet)",74,39,52.7,0.14
+fidelity,JP (human expert),Perplexity Decider 1.3,74,54,73.0,0.16
+fidelity,JP (human expert),Liquid d1-ultra,74,59,79.7,0.17
+fidelity,JP (human expert),Jev,74,56,75.7,0.13
+fidelity,JP (human expert),Claude Opus 5.5 (blind rerun),74,61,82.4,0.0
+fidelity,JP (human expert),"Claude Opus 5.5 (earlier ratings, main sheet)",74,39,52.7,0.1
+fidelity,"Claude Opus 5.5 (earlier ratings, main sheet)",Perplexity Decider 1.3,74,51,68.9,0.42
+fidelity,"Claude Opus 5.5 (earlier ratings, main sheet)",Liquid d1-ultra,74,45,60.8,0.28
+fidelity,"Claude Opus 5.5 (earlier ratings, main sheet)",Jev,74,46,62.2,0.32
+fidelity,"Claude Opus 5.5 (earlier ratings, main sheet)",Claude Opus 5.5 (blind rerun),74,39,52.7,0.14
+fidelity,"Claude Opus 5.5 (earlier ratings, main sheet)",JP (human expert),74,39,52.7,0.1
+fidelity,all 3 models,unanimous,74,60,81.1,
 quote,Perplexity Decider 1.3,Liquid d1-ultra,74,67,90.5,0.81
-quote,Perplexity Decider 1.3,Jev,74,63,85.1,0.69
-quote,Perplexity Decider 1.3,JP (human expert),74,63,85.1,0.64
-quote,Perplexity Decider 1.3,Claude Opus 5.5,74,54,73.0,0.45
+quote,Perplexity Decider 1.3,Jev,74,64,86.5,0.72
+quote,Perplexity Decider 1.3,Claude Opus 5.5 (blind rerun),74,68,91.9,0.84
+quote,Perplexity Decider 1.3,JP (human expert),74,64,86.5,0.67
+quote,Perplexity Decider 1.3,"Claude Opus 5.5 (earlier ratings, main sheet)",74,54,73.0,0.45
 quote,Liquid d1-ultra,Perplexity Decider 1.3,74,67,90.5,0.81
-quote,Liquid d1-ultra,Jev,74,64,86.5,0.74
-quote,Liquid d1-ultra,JP (human expert),74,58,78.4,0.52
-quote,Liquid d1-ultra,Claude Opus 5.5,74,53,71.6,0.46
-quote,Jev,Perplexity Decider 1.3,74,63,85.1,0.69
-quote,Jev,Liquid d1-ultra,74,64,86.5,0.74
-quote,Jev,JP (human expert),74,60,81.1,0.54
-quote,Jev,Claude Opus 5.5,74,57,77.0,0.54
-quote,JP (human expert),Perplexity Decider 1.3,74,63,85.1,0.64
-quote,JP (human expert),Liquid d1-ultra,74,58,78.4,0.52
-quote,JP (human expert),Jev,74,60,81.1,0.54
-quote,JP (human expert),Claude Opus 5.5,74,45,60.8,0.09
-quote,Claude Opus 5.5,Perplexity Decider 1.3,74,54,73.0,0.45
-quote,Claude Opus 5.5,Liquid d1-ultra,74,53,71.6,0.46
-quote,Claude Opus 5.5,Jev,74,57,77.0,0.54
-quote,Claude Opus 5.5,JP (human expert),74,45,60.8,0.09
-quote,all 3 models,unanimous,74,61,82.4,
+quote,Liquid d1-ultra,Jev,74,65,87.8,0.76
+quote,Liquid d1-ultra,Claude Opus 5.5 (blind rerun),74,67,90.5,0.82
+quote,Liquid d1-ultra,JP (human expert),74,59,79.7,0.54
+quote,Liquid d1-ultra,"Claude Opus 5.5 (earlier ratings, main sheet)",74,53,71.6,0.45
+quote,Jev,Perplexity Decider 1.3,74,64,86.5,0.72
+quote,Jev,Liquid d1-ultra,74,65,87.8,0.76
+quote,Jev,Claude Opus 5.5 (blind rerun),74,68,91.9,0.85
+quote,Jev,JP (human expert),74,61,82.4,0.59
+quote,Jev,"Claude Opus 5.5 (earlier ratings, main sheet)",74,56,75.7,0.52
+quote,Claude Opus 5.5 (blind rerun),Perplexity Decider 1.3,74,68,91.9,0.84
+quote,Claude Opus 5.5 (blind rerun),Liquid d1-ultra,74,67,90.5,0.82
+quote,Claude Opus 5.5 (blind rerun),Jev,74,68,91.9,0.85
+quote,Claude Opus 5.5 (blind rerun),JP (human expert),74,58,78.4,0.53
+quote,Claude Opus 5.5 (blind rerun),"Claude Opus 5.5 (earlier ratings, main sheet)",74,58,78.4,0.59
+quote,JP (human expert),Perplexity Decider 1.3,74,64,86.5,0.67
+quote,JP (human expert),Liquid d1-ultra,74,59,79.7,0.54
+quote,JP (human expert),Jev,74,61,82.4,0.59
+quote,JP (human expert),Claude Opus 5.5 (blind rerun),74,58,78.4,0.53
+quote,JP (human expert),"Claude Opus 5.5 (earlier ratings, main sheet)",74,45,60.8,0.09
+quote,"Claude Opus 5.5 (earlier ratings, main sheet)",Perplexity Decider 1.3,74,54,73.0,0.45
+quote,"Claude Opus 5.5 (earlier ratings, main sheet)",Liquid d1-ultra,74,53,71.6,0.45
+quote,"Claude Opus 5.5 (earlier ratings, main sheet)",Jev,74,56,75.7,0.52
+quote,"Claude Opus 5.5 (earlier ratings, main sheet)",Claude Opus 5.5 (blind rerun),74,58,78.4,0.59
+quote,"Claude Opus 5.5 (earlier ratings, main sheet)",JP (human expert),74,45,60.8,0.09
+quote,all 3 models,unanimous,74,62,83.8,
 tablefig,Perplexity Decider 1.3,Liquid d1-ultra,74,74,100.0,1.0
 tablefig,Perplexity Decider 1.3,Jev,74,74,100.0,1.0
+tablefig,Perplexity Decider 1.3,Claude Opus 5.5 (blind rerun),74,74,100.0,1.0
 tablefig,Perplexity Decider 1.3,JP (human expert),74,64,86.5,0.3
-tablefig,Perplexity Decider 1.3,Claude Opus 5.5,74,69,93.2,0.68
+tablefig,Perplexity Decider 1.3,"Claude Opus 5.5 (earlier ratings, main sheet)",74,69,93.2,0.68
 tablefig,Liquid d1-ultra,Perplexity Decider 1.3,74,74,100.0,1.0
 tablefig,Liquid d1-ultra,Jev,74,74,100.0,1.0
+tablefig,Liquid d1-ultra,Claude Opus 5.5 (blind rerun),74,74,100.0,1.0
 tablefig,Liquid d1-ultra,JP (human expert),74,64,86.5,0.3
-tablefig,Liquid d1-ultra,Claude Opus 5.5,74,69,93.2,0.68
+tablefig,Liquid d1-ultra,"Claude Opus 5.5 (earlier ratings, main sheet)",74,69,93.2,0.68
 tablefig,Jev,Perplexity Decider 1.3,74,74,100.0,1.0
 tablefig,Jev,Liquid d1-ultra,74,74,100.0,1.0
+tablefig,Jev,Claude Opus 5.5 (blind rerun),74,74,100.0,1.0
 tablefig,Jev,JP (human expert),74,64,86.5,0.3
-tablefig,Jev,Claude Opus 5.5,74,69,93.2,0.68
+tablefig,Jev,"Claude Opus 5.5 (earlier ratings, main sheet)",74,69,93.2,0.68
+tablefig,Claude Opus 5.5 (blind rerun),Perplexity Decider 1.3,74,74,100.0,1.0
+tablefig,Claude Opus 5.5 (blind rerun),Liquid d1-ultra,74,74,100.0,1.0
+tablefig,Claude Opus 5.5 (blind rerun),Jev,74,74,100.0,1.0
+tablefig,Claude Opus 5.5 (blind rerun),JP (human expert),74,64,86.5,0.3
+tablefig,Claude Opus 5.5 (blind rerun),"Claude Opus 5.5 (earlier ratings, main sheet)",74,69,93.2,0.68
 tablefig,JP (human expert),Perplexity Decider 1.3,74,64,86.5,0.3
 tablefig,JP (human expert),Liquid d1-ultra,74,64,86.5,0.3
 tablefig,JP (human expert),Jev,74,64,86.5,0.3
-tablefig,JP (human expert),Claude Opus 5.5,74,64,86.5,0.46
-tablefig,Claude Opus 5.5,Perplexity Decider 1.3,74,69,93.2,0.68
-tablefig,Claude Opus 5.5,Liquid d1-ultra,74,69,93.2,0.68
-tablefig,Claude Opus 5.5,Jev,74,69,93.2,0.68
-tablefig,Claude Opus 5.5,JP (human expert),74,64,86.5,0.46
+tablefig,JP (human expert),Claude Opus 5.5 (blind rerun),74,64,86.5,0.3
+tablefig,JP (human expert),"Claude Opus 5.5 (earlier ratings, main sheet)",74,64,86.5,0.46
+tablefig,"Claude Opus 5.5 (earlier ratings, main sheet)",Perplexity Decider 1.3,74,69,93.2,0.68
+tablefig,"Claude Opus 5.5 (earlier ratings, main sheet)",Liquid d1-ultra,74,69,93.2,0.68
+tablefig,"Claude Opus 5.5 (earlier ratings, main sheet)",Jev,74,69,93.2,0.68
+tablefig,"Claude Opus 5.5 (earlier ratings, main sheet)",Claude Opus 5.5 (blind rerun),74,69,93.2,0.68
+tablefig,"Claude Opus 5.5 (earlier ratings, main sheet)",JP (human expert),74,64,86.5,0.46
 tablefig,all 3 models,unanimous,74,74,100.0,

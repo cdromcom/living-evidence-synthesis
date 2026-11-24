@@ -1,0 +1,30 @@
+{
+ "evd": 55,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.72,
+  "reason": "LLM performance identifying ethical issues (placebo suitability, risk mitigation) in research proposals; a research-evaluation task."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.9,
+   "Partially Met": 0.08,
+   "Unmet": 0.02
+  },
+  "reason": "Quote states LLMs performed suboptimally on placebo arm suitability and risk mitigation with a single prompt."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.93,
+   "Missing": 0.02,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "reason": "Screenshot shows study aims passage ('we designed the present study...'), not the quoted placebo-arm sentence."
+ },
+ "table": null
+}

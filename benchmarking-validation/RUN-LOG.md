@@ -12,6 +12,9 @@ Measured in `r1`: input tokens 186,595 (Perplexity), 193,546 (Liquid, reported c
 request 0.27 s, 0.23 s and 0.12 s. Sheets were filled from these results; every label in the three sheets matches
 `results/<provider>.r1.jsonl` (checked programmatically, 0 mismatches).
 
+| `r1fix` | 2026-11-24 | EVD 21 and 38, decision models | after the quote-parser fix | 24 requests, 0 errors. Overrides `r1` for those EVDs. |
+| `opus r1` | 2026-11-24 | EVD 1-77, Claude Opus 5.5, six subagent batches + one rerun of EVD 21 and 38 | same inputs and rubrics, blind folder | 535,604 subagent tokens, 578 s of subagent time. See `prompts/OPUS_RATER_INSTRUCTIONS.md`. |
+
 ## Decisions that shaped the inputs (all by JP unless noted)
 
 * 2026-11-23: models get only what is in the model-only sheets (quotes, captions, screenshots, review questions). No PDFs, paper text or web.
