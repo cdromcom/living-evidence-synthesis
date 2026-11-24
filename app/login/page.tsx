@@ -64,7 +64,7 @@ function LoginForm() {
 
   if (!supabaseConfigured) {
     return (
-      <main className="mx-auto max-w-md px-4 py-16 sm:px-6">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-md px-4 py-16 sm:px-6">
         <h1 className="text-2xl font-semibold">Sign in</h1>
         <p className="mt-3 text-sm text-muted-ink">
           The review backend isn&apos;t configured on this deployment yet
@@ -76,7 +76,7 @@ function LoginForm() {
   }
 
   return (
-    <main className="mx-auto max-w-md px-4 py-16 sm:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-md px-4 py-16 sm:px-6">
       <h1 className="text-2xl font-semibold">Sign in to review</h1>
       <p className="mt-2 text-sm text-muted-ink">
         Any email works; we&apos;ll send a one-time code, no password needed.

@@ -1,7 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-export const metadata = { title: "Narratives — Living Evidence Synthesis" };
+export const metadata = {
+  title: "Narratives — Living Evidence Synthesis",
+  description:
+    "Narrative walk-throughs of the evidence on LLMs for scientific peer review.",
+};
 
 function N({ id, children }: { id: string; children: ReactNode }) {
   return (
@@ -16,7 +20,7 @@ function N({ id, children }: { id: string; children: ReactNode }) {
 
 export default function NarrativesPage() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
       <h1 className="text-2xl font-semibold">Narratives</h1>
       <p className="mt-1 text-sm text-muted-ink">
         Linear readings composed from the graph. Entry into this corpus is

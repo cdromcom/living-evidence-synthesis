@@ -1,6 +1,10 @@
 import ContributeForm from "@/components/ContributeForm";
 
-export const metadata = { title: "Contribute — Living Evidence Synthesis" };
+export const metadata = {
+  title: "Contribute — Living Evidence Synthesis",
+  description:
+    "Draft a new node and open a pull request on GitHub, or review existing nodes.",
+};
 
 const STEPS = [
   {
@@ -78,7 +82,7 @@ const STEPS = [
 
 export default function ContributePage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
       <header className="space-y-4">
         <h1 className="text-balance font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
           Add a node to the graph
@@ -129,6 +133,6 @@ export default function ContributePage() {
         </a>{" "}
         repository, branch <code>review-app-prototype</code>.
       </p>
-    </div>
+    </main>
   );
 }

@@ -4,7 +4,11 @@ import Link from "next/link";
 import { renderMarkdown } from "@/lib/markdown";
 import NodeArticle from "@/components/NodeArticle";
 
-export const metadata = { title: "Data pipeline — Living Evidence Synthesis" };
+export const metadata = {
+  title: "Data pipeline — Living Evidence Synthesis",
+  description:
+    "How papers become nodes: extraction, curation, review and publication of the evidence graph.",
+};
 
 /** The Welcome.md section from its "## 🛠️" heading up to the next "## " heading. */
 function loadPipelineSection(): { title: string; body: string } | null {
@@ -28,7 +32,7 @@ function loadPipelineSection(): { title: string; body: string } | null {
 export default function PipelinePage() {
   const section = loadPipelineSection();
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
       <h1 className="text-2xl font-semibold">
         {section?.title ?? "The data pipeline"}
       </h1>

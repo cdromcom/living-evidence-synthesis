@@ -16,7 +16,7 @@ export default function HomePage() {
   ];
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <section className="max-w-3xl">
         <p className="mono mb-3 text-xs uppercase tracking-wide text-muted-ink">
           Living evidence synthesis

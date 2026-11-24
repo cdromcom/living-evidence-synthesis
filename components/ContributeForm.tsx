@@ -144,7 +144,7 @@ export default function ContributeForm() {
           rel="noopener noreferrer"
           className="mt-4 inline-flex items-center gap-2 rounded-lg bg-forest px-4 py-2 text-sm font-medium text-paper"
         >
-          Open pull request on GitHub ↗
+          Open pull request on GitHub<span className="sr-only"> (opens in a new tab)</span> ↗
         </a>
         <button
           type="button"
@@ -159,7 +159,7 @@ export default function ContributeForm() {
             setScreenshot("");
             resetEdges();
           }}
-          className="ml-3 text-sm text-muted-ink hover:text-ink"
+          className="ml-3 min-h-8 text-sm text-muted-ink underline hover:text-ink"
         >
           Submit another
         </button>
@@ -176,21 +176,23 @@ export default function ContributeForm() {
         </span>
       </div>
 
-      <div className="mt-4">
-        <label className="block text-xs font-semibold uppercase tracking-wide text-muted-ink">
+      <fieldset className="mt-4">
+        <legend className="block text-xs font-semibold uppercase tracking-wide text-muted-ink">
           Type
-        </label>
+        </legend>
         <div className="mt-1.5 flex flex-wrap gap-1.5">
           {TYPE_OPTIONS.map((opt) => (
             <button
               key={opt.value}
               type="button"
               title={opt.hint}
+              aria-pressed={type === opt.value}
+              aria-label={`${opt.label}: ${opt.hint}`}
               onClick={() => {
                 setType(opt.value);
                 resetEdges();
               }}
-              className="rounded-full border px-1"
+              className="min-h-8 rounded-full border px-1 pointer-coarse:min-h-11 pointer-coarse:px-2"
               style={{ borderColor: type === opt.value ? "transparent" : undefined }}
             >
               <span
@@ -201,7 +203,7 @@ export default function ContributeForm() {
             </button>
           ))}
         </div>
-      </div>
+      </fieldset>
 
       <div className="mt-4">
         <label className="block text-xs font-semibold uppercase tracking-wide text-muted-ink" htmlFor="title">
@@ -218,7 +220,7 @@ export default function ContributeForm() {
           className="mt-1.5 w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
         />
         {duplicates.length > 0 && (
-          <div className="mt-1.5 rounded-md border border-verdict-edit/40 bg-accent-wash p-2 text-xs">
+          <div role="status" className="mt-1.5 rounded-md border border-verdict-edit/40 bg-accent-wash p-2 text-xs">
             <p className="font-medium">Possibly already covered:</p>
             <ul className="mt-1 space-y-0.5">
               {duplicates.map((d) => (
@@ -252,11 +254,12 @@ export default function ContributeForm() {
       <div className="mt-4">
         <label className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-muted-ink" htmlFor="body">
           <span>Body (50-250 words)</span>
-          <span className={wordsOk ? "text-forest" : "text-muted-ink"}>{words} words</span>
+          <span id="body-count" className={wordsOk ? "text-forest" : "text-muted-ink"}>{words} words</span>
         </label>
         <textarea
           id="body"
           required
+          aria-describedby="body-count"
           rows={6}
           value={body}
           onChange={(e) => setBody(e.target.value)}
@@ -300,11 +303,15 @@ export default function ContributeForm() {
               </label>
               <input
                 id="page"
+                aria-describedby="page-help"
                 value={page}
                 onChange={(e) => setPage(e.target.value)}
-                placeholder="e.g. 5 (the number printed on the page, not the PDF page position)"
+                placeholder="e.g. 5"
                 className="mt-1.5 w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
               />
+              <p id="page-help" className="mt-1 text-xs text-muted-ink">
+                The number printed on the page, not the PDF page position.
+              </p>
             </div>
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wide text-muted-ink" htmlFor="figureRef">
@@ -324,12 +331,13 @@ export default function ContributeForm() {
               </label>
               <input
                 id="screenshot"
+                aria-describedby="screenshot-help"
                 value={screenshot}
                 onChange={(e) => setScreenshot(e.target.value)}
                 placeholder="e.g. smithExample2026-evd-p5-1.png"
                 className="mt-1.5 w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
               />
-              <p className="mt-1 text-xs text-muted-ink">
+              <p id="screenshot-help" className="mt-1 text-xs text-muted-ink">
                 Add the image file to the pull request under vault/**/Attachments/.
               </p>
             </div>
@@ -421,7 +429,7 @@ export default function ContributeForm() {
           </button>
         </div>
         {!submitting && (!wordsOk || !title.trim() || !requiredEdgesOk()) && (
-          <ul className="mt-2 space-y-0.5 text-xs text-muted-ink">
+          <ul aria-live="polite" className="mt-2 space-y-0.5 text-xs text-muted-ink">
             {!title.trim() && <li>• Title is required.</li>}
             {!wordsOk && (
               <li>
@@ -432,7 +440,7 @@ export default function ContributeForm() {
           </ul>
         )}
       </div>
-      {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-xs text-destructive">{error}</p>}
     </form>
   );
 }

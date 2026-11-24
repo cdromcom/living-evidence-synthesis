@@ -5,8 +5,10 @@ import "./globals.css";
 import "katex/dist/katex.min.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Living Evidence Synthesis — LLMs for Scientific Peer Review",
   description:
     "A discourse-graph explorer synthesizing evidence on whether LLMs can be used for peer review and evidence appraisal of scientific literature.",
@@ -36,6 +38,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH_THEME_SCRIPT }} />
       </head>
       <body className="min-h-full flex flex-col bg-paper text-ink font-body antialiased">
+        <a
+          href="#main-content"
+          className="sr-only z-[100] rounded-md bg-forest px-4 py-2 text-sm font-medium text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Skip to main content
+        </a>
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />
