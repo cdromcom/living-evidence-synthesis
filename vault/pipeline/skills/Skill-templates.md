@@ -19,11 +19,11 @@ This file holds the per-step detail for **Steps 4 through 10** of the discourse-
 
 ## Step 4: Write the Node Files
 
-All five node types use the templates in the `templates/` folder (EP nodes follow the inline template in [Step 11](#step-11-cross-paper-synthesis-evidencepatterns--review-arena); QUE/CLM/EVD/CVT use the per-type files in `templates/`). Each section below specifies the body structure and required slots.
+All five node types use the templates in the `pipeline/templates/` folder (EP nodes follow the inline template in [Step 11](#step-11-cross-paper-synthesis-evidencepatterns--review-arena); QUE/CLM/EVD/CVT use the per-type files in `pipeline/templates/`). Each section below specifies the body structure and required slots.
 
 ### EVD template body
 
-The EVD body has four required content blocks plus three reverse-link sections. The `## Methods Context` slots use a structured schema (study design + tools + DV/IV; procedure; participants + sample-size flow). The `## Other Notes` block carries an EVD-specific TRIPOD-LLM **item 17 (Performance)** mini-table; the *paper-level* TRIPOD-LLM Methods + Results compliance table lives in the source file (`source/@<citekey>.md`) and is linked from each EVD — see [Step 4b](#step-4b-paper-level-tripod-llm-table-in-the-source-file) below.
+The EVD body has four required content blocks plus three reverse-link sections. The `## Methods Context` slots use a structured schema (study design + tools + DV/IV; procedure; participants + sample-size flow). The `## Other Notes` block carries an EVD-specific TRIPOD-LLM **item 17 (Performance)** mini-table; the *paper-level* TRIPOD-LLM Methods + Results compliance table lives in the source file (`sysrev/source/@<citekey>.md`) and is linked from each EVD — see [Step 4b](#step-4b-paper-level-tripod-llm-table-in-the-source-file) below.
 
 ```
 ---
@@ -92,11 +92,11 @@ nodeID: <UUIDv7 — generate with `python3 -c "import uuid; print(uuid.uuid7())"
 
 **Why this schema (vs. free-form prose):** the four-line What/How/Who frame forces parity across papers — a reader skimming any EVD knows exactly where to find the design, the procedure, and the sample-size flow. The verbatim quote that follows each prose block grounds it in the source PDF (and gets a coloured screenshot via `quote_pipeline.py` — light red for EVD).
 
-**Screenshot embeds are inserted by the pipeline, not by hand.** Author the prose + verbatim quote; run `python3 scripts/quote_pipeline.py evd` and the pipeline appends `> ![[<citekey>-evd-p<N>-<idx>.png]]` under each quote with the canonical naming. Across EVDs of the same paper, idx values are globally unique per (citekey, page) so screenshots never collide.
+**Screenshot embeds are inserted by the pipeline, not by hand.** Author the prose + verbatim quote; run `python3 pipeline/scripts/quote_pipeline.py evd` and the pipeline appends `> ![[<citekey>-evd-p<N>-<idx>.png]]` under each quote with the canonical naming. Across EVDs of the same paper, idx values are globally unique per (citekey, page) so screenshots never collide.
 
 #### Step 6: Structured abstract on the source page
 
-Each `source/@<citekey>.md` carries a plain-language **structured abstract** at the top, synthesized from that paper's discourse-graph nodes. It is the entry point for any human reader: someone landing on the source page should be able to learn what the paper asks, what it does, what it finds, what it claims, and what limits those claims, without leaving the page.
+Each `sysrev/source/@<citekey>.md` carries a plain-language **structured abstract** at the top, synthesized from that paper's discourse-graph nodes. It is the entry point for any human reader: someone landing on the source page should be able to learn what the paper asks, what it does, what it finds, what it claims, and what limits those claims, without leaving the page.
 
 **Synthesize from already-extracted nodes — never re-read the PDF.** The EVDs (Description quote + Methods Context What/How/Who + Other-Notes item-17 mini-table), the CLM(s) the paper supports, the CVTs that apply to its EVDs, and the QUE that frames it together contain everything the abstract needs.
 
@@ -155,7 +155,7 @@ Each `source/@<citekey>.md` carries a plain-language **structured abstract** at 
 - Do **not** modify the frontmatter or the TRIPOD-LLM table when inserting the abstract.
 - Wikilinks are mandatory: every EVD bullet, the QUE in Question, the CLM(s) in Claim, and every CVT in Caveats must link.
 
-The Sarol source file (`source/@sarolAssessingCitationIntegrity2024.md`) is the canonical example — match its tone and depth.
+The Sarol source file (`sysrev/source/@sarolAssessingCitationIntegrity2024.md`) is the canonical example — match its tone and depth.
 
 ##### Step 6.b: Results visualization (Mermaid)
 
@@ -232,13 +232,13 @@ End with a `**Bottom line.**` paragraph: 2–3 sentences synthesizing the practi
 - ○ Addressed = defensible only when the design is rigorous on this domain.
 - Don't mistake reporting transparency for methodological quality. A paper can be ● (fully reported) across the TRIPOD-LLM table and still ● (high risk) on construct validity in this one.
 
-The louAAAR10 (`@louAAAR10AssessingAIs2025.md`) and woelfle (`@woelfleBenchmarkingHumanAICollaboration2024.md`) source files are the canonical examples for Step 6.b and the current (2026-08) Step 6.c format — **but note they live in `living-synthesis-site`'s own `vault/source/` copy, not this vault** (see the Skill.md build-output note: the two have diverged, and this vault's own `source/*.md` files haven't been re-extracted to the new format yet). Read one there in full before writing a new file in this vault to the same standard.
+The louAAAR10 (`@louAAAR10AssessingAIs2025.md`) and woelfle (`@woelfleBenchmarkingHumanAICollaboration2024.md`) source files are the canonical examples for Step 6.b and the current (2026-08) Step 6.c format — **but note they live in `living-synthesis-site`'s own `vault/source/` copy, not this vault** (see the Skill.md build-output note: the two have diverged, and this vault's own `sysrev/source/*.md` files haven't been re-extracted to the new format yet). Read one there in full before writing a new file in this vault to the same standard.
 
 ---
 
 #### Step 4b: Paper-level TRIPOD-LLM table in the source file
 
-Each `source/@<citekey>.md` carries a paper-level TRIPOD-LLM reporting summary covering the Title/Abstract/Background/Objectives items (1–4), every Methods item (5a–15), and every Results item (16a–18) — **42 rows total, as of 2026-08** (previously 37; items 1–4 were added). **Four columns**:
+Each `sysrev/source/@<citekey>.md` carries a paper-level TRIPOD-LLM reporting summary covering the Title/Abstract/Background/Objectives items (1–4), every Methods item (5a–15), and every Results item (16a–18) — **42 rows total, as of 2026-08** (previously 37; items 1–4 were added). **Four columns**:
 
 | # | Item | RATING | Quote |
 | --- | --- | :---: | --- |
@@ -487,7 +487,7 @@ When in doubt, prefer the shortest phrasing that (a) names the capability dimens
 
 ## Step 5: Build Reverse Links
 
-After all node files are written, run `scripts/reverse_links.py` to populate the graph's inbound sections (auto-derived, idempotent on re-run):
+After all node files are written, run `pipeline/scripts/reverse_links.py` to populate the graph's inbound sections (auto-derived, idempotent on re-run):
 
 - For every EVD: scan all CVTs whose `appliesTo` references the EVD → fill its `## Caveats` section. Scan all CLMs whose `Papers` block contains the EVD's citekey → fill its `## Supports Claim(s)` section.
 - For every CLM: scan all EVDs whose source citekey is in the CLM's `Papers` block → fill its `### Supporting Evidence` section.
@@ -508,7 +508,7 @@ After reverse links are built, audit the vault against the discourse-graph attac
 | 3 | Every EVD appears in ≥ 1 CLM's `### Supporting Evidence` | Evidence that supports no claim is unused; either link it to a CLM or write the missing CLM. |
 | 4 | Every EVD appears in ≥ 1 QUE's nested structure | Symmetric to rule 3 at the question level. |
 
-Audit script outline (in Python — full version at `scripts/verbatim_audit.py` for verbatim audit; the attachment-rule audit below is short enough to run inline or as part of the same script):
+Audit script outline (in Python — full version at `pipeline/scripts/verbatim_audit.py` for verbatim audit; the attachment-rule audit below is short enough to run inline or as part of the same script):
 
 ```python
 import re
@@ -546,11 +546,11 @@ The audit should run at the very end of the extraction pipeline. If any violatio
 
 ## Step 6: Verbatim Audit
 
-Run `scripts/verbatim_audit.py` to compare every quote against its source PDF and flag paraphrases. For each `> "..."` line in any node:
+Run `pipeline/scripts/verbatim_audit.py` to compare every quote against its source PDF and flag paraphrases. For each `> "..."` line in any node:
 
 1. Normalize both the quote text and the cited page's text (NFKD + alnum-only).
 2. If the quote isn't a substring of any page's normalized text, find the page with the longest matching prefix and report `matched X of Y chars`.
-3. Save the report as `paraphrase_audit_<date>.tsv` in `reference/`.
+3. Save the report as `paraphrase_audit_<date>.tsv` in `sysrev/reference/`.
 
 Severity tiers:
 - **0% match (Tier 1)**: fabricated or wrong page citation. Fix or annotate.
@@ -566,7 +566,7 @@ When fixing a paraphrase, regenerate the screenshot (the new quote text will lik
 
 ## Step 7: Readability Formatting
 
-Run `scripts/readability_pass.py` to apply mechanical formatting after all content is in place:
+Run `pipeline/scripts/readability_pass.py` to apply mechanical formatting after all content is in place:
 
 1. **Blank line after every `##` and `###` heading** before body content.
 2. **`>` separator inside blockquotes** between any non-empty `> ...` line and a following `> ![[...]]` screenshot embed.
@@ -597,7 +597,7 @@ Nodes flagged in the verbatim audit at <50% match (Tier 1+2) should stay at `dra
 After Steps 5–8 pass, regenerate the central index:
 
 ```bash
-python3 scripts/build_dgraph.py
+python3 pipeline/scripts/build_dgraph.py
 ```
 
 `DGRAPH.md` is the human-readable entry point to the entire vault. It nests every QUE → CLM → EVD → CVT path, with each node as a clickable Obsidian wikilink. The script:

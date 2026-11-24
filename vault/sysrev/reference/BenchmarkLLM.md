@@ -372,7 +372,7 @@ The Python block in [Section 8 — Computation](#8-computation) computes all thr
 | 1–5  | `<calibration>` | Calibration               |      ☐       |      ☐       |
 | 6–10 | `<independent>` | Independent               |      ☐       |      ☐       |
 
-> Run `python3 misc/scripts/sample_benchmark.py --seed 42` to fill these tables (script not yet created — see [Section 8](#8-computation)).
+> Run `python3 pipeline/misc/scripts/sample_benchmark.py --seed 42` to fill these tables (script not yet created — see [Section 8](#8-computation)).
 
 ---
 
@@ -380,7 +380,7 @@ The Python block in [Section 8 — Computation](#8-computation) computes all thr
 
 ### 8a. Sampling script (run once before rating starts)
 
-Save as `misc/scripts/sample_benchmark.py`:
+Save as `pipeline/misc/scripts/sample_benchmark.py`:
 
 ```python
 """Stratified random sample of discourse-graph nodes for the BenchmarkLLM workflow."""

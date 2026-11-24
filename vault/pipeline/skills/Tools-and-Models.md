@@ -4,7 +4,7 @@ page_type: index/methods
 created: 2026-11-20
 updated: 2026-11-20
 generated_by: human-collaborated authoring
-prompt_source: "misc/prompts/2026-11-11-evd-validation-gsheet-prompt-log.md (prompts 51-52)"
+prompt_source: "pipeline/misc/prompts/2026-11-11-evd-validation-gsheet-prompt-log.md (prompts 51-52)"
 vault: living-synthesis
 human_verified: no
 ---
@@ -17,13 +17,13 @@ What this vault has used to read PDFs and write its nodes, and what it will use 
 
 ## Used so far (as of 2026-11-20)
 
-Checked against `Skill.md`, `Skill-references.md`, `Skill-templates.md`, `History.md`, `Log.md`, `scripts/` and `misc/scripts/`.
+Checked against `Skill.md`, `Skill-references.md`, `Skill-templates.md`, `History.md`, `Log.md`, `pipeline/scripts/` and `pipeline/misc/scripts/`.
 
 ### PDF tools
 
 | Tool | What it did | Where it is recorded |
 |---|---|---|
-| **PyMuPDF** (`fitz`), v1.27.2.3 | Main tool: word coordinates for locating quotes, 250 DPI quote crops with colour highlights, and text for the audit and keyword scripts | `Skill.md` Step 3b; `History.md` (install); `scripts/quote_pipeline.py`, `extract_quotes.py`, `cvt_screenshot_pipeline.py`, `verbatim_audit.py`; `misc/scripts/keyword_freq_check.py`, `pangram_check.py` |
+| **PyMuPDF** (`fitz`), v1.27.2.3 | Main tool: word coordinates for locating quotes, 250 DPI quote crops with colour highlights, and text for the audit and keyword scripts | `Skill.md` Step 3b; `History.md` (install); `pipeline/scripts/quote_pipeline.py`, `extract_quotes.py`, `cvt_screenshot_pipeline.py`, `verbatim_audit.py`; `pipeline/misc/scripts/keyword_freq_check.py`, `pangram_check.py` |
 | **poppler `pdftoppm`** | Full-page figure and table screenshots (`-r 250 -png`) and page renders for reading tables | `Skill.md` Steps 3a and 6b; installed with Homebrew in the April session (`Log.md`) |
 | **poppler `pdftotext`** | Text extraction (`-layout`) for quote and number checks. `-bbox-layout` was used for word coordinates at first, then dropped because it crashed on some PDFs | `Skill.md`; `History.md` |
 | Ghostscript, ImageMagick, `pdfimages` | **Not used.** Only probed in April; none were installed | `Log.md` |
@@ -40,8 +40,8 @@ Checked against `Skill.md`, `Skill-references.md`, `Skill-templates.md`, `Histor
 |---|---|---|
 | Claude Sonnet 4.6 and Claude Opus 4.7 (Claude Code) | Built the vault in April 2026: first extraction of QUE, EVD, CLM and CVT nodes, EVD rewrites, subagent batches | `Log.md`; `History.md` (`author: Claude (Opus 4.7 / Sonnet 4.6)`; the April notes were "Claude 4.7, per user recollection, only partly sure") |
 | "Claude Sonnet 5" | Recorded as the curation model on 27 source pages | `curatedWithModel` in source frontmatter; convention in `Skill-references.md` |
-| Claude Opus 5.5 (Claude Code) | All work from 2026-11-11 to 2026-11-20: EVD drafts, PDF number audit, Fidelity/Grounding grading, version comparisons | AI Prompt Log tab in the GSheet; `misc/prompts/2026-11-11-evd-validation-gsheet-prompt-log.md` |
-| Pangram `pangram-4` (API) | AI-writing detection on the source PDFs (text only) | `misc/scripts/pangram_check.py` |
+| Claude Opus 5.5 (Claude Code) | All work from 2026-11-11 to 2026-11-20: EVD drafts, PDF number audit, Fidelity/Grounding grading, version comparisons | AI Prompt Log tab in the GSheet; `pipeline/misc/prompts/2026-11-11-evd-validation-gsheet-prompt-log.md` |
+| Pangram `pangram-4` (API) | AI-writing detection on the source PDFs (text only) | `pipeline/misc/scripts/pangram_check.py` |
 
 Model names such as GPT-4 or o3-mini that appear in these files are models studied by the papers, not tools used here.
 
@@ -69,7 +69,7 @@ Open: Anthropic and OpenAI API keys are not set (Google dropped: no key availabl
 ## Planned toolchain (decided by JP, 2026-11-20)
 
 > [!todo] Not yet in `Skill.md`
-> `Skill.md` and the related Skill files still describe the old tools. Updating them is on the TODO list (`misc/evd-validation/TODO.md`, item 0e).
+> `Skill.md` and the related Skill files still describe the old tools. Updating them is on the TODO list (`pipeline/misc/evd-validation/TODO.md`, item 0e).
 
 1. **OCR and extraction: two OCR models must agree (JP, 2026-11-20).** Run **Chandra OCR 2** and **OXR-1.0** on every PDF and accept text, numbers and table cells only where they agree. For born-digital PDFs, the PDF's own text layer (PyMuPDF) is a third vote that settles most disagreements for free. Where the two still disagree, or on scanned pages with no text layer, the page image decides (Claude Opus 5.5 or a human looks at it). Add a third local OCR model (Granite-Docling) only if the pilot shows many unresolved disagreements.
    - **Chandra OCR 2** (Datalab, US; base model to check).
@@ -78,7 +78,7 @@ Open: Anthropic and OpenAI API keys are not set (Google dropped: no key availabl
 2. **Fallbacks.** If those tools fail on a paper, use other tools.
 3. **Highlights and screenshots.** Once the OCR models agree on the text and tables, use **PyMuPDF** and **`pdftoppm`** to locate the agreed quotes, highlight them and take the screenshots. The screenshot pipeline needs exact word coordinates, which these two provide for born-digital PDFs.
 4. **Writing the nodes.** Claude Opus 5.5 works from the extractions and the Skill files to write the EVDs and fill in the SRC, QUE, EVD, CLM, CVT and other discourse-graph `.md` files.
-5. **Quality signals (optional, later).** JP may run **Pangram 4.1** to detect AI-generated text and images and plagiarism, alone or with Claude's help. It could become part of a later-stage Quality Signals check pipeline. The existing `misc/scripts/pangram_check.py` calls `pangram-4` and checks text only; it would need updating for 4.1 and images.
+5. **Quality signals (optional, later).** JP may run **Pangram 4.1** to detect AI-generated text and images and plagiarism, alone or with Claude's help. It could become part of a later-stage Quality Signals check pipeline. The existing `pipeline/misc/scripts/pangram_check.py` calls `pangram-4` and checks text only; it would need updating for 4.1 and images.
 
 ### Model ensembles: 2-3 open models for each closed model (JP, 2026-11-20)
 
@@ -127,7 +127,7 @@ The aim is a pipeline that is highly accurate, cost-effective, scales to larger 
 
 1. **Measure before scaling.** Build a fixed test set from what is already validated: JP's EVD judgments, the 147 PDF-audit corrections and the version comparisons. Set a pass bar per stage (for example every quote verbatim, every number correct, agreement with JP of kappa 0.6 or higher) and re-run the test set whenever a model, prompt or Skill changes.
 2. **Use the PDF text layer as a vote, and escalate.** Born-digital text from PyMuPDF is already exact. Run one OCR model by default and the others only on tables, scanned pages, or where the first disagrees with the text layer. This saves roughly two thirds of the OCR compute.
-3. **Make it a fixed pipeline, not an improvised agent session.** One script: OCR, agreement check, crops and screenshots, draft, automatic checks, human review. Claude and the other models work only at the drafting and judging steps. Save each step's output so a failed batch can resume. Put paths in a config file (the current scripts hard-code `/Users/ppatel/...`, are duplicated in `scripts/` and `misc/scripts/`, and one imports a missing `quote_pipeline_v3`).
+3. **Make it a fixed pipeline, not an improvised agent session.** One script: OCR, agreement check, crops and screenshots, draft, automatic checks, human review. Claude and the other models work only at the drafting and judging steps. Save each step's output so a failed batch can resume. Put paths in a config file (the current scripts hard-code `/Users/ppatel/...`, are duplicated in `pipeline/scripts/` and `pipeline/misc/scripts/`, and one imports a missing `quote_pipeline_v3`).
 4. **Record everything needed to rerun it.** For each run, a manifest of model names, versions and dates, the weight hashes of open models, every prompt (in version control), temperature and other settings, and the raw outputs. Run the open models in a container.
 5. **Keep every model step swappable.** The ensemble table above, plus the benchmark, lets an open model replace a closed one without changing the pipeline.
 6. **Check cross-country use:** each model's licence, where each API stores data (for example GDPR), the copyright rules for published screenshots, and a small test on non-English papers.
@@ -165,7 +165,7 @@ Steps to build, grouped by the criterion they serve. To analyse next week with T
 
 ### Stable and reliable
 
-- **One package with one command** (for example `lives-pipeline run --config config.yaml`), replacing the duplicated `scripts/` and `misc/scripts/`. No hard-coded paths; everything in the config file.
+- **One package with one command** (for example `lives-pipeline run --config config.yaml`), replacing the duplicated `pipeline/scripts/` and `pipeline/misc/scripts/`. No hard-coded paths; everything in the config file.
 - **Resumable steps.** Each step writes `runs/<run_id>/<paper>/<step>.json` and is skipped if that file exists, so a failed run resumes where it stopped.
 - **Fail per paper, not per run.** Retries with back-off, timeouts and rate-limit handling; one bad PDF is logged and skipped, not fatal.
 - **Validate every model output** against a JSON schema; reject and retry, or flag for review.
@@ -217,9 +217,9 @@ Pushing these to the GitHub repository needs JP's approval.
 
 - **GROBID, for reference checks in the Quality Signals pipeline.** GROBID parses each PDF's reference list (and header and section structure) into structured TEI XML. That is what a reference check needs: matching citations to references, resolving DOIs, and flagging missing, wrong or retracted references. It is not needed for OCR or node writing, because source metadata comes from Zotero.
 - **EmbeddingGemma 4, for deduplication, screening and linking** (JP, 2026-11-20; Roam notes record EmbeddingGemma 2, 740M parameters, text, image and code embeddings; confirm the version). Local, free and open. Planned uses:
-  - finding duplicate or near-duplicate EVDs, CLMs and other nodes (it would replace the keyword-overlap score in `misc/scripts/find_redundancies.py`);
+  - finding duplicate or near-duplicate EVDs, CLMs and other nodes (it would replace the keyword-overlap score in `pipeline/misc/scripts/find_redundancies.py`);
   - screening papers found by the AI-assisted search;
   - suggesting links between nodes (EVD to CLM, EVD to QUE, EVD to EVD).
 
 > [!tip] Embeddings and Claude Opus 5.5 do different jobs
-> Use EmbeddingGemma to **find candidates** (fast, free, scores every pair) and Claude Opus 5.5 to **decide** on each candidate (whether two EVDs are really the same finding, and which relation applies: supports, opposes, consistent with). A human confirms merges and links. The April redundancy audit (`misc/redundancy_audit_2026-04-27.md`) can serve as a first test set for comparing the two.
+> Use EmbeddingGemma to **find candidates** (fast, free, scores every pair) and Claude Opus 5.5 to **decide** on each candidate (whether two EVDs are really the same finding, and which relation applies: supports, opposes, consistent with). A human confirms merges and links. The April redundancy audit (`pipeline/misc/redundancy_audit_2026-04-27.md`) can serve as a first test set for comparing the two.

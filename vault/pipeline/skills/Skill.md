@@ -14,26 +14,26 @@ For one paper, in order:
 2. **Identify all nodes** with atomicity (one finding per EVD, one limitation per CVT, etc.).
 3. **Render screenshots** — full-page figure/table images via `pdftoppm`, plus quote-region crops via PyMuPDF (`fitz`). The pipeline automatically inserts canonical `{citekey}-{kind}-p{N}-{idx}.png` embeds with per-kind colour highlights — do NOT hand-write quote-region embed lines.
 4. **Write the node files** following the templates below. EVD Methods Context uses the **What/How/Who schema** (`Study design` + `Method type` + `Tools` + DV/IV; `Procedure`; `Models / participants` + `Sample-size flow`) — see [Step 4](#step-4-write-the-node-files) and [Step 4b](#step-4b-paper-level-tripod-llm-table-in-the-source-file).
-5. **Write the source-file TRIPOD-LLM table** in `source/@<citekey>.md` — 42 rows (Title/Abstract/Background/Objectives items 1–4 + Methods 5a–15 + Results 16a–18), with a **`Quote` column** (verbatim quote + `§/page` locator from the PDF, not a paraphrase — `Not reported`/`Not applicable` when the paper genuinely doesn't say it) alongside the ✅/⚠️/❌/➖ compliance icon per row. Item 17 (Performance) is per-EVD; the source-file row reads `` `per-EVD` `` as a code span.
-6. **Synthesize the source-page top matter** at the top of `source/@<citekey>.md`, above the TRIPOD-LLM table. Three sections, all derived from the paper's discourse-graph nodes (no PDF re-read): (a) **structured abstract** with a Mermaid Results visualization (the Methods flowchart was dropped 2026-11-24), and (b) **Quality Appraisal** — a 10–11-row `Domain/Rating/Quote` table: the 5 methodological-quality domains plus one row per chip-backed Rigor signal (Data Leakage, Baseline Adequacy, Train/Dev/Test Hygiene, Multiple-Comparisons Correction, Human-Baseline Comparability, and Statistical Power only when the paper reports one), each rating grounded in a verbatim quote the same way as the TRIPOD-LLM table. See [Step 6 details](#step-6-structured-abstract-on-the-source-page).
-7. **Run the screenshot pipeline:** `python3 scripts/quote_pipeline.py` — inserts canonical embeds for every quote that doesn't already have one. Use `--force` only when regenerating existing embeds in place.
-8. **Build reverse links** with `scripts/reverse_links.py` (idempotent).
-9. **Audit** — graph-attachment invariants (`scripts/` outline below) and verbatim-quote audit (`scripts/verbatim_audit.py`).
-10. **Apply readability formatting** with `scripts/readability_pass.py`.
+5. **Write the source-file TRIPOD-LLM table** in `sysrev/source/@<citekey>.md` — 42 rows (Title/Abstract/Background/Objectives items 1–4 + Methods 5a–15 + Results 16a–18), with a **`Quote` column** (verbatim quote + `§/page` locator from the PDF, not a paraphrase — `Not reported`/`Not applicable` when the paper genuinely doesn't say it) alongside the ✅/⚠️/❌/➖ compliance icon per row. Item 17 (Performance) is per-EVD; the source-file row reads `` `per-EVD` `` as a code span.
+6. **Synthesize the source-page top matter** at the top of `sysrev/source/@<citekey>.md`, above the TRIPOD-LLM table. Three sections, all derived from the paper's discourse-graph nodes (no PDF re-read): (a) **structured abstract** with a Mermaid Results visualization (the Methods flowchart was dropped 2026-11-24), and (b) **Quality Appraisal** — a 10–11-row `Domain/Rating/Quote` table: the 5 methodological-quality domains plus one row per chip-backed Rigor signal (Data Leakage, Baseline Adequacy, Train/Dev/Test Hygiene, Multiple-Comparisons Correction, Human-Baseline Comparability, and Statistical Power only when the paper reports one), each rating grounded in a verbatim quote the same way as the TRIPOD-LLM table. See [Step 6 details](#step-6-structured-abstract-on-the-source-page).
+7. **Run the screenshot pipeline:** `python3 pipeline/scripts/quote_pipeline.py` — inserts canonical embeds for every quote that doesn't already have one. Use `--force` only when regenerating existing embeds in place.
+8. **Build reverse links** with `pipeline/scripts/reverse_links.py` (idempotent).
+9. **Audit** — graph-attachment invariants (`pipeline/scripts/` outline below) and verbatim-quote audit (`pipeline/scripts/verbatim_audit.py`).
+10. **Apply readability formatting** with `pipeline/scripts/readability_pass.py`.
 11. **Promote NodeFormality** for structurally-complete nodes; leave audit-flagged nodes as `draft`.
-12. **Regenerate DGRAPH.md** with `scripts/build_dgraph.py`.
+12. **Regenerate DGRAPH.md** with `pipeline/scripts/build_dgraph.py`.
 13. **Save the originating prompt** to `prompts/<date>-<short-name>.md` for provenance and **log all changes in `History.md`**.
 
 ### Downstream synthesis & rendering (after the per-paper extraction loop)
 
 These layers sit on top of the discourse graph and are produced by combining EVDs/CLMs/CVTs across multiple papers. They get refreshed in batches, not per-paper. See [Step 11](#step-11-cross-paper-synthesis-evidencepatterns--review-arena) and following.
 
-14. **Cross-paper EvidencePatterns** — extract `EP` nodes into `evd-patterns/` whenever ≥2 papers' EVDs converge on the same regularity. Each EP node bundles supporting EVDs across papers and surfaces a pattern statement that no single paper makes alone.
-15. **Cross-link EPs ↔ QUEs** — run `misc/scripts/link_eps_to_ques.py` to add a `### Cross-paper patterns` section to each QUE listing the EPs that draw on its source paper.
-16. **TL;DR callouts on source pages** — run `misc/scripts/add_tldr_callouts.py` to insert a `> [!success] TL;DR` block above every source page's structured abstract, derived from the page's existing `**Bottom line.**` paragraph.
+14. **Cross-paper EvidencePatterns** — extract `EP` nodes into `sysrev/evd-patterns/` whenever ≥2 papers' EVDs converge on the same regularity. Each EP node bundles supporting EVDs across papers and surfaces a pattern statement that no single paper makes alone.
+15. **Cross-link EPs ↔ QUEs** — run `pipeline/misc/scripts/link_eps_to_ques.py` to add a `### Cross-paper patterns` section to each QUE listing the EPs that draw on its source paper.
+16. **TL;DR callouts on source pages** — run `pipeline/misc/scripts/add_tldr_callouts.py` to insert a `> [!success] TL;DR` block above every source page's structured abstract, derived from the page's existing `**Bottom line.**` paragraph.
 17. **Review-Arena leaderboard** — `Review-Arena.md` is the public-facing head-to-head view of the corpus. **AI does not fill in the cells** (Subtask + Winner + scores + Effect size). Cells are filled by humans working from the EVDs/EPs the human-AI dyad has already extracted; see [governance principle 16](#key-principles).
-18. **EVD-count refresh on Review-Arena** — run `misc/scripts/count_evds_per_subtask.py` to refresh the `→ N EVDs` caption next to each Subtask name (auto-derived from each linked QUE's nested CLM → EVD list).
-19. **Public render** — `cd public && .venv/bin/mkdocs build -f mkdocs.yml --clean` rebuilds the static MkDocs Material site. Live-preview with `mkdocs serve`. The four hooks in `public/hooks/` transform Obsidian-specific markdown (`![[*.base]]`, `[[wikilinks]]`, table-sort markers, rigor badges) into web-compatible HTML.
+18. **EVD-count refresh on Review-Arena** — run `pipeline/misc/scripts/count_evds_per_subtask.py` to refresh the `→ N EVDs` caption next to each Subtask name (auto-derived from each linked QUE's nested CLM → EVD list).
+19. **Public render** — `cd pipeline/public && .venv/bin/mkdocs build -f mkdocs.yml --clean` rebuilds the static MkDocs Material site. Live-preview with `mkdocs serve`. The four hooks in `pipeline/public/hooks/` transform Obsidian-specific markdown (`![[*.base]]`, `[[wikilinks]]`, table-sort markers, rigor badges) into web-compatible HTML.
 20. **ESS Bases refresh** — when new tag namespaces are added (e.g., a new `cvt/mechanism/<name>`), update `ESS.base` formulas + add views as needed; run a build to confirm the new tabs render.
 
 ### Scaling — multiple papers in one batch
@@ -44,40 +44,45 @@ When processing many papers (e.g., a backfill or a corpus-wide schema change), p
   - Read PDFs in 10-page chunks (`Read` with `pages: "1-10"`, then `"11-20"`, …) — never request the whole PDF at once for >20-page papers.
   - One `Write` call per file. Don't read-back to verify formatting; trust the diff.
   - Skip exploratory tool calls (extra `ls`, `grep`, `cat`) once you have what you need.
-- **Watchdog kills are recoverable.** Failed agents often completed most of the work before stalling. Before re-launching, check the artifact state (`grep -l "updated: <today>" evidence/EVD*-@<citekey>.md`, `wc -l source/@<citekey>.md`) and re-launch only what's missing.
+- **Watchdog kills are recoverable.** Failed agents often completed most of the work before stalling. Before re-launching, check the artifact state (`grep -l "updated: <today>" sysrev/evidence/EVD*-@<citekey>.md`, `wc -l sysrev/source/@<citekey>.md`) and re-launch only what's missing.
 - **Pipeline run is the parent's job, not the subagent's.** Subagents must NOT insert quote-region embed lines and must NOT run the screenshot pipeline — they only write markdown. The parent runs `quote_pipeline.py` once after all subagents return so naming is globally consistent.
-- **Each subagent prompt should reference a shared brief** (e.g., `misc/prompts/<date>-<task>.md`) rather than duplicating the schema 26 times in the parent's message.
+- **Each subagent prompt should reference a shared brief** (e.g., `pipeline/misc/prompts/<date>-<task>.md`) rather than duplicating the schema 26 times in the parent's message.
 
 ## Vault structure
 
 ```
 living-synthesis/
 ├── Welcome.md                      # Vault overview for novices (the only file at the root)
-├── skills/                         # Skill.md, Skill-references.md, Skill-synthesis.md, Skill-templates.md, Tools-and-Models.md
-├── indexes/                        # dgraph.md (central nested index), DGRAPH-TABLE.md, Review-Arena.md, ESS - Demo.md, ESS.base, EvidencePattern Nodes.base
-├── logs/                           # History.md (chronological change log, newest first), Log.md (session-log scratch)
-├── legal/                          # LICENSE-CONTENT.md
-├── reference/                      # BenchmarkLLM.md, Class-Imbalance-Text-Classification.md, paraphrase_audit_<date>.tsv (latest verbatim-audit report)
-├── claims/                         # CLM nodes (one .md per claim)
-├── caveats/                        # CVT nodes (one .md per limitation)
-├── evd-patterns/                   # EP nodes (cross-paper EvidencePatterns; ≥2 EVDs each)
-├── evidence/
-│   ├── EVD - ... .md               # EVD nodes (one .md per finding)
-│   └── Attachments/                # All PNGs (figure/table pages + quote crops)
-├── questions/                      # QUE nodes (one .md per research question)
-├── source/
-│   ├── @<citekey>.md               # Bibliographic source notes (one per paper)
-│   └── pdfs/                       # Original PDFs
-├── templates/                      # T - <NodeType>.md templates
-├── misc/
-│   ├── prompts/                    # Originating user prompts for generated docs
-│   └── scripts/                    # Helper scripts (see scripts/README.md)
-├── public/                         # Sidecar: public-facing MkDocs Material site
-│   ├── mkdocs.yml                  # MkDocs config (docs_dir → vault root, site_dir → outside vault)
-│   ├── hooks/                      # Build-time Python hooks (rigor_badges, leaderboard, bases, wikilinks)
-│   ├── assets/                     # CSS + JS (extra.css, badges.css, leaderboard.css, sortable.js)
-│   ├── README.md                   # Public-render quickstart
-│   └── .venv/                      # Python venv (mkdocs + plugins; not committed)
+├── sysrev/                         # The systematic-review content
+│   ├── questions/                  # QUE nodes (one .md per research question; attachments/ holds its crops)
+│   ├── claims/                     # CLM nodes (one .md per claim)
+│   ├── evidence/
+│   │   ├── EVD - ... .md           # EVD nodes (one .md per finding)
+│   │   └── Attachments/            # All PNGs (figure/table pages + quote crops)
+│   ├── caveats/                    # CVT nodes (one .md per limitation)
+│   ├── evd-patterns/               # EP nodes (cross-paper EvidencePatterns; ≥2 EVDs each)
+│   ├── source/
+│   │   ├── @<citekey>.md           # Bibliographic source notes (one per paper)
+│   │   └── pdfs/                   # Original PDFs (+ Archive - superseded versions)
+│   ├── picost/                     # PICOST notes (local vault only)
+│   ├── indexes/                    # dgraph.md (central nested index), DGRAPH-TABLE.md, Review-Arena.md, ESS - Demo.md, ESS.base, EvidencePattern Nodes.base
+│   ├── reference/                  # BenchmarkLLM.md, Class-Imbalance-Text-Classification.md, paraphrase_audit_<date>.tsv (latest verbatim-audit report)
+│   └── Clippings/                  # Web clipper inbox (local vault only)
+├── pipeline/                       # Meta content about how the review is built and published
+│   ├── skills/                     # Skill.md, Skill-references.md, Skill-synthesis.md, Skill-templates.md, Tools-and-Models.md
+│   ├── templates/                  # T - <NodeType>.md templates
+│   ├── scripts/                    # Helper scripts (see pipeline/scripts/README.md)
+│   ├── logs/                       # History.md (chronological change log, newest first), Log.md (session-log scratch)
+│   ├── legal/                      # LICENSE-CONTENT.md
+│   ├── misc/
+│   │   ├── prompts/                # Originating user prompts for generated docs
+│   │   └── scripts/                # Helper scripts (older copy)
+│   └── public/                     # Sidecar: public-facing MkDocs Material site (local vault only)
+│       ├── mkdocs.yml              # MkDocs config (docs_dir → vault root, site_dir → outside vault)
+│       ├── hooks/                  # Build-time Python hooks (rigor_badges, leaderboard, bases, wikilinks)
+│       ├── assets/                 # CSS + JS (extra.css, badges.css, leaderboard.css, sortable.js)
+│       ├── README.md               # Public-render quickstart
+│       └── .venv/                  # Python venv (mkdocs + plugins; not committed)
 └── .obsidian/
     └── snippets/
         └── wide-tables.css         # Obsidian-only CSS snippet for full-width leaderboard pages
@@ -93,12 +98,12 @@ living-synthesis/
 > what you'd expect: `living-synthesis-site`'s 27 source pages now have the
 > newer quote-grounded TRIPOD-LLM (42-item) and Quality Appraisal (10–11-row)
 > tables described in this Skill system, applied only to its own copy; **the
-> canonical vault's own `source/*.md` files here still have the old 37-row
+> canonical vault's own `sysrev/source/*.md` files here still have the old 37-row
 > TRIPOD table and 5-row Critical Appraisal table** — this Skill system's
 > format was updated to match what shipped, but the ~184 actual node files in
 > this vault (source/EVD/CLM/CVT/QUE) have not themselves been re-extracted
 > to match yet. Porting that back is a real, separate task, not done as part
-> of this doc update. The MkDocs pipeline (Step 12/13/14 below, `public/`
+> of this doc update. The MkDocs pipeline (Step 12/13/14 below, `pipeline/public/`
 > folder) is left undisturbed and still works for the vault's own visual
 > treatment — just don't assume it's what actually produces
 > `living-synthesis-site` anymore.
@@ -138,7 +143,7 @@ living-synthesis/
 
 > **New Integrity check (2026-08): AI Writing Check, with two triggers.**
 > Run an independent AI-text-detection recheck of a source's own prose via
-> Pangram (`misc/scripts/pangram_check.py` in this vault — Python,
+> Pangram (`pipeline/misc/scripts/pangram_check.py` in this vault — Python,
 > `pip install pangram-sdk`, needs a `PANGRAM_API_KEY` env var, uses
 > `predict_files()` — the bulk multipart-upload endpoint, one request for
 > every PDF in the batch, not one request per file — against the source
@@ -188,7 +193,7 @@ living-synthesis/
 > ballpark, exact ranges don't line up). The full per-source audit — which
 > repos have real raw data vs. just code, which require live LLM calls, and
 > which repo URLs weren't captured precisely enough during extraction to
-> even locate — is saved as `misc/reproducibility_triage_*.md` in this
+> even locate — is saved as `pipeline/misc/reproducibility_triage_*.md` in this
 > vault. Treat that file as a standing to-do list, not a one-off report:
 > Huntington-Klein & Murray 2024 and Wu et al. 2024 both have real,
 > already-confirmed-present raw data and are worth finishing (the former
@@ -249,7 +254,7 @@ living-synthesis/
 > the Quality Appraisal table, citing the tool + dataset URL + score +
 > (for GitHub/GitLab) a one-line note about the +2 top-up. As of 2026-08,
 > 14 of 27 sources have a checkable dataset — full breakdown in
-> `misc/data_quality_2026-08.md`. Two of those sources' dataset URLs
+> `pipeline/misc/data_quality_2026-08.md`. Two of those sources' dataset URLs
 > (Wrightson 2025's OSF link, Zhang 2024's GitHub link) plus one HuggingFace
 > link (Son 2025) weren't in the PDF's extracted text layer at all — found
 > via each PDF's embedded hyperlink annotations (PyMuPDF `page.get_links()`
@@ -304,7 +309,7 @@ The user will provide:
 6. **Check the whole table before "best".** Before any EVD says best, beat, matched or highest, read every row of the table and list every comparator that could change the claim (other models, human baselines, combined methods).
 7. **QA gate (Step 6c), deferred.** The Liquid d1-ultra check of each PICOST record is on hold (JP, 2026-11-24); until it is switched on, the check is Opus 5.5 on every record flagged by a parser disagreement plus a 10% random sample, and a human spot check. Remind JP to revisit it after the first batch of new papers.
 8. **Write the EVD from the PICOST cells.** The EVD statement may contain only numbers that appear in its PICOST record, so the statement, the PICOST row and the screenshot agree.
-9. **Work from the most recent report (JP, 2026-11-24).** Prefer the published journal or proceedings version over a preprint, and the latest preprint version over earlier ones; keep the older PDF as `Archive - ...` in `source/pdfs/Archive - superseded versions/`, and cite the printed page of the version used. Do not silently move an existing page to a newer version: list it for JP (TODO 0d).
+9. **Work from the most recent report (JP, 2026-11-24).** Prefer the published journal or proceedings version over a preprint, and the latest preprint version over earlier ones; keep the older PDF as `Archive - ...` in `sysrev/source/pdfs/Archive - superseded versions/`, and cite the printed page of the version used. Do not silently move an existing page to a newer version: list it for JP (TODO 0d).
 10. **Fix page-number errors when you find them (JP, 2026-11-24).** Whenever any step turns up a wrong page citation (printed versus PDF page, a quote that is not on the cited page), correct the citation in both the local vault and the repository copy, add the old and new value to the page's `PDF check` note, and log it; do not wait for a separate audit. Cite the version of the paper the page was built from (a version question goes to TODO 0d).
 11. **Batch API for unattended runs, on every provider.** Run bulk steps (reading, PICOST extraction, drafting, verification) through each provider's Batch API: Anthropic Message Batches (50% off, stacks with prompt caching), OpenAI Batch (about half price; GPT-6.2 Sol $1 in and $5 out per million tokens, from third-party pages, to confirm on OpenAI's pricing page) and Gemini Batch if a Google key is ever available. Put the Skill instructions first and unchanged in every request so they are cached. Use the standard API only for pilots and when someone is waiting. Decision models such as d1-ultra have no batch mode and cost too little to matter. Log tokens, cost and time per paper and step.
 
@@ -312,7 +317,7 @@ Question rules for the QUEs you propose here are in Step 2 and in `Skill-templat
 
 ### Cost controls (v2, 2026-11-24)
 
-Follow these every run so JP does not have to remember them. Budget, per-batch caps and the ledger are in `misc/evd-validation/2026-11-24-ingest-budget-and-batches.md`.
+Follow these every run so JP does not have to remember them. Budget, per-batch caps and the ledger are in `pipeline/misc/evd-validation/2026-11-24-ingest-budget-and-batches.md`.
 
 1. **Work five papers at a time** with the human spot checks A and B in that file; stop a batch that costs more than 1.5 times its estimate or that shows an error at a check.
 2. **Batch APIs for everything nobody is waiting on** (reading, extraction, writing, verification); standard API only for the pilot and the first batch.
@@ -413,12 +418,12 @@ For every direct quote embedded in an EVD, CLM, CVT, or QUE body, also produce a
 | QUE  | light blue  | `(0.72, 0.86, 1.00)` |
 | CVT  | light gold  | `(1.00, 0.90, 0.55)` |
 
-**Primary path: `scripts/quote_pipeline.py`** (PyMuPDF / `fitz`). It walks every node folder, locates each `> "..." (Author, Year, p. N)` quote, renders the crop with the colour highlight, and inserts/updates the `> ![[...]]` embed in place.
+**Primary path: `pipeline/scripts/quote_pipeline.py`** (PyMuPDF / `fitz`). It walks every node folder, locates each `> "..." (Author, Year, p. N)` quote, renders the crop with the colour highlight, and inserts/updates the `> ![[...]]` embed in place.
 
 ```bash
-python3 scripts/quote_pipeline.py            # process all four kinds, skip existing
-python3 scripts/quote_pipeline.py evd cvt    # restrict to specific kinds
-python3 scripts/quote_pipeline.py --force    # regenerate existing screenshots in place
+python3 pipeline/scripts/quote_pipeline.py            # process all four kinds, skip existing
+python3 pipeline/scripts/quote_pipeline.py evd cvt    # restrict to specific kinds
+python3 pipeline/scripts/quote_pipeline.py --force    # regenerate existing screenshots in place
 ```
 
 Output filenames: `<citekey>-{evd|clm|cvt|que}-p<N>-<idx>.png`. With `--force` the script preserves the existing filename so embeds in markdown don't have to be rewritten.
@@ -463,11 +468,11 @@ EP node format is in **`Skill-synthesis.md` Step 11** (different shape — patte
 
 ## Step 5: Build Reverse Links → see `Skill-templates.md`
 
-Run `misc/scripts/reverse_links.py` to populate inbound sections (`## Caveats`, `## Supports Claim(s)`, `### Supporting Evidence`, `### Supporting Claims (with their evidence)`). Idempotent. **Step 5b**: audit the four discourse-graph attachment invariants (CVT→EVDs only, every CLM in some QUE, every EVD in some CLM, every EVD in some QUE). Inline audit script in `Skill-templates.md`.
+Run `pipeline/misc/scripts/reverse_links.py` to populate inbound sections (`## Caveats`, `## Supports Claim(s)`, `### Supporting Evidence`, `### Supporting Claims (with their evidence)`). Idempotent. **Step 5b**: audit the four discourse-graph attachment invariants (CVT→EVDs only, every CLM in some QUE, every EVD in some CLM, every EVD in some QUE). Inline audit script in `Skill-templates.md`.
 
 ## Step 6: Verbatim Audit → see `Skill-templates.md`
 
-`misc/scripts/verbatim_audit.py` compares every quote against its source PDF (NFKD + alnum normalization). Saves report as `reference/paraphrase_audit_<date>.tsv`. Severity tiers (Tier 1: 0% match, Tier 2: <50%, Tier 3: 50–90%, Tier 4: >90%) and known false positives (en-dash mangling) are documented in `Skill-templates.md`.
+`pipeline/misc/scripts/verbatim_audit.py` compares every quote against its source PDF (NFKD + alnum normalization). Saves report as `sysrev/reference/paraphrase_audit_<date>.tsv`. Severity tiers (Tier 1: 0% match, Tier 2: <50%, Tier 3: 50–90%, Tier 4: >90%) and known false positives (en-dash mangling) are documented in `Skill-templates.md`.
 
 > [!warning] The verbatim audit checks quotes only, not numbers
 > Added 2026-11-17. A PDF audit of all 77 EVD pages found 147 suspected errors in numbers, tables, page references and attributions, while every quote had passed this step. Quotes passing is not evidence that a page is correct. Run Step 6b as well.
@@ -480,11 +485,11 @@ Every number outside a verbatim quote (Other Notes tables and bullets, Methods C
 2. **Read tables from the image, not only from extracted text.** `pdftotext -layout` interleaves two-column pages and loses column alignment. Render the page (`pdftoppm -r 150 -f N -l N -png`) and read it. Check the rows above and below, and the columns either side, of every value you copy.
 3. **Check the whole table before writing "best", "beat" or "matched".** Include every comparator that could change the claim (other models, human baselines, combined methods), with its value.
 4. **If the paper's text and its own table disagree, use the table and add a note** (`- PDF check <date>: ...`). Do not edit the quote.
-5. **Use the exact PDF version the page was built from**, and store it in `source/pdfs/` (with supplements). Record the version (e.g. arXiv v3, date) on the source page.
+5. **Use the exact PDF version the page was built from**, and store it in `sysrev/source/pdfs/` (with supplements). Record the version (e.g. arXiv v3, date) on the source page.
 6. **Second pass by a fresh-context checker** that sees only the page and the PDF, never the drafter's reasoning. It verifies each number and proposes exact `{old, new}` fixes; only verified fixes are applied.
 7. **Propagate fixes downstream.** A corrected page must also be corrected in every copy that uses it (the GSheet, PICOST, and the GitHub vault that builds the LIVES site), or the pending copies must be logged.
 
-Full record of the 2026-11-17 audit, the seven error types it found and why they happened: `misc/evd-validation/2026-11-17-pdf-number-audit.md`.
+Full record of the 2026-11-17 audit, the seven error types it found and why they happened: `pipeline/misc/evd-validation/2026-11-17-pdf-number-audit.md`.
 
 ## Step 6c: QA gate with a decision model (v2, deferred 2026-11-24)
 
@@ -492,7 +497,7 @@ After extraction and before drafting EVDs, send every PICOST record to the **Liq
 
 ## Step 7: Readability Formatting → see `Skill-templates.md`
 
-`misc/scripts/readability_pass.py` applies four mechanical formatting passes (blank line after headings, `>` separator before screenshot embeds, blank line between consecutive list-item wikilinks, collapse triple-newlines).
+`pipeline/misc/scripts/readability_pass.py` applies four mechanical formatting passes (blank line after headings, `>` separator before screenshot embeds, blank line between consecutive list-item wikilinks, collapse triple-newlines).
 
 ## Step 8: Promote NodeFormality → see `Skill-templates.md`
 
@@ -500,19 +505,19 @@ Promote `draft → ReadyForInternal` once Steps 5–7 and the Step 6b numeric au
 
 ## Step 9: Regenerate DGRAPH.md → see `Skill-templates.md`
 
-`python3 misc/scripts/build_dgraph.py` rebuilds the central nested QUE → CLM → EVD → CVT index. Re-run after every paper, every CLM/QUE structural change, every CVT `appliesTo` edit.
+`python3 pipeline/misc/scripts/build_dgraph.py` rebuilds the central nested QUE → CLM → EVD → CVT index. Re-run after every paper, every CLM/QUE structural change, every CVT `appliesTo` edit.
 
 ## Step 10: Save the originating prompt + log to History.md → see `Skill-templates.md`
 
-Save the user's request (verbatim) to `misc/prompts/<YYYY-MM-DD>-<short-slug>.md`. Append a phase entry to `History.md` describing every concrete change (files added/edited/deleted, PNG counts, scripts used, follow-ups).
+Save the user's request (verbatim) to `pipeline/misc/prompts/<YYYY-MM-DD>-<short-slug>.md`. Append a phase entry to `History.md` describing every concrete change (files added/edited/deleted, PNG counts, scripts used, follow-ups).
 
 ## Step 11: Cross-paper synthesis (EvidencePatterns + Review Arena) → see `Skill-synthesis.md`
 
-The discourse-graph layer (QUE/CLM/EVD/CVT) is paper-internal. The synthesis layer is **cross-paper**: EvidencePatterns (`evd-patterns/`) bundle ≥2 EVDs from independent papers that converge on the same regularity. **Review-Arena.md** is the public-facing leaderboard (subtask × AI/Human/Hybrid). **Cell-level synthesis on Review-Arena is human-only** — AI extracts and proposes, humans commit. See `Skill-synthesis.md` Step 11 for the EP node format, the Review-Arena schema, the Subtask verb-first naming convention, and the merge-map proposal pattern.
+The discourse-graph layer (QUE/CLM/EVD/CVT) is paper-internal. The synthesis layer is **cross-paper**: EvidencePatterns (`sysrev/evd-patterns/`) bundle ≥2 EVDs from independent papers that converge on the same regularity. **Review-Arena.md** is the public-facing leaderboard (subtask × AI/Human/Hybrid). **Cell-level synthesis on Review-Arena is human-only** — AI extracts and proposes, humans commit. See `Skill-synthesis.md` Step 11 for the EP node format, the Review-Arena schema, the Subtask verb-first naming convention, and the merge-map proposal pattern.
 
 ## Step 12: Public render via MkDocs Material → see `Skill-synthesis.md`
 
-`cd public && .venv/bin/mkdocs build -f mkdocs.yml --clean` builds the static MkDocs Material site at `../../living-synthesis-site/`. Four hooks (`rigor_badges.py`, `leaderboard.py`, `bases.py`, `wikilinks.py`) transform Obsidian-specific markdown into web HTML. Hook execution order, asset list (extra.css, badges.css, leaderboard.css, sortable.js), and `exclude_docs:` rules in `Skill-synthesis.md` Step 12.
+`cd pipeline/public && .venv/bin/mkdocs build -f mkdocs.yml --clean` builds the static MkDocs Material site at `../../../living-synthesis-site/`. Four hooks (`rigor_badges.py`, `leaderboard.py`, `bases.py`, `wikilinks.py`) transform Obsidian-specific markdown into web HTML. Hook execution order, asset list (extra.css, badges.css, leaderboard.css, sortable.js), and `exclude_docs:` rules in `Skill-synthesis.md` Step 12.
 
 ## Step 13: Obsidian visual treatments → see `Skill-synthesis.md`
 
@@ -520,7 +525,7 @@ The `.obsidian/snippets/wide-tables.css` snippet, activated via `cssclasses: [wi
 
 ## Step 14: ESS Bases (live filterable index) → see `Skill-synthesis.md`
 
-`indexes/ESS.base` defines an Obsidian Bases view with 6 formulas + 23 views (covering node-type, TRIPOD-LLM compliance buckets, critical-appraisal high-risk, 5C dimensions, CVT methodologist filters, drafts, and the original cards view). When new tag namespaces appear, add a categorical formula + a view in `ESS.base`. The `bases.py` MkDocs hook surfaces the same views as Material tabs on the public site.
+`sysrev/indexes/ESS.base` defines an Obsidian Bases view with 6 formulas + 23 views (covering node-type, TRIPOD-LLM compliance buckets, critical-appraisal high-risk, 5C dimensions, CVT methodologist filters, drafts, and the original cards view). When new tag namespaces appear, add a categorical formula + a view in `ESS.base`. The `bases.py` MkDocs hook surfaces the same views as Material tabs on the public site.
 
 ---
 

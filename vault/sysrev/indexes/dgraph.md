@@ -21,7 +21,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
 
 > [!info] How this page is generated
 >
-> Auto-generated from each QUE's `### Supporting Claims (with their evidence)` section, each CLM's `### Supporting Evidence`, and each CVT's `appliesTo`. Re-run `scripts/build_dgraph.py` to regenerate after any structural change to the vault.
+> Auto-generated from each QUE's `### Supporting Claims (with their evidence)` section, each CLM's `### Supporting Evidence`, and each CVT's `appliesTo`. Re-run `pipeline/scripts/build_dgraph.py` to regenerate after any structural change to the vault.
 
 > [!tip] How to read this page
 >

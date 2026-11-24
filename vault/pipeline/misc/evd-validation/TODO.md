@@ -79,11 +79,11 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   JMIR blocked the browser save twice; NEJM AI is paywalled. Drop the PDFs anywhere and tell Claude.  
   *Source: prompt 47*
 - [ ] **0c. Decide on EVD page fixes from the version comparison**  
-  Where: misc/evd-validation/2026-11-20-pdf-version-diff/README.md  
+  Where: pipeline/misc/evd-validation/2026-11-20-pdf-version-diff/README.md  
   Only Huntington-Klein changed substantively, but errors that are in both versions were found. Biggest: the Shahid RankGPT title is wrong (13.79% keeps RankGPT; removing it gives 10.34%). Also decide whether pages should cite the published versions.  
   *Source: prompt 47*
 - [ ] **13. Review the proposed PDF-audit corrections and tick the ones you approve**  
-  Where: Vault: misc/evd-validation/2026-11-17-pdf-audit-proposed-changes.md  
+  Where: Vault: pipeline/misc/evd-validation/2026-11-17-pdf-audit-proposed-changes.md  
   185 changes (147 audit + 38 Zhang v3). Start with the 70 marked with the flag symbol. Nothing is applied until you tick and tell Claude; each page is backed up first.  
   *Source: Prompts 29, 32*
 - [ ] **14. Decide the 10 HELD fixes**  
@@ -110,7 +110,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
 ## C. Skills, live site and copies
 
 - [ ] **0e. NEXT WEEK: refine the Skills to prevent the extraction and other errors, and switch them to the new tools and models**  
-  Where: Skill.md, Skill-references.md, Skill-templates.md, scripts/; full plan in [[Tools-and-Models]]  
+  Where: Skill.md, Skill-references.md, Skill-templates.md, pipeline/scripts/; full plan in [[Tools-and-Models]]  
   Planned toolchain (JP, 2026-11-20):
   1. OCR: Chandra OCR 2 and OXR-1.0 must agree, with the PDF text layer as a third vote for born-digital PDFs; the page image decides remaining disagreements; add Granite-Docling only if the pilot shows many unresolved disagreements. OXR-1.0 is exempt from the origin policy as long as it is open and runs locally (JP); check its licence. Ripple-65B Preview (Ricursive Intelligence; dense 65B; Apache 2.0; trained from scratch; text only): use a community GGUF build on JP's 128 GB Framework PC (4-bit about 40 GB, 8-bit about 70 GB); the official BF16 (about 130 GB) does not fit and NVFP4 needs NVIDIA GPUs; confirm the developer is US-based and test its extraction quality. Disagreements go to the page image; other tools are fallbacks.
   2. Once the OCR models agree, PyMuPDF and pdftoppm do the highlights and screenshots.
@@ -118,7 +118,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   4. Optional Pangram 4.1 quality-signal checks.
   
   Pipeline requirements to build in: a fixed test set with pass bars per stage; one OCR model by default, escalating to the others; a fixed, resumable script with a config file (no hard-coded paths); a run manifest (model versions, weight hashes, prompts, settings, raw outputs) and containers; swappable models; checks on licences, data storage, screenshot copyright and non-English papers; a README and one-command run; human review kept at the end. Fold in the lessons from the 2026-11-17 PDF number audit, the grader-prompt refinements, the 2026-11-20 version-diff errors and the provenance check. Claude edits Skill.md only with your approval.  
-  **Status 2026-11-24 (updated):** GPT-6.2 Sol (reasoning effort High; Medium for simple steps) replaces LlamaParse and Gemini 4 Neon as the PDF reader and bulk extractor (no Google key); Batch APIs for all unattended runs; the d1-ultra PICOST check is ON HOLD (remind JP after the first batch of new papers).  first v2 edits applied to Skill.md (Step 1 parse and PICOST first, Step 3c, Step 6c), Skill-templates.md (QUE rules 9-12, Original wording block, grounding rules, Methods Mermaid dropped), Skill-references.md and Tools-and-Models.md (v2 toolchain). Backup: misc/skill-backups/2026-11-24-pre-v2/. Still open: Google and LlamaCloud keys, the LlamaParse test on the 27 PDFs, the d1-ultra QA calibration on the 147 audit corrections, a Gemini 4 Neon extraction bake-off, reconciling the local vault with the repo vault.  
+  **Status 2026-11-24 (updated):** GPT-6.2 Sol (reasoning effort High; Medium for simple steps) replaces LlamaParse and Gemini 4 Neon as the PDF reader and bulk extractor (no Google key); Batch APIs for all unattended runs; the d1-ultra PICOST check is ON HOLD (remind JP after the first batch of new papers).  first v2 edits applied to Skill.md (Step 1 parse and PICOST first, Step 3c, Step 6c), Skill-templates.md (QUE rules 9-12, Original wording block, grounding rules, Methods Mermaid dropped), Skill-references.md and Tools-and-Models.md (v2 toolchain). Backup: pipeline/misc/skill-backups/2026-11-24-pre-v2/. Still open: Google and LlamaCloud keys, the LlamaParse test on the 27 PDFs, the d1-ultra QA calibration on the 147 audit corrections, a Gemini 4 Neon extraction bake-off, reconciling the local vault with the repo vault.  
   *Source: prompts 48, 52, 54-56, 58-64*
 
 - [ ] **19. Decide whether to push corrected vault pages to GitHub so the live site updates**  
@@ -164,7 +164,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
 ## E. Write-up and expansion
 
 - [ ] **0g. LATER: add GROBID and EmbeddingGemma 4**  
-  Where: Quality Signals pipeline; misc/scripts/find_redundancies.py; plan in [[Tools-and-Models]]  
+  Where: Quality Signals pipeline; pipeline/misc/scripts/find_redundancies.py; plan in [[Tools-and-Models]]  
   GROBID to parse reference lists for reference checks in the Quality Signals pipeline. EmbeddingGemma 4 (local, free; Roam notes record version 2, so confirm) to find duplicate nodes, screen new papers from the AI-assisted search, and suggest node links, with Claude Opus 5.5 deciding on each candidate and you confirming. Test on the April redundancy audit first.  
   *Source: prompts 53, 56*
 - [ ] **0h. NEXT WEEK (with 0e): analyse the cost-saving design and fold it into the updated Skill.md**  

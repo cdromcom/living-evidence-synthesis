@@ -25,7 +25,7 @@ The discourse-graph layer (QUE / CLM / EVD / CVT) is paper-internal: each EVD be
 
 ### EvidencePattern (EP) node format
 
-EP files live in `evd-patterns/` and use the same frontmatter conventions as other discourse-graph nodes (`nodeID`, `5c/*` tags, etc.) plus:
+EP files live in `sysrev/evd-patterns/` and use the same frontmatter conventions as other discourse-graph nodes (`nodeID`, `5c/*` tags, etc.) plus:
 
 - `nodeTypeId: node_tzL95oDi6eYeRIHeY_rCh` — the discourse-graph plugin's EP type ID
 - `tags:` includes `ep/strength/<N>-papers` (count of distinct source papers in the supporting EVDs) and `ep/scope/cross-paper`
@@ -54,7 +54,7 @@ One paragraph describing the cross-paper regularity in plain language.
 
 ### Review-Arena leaderboard
 
-`indexes/Review-Arena.md` is the public-facing leaderboard. Schema:
+`sysrev/indexes/Review-Arena.md` is the public-facing leaderboard. Schema:
 
 ```
 | Subtask | 🤖 AI score | 🧑 Human score | Human-AI score | Winner | Effect size | Evidence Strength |
@@ -82,24 +82,24 @@ When subtasks overlap (multiple "Detect errors…" rows from different papers; m
 
 ## Step 12: Public render via MkDocs Material
 
-The `public/` folder is a sidecar that turns the Obsidian vault into a static website without modifying any Obsidian-side files. The vault stays the source of truth.
+The `pipeline/public/` folder is a sidecar that turns the Obsidian vault into a static website without modifying any Obsidian-side files. The vault stays the source of truth.
 
 ### Build commands
 
 ```bash
-cd public
+cd pipeline/public
 .venv/bin/mkdocs build -f mkdocs.yml --clean      # one-shot build
 .venv/bin/mkdocs serve  -f mkdocs.yml             # live-reload dev server (default :8000)
 ```
 
-Build output goes to `../../living-synthesis-site/` (sibling to the vault). MkDocs requires `site_dir` to be outside `docs_dir`.
+Build output goes to `../../../living-synthesis-site/` (sibling to the vault). MkDocs requires `site_dir` to be outside `docs_dir`.
 
-### Hooks (in `public/hooks/`)
+### Hooks (in `pipeline/public/hooks/`)
 
 Hooks run in this order (set in `mkdocs.yml`):
 
-1. **`rigor_badges.py`** — for each `source/@*.md` page, emits a 4-badge bar (Topic / Rigor / TRIPOD-LLM / Caveats) above the TL;DR. Reads raw `[[QUE]]` / `[[CVT]]` wikilinks, so it must run before `wikilinks.py`.
-2. **`leaderboard.py`** — wraps each markdown table on `indexes/Review-Arena.md` in a `<div class="ls-leaderboard">` wrapper so `sortable.js` can find and decorate it. Page set is the `LEADERBOARD_PAGES` constant — add new pages there as new leaderboards appear.
+1. **`rigor_badges.py`** — for each `sysrev/source/@*.md` page, emits a 4-badge bar (Topic / Rigor / TRIPOD-LLM / Caveats) above the TL;DR. Reads raw `[[QUE]]` / `[[CVT]]` wikilinks, so it must run before `wikilinks.py`.
+2. **`leaderboard.py`** — wraps each markdown table on `sysrev/indexes/Review-Arena.md` in a `<div class="ls-leaderboard">` wrapper so `sortable.js` can find and decorate it. Page set is the `LEADERBOARD_PAGES` constant — add new pages there as new leaderboards appear.
 3. **`bases.py`** — intercepts `![[*.base]]` embeds (which Obsidian Bases owns and MkDocs doesn't natively render) and emits a Material `=== "Tab Name"` tabbed block, one tab per view in the .base file. Filter language supported: `file.name.startsWith()`, `file.name.contains()`, `file.tags.contains()`, `file.inFolder()`, `note.PROP == "X"`.
 4. **`wikilinks.py`** — converts Obsidian `[[wikilinks]]` and `![[embeds]]` into URL-encoded relative markdown links MkDocs can resolve. Crucially, **unescapes `\|`** (the markdown-table escape) before splitting target/display, so wikilinks inside table cells work.
 
@@ -112,7 +112,7 @@ Hooks run in this order (set in `mkdocs.yml`):
 
 ### Excludes
 
-`exclude_docs:` in `mkdocs.yml` hides `public/.venv/`, `public/site/`, `public/hooks/`, `misc/`, `templates/`, `*.base`, `questions/attachments/`, `source/pdfs/`, `logs/History.md`, `logs/Log.md`, `skills/Skill.md`. Update when adding new internal-only files.
+`exclude_docs:` in `mkdocs.yml` hides `pipeline/public/.venv/`, `pipeline/public/site/`, `pipeline/public/hooks/`, `pipeline/misc/`, `pipeline/templates/`, `*.base`, `sysrev/questions/attachments/`, `sysrev/source/pdfs/`, `pipeline/logs/History.md`, `pipeline/logs/Log.md`, `pipeline/skills/Skill.md`. Update when adding new internal-only files.
 
 ---
 
@@ -140,7 +140,7 @@ Don't modify Review-Arena.md to add sort/filter inside Obsidian without explicit
 
 ## Step 14: ESS Bases (live filterable index)
 
-`ESS.base` defines an Obsidian Bases view with **6 formulas** and **23 views**. The wrapper page `indexes/ESS - Demo.md` embeds it via `![[ESS.base]]` so readers see the live database.
+`ESS.base` defines an Obsidian Bases view with **6 formulas** and **23 views**. The wrapper page `sysrev/indexes/ESS - Demo.md` embeds it via `![[ESS.base]]` so readers see the live database.
 
 ### Formula columns (computed at render time from tags)
 
