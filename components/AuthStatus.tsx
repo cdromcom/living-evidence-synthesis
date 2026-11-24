@@ -14,7 +14,7 @@ export default function AuthStatus() {
     return (
       <Link
         href="/login"
-        className="shrink-0 rounded-lg border border-border bg-card px-3 py-1.5 text-sm font-medium text-ink transition-colors hover:border-forest hover:text-forest"
+        className="inline-flex min-h-8 shrink-0 items-center rounded-lg border border-border bg-card px-3 py-1.5 pointer-coarse:min-h-11 text-sm font-medium text-ink transition-colors hover:border-forest hover:text-forest"
       >
         Sign in
       </Link>
@@ -29,7 +29,7 @@ export default function AuthStatus() {
       <button
         type="button"
         onClick={() => supabase?.auth.signOut()}
-        className="rounded-lg border border-border bg-card px-3 py-1.5 font-medium text-ink transition-colors hover:border-forest hover:text-forest"
+        className="min-h-8 rounded-lg border border-border bg-card px-3 py-1.5 pointer-coarse:min-h-11 font-medium text-ink transition-colors hover:border-forest hover:text-forest"
       >
         Sign out
       </button>

@@ -63,7 +63,7 @@ export default function ThemeToggle() {
             ? "Switch to light mode"
             : "Switch to dark mode"
       }
-      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-card text-ink transition-colors hover:border-forest hover:text-forest focus:outline-none focus:ring-1 focus:ring-forest"
+      className="flex h-8 w-8 pointer-coarse:h-11 pointer-coarse:w-11 shrink-0 items-center justify-center rounded-full border border-border bg-card text-ink transition-colors hover:border-forest hover:text-forest "
     >
       {theme === "dark" ? (
         // sun icon (click to go light)
@@ -71,6 +71,7 @@ export default function ThemeToggle() {
           width="15"
           height="15"
           viewBox="0 0 24 24"
+          aria-hidden="true"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -86,6 +87,7 @@ export default function ThemeToggle() {
           width="15"
           height="15"
           viewBox="0 0 24 24"
+          aria-hidden="true"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
