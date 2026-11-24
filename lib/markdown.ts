@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import katex from "katex";
+import { sanitizeRenderedHtml } from "./sanitize";
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -693,7 +694,23 @@ function openPredicate(policy: AccordionPolicy) {
   };
 }
 
+/**
+ * Renders vault markdown to HTML and sanitises the result: the output goes
+ * straight into dangerouslySetInnerHTML, and vault pages (and contributed
+ * nodes) may contain raw HTML.
+ */
 export function renderMarkdown(
+  md: string,
+  policy: AccordionPolicy = "open",
+  procedureBlock = "",
+  atAGlanceBlock = ""
+): { html: string; toc: TocItem[] } {
+  const out = renderMarkdownUnsanitized(md, policy, procedureBlock, atAGlanceBlock);
+  return { html: sanitizeRenderedHtml(out.html), toc: out.toc };
+}
+
+/** The renderer without the sanitising step; exported only for scripts/check-sanitize.ts. */
+export function renderMarkdownUnsanitized(
   md: string,
   policy: AccordionPolicy = "open",
   /** Optional HTML dropped in after the Procedure entry (see insertAfterProcedure). */
