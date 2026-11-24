@@ -68,7 +68,7 @@ export default function NarrativesPage() {
           <N id="EVD-029">GPT-4 reached F1 = 0.80 for correctly flagging accurate citations but only F1 = 0.09 for flagging inaccurate ones</N>, the
           class any real fact-checking deployment cares about. A similar pattern shows
           up in scientific quality-checking, where{" "}
-          <N id="EVD-014">Claude 3.7 Sonnet found no problem in 64.9% of test papers and hit only a 16.3% detection rate</N>.
+          <N id="EVD-014">Claude 3.7 Sonnet found no problem in 64.9% of test papers and hit only an 11.0% detection rate</N>.
           A model that mostly says everything is fine will look calibrated on
           aggregate accuracy while missing almost everything worth catching. That
           connects to a second pattern, poor confidence calibration: <N id="EP-008">LLM confidence calibration on scientific-error tasks is poor with extreme distributions</N>, where{" "}
