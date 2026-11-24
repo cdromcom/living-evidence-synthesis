@@ -10,10 +10,10 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]"
-  - "[[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]]"
+  - "[[EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]"
+  - "[[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]"
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-24
 nodeID: 019ddb4e-6bc5-750b-9ed5-815eff6dde5f
 type: author-stated
 severity: moderate
@@ -31,12 +31,12 @@ The WITHDRARXIV-CHECK dataset consists predominantly of math (52%) and physics (
 ### Supporting Quote
 
 > [!info] Quotes
-> "our results based on a dataset rich in math and physics papers published in the past may not generalize well to papers in other scientific domains or future papers." (Zhang & Abernethy, 2025, p. 5)
+> "our results based on a dataset rich in math and physics papers published in the past may not generalize well to papers in other scientific domains or future papers." (Zhang & Abernethy, 2026, p. 7)
 >
-> ![[zhangReviewingScientificPapers2025a-cvt-p5-2.png]]
+> ![[zhangReviewingScientificPapers2025a-v3-cvt-domain-p7.png]]
 
 ### Applies To
 
-- [[EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 64.9% (PDF) and 71.0% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
+- [[EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
 
-- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker]]
+- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]

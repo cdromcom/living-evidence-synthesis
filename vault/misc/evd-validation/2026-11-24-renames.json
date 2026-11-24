@@ -1,6 +1,18 @@
 [
-  {
-    "old": "evidence/EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%.md",
-    "new": "evidence/EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%.md"
-  }
+ {
+  "old": "evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+  "new": "evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%.md"
+ },
+ {
+  "old": "evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+  "new": "evidence/EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX.md"
+ },
+ {
+  "old": "evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+  "new": "evidence/EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3.md"
+ },
+ {
+  "old": "evidence/EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%.md",
+  "new": "evidence/EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%.md"
+ }
 ]
