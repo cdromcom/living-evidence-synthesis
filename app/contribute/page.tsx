@@ -27,7 +27,7 @@ const STEPS = [
     title: "File it correctly",
     body: (
       <>
-        Each node type lives in its own folder under <code>vault/sysrev/</code>{" "}
+        Each node type lives in its own folder under <code>vault/sysrev/dgraph/</code>{" "}
         (<code>questions/</code>, <code>claims/</code>, <code>evidence/</code>,{" "}
         <code>caveats/</code>, <code>source/</code>, <code>evd-patterns/</code>) with a{" "}
         <code>PREFIX - Title.md</code> filename and YAML frontmatter including{" "}

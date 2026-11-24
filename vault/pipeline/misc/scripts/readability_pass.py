@@ -56,7 +56,7 @@ def fix_readability(text: str) -> str:
 def main():
     counts = {'evidence': 0, 'claims': 0, 'caveats': 0, 'questions': 0}
     for d in counts:
-        for f in (VAULT / 'sysrev' / d).glob('*.md'):
+        for f in (VAULT / 'sysrev' / 'dgraph' / d).glob('*.md'):
             if not (f.name.startswith('EVD') or f.name.startswith('CLM')
                     or f.name.startswith('CVT') or f.name.startswith('QUE')):
                 continue

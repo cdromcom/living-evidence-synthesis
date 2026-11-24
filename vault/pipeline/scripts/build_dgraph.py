@@ -85,10 +85,10 @@ def parse_cvt_appliesTo(cvt_path: Path) -> list[str]:
 def main():
     load_titles()
     # Inventory
-    que_files = sorted((VAULT / 'sysrev' / 'questions').glob('QUE*.md'))
-    clm_files = sorted((VAULT / 'sysrev' / 'claims').glob('CLM*.md'))
-    evd_files = sorted((VAULT / 'sysrev' / 'evidence').glob('EVD*.md'))
-    cvt_files = sorted((VAULT / 'sysrev' / 'caveats').glob('CVT*.md'))
+    que_files = sorted((VAULT / 'sysrev' / 'dgraph' / 'questions').glob('QUE*.md'))
+    clm_files = sorted((VAULT / 'sysrev' / 'dgraph' / 'claims').glob('CLM*.md'))
+    evd_files = sorted((VAULT / 'sysrev' / 'dgraph' / 'evidence').glob('EVD*.md'))
+    cvt_files = sorted((VAULT / 'sysrev' / 'dgraph' / 'caveats').glob('CVT*.md'))
 
     # Build EVD → [CVT stems] mapping
     evd_to_cvts = defaultdict(list)
