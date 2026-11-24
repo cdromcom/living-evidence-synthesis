@@ -15,7 +15,7 @@ Screenshot counts are the distinct image files from that paper embedded in vault
 | @bougieGenerativeAdversarialReviews2024a | 10.48550/arXiv.2412.10415 | none found | green | Cornell University | 18 | needs checking (no licence found; fair use only) |
 | @darcyMARGMultiAgentReview2024 | 10.48550/arXiv.2401.04259 | cc-by | green | Cornell University | 13 | allowed (attribution required) |
 | @hasanIntegratingLargeLanguage2024 | 10.1136/bmjebm-2023-112597 | none found | closed | BMJ | 9 | not allowed (no open licence; fair use only) |
-| @huntington-kleinLLMsActRepositories2024 | 10.48550/arXiv.2412.10635 | cc-by | gold | De Gruyter | 13 | allowed (attribution required) |
+| @huntington-kleinLLMsActRepositories2024 | 10.1515/jci-2024-0072 | cc-by | gold | De Gruyter | 13 | allowed (attribution required) |
 | @idahlOpenReviewerSpecializedLarge2025 | 10.48550/arXiv.2412.11948 | none found | green | Cornell University | 17 | needs checking (no licence found; fair use only) |
 | @leucutaRiskBiasAssessment2025 | 10.3390/diagnostics15121451 | https://creativecommons.org/licenses/by/4.0/ | gold | MDPI AG | 12 | allowed (attribution required) |
 | @liangCanLargeLanguage2024a | 10.1056/AIoa2400196 | none found | green | Massachusetts Medical Society | 24 | needs checking (no licence found; fair use only) |
@@ -23,17 +23,17 @@ Screenshot counts are the distinct image files from that paper embedded in vault
 | @louAAAR10AssessingAIs2025 | 10.48550/arXiv.2410.22394 | none found | green | unknown | 17 | needs checking (no licence found; fair use only) |
 | @robertsComparativeStudyChatGPT2023 | 10.1136/bmjhci-2023-100830 | https://creativecommons.org/licenses/by/4.0/ | gold | BMJ | 16 | allowed (attribution required) |
 | @sarolAssessingCitationIntegrity2024 | 10.1093/bioinformatics/btae420 | https://creativecommons.org/licenses/by/4.0/ | gold | Oxford University Press (OUP) | 22 | allowed (attribution required) |
-| @shahidLiteratureGroundedNoveltyAssessment2025 | 10.48550/arXiv.2506.22026 | cc-by | hybrid | Association for Computational Linguistics | 20 | allowed (attribution required) |
+| @shahidLiteratureGroundedNoveltyAssessment2025 | 10.18653/v1/2025.sdp-1.9 | cc-by | hybrid | Association for Computational Linguistics | 20 | allowed (attribution required) |
 | @sonWhenAICoScientists2025 | 10.48550/arXiv.2505.11855 | cc-by | green | Cornell University | 19 | allowed (attribution required) |
 | @sridharanAssessingDecisionMakingCapabilities2024 | 10.1177/15562646241263200 | none found | bronze | SAGE Publications | 16 | not allowed (no open licence; fair use only) |
 | @sridharanLeveragingArtificialIntelligence2025 | 10.1136/jme-2023-109767 | none found | closed | BMJ | 13 | not allowed (no open licence; fair use only) |
 | @srinivasanEvaluatingReportingQuality2025a | 10.1101/2025.03.06.25323528 | http://creativecommons.org/licenses/by-nc/4.0/ | green | openRxiv | 19 | needs checking (BY-NC: non-commercial or share-alike terms) |
-| @thelwallEvaluatingResearchQuality2024 | 10.48550/arXiv.2408.06752 | cc-by | diamond | Chinese Academy of Sciences | 13 | allowed (attribution required) |
+| @thelwallEvaluatingResearchQuality2024 | 10.2478/jdis-2025-0011 | cc-by | diamond | Walter de Gruyter GmbH | 13 | allowed (attribution required) |
 | @tyserAIDrivenReviewSystems2024 | 10.48550/arXiv.2408.10365 | cc-by | green | Cornell University | 15 | allowed (attribution required) |
 | @woelfleBenchmarkingHumanAICollaboration2024 | 10.1016/j.jclinepi.2024.111533 | http://creativecommons.org/licenses/by/4.0/ | hybrid | Elsevier BV | 33 | allowed (attribution required) |
 | @wrightsonGPTRCTsUsing2025 | 10.1136/bmjopen-2024-088735 | http://creativecommons.org/licenses/by-nc/4.0/ | gold | BMJ | 15 | needs checking (BY-NC: non-commercial or share-alike terms) |
 | @wuAutomatedNoveltyEvaluationa | 10.1002/asi.70005 | none found | green | Wiley | 14 | not allowed (no open licence; fair use only) |
-| @xuCanLLMsIdentify2025 | 10.48550/arXiv.2507.02694 | cc-by | green | Cornell University | 15 | allowed (attribution required) |
+| @xuCanLLMsIdentify2025 | 10.18653/v1/2025.acl-long.1009 | cc-by | hybrid | Association for Computational Linguistics | 15 | allowed (attribution required) |
 | @zhangDetectingReferenceErrors2024 | 10.48550/arXiv.2411.06101 | none found | green | National Institutes of Health | 13 | needs checking (no licence found; fair use only) |
 | @zhangReviewingScientificPapers2025a | 10.48550/arXiv.2505.23824 | cc-by-sa | green | Cornell University | 16 | needs checking (CC BY-SA terms) |
 | @zhouLLMReliableReviewer2024 | 10.63317/48d359hjdvog | cc-by-nc | hybrid | European Language Resources Association (ELRA) and ICCL | 14 | needs checking (CC BY-NC terms) |
@@ -41,6 +41,16 @@ Screenshot counts are the distinct image files from that paper embedded in vault
 Summary: 13 papers carry a CC BY licence (allowed with attribution), 10 need checking (non-commercial, share-alike, or no licence found), 4 have no open licence at all and are access-restricted ("closed" or "bronze").
 
 How the last column was decided. CC BY allows copying and adaptation with credit, so republishing is clearly allowed as long as each page credits the paper. CC BY-NC allows non-commercial use only, so it depends on whether the site counts as non-commercial. CC BY-SA requires the republished material to be shared under the same licence, which may conflict with whatever licence the repository gets. "None found" for a preprint usually means the default arXiv terms apply, which let arXiv distribute the paper but give others no reuse right. "Not allowed" means no open licence was found and the paper is behind a paywall or free-to-read only, so reuse relies on fair use or on asking the publisher.
+
+Version update, 2026-11-24. Five rows were changed when the vault pages moved to each paper's most recent report. Each row now gives the DOI of that version, and the licence was re-checked for it:
+
+- @xuCanLLMsIdentify2025: ACL 2025 (Findings of the main conference proceedings), CC BY 4.0 (ACL Anthology page and OpenAlex). OpenAlex lists the OA status as hybrid, so the table uses that (the source note says gold).
+- @shahidLiteratureGroundedNoveltyAssessment2025: SDP 2025 workshop paper, CC BY 4.0 (ACL Anthology page, Crossref has no licence, OpenAlex says cc-by).
+- @thelwallEvaluatingResearchQuality2024: 2025 journal article (Journal of Data and Information Science), CC BY 4.0 (Crossref and OpenAlex). The note filename still says 2024.
+- @huntington-kleinLLMsActRepositories2024: 2026 journal article (Journal of Causal Inference), CC BY 4.0 (Crossref and OpenAlex). The note filename still says 2024.
+- @zhangReviewingScientificPapers2025a: arXiv v3, CC BY-SA 4.0 (the arXiv abstract page for v3). The DOI is unchanged and the row stays "needs checking".
+
+The screenshot counts were not recounted after the version update.
 
 ## Fair use and takedown considerations
 
