@@ -10,7 +10,7 @@ a3f11ffae944037a083e00f0ddfeb0bb4d1597821e113d3be66d0a03886702ba  ./dump_prompts
 b35da2ef8e7637c51c3c6704a350275ef47a0b395522f89f254092bf6ae01fac  ./inputs/que_tab.csv
 967267e56190d67e77ac609e580770d107f1aa571e80c602e30fe6824a9fca6d  ./make_questions.py
 eab7bd0b7458c194a14f62bf6b639babd99e93df46536bfccd689a405d241e0c  ./make_sheets.py
-e598274d3c0b83372baa29b9572452e2ab3d66a4f0f3d5c60f3c53c1e7cd5ae4  ./make_summary_tab.py
+841dc931c27c4736ceec3875ed808b82e5f8d3b1b6d2093e4e0d4dcef27a224b  ./make_summary_tab.py
 3682f58e8dbcb1fd14bb7f36585e4ce83dcfea0f8f6701a39160dbdcb1d49700  ./merge_image_urls.py
 1efdcf770a9106340eb517349277ef8485140525b6f4154f36176485aa46650c  ./metrics.py
 ca5de9b9b5346e6239fd53e12e106cec5950c739113ff02714a40bd0d73e6e54  ./opus_to_results.py
@@ -293,7 +293,7 @@ b4c4ae65ab5bc2abe9dbe35a48a1b312fd83d4b0b6eb5896eb707960cb47182e  ./results/perp
 a420eca9dfdb1bb7fbd7c8947bd521e7a6ea7b99f765ad9c6838046be0f814d5  ./results/summary-r1.csv
 5ea0dcc9c48e94f5fe30649b7f605a1f1cc98f3b08ebeb6de6f2cc5619c5f13f  ./run_raters.py
 dd90a000e047893e71de5832c3307f82d240cb4bf9140cdbcc8becc9963294ad  ./RUN-LOG.md
-664e969e49a2ebe80c8327785062ca49b973d45cdbbdbbd8a04d67a3be47fd63  ./sheets/decision-models-summary-r1.xlsx
+f16a74f3a1e9a10d5a35e47d1105e7ffd1ac7286ab51f9fdfbc7ae0e1924d3fa  ./sheets/decision-models-summary-r1.xlsx
 afba3b4df646eb08f9fb2d44640a0615e9af2d3f1b7d130f5e6cec7d9a9fe7fd  ./sheets/LIVES-AI-Rater-Claude-Opus-5.5.csv
 eb745f5150ee33e4c89f8791ad952b084dd08d2363b1f577db08e635e5347dc9  ./sheets/LIVES-AI-Rater-Jev.csv
 083bb757835d9cf7b06f6c82c837b6650d7ae57161dc97d2ff06aead48c3ddbd  ./sheets/LIVES-AI-Rater-Liquid-d1-ultra.csv
