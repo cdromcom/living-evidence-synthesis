@@ -1,0 +1,28 @@
+{
+ "evd": 64,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.82,
+   "Partially Met": 0.15,
+   "Unmet": 0.03
+  },
+  "reason": "Quote: best LLM only 47.98% F1 versus 40% all-positive baseline; o3-mini name is a missing detail."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.38,
+   "Partially Correct": 0.6,
+   "Incorrect": 0.02,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.99,
+  "quote_fully_visible": 0.4,
+  "shot_connects": [
+   0.99
+  ],
+  "reason": "Right passage visible, but quote drops 'even' and adds 'ratio' compared with the screenshot wording."
+ }
+}

@@ -66,6 +66,18 @@ FIDELITY_V2 = {
     "Partially Met": "Use sparingly. Only part of the EVD statement's main finding is in the quoted text, or the statement says something noticeably different from what the quote says.",
     "Unmet": "The main finding of the EVD statement is not in the quoted text, or the quote contradicts it.",
 }
+FIDELITY_V4 = {
+    "Met": "The gist of the EVD statement (its main finding) is in the quoted text. The quote may state the finding in words (a direction, comparison, ranking or conclusion such as 'outperforms', 'is highest', 'can only identify about half') without the specific numbers the statement lists; those numbers usually sit in a table or elsewhere in the paper that this check cannot see, so missing numbers or details are never a reason for Partially Met. Paraphrase, rounding, derived figures, abbreviations and study-context wording that is not in the quote are fine.",
+    "Partially Met": "Use sparingly. The quote supports only one part of a multi-part main finding, or the statement says something noticeably different from the quote (a different direction, subject, scope or comparison). Absent numbers alone do not qualify.",
+    "Unmet": "The main finding of the EVD statement is not in the quoted text (the quote is about something else), or the quote contradicts it.",
+}
+QUOTE_V4 = {
+    "Correct": "Every word of the quoted text is visible and legible in a screenshot on the evidence page. Highlighting is not required, and surrounding page text, line breaks, hyphenation, page numbers, headers and neighbouring tables or figures do not count as extraneous: content is extraneous only if it covers or breaks up the quote so that it cannot be read as one passage. A wrong or different page number in the citation does not matter.",
+    "Partially Correct": "The screenshot shows the right passage but part of the quote is missing: words at the start or end are cut off, or only some of its sentences are shown, or the quote text has changed words (not just punctuation or hyphenation) compared with the screenshot.",
+    "Incorrect": "A screenshot is present but shows a different passage from the quote, so the quoted words do not appear in it.",
+    "Missing": "No screenshot at all is shown on the evidence page.",
+    "NA": "There is no quote to check.",
+}
 QUOTE = {
     "Correct": "The full quoted text is shown word for word in a screenshot on the evidence page, with no extraneous content getting in the way (trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.",
     "Partially Correct": "A screenshot shows the right passage but incomplete or cropped: only part of the quoted text is visible, or the quote text has unmarked edits or omissions compared with the screenshot, or other content gets in the way of reading the quote.",
@@ -106,7 +118,7 @@ def example_evds():
     return {e["evd"] for e in json.loads(EXAMPLES.read_text())["examples"]} if EXAMPLES.exists() else set()
 
 
-def build_task(task, p, with_images, fid_v=1):
+def build_task(task, p, with_images, fid_v=1, quote_v=3):
     """Return (parts, questions, n_images). parts = [{'text':..}|{'image': path}]."""
     parts, evd = [], f"EVD STATEMENT (the claim being checked):\n{p['evd_statement']}"
     imgs = [i for i in p["images"] if with_images]
@@ -117,9 +129,9 @@ def build_task(task, p, with_images, fid_v=1):
         qs = {"relevant": noul("Is this EVD relevant to the REVIEW QUESTION(S) and the REVIEW CRITERION, and worth learning? Yes means Relevant; No means Irrelevant.")}
         return parts, qs, 0
     if task == "fidelity":
-        if fid_v in (2, 3):
-            parts.append({"text": (example_text() if fid_v == 3 else "") + f"{evd}\n\nQUOTED TEXT (the quote shown with the EVD):\n{p['quote_text']}"})
-            qs = {"fidelity": choice("Is the gist of the EVD statement in the quoted text? Choose Met when its main finding is there; missing specific numbers or details do not matter.", FIDELITY_V2),
+        if fid_v in (2, 3, 4):
+            parts.append({"text": (example_text() if fid_v >= 3 else "") + f"{evd}\n\nQUOTED TEXT (the quote shown with the EVD):\n{p['quote_text']}"})
+            qs = {"fidelity": choice("Is the gist of the EVD statement in the quoted text? Choose Met when its main finding is there; missing specific numbers or details do not matter.", FIDELITY_V4 if fid_v == 4 else FIDELITY_V2),
                   "all_numbers_in_quote": noul("Does every number in the EVD statement appear in the quoted text itself (rounding allowed)?")}
             return parts, qs, 0
         parts.append({"text": f"{evd}\n\nQUOTED TEXT (the quote shown with the EVD):\n{p['quote_text']}"})
@@ -141,9 +153,11 @@ def build_task(task, p, with_images, fid_v=1):
         n = add_all_images()
         if not n:
             parts.append({"text": "\n\n(No screenshot is shown on the evidence page.)"})
-        qs = {"quote_grounding": choice("Do the screenshots on the evidence page correctly show the quoted text?", QUOTE)}
+        qs = {"quote_grounding": choice("Do the screenshots on the evidence page correctly show the quoted text?", QUOTE_V4 if quote_v == 4 else QUOTE)}
         if n:
             qs["screenshot_shows_quote"] = noul("Does any SCREENSHOT show the quoted passage?")
+            if quote_v == 4:
+                qs["quote_fully_visible"] = noul("Is every word of the quoted text visible and legible in the screenshots (surrounding text, highlighting and neighbouring content do not matter)?")
             qs.update(shot_qs(n))
         return parts, qs, n
     if task == "table":
@@ -256,7 +270,7 @@ def cmd_run(a):
                     if not r.get("error")} if f.exists() else set()
         for e in parse_evd_list(a.evd):
             for t in tasks:
-                if t == "fidelity" and a.fidelity_version == 3 and e in example_evds():
+                if t == "fidelity" and a.fidelity_version >= 3 and e in example_evds():
                     continue
                 if (e, t) not in done[pv]:
                     jobs.append((pv, e, t))
@@ -264,7 +278,7 @@ def cmd_run(a):
     prepared = []
     for pv, e, t in jobs:
         p = json.loads((PACKETS / f"EVD-{e:02d}" / "packet.json").read_text())
-        parts, qs, n_img = build_task(t, p, with_images=True, fid_v=a.fidelity_version)
+        parts, qs, n_img = build_task(t, p, with_images=True, fid_v=a.fidelity_version, quote_v=a.quote_version)
         if t == "table" and a.table_slot_rule and not any(i["kind"] == "tablefig" for i in p["images"]):
             n_img = 0  # JP rule: no screenshot in the table/figure slot of the evidence page -> Missing, no model call
         model = a.jev_model if pv == "jev" else (a.liquid_model if pv == "liquid" else MODELS[pv])
@@ -304,7 +318,7 @@ def cmd_run(a):
         _t0 = time.time()
         resp, err = post(url, headers, body)
         latency = round(time.time() - _t0, 3)
-        rec = {"run_id": a.run_id, "fidelity_version": a.fidelity_version if t == "fidelity" else None,
+        rec = {"run_id": a.run_id, "fidelity_version": a.fidelity_version if t == "fidelity" else None, "quote_version": a.quote_version if t == "quote" else None,
                "evd": e, "task": t, "provider": pv, "model": (resp or {}).get("model", model), "requested_model": model,
                "ts": datetime.now(timezone.utc).isoformat(), "est_input_tokens": tok,
                "images_sent": n_img, "images_available": n_img, "error": err, "latency_s": latency,
@@ -368,8 +382,9 @@ def main():
     r.add_argument("--jev-model", default=MODELS["jev"])
     r.add_argument("--liquid-model", default=MODELS["liquid"], help="d1-ultra is listed as deprecated by Liquid; d1.2-ultra is its replacement")
     r.add_argument("--run-id", default="r1", help="label for this pass; results/<provider>.<run-id>.jsonl (r1 = judgment of record)")
-    r.add_argument("--fidelity-version", type=int, choices=(1, 2, 3), default=3, help="1 = original rubric; 2 = gist rule (JP, 2026-11-23): Met when the headline EVD's gist is in the quote; 3 = version 2 plus worked examples from EVD 1-3 (those EVDs are skipped for fidelity)")
+    r.add_argument("--fidelity-version", type=int, choices=(1, 2, 3, 4), default=3, help="1 = original rubric; 2 = gist rule (JP, 2026-11-23): Met when the headline EVD's gist is in the quote; 3 = version 2 plus worked examples from EVD 1-3 (those EVDs are skipped for fidelity)")
     r.add_argument("--table-slot-rule", action="store_true", help="Missing by rule when the page has no screenshot in the table/figure slot (run r2t)")
+    r.add_argument("--quote-version", type=int, choices=(3, 4), default=3, help="3 = Run 3 strict definitions; 4 = Run 4 clarified definitions (surrounding text is not extraneous)")
     r.add_argument("--dry-run", action="store_true")
     r.add_argument("--dry-limit", type=int, default=12)
     r.set_defaults(fn=cmd_run)

@@ -8,15 +8,15 @@ LIVES is a living evidence synthesis on automated technologies (especially large
 
 Question: *Is this EVD relevant to the REVIEW QUESTION(S) and the REVIEW CRITERION, and worth learning? Yes means Relevant; No means Irrelevant.*
 
-## Fidelity (version 3, used in run r1)
+## Fidelity (version 4, used in run r4)
 
 Question: *Is the gist of the EVD statement in the quoted text? Choose Met when its main finding is there; missing specific numbers or details do not matter.*
 
 ### Options
 
-- **Met**: The gist of the EVD statement (its main finding) is in the quoted text. Specific numbers and details that match closely are a bonus, not a requirement. Paraphrase, rounding, derived figures, abbreviations and study-context wording that is not in the quote are fine.
-- **Partially Met**: Use sparingly. Only part of the EVD statement's main finding is in the quoted text, or the statement says something noticeably different from what the quote says.
-- **Unmet**: The main finding of the EVD statement is not in the quoted text, or the quote contradicts it.
+- **Met**: The gist of the EVD statement (its main finding) is in the quoted text. The quote may state the finding in words (a direction, comparison, ranking or conclusion such as 'outperforms', 'is highest', 'can only identify about half') without the specific numbers the statement lists; those numbers usually sit in a table or elsewhere in the paper that this check cannot see, so missing numbers or details are never a reason for Partially Met. Paraphrase, rounding, derived figures, abbreviations and study-context wording that is not in the quote are fine.
+- **Partially Met**: Use sparingly. The quote supports only one part of a multi-part main finding, or the statement says something noticeably different from the quote (a different direction, subject, scope or comparison). Absent numbers alone do not qualify.
+- **Unmet**: The main finding of the EVD statement is not in the quoted text (the quote is about something else), or the quote contradicts it.
 
 Worked examples (EVD 1-3, JP's Fidelity ratings; EVD 1-3 are skipped for this task):
 
@@ -30,9 +30,9 @@ Question: *Do the screenshots on the evidence page correctly show the quoted tex
 
 ### Options
 
-- **Correct**: The full quoted text is shown word for word in a screenshot on the evidence page, with no extraneous content getting in the way (trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.
-- **Partially Correct**: A screenshot shows the right passage but incomplete or cropped: only part of the quoted text is visible, or the quote text has unmarked edits or omissions compared with the screenshot, or other content gets in the way of reading the quote.
-- **Incorrect**: A screenshot is present but shows a different passage from the quote, or the quote text is materially different from the text in the screenshot.
+- **Correct**: Every word of the quoted text is visible and legible in a screenshot on the evidence page. Highlighting is not required, and surrounding page text, line breaks, hyphenation, page numbers, headers and neighbouring tables or figures do not count as extraneous: content is extraneous only if it covers or breaks up the quote so that it cannot be read as one passage. A wrong or different page number in the citation does not matter.
+- **Partially Correct**: The screenshot shows the right passage but part of the quote is missing: words at the start or end are cut off, or only some of its sentences are shown, or the quote text has changed words (not just punctuation or hyphenation) compared with the screenshot.
+- **Incorrect**: A screenshot is present but shows a different passage from the quote, so the quoted words do not appear in it.
 - **Missing**: No screenshot at all is shown on the evidence page.
 - **NA**: There is no quote to check.
 
@@ -49,3 +49,6 @@ Question: *Does the evidence page show the correct table or figure for the EVD s
 - **NA**: The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed.
 
 Run 2 inputs: every Description screenshot on the page is shown without slot labels, with the caption and the paraphrased text under the table/figure. Also asked per screenshot k: *Does SCREENSHOT k show text or a table or figure that connects to the quoted text?* Missing by rule only when the page has no screenshot at all (no model call).
+
+
+Run 4 adds one question to the quote task: *Is every word of the quoted text visible and legible in the screenshots (surrounding text, highlighting and neighbouring content do not matter)?*

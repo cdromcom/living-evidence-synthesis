@@ -12,7 +12,7 @@ RUN = sys.argv[1] if len(sys.argv) > 1 else "r1"
 M = json.loads((HERE / f"results/metrics-{RUN}.json").read_text())
 extra = json.loads((HERE / "opus_usage.json").read_text()) if (HERE / "opus_usage.json").exists() else None
 ALLM = json.loads((HERE / f"results/metrics-{RUN}-all.json").read_text()); EXC = json.loads((HERE / "inputs/exclusions.json").read_text())
-LABEL = {"r1": "Run 1", "r2t": "Run 2", "r3": "Run 3"}.get(RUN, RUN)
+LABEL = {"r1": "Run 1", "r2t": "Run 2", "r3": "Run 3", "r4": "Run 4"}.get(RUN, RUN)
 wb = Workbook(); ws = wb.active; ws.title = f"Decision Models Summary ({LABEL})"
 WHITE = PatternFill("solid", fgColor="FFFFFF"); H = WHITE; T = PatternFill("solid", fgColor="D9EAD2")   # ABOUT: white body, pale-green section bars
 FN, GREEN_TXT = "Spectral", "38761D"                                                              # ABOUT: Spectral, dark-green section text

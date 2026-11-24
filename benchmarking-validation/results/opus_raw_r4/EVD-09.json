@@ -1,0 +1,28 @@
+{
+ "evd": 9,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.88,
+   "Partially Met": 0.1,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives perfect agreement on three items and significant discrepancy for eligibility criteria; 12 items derivable."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.85,
+   "Incorrect": 0.1,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.85,
+  "quote_fully_visible": 0.05,
+  "shot_connects": [
+   0.85
+  ],
+  "reason": "Screenshot shows only the quote's final clause about eligibility criteria plus Table 2; earlier sentences cut off."
+ }
+}
