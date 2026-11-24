@@ -52,16 +52,12 @@ When processing many papers (e.g., a backfill or a corpus-wide schema change), p
 
 ```
 living-synthesis/
-├── DGRAPH.md                       # Central nested index of QUE → CLM → EVD → CVT
-├── DGRAPH-TABLE.md                 # paper × node-type matrix (skim what each paper contributes)
-├── ESS - Demo.md                   # Wrapper around ESS.base (the live filterable index)
-├── ESS.base                        # Obsidian Bases definition: 6 formulas + 23 views
-├── History.md                    # Chronological log of all concrete changes (newest first)
-├── Log.md                          # Session-log scratch
-├── Review-Arena.md                 # Public-facing leaderboard (subtask × AI/Human/Hybrid)
-├── Skill.md                        # This file
-├── Welcome.md                      # Vault overview for novices
-├── paraphrase_audit_<date>.tsv     # Latest verbatim-audit report
+├── Welcome.md                      # Vault overview for novices (the only file at the root)
+├── skills/                         # Skill.md, Skill-references.md, Skill-synthesis.md, Skill-templates.md, Tools-and-Models.md
+├── indexes/                        # dgraph.md (central nested index), DGRAPH-TABLE.md, Review-Arena.md, ESS - Demo.md, ESS.base, EvidencePattern Nodes.base
+├── logs/                           # History.md (chronological change log, newest first), Log.md (session-log scratch)
+├── legal/                          # LICENSE-CONTENT.md
+├── reference/                      # BenchmarkLLM.md, Class-Imbalance-Text-Classification.md, paraphrase_audit_<date>.tsv (latest verbatim-audit report)
 ├── claims/                         # CLM nodes (one .md per claim)
 ├── caveats/                        # CVT nodes (one .md per limitation)
 ├── evd-patterns/                   # EP nodes (cross-paper EvidencePatterns; ≥2 EVDs each)
@@ -471,7 +467,7 @@ Run `misc/scripts/reverse_links.py` to populate inbound sections (`## Caveats`, 
 
 ## Step 6: Verbatim Audit → see `Skill-templates.md`
 
-`misc/scripts/verbatim_audit.py` compares every quote against its source PDF (NFKD + alnum normalization). Saves report as `paraphrase_audit_<date>.tsv`. Severity tiers (Tier 1: 0% match, Tier 2: <50%, Tier 3: 50–90%, Tier 4: >90%) and known false positives (en-dash mangling) are documented in `Skill-templates.md`.
+`misc/scripts/verbatim_audit.py` compares every quote against its source PDF (NFKD + alnum normalization). Saves report as `reference/paraphrase_audit_<date>.tsv`. Severity tiers (Tier 1: 0% match, Tier 2: <50%, Tier 3: 50–90%, Tier 4: >90%) and known false positives (en-dash mangling) are documented in `Skill-templates.md`.
 
 > [!warning] The verbatim audit checks quotes only, not numbers
 > Added 2026-11-17. A PDF audit of all 77 EVD pages found 147 suspected errors in numbers, tables, page references and attributions, while every quote had passed this step. Quotes passing is not evidence that a page is correct. Run Step 6b as well.
@@ -524,7 +520,7 @@ The `.obsidian/snippets/wide-tables.css` snippet, activated via `cssclasses: [wi
 
 ## Step 14: ESS Bases (live filterable index) → see `Skill-synthesis.md`
 
-`ESS.base` defines an Obsidian Bases view with 6 formulas + 23 views (covering node-type, TRIPOD-LLM compliance buckets, critical-appraisal high-risk, 5C dimensions, CVT methodologist filters, drafts, and the original cards view). When new tag namespaces appear, add a categorical formula + a view in `ESS.base`. The `bases.py` MkDocs hook surfaces the same views as Material tabs on the public site.
+`indexes/ESS.base` defines an Obsidian Bases view with 6 formulas + 23 views (covering node-type, TRIPOD-LLM compliance buckets, critical-appraisal high-risk, 5C dimensions, CVT methodologist filters, drafts, and the original cards view). When new tag namespaces appear, add a categorical formula + a view in `ESS.base`. The `bases.py` MkDocs hook surfaces the same views as Material tabs on the public site.
 
 ---
 
