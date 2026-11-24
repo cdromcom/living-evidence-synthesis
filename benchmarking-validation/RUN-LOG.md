@@ -60,3 +60,9 @@ Remaining quote disagreements with JP's Correct labels, shared by several raters
 
 ## Sheets (2026-11-24)
 Run 3 and Run 4 tabs show "dropped from analysis (JP)" in the dropped cells for the task concerned; Run 1 and Run 2 tabs keep the original answers with hover notes. Summary tabs in the main GSheet: Decision Models Summary (Run 1), (Run 2), (Run 3), (Run 4); LOG tabs hold all runs.
+
+## Run 5 (r5, 2026-11-24 UTC): repeat of the Run 4 prompts, all four tasks
+Perplexity, Liquid and Jev re-ran relevancy, fidelity v4, quote v4 and table/figure (Missing by rule when the page has no table/figure-slot screenshot) with the same prompts as Run 4: 915 requests, 0 errors. Opus 5.5 was not re-run; results/opus.r5.jsonl are the r4 records carried over unchanged, so the four sheets line up.
+Stability against Run 4 (labels changed, EVD 4-77 of 74; the Run 4 relevancy records were carried from Run 2, so that column compares Run 5 with Run 2): quote Perplexity 0, Liquid 2, Jev 6; fidelity 0, 2, 1; table/figure 0, 0, 0; relevancy 1, 1, 1.
+n=66 accuracy, Run 5 (Run 4): quote Perplexity 92.4 (92.4), Liquid 92.4 (92.4), Jev 95.5 (95.5), Opus 86.4; fidelity 86.4 (86.4), 92.4 (90.9), 87.9 (86.4), Opus 92.4; relevancy n=68 Perplexity 97.1, Liquid 94.1, Jev 86.8, Opus 94.1; table/figure n=72 all 88.9. Same caveat as Run 4: the wording was written after seeing Run 3 errors on these rows.
+The main GSheet's old Benchmark Summary tab (formulas over the LIVES-EVD-Benchmarking tab, blank for the decision models) was deleted at JP's request; it is recoverable from the sheet's version history. Summary tabs: Decision Models Summary (Run 1) to (Run 5).
