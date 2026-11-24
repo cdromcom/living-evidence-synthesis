@@ -6,7 +6,7 @@ aliases:
 tags:
   - 5c/creativity
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-24
 nodeID: 019ddb4e-6bd8-75ee-aa56-e3ab1e5fe067
 title: "Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?"
 ---
@@ -18,8 +18,8 @@ title: "Can an LLM-based RAG system reliably evaluate the novelty of scientific 
 ### Snippet: Quote(s) & Screenshots
 
 > [!info] Quotes
-> "Automated scientific idea generation systems have made remarkable progress, yet the automatic evaluation of idea novelty remains a critical and underexplored challenge. Manual evaluation of novelty through literature review is labor-intensive, prone to error due to subjectivity, and impractical at scale. To address these issues, we propose the Idea Novelty Checker, an LLM-based retrieval-augmented generation (RAG) framework that leverages a two-stage retrieve-then-rerank approach." (Shahid et al., 2025, p. 1)
-> ![[shahidLiteratureGroundedNoveltyAssessment2025-que-p1-1.png]]
+> "Automated scientific idea generation systems have made remarkable progress, yet the automatic evaluation of idea novelty remains a critical and underexplored challenge. Manual evaluation of novelty through literature review is labor-intensive, prone to error due to subjectivity, and impractical at scale. To address these issues, we propose the Idea Novelty Checker, an LLM-based retrieval-augmented generation (RAG) framework that leverages a two-stage retrieve-then-rerank approach." (Shahid et al., 2025, p. 96)
+> ![[shahidLiteratureGroundedNoveltyAssessment2025-sdp-que-p1-1.png]]
 
 ### Supporting Claims (with their evidence)
 
@@ -40,7 +40,7 @@ title: "Can an LLM-based RAG system reliably evaluate the novelty of scientific 
 - [[CLM - Expert in-context examples significantly improve LLM novelty classification|CLM - Expert-annotated in-context examples significantly improve LLM novelty classification accuracy over zero-shot and prompt-optimized baselines]]
     - [[EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
     - [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 ### Cross-paper patterns
 

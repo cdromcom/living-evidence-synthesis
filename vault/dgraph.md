@@ -292,7 +292,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
         - ⚠️ [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
         - ⚠️ [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
     - [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
@@ -523,7 +523,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
         - ⚠️ [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
         - ⚠️ [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
     - [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
@@ -680,7 +680,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
         - ⚠️ [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
         - ⚠️ [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 ### [[QUE - Can integrating LLM and reviewer knowledge improve novelty prediction|QUE - Can integrating LLM knowledge with human reviewer knowledge improve automated novelty prediction of academic papers?]]
 
@@ -714,7 +714,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
         - ⚠️ [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
         - ⚠️ [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
     - [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
@@ -806,7 +806,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
         - ⚠️ [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
         - ⚠️ [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
     - [[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]
@@ -872,7 +872,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
         - ⚠️ [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
         - ⚠️ [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
     - [[EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]
@@ -1070,7 +1070,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
         - ⚠️ [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
         - ⚠️ [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
     - [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
@@ -1500,7 +1500,7 @@ Central nested index across the living-synthesis vault. Each node is a clickable
         - ⚠️ [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
         - ⚠️ [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
         - ⚠️ [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
     - [[EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items|EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs]]
