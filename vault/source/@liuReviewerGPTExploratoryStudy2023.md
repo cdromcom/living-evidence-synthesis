@@ -37,6 +37,9 @@ tags:
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/partial
 doi: 10.48550/arXiv.2306.00622
+license: "unknown"
+license_source: "none found (Crossref and OpenAlex)"
+oa_status: "green"
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
 predatoryPublisherNote: "arXiv preprint — not applicable (not a journal publisher)"

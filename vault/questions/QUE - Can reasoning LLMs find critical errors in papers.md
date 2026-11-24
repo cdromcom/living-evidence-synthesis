@@ -61,7 +61,7 @@ title: "Can reasoning LLMs identify critical errors and unsoundness problems in 
 - [[CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]
     - [[EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
     - [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
-    - [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+    - [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 - [[CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
     - [[EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]

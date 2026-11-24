@@ -55,7 +55,44 @@ export type ContributionInput = {
   body: string;
   edges: ContributionEdges;
   citekey?: string; // SRC only
+  // Quote grounding (EVD and CVT), matching the vault's format.
+  quote?: string; // verbatim text from the paper
+  citation?: string; // e.g. "Sarol et al., 2024"
+  page?: string; // the PRINTED journal page number, not the PDF page position
+  figureRef?: string; // e.g. "Table 1" or "Figure 2"
+  screenshot?: string; // image filename, e.g. smithExample2026-evd-p5-1.png (added to the PR by the reviewer)
 };
+
+export const CONTRIBUTION_TYPES: readonly NodeType[] = ["QUE", "CLM", "EVD", "CVT", "SRC", "EP"];
+
+/** Single-line, no markdown-structure characters: safe inside a blockquote line or [[embed]]. */
+function oneLine(s: string): string {
+  return s.replace(/\s+/g, " ").trim();
+}
+
+/**
+ * The vault's quote block:
+ *   > "quote" (Author, Year, p. N)
+ *   > ![[screenshot.png]]
+ *   >
+ *   > Grounding table (Table 1, p. 5)
+ * Returns "" when there is no quote.
+ */
+export function buildQuoteBlock(input: ContributionInput): string {
+  const quote = oneLine(input.quote ?? "").replace(/^["\u201c]|["\u201d]$/g, "");
+  if (!quote) return "";
+  const cite = oneLine(input.citation ?? "");
+  const page = oneLine(input.page ?? "");
+  const where = [cite, page ? `p. ${page}` : ""].filter(Boolean).join(", ");
+  const lines = [`> "${quote}"${where ? ` (${where})` : ""}`];
+  const shot = oneLine(input.screenshot ?? "");
+  if (shot) lines.push(`> ![[${shot}]]`);
+  const ref = oneLine(input.figureRef ?? "");
+  if (ref) {
+    lines.push(">", `> Grounding table (${ref}${page ? `, p. ${page}` : ""})`);
+  }
+  return lines.join("\n");
+}
 
 /** Builds { path, content } for the new node file, plus any files that must be patched (e.g. a Question gaining a new Claim in its Supporting Claims list). */
 export function buildContributionFiles(input: ContributionInput): {
@@ -63,6 +100,7 @@ export function buildContributionFiles(input: ContributionInput): {
   patches: { path: string; append: (current: string) => string }[];
 } {
   const { type, title, body, edges } = input;
+  const quoteBlock = buildQuoteBlock(input);
   const created = new Date().toISOString().slice(0, 10);
   const dir = VAULT_DIR[type];
 
@@ -101,7 +139,7 @@ export function buildContributionFiles(input: ContributionInput): {
     case "EVD": {
       filename = `EVD - ${fileTitle}.md`;
       const srcId = edges.derivedFrom?.[0];
-      sections = `## Description\n\n${body}\n`;
+      sections = `## Description\n\n${quoteBlock ? quoteBlock + "\n\n" : ""}${body}\n`;
       if (srcId) sections += `\n## Source\n\n${wikilink(srcId)}\n`;
       if (edges.supports?.length) {
         sections += `\n## Supports Claim(s)\n\n${linkList(edges.supports)}\n`;
@@ -114,6 +152,7 @@ export function buildContributionFiles(input: ContributionInput): {
     case "CVT": {
       filename = `CVT - ${fileTitle}.md`;
       sections = `## Limitation\n\n${body}\n`;
+      if (quoteBlock) sections += `\n### Supporting Quote\n\n> [!info] Quotes\n${quoteBlock}\n`;
       if (edges.qualifies?.length) {
         sections += `\n### Applies To\n\n${linkList(edges.qualifies)}\n`;
       }
