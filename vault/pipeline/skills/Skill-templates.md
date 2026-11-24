@@ -21,6 +21,29 @@ This file holds the per-step detail for **Steps 4 through 10** of the discourse-
 
 All five node types use the templates in the `pipeline/templates/` folder (EP nodes follow the inline template in [Step 11](#step-11-cross-paper-synthesis-evidencepatterns--review-arena); QUE/CLM/EVD/CVT use the per-type files in `pipeline/templates/`). Each section below specifies the body structure and required slots.
 
+### EVD statement (headline) style: the Phase 2 standard (JP, 2026-11-17; applies from 2026-11-24)
+
+Every EVD title and its Description summary line is written in the style of the Phase 2 EVDs in the review sheet ("LIVES - AAA Benchmarking (HAI)", tab LIVES-EVD-Benchmarking, column "JP: Edited EVD(s) - Phase 2", and the PICOST tab's "EVD text (final)"). The Phase 2 rewrite replaced the April LLM headlines, which were too short and vague. Write new EVDs this way directly:
+
+- **Pattern:** [named model(s)] [prompting, only if the paper states it] [verb] [N + field + "research reports"] [task or instrument], [result against a comparator] ([metric = value, ...]). **One finding per EVD**; pick the finding that matters.
+- **Name every model** ("GPT 3.5-turbo", not "ChatGPT"); call custom systems "bespoke"; give N, the field and the data source; name the instrument's type ("the reporting guideline STROBE", "the risk-of-bias tool QUADAS-2").
+- **Always give a comparator** (humans, other models, prior state of the art, a baseline), including the row that contradicts the headline.
+- **Statistics in parentheses** with spelled-out metric names ("Cohen's kappa", "F1 score", "Fisher's exact test p > 0.05"); prefer kappa and F1 variants to accuracy, and use percentages only when nothing else is reported; keep significance framing when the paper stresses it; round sensibly.
+- **Length:** hard limit 247 characters (count with code); right length, more detail and structure than the April headlines.
+- **Every number must be on the PICOST record** (with its locator) and in the paper's table; the statement is generated from the PICOST cells.
+
+Examples (Phase 2 final texts):
+1. "Compared to five other LLMs with RAG, GPT 3.5-turbo answering 15 questions from the reporting guideline STROBE about 39 observational medical research reports was most accurate (66.9% vs. GPT 4-1106 = 65.6%, p = .061, to 44.1%)."
+2. "Of six LLMs with RAG answering 15 STROBE questions about 39 observational medical research reports, GPT 4-0613 was least accurate (44.1%), below Gemini Pro (49.2%, p < .001) and best-performing GPT 3.5-turbo (66.9%)."
+3. "GPT 3.5 with chain-of-thought prompting checking 20 orthodontic systematic review abstracts against 12 items of the reporting guideline PRISMA did not differ significantly from two human raters on 11 items (Fisher's exact test p > 0.05)."
+
+### Provenance for tables and figures everywhere (JP, 2026-11-24)
+
+Quotes and screenshots are required not only for EVD results but for **every table, figure or design detail cited anywhere**: EVD Methods Context (What / How / Who), EVD Other Notes tables, SRC pages (the TRIPOD-LLM table's Quote column, the Quality Appraisal rows, methods summaries) and any other node. The earlier pages cited method and sample numbers without grounding them; do not repeat that. For each:
+- a verbatim quote with its printed page, and, when the evidence is a table or figure, a line `> Grounding table (Table N, p. X): <one-line caption>` followed by the crop `> ![[<citekey>-table<N>-p<PDFpage>-<idx>.png]]` (cropped to the table or figure and its caption, all rows, columns and panels, per the grounding rules below);
+- the same crop QA as EVD crops (Sol checks it; Opus 5.5 also checks multi-page crops);
+- on SRC tables, the cited `(Table N, p. X)` next to each value and the crop embedded under the table, so a reader can verify every row.
+
 ### EVD template body
 
 The EVD body has four required content blocks plus three reverse-link sections. The `## Methods Context` slots use a structured schema (study design + tools + DV/IV; procedure; participants + sample-size flow). The `## Other Notes` block carries an EVD-specific TRIPOD-LLM **item 17 (Performance)** mini-table; the *paper-level* TRIPOD-LLM Methods + Results compliance table lives in the source file (`sysrev/source/@<citekey>.md`) and is linked from each EVD — see [Step 4b](#step-4b-paper-level-tripod-llm-table-in-the-source-file) below.
