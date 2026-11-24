@@ -11,9 +11,9 @@ tags:
   - 5c/creativity
 appliesTo:
   - "[[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]"
-  - "[[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]"
+  - "[[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]"
 created: 2026-04-17
-updated: 2026-04-29
+updated: 2026-11-24
 nodeID: 019ddb4e-6bac-717c-b0c4-aaa4aaf2b955
 type: author-stated
 severity: moderate
@@ -31,12 +31,12 @@ LLMs exhibit substantial sensitivity to prompt variations in novelty evaluation 
 ### Supporting Quote
 
 > [!info] Quotes
-> "Our analysis highlights the LLM's sensitivity to prompt design when assessing novelty of an idea. Even minor variations in wording and structure can lead to substantial performance changes, emphasizing the need for careful prompt engineering and well-chosen in-context examples to guide the LLM for idea novelty evaluation." (Shahid et al., 2025, p. 8)
+> "Our analysis highlights the LLM's sensitivity to prompt design when assessing novelty of an idea. Even minor variations in wording and structure can lead to substantial performance changes, emphasizing the need for careful prompt engineering and well-chosen in-context examples to guide the LLM for idea novelty evaluation." (Shahid et al., 2025, p. 103)
 >
-> ![[shahidLiteratureGroundedNoveltyAssessment2025-cvt-p8-1.png]]
+> ![[shahidLiteratureGroundedNoveltyAssessment2025-sdp-cvt-p8-1.png]]
 
 ### Applies To
 
 - [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
 
-- [[EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%|EVD - Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+- [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
