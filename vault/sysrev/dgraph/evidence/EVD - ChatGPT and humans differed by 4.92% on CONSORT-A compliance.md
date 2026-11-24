@@ -25,7 +25,7 @@ title: "ChatGPT and human evaluators differed by mean 4.92% in overall complianc
 
 ## Source
 
-[[@robertsComparativeStudyChatGPT2023]]
+[[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "ChatGPT and human evaluators differed by mean 4.92% in overall complianc
 - Interpretation: a 4.92 percentage-point mean difference on a 100-point OCS scale corresponds to roughly 0.74 of a single CONSORT-A item, small in aggregate but driven by large per-domain divergences (see the conclusion-domain EVD).
 - Per-paper Pearson r is not reported, only per-domain r values appear in Table 1.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
 
 | Agreement metric (overall OCS%) | Value |
 | --- | --- |
@@ -86,18 +86,18 @@ title: "ChatGPT and human evaluators differed by mean 4.92% in overall complianc
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - ChatGPT saw only abstracts due to token limits|CVT - ChatGPT evaluation was restricted to abstracts only due to token length constraints]]
+- [[sysrev/dgraph/caveats/CVT - ChatGPT saw only abstracts due to token limits|CVT - ChatGPT evaluation was restricted to abstracts only due to token length constraints]]
 
-- [[CVT - Roberts study tested only GPT-3.5|CVT - The Roberts study used only GPT-3.5 and did not test GPT-4 or other LLMs]]
+- [[sysrev/dgraph/caveats/CVT - Roberts study tested only GPT-3.5|CVT - The Roberts study used only GPT-3.5 and did not test GPT-4 or other LLMs]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs can help automate reporting compliance appraisal|CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
+- [[sysrev/dgraph/claims/CLM - LLMs can help automate reporting compliance appraisal|CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]

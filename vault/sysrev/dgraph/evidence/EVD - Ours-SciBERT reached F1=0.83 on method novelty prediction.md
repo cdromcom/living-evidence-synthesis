@@ -24,7 +24,7 @@ title: "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and 
 
 ## Source
 
-[[@wuAutomatedNoveltyEvaluationa]]
+[[sysrev/dgraph/source/@wuAutomatedNoveltyEvaluationa]]
 
 ## Description
 
@@ -74,7 +74,7 @@ title: "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and 
 - LLaMA-3.1 was the only LLM whose performance improved when moving from HK+MT to HK+LLMK; other LLMs declined or stayed flat, suggesting LLM-summarized inputs help only smaller-parameter PLMs.
 - ALBERT showed the largest absolute gain from the knowledge-fusion framework (0.52 → 0.76 F1 with the Ours-ALBERT variant).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wuAutomatedNoveltyEvaluationa#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@wuAutomatedNoveltyEvaluationa#TRIPOD-LLM reporting]].
 
 | Model (HK + LLMK input) | Weighted F1 | Accuracy |
 | --- | :---: | :---: |
@@ -100,19 +100,19 @@ title: "Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and 
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Novelty assessment tested LLMs only zero-shot|CVT - LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment]]
+- [[sysrev/dgraph/caveats/CVT - Novelty assessment tested LLMs only zero-shot|CVT - LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment]]
 
-- [[CVT - Novelty prediction dataset was only ICLR papers|CVT - The novelty prediction dataset was limited to ICLR machine learning conference papers restricting generalizability to other academic domains]]
+- [[sysrev/dgraph/caveats/CVT - Novelty prediction dataset was only ICLR papers|CVT - The novelty prediction dataset was limited to ICLR machine learning conference papers restricting generalizability to other academic domains]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Reviewer knowledge plus LLM summaries best predicts novelty|CLM - Combining human reviewer knowledge with LLM-generated method summaries improves automated novelty prediction beyond either source alone]]
+- [[sysrev/dgraph/claims/CLM - Reviewer knowledge plus LLM summaries best predicts novelty|CLM - Combining human reviewer knowledge with LLM-generated method summaries improves automated novelty prediction beyond either source alone]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]
-- [[EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]

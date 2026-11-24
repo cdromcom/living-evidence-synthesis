@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - Human consensus datasets used as comparators were openly available online raising train test contamination concerns"
+  - CVT - Human consensus datasets used as comparators were openly available online raising train test contamination concerns
 tags:
   - cvt/domain/internal-validity
   - cvt/mechanism/data-leakage
@@ -12,20 +12,20 @@ tags:
   - 5c/clarity
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]"
-  - "[[EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]"
-  - "[[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]"
+  - "[[sysrev/dgraph/evidence/EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]"
+  - "[[sysrev/dgraph/evidence/EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]"
+  - "[[sysrev/dgraph/evidence/EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]"
 created: 2026-04-27
 updated: 2026-04-29
 nodeID: 019ddb4e-6baa-75e9-b1ee-459f9a348dfd
 type: author-stated
 severity: moderate
-title: "Human consensus datasets used as comparators were openly available online raising train test contamination concerns"
+title: Human consensus datasets used as comparators were openly available online raising train test contamination concerns
 ---
 
 ## Source
 
-[[@woelfleBenchmarkingHumanAICollaboration2024]]
+[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Limitation
 
@@ -40,8 +40,8 @@ The human consensus datasets used to grade LLM performance (PRISMA/AMSTAR rating
 
 ### Applies To
 
-- [[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]
+- [[sysrev/dgraph/evidence/EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]
 
-- [[EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]
+- [[sysrev/dgraph/evidence/EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]
 
-- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]
+- [[sysrev/dgraph/evidence/EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]

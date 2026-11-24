@@ -24,7 +24,7 @@ title: "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming 
 
 ## Source
 
-[[@srinivasanEvaluatingReportingQuality2025a]]
+[[sysrev/dgraph/source/@srinivasanEvaluatingReportingQuality2025a]]
 
 ## Description
 
@@ -69,7 +69,7 @@ title: "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming 
 
 ## Other Notes
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting]].
 
 | Model | Accuracy | Precision | Recall | F1 | Micro-F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |
@@ -98,12 +98,12 @@ title: "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming 
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs can achieve SOTA CONSORT compliance assessment zero-shot at scale|CLM - LLMs can achieve state-of-the-art CONSORT compliance assessment performance through zero-shot prompting at scale]]
+- [[sysrev/dgraph/claims/CLM - LLMs can achieve SOTA CONSORT compliance assessment zero-shot at scale|CLM - LLMs can achieve state-of-the-art CONSORT compliance assessment performance through zero-shot prompting at scale]]
 
-- [[CLM - RCT reporting improved substantially over decades but critical gaps persist|CLM - RCT reporting quality has improved substantially over decades but critical methodological gaps persist across all disciplines]]
+- [[sysrev/dgraph/claims/CLM - RCT reporting improved substantially over decades but critical gaps persist|CLM - RCT reporting quality has improved substantially over decades but critical methodological gaps persist across all disciplines]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]

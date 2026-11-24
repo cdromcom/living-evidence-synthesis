@@ -13,7 +13,7 @@ title: "How accurately does ChatGPT score medical literature abstracts compared 
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[@robertsComparativeStudyChatGPT2023]]
+> [[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -25,17 +25,17 @@ title: "How accurately does ChatGPT score medical literature abstracts compared 
 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
 
-- [[CLM - LLMs can help automate reporting compliance appraisal|CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
-    - [[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
-    - [[EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]
-    - [[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]
+- [[sysrev/dgraph/claims/CLM - LLMs can help automate reporting compliance appraisal|CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
+    - [[sysrev/dgraph/evidence/EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
+    - [[sysrev/dgraph/evidence/EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]
+    - [[sysrev/dgraph/evidence/EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]
 
-- [[CLM - LLM use in systematic reviews needs a structured protocol|CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
-    - [[EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]
+- [[sysrev/dgraph/claims/CLM - LLM use in systematic reviews needs a structured protocol|CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
+    - [[sysrev/dgraph/evidence/EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]
 
 ### Cross-paper patterns
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]

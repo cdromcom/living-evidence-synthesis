@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The Liang et al user study was subject to self-selection bias as participants opted in to receive LLM feedback"
+  - CVT - The Liang et al user study was subject to self-selection bias as participants opted in to receive LLM feedback
 tags:
   - cvt/domain/internal-validity
   - cvt/mechanism/self-selection-bias
@@ -12,18 +12,18 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]"
+  - "[[sysrev/dgraph/evidence/EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bbc-75fc-8957-3f0d88678cd4
 type: author-stated
 severity: moderate
-title: "The Liang et al user study was subject to self-selection bias as participants opted in to receive LLM feedback"
+title: The Liang et al user study was subject to self-selection bias as participants opted in to receive LLM feedback
 ---
 
 ## Source
 
-[[@liangCanLargeLanguage2024a]]
+[[sysrev/dgraph/source/@liangCanLargeLanguage2024a]]
 
 ### Limitation
 
@@ -38,4 +38,4 @@ The prospective user study recruited researchers who actively opted in to receiv
 
 ### Applies To
 
-[[EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]
+[[sysrev/dgraph/evidence/EVD - 57.4% of 308 researchers found GPT-4 feedback helpful|EVD - 57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers]]

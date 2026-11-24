@@ -24,7 +24,7 @@ title: "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 3
 
 ## Source
 
-[[@sonWhenAICoScientists2025]]
+[[sysrev/dgraph/source/@sonWhenAICoScientists2025]]
 
 ## Description
 
@@ -78,7 +78,7 @@ title: "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 3
 - Gemini-2.5-Pro: precision=3.1%, recall=10.1%, pass@4=25.9% (second best overall on multimodal).
 - Open-source models collapse to ~0%: Llama-4-Maverick precision 2.0%, recall 0.9%, pass@4 3.3%, a 20.2 pp gap to o3 on pass@4. Authors note this is the only benchmark (vs. MathVista, MMLU-Pro, GPQA-Diamond, MMMU, HLE) where Llama-4-Maverick "score collapses to near zero (0.9%)."
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
 
 | Model | Think | Precision (%) | Recall (%) | pass@1 (%) | pass@4 (%) |
 | --- | :---: | :---: | :---: | :---: | :---: |
@@ -103,21 +103,21 @@ title: "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 3
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - SPOT had only 83 manuscripts with 91 errors|CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]
+- [[sysrev/dgraph/caveats/CVT - SPOT had only 83 manuscripts with 91 errors|CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]
 
-- [[CVT - SPOT included only author-confirmed errors potentially excluding harder ones|CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors]]
+- [[sysrev/dgraph/caveats/CVT - SPOT included only author-confirmed errors potentially excluding harder ones|CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
+- [[sysrev/dgraph/claims/CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
 
-- [[CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
+- [[sysrev/dgraph/claims/CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]
+- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
+- [[sysrev/dgraph/evd-patterns/EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]

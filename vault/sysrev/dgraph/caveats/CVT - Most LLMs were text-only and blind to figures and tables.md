@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal"
+  - CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/excluded-cases
@@ -11,19 +11,19 @@ tags:
   - 5c/clarity
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]"
-  - "[[EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]"
+  - "[[sysrev/dgraph/evidence/EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]"
+  - "[[sysrev/dgraph/evidence/EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]"
 created: 2026-04-27
 updated: 2026-04-29
 nodeID: 019ddb4e-6baf-74c0-87e4-55cc11bf3cff
 type: author-stated
 severity: moderate
-title: "Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal"
+title: Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal
 ---
 
 ## Source
 
-[[@woelfleBenchmarkingHumanAICollaboration2024]]
+[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Limitation
 
@@ -38,6 +38,6 @@ Four of the five LLMs (Claude-2, GPT-4-32k-0613, GPT-3.5, Mixtral-8x22B) were te
 
 ### Applies To
 
-- [[EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]
+- [[sysrev/dgraph/evidence/EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans|EVD - Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percent for AMSTAR versus 89 percent for humans]]
 
-- [[EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]
+- [[sysrev/dgraph/evidence/EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%|EVD - Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings]]

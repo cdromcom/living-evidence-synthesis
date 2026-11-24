@@ -24,7 +24,7 @@ title: "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with G
 
 ## Source
 
-[[@leucutaRiskBiasAssessment2025]]
+[[sysrev/dgraph/source/@leucutaRiskBiasAssessment2025]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with G
 
 By domain: Flow and timing was highest (80.63%), then index test (73.75%), then patient selection (65.83%) and reference standard (63.75%). The percentage of answers that were correct but with incorrect reasoning was 2.95% overall, highest in index test domain (5%).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]].
 
 | Model | Correct / 110 | % correct |
 | --- | :---: | :---: |
@@ -100,20 +100,20 @@ By domain: Flow and timing was highest (80.63%), then index test (73.75%), then 
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - One unengineered prompt potentially underestimates LLMs on QUADAS-2|CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment]]
+- [[sysrev/dgraph/caveats/CVT - One unengineered prompt potentially underestimates LLMs on QUADAS-2|CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment]]
 
-- [[CVT - Only public web LLM interfaces were used not APIs potentially missing better versions|CVT - Only publicly available web-based LLM interfaces were used rather than APIs potentially missing superior performance of paid or fine-tuned model versions]]
+- [[sysrev/dgraph/caveats/CVT - Only public web LLM interfaces were used not APIs potentially missing better versions|CVT - Only publicly available web-based LLM interfaces were used rather than APIs potentially missing superior performance of paid or fine-tuned model versions]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
+- [[sysrev/dgraph/claims/CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
 
-- [[CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
+- [[sysrev/dgraph/claims/CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]

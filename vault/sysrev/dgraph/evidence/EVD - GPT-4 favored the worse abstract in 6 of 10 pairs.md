@@ -24,7 +24,7 @@ title: "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the infe
 
 ## Source
 
-[[@liuReviewerGPTExploratoryStudy2023]]
+[[sysrev/dgraph/source/@liuReviewerGPTExploratoryStudy2023]]
 
 ## Description
 
@@ -72,7 +72,7 @@ title: "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the infe
 - For the bombastic-language pair, GPT-4 was swayed in 2 of 3 responses.
 - The authors caveat that the LLM's verbal explanations may not reflect its actual decision process (citing Turpin et al. 2023).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
 
 | Intervention type (Table 3) | Per-response | Overall |
 | --- | --- | --- |
@@ -96,6 +96,6 @@ title: "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the infe
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
+- [[sysrev/dgraph/claims/CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
 
-- [[CLM - Targeted questions elicit substantially better LLM performance than open-ended review|CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
+- [[sysrev/dgraph/claims/CLM - Targeted questions elicit substantially better LLM performance than open-ended review|CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]

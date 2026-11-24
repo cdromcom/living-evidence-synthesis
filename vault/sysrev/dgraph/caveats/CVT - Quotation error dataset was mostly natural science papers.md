@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels"
+  - CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/single-discipline
@@ -10,19 +10,19 @@ tags:
   - cvt/severity/moderate
   - 5c/connectivity
 appliesTo:
-  - "[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]"
-  - "[[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]"
 created: 2026-04-17
 updated: 2026-11-24
 nodeID: 019ddb4e-6bc8-7307-95d7-b3f0667e0ff7
 type: author-stated
 severity: moderate
-title: "The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels"
+title: The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels
 ---
 
 ## Source
 
-[[@zhangDetectingReferenceErrors2024]]
+[[sysrev/dgraph/source/@zhangDetectingReferenceErrors2024]]
 
 ### Limitation
 
@@ -37,6 +37,6 @@ All statement-reference pairs in the dataset came from journal articles and were
 
 ### Applies To
 
-- [[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
+- [[sysrev/dgraph/evidence/EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
 
-- [[EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]
+- [[sysrev/dgraph/evidence/EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context|EVD - GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%]]

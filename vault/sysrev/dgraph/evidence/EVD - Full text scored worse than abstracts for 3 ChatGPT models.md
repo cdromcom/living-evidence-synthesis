@@ -24,7 +24,7 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 
 ## Source
 
-[[@thelwallEvaluatingResearchQuality2024]]
+[[sysrev/dgraph/source/@thelwallEvaluatingResearchQuality2024]]
 
 ## Description
 
@@ -78,12 +78,12 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 - Cross-cell correlation between truncated-text and abstract predictions is 0.757 within GPT-3.5-turbo (Table 1; the paper's text says 0.754), suggesting the two inputs carry largely overlapping signal but the abstract version is cleaner.
 - The full-text → abstract gap is largest for GPT-4o-mini (0.571 vs. 0.506; Δ = +0.065 favoring abstracts) and smallest for GPT-4o (0.678 vs. 0.675; Δ ≈ 0).
 - PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - superseded versions/Archive - Thelwall - 2024.pdf"
-- PDF check 2026-11-24: citation of "The optimal input for ChatGPT 3.5-turbo seems to be article ..." (Thelwall, 2024, p. 7) -> (Thelwall, 2025, p. 14)
+- PDF check 2026-11-24: citation of "The optimal input for ChatGPT 3.5-turbo seems to be article ..." (Thelwall, 2024, p. 14) -> (Thelwall, 2025, p. 14)
 - PDF check 2026-11-24: citation (Table 1, p. 8) -> (Table 1, Thelwall, 2025, p. 15)
 - PDF check 2026-11-24: quote "This article assesses which ChatGPT inputs (full text without tables,..." -> verbatim journal wording: "This article assesses which ChatGPT inputs (full text without tables, figures, and references; title and abstract; title only) produce better quality score estimates, and the extent to which scores are affected by ChatGPT models and system prompts." (serial comma added in the journal abstract)
-- PDF check 2026-11-24: citation of "This article assesses which ChatGPT inputs (full text withou..." (Thelwall, 2024, p. 1) -> (Thelwall, 2025, p. 7)
-- PDF check 2026-11-24: citation of "Several different datasets were generated to try different e..." (Thelwall, 2024, p. 4) -> (Thelwall, 2025, p. 11)
-- PDF check 2026-11-24: citation of "The raw data for this paper is a set of 51 information scien..." (Thelwall, 2024, p. 3) -> (Thelwall, 2025, p. 10)
+- PDF check 2026-11-24: citation of "This article assesses which ChatGPT inputs (full text withou..." (Thelwall, 2024, p. 7) -> (Thelwall, 2025, p. 7)
+- PDF check 2026-11-24: citation of "Several different datasets were generated to try different e..." (Thelwall, 2024, p. 11) -> (Thelwall, 2025, p. 11)
+- PDF check 2026-11-24: citation of "The raw data for this paper is a set of 51 information scien..." (Thelwall, 2024, p. 10) -> (Thelwall, 2025, p. 10)
 - PDF check 2026-11-24: prompt text in How? `"Score the following journal article: "` -> `"Score the following journal article:"` (journal wording has no trailing space, p. 12)
 - PDF check 2026-11-24: Models compared "GPT-4o (3 input cells), GPT-4o-mini (3 input cells), 9 cells" -> "GPT-4o (2), GPT-4o-mini (2), 7 cells" (Table 1 has seven model-by-input columns; titles were run only with GPT-3.5-turbo)
 - PDF check 2026-11-24: quote "obscures the main value of an article by including less relevant text that an LLM could pay partial attention to." -> "may tend to obscure the main value of an article by including less relevant text that an LLM could pay partial attention to." (Thelwall, 2025, p. 20); the old wording was not verbatim in either version
@@ -91,7 +91,7 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 - PDF check 2026-11-24: cross-cell correlation abstract vs truncated text "0.754" -> "0.757" (Table 1, p. 15; the paper's own text on p. 15 says 0.754, the table is used)
 - PDF check 2026-11-24: table cell GPT-4o Titles "0.539" -> "—" (not run; 0.539 is GPT-3.5 titles vs GPT-4o abstracts)
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@thelwallEvaluatingResearchQuality2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@thelwallEvaluatingResearchQuality2024#TRIPOD-LLM reporting]].
 
 | Model | Titles (r) | Abstracts (r) | Truncated text (r) | Δ Abstract − Truncated |
 | --- | :---: | :---: | :---: | :---: |
@@ -113,10 +113,10 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]
+- [[sysrev/dgraph/claims/CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]

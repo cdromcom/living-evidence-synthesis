@@ -24,7 +24,7 @@ title: "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers"
 
 ## Source
 
-[[@liuReviewerGPTExploratoryStudy2023]]
+[[sysrev/dgraph/source/@liuReviewerGPTExploratoryStudy2023]]
 
 ## Description
 
@@ -75,7 +75,7 @@ title: "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers"
 - For all 6 papers where GPT-4 failed, the short paper did not contain a complete proof, so detection would have required external knowledge rather than a deductive check.
 - Per-prompt totals: `Prompt-Direct` 5✓ / 8✗ / 1!; `Prompt-OneShot` 6✓ / 7✗ / 1!; `Prompt-Parts` 7✓ / 6✗ / 1!; `Overall` 7✓ / 6✗ / 2!.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
 
 | Prompt strategy | ✓ detected | ✗ missed | ! false alarms |
 | --- | --- | --- | --- |
@@ -89,21 +89,21 @@ title: "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers"
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Only GPT-4 was tested as all other LLMs failed|CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely]]
+- [[sysrev/dgraph/caveats/CVT - Only GPT-4 was tested as all other LLMs failed|CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely]]
 
-- [[CVT - Error detection used constructed papers not real submissions|CVT - The error detection study used constructed short papers rather than real manuscript submissions]]
+- [[sysrev/dgraph/caveats/CVT - Error detection used constructed papers not real submissions|CVT - The error detection study used constructed short papers rather than real manuscript submissions]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
+- [[sysrev/dgraph/claims/CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
 
-- [[CLM - Targeted questions elicit substantially better LLM performance than open-ended review|CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
+- [[sysrev/dgraph/claims/CLM - Targeted questions elicit substantially better LLM performance than open-ended review|CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]

@@ -24,7 +24,7 @@ title: "LLMs performed suboptimally identifying placebo arm suitability and risk
 
 ## Source
 
-[[@sridharanLeveragingArtificialIntelligence2025]]
+[[sysrev/dgraph/source/@sridharanLeveragingArtificialIntelligence2025]]
 
 ## Description
 
@@ -71,7 +71,7 @@ title: "LLMs performed suboptimally identifying placebo arm suitability and risk
 - Examples of multi-prompt incremental gains (Table 3): in case 2 (TS dose-optimisation), ChatGPT 4.0 newly recommended an independent data-monitoring committee, post-study access for the placebo group, and an independent advocate for child participants. In case 5 (oral iron chelation in MDS), Claude-Instant-100k reversed its earlier weak placebo justification.
 - "Some omissions related to a single prompt were observed even with multiple prompts", multi-prompt is not a complete fix.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting]].
 
 | Ethical domain | Single-prompt outcome | Multi-prompt outcome |
 | --- | --- | --- |
@@ -92,13 +92,13 @@ Source-file tables: see Table 2 (p. 128) for single-prompt failures and Table 3 
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
+- [[sysrev/dgraph/claims/CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
 
-- [[CLM - Multiple prompts elicit more complete and nuanced LLM ethics review than single prompts|CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
+- [[sysrev/dgraph/claims/CLM - Multiple prompts elicit more complete and nuanced LLM ethics review than single prompts|CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

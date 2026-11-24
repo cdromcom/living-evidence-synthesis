@@ -26,7 +26,7 @@ title: "o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% 
 
 ## Source
 
-[[@louAAAR10AssessingAIs2025]]
+[[sysrev/dgraph/source/@louAAAR10AssessingAIs2025]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% 
 
 The EQINFER task is deliberately challenging: even expert human researchers require substantial research accumulation to solve these tasks. Figure 4 shows context-length scaling has limited effect: GPT-4o F1 stays ~40 across 100–1,500 words; Llama-3.1 peaks ~35 at 700 words; Qwen-2.5 stays ~26.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting]].
 
 | Model | F1 (%) | Precision (%) | Recall (%) |
 | --- | --- | --- | --- |
@@ -93,20 +93,20 @@ The EQINFER task is deliberately challenging: even expert human researchers requ
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - AAAR training data leakage was not resolved|CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
+- [[sysrev/dgraph/caveats/CVT - AAAR training data leakage was not resolved|CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
+- [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
 
-- [[CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
+- [[sysrev/dgraph/claims/CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
-- [[EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]
+- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[sysrev/dgraph/evd-patterns/EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]

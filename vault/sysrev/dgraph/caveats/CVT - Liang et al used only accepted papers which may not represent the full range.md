@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The Liang et al study used papers already accepted to journals which may not represent the full quality distribution"
+  - CVT - The Liang et al study used papers already accepted to journals which may not represent the full quality distribution
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/selection-bias
@@ -13,19 +13,19 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human|EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%]]"
-  - "[[EVD - GPT-4 commented on implications 7.27x more and novelty 10.69x less than humans|EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human|EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 commented on implications 7.27x more and novelty 10.69x less than humans|EVD - GPT-4 commented on research implications 7.27x more than humans and on novelty 10.69x less on ICLR papers]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bbb-71a0-b296-59640f76d037
 type: inferred
 severity: low
-title: "The Liang et al study used papers already accepted to journals which may not represent the full quality distribution"
+title: The Liang et al study used papers already accepted to journals which may not represent the full quality distribution
 ---
 
 ## Source
 
-[[@liangCanLargeLanguage2024a]]
+[[sysrev/dgraph/source/@liangCanLargeLanguage2024a]]
 
 ### Limitation
 
@@ -42,4 +42,4 @@ The retrospective analysis used already-accepted papers from Nature journals and
 
 ### Applies To
 
-[[EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human|EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%]]
+[[sysrev/dgraph/evidence/EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human|EVD - GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%]]

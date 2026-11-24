@@ -26,7 +26,7 @@ title: "Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o s
 
 ## Source
 
-[[@louAAAR10AssessingAIs2025]]
+[[sysrev/dgraph/source/@louAAAR10AssessingAIs2025]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o s
 
 Surprisingly, AI-SCI (an advanced prompting framework) performed worse than baseline GPT-4o on ITF-IDF, suggesting popular prompting techniques do not resolve the diversity gap. The paper also flags (footnote 7, p. 9) that the human ITF-IDF of 7.69 may be slightly underestimated because repeated weaknesses across reviewers were retained.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting]].
 
 | System | S-F1 (%) | S-Precision (%) | S-Recall (%) | ITF-IDF (↑) |
 | --- | --- | --- | --- | --- |
@@ -94,12 +94,12 @@ Surprisingly, AI-SCI (an advanced prompting framework) performed worse than base
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - AAAR excluded figures and other non-text inputs|CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation]]
+- [[sysrev/dgraph/caveats/CVT - AAAR excluded figures and other non-text inputs|CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
+- [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
 
-- [[CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
+- [[sysrev/dgraph/claims/CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation"
+  - CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/excluded-cases
@@ -12,20 +12,20 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]"
-  - "[[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]"
-  - "[[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]"
+  - "[[sysrev/dgraph/evidence/EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]"
+  - "[[sysrev/dgraph/evidence/EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]"
+  - "[[sysrev/dgraph/evidence/EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb8-768b-99d5-407c9533ca91
 type: inferred
 severity: moderate
-title: "The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation"
+title: The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation
 ---
 
 ## Source
 
-[[@louAAAR10AssessingAIs2025]]
+[[sysrev/dgraph/source/@louAAAR10AssessingAIs2025]]
 
 ### Limitation
 
@@ -42,6 +42,6 @@ The AAAR-1.0 EQINFER and EXPDESIGN tasks use LaTeX source as the input, with no 
 
 ### Applies To
 
-- [[EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]
+- [[sysrev/dgraph/evidence/EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]
 
-- [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
+- [[sysrev/dgraph/evidence/EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]

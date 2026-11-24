@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "CVT - LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability"
+  - CVT - LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/small-sample
@@ -11,19 +11,19 @@ tags:
   - cvt/severity/moderate
   - 5c/care
 appliesTo:
-  - "[[EVD - All four LLMs gave similar answers to all 7 IRB cases|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]"
-  - "[[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]"
+  - "[[sysrev/dgraph/evidence/EVD - All four LLMs gave similar answers to all 7 IRB cases|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]"
+  - "[[sysrev/dgraph/evidence/EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bab-7188-9d83-7196a8794734
 type: author-stated
 severity: moderate
-title: "LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability"
+title: LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability
 ---
 
 ## Source
 
-[[@sridharanLeveragingArtificialIntelligence2025]]
+[[sysrev/dgraph/source/@sridharanLeveragingArtificialIntelligence2025]]
 
 ### Limitation
 
@@ -38,6 +38,6 @@ The study used only cloud-based LLMs and a small pilot sample of seven case scen
 
 ### Applies To
 
-- [[EVD - All four LLMs gave similar answers to all 7 IRB cases|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]
+- [[sysrev/dgraph/evidence/EVD - All four LLMs gave similar answers to all 7 IRB cases|EVD - All four LLMs answered all seven IRB ethics case queries with homogeneous responses]]
 
-- [[EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]
+- [[sysrev/dgraph/evidence/EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt|EVD - LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt]]

@@ -25,7 +25,7 @@ title: "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and
 
 ## Source
 
-[[@woelfleBenchmarkingHumanAICollaboration2024]]
+[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ## Description
 
@@ -85,7 +85,7 @@ title: "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and
 - The abstract's "best accuracies from 89% to 96%" is the range from the lowest to the highest human-AI pair, and the paired deferring fractions (e.g., "25/35% deferred") belong to those two pairs: PRISMA = GPT-4 (89%, 25%) to Claude-2 (96%, 35%); AMSTAR = GPT-4 (91%, 27%) to Claude-3-Opus (95%, 30%); PRECIS-2 = GPT-4 (80%, 76%) to GPT-3.5 (86%, 71%) (Woelfle et al., 2024, p. 7). Note the paper's text gives AMSTAR's top as 95% (Claude-3-Opus), although its Table 3 lists Human + GPT-3.5 at 96% with 52% deferred.
 - For PRISMA + Claude-2, accepting 96% accuracy spares the second human rater 65% of responses, i.e., 1 wrong response per ~25 spared. For AMSTAR, accepting 95% accuracy spares 70%, 1 wrong per ~20 spared. For PRECIS-2, accepting 86% accuracy spares only 29%, 1 wrong per ~7 spared.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
 
 | Pair (Human rater 1 + …) | Accuracy (95% CI) | Cohen's kappa (95% CI) | Deferring fraction (95% CI) |
 | --- | --- | --- | --- |
@@ -113,16 +113,16 @@ Values checked against the source PDF (Woelfle et al., 2024, Table 3, p. 7) on 2
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Benchmark did not record human time on task|CVT - The benchmark datasets did not record human time on task preventing quantification of efficiency gains]]
+- [[sysrev/dgraph/caveats/CVT - Benchmark did not record human time on task|CVT - The benchmark datasets did not record human time on task preventing quantification of efficiency gains]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]
+- [[sysrev/dgraph/claims/CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]

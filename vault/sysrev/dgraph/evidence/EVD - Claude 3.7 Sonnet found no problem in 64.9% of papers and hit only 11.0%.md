@@ -25,7 +25,7 @@ title: "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved 
 
 ## Source
 
-[[@zhangReviewingScientificPapers2025a]]
+[[sysrev/dgraph/source/@zhangReviewingScientificPapers2025a]]
 
 ## Description
 
@@ -91,7 +91,7 @@ title: "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved 
 - PDF check 2026-11-24: Gemini-judge HR@5 PDF 21.6% -> 24.1%, o3-judge PDF 19.2% -> 12.2%, Gemini-judge LaTeX 44.5% -> 48.6%, o3-judge LaTeX 40.8% -> 26.5% (v3 Table 3, p. 6)
 - PDF check 2026-11-24: quote citations: the three quotes cited p. 3 in v1 are now cited p. 4 (v3 Sections 3 and 2.4), the p. 2 quote is now cited p. 2 and p. 3 (v3 Sections 2.1 and 2.2); the v3 PDF prints page numbers equal to its PDF position; quotes replaced with the v3 wording shown above (v1 wording "leading to a low hit rate of 16.3%", "Anthropic's PDF ingestion pipeline" and "(Table 3) ... unqualified" is not in v3)
 
-> [!info] TRIPOD-LLM item 17 (Performance): EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance): EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting]].
 
 *Figures reproduced from Zhang & Abernethy, arXiv v3 (1 Apr 2026), Tables 2 and 3, pp. 5–6. Single-judge rows are from Table 3; the rest from Table 2. v3 Table 2 also reports AP@5 = 36.4% for Claude (PDF only; not tabulated here).*
 | Condition | HR@5 | Avg. # problems (Q1, Q3) | Input tok | Think tok | Output tok | $/paper |
@@ -115,11 +115,11 @@ Grounding table (Table 3, p. 6): hit rate and average precision by individual ju
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
+- [[sysrev/dgraph/claims/CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
-- [[EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]

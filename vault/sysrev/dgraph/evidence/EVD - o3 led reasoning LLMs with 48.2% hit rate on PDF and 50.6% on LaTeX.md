@@ -25,7 +25,7 @@ title: "OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX)
 
 ## Source
 
-[[@zhangReviewingScientificPapers2025a]]
+[[sysrev/dgraph/source/@zhangReviewingScientificPapers2025a]]
 
 ## Description
 
@@ -96,7 +96,7 @@ title: "OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX)
 - PDF check 2026-11-24: reasoning summary "detailed" -> "auto" (v3 Appendix B, p. 11); cost basis early May 2025 -> June 2025 pricing (v3 p. 4)
 - PDF check 2026-11-24: Description quote "o3 performed the best, while o4-mini was the most cost-effective one" (v1 p. 1) is not in v3; replaced with v3 abstract sentence (p. 1). The "We set model temperature to 0 and fixed the decoding seed..." sentence (v1 p. 3) is not in v3 Section 2.4 (parameters moved to Appendix B, p. 11); the How quote was replaced with the v3 Section 2.4 text. Quote citations p. 3 -> p. 3 (judging), p. 4 (setup); the p. 2 quote stays p. 2.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@zhangReviewingScientificPapers2025a#TRIPOD-LLM reporting]].
 
 *Figures reproduced from Zhang & Abernethy, arXiv v3 (1 Apr 2026), Tables 2 and 3, pp. 5–6. Single-judge rows are from Table 3; the rest from Table 2. v3 Table 2 also reports AP@5 = 29.5% for o3 (PDF only; not tabulated here).*
 | Condition | HR@5 | Avg. # problems (Q1, Q3) | Input tok | Think tok | Output tok | $/paper |
@@ -116,19 +116,19 @@ Grounding table (Table 3, p. 6): hit rate and average precision by individual ju
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Only closed-source reasoning LLMs were tested as checkers|CVT - Only closed-source reasoning LLMs were evaluated as scientific paper quality checkers excluding open-source alternatives]]
+- [[sysrev/dgraph/caveats/CVT - Only closed-source reasoning LLMs were tested as checkers|CVT - Only closed-source reasoning LLMs were evaluated as scientific paper quality checkers excluding open-source alternatives]]
 
-- [[CVT - Error detection dataset was mostly math and physics and may not generalize|CVT - The error detection dataset was rich in math and physics papers and may not generalize to other scientific domains]]
+- [[sysrev/dgraph/caveats/CVT - Error detection dataset was mostly math and physics and may not generalize|CVT - The error detection dataset was rich in math and physics papers and may not generalize to other scientific domains]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
+- [[sysrev/dgraph/claims/CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]
+- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
+- [[sysrev/dgraph/evd-patterns/EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]

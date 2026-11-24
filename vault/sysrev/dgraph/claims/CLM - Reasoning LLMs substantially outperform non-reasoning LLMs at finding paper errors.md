@@ -15,7 +15,7 @@ title: "Reasoning LLMs substantially outperform non-reasoning models at identify
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[@zhangReviewingScientificPapers2025a]]
+> [[sysrev/dgraph/source/@zhangReviewingScientificPapers2025a]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -32,18 +32,18 @@ title: "Reasoning LLMs substantially outperform non-reasoning models at identify
 
 ### Grounding EVDs
 
-- [[EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
+- [[sysrev/dgraph/evidence/EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
 
-- [[EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3|EVD - o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.064 per paper]]
+- [[sysrev/dgraph/evidence/EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3|EVD - o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.064 per paper]]
 
-- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]
+- [[sysrev/dgraph/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]
 
 ### Supporting Evidence
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]
+- [[sysrev/dgraph/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]]
 
-- [[EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
+- [[sysrev/dgraph/evidence/EVD - o3 led reasoning LLMs with 48.2% hit rate on PDF and 50.6% on LaTeX|EVD - OpenAI o3 achieved the highest hit rate of 48.2% (PDF) and 50.6% (LaTeX) among all reasoning LLMs tested as scientific paper quality checkers]]
 
-- [[EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3|EVD - o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.064 per paper]]
+- [[sysrev/dgraph/evidence/EVD - o4-mini reached 38.0% HR@5 at 0.038 USD per paper vs 0.064 USD for o3|EVD - o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a cost of $0.038 per paper versus o3 at $0.064 per paper]]

@@ -26,7 +26,7 @@ title: "GAR achieved a Bradley-Terry preference score of 0.684 outperforming hum
 
 ## Source
 
-[[@bougieGenerativeAdversarialReviews2024a]]
+[[sysrev/dgraph/source/@bougieGenerativeAdversarialReviews2024a]]
 
 ## Description
 
@@ -71,7 +71,7 @@ title: "GAR achieved a Bradley-Terry preference score of 0.684 outperforming hum
 
 The win matrix (Figure 2, p. 10) shows GAR winning 77% of matchups against AI-Review, 65% vs. ReviewerGPT, 80% vs. OpenReviewer, 62% vs. AI-Scientist, and 56% vs. Human; humans won 64% vs. AI-Review and 74% vs. OpenReviewer in the same matrix. The §5.2 human-evaluator replication (Table 2) preserves the GAR > Human > AI-Scientist ordering.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
 
 | Reviewer | BT score (GPT-4o judge) | BT score (human judges, §5.2) |
 | --- | :---: | :---: |
@@ -87,12 +87,12 @@ The win matrix (Figure 2, p. 10) shows GAR winning 77% of matchups against AI-Re
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - GAR test papers may have been in LLM training data|CVT - Evaluated papers may have been present in LLM training data introducing potential contamination bias in GAR performance estimates]]
+- [[sysrev/dgraph/caveats/CVT - GAR test papers may have been in LLM training data|CVT - Evaluated papers may have been present in LLM training data introducing potential contamination bias in GAR performance estimates]]
 
-- [[CVT - GPT-4 was both reviewer and judge in GAR preference ranking|CVT - GPT-4 was used as both reviewer backbone and preference evaluator introducing circular evaluation in the GAR preference ranking experiment]]
+- [[sysrev/dgraph/caveats/CVT - GPT-4 was both reviewer and judge in GAR preference ranking|CVT - GPT-4 was used as both reviewer backbone and preference evaluator introducing circular evaluation in the GAR preference ranking experiment]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
+- [[sysrev/dgraph/claims/CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws"
+  - CVT - The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws
 tags:
   - cvt/domain/construct-validity
   - cvt/mechanism/ecological-invalidity
@@ -10,18 +10,18 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bbf-74eb-aad8-2d8a65af1e1e
 type: inferred
 severity: moderate
-title: "The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws"
+title: The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws
 ---
 
 ## Source
 
-[[@xuCanLLMsIdentify2025]]
+[[sysrev/dgraph/source/@xuCanLLMsIdentify2025]]
 
 ### Limitation
 
@@ -38,4 +38,4 @@ LIMITGEN-Syn creates test cases by systematically perturbing high-quality papers
 
 ### Applies To
 
-[[EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]
+[[sysrev/dgraph/evidence/EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]]

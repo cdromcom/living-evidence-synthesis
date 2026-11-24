@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings"
+  - CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/small-sample
@@ -11,19 +11,19 @@ tags:
   - cvt/severity/moderate
   - 5c/care
 appliesTo:
-  - "[[EVD - Three AI platforms answered all 10 IRB cases correctly|EVD - Three AI platforms responded correctly to all 10 IRB case study queries]]"
-  - "[[EVD - AI platforms drafted SOPs covering fundamental sections with variations|EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms]]"
+  - "[[sysrev/dgraph/evidence/EVD - Three AI platforms answered all 10 IRB cases correctly|EVD - Three AI platforms responded correctly to all 10 IRB case study queries]]"
+  - "[[sysrev/dgraph/evidence/EVD - AI platforms drafted SOPs covering fundamental sections with variations|EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb7-709c-bc82-c13a033650af
 type: author-stated
 severity: moderate
-title: "Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings"
+title: Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings
 ---
 
 ## Source
 
-[[@sridharanAssessingDecisionMakingCapabilities2024]]
+[[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024]]
 
 ### Limitation
 
@@ -38,6 +38,6 @@ The study evaluated only three AI platforms (Poe Assistant, ChatGPT, Google Bard
 
 ### Applies To
 
-- [[EVD - Three AI platforms answered all 10 IRB cases correctly|EVD - Three AI platforms responded correctly to all 10 IRB case study queries]]
+- [[sysrev/dgraph/evidence/EVD - Three AI platforms answered all 10 IRB cases correctly|EVD - Three AI platforms responded correctly to all 10 IRB case study queries]]
 
-- [[EVD - AI platforms drafted SOPs covering fundamental sections with variations|EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms]]
+- [[sysrev/dgraph/evidence/EVD - AI platforms drafted SOPs covering fundamental sections with variations|EVD - AI platforms drafted SOPs covering fundamental sections with variations across platforms]]

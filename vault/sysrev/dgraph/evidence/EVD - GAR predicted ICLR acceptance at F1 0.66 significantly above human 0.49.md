@@ -26,7 +26,7 @@ title: "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction sig
 
 ## Source
 
-[[@bougieGenerativeAdversarialReviews2024a]]
+[[sysrev/dgraph/source/@bougieGenerativeAdversarialReviews2024a]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction sig
 
 GAR^> achieved F1 = 0.62 ± 0.05 on NeurIPS 23 (vanilla GAR 0.61 ± 0.04); on ICLR 23 GAR^> reached Balanced Accuracy 0.70 ± 0.05 and F1 0.69 ± 0.05. AI-Scientist sat at 0.51–0.57 F1 across datasets; OpenReviewer 0.39–0.47. The §5.4 ablation (Table 4) shows the persona-initialisation choice matters: NN-optimised persona pushes ICLR 23 Balanced Acc to 0.74 ± 0.06 (GAR^> 0.74 ± 0.06 / F1 0.70 ± 0.06); removing the memory module drops it to 0.61 ± 0.06 / 0.52 ± 0.05. §5.12 (Table 9) shows GPT-4o backbone reaches F1 0.73 ± 0.03 on ICLR 23 (GAR^> 0.71 ± 0.03), confirming GAR's gains are robust across foundation models.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
 
 | Method (GPT-4o-mini) | NeurIPS 23 BalAcc / F1 | ICLR 22 BalAcc / F1 | ICLR 23 BalAcc / F1 |
 | --- | :---: | :---: | :---: |
@@ -97,10 +97,10 @@ GAR^> achieved F1 = 0.62 ± 0.05 on NeurIPS 23 (vanilla GAR 0.61 ± 0.04); on IC
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
+- [[sysrev/dgraph/claims/CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]

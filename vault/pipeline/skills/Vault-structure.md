@@ -11,17 +11,16 @@ Full folder tree and file-format notes for the vault. `Skill.md` keeps a short s
 living-synthesis/
 ├── Welcome.md                      # Vault overview for novices (the only file at the root)
 ├── sysrev/                         # The systematic-review content
-│   ├── dgraph/                     # The discourse-graph nodes
-│   │   ├── questions/                  # QUE nodes (one .md per research question; attachments/ holds its crops)
-│   │   ├── claims/                     # CLM nodes (one .md per claim)
-│   │   ├── evidence/
-│   │   │   ├── EVD - ... .md           # EVD nodes (one .md per finding)
-│   │   │   └── Attachments/            # All PNGs (figure/table pages + quote crops)
-│   │   ├── caveats/                    # CVT nodes (one .md per limitation)
-│   │   ├── evd-patterns/               # EP nodes (cross-paper EvidencePatterns; ≥2 EVDs each)
-│   │   └── source/
-│   │       ├── @<citekey>.md           # Bibliographic source notes (one per paper)
-│   │       └── pdfs/                   # Original PDFs (+ Archive - superseded versions)
+│   ├── questions/                  # QUE nodes (one .md per research question; attachments/ holds its crops)
+│   ├── claims/                     # CLM nodes (one .md per claim)
+│   ├── evidence/
+│   │   ├── EVD - ... .md           # EVD nodes (one .md per finding)
+│   │   └── Attachments/            # All PNGs (figure/table pages + quote crops)
+│   ├── caveats/                    # CVT nodes (one .md per limitation)
+│   ├── evd-patterns/               # EP nodes (cross-paper EvidencePatterns; ≥2 EVDs each)
+│   ├── source/
+│   │   ├── @<citekey>.md           # Bibliographic source notes (one per paper)
+│   │   └── pdfs/                   # Original PDFs (+ Archive - superseded versions)
 │   ├── picost/                     # PICOST notes (local vault only)
 │   ├── indexes/                    # dgraph.md (central nested index), DGRAPH-TABLE.md, Review-Arena.md, ESS - Demo.md, ESS.base, EvidencePattern Nodes.base
 │   ├── reference/                  # BenchmarkLLM.md, Class-Imbalance-Text-Classification.md, paraphrase_audit_<date>.tsv (latest verbatim-audit report)

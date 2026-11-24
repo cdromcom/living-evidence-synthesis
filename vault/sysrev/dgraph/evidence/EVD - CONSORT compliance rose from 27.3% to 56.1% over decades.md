@@ -25,7 +25,7 @@ title: "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 p
 
 ## Source
 
-[[@srinivasanEvaluatingReportingQuality2025a]]
+[[sysrev/dgraph/source/@srinivasanEvaluatingReportingQuality2025a]]
 
 ## Description
 
@@ -68,7 +68,7 @@ title: "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 p
 
 ## Other Notes
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@srinivasanEvaluatingReportingQuality2025a#TRIPOD-LLM reporting]].
 
 | Period | n | Mean compliance (95% CI) | Relative change vs. prior period | p-value |
 | --- | :---: | :---: | :---: | :---: |
@@ -85,12 +85,12 @@ title: "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 p
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - CONSORT analysis used open-access papers and presence only|CVT - CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements]]
+- [[sysrev/dgraph/caveats/CVT - CONSORT analysis used open-access papers and presence only|CVT - CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs can achieve SOTA CONSORT compliance assessment zero-shot at scale|CLM - LLMs can achieve state-of-the-art CONSORT compliance assessment performance through zero-shot prompting at scale]]
+- [[sysrev/dgraph/claims/CLM - LLMs can achieve SOTA CONSORT compliance assessment zero-shot at scale|CLM - LLMs can achieve state-of-the-art CONSORT compliance assessment performance through zero-shot prompting at scale]]
 
-- [[CLM - RCT reporting improved substantially over decades but critical gaps persist|CLM - RCT reporting quality has improved substantially over decades but critical methodological gaps persist across all disciplines]]
+- [[sysrev/dgraph/claims/CLM - RCT reporting improved substantially over decades but critical gaps persist|CLM - RCT reporting quality has improved substantially over decades but critical methodological gaps persist across all disciplines]]

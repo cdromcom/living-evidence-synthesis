@@ -35,6 +35,9 @@ tags:
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
 doi: 10.1515/jci-2024-0072
+license: "cc-by"
+license_source: "OpenAlex (primary location: Journal of Causal Inference)"
+oa_status: "gold"
 nameConsistency: consistent
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
@@ -69,9 +72,6 @@ curatedWithModelDate: 2026-08-25
 citekey: huntington-kleinLLMsActRepositories2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f93f-7282-8681-e754889d9757
-license: "cc-by"
-license_source: "OpenAlex (primary location: Journal of Causal Inference)"
-oa_status: "gold"
 ---
 
 > [!info] **Version used:** Journal of Causal Inference 14(1), article 20240072, printed pp. 1–30, published online 20 May 2026, doi 10.1515/jci-2024-0072. PDF: `Huntington-Klein and Murray - 2026 - Do LLMs act as repositories of causal knowledge.pdf`.
@@ -84,7 +84,7 @@ oa_status: "gold"
 
 ### Question
 
-Can today's large language models (LLMs) reliably tell a researcher which variables to control for when studying cause and effect from observational data, what statisticians call *confounders*? The authors test this on a famous medical case study where experts have already worked out the right answer, the Coronary Drug Project (CDP). They ask three off-the-shelf models the same confounder question in many phrasings, including two prompting methods added in the 2026 journal version (31,270 responses each for GPT-4o and Claude, 1,447 for GPT-o1), and compare the answers to expert opinion. See [[QUE - Can LLMs supply causal knowledge to select confounders|QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research?]].
+Can today's large language models (LLMs) reliably tell a researcher which variables to control for when studying cause and effect from observational data, what statisticians call *confounders*? The authors test this on a famous medical case study where experts have already worked out the right answer, the Coronary Drug Project (CDP). They ask three off-the-shelf models the same confounder question in many phrasings, including two prompting methods added in the 2026 journal version (31,270 responses each for GPT-4o and Claude, 1,447 for GPT-o1), and compare the answers to expert opinion. See [[sysrev/dgraph/questions/QUE - Can LLMs supply causal knowledge to select confounders|QUE - Can LLMs act as repositories of causal knowledge for selecting confounders in observational research?]].
 
 ### Methods
 
@@ -130,17 +130,17 @@ flowchart TD
 
 ### Findings
 
-- **The models flag wrong variables almost as often as right ones.** The fraction of expert-confirmed confounders that each model called a confounder ran 80 to 86 percent, but the fraction of expert-rejected variables (the "Trimmed" and "Non-Confounders" categories) that each model still wrongly called a confounder ran 65 to 74 percent. In the direct-prompt setting, all three models even flagged "Trimmed" expert-rejected variables as confounders *more* often than they flagged the "Added in 2016" expert-approved set. Claude labeled 40 percent of pure non-confounders as confounders 100 percent of the time. GPT-o1-preview was the worst offender, calling 73 percent of non-confounders confounders and 95 percent of Trimmed variables confounders. [[EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]
+- **The models flag wrong variables almost as often as right ones.** The fraction of expert-confirmed confounders that each model called a confounder ran 80 to 86 percent, but the fraction of expert-rejected variables (the "Trimmed" and "Non-Confounders" categories) that each model still wrongly called a confounder ran 65 to 74 percent. In the direct-prompt setting, all three models even flagged "Trimmed" expert-rejected variables as confounders *more* often than they flagged the "Added in 2016" expert-approved set. Claude labeled 40 percent of pure non-confounders as confounders 100 percent of the time. GPT-o1-preview was the worst offender, calling 73 percent of non-confounders confounders and 95 percent of Trimmed variables confounders. [[sysrev/dgraph/evidence/EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]
 
-- **The same model gives different answers when you reword the question.** Cohen's kappa, which measures agreement between two raters on a scale where 1.0 is perfect agreement and 0 is chance, came out at only 0.16 to 0.24 when comparing each model's direct-prompt answers to its indirect-prompt answers. Even more strikingly, when the authors simply shuffled the order of the multiple-choice options (A/B/C versus C/B/A), 36.7 percent of Claude's variable designations changed (kappa = 0.41) and 65.7 percent of GPT-4o's changed (kappa = 0.13). In the most damning robustness number, 16.3 percent of GPT-4o variables flipped from "never a confounder" to "always a confounder", or vice versa, based on option order alone. The journal version adds that the new pick-from-list method was the most consistent across repeated runs and was not sensitive to option order, but that this did not bring better agreement with the experts, and its conclusions limit the option-order sensitivity to one prompting method. [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]
+- **The same model gives different answers when you reword the question.** Cohen's kappa, which measures agreement between two raters on a scale where 1.0 is perfect agreement and 0 is chance, came out at only 0.16 to 0.24 when comparing each model's direct-prompt answers to its indirect-prompt answers. Even more strikingly, when the authors simply shuffled the order of the multiple-choice options (A/B/C versus C/B/A), 36.7 percent of Claude's variable designations changed (kappa = 0.41) and 65.7 percent of GPT-4o's changed (kappa = 0.13). In the most damning robustness number, 16.3 percent of GPT-4o variables flipped from "never a confounder" to "always a confounder", or vice versa, based on option order alone. The journal version adds that the new pick-from-list method was the most consistent across repeated runs and was not sensitive to option order, but that this did not bring better agreement with the experts, and its conclusions limit the option-order sensitivity to one prompting method. [[sysrev/dgraph/evidence/EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]
 
 ### Claim supported
 
-These findings together support the broader claim that [[CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]. The practical takeaway: a researcher who hands their variable list to GPT-4o or Claude today will get a confounder shortlist that hits most of the right answers but also pulls in roughly two-thirds of the wrong ones, and that shortlist will change if they reword the prompt. That is not yet a tool that can replace, or even reliably triage, expert causal-graph work.
+These findings together support the broader claim that [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]. The practical takeaway: a researcher who hands their variable list to GPT-4o or Claude today will get a confounder shortlist that hits most of the right answers but also pulls in roughly two-thirds of the wrong ones, and that shortlist will change if they reword the prompt. That is not yet a tool that can replace, or even reliably triage, expert causal-graph work.
 
 ### Caveats
 
-- **One famous case study limits how far the conclusions reach.** The Coronary Drug Project was deliberately chosen because the expert ground truth is likely in the LLMs' training data, which is exactly the easiest test case. Results may look worse, or differently bad, on causal questions whose answers are not already well-documented online. [[CVT - Huntington-Klein used a single causal dataset|CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge]]
+- **One famous case study limits how far the conclusions reach.** The Coronary Drug Project was deliberately chosen because the expert ground truth is likely in the LLMs' training data, which is exactly the easiest test case. Results may look worse, or differently bad, on causal questions whose answers are not already well-documented online. [[sysrev/dgraph/caveats/CVT - Huntington-Klein used a single causal dataset|CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge]]
 
 ## Quality appraisal
 

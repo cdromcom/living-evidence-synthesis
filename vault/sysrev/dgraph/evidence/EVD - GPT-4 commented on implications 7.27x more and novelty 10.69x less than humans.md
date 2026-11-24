@@ -26,7 +26,7 @@ title: "GPT-4 commented on research implications 7.27x more than humans and on n
 
 ## Source
 
-[[@liangCanLargeLanguage2024a]]
+[[sysrev/dgraph/source/@liangCanLargeLanguage2024a]]
 
 ## Description
 
@@ -77,7 +77,7 @@ title: "GPT-4 commented on research implications 7.27x more than humans and on n
 - Authors interpret the divergence as an argument for human-AI complementarity rather than full LLM automation of review.
 - IAA on the 11-aspect coding is not reported in the main text; only "two researchers with a background in machine learning performed the annotations."
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
 
 | Aspect (ICLR, n=500 papers) | Frequency ratio (GPT-4 / Human) | Direction |
 | --- | :---: | --- |
@@ -99,12 +99,12 @@ title: "GPT-4 commented on research implications 7.27x more than humans and on n
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
+- [[sysrev/dgraph/claims/CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
 
-- [[CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
+- [[sysrev/dgraph/claims/CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]

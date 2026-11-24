@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements"
+  - CVT - CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements
 tags:
   - cvt/domain/construct-validity
   - cvt/mechanism/proxy-metric
@@ -11,19 +11,19 @@ tags:
   - cvt/severity/moderate
   - 5c/clarity
 appliesTo:
-  - "[[EVD - CONSORT compliance rose from 27.3% to 56.1% over decades|EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs]]"
-  - "[[EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology|EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology]]"
+  - "[[sysrev/dgraph/evidence/EVD - CONSORT compliance rose from 27.3% to 56.1% over decades|EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs]]"
+  - "[[sysrev/dgraph/evidence/EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology|EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba6-760c-8784-47293d1a995b
 type: author-stated
 severity: moderate
-title: "CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements"
+title: CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements
 ---
 
 ## Source
 
-[[@srinivasanEvaluatingReportingQuality2025a]]
+[[sysrev/dgraph/source/@srinivasanEvaluatingReportingQuality2025a]]
 
 ### Limitation
 
@@ -38,6 +38,6 @@ The analysis was restricted to open-access articles on PubMed, which may not be 
 
 ### Applies To
 
-- [[EVD - CONSORT compliance rose from 27.3% to 56.1% over decades|EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs]]
+- [[sysrev/dgraph/evidence/EVD - CONSORT compliance rose from 27.3% to 56.1% over decades|EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs]]
 
-- [[EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology|EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology]]
+- [[sysrev/dgraph/evidence/EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology|EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology]]

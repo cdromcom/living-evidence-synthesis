@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The Roberts study used only GPT-3.5 and did not test GPT-4 or other LLMs"
+  - CVT - The Roberts study used only GPT-3.5 and did not test GPT-4 or other LLMs
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/single-model
@@ -10,19 +10,19 @@ tags:
   - cvt/severity/moderate
   - 5c/clarity
 appliesTo:
-  - "[[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]"
-  - "[[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]"
+  - "[[sysrev/dgraph/evidence/EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]"
+  - "[[sysrev/dgraph/evidence/EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc1-769f-8444-83d2fec9eff7
 type: inferred
 severity: moderate
-title: "The Roberts study used only GPT-3.5 and did not test GPT-4 or other LLMs"
+title: The Roberts study used only GPT-3.5 and did not test GPT-4 or other LLMs
 ---
 
 ## Source
 
-[[@robertsComparativeStudyChatGPT2023]]
+[[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023]]
 
 ### Limitation
 
@@ -38,6 +38,6 @@ Only ChatGPT3 (GPT-3.5 model) was evaluated against human reviewers. GPT-4 and o
 
 ### Applies To
 
-- [[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
 
-- [[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]

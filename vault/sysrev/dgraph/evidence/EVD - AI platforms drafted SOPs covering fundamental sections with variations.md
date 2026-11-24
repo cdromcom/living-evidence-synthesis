@@ -24,7 +24,7 @@ title: "AI platforms drafted SOPs covering fundamental sections with variations 
 
 ## Source
 
-[[@sridharanAssessingDecisionMakingCapabilities2024]]
+[[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024]]
 
 ## Description
 
@@ -71,7 +71,7 @@ title: "AI platforms drafted SOPs covering fundamental sections with variations 
 - Omissions common to all three platforms (per Table 2 right-hand column): no mention that the IRB chairperson should be independent of the institution; no mention of scope of proposals reviewed; no member appointment / disqualification criteria; COI member should not be counted in quorum and meeting minutes should record the recusal; expedited-approval decisions should be disclosed at the next full IRB meeting; in multi-centric studies AE / SAE reports from other sites should be submitted.
 - ChatGPT was the only platform to mention KPIs for IRB quality assurance.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
 
 | Outcome | Value |
 | --- | --- |
@@ -92,10 +92,10 @@ title: "AI platforms drafted SOPs covering fundamental sections with variations 
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
+- [[sysrev/dgraph/claims/CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

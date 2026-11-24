@@ -25,7 +25,7 @@ title: "GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all te
 
 ## Source
 
-[[@akyonEvaluatingCapabilitiesGenerative2024]]
+[[sysrev/dgraph/source/@akyonEvaluatingCapabilitiesGenerative2024]]
 
 ## Description
 
@@ -70,7 +70,7 @@ title: "GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all te
 
 The authors discuss that compression techniques used in developing newer model versions (e.g., quantization, pruning) may have inadvertently compromised performance of GPT 4-0613 relative to GPT 3.5-turbo despite being a newer model generation.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting]].
 
 | Metric | GPT 4-0613 | (Comparator) Gemini pro 1.0 | (Top) GPT 3.5-Turbo-1106 |
 | --- | :---: | :---: | :---: |
@@ -92,6 +92,6 @@ The authors discuss that compression techniques used in developing newer model v
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
+- [[sysrev/dgraph/claims/CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
 
-- [[CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
+- [[sysrev/dgraph/claims/CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]

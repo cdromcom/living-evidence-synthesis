@@ -24,7 +24,7 @@ title: "LLMs designated expert-selected confounders in CDP as confounders at sim
 
 ## Source
 
-[[@huntington-kleinLLMsActRepositories2024]]
+[[sysrev/dgraph/source/@huntington-kleinLLMsActRepositories2024]]
 
 ## Description
 
@@ -107,7 +107,7 @@ title: "LLMs designated expert-selected confounders in CDP as confounders at sim
 
 LLM confounder designation was highly inconsistent across prompts and models. Cohen's kappa between direct and indirect methods ranged from 0.16 (GPT-o1) to 0.24 (GPT-4o), indicating poor agreement (Fig 9, p. 17). The conclusions (p. 19) add that Trimmed and Non-Confounders variables "are often designated at the same rate, and in some cases at higher rates" than expert confounders.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting]].
 
 Direct method (with reasoning), share of variables designated as confounder in all 10 iterations (Fig 2, p. 9):
 
@@ -182,16 +182,16 @@ Sequential method, share designated a confounder in all 10 iterations (Fig 7, p.
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Huntington-Klein used a single causal dataset|CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge]]
+- [[sysrev/dgraph/caveats/CVT - Huntington-Klein used a single causal dataset|CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
+- [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]

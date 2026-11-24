@@ -26,7 +26,7 @@ title: "LLM reviews scored comparably to human reviews on all three expert evalu
 
 ## Source
 
-[[@tyserAIDrivenReviewSystems2024]]
+[[sysrev/dgraph/source/@tyserAIDrivenReviewSystems2024]]
 
 ## Description
 
@@ -75,7 +75,7 @@ title: "LLM reviews scored comparably to human reviews on all three expert evalu
 - Confusion-matrix analysis (Appendix E, p. 12, treating the human-reviewer mean as ground truth): the LLM accepted **1 paper** with score ≥ 7 that humans rated ≤ 3; rejected **4 papers** with score ≤ 3 that humans rated ≥ 7. Looser thresholds (LLM ≥ 6 vs. human ≤ 4): 8 false-accepts; (LLM ≤ 4 vs. human ≥ 6): 22 false-rejects. So the LLM is more prone to false-rejects than false-accepts at this calibration.
 - The 5%-sample (~7–8 papers) is small; 95% CIs are not reported, and the closeness of 4.80 vs. 4.76 (Q1) is unlikely to be statistically distinguishable.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting]].
 
 | Rubric question (0–5) | Writer = Human / Eval = Human | Writer = GPT-4 P5 / Eval = Human | Writer = Human / Eval = GPT-4 | Writer = GPT-4 P5 / Eval = GPT-4 |
 | --- | :---: | :---: | :---: | :---: |
@@ -98,10 +98,10 @@ title: "LLM reviews scored comparably to human reviews on all three expert evalu
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
+- [[sysrev/dgraph/claims/CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

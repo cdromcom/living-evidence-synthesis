@@ -26,7 +26,7 @@ title: "MARG-S generated 3.7 good comments per paper rated by users compared to 
 
 ## Source
 
-[[@darcyMARGMultiAgentReview2024]]
+[[sysrev/dgraph/source/@darcyMARGMultiAgentReview2024]]
 
 ## Description
 
@@ -79,7 +79,7 @@ title: "MARG-S generated 3.7 good comments per paper rated by users compared to 
 - Length: 6/9 rated MARG-S "way too long"; LiZCa rated "too short" or "way too short" by 7/9.
 - Compliment probe: 19% of MARG-S comments included flattery vs. 25% SARG-B and 0% LiZCa; "has_compliment" coefficient 0.11 (p=0.76), no detectable bias on user ratings.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@darcyMARGMultiAgentReview2024#TRIPOD-LLM reporting]].
 
 | Method | Bad / review | Neutral / review | Good / review | Total / review |
 | --- | --- | --- | --- | --- |
@@ -109,12 +109,12 @@ title: "MARG-S generated 3.7 good comments per paper rated by users compared to 
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Multi-agent LLMs give more specific and helpful feedback than single agents|CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]
+- [[sysrev/dgraph/claims/CLM - Multi-agent LLMs give more specific and helpful feedback than single agents|CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]
-- [[EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
-- [[EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]
+- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

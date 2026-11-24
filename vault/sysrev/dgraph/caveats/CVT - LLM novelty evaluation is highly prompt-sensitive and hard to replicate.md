@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate"
+  - CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate
 tags:
   - cvt/domain/reproducibility
   - cvt/mechanism/prompt-sensitivity
@@ -10,19 +10,19 @@ tags:
   - cvt/severity/moderate
   - 5c/creativity
 appliesTo:
-  - "[[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]"
-  - "[[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]"
+  - "[[sysrev/dgraph/evidence/EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]"
+  - "[[sysrev/dgraph/evidence/EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]"
 created: 2026-04-17
 updated: 2026-11-24
 nodeID: 019ddb4e-6bac-717c-b0c4-aaa4aaf2b955
 type: author-stated
 severity: moderate
-title: "LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate"
+title: LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate
 ---
 
 ## Source
 
-[[@shahidLiteratureGroundedNoveltyAssessment2025]]
+[[sysrev/dgraph/source/@shahidLiteratureGroundedNoveltyAssessment2025]]
 
 ### Limitation
 
@@ -37,6 +37,6 @@ LLMs exhibit substantial sensitivity to prompt variations in novelty evaluation 
 
 ### Applies To
 
-- [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
+- [[sysrev/dgraph/evidence/EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
 
-- [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+- [[sysrev/dgraph/evidence/EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]

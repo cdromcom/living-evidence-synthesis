@@ -24,7 +24,7 @@ title: "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% 
 
 ## Source
 
-[[@sonWhenAICoScientists2025]]
+[[sysrev/dgraph/source/@sonWhenAICoScientists2025]]
 
 ## Description
 
@@ -81,7 +81,7 @@ title: "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% 
 - GPT-4.1 (non-thinking) outperforms reasoning models on figure duplication, suggesting test-time reasoning effort is mis-allocated for visual tasks.
 - Statistical Reporting (n = 4) is o3's strongest category at 88.4% pass@4 but the small denominator means high variance.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
 
 | Error category (n) | o3 pass@4 | GPT-4.1 pass@4 | Gemini-2.5-Pro pass@4 | Claude-3.7:Think pass@4 |
 | --- | :---: | :---: | :---: | :---: |
@@ -107,12 +107,12 @@ title: "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% 
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
+- [[sysrev/dgraph/claims/CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
 
-- [[CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
+- [[sysrev/dgraph/claims/CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]
+- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]

@@ -24,7 +24,7 @@ title: "ChatGPT diverged most from humans in the conclusion domain with mean dif
 
 ## Source
 
-[[@robertsComparativeStudyChatGPT2023]]
+[[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023]]
 
 ## Description
 
@@ -72,7 +72,7 @@ title: "ChatGPT diverged most from humans in the conclusion domain with mean dif
 - The CIs in Table 1 are inconsistent with the point estimates throughout (e.g., the 'conclusion' point estimate 0.764 falls outside its reported 95% CI 0.186, 0.280). These appear to be either typesetting errors or a different statistic mislabelled as a CI; the per-domain p-values and r values are internally consistent.
 - Authors hypothesise prompt quality and ChatGPT's known instruction-following weaknesses as causes of the conclusion-domain divergence; no follow-up prompt-engineering experiments performed.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
 
 | CONSORT-A domain | Mean abs. OCS diff | Welch p | Pearson r |
 | --- | :---: | :---: | :---: |
@@ -99,10 +99,10 @@ title: "ChatGPT diverged most from humans in the conclusion domain with mean dif
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs can help automate reporting compliance appraisal|CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
+- [[sysrev/dgraph/claims/CLM - LLMs can help automate reporting compliance appraisal|CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]

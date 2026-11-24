@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases"
+  - CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases
 tags:
   - cvt/domain/reproducibility
   - cvt/mechanism/version-drift
@@ -13,19 +13,19 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - GPT-4 Turbo ranked first in human review preference|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]"
-  - "[[EVD - LLM reviews scored like human reviews on all 3 criteria|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 Turbo ranked first in human review preference|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]"
+  - "[[sysrev/dgraph/evidence/EVD - LLM reviews scored like human reviews on all 3 criteria|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bac-717c-b0c4-aaa58e6a36e4
 type: author-stated
 severity: moderate
-title: "LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases"
+title: LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases
 ---
 
 ## Source
 
-[[@tyserAIDrivenReviewSystems2024]]
+[[sysrev/dgraph/source/@tyserAIDrivenReviewSystems2024]]
 
 ### Limitation
 
@@ -40,6 +40,6 @@ The review quality findings depend on venue-specific guidelines (code of ethics,
 
 ### Applies To
 
-- [[EVD - GPT-4 Turbo ranked first in human review preference|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]
+- [[sysrev/dgraph/evidence/EVD - GPT-4 Turbo ranked first in human review preference|EVD - GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558]]
 
-- [[EVD - LLM reviews scored like human reviews on all 3 criteria|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]
+- [[sysrev/dgraph/evidence/EVD - LLM reviews scored like human reviews on all 3 criteria|EVD - LLM reviews scored comparably to human reviews on all three expert evaluation criteria]]

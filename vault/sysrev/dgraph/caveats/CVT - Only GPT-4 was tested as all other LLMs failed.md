@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely"
+  - CVT - Only GPT-4 was tested for error detection as all other LLMs failed entirely
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/single-model
@@ -10,18 +10,18 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4 detected errors in 7 of 13 constructed papers|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 detected errors in 7 of 13 constructed papers|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6baf-74c0-87e4-55cdcd4e9827
 type: author-stated
 severity: moderate
-title: "Only GPT-4 was tested for error detection as all other LLMs failed entirely"
+title: Only GPT-4 was tested for error detection as all other LLMs failed entirely
 ---
 
 ## Source
 
-[[@liuReviewerGPTExploratoryStudy2023]]
+[[sysrev/dgraph/source/@liuReviewerGPTExploratoryStudy2023]]
 
 ### Limitation
 
@@ -36,4 +36,4 @@ All experiments in the main study were conducted exclusively with GPT-4 because 
 
 ### Applies To
 
-[[EVD - GPT-4 detected errors in 7 of 13 constructed papers|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]
+[[sysrev/dgraph/evidence/EVD - GPT-4 detected errors in 7 of 13 constructed papers|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]

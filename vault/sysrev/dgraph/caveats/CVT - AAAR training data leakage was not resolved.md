@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The AAAR data leakage problem from LLM training corpus was not resolved"
+  - CVT - The AAAR data leakage problem from LLM training corpus was not resolved
 tags:
   - cvt/domain/internal-validity
   - cvt/mechanism/data-leakage
@@ -13,19 +13,19 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]"
-  - "[[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]"
+  - "[[sysrev/dgraph/evidence/EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]"
+  - "[[sysrev/dgraph/evidence/EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb9-72ce-a08c-0fe4f108105b
 type: author-stated
 severity: moderate
-title: "The AAAR data leakage problem from LLM training corpus was not resolved"
+title: The AAAR data leakage problem from LLM training corpus was not resolved
 ---
 
 ## Source
 
-[[@louAAAR10AssessingAIs2025]]
+[[sysrev/dgraph/source/@louAAAR10AssessingAIs2025]]
 
 ### Limitation
 
@@ -40,6 +40,6 @@ The AAAR benchmark data was collected from open platforms (arXiv, OpenReview), c
 
 ### Applies To
 
-- [[EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
+- [[sysrev/dgraph/evidence/EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
 
-- [[EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]
+- [[sysrev/dgraph/evidence/EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1|EVD - Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments]]

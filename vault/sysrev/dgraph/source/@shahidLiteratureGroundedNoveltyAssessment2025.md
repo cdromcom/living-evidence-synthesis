@@ -37,6 +37,9 @@ tags:
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
 doi: 10.18653/v1/2025.sdp-1.9
+license: "cc-by"
+license_source: "OpenAlex (primary location: Workshop on Scholarly Document Processing (SDP))"
+oa_status: "hybrid"
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
 predatoryPublisherNote: "Not re-checked for the SDP 2025 proceedings version (the earlier note covered the arXiv preprint)"
@@ -81,9 +84,6 @@ curatedWithModelDate: 2026-08-25
 citekey: shahidLiteratureGroundedNoveltyAssessment2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f94b-7a79-b2f3-cabb6448b335
-license: "cc-by"
-license_source: "OpenAlex (primary location: Workshop on Scholarly Document Processing (SDP))"
-oa_status: "hybrid"
 ---
 
 > [!info] **Version**
@@ -96,7 +96,7 @@ oa_status: "hybrid"
 
 ### Question
 
-Can a computer program automatically tell whether a research idea is genuinely new, by comparing it to past work, in a way that lines up with what expert reviewers say? The authors target the bottleneck in tools that automatically generate research ideas; there is no good way to filter out ideas that already exist in the literature. They build a retrieval-augmented generation (RAG) system (a setup where a language model first looks up relevant papers, then judges novelty against them) and benchmark it head-to-head against zero-shot prompts, two prompt-optimization methods, and two prior systems on the same expert-labeled test set. See [[QUE - Can a RAG system reliably judge idea novelty like experts|QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?]].
+Can a computer program automatically tell whether a research idea is genuinely new, by comparing it to past work, in a way that lines up with what expert reviewers say? The authors target the bottleneck in tools that automatically generate research ideas; there is no good way to filter out ideas that already exist in the literature. They build a retrieval-augmented generation (RAG) system (a setup where a language model first looks up relevant papers, then judges novelty against them) and benchmark it head-to-head against zero-shot prompts, two prompt-optimization methods, and two prior systems on the same expert-labeled test set. See [[sysrev/dgraph/questions/QUE - Can a RAG system reliably judge idea novelty like experts|QUE - Can an LLM-based RAG system reliably evaluate the novelty of scientific ideas compared to expert judgment?]].
 
 ### Methods
 
@@ -142,23 +142,23 @@ flowchart TD
 
 ### Findings
 
-- **The full pipeline beat every prompting baseline.** The Idea Novelty Checker reached 0.81 accuracy, 0.79 F1, and Cohen's kappa = 0.59 on the 32-idea test set (F1 runs from 0 to 1 and balances precision against recall, higher is better; Cohen's kappa runs from 0 to 1, where 1.0 means perfect agreement and 0 means chance). The best non-expert baseline (TextGRAD) reached only 0.78 accuracy and 0.76 F1, and zero-shot prompting reached 0.68. Expert-labeled in-context examples, showing the model solved cases drawn from the formative study, drove most of the gain. [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
+- **The full pipeline beat every prompting baseline.** The Idea Novelty Checker reached 0.81 accuracy, 0.79 F1, and Cohen's kappa = 0.59 on the 32-idea test set (F1 runs from 0 to 1 and balances precision against recall, higher is better; Cohen's kappa runs from 0 to 1, where 1.0 means perfect agreement and 0 means chance). The best non-expert baseline (TextGRAD) reached only 0.78 accuracy and 0.76 F1, and zero-shot prompting reached 0.68. Expert-labeled in-context examples, showing the model solved cases drawn from the formative study, drove most of the gain. [[sysrev/dgraph/evidence/EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
 
-- **An off-the-shelf competing system performed near chance.** AI Scientist's novelty prompt scored 0.47 accuracy, 0.44 F1, and kappa = 0.05, close to random guessing, when run on the same ideas with the same top-10 papers. The system defaulted to "not novel" on 18 of 32 test ideas (56%) because it could not reach a decision in its iterative loop. AI Researcher fared better with gpt-4o (F1 = 0.75, kappa = 0.52) but collapsed to F1 = 0.56 with Claude-3.5-Sonnet, showing the prompt is highly backbone-sensitive. [[EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
+- **An off-the-shelf competing system performed near chance.** AI Scientist's novelty prompt scored 0.47 accuracy, 0.44 F1, and kappa = 0.05, close to random guessing, when run on the same ideas with the same top-10 papers. The system defaulted to "not novel" on 18 of 32 test ideas (56%) because it could not reach a decision in its iterative loop. AI Researcher fared better with gpt-4o (F1 = 0.75, kappa = 0.52) but collapsed to F1 = 0.56 with Claude-3.5-Sonnet, showing the prompt is highly backbone-sensitive. [[sysrev/dgraph/evidence/EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
 
-- **The facet-based re-ranking criterion is doing most of the work.** On the 58-idea ablation set, the full pipeline correctly flagged 89.66% of "not novel" ideas. Replacing the facet-based RankGPT re-ranker with a general-relevance RankGPT (still an LLM re-ranker) crashed accuracy to 13.79%; removing the LLM re-ranker entirely (embedding filtering only) gave 10.34%, only about 3.5 points lower. Snippet retrieval alone scored 8.62% and keyword retrieval alone 5.17%. Nearly all of the loss comes from dropping the facet-based criterion, not from dropping LLM re-ranking as such. [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+- **The facet-based re-ranking criterion is doing most of the work.** On the 58-idea ablation set, the full pipeline correctly flagged 89.66% of "not novel" ideas. Replacing the facet-based RankGPT re-ranker with a general-relevance RankGPT (still an LLM re-ranker) crashed accuracy to 13.79%; removing the LLM re-ranker entirely (embedding filtering only) gave 10.34%, only about 3.5 points lower. Snippet retrieval alone scored 8.62% and keyword retrieval alone 5.17%. Nearly all of the loss comes from dropping the facet-based criterion, not from dropping LLM re-ranking as such. [[sysrev/dgraph/evidence/EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
 
 ### Claim supported
 
-These findings support two related claims: [[CLM - Expert in-context examples significantly improve LLM novelty classification|CLM - Expert-annotated in-context examples significantly improve LLM novelty classification accuracy over zero-shot and prompt-optimized baselines]] and [[CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]. For someone considering deploying this in a triage workflow (say, helping an idea-generation tool flag stale ideas before a human looks at them) the result is encouraging but premature: 0.81 accuracy on 32 ideas is suggestive, not confirmatory, and depends on having expert-labeled examples in the same domain.
+These findings support two related claims: [[sysrev/dgraph/claims/CLM - Expert in-context examples significantly improve LLM novelty classification|CLM - Expert-annotated in-context examples significantly improve LLM novelty classification accuracy over zero-shot and prompt-optimized baselines]] and [[sysrev/dgraph/claims/CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]. For someone considering deploying this in a triage workflow (say, helping an idea-generation tool flag stale ideas before a human looks at them) the result is encouraging but premature: 0.81 accuracy on 32 ideas is suggestive, not confirmatory, and depends on having expert-labeled examples in the same domain.
 
 ### Caveats
 
-- **The test set is tiny.** Sixty-seven consensus labels and 32 test ideas leave little room for stable estimates; one or two flipped labels would visibly move every metric. [[CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
+- **The test set is tiny.** Sixty-seven consensus labels and 32 test ideas leave little room for stable estimates; one or two flipped labels would visibly move every metric. [[sysrev/dgraph/caveats/CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
 
-- **The same two people wrote training labels and test labels.** The first and second authors annotated everything, and many test ideas came from the same generator (Scideator) that produced training ideas, so the model is partly being judged on "does it match these specific annotators' view of novelty". [[CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
+- **The same two people wrote training labels and test labels.** The first and second authors annotated everything, and many test ideas came from the same generator (Scideator) that produced training ideas, so the model is partly being judged on "does it match these specific annotators' view of novelty". [[sysrev/dgraph/caveats/CVT - Same annotators labeled training and test ideas introducing potential circularity|CVT - Same expert annotators who labeled training examples also classified test ideas introducing potential circularity]]
 
-- **Tiny prompt changes flip the answer.** The authors themselves report that nearly identical prompts produced accuracies ranging from 0 to 0.6, which makes the headline numbers hard to replicate without the exact wording. [[CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
+- **Tiny prompt changes flip the answer.** The authors themselves report that nearly identical prompts produced accuracies ranging from 0 to 0.6, which makes the headline numbers hard to replicate without the exact wording. [[sysrev/dgraph/caveats/CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
 
 ## Quality appraisal
 

@@ -26,7 +26,7 @@ title: "GPT-4 Turbo ranked first in human preference for academic review quality
 
 ## Source
 
-[[@tyserAIDrivenReviewSystems2024]]
+[[sysrev/dgraph/source/@tyserAIDrivenReviewSystems2024]]
 
 ## Description
 
@@ -75,7 +75,7 @@ title: "GPT-4 Turbo ranked first in human preference for academic review quality
 - The BT model imposes ξ₁ = 0 for identifiability; ranks are relative, not absolute.
 - The 5-evaluator pool is small and the paper does not report per-evaluator agreement, so the human-preference ranking has a wide implicit confidence interval that the BT score does not display.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting]].
 
 | Rank | Reviewer | BT score (human evaluators) | BT score (GPT-4 Turbo evaluator) |
 | :---: | --- | :---: | :---: |
@@ -96,16 +96,16 @@ title: "GPT-4 Turbo ranked first in human preference for academic review quality
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Review alignment depends on venue guidelines and human bias|CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases]]
+- [[sysrev/dgraph/caveats/CVT - Review alignment depends on venue guidelines and human bias|CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
+- [[sysrev/dgraph/claims/CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]

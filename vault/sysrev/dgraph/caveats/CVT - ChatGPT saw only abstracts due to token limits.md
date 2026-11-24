@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - ChatGPT evaluation was restricted to abstracts only due to token length constraints"
+  - CVT - ChatGPT evaluation was restricted to abstracts only due to token length constraints
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/excluded-cases
@@ -10,19 +10,19 @@ tags:
   - cvt/severity/moderate
   - 5c/clarity
 appliesTo:
-  - "[[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]"
-  - "[[EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]"
+  - "[[sysrev/dgraph/evidence/EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]"
+  - "[[sysrev/dgraph/evidence/EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba7-7709-a589-ff114cbcf65b
 type: author-stated
 severity: moderate
-title: "ChatGPT evaluation was restricted to abstracts only due to token length constraints"
+title: ChatGPT evaluation was restricted to abstracts only due to token length constraints
 ---
 
 ## Source
 
-[[@robertsComparativeStudyChatGPT2023]]
+[[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023]]
 
 ### Limitation
 
@@ -37,6 +37,6 @@ ChatGPT's token limit prevented evaluation of full research articles; only abstr
 
 ### Applies To
 
-- [[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
 
-- [[EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]

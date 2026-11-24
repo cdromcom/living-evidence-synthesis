@@ -13,7 +13,7 @@ title: "What is the optimal input format for LLM-based research quality assessme
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[@thelwallEvaluatingResearchQuality2024]]
+> [[sysrev/dgraph/source/@thelwallEvaluatingResearchQuality2024]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -25,20 +25,20 @@ title: "What is the optimal input format for LLM-based research quality assessme
 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
 
-- [[CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]
-    - [[EVD - Full text scored worse than abstracts for 3 ChatGPT models|EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested]]
-    - [[EVD - GPT-4o abstract scores correlated r=0.67 with humans|EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported]]
+- [[sysrev/dgraph/claims/CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]
+    - [[sysrev/dgraph/evidence/EVD - Full text scored worse than abstracts for 3 ChatGPT models|EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested]]
+    - [[sysrev/dgraph/evidence/EVD - GPT-4o abstract scores correlated r=0.67 with humans|EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported]]
 
-- [[CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
-    - [[EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49]]
-    - [[EVD - GAR beat human reviewers on preference 0.684 vs 0.523|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation]]
-    - [[EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines]]
+- [[sysrev/dgraph/claims/CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
+    - [[sysrev/dgraph/evidence/EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49|EVD - GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49]]
+    - [[sysrev/dgraph/evidence/EVD - GAR beat human reviewers on preference 0.684 vs 0.523|EVD - GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation]]
+    - [[sysrev/dgraph/evidence/EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines|EVD - GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines]]
 
 ### Cross-paper patterns
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
 
 ### PDF check
 

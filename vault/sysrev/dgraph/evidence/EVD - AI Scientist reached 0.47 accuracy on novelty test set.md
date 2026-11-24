@@ -26,7 +26,7 @@ title: "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty e
 
 ## Source
 
-[[@shahidLiteratureGroundedNoveltyAssessment2025]]
+[[sysrev/dgraph/source/@shahidLiteratureGroundedNoveltyAssessment2025]]
 
 ## Description
 
@@ -108,6 +108,6 @@ title: "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty e
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Expert in-context examples significantly improve LLM novelty classification|CLM - Expert-annotated in-context examples significantly improve LLM novelty classification accuracy over zero-shot and prompt-optimized baselines]]
+- [[sysrev/dgraph/claims/CLM - Expert in-context examples significantly improve LLM novelty classification|CLM - Expert-annotated in-context examples significantly improve LLM novelty classification accuracy over zero-shot and prompt-optimized baselines]]
 
-- [[CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]
+- [[sysrev/dgraph/claims/CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]

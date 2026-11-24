@@ -24,7 +24,7 @@ title: "All four LLMs included fundamental ICD elements for all seven case scena
 
 ## Source
 
-[[@sridharanLeveragingArtificialIntelligence2025]]
+[[sysrev/dgraph/source/@sridharanLeveragingArtificialIntelligence2025]]
 
 ## Description
 
@@ -74,7 +74,7 @@ title: "All four LLMs included fundamental ICD elements for all seven case scena
 - Case-2-specific failures: none of the LLMs explicitly stated that the natural course of Tourette is waxing/waning, nor that the experimental drug is symptomatic and not curative, nor that participants might receive placebo. ChatGPT 3.5 made a misleading "optimal-dose" statement; ChatGPT 4.0 corrected this.
 - Case-6-specific error: ChatGPT 3.5 (but not 4.0) erroneously claimed interviews would be audio-recorded for transcription/analysis.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting]].
 
 | ICD element | ChatGPT 4.0 | Google Bard | ChatGPT 3.5 | Claude-Instant-100k |
 | --- | :---: | :---: | :---: | :---: |
@@ -99,12 +99,12 @@ Source-file table: see Table 4 (p. 132).
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
+- [[sysrev/dgraph/claims/CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
 
-- [[CLM - Multiple prompts elicit more complete and nuanced LLM ethics review than single prompts|CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
+- [[sysrev/dgraph/claims/CLM - Multiple prompts elicit more complete and nuanced LLM ethics review than single prompts|CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

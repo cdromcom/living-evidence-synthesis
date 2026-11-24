@@ -26,7 +26,7 @@ title: "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 
 
 ## Source
 
-[[@louAAAR10AssessingAIs2025]]
+[[sysrev/dgraph/source/@louAAAR10AssessingAIs2025]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 
 
 Despite being the best model, Claude Opus F1=21.99% is very low in absolute terms, indicating the task is highly challenging. Recall scores are consistently higher than precision across all models, suggesting LLMs over-predict deficiency.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@louAAAR10AssessingAIs2025#TRIPOD-LLM reporting]].
 
 | Model × prompt strategy | Precision / Recall / F1 (%) |
 | --- | --- |
@@ -96,6 +96,6 @@ Despite being the best model, Claude Opus F1=21.99% is very low in absolute term
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
+- [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
 
-- [[CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
+- [[sysrev/dgraph/claims/CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment"
+  - CVT - LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment
 tags:
   - cvt/domain/internal-validity
   - cvt/mechanism/single-prompt
@@ -10,18 +10,18 @@ tags:
   - cvt/severity/moderate
   - 5c/creativity
 appliesTo:
-  - "[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]"
+  - "[[sysrev/dgraph/evidence/EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bad-72be-98bd-00bfab87cc17
 type: inferred
 severity: moderate
-title: "LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment"
+title: LLMs were evaluated only under zero-shot conditions without prompt optimization or fine-tuning for novelty assessment
 ---
 
 ## Source
 
-[[@wuAutomatedNoveltyEvaluationa]]
+[[sysrev/dgraph/source/@wuAutomatedNoveltyEvaluationa]]
 
 ### Limitation
 
@@ -36,4 +36,4 @@ The LLM baselines (Llama 3.1, ChatGPT, GPT-4o, Claude) were tested exclusively u
 
 ### Applies To
 
-[[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]
+[[sysrev/dgraph/evidence/EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]

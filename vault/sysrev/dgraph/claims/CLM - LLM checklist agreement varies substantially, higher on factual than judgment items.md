@@ -16,11 +16,11 @@ title: "LLM performance on structured checklist tasks varies substantially by it
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[@alharbiAutomatedAssessmentReporting2024]]
+> [[sysrev/dgraph/source/@alharbiAutomatedAssessmentReporting2024]]
 >
-> [[@leucutaRiskBiasAssessment2025]]
+> [[sysrev/dgraph/source/@leucutaRiskBiasAssessment2025]]
 >
-> [[@akyonEvaluatingCapabilitiesGenerative2024]]
+> [[sysrev/dgraph/source/@akyonEvaluatingCapabilitiesGenerative2024]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -41,16 +41,16 @@ title: "LLM performance on structured checklist tasks varies substantially by it
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - ChatGPT matched humans on 3 of 12 PRISMA items but not on eligibility criteria|EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028)]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT matched humans on 3 of 12 PRISMA items but not on eligibility criteria|EVD - ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028)]]
 
-- [[EVD - ChatGPT matched humans on 6 of 17 CONSORT-A items but not on randomization|EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001)]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT matched humans on 6 of 17 CONSORT-A items but not on randomization|EVD - ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001)]]
 
-- [[EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct|EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles]]
+- [[sysrev/dgraph/evidence/EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct|EVD - GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles]]
 
-- [[EVD - GPT 4-0613 was lowest on STROBE questions at 44.1%|EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions]]
+- [[sysrev/dgraph/evidence/EVD - GPT 4-0613 was lowest on STROBE questions at 44.1%|EVD - GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions]]
 
-- [[EVD - LLMs made systematic QUADAS-2 patient selection errors|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]
+- [[sysrev/dgraph/evidence/EVD - LLMs made systematic QUADAS-2 patient selection errors|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]
 
-- [[EVD - LLMs were least accurate on software and funding questions|EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models]]
+- [[sysrev/dgraph/evidence/EVD - LLMs were least accurate on software and funding questions|EVD - LLMs showed lowest accuracy on questions about statistical software used and study funding across all models]]
 
-- [[EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]
+- [[sysrev/dgraph/evidence/EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]
