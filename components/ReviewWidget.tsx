@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { supabase, supabaseConfigured, type Verdict, type NodeReview } from "@/lib/supabase";
+import { supabase, supabaseConfigured, REVIEW_NOTE_MAX, REVIEW_NAME_MAX, type Verdict, type NodeReview } from "@/lib/supabase";
 import { useAuth } from "@/lib/useAuth";
 import { VERDICT_VOCAB } from "@/lib/ui";
 
@@ -16,19 +16,19 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
   const [verdict, setVerdict] = useState<Verdict | "">("");
   const [proposed, setProposed] = useState("");
   const [note, setNote] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [consent, setConsent] = useState(false);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const mine = session
-    ? reviews.find((r) => r.reviewer_id === session.user.id)
-    : undefined;
+  const mine = session ? reviews.find((r) => r.is_mine) : undefined;
 
   async function loadReviews() {
     if (!supabase || !session) return;
     setLoadingReviews(true);
     const { data, error } = await supabase
-      .from("node_reviews")
+      .from("node_reviews_public")
       .select("*")
       .eq("node_id", nodeId)
       .order("updated_at", { ascending: false });
@@ -61,17 +61,19 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
     setVerdict(mine.verdict);
     setProposed(mine.proposed ?? "");
     setNote(mine.note ?? "");
+    setDisplayName(mine.reviewer_name === "Anonymous reviewer" ? "" : mine.reviewer_name);
+    setConsent(true);
   }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!supabase || !session || !verdict) return;
+    if (!supabase || !session || !verdict || !consent) return;
     setSaving(true);
     setError(null);
     const { error } = await supabase.from("node_reviews").upsert(
       {
         reviewer_id: session.user.id,
-        reviewer_email: session.user.email,
+        display_name: displayName.trim() || null,
         node_id: nodeId,
         dimension: "overall",
         verdict,
@@ -138,6 +140,7 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
               value={proposed}
               onChange={(e) => setProposed(e.target.value)}
               placeholder="Proposed correction…"
+              maxLength={REVIEW_NOTE_MAX}
               rows={2}
               className="w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
             />
@@ -147,14 +150,37 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Note (optional)…"
+            maxLength={REVIEW_NOTE_MAX}
             rows={2}
             className="w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
           />
 
+          <input
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            maxLength={REVIEW_NAME_MAX}
+            placeholder="Display name (optional; blank shows “Anonymous reviewer”)"
+            className="w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none"
+          />
+
+          <label className="flex items-start gap-2 text-xs text-muted-ink">
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              className="mt-0.5"
+            />
+            <span>
+              Privacy: your verdict, note and display name are shown to other
+              signed-in reviewers. Your email address is never shown to them.
+              You can change or delete your review at any time. I agree.
+            </span>
+          </label>
+
           <div className="flex items-center gap-3">
             <button
               type="submit"
-              disabled={!verdict || saving}
+              disabled={!verdict || !consent || saving}
               className="rounded-lg bg-forest px-4 py-1.5 text-sm font-medium text-paper disabled:opacity-50"
             >
               {saving ? "Saving…" : mine ? "Update verdict" : "Submit verdict"}
@@ -184,7 +210,7 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
                     {v?.symbol}
                   </span>
                   <div>
-                    <span className="font-medium">{r.reviewer_email}</span>
+                    <span className="font-medium">{r.reviewer_name}</span>
                     {r.note && (
                       <span className="text-muted-ink">: {r.note}</span>
                     )}

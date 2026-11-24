@@ -8,14 +8,14 @@
 create table if not exists node_reviews (
   id             uuid primary key default gen_random_uuid(),
   reviewer_id    uuid not null default auth.uid(),
-  reviewer_email text not null default auth.email(),  -- denormalized for easy export
-  node_id        text not null,          -- e.g. "CLM-014", "EVD-062"
-  dimension      text not null default 'overall',
+  display_name   text check (display_name is null or char_length(display_name) between 1 and 40),  -- optional, chosen by reviewer; email is never stored
+  node_id        text not null check (node_id ~ '^(QUE|CLM|EVD|CVT|SRC|EP)-[0-9]{3,4}$'),  -- e.g. "CLM-014", "EVD-062"
+  dimension      text not null default 'overall' check (char_length(dimension) between 1 and 40),
   -- ✓ correct · ✎ edit · ✎ edit-major · ✎ edit-minor · ✗ wrong · ⟳ missing · — n/a
   -- (node-spec.md vocabulary, extended 2026-08 to split "edit" by severity)
   verdict        text not null check (verdict in ('correct', 'edit', 'edit-major', 'edit-minor', 'wrong', 'missing', 'na')),
-  proposed       text,                   -- the corrected value / proposed diff, if verdict starts with 'edit'
-  note           text,
+  proposed       text check (proposed is null or char_length(proposed) <= 2000),                   -- the corrected value / proposed diff, if verdict starts with 'edit'
+  note           text check (note is null or char_length(note) <= 2000),
   created_at     timestamptz not null default now(),
   updated_at     timestamptz not null default now()
 );
@@ -41,15 +41,15 @@ create trigger node_reviews_set_updated_at
   for each row execute function set_updated_at();
 
 -- ── Row-level security ────────────────────────────────────────────────────
--- Open sign-in model: any authenticated user can read all reviews (needed
--- for the aggregate /review dashboard) and write/edit their OWN rows only.
--- The anon key ships in the client bundle; with RLS below, unauthenticated
--- requests are rejected outright — a session is required for any access.
+-- Open sign-in model. A user can read, write and delete only their OWN rows in
+-- the table. Everyone else's reviews are visible only through the
+-- node_reviews_public view below, which omits email and user id.
 alter table node_reviews enable row level security;
 
 drop policy if exists auth_read_all on node_reviews;
-create policy auth_read_all on node_reviews
-  for select to authenticated using (true);
+drop policy if exists auth_read_own on node_reviews;
+create policy auth_read_own on node_reviews
+  for select to authenticated using (reviewer_id = auth.uid());
 
 drop policy if exists auth_write_own on node_reviews;
 create policy auth_write_own on node_reviews
@@ -67,17 +67,36 @@ create policy auth_delete_own on node_reviews
   for delete to authenticated
   using (reviewer_id = auth.uid());
 
--- ── Migration (2026-08): split "edit" by severity ───────────────────────────
--- If node_reviews already exists from an earlier run of this file, the
--- `create table if not exists` above is a no-op and its CHECK constraint
--- won't pick up the new verdict values automatically — run this once against
--- the live database (Supabase SQL editor) to widen it:
---
---   alter table node_reviews drop constraint node_reviews_verdict_check;
---   alter table node_reviews add constraint node_reviews_verdict_check
---     check (verdict in ('correct', 'edit', 'edit-major', 'edit-minor', 'wrong', 'missing', 'na'));
---
--- (Postgres auto-names the constraint node_reviews_verdict_check for a table
--- created via this script; confirm the actual name first with
--- `select conname from pg_constraint where conrelid = 'node_reviews'::regclass;`
--- if it was created some other way.)
+-- Per-user rate limit: at most 60 distinct review rows written per hour.
+create or replace function enforce_review_rate_limit()
+returns trigger as $$
+begin
+  if (select count(*) from node_reviews
+        where reviewer_id = new.reviewer_id
+          and updated_at > now() - interval '1 hour'
+          and id <> new.id) >= 60 then
+    raise exception 'Review rate limit reached (60 per hour). Try again later.'
+      using errcode = 'P0001';
+  end if;
+  return new;
+end;
+$$ language plpgsql;
+
+drop trigger if exists node_reviews_rate_limit on node_reviews;
+create trigger node_reviews_rate_limit
+  before insert or update on node_reviews
+  for each row execute function enforce_review_rate_limit();
+
+-- Public view: what other signed-in users see. No email, no user id.
+drop view if exists node_reviews_public;
+create view node_reviews_public as
+  select id, node_id, dimension, verdict, proposed, note,
+         coalesce(display_name, 'Anonymous reviewer') as reviewer_name,
+         (reviewer_id = auth.uid()) as is_mine,
+         created_at, updated_at
+  from node_reviews;
+revoke all on node_reviews_public from anon, public;
+grant select on node_reviews_public to authenticated;
+
+-- Existing databases: do NOT re-run this file; run
+-- supabase/migrations/2026-11-reviewer-privacy.sql instead (see MIGRATION.md).

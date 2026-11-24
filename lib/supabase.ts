@@ -31,15 +31,19 @@ export function authRedirectOrigin(): string {
 
 export type Verdict = "correct" | "edit" | "edit-major" | "edit-minor" | "wrong" | "missing" | "na";
 
+// Shape of a row from the `node_reviews_public` view: no email, no user id.
 export type NodeReview = {
   id: string;
-  reviewer_id: string;
-  reviewer_email: string;
   node_id: string;
   dimension: string;
   verdict: Verdict;
   proposed: string | null;
   note: string | null;
+  reviewer_name: string;
+  is_mine: boolean;
   created_at: string;
   updated_at: string;
 };
+
+export const REVIEW_NOTE_MAX = 2000;
+export const REVIEW_NAME_MAX = 40;
