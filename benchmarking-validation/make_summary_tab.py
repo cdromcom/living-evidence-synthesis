@@ -5,12 +5,15 @@ tokens / time / cost notes. Static values, computed by metrics.py; upload and co
 import json, sys
 from pathlib import Path
 from openpyxl import Workbook
+from openpyxl.comments import Comment
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 HERE = Path(__file__).resolve().parent
 RUN = sys.argv[1] if len(sys.argv) > 1 else "r1"
 M = json.loads((HERE / f"results/metrics-{RUN}.json").read_text())
 extra = json.loads((HERE / "opus_usage.json").read_text()) if (HERE / "opus_usage.json").exists() else None
-wb = Workbook(); ws = wb.active; ws.title = "Decision Models Summary"
+ALLM = json.loads((HERE / f"results/metrics-{RUN}-all.json").read_text()); EXC = json.loads((HERE / "inputs/exclusions.json").read_text())
+LABEL = {"r1": "Run 1", "r2t": "Run 2"}.get(RUN, RUN)
+wb = Workbook(); ws = wb.active; ws.title = f"Decision Models Summary ({LABEL})"
 WHITE = PatternFill("solid", fgColor="FFFFFF"); H = WHITE; T = PatternFill("solid", fgColor="D9EAD2")   # ABOUT: white body, pale-green section bars
 FN, GREEN_TXT = "Spectral", "38761D"                                                              # ABOUT: Spectral, dark-green section text
 thin = Side(style="thin", color="BBBBBB")
@@ -32,13 +35,15 @@ def head(row, labels):                      # column headers: bold on white with
     for i, h in enumerate(labels, 1):
         c = put(row, i, h, True, wrap=True, align=None if i == 1 else "center"); c.border = Border(bottom=thin)
 put(r, 1, "Decision models vs the human expert (JP): metrics, confusion matrices, cost and time", True, size=14); r += 1
-put(r, 1, f"Run {M['run']}. Held-out EVD 4-77 (74 EVDs; table/figure n=72 because two JP NA rows are excluded). Reference = JP's ratings. Static values computed by metrics.py from the model outputs in the repository folder benchmarking-validation/; they are not live formulas. micro-F1 equals accuracy for single-label problems; 'overall' F1 = support-weighted F1. Kappa = unweighted Cohen's kappa. 'Raw ratio' = correct/n. Averages combine each model's probabilities before choosing the label.", wrap=True)
+put(r, 1, f"{LABEL} (run id {M['run']}). Held-out EVD 4-77. Exclusions decided by JP 2026-11-24 (inputs/exclusions.json): relevancy drops 6 rows that are not true EVDs (n=68); fidelity drops 8 rows whose headline EVD cannot be matched from the quote shown (n=66); quote drops 8 rows pending JP re-rating under the strict Correct definition (n=66); table/figure n=72 because two JP NA rows are excluded. Section E gives every rater with no exclusions. Reference = JP's ratings. Static values computed by metrics.py from the model outputs in the repository folder benchmarking-validation/; they are not live formulas. micro-F1 equals accuracy for single-label problems; 'overall' F1 = support-weighted F1. Kappa = unweighted Cohen's kappa. 'Raw ratio' = correct/n. Averages combine each model's probabilities before choosing the label.", wrap=True)
 ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=9); ws.row_dimensions[r].height = 62; r += 2
-TITLE = {"relevancy": "Selection relevancy", "fidelity": "Fidelity (JP's gist rule)", "quote": "Grounding: Quote", "table": "Grounding: Table/Fig (70 of 77 rows are rule-based Missing)"}
+TITLE = {"relevancy": "Selection relevancy", "fidelity": "Fidelity (JP's gist rule)", "quote": "Grounding: Quote", "table": "Grounding: Table/Fig (most rows are rule-based Missing)"}
 bar(r, "A. AGREEMENT WITH JP", 9, 10); r += 1
 cols = ["Rater / ensemble", "n", "Raw ratio (correct/n)", "Accuracy %", "Cohen's kappa", "F1 macro", "F1 micro", "F1 overall (weighted)"]
 for task, t in M["tasks"].items():
-    put(r, 1, TITLE[task], True); r += 1
+    put(r, 1, TITLE[task] + (f"  (n={t['n']}; excluded EVD {', '.join(map(str, t['excluded_evds']))})" if t["excluded_evds"] else f"  (n={t['n']})"), True)
+    if t["excluded_evds"]: ws.cell(r, 1).comment = Comment(EXC[task]["reason"], "JP / Claude")
+    r += 1
     head(r, cols)
     r += 1
     b = t["baseline"]; put(r, 1, f"Baseline: always '{b['label']}'"); put(r, 2, t["n"]); put(r, 3, f"{b['correct']}/{t['n']}"); put(r, 4, b["accuracy"], fmt="0.0%"); put(r, 5, 0.0, fmt="0.00"); r += 1
@@ -80,6 +85,17 @@ for task, t in M["tasks"].items():
                 put(top + 2 + i, col + 1 + j, v, fill=blend(BLUE if diag else ORANGE, 0.0 if v == 0 else 0.25 + 0.75 * v / mx), align="center", bold=diag)
         col += len(cols_) + 2
     r = top + 2 + len(t["raters"][show[0]]["confusion"]) + 2
+# ---- all rows
+bar(r, "E. ACCURACY ON EVERY ROW (no exclusions; relevancy and fidelity and quote n=74, table/figure n=72)", 9, 10); r += 1
+head(r, ["Rater / ensemble", "Relevancy %", "Fidelity %", "Quote %", "Table/figure %"]); r += 1
+put(r, 1, "Baseline: always the commonest label")
+for i, tk in enumerate(["relevancy", "fidelity", "quote", "table"], 2): put(r, i, ALLM["tasks"][tk]["baseline"]["accuracy"], fmt="0.0%")
+r += 1
+for name in ALLM["tasks"]["relevancy"]["raters"]:
+    put(r, 1, name)
+    for i, tk in enumerate(["relevancy", "fidelity", "quote", "table"], 2): put(r, i, ALLM["tasks"][tk]["raters"][name]["accuracy"], fmt="0.0%")
+    r += 1
+r += 1
 # ---- usage
 bar(r, "D. TOKENS, TIME AND COST PER MODEL AND RUN", 9, 10); r += 1
 head(r, ["Model", "Run", "Records", "Model calls", "Input tokens", "Request time (s, summed)", "Cost (USD)", "Cost source"])
@@ -88,7 +104,7 @@ tot = {}
 for u in M["usage"]:
     for i, v in enumerate([u["model"], u["run"], u["records"], u["model_calls"], u["input_tokens"], u["request_time_s"], u["cost_usd"], u["cost_source"]], 1): put(r, i, v, fmt="#,##0" if i == 5 else ("0.0000" if i == 7 else None))
     r += 1
-if extra:
+for extra in [x for x in (extra, json.loads((HERE / "opus_usage_r2.json").read_text()) if (HERE / "opus_usage_r2.json").exists() else None) if x]:
     for b in extra["batches"]:
         for i, v in enumerate(["Claude Opus 5.5 (Claude Code subagent)", extra["run"], b["evds"], b["evds_n"], b["tokens"], round(b["duration_ms"] / 1000, 1), extra.get("cost_usd_per_batch", ""), extra.get("cost_note", "")], 1): put(r, i, v, fmt="#,##0" if i == 5 else None)
         r += 1

@@ -7,6 +7,8 @@ from collections import Counter
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 RUN = sys.argv[1] if len(sys.argv) > 1 else "r1"
+ALL = "--all" in sys.argv   # --all = no exclusions (results/metrics-<run>-all.json)
+EXCL = {} if ALL else {k: set(v["evds"]) for k, v in json.load(open(HERE / "inputs/exclusions.json")).items() if isinstance(v, dict)}
 NAMES = {"perplexity": "Perplexity Decider 1.3", "liquid": "Liquid d1-ultra", "jev": "Jev", "opus": "Claude Opus 5.5"}
 TASKS = ["relevancy", "fidelity", "quote", "table"]
 LABELS = {"relevancy": ["Relevant", "Irrelevant"], "fidelity": ["Met", "Partially Met", "Unmet"],
@@ -54,9 +56,9 @@ def f1s(y, p):
     return macro, micro, weighted
 held = range(4, 78); res = {}
 for task in TASKS:
-    ev = [e for e in held if ref[e][REFCOL[task]] not in ("", "NA")]
+    ev = [e for e in held if ref[e][REFCOL[task]] not in ("", "NA") and e not in EXCL.get(task, set())]
     y = [ref[e][REFCOL[task]] for e in ev]; base = Counter(y).most_common(1)[0]
-    res[task] = {"n": len(ev), "baseline": {"label": base[0], "correct": base[1], "accuracy": base[1] / len(ev)}, "raters": {}}
+    res[task] = {"excluded_evds": sorted(EXCL.get(task, [])), "n": len(ev), "baseline": {"label": base[0], "correct": base[1], "accuracy": base[1] / len(ev)}, "raters": {}}
     for name, P in pred.items():
         p = [P.get((e, task), "MISSING") for e in ev]
         if "MISSING" in p: continue
@@ -74,7 +76,7 @@ for p in NAMES:
         usage.append({"model": NAMES[p], "run": f.name.split(".")[1], "records": len(R), "model_calls": sum(1 for r in R if not r.get("rule_based")),
                       "input_tokens": tok, "request_time_s": round(lat, 1), "cost_usd": round(cost if cost else tok / 1e6 * PRICE.get(p, 0), 4),
                       "cost_source": "API-reported" if cost else ("computed from list price" if p in PRICE else "see notes")})
-json.dump({"run": RUN, "tasks": res, "usage": usage}, open(HERE / f"results/metrics-{RUN}.json", "w"), indent=1)
+json.dump({"run": RUN, "tasks": res, "usage": usage}, open(HERE / f"results/metrics-{RUN}{'-all' if ALL else ''}.json", "w"), indent=1)
 for task in TASKS:
     print(f"\n{task}  n={res[task]['n']}  baseline {res[task]['baseline']['label']} {res[task]['baseline']['accuracy']:.1%}")
     for name, m in res[task]["raters"].items():

@@ -21,11 +21,12 @@ def load(p, runs):
     return R
 R1 = {p: load(p, ["r1", "r1fix"]) for p in P}; R2 = {p: load(p, ["r2t"]) for p in P}
 held = range(4, 78)
+EXC = {k: set(v["evds"]) for k, v in json.load(open(HERE / "inputs/exclusions.json")).items() if isinstance(v, dict)}
 jp = lambda e, t: (ref[e][col[t]] or None) if ref[e][col[t]] != "NA" else None
 out = ["# Error analysis, Run 2 (r2t) and change from Run 1", "",
-       "Held-out EVD 4-77 (table/figure n=72: two JP NA rows excluded). JP = reference. r2t = Run 2 relevancy, fidelity and quote plus the table/figure rerun with Missing-by-rule when the page has no table/figure-slot screenshot. Run 1 uses r1 with the r1fix overrides for EVD 21 and 38.", ""]
+       "Held-out EVD 4-77 after JP's exclusions of 2026-11-24 (inputs/exclusions.json): relevancy n=68 (EVD 7, 17, 49, 72, 75, 76 dropped), fidelity n=66 (EVD 4, 19, 26, 36, 38, 54, 56, 65 dropped), quote n=66 (EVD 5, 6, 9, 18, 45, 51, 53, 66 dropped pending JP re-rating), table/figure n=72 (two JP NA rows excluded). The earlier all-rows analysis is in the previous commit and in results/metrics-*-all.json. JP = reference. r2t = Run 2 relevancy, fidelity and quote plus the table/figure rerun with Missing-by-rule when the page has no table/figure-slot screenshot. Run 1 uses r1 with the r1fix overrides for EVD 21 and 38.", ""]
 for t in ("relevancy", "fidelity", "quote", "table"):
-    ev = [e for e in held if jp(e, t)]
+    ev = [e for e in held if jp(e, t) and e not in EXC.get(t, set())]
     out += [f"## {t}", "", f"JP labels (n={len(ev)}): {dict(Counter(jp(e, t) for e in ev))}", "",
             "| Rater | Run 1 correct | Run 2 correct | Changed label | Moved toward JP | Moved away from JP | Run 2 error types (JP -> model) |", "|---|---|---|---|---|---|---|"]
     wrong2 = {}

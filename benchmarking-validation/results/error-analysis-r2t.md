@@ -1,51 +1,51 @@
 # Error analysis, Run 2 (r2t) and change from Run 1
 
-Held-out EVD 4-77 (table/figure n=72: two JP NA rows excluded). JP = reference. r2t = Run 2 relevancy, fidelity and quote plus the table/figure rerun with Missing-by-rule when the page has no table/figure-slot screenshot. Run 1 uses r1 with the r1fix overrides for EVD 21 and 38.
+Held-out EVD 4-77 after JP's exclusions of 2026-11-24 (inputs/exclusions.json): relevancy n=68 (EVD 7, 17, 49, 72, 75, 76 dropped), fidelity n=66 (EVD 4, 19, 26, 36, 38, 54, 56, 65 dropped), quote n=66 (EVD 5, 6, 9, 18, 45, 51, 53, 66 dropped pending JP re-rating), table/figure n=72 (two JP NA rows excluded). The earlier all-rows analysis is in the previous commit and in results/metrics-*-all.json. JP = reference. r2t = Run 2 relevancy, fidelity and quote plus the table/figure rerun with Missing-by-rule when the page has no table/figure-slot screenshot. Run 1 uses r1 with the r1fix overrides for EVD 21 and 38.
 
 ## relevancy
 
-JP labels (n=74): {'Relevant': 65, 'Irrelevant': 9}
+JP labels (n=68): {'Relevant': 63, 'Irrelevant': 5}
 
 | Rater | Run 1 correct | Run 2 correct | Changed label | Moved toward JP | Moved away from JP | Run 2 error types (JP -> model) |
 |---|---|---|---|---|---|---|
-| Perplexity | 65/74 | 65/74 | 0 | 0 | 0 | Irrelevant->Relevant x5; Relevant->Irrelevant x4 |
-| Liquid | 66/74 | 65/74 | 1 | 0 | 1 | Relevant->Irrelevant x5; Irrelevant->Relevant x4 |
-| Jev | 58/74 | 58/74 | 2 | 1 | 1 | Relevant->Irrelevant x12; Irrelevant->Relevant x4 |
-| Opus 5.5 | 64/74 | 64/74 | 0 | 0 | 0 | Relevant->Irrelevant x5; Irrelevant->Relevant x5 |
+| Perplexity | 65/68 | 65/68 | 0 | 0 | 0 | Relevant->Irrelevant x2; Irrelevant->Relevant x1 |
+| Liquid | 66/68 | 65/68 | 1 | 0 | 1 | Relevant->Irrelevant x3 |
+| Jev | 58/68 | 58/68 | 2 | 1 | 1 | Relevant->Irrelevant x10 |
+| Opus 5.5 | 64/68 | 64/68 | 0 | 0 | 0 | Relevant->Irrelevant x3; Irrelevant->Relevant x1 |
 
-Wrong in all four raters in Run 2: 7 EVDs [7, 17, 32, 49, 72, 75, 76]. Wrong in at least one: 17. Wrong in exactly one: 5.
+Wrong in all four raters in Run 2: 1 EVDs [32]. Wrong in at least one: 11. Wrong in exactly one: 5.
 
-Run 2 relevancy errors per rater: Perplexity [7, 17, 26, 32, 49, 60, 72, 75, 76]; Liquid [5, 7, 17, 32, 49, 61, 72, 75, 76]; Jev [5, 6, 7, 17, 26, 32, 36, 42, 49, 55, 61, 65, 72, 73, 75, 76]; Opus 5.5 [6, 7, 17, 32, 49, 60, 61, 72, 75, 76]
+Run 2 relevancy errors per rater: Perplexity [26, 32, 60]; Liquid [5, 32, 61]; Jev [5, 6, 26, 32, 36, 42, 55, 61, 65, 73]; Opus 5.5 [6, 32, 60, 61]
 
 ## fidelity
 
-JP labels (n=74): {'Partially Met': 6, 'Met': 68}
+JP labels (n=66): {'Met': 62, 'Partially Met': 4}
 
 | Rater | Run 1 correct | Run 2 correct | Changed label | Moved toward JP | Moved away from JP | Run 2 error types (JP -> model) |
 |---|---|---|---|---|---|---|
-| Perplexity | 54/74 | 54/74 | 0 | 0 | 0 | Met->Partially Met x15; Partially Met->Met x2; Met->Unmet x2; Partially Met->Unmet x1 |
-| Liquid | 59/74 | 58/74 | 1 | 0 | 1 | Met->Partially Met x9; Met->Unmet x3; Partially Met->Met x3; Partially Met->Unmet x1 |
-| Jev | 56/74 | 56/74 | 2 | 1 | 1 | Met->Partially Met x9; Met->Unmet x5; Partially Met->Met x3; Partially Met->Unmet x1 |
-| Opus 5.5 | 61/74 | 61/74 | 3 | 1 | 1 | Met->Partially Met x5; Partially Met->Met x5; Met->Unmet x2; Partially Met->Unmet x1 |
+| Perplexity | 54/66 | 54/66 | 0 | 0 | 0 | Met->Partially Met x11; Partially Met->Met x1 |
+| Liquid | 59/66 | 58/66 | 1 | 0 | 1 | Met->Partially Met x6; Partially Met->Met x2 |
+| Jev | 56/66 | 56/66 | 2 | 1 | 1 | Met->Partially Met x7; Partially Met->Met x2; Met->Unmet x1 |
+| Opus 5.5 | 61/66 | 61/66 | 2 | 1 | 1 | Partially Met->Met x4; Met->Partially Met x1 |
 
-Wrong in all four raters in Run 2: 8 EVDs [4, 19, 26, 36, 38, 54, 56, 65]. Wrong in at least one: 24. Wrong in exactly one: 4.
+Wrong in all four raters in Run 2: 0 EVDs []. Wrong in at least one: 16. Wrong in exactly one: 4.
 
-Run 2 fidelity: model Partially Met/Unmet where JP Met, per rater: Perplexity 17; Liquid 12; Jev 14; Opus 5.5 7
+Run 2 fidelity: model Partially Met/Unmet where JP Met, per rater: Perplexity 11; Liquid 6; Jev 8; Opus 5.5 1
 
 ## quote
 
-JP labels (n=74): {'Correct': 60, 'Incorrect': 12, 'Missing': 1, 'Partially Correct': 1}
+JP labels (n=66): {'Correct': 54, 'Incorrect': 11, 'Partially Correct': 1}
 
 | Rater | Run 1 correct | Run 2 correct | Changed label | Moved toward JP | Moved away from JP | Run 2 error types (JP -> model) |
 |---|---|---|---|---|---|---|
-| Perplexity | 64/74 | 63/74 | 4 | 1 | 2 | Correct->Partially Correct x6; Correct->Incorrect x3; Missing->Incorrect x1; Incorrect->Partially Correct x1 |
-| Liquid | 59/74 | 63/74 | 7 | 5 | 1 | Correct->Incorrect x6; Correct->Partially Correct x3; Missing->Incorrect x1; Incorrect->Partially Correct x1 |
-| Jev | 61/74 | 62/74 | 3 | 2 | 1 | Correct->Incorrect x5; Correct->Partially Correct x4; Missing->Incorrect x1; Partially Correct->Incorrect x1 |
-| Opus 5.5 | 58/74 | 59/74 | 3 | 2 | 1 | Correct->Partially Correct x9; Correct->Incorrect x4; Missing->Incorrect x1; Incorrect->Partially Correct x1 |
+| Perplexity | 63/66 | 63/66 | 2 | 1 | 1 | Correct->Partially Correct x3 |
+| Liquid | 58/66 | 63/66 | 5 | 5 | 0 | Correct->Partially Correct x2; Correct->Incorrect x1 |
+| Jev | 60/66 | 62/66 | 2 | 2 | 0 | Correct->Partially Correct x3; Partially Correct->Incorrect x1 |
+| Opus 5.5 | 57/66 | 59/66 | 2 | 2 | 0 | Correct->Partially Correct x7 |
 
-Wrong in all four raters in Run 2: 8 EVDs [5, 6, 9, 18, 45, 51, 53, 66]. Wrong in at least one: 19. Wrong in exactly one: 5.
+Wrong in all four raters in Run 2: 0 EVDs []. Wrong in at least one: 11. Wrong in exactly one: 5.
 
-Run 2 quote: JP Correct but model not Correct, per rater: Perplexity [5, 6, 9, 11, 18, 39, 40, 51, 66]; Liquid [5, 6, 9, 18, 19, 22, 25, 51, 66]; Jev [5, 6, 9, 18, 22, 35, 51, 54, 66]; Opus 5.5 [5, 6, 9, 11, 18, 25, 35, 39, 40, 51, 52, 64, 66]
+Run 2 quote: JP Correct but model not Correct, per rater: Perplexity [11, 39, 40]; Liquid [19, 22, 25]; Jev [22, 35, 54]; Opus 5.5 [11, 25, 35, 39, 40, 52, 64]
 
 ## table
 

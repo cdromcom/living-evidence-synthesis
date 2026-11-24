@@ -30,10 +30,10 @@ Question: *Do the screenshots on the evidence page correctly show the quoted tex
 
 ### Options
 
-- **Correct**: A screenshot on the evidence page shows the quoted text word for word (the screenshot must match the quote text; trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.
-- **Partially Correct**: The screenshots show only part of the quoted text, or the quote text has small unmarked edits or omissions compared with the text in the screenshots.
-- **Incorrect**: The screenshots show a different passage from the quote, or the quote text is materially different from the text in the screenshots.
-- **Missing**: No screenshot is shown on the evidence page.
+- **Correct**: The full quoted text is shown word for word in a screenshot on the evidence page, with no extraneous content getting in the way (trivial differences such as hyphenation, line breaks or quote marks are fine). A wrong or different page number in the citation does not matter.
+- **Partially Correct**: A screenshot shows the right passage but incomplete or cropped: only part of the quoted text is visible, or the quote text has unmarked edits or omissions compared with the screenshot, or other content gets in the way of reading the quote.
+- **Incorrect**: A screenshot is present but shows a different passage from the quote, or the quote text is materially different from the text in the screenshot.
+- **Missing**: No screenshot at all is shown on the evidence page.
 - **NA**: There is no quote to check.
 
 ## Grounding: Table/Figure
