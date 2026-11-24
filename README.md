@@ -497,4 +497,4 @@ one.
 
 ---
 
-**Licence and takedown.** Code is MIT (`LICENSE`); original vault content is CC BY 4.0 while quotes and screenshots keep their source papers' licences (`vault/LICENSE-CONTENT.md`, `docs/PERMISSIONS.md`). Takedown route: [PENDING JP confirmation]. Not legal advice.
+**Licence and takedown.** Code is MIT (`LICENSE`); original vault content is CC BY 4.0 while quotes and screenshots keep their source papers' licences (`vault/LICENSE-CONTENT.md`, `docs/PERMISSIONS.md`). Takedown route: open an issue at https://github.com/cdromcom/living-evidence-synthesis/issues. Not legal advice.

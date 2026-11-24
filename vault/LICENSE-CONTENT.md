@@ -6,6 +6,6 @@ The MIT licence in the repository root `LICENSE` covers the code only. This note
 
 **Quotes and republished screenshots** (short excerpts, and cropped tables or figures) remain under their source papers' own licences and copyright. They are shown with citation and DOI for scholarly critique. The licence found for each paper, and the papers that need extra care, are listed in `docs/PERMISSIONS.md`. Nothing here relicenses them: the CC BY 4.0 licence above does not apply to them.
 
-**Takedown.** [TAKEDOWN ROUTE NOT YET PUBLISHED: the coordinator asked for the repository's GitHub issues page; the publishing step was blocked and is waiting for JP's confirmation.]
+**Takedown.** To request removal of a quote, screenshot or other material, open an issue at https://github.com/cdromcom/living-evidence-synthesis/issues naming the page and the material; it will be reviewed promptly and removed or replaced where the request is valid.
 
 This note records project decisions and is not legal advice.

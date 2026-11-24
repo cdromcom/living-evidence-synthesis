@@ -78,4 +78,4 @@ If a rights holder objects, the crops for that paper are removed first and discu
 - Repository code licence: MIT (`LICENSE` at the repository root). It covers the code only.
 - JP's own content: CC BY 4.0, stated in `vault/LICENSE-CONTENT.md` (original text, EVD statements, notes, ratings and appraisals). Quotes and republished screenshots stay under their source papers' licences, with attribution.
 - Screenshots: all kept, for all 27 papers, as scholarly critique with a visible citation and DOI.
-- Takedown route: **[PENDING: the repository's GitHub issues page was the intended route. Publishing it was blocked by the tool permission check, so it is left for JP to confirm. No email address has been invented.]**
+- Takedown route: **the repository's GitHub issues page, https://github.com/cdromcom/living-evidence-synthesis/issues** (JP, 2026-11-24). No email address is published.
