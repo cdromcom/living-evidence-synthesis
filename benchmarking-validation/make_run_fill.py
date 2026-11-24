@@ -33,6 +33,6 @@ for e in range(1, 78):
     row[22] = t.get("reason") or (" | ".join(f"{k} {v:.2f}" for k, v in sorted(tc.get("probabilities", {}).items(), key=lambda kv: -kv[1])[:3]) + (" (rule: no screenshot)" if t.get("rule_based") else ""))
     n = q.get("images_sent", t.get("images_sent", ""))
     row[23] = (f"{n} screenshot(s); connects to quote, quote task: {shots(qa)}; table task: {shots(ta)}").strip()
-    row[24] = f"{VER}; run {run}; 2026-11-24 UTC"
+    row[24] = f"{VER}; run {run}; 2026-11-24 UTC" + (" (relevancy/fidelity/quote = r2; table/figure rerun with Missing-by-rule when no table/figure-slot screenshot)" if run=="r2t" else "")
     for col, v in row.items(): ws.cell(e + 1, col, v)
 wb.save(HERE / f"sheets/fill-{prov}-{run}.xlsx"); print(prov, run, "ok")

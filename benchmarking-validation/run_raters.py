@@ -265,6 +265,8 @@ def cmd_run(a):
     for pv, e, t in jobs:
         p = json.loads((PACKETS / f"EVD-{e:02d}" / "packet.json").read_text())
         parts, qs, n_img = build_task(t, p, with_images=True, fid_v=a.fidelity_version)
+        if t == "table" and a.table_slot_rule and not any(i["kind"] == "tablefig" for i in p["images"]):
+            n_img = 0  # JP rule: no screenshot in the table/figure slot of the evidence page -> Missing, no model call
         model = a.jev_model if pv == "jev" else (a.liquid_model if pv == "liquid" else MODELS[pv])
         tok = 0 if (t == "table" and n_img == 0) else est_tokens(parts)
         total_tokens[pv] += tok
@@ -367,6 +369,7 @@ def main():
     r.add_argument("--liquid-model", default=MODELS["liquid"], help="d1-ultra is listed as deprecated by Liquid; d1.2-ultra is its replacement")
     r.add_argument("--run-id", default="r1", help="label for this pass; results/<provider>.<run-id>.jsonl (r1 = judgment of record)")
     r.add_argument("--fidelity-version", type=int, choices=(1, 2, 3), default=3, help="1 = original rubric; 2 = gist rule (JP, 2026-11-23): Met when the headline EVD's gist is in the quote; 3 = version 2 plus worked examples from EVD 1-3 (those EVDs are skipped for fidelity)")
+    r.add_argument("--table-slot-rule", action="store_true", help="Missing by rule when the page has no screenshot in the table/figure slot (run r2t)")
     r.add_argument("--dry-run", action="store_true")
     r.add_argument("--dry-limit", type=int, default=12)
     r.set_defaults(fn=cmd_run)

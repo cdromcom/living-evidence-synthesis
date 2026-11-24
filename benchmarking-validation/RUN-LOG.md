@@ -30,3 +30,6 @@ request 0.27 s, 0.23 s and 0.12 s. Sheets were filled from these results; every 
 
 ## Run 2 (r2, 2026-11-24 UTC)
 All four raters, all 77 EVDs, new input rules: every Description screenshot shown without slot labels, per-screenshot "connects to the quote" questions, paraphrased text under the table/figure sent in the table task. Fidelity and relevancy prompts unchanged. Decision models: 305 records each, 0 errors. Opus 5.5: six blind subagents on a folder with neutral screenshot names (results/opus_raw_r2/). Scored against JP's original ratings, which were made under the Run 1 slot rule, so table/figure scores are not comparable with Run 1. Metrics: results/metrics-r2.json.
+
+## Run 2, table/figure rerun (r2t, 2026-11-24 UTC)
+JP's rule restored for the table/figure task: if the evidence page has no screenshot in the table/figure slot, the answer is Missing (no model call); otherwise the models judge, seeing every screenshot. Relevancy, fidelity and quote answers in r2t are copied unchanged from r2. Decision models re-called for the 7 EVDs with a table/figure-slot screenshot (EVD 1 excluded from scoring); Opus's r2 judgements for those EVDs were reused (same inputs). Scored in results/metrics-r2t.json: all four raters 64/72 = 88.9%, below the always-Missing baseline of 90.3%; the rule decides 65 of 72 scored rows.
