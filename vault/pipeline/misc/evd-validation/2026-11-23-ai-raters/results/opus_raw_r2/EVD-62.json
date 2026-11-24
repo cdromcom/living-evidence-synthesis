@@ -1,0 +1,46 @@
+{
+ "evd": 62,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.9,
+  "reason": "Specific error-detection result: o3 62.6% pass@4 on equation/proof errors vs 0% on figure duplication."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.92,
+   "Partially Met": 0.07,
+   "Unmet": 0.01
+  },
+  "reason": "Quote gives o3 62.6% pass@4 on Equation/Proof and o3 0% on Figure Duplication; both match."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot shows the full quoted passage verbatim, from 'In the Equation/Proof category' to 'reasoning models'."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.2,
+   "Missing": 0.45,
+   "NA": 0.3
+  },
+  "shot_connects": [
+   0.6
+  ],
+  "reason": "Numbers are in the quote, but the caption names Figure 4 and Tables 4-5 as grounding; the screenshot is body text only."
+ }
+}

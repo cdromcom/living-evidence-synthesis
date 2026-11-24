@@ -1,0 +1,65 @@
+[
+ {
+  "citekey": "srinivasanEvaluatingReportingQuality2025a",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Srinivasan et al. - 2025 - Evaluating the reporting quality of 21,041 randomized controlled trial articles.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/srinivasanEvaluatingReportingQuality2025a.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - CONSORT compliance rose from 27.3% to 56.1% over decades.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4o-mini reached F1 0.85 on CONSORT-TM beating prior SOTA by over 40%.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Only 9.7% of RCTs reported sequence generation and 15.25% allocation concealment.md"
+  ]
+ },
+ {
+  "citekey": "zhangReviewingScientificPapers2025a",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Zhang and Abernethy - 2026 - Reviewing Scientific Papers for Critical Problems With Reasoning LLMs.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/zhangReviewingScientificPapers2025a.txt",
+  "extra_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/zhangReviewingScientificPapers2025a_extra.txt",
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md"
+  ]
+ },
+ {
+  "citekey": "tyserAIDrivenReviewSystems2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Tyser et al. - 2024 - AI-Driven Review Systems Evaluating LLMs in Scalable and Bias-Aware Academic Reviews.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/tyserAIDrivenReviewSystems2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 Turbo ranked first in human review preference.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLM review scores exceeded humans without area-chair context but matched with it.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLM reviews scored like human reviews on all 3 criteria.md"
+  ]
+ },
+ {
+  "citekey": "leucutaRiskBiasAssessment2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Leucuta et al. 2025 - Risk of Bias Assessment of Diagnositic Accuracy Studies.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/leucutaRiskBiasAssessment2025.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Four LLMs averaged 72.95% correct on QUADAS-2.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLMs made systematic QUADAS-2 patient selection errors.md"
+  ]
+ },
+ {
+  "citekey": "zhouLLMReliableReviewer2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Zhou - Is LLM a Reliable Reviewer A Comprehensive Evalua.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/zhouLLMReliableReviewer2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-3.5 predicted review aspect scores at r=0.651.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 RR-MCQ macro accuracy was 0.276.md"
+  ]
+ },
+ {
+  "citekey": "hasanIntegratingLargeLanguage2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Hasan et al_2024_Integrating large language models in systematic reviews.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/hasanIntegratingLargeLanguage2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I.md"
+  ]
+ }
+]

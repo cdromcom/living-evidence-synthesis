@@ -1,0 +1,33 @@
+{
+ "evd": 62,
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.02,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.99,
+  "quote_fully_visible": 0.98,
+  "shot_connects": [
+   0.99
+  ],
+  "reason": "Entire two-sentence quote highlighted in clean crop with its paragraph lead-in."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.02,
+   "Missing": 0.93,
+   "NA": 0.05
+  },
+  "shot_connects": [
+   0.05
+  ],
+  "reason": "Caption cites Figure 4 and Tables 4-5; only a text screenshot is shown."
+ }
+}

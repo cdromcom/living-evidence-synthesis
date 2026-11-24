@@ -1,0 +1,46 @@
+{
+ "evd": 4,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.72,
+  "reason": "Gives AI Scientist's accuracy 0.47, F1 0.44, kappa 0.05 against expert novelty labels, a specific LLM performance result."
+ },
+ "fidelity": {
+  "label": "Unmet",
+  "probs": {
+   "Met": 0.1,
+   "Partially Met": 0.3,
+   "Unmet": 0.6
+  },
+  "reason": "Quote only says the authors' method had 10x more agreement than AI Scientist; AI Scientist's 0.47/0.44/0.05 scores are absent."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.92,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.02,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot shows 'Our approach achieved over 10 times more agreement... than AI Researcher' word for word."
+ },
+ "table": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.07,
+   "Incorrect": 0.85,
+   "Missing": 0.05,
+   "NA": 0
+  },
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "Paraphrase cites Table 1 for AI Scientist's 0.47/0.44/0.05, but the screenshot is body text only, not Table 1."
+ }
+}

@@ -1,0 +1,1 @@
+{"evd": 67, "quote": {"label": "Incorrect", "probs": {"Correct": 0.01, "Partially Correct": 0.02, "Incorrect": 0.97, "Missing": 0.0, "NA": 0.0}, "p_screenshot_shows_quote": 0.02, "shot_connects": [0.3], "reason": "Screenshot shows the LLM-judge win-rate sentence, not the 5.4 average recommendation passage."}}

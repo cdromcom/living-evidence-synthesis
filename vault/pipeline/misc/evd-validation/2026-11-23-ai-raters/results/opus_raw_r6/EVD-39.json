@@ -1,0 +1,33 @@
+{
+ "evd": 39,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.42,
+   "Partially Correct": 0.55,
+   "Incorrect": 0.01,
+   "Missing": 0.01,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.98,
+  "quote_fully_visible": 0.75,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "Right passage cleanly captured, but page says 'was inaccurate' and '(39 to 73%)' where the quote says 'less accurate'."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.08,
+   "NA": 0.86
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "No caption or paraphrase; 100% and 57% are in the quote."
+ }
+}

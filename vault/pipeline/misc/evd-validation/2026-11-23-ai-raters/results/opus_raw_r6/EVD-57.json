@@ -1,0 +1,35 @@
+{
+ "evd": 57,
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.02,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.99,
+  "quote_fully_visible": 0.97,
+  "shot_connects": [
+   0.99,
+   0.97
+  ],
+  "reason": "Both quoted sentences fully highlighted across two clean crops with few surrounding lines."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0,
+   "Missing": 0.04,
+   "NA": 0.96
+  },
+  "shot_connects": [
+   0.02,
+   0.02
+  ],
+  "reason": "All numbers (3.7, 1.7) appear in the quote; no table referenced."
+ }
+}

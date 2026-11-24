@@ -1,0 +1,46 @@
+{
+ "evd": 39,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.9,
+  "reason": "GPT-4 Vision 100% flowchart identification vs 57% for missing details; specific CONSORT compliance finding."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.96,
+   "Partially Met": 0.03,
+   "Unmet": 0.01
+  },
+  "reason": "Quote gives 100% accuracy identifying flowcharts and 57% detecting missing details."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.25,
+   "Partially Correct": 0.68,
+   "Incorrect": 0.05,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.92,
+  "shot_connects": [
+   0.96
+  ],
+  "reason": "Screenshot reads 'but was inaccurate at identifying'; quote says 'but was less accurate at identifying', a small unmarked edit."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.04,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.04,
+   "Missing": 0,
+   "NA": 0.9
+  },
+  "shot_connects": [
+   0.96
+  ],
+  "reason": "100% and 57% are fully in the quoted text; no table or figure referenced."
+ }
+}

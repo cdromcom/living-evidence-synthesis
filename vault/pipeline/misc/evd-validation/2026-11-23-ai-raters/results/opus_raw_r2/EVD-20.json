@@ -1,0 +1,46 @@
+{
+ "evd": 20,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "GAR review system scored 0.684 vs human reviewers 0.523 in preference evaluation; specific performance comparison."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote states GAR 0.684 outperforming human reviewer 0.523, matching the statement."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.96,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "Screenshot shows 'GAR leads with a score of 0.684 ... -0.632' word for word."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.1,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.25,
+   "Missing": 0,
+   "NA": 0.6
+  },
+  "shot_connects": [
+   0.85
+  ],
+  "reason": "All numbers are in the quote and no caption or paraphrased table is given, so no table needed."
+ }
+}

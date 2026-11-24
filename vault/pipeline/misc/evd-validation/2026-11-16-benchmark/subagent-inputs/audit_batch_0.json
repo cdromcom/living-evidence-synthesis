@@ -1,0 +1,58 @@
+[
+ {
+  "citekey": "woelfleBenchmarkingHumanAICollaboration2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Woelfle et al. - 2024 - Benchmarking Human\u2013AI collaboration for common evidence appraisal tools.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/woelfleBenchmarkingHumanAICollaboration2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 cost about 100x more than Mixtral-8x22B.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Human agreement fell from 91% on PRISMA to 57% on PRECIS-2.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLM-extracted quotes had 99% median similarity to source.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Single LLMs scored 63-70% on PRISMA and 53-74% on AMSTAR vs 89% for humans.md"
+  ]
+ },
+ {
+  "citekey": "louAAAR10AssessingAIs2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Lou et al. - 2025 - AAAR-1.0 Assessing AI's Potential to Assist Resea.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/louAAAR10AssessingAIs2025.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline.md"
+  ]
+ },
+ {
+  "citekey": "liuReviewerGPTExploratoryStudy2023",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Liu and Shah - 2023 - ReviewerGPT An Exploratory Study on Using Large Language Models for Paper Reviewing.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/liuReviewerGPTExploratoryStudy2023.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 detected errors in 7 of 13 constructed papers.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 favored the worse abstract in 6 of 10 pairs.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items.md"
+  ]
+ },
+ {
+  "citekey": "thelwallEvaluatingResearchQuality2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Thelwall - 2024 - Evaluating Research Quality with Large Language Models An Analysis of ChatGPT's Effectiveness with.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/thelwallEvaluatingResearchQuality2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Full text scored worse than abstracts for 3 ChatGPT models.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4o abstract scores correlated r=0.67 with humans.md"
+  ]
+ },
+ {
+  "citekey": "darcyMARGMultiAgentReview2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/D'Arcy et al. - 2024 - MARG Multi-Agent Review Generation for Scientific Papers.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/darcyMARGMultiAgentReview2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - MARG-S beat baselines by 6.1 recall points on ARIES.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - MARG-S gave 3.7 good comments per paper vs 1.7 for GPT-4.md"
+  ]
+ }
+]

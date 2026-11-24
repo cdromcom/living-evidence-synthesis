@@ -1,0 +1,230 @@
+[
+ {
+  "id": "z0",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.4 judges sentence (v1 p.3 says preview-05-06)"
+ },
+ {
+  "id": "z1",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.3 defines AP@k for nc=1; v3 Table 2 p.5 has AP@5 for PDF rows only, LaTeX rows '–'; v1 Table 2 had HR only."
+ },
+ {
+  "id": "z2",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.4 'overly low hit rate under the PDF-based approach indicates that it might not qualify' with no Table 3 pointer; v3 Table 3 p.6 Claude PDF 24.1/12.2; v3 p.4 Sec 2.3 judges assess true positives based on the PDF."
+ },
+ {
+  "id": "z3",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.4 judges sentence (v1 p.3 says preview-05-06)"
+ },
+ {
+  "id": "z4",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): Claude HR@5 11.0 (PDF) / 24.1 (LaTeX), Avg 1.6 / 3.4; 24.1/11.0 = 2.2x so 'more than doubled' holds; v1 16.3/33.1 confirmed."
+ },
+ {
+  "id": "z5",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): Claude 24.1/12.2 PDF, 48.6/26.5 LaTeX; v1 Table 3 21.6/19.2, 44.5/40.8. Note facts checked: v3 header p.1 (2505.23824v3, 1 Apr 2026, NeurIPS 2025 Workshop AI for Science), AP@5 36.4 highest, 350/293/149 counts p.4, 64.9% p.4, 'Claude's PDF ingestion pipeline or scientific understanding via PDF' p.4."
+ },
+ {
+  "id": "z6",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Tables 2 and 3 are on pp.5 and 6; Claude AP@5 36.4 in Table 2."
+ },
+ {
+  "id": "z7",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): Claude PDF HR@5 11.0 (v1 16.3)."
+ },
+ {
+  "id": "z8",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): Claude LaTeX HR@5 24.1 (v1 33.1)."
+ },
+ {
+  "id": "z9",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): Claude, Gemini judge, PDF 24.1 (v1 21.6)."
+ },
+ {
+  "id": "z10",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): Claude, o3 judge, PDF 12.2 (v1 19.2)."
+ },
+ {
+  "id": "z11",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): Claude, Gemini judge, LaTeX 48.6 (v1 44.5)."
+ },
+ {
+  "id": "z12",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): Claude, o3 judge, LaTeX 26.5 (v1 40.8)."
+ },
+ {
+  "id": "z13",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.4 judges sentence (v1 p.3 says preview-05-06)"
+ },
+ {
+  "id": "z14",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.3: precision judged per submission against the PDF, both judges must affirm, per-paper precision averaged as AP@k, cases with no problems skipped; Table 2 AP@5 PDF only."
+ },
+ {
+  "id": "z15",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Appendix B p.11: o3 and o4-mini reasoning summary \"auto\"; v1 Appendix B \"detailed\"."
+ },
+ {
+  "id": "z16",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 3 'standard API pricing of the LLM vendors in June 2025' (v1 p.3 'early May 2025'); v3 p.4 Sec 2.3/2.4 true-positive judging against the PDF with both judges required; AP@5 PDF only (Table 2)."
+ },
+ {
+  "id": "z17",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.4 judges sentence (v1 p.3 says preview-05-06)"
+ },
+ {
+  "id": "z18",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered) o3 48.2/50.6; v3 Table 3 p.6 (rendered) o3 checker Gemini judge 80.4/79.2, o3 judge 50.2/51.4; quoted phrases 'resistance to format change or a higher familiarity with LaTeX' and 'some resistance ... to potential false positives' are on v3 pp.4-5."
+ },
+ {
+  "id": "z19",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): o3 thinking 3,152 vs Gemini Pro 14,228 unchanged, o3 highest HR; o3 48.2/50.6, cost 0.064/0.077, AP@5 29.5 vs 35.2/36.4, lead 48.2-39.2=9.0; 350 vs 293 p.4; v3 abstract p.1 quote matches; v1 values 64.9/71.0, 0.321/0.383 confirmed."
+ },
+ {
+  "id": "z20",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): o3 PDF 4.8 (5,5) 48.2, 16,594/3,152/729, $0.064."
+ },
+ {
+  "id": "z21",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): o3 LaTeX 4.8 (5,5) 50.6, 21,990/3,156/927, $0.077."
+ },
+ {
+  "id": "z22",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): o3 checker, Gemini judge, PDF 80.4 (v1 72.7)."
+ },
+ {
+  "id": "z23",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): o3 checker, o3 judge, PDF 50.2 (v1 75.5)."
+ },
+ {
+  "id": "z24",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): o3 checker, Gemini judge, LaTeX 79.2 (v1 75.5)."
+ },
+ {
+  "id": "z25",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 3 p.6 (rendered): o3 checker, o3 judge, LaTeX 51.4 (v1 80.4)."
+ },
+ {
+  "id": "z26",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.4 judges sentence (v1 p.3 says preview-05-06)"
+ },
+ {
+  "id": "z27",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 3 June-2025 standard pricing; v3 p.4 Sec 2.3 AP@k; Table 2 AP@5 PDF only."
+ },
+ {
+  "id": "z28",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Appendix B p.11 reasoning summary \"auto\"; v1 \"detailed\"."
+ },
+ {
+  "id": "z29",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 3 'standard API pricing of the LLM vendors in June 2025'."
+ },
+ {
+  "id": "z30",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.4 Sec 2.4 judges sentence (v1 p.3 says preview-05-06)"
+ },
+ {
+  "id": "z31",
+  "verdict": "MODIFY",
+  "new_fixed": "- Cost ratio (v3 Table 2, p. 5): o3 PDF ($0.064) is **1.7×** as expensive as o4-mini PDF ($0.038); o3 LaTeX ($0.077) is **1.8×** as expensive as o4-mini LaTeX ($0.043). The HR@5 gap is 10.2 pp (PDF, 48.2 vs. 38.0) and 11.8 pp (LaTeX, 50.6 vs. 38.8). Cost per hit (cost divided by HR@5, our calculation) under PDF is about $0.10 for o4-mini vs. $0.13 for o3, so o4-mini's edge is now small, and Gemini 2.5 Flash roughly matches o4-mini's PDF hit rate (38.4% vs. 38.0%) at a lower cost ($0.033). v3 no longer calls o4-mini the most cost-effective choice.",
+  "reason": "v3 Table 2 p.5 (rendered): o3 0.064/0.077, o4-mini 0.038/0.043 (ratios 1.68, 1.79), HR 48.2/38.0, 50.6/38.8, Flash 38.4 at 0.033; cost-per-hit arithmetic checks; no 'cost-effective' in v3. Modified only because 'matches o4-mini's hit rate (38.4%)' reads as if 38.4% were o4-mini's figure (it is Flash's; o4-mini is 38.0%)."
+ },
+ {
+  "id": "z32",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): o3 48.2->50.6, o4-mini 38.0->38.8, Gemini Pro 39.2->36.3, Flash 38.4->34.7; quote on v3 p.4 Sec 3."
+ },
+ {
+  "id": "z33",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 p.5 still says it 'remains unclear ... why o4-mini sometimes used slightly more input tokens than o3'; Table 2 o4-mini 38.0/38.8, AP@5 26.7 vs 29.5, costs unchanged; v3 abstract and text have no 'cost-effective'; v1 abstract and p.3 sentence confirmed."
+ },
+ {
+  "id": "z34",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): o4-mini PDF 38.0 (v1 59.6)."
+ },
+ {
+  "id": "z35",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): o3 PDF 48.2, $0.064; 0.064/0.038=1.7."
+ },
+ {
+  "id": "z36",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): o4-mini LaTeX 38.8 (v1 61.6)."
+ },
+ {
+  "id": "z37",
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "v3 Table 2 p.5 (rendered): o3 LaTeX 50.6, $0.077; 0.077/0.043=1.8."
+ }
+]

@@ -1,0 +1,35 @@
+{
+ "evd": 45,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.1,
+   "Incorrect": 0.84,
+   "Missing": 0.02,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.08,
+  "quote_fully_visible": 0.02,
+  "shot_connects": [
+   0.15,
+   0.45
+  ],
+  "reason": "Quote is from the abstract; screenshots show pages 4 and 7 with Fig 2 and Table 3, not the quoted sentence."
+ },
+ "table": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.04,
+   "Partially Correct": 0.9,
+   "Incorrect": 0.04,
+   "Missing": 0.01,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.85,
+   0.95
+  ],
+  "reason": "Fig 2 and Table 3 are shown, but as full journal pages with Fig 3 and body text."
+ }
+}

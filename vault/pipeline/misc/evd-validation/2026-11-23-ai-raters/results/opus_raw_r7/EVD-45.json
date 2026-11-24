@@ -1,0 +1,35 @@
+{
+ "evd": 45,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.1,
+   "Incorrect": 0.87,
+   "Missing": 0.01,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.08,
+  "quote_fully_visible": 0.02,
+  "shot_connects": [
+   0.3,
+   0.6
+  ],
+  "reason": "Abstract quote not shown; page 4 figures and page 7 results text with similar numbers instead."
+ },
+ "table": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.93,
+   "Incorrect": 0.03,
+   "Missing": 0.01,
+   "NA": 0.0
+  },
+  "shot_connects": [
+   0.85,
+   0.95
+  ],
+  "reason": "Fig 2 and Table 3 both shown, but as whole journal pages with body text and Fig 3."
+ }
+}

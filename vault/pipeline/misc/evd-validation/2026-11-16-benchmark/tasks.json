@@ -1,0 +1,597 @@
+{
+ "tasks": [
+  {
+   "row": 3,
+   "evd": "2",
+   "llm_evd": "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers",
+   "jp_label": "Edit",
+   "jp_phase1": "82.4% of researchers found GPT-4 feedback more helpful than at least some human reviewers.",
+   "jp_verdict": "major: focus on one stat",
+   "file": "EVD - 57.4% of 308 researchers found GPT-4 feedback helpful.md"
+  },
+  {
+   "row": 4,
+   "evd": "3",
+   "llm_evd": "AI platforms drafted SOPs covering fundamental sections with variations across platforms",
+   "jp_label": "Edit",
+   "jp_phase1": "Poe Assistant, GPT 3.5, and Google Bard drafted SOPs' key sections, varying across platforms for 7 of 16 topics.",
+   "jp_verdict": "minor: stylistic edit",
+   "file": "EVD - AI platforms drafted SOPs covering fundamental sections with variations.md"
+  },
+  {
+   "row": 7,
+   "evd": "6",
+   "llm_evd": "All four LLMs answered all seven IRB ethics case queries with homogeneous responses",
+   "jp_label": "Edit",
+   "jp_phase1": "Google Bard and GPT 3.5 identified 1 out of 7 issues correctly across IRB ethics cases.",
+   "jp_verdict": "Minor: minor \nMajor: added model names and focused on acc instead of similarity of responses",
+   "file": "EVD - All four LLMs gave similar answers to all 7 IRB cases.md"
+  },
+  {
+   "row": 8,
+   "evd": "7",
+   "llm_evd": "All four LLMs included fundamental ICD elements for all seven case scenarios",
+   "jp_label": "Edit",
+   "jp_phase1": "Google Bard, GPT 3.5, Claude-Instant-100k, and GPT 4 scored 30-60% across key requirements for authoring informed consent documents.",
+   "jp_verdict": "Minor: edited model names and added 'and', spelled out ICDs\n\nMajor: reframed it to focus on accuracy (authors didn't provide!)",
+   "file": "EVD - All four LLMs included core ICD elements in all 7 cases.md"
+  },
+  {
+   "row": 9,
+   "evd": "8",
+   "llm_evd": "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification",
+   "jp_label": "Edit",
+   "jp_phase1": "The bespoke NLP model MultiVerS top-20 classified citations as accurate better than GPT 3.5 and 4 with micro-F1 at 0.59 .",
+   "jp_verdict": "Major: mentioned competing models\n\nMinor: Actually made is a grammatically coherent EVD. ",
+   "file": "EVD - MultiVerS reached micro-F1 0.59 on citation accuracy.md"
+  },
+  {
+   "row": 10,
+   "evd": "9",
+   "llm_evd": "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028)",
+   "jp_label": "Edit",
+   "jp_phase1": "There was no statistically significant difference between GPT 3.5 and human raters when applying 11 of 12 PRISMA items.",
+   "jp_verdict": "Major: focused on the key statistical discrepancy instead of mere numeric differences (dramatically changing our interpretation from bad to very good!).",
+   "file": "EVD - ChatGPT matched humans on 3 of 12 PRISMA items but not on eligibility criteria.md"
+  },
+  {
+   "row": 11,
+   "evd": "10",
+   "llm_evd": "ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001)",
+   "jp_label": "Edit",
+   "jp_phase1": "There was no statistically significant difference between GPT 3.5 and human raters when applying 15 of 17 CONSORT-A items.",
+   "jp_verdict": "Major: reframed to focus on statistically sig. vs. insig. differences.\n\nP.S. The items with disagreement make sense.",
+   "file": "EVD - ChatGPT matched humans on 6 of 17 CONSORT-A items but not on randomization.md"
+  },
+  {
+   "row": 12,
+   "evd": "11",
+   "llm_evd": "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT 3.5 and humans disagreed in CONSORT-A use an average of 4.9% overall compliance score.",
+   "jp_verdict": "Minor: stylistic",
+   "file": "EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance.md"
+  },
+  {
+   "row": 15,
+   "evd": "14",
+   "llm_evd": "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 16.3% hit rate as a PDF-based scientific quality checker",
+   "jp_label": "Edit",
+   "jp_phase1": "Claude 3.7 Sonnet evaluating PDFs of research reports found 16.3% of errors after five tries.",
+   "jp_verdict": "Minor: stylistic edits\n\nminimizing jargon",
+   "file": "EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md"
+  },
+  {
+   "row": 16,
+   "evd": "15",
+   "llm_evd": "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments",
+   "jp_label": "Edit",
+   "jp_phase1": "Claude Opus evaluating research reports achieved an F1 percent of 22 on a peer review benchmark (AAAR-1.0).",
+   "jp_verdict": "Minor: stylistics edits",
+   "file": "EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1.md"
+  },
+  {
+   "row": 17,
+   "evd": "16",
+   "llm_evd": "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings",
+   "jp_label": "Edit",
+   "jp_phase1": "Unifying Claude 3 Opus, Claude 2, GPT-4, GPT 3.5, and Mixtral-8x22B reached 75-88 percent accuracy when applying PRISMA, deferring 4-74 percent.",
+   "jp_verdict": "Minor: stylistics edits",
+   "file": "EVD - Combined LLMs reached 75-88% PRISMA accuracy while deferring 4-74%.md"
+  },
+  {
+   "row": 18,
+   "evd": "17",
+   "llm_evd": "CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4o-mini verifying CONSORT compliance achieved 35 percent in pharmacology and 63 percent in urology-nephrology.",
+   "jp_verdict": "Minor: stylistic\nMajor: added model name",
+   "file": "EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology.md"
+  },
+  {
+   "row": 19,
+   "evd": "18",
+   "llm_evd": "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% accuracy) on CONSORT guideline questions",
+   "jp_label": "Edit",
+   "jp_phase1": "Finetuning Llama 2 70B on zero-shot evaluation of 113 medical research reports' alignment with eight items from CONSORT was successful (accuracy = 83%, F1 score = 0.84).",
+   "jp_verdict": "Major: wrong quotes and screenshots for EVD statement!\n\nMinor: edited twice for stylistic and contextualization reasons",
+   "file": "EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions.md"
+  },
+  {
+   "row": 21,
+   "evd": "20",
+   "llm_evd": "GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation",
+   "jp_label": "Edit",
+   "jp_phase1": "Humans preferred reviews by the reviewer agent GAR with a Bradley-Terry score = 0.68 vs. 0.52 for humans.",
+   "jp_verdict": "Minor: stylistic edits; save GPT-4 judge bit for CVT (already in CVT...).",
+   "file": "EVD - GAR beat human reviewers on preference 0.684 vs 0.523.md"
+  },
+  {
+   "row": 22,
+   "evd": "21",
+   "llm_evd": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines",
+   "jp_label": "Edit",
+   "jp_phase1": "LLMs-as-judge rated the reviewer agent GAR 3.9 to 4.0 out of 5 on human-likeness beating AI-Review, ReviewerGPT, OpenReviewer, and AI-Scientist.",
+   "jp_verdict": "Minor: stylistic edits\nMajor: focused on comparators a bit more",
+   "file": "EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines.md"
+  },
+  {
+   "row": 23,
+   "evd": "22",
+   "llm_evd": "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49",
+   "jp_label": "Edit",
+   "jp_phase1": "Compared to humans, the bespoke reviewer agent GAR predicted conference paper acceptance better (F1 score humans = 0.49 vs. F1 score GAR = 0.66, p < 0.002).",
+   "jp_verdict": "Minor: stylistic edits\nMajor: Using new, comprehensive (actually old) naming approach and adding p-values.",
+   "file": "EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49.md"
+  },
+  {
+   "row": 24,
+   "evd": "23",
+   "llm_evd": "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles",
+   "jp_label": "Edit",
+   "jp_phase1": "Compared to LLMs, GPT 3.5-turbo verified 39 medical research reports' alignment with STROBE reporting guidelines best (66.9%).",
+   "jp_verdict": "Minor: stylistic edits\nMajor: used new comprehensive naming process\n\nEXTRA MAJOR: The screenshot snipped under description is the wrong quote.",
+   "file": "EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct.md"
+  },
+  {
+   "row": 26,
+   "evd": "25",
+   "llm_evd": "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT 3.5 models few-shot reviewing papers with human reviews attached are aligned with humans (Pearson's r = 0.65 vs. baseline of modal score is r = 0.30 and r = 0.13 when given just the paper).",
+   "jp_verdict": "Minor: wording and stylistic issues ",
+   "file": "EVD - GPT-3.5 predicted review aspect scores at r=0.651.md"
+  },
+  {
+   "row": 27,
+   "evd": "26",
+   "llm_evd": "GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (title only) and dropped with additional context to 54.0%",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT 3.5-turbo zero-shot evaluated paper titles and PDFs of full-text, detecting 68% of quotation errors.",
+   "jp_verdict": "Minor: stylistic edits\nMajor: added \"zero-shot\" and focused on the titles + PDF part of the EVD.",
+   "file": "EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context.md"
+  },
+  {
+   "row": 30,
+   "evd": "29",
+   "llm_evd": "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4 few-shot classified biomedical papers' citation accuracy well for accurate citations (F1 score = 0.80) and poorly for inaccurate citations (F1 score = 0.09).",
+   "jp_verdict": "Minor: added paper style\n restructured sentence",
+   "file": "EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate.md"
+  },
+  {
+   "row": 36,
+   "evd": "35",
+   "llm_evd": "GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4 zero/few-shot reviewed Computer Science research reports using the novel RR-MCQ benchmark focused on complex criteria across 196 review-revision multiple choice questions, achieving macro F1 score = 0.28, micro F1 score = 0.71.",
+   "jp_verdict": "Minor: added context",
+   "file": "EVD - GPT-4 RR-MCQ macro accuracy was 0.276.md"
+  },
+  {
+   "row": 37,
+   "evd": "36",
+   "llm_evd": "GPT-4 Turbo zero-shot evaluating 250 statement-reference pairs from earlier studies, PubPeer, and PubMed reached 70% overall accuracy.",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4 Turbo zero-shot evaluated citation accuracy across 250 statement-reference pairs reached 70% overall accuracy.",
+   "jp_verdict": "Minor: added more context",
+   "file": "EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy.md"
+  },
+  {
+   "row": 38,
+   "evd": "37",
+   "llm_evd": "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT text questions on held-out clinical trial reports",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4 Turbo zero-shot evaluated the alignment of 113 held-out (TEST) medical research reports across nine CONSORT reporting guideline (cross-item accuracy ranged 83-100%, F1 score = 0.89).",
+   "jp_verdict": "GROUNDING ERROR: The quote as text is correct, but the screenshot is for a different EVD.",
+   "file": "EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions.md"
+  },
+  {
+   "row": 39,
+   "evd": "38",
+   "llm_evd": "GPT-4 Turbo ranked first in human preference for academic review quality with score 0.558",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4 Turbo evaluated 7-8 Computer Science and Nature research reports was preferred over human reviewers, GPT-4 Turbo, Claude 3 Opus, Gemini Pro (Bard), Command R+ and an in-house platform (Reviewe (Bradley-Terry score = 0.56). ",
+   "jp_verdict": "Task for JP",
+   "file": "EVD - GPT-4 Turbo ranked first in human review preference.md"
+  },
+  {
+   "row": 40,
+   "evd": "39",
+   "llm_evd": "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4 Vision zero-shot analyzed 20 images of CONSORT flow diagrams identified all of them (accuracy = 100%, F1 score = 1.0), but faltered with detecting their details like missing participants (accuracy = 57%, F1 score = 0.58).",
+   "jp_verdict": "Minor: added context and F1 scores",
+   "file": "EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57%.md"
+  },
+  {
+   "row": 41,
+   "evd": "40",
+   "llm_evd": "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4o zero-shot evaluated 51 information science research reports on the UK Research Evaluation Framework (REF) correlated with a human's scores best when fed abstracts instead of full-text (Spearman's r = 0.68). ",
+   "jp_verdict": "Minjor: added context : zero-shot, number of papers, REF tidbit, comparators, etc.\n\nStylistic edits",
+   "file": "EVD - GPT-4o abstract scores correlated r=0.67 with humans.md"
+  },
+  {
+   "row": 42,
+   "evd": "41",
+   "llm_evd": "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4o zero-shot evaluated 500 Computer Science research reports on the novel LIMITGEN benchmark found 52% of key limitations, below MARG-with-RAG's 68% rate and humans experts' 86% rate.",
+   "jp_verdict": "Task for JP",
+   "file": "EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG.md"
+  },
+  {
+   "row": 43,
+   "evd": "42",
+   "llm_evd": "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent",
+   "jp_label": "Edit",
+   "jp_phase1": "GPT-4o-mini zero-shot evaluted 50 medical papers for alignment with the reporting guideline CONSORT-TM beat prior NLP SOTA model -- fine-tuned PubMedBERT (accuracy = 81%, F1 score = 0.85, precision = 0.96).",
+   "jp_verdict": "Task for JP",
+   "file": "EVD - GPT-4o-mini reached F1 0.85 on CONSORT-TM beating prior SOTA by over 40%.md"
+  },
+  {
+   "row": 46,
+   "evd": "45",
+   "llm_evd": "Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters",
+   "jp_label": "Edit",
+   "jp_phase1": "Human-AI collaboration (Claude-2 with few-shot prompting) compared to Combined LLMs (consistency across 9 of 9 runs) achieved higher accuracy on 3,024 PRISMA ratings (kappa = .92, 35% deferred).",
+   "jp_verdict": "Major: split into three EVDs, added many contextual details",
+   "file": "EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters.md"
+  },
+  {
+   "row": 47,
+   "evd": "45 (cont.)",
+   "llm_evd": "EVD 45 continued: Jay split this EVD into 3 (see Phase 1 edits)",
+   "jp_label": "Task for JP",
+   "jp_phase1": "Human-AI collaboration (GPT-3.5 with few-shot prompting) compared to Combined LLMs (consistency across 9 of 9 runs) achieved higher accuracy on 1,232 AMSTAR ratings (kappa = .93, 52% deferred).",
+   "jp_verdict": "Major: split into three EVDs, added many contextual details",
+   "file": "EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters.md"
+  },
+  {
+   "row": 48,
+   "evd": "45 (cont.)",
+   "llm_evd": "EVD 45 continued: Jay split this EVD into 3 (see Phase 1 edits)",
+   "jp_label": "Task for JP",
+   "jp_phase1": "Human-AI collaboration (Claude-3 Opus with few-shot prompting) compared to Combined LLMs (consistency across 9 of 9 runs) achieved higher accuracy on 504 PRECIS-2 ratings (kappa = .73, 75% deferred).",
+   "jp_verdict": "Major: split into three EVDs, added many contextual details",
+   "file": "EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters.md"
+  },
+  {
+   "row": 49,
+   "evd": "46",
+   "llm_evd": "Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset",
+   "jp_label": "Edit",
+   "jp_phase1": "The bespoke Al system Idea Novelty Checker was 81% aligned with humans' novelty judgements (F1=0.79).",
+   "jp_verdict": "Minor: added more contextual details",
+   "file": "EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines.md"
+  },
+  {
+   "row": 80,
+   "evd": "75",
+   "llm_evd": "Removing facet-based RankGPT re-ranker dropped not-novel prediction accuracy from 89.66% to 13.79%",
+   "jp_label": "Edit",
+   "jp_phase1": "In an ablation study, removing the facet-based reranker RankGPT decreased the ability of the Idea Novelty Checker pipeline to predict the novelty of scientific ideas that humans labeled not-novel (89.7% to 13.8%).",
+   "jp_verdict": "Minor: added contextual details",
+   "file": "EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%.md"
+  },
+  {
+   "row": 81,
+   "evd": "76",
+   "llm_evd": "Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74",
+   "jp_label": "Edit",
+   "jp_phase1": "In the PLM augmented with human and LLM knowledge, Ours-SciBert, removing the knowledge-guided module decreased zero-shot novelty evaluation accuracy to the level of its PLM (SciBERT) backbone (from F1 = 0.83 to F1 = 0.73).",
+   "jp_verdict": "Major: rephrased to add contextual details\n\nMinor: remove from quote with AI model -- Table 4 shows: Ours-SciBert F1=0.83, Accuracy=0.84; w/o Knowledge Guided F1=0.73, Accuracy=0.74 (p. 1463).",
+   "file": "EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74.md"
+  },
+  {
+   "row": 82,
+   "evd": "77",
+   "llm_evd": "Three AI platforms responded correctly to all 10 IRB case study queries",
+   "jp_label": "Edit",
+   "jp_phase1": "Google Bard zero-shot evaluated 10 ethics case reports/studies from a health and medicine handbook for issues worth addressing and identified the most issues (accuracy = 50%), beyond GPT 3.5's 40% and Poe Assistant's 30%.",
+   "jp_verdict": "ERROR: Screenshot is a description of GOAL, but not EVD! Table 1 shows that the EVD (headline/title of this page) is not correct. See Table 1 to find the EVD and Results: AI Outputs in the Case Studies paragraph for text.",
+   "file": "EVD - Three AI platforms answered all 10 IRB cases correctly.md"
+  }
+ ],
+ "examples": [
+  {
+   "row": 2,
+   "evd": "1",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Five human annotators labeling 3,063 citation instances to 100 highly cited biomedical reference articles found that 39.2% contained accuracy errors (minor errors = 21.2%, major errors = 18.0%)."
+  },
+  {
+   "row": 5,
+   "evd": "4",
+   "jp_phase1": "DELETE DUE TO JP's MERGING OF COMPARISONS in EVD-46",
+   "claude_draft": "Compared to the bespoke Idea Novelty Checker (Cohen's kappa = 0.59), the novelty prompt of the bespoke AI Scientist few-shot classifying 32 scientific ideas agreed with experts near chance (F1 score = 0.44, kappa = 0.05)."
+  },
+  {
+   "row": 6,
+   "evd": "5",
+   "jp_phase1": "-----",
+   "claude_draft": "Poe Assistant, GPT 3.5, and Google Bard answering a health research ethics case study on post-trial access to an unproven herbal medicine all failed to explain why that access need not be provided (0 of 3 correct)."
+  },
+  {
+   "row": 13,
+   "evd": "12",
+   "jp_phase1": "Too specific and needs to be dropped. Later consider focusing on items",
+   "claude_draft": "Compared to two clinician reviewers, GPT 3.5 zero-shot applying the reporting guideline CONSORT-A to 30 implant-dentistry RCT abstracts diverged most on the conclusion item (mean difference = 0.76, though its reported 95% CI excludes it)."
+  },
+  {
+   "row": 14,
+   "evd": "13",
+   "jp_phase1": "-----",
+   "claude_draft": "GPT 3.5 zero-shot applying the reporting guideline CONSORT-A to 30 implant-dentistry RCT abstracts agreed only weakly with two clinician reviewers on most items, least on intervention and objective (Pearson's r = 0.02 and 0.06)."
+  },
+  {
+   "row": 20,
+   "evd": "19",
+   "jp_phase1": "-----",
+   "claude_draft": "GPT 3.5-turbo zero-shot scoring 51 information science research reports on the UK REF scale correlated with a human's scores less when fed truncated full texts than abstracts (Spearman's r = 0.63 vs. 0.67), and least with titles (r = 0.43)."
+  },
+  {
+   "row": 25,
+   "evd": "24",
+   "jp_phase1": "-----",
+   "claude_draft": "Of six LLMs with RAG answering 15 STROBE questions about 39 observational medical research reports, GPT 4-0613 was least accurate (44.1%), below Gemini Pro (49.2%, p < .001) and best-performing GPT 3.5-turbo (66.9%)."
+  },
+  {
+   "row": 28,
+   "evd": "27",
+   "jp_phase1": "GPT-4 zero-shot evaluated Cochrane systematic reviews inputted as Word files for risk of bias using ROBINS-I, reaching 61% raw agreement (range = 31-71%, weighted kappa = 0.13, Kendall's Tau = 0.35)",
+   "claude_draft": "Compared to Cochrane reviewers, GPT-4 zero-shot appraising 307 non-randomised studies from 36 Cochrane systematic reviews with the risk-of-bias tool ROBINS-I agreed poorly on overall risk of bias (weighted kappa = 0.13, Kendall's tau = 0.35)."
+  },
+  {
+   "row": 29,
+   "evd": "28",
+   "jp_phase1": "? Skip until late Thu ?",
+   "claude_draft": "GPT-4 zero-shot verifying 119 \"Yes\" answers on NeurIPS 2022 author checklists across 15 Computer Science research reports matched hand-labeled ground truth as often as the authors did (accuracy: GPT-4 = 86.6% vs. authors = 86.6%)."
+  },
+  {
+   "row": 31,
+   "evd": "30",
+   "jp_phase1": "1. GPT-4, zero-shot commented on the implications of (ICLR) research reports 7.3X more than humans.\n\n2. GPT-4 zero-shot commented on the novelty of (ICLR) research reports 10.7X less than humans.",
+   "claude_draft": "Compared to human reviewers, GPT-4 zero-shot reviewing 500 ICLR 2022 and 2023 research reports commented on the novelty of the research 10.7X less often (aspects of each review comment coded by 2 machine learning annotators)."
+  },
+  {
+   "row": 32,
+   "evd": "31",
+   "jp_phase1": "GPT-4 detected errors in 7 of 13 short Compute Science research reports when prompted one sentence at a time.",
+   "claude_draft": "Compared to 8 other LLMs (0 of 13), GPT-4 checking 13 short Computer Science research reports, each with one inserted error, detected 7 errors when given one sentence at a time (5 zero-shot on the whole paper, 6 one-shot)."
+  },
+  {
+   "row": 33,
+   "evd": "32",
+   "jp_phase1": "GPT-4 appraising medical research reports was 100X more expensive than Mixtral-8x22B (medians: 115.00 USD vs. 1.20 USD).",
+   "claude_draft": "GPT-4 appraising 112 systematic reviews and 56 RCTs with PRISMA, AMSTAR, and PRECIS-2 cost about 96X more than Mixtral-8x22B (median per 100 research reports: 115.00 vs. 1.20 USD; Claude 3 Opus = 40 USD, GPT 3.5 = 6 USD)."
+  },
+  {
+   "row": 34,
+   "evd": "33",
+   "jp_phase1": "GPT-4 zero-shotting feedback on Computer Science research reports overlapped with individual human reviewers 30.6%, whereas human-human reviewing feedback overlapped 28.6%.",
+   "claude_draft": "GPT-4 zero-shot feedback on 3,096 Nature-family research reports overlapped with individual human reviewers' comments as much as two human reviewers overlapped with each other (30.85% vs. 28.58%; ICLR: 39.23% vs. 35.25%)."
+  },
+  {
+   "row": 35,
+   "evd": "34",
+   "jp_phase1": "GPT-4 zero-shot classified abstracts as \"better\" or \"worse\" and detected only 40% of errors (4 out of 10 judgments about statistical interpretations, buzzwords, and elite authors).",
+   "claude_draft": "GPT-4 zero-shot choosing the better of 10 constructed abstract pairs picked it only 4 times (40%), swayed by flaws such as positive-result bias, a prompt injection, bombastic language, and the algorithm's name."
+  },
+  {
+   "row": 44,
+   "evd": "43",
+   "jp_phase1": "-----",
+   "claude_draft": "Human raters, the reference standard for LLMs appraising medical research reports, agreed less as the tools got harder (Cohen's kappa: PRISMA = 0.84, AMSTAR = 0.77, PRECIS-2 = 0.29 weighted)."
+  },
+  {
+   "row": 45,
+   "evd": "44",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "GPT-4o, the most diverse of 10 LLMs zero-shot reviewing 993 ICLR 2023 research reports on the novel AAAR-1.0 WEAKNESS benchmark, listed less diverse weaknesses than human reviewers (ITF-IDF: GPT-4o = 5.95 vs. humans = 7.69)."
+  },
+  {
+   "row": 50,
+   "evd": "47",
+   "jp_phase1": "LLMs Claude-3-Opus, GPT-3.5, and GPT-4 zero-shot evaluated 112 systematic reviews and meta-analyses in pediatric surgery for alignment with the reporting guideline PRISMA, losing to human experts (LLM accuracy: 63-70% vs. human accuracy: 89%).",
+   "claude_draft": "Compared to a human rater (Cohen's kappa = 0.81), Claude 3 Opus, Claude 2, GPT-4, GPT 3.5, and Mixtral-8x22B zero-shot appraising 112 pediatric surgery systematic reviews with the reporting guideline PRISMA agreed less (kappa = 0.40-0.51)."
+  },
+  {
+   "row": 51,
+   "evd": "47 (cont.)",
+   "jp_phase1": "LLMs Claude-3-Opus, GPT-3.5, and GPT-4 zero-shot evaluated 112 systematic reviews and meta-analyses in pediatric surgery for alignment with the critical appraisal tool AMSTAR, losing to human experts (LLM accuracy: 53-74% vs. human accuracy: 89%).",
+   "claude_draft": "Compared to a human rater (Cohen's kappa = 0.80), Claude 3 Opus, Claude 2, GPT-4, GPT 3.5, and Mixtral-8x22B zero-shot appraising 112 pediatric surgery systematic reviews with the critical appraisal tool AMSTAR agreed less (kappa = 0.27-0.56)."
+  },
+  {
+   "row": 52,
+   "evd": "47 (cont.)",
+   "jp_phase1": "LLMs Claude-3-Opus, GPT-3.5, and GPT-4 zero-shot evaluated 56 RCTs from the database PragMeta for alignment with applicability tool PRECIS-2, losing to human experts (LLM accuracy: 38-55% vs. human accuracy: 75%).",
+   "claude_draft": "Compared to a human rater (weighted kappa = 0.57), Claude 3 Opus, Claude 2, GPT-4, GPT 3.5, and Mixtral-8x22B zero-shot appraising 56 RCTs from the database PragMeta with the applicability tool PRECIS-2 barely agreed (weighted kappa = 0.01-0.12)."
+  },
+  {
+   "row": 53,
+   "evd": "48",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Human annotators labeling biomedical citations for the corpus later used to benchmark GPT-4 and MultiVerS agreed only slightly to fairly on accuracy labels (Cohen's kappa = 0.18-0.31)."
+  },
+  {
+   "row": 54,
+   "evd": "49",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Six LLMs zero-shot checking 83 STEM research reports for errors on the SPOT benchmark were rarely confident, reaching full confidence (error re-detected in all 8 runs) in 2 of 498 model-report evaluations, both by o3."
+  },
+  {
+   "row": 55,
+   "evd": "50",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Claude 3.5 Sonnet, GPT-4o, and GPT o1-preview few-shot labeling 172 Coronary Drug Project variables as confounders were inconsistent across prompting methods (Cohen's kappa = 0.16-0.24) and answer-option orders (36.7% of Claude's labels flipped)."
+  },
+  {
+   "row": 56,
+   "evd": "51",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "GPT-4 reviewing ICLR and NeurIPS research reports scored them higher than human reviewers given only the paper and review form (7.21 vs. 5.88), lower once given area chair guidelines (4.61), and human-level only with prior-year statistics (5.36)."
+  },
+  {
+   "row": 57,
+   "evd": "52",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "An ICLR 2023 reviewer blind-rated GPT-4 reviews of 7-8 Computer Science research reports as explaining scores about as well as human reviews (4.76 vs. 4.80 of 5), while GPT-4 as evaluator rated human reviews below its own (4.27 vs. 4.65)."
+  },
+  {
+   "row": 58,
+   "evd": "53",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "ChatGPT 4o, Grok 3, Gemini 2.0 Flash, and DeepSeek V3 zero-shot appraising 10 diagnostic accuracy research reports with QUADAS-2 systematically erred on patient selection, e.g., misreading consecutive sampling in case-control designs."
+  },
+  {
+   "row": 59,
+   "evd": "54",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Claude 3.5 Sonnet, GPT-4o, and GPT o1-preview few-shot labeling 172 Coronary Drug Project variables labeled confounders that experts trimmed from the causal diagram far more often than those experts added and kept."
+  },
+  {
+   "row": 60,
+   "evd": "55",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Google Bard, GPT 3.5, Claude-Instant-100k, and GPT 4 answering 7 health research ethics case studies sometimes missed placebo-arm suitability, risk mitigation, and participant risks with a single prompt, but improved with one query at a time."
+  },
+  {
+   "row": 61,
+   "evd": "56",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Six LLMs (GPT 3.5, two GPT 4s, Claude v1, PaLM 2, Gemini Pro) with RAG answering 15 STROBE questions about 39 observational medical research reports were least accurate on statistical software (33.5%) and funding (35.8%) vs. 68.3% at best."
+  },
+  {
+   "row": 62,
+   "evd": "57",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Compared to a single GPT-4 agent, the bespoke multi-agent reviewer MARG-S (GPT-4) generated more comments that 9 researchers rated \"good\" on their own research reports (3.7 vs. 1.7 per report; Liang et al.'s GPT-4 reviewer = 0.3)."
+  },
+  {
+   "row": 63,
+   "evd": "58",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "The bespoke multi-agent reviewer MARG-S (GPT-4) reviewing 30 ARIES research reports recalled more real reviewers' comments than all baselines and humans, with lower precision (recall: MARG-S = 15.84 vs. SARG-TP = 10.62 vs. humans = 9.42)."
+  },
+  {
+   "row": 64,
+   "evd": "59",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Grok 3, ChatGPT 4o, DeepSeek V3, and Gemini 2.0 Flash zero-shot appraising 10 diagnostic accuracy research reports with the risk-of-bias tool QUADAS-2 matched a two-expert consensus on 73% of 110 signaling questions (range = 67-77%)."
+  },
+  {
+   "row": 65,
+   "evd": "60",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Claude 3 Opus, Claude 2, GPT-4, GPT 3.5, and Mixtral-8x22B appraising 112 systematic reviews with PRISMA (plus AMSTAR and PRECIS-2 sets) quoted the full text almost verbatim to justify ratings (median quote similarity = 99%)."
+  },
+  {
+   "row": 66,
+   "evd": "61",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Poe Assistant, GPT 3.5, and Google Bard drafting an IRB standard operating procedure for the initial review of proposals all failed to require a quorum for full board review (0 of 3 drafts), unlike the Mayo Clinic and Harvard Longwood SOPs."
+  },
+  {
+   "row": 67,
+   "evd": "62",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "o3 zero-shot checking 83 STEM research reports on the SPOT benchmark caught equation and proof errors best (pass@4 = 62.6% vs. Gemini-2.5-Pro = 36.4%) but no figure duplications (pass@4 = 0% vs. GPT-4.1 = 44.4%)."
+  },
+  {
+   "row": 68,
+   "evd": "63",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "o3, the best of 10 multimodal LLMs zero-shot checking 83 STEM research reports for 91 author-confirmed errors on the SPOT benchmark, found few errors (recall = 21.1%, precision = 6.1%, pass@4 = 37.8%; Gemini-2.5-Pro recall = 10.1%)."
+  },
+  {
+   "row": 69,
+   "evd": "64",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "o3-mini, the best of 10 LLMs zero-shot judging whether 4,196 equations from 869 ACL research reports were correct on the AAAR-1.0 EqInfer benchmark, barely beat labeling every equation correct (F1 score = 48% vs. 40%)."
+  },
+  {
+   "row": 70,
+   "evd": "65",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "o4-mini zero-shot checking 245 withdrawn arXiv research reports caught the error behind the withdrawal within five flagged problems for 59.6% of PDFs at 0.038 USD per paper, close to o3's 64.9% at 8.4X the cost (0.321 USD)."
+  },
+  {
+   "row": 71,
+   "evd": "66",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Compared to Gemini 2.5 Pro, Gemini 2.5 Flash, o4-mini, and Claude 3.7 Sonnet, o3 zero-shot checking 245 withdrawn arXiv research reports caught the error behind the withdrawal most often (HR@5 = 64.9% from PDFs, 71.0% from LaTeX)."
+  },
+  {
+   "row": 72,
+   "evd": "67",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "The bespoke reviewer OpenReviewer (fine-tuned Llama-3.1-8B) reviewing 400 held-out NeurIPS 2024 and ICLR 2025 research reports matched human reviewers' average recommendation (5.4 of 10), while general LLMs inflated theirs (GPT-4o = 7.7)."
+  },
+  {
+   "row": 73,
+   "evd": "68",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Compared to GPT-4o, the bespoke reviewer OpenReviewer (fine-tuned Llama-3.1-8B) reviewing 400 held-out NeurIPS 2024 and ICLR 2025 research reports matched at least one human reviewer's recommendation more often (55.5% vs. 23.8%)."
+  },
+  {
+   "row": 74,
+   "evd": "69",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "A GPT-4o judge comparing reviews of 400 held-out NeurIPS 2024 and ICLR 2025 research reports to human reviews preferred the bespoke reviewer OpenReviewer over every general LLM (win rate = 60-76%), including GPT-4o itself (60%)."
+  },
+  {
+   "row": 75,
+   "evd": "70",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Compared to five fine-tuned PLMs and four zero-shot LLMs, the bespoke model Ours-SciBERT, augmented with human and ChatGPT knowledge, best predicted the novelty of ICLR 2022 research reports' methods (F1 = 0.83 vs. Claude 3.5 Sonnet = 0.69)."
+  },
+  {
+   "row": 76,
+   "evd": "71",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "GPT-4o-mini zero-shot checking 21,041 open-access RCT research reports for alignment with the reporting guideline CONSORT found mean compliance rose from 27.3% in 1966-1990 to 56.1% in 2010-2024 (p < 0.0001)."
+  },
+  {
+   "row": 77,
+   "evd": "72",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Shuffling GPT-4's feedback onto other research reports from the same journal or conference cut its overlap with human reviewers from 30.85% to 0.43% (Nature, n = 3,096) and 39.23% to 3.91% (ICLR, n = 1,709), so it is paper-specific (p < 0.0001)."
+  },
+  {
+   "row": 78,
+   "evd": "73",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "Adding retrieval of related papers (RAG) raised GPT-4o's zero-shot identification of key limitations in 1,000 perturbed research reports on the LIMITGEN-Syn benchmark from 52.0% to 64.2% accuracy, still below human experts' 86%."
+  },
+  {
+   "row": 79,
+   "evd": "74",
+   "jp_phase1": "Task for JP",
+   "claude_draft": "GPT-4o-mini zero-shot checking 21,041 open-access RCT research reports against the reporting guideline CONSORT found few reported randomization sequence generation (9.7%) or allocation mechanisms (15.25%)."
+  }
+ ]
+}

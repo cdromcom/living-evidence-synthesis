@@ -1,0 +1,28 @@
+{
+ "evd": 53,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.92,
+   "Partially Met": 0.06,
+   "Unmet": 0.02
+  },
+  "reason": "Quote states patient-selection errors including misinterpreted consecutive sampling in case-control designs; gist matches."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.9,
+   "Incorrect": 0.06,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "quote_fully_visible": 0.03,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "Screenshot shows only the opening words of the quote; remaining sentences are cut off."
+ }
+}

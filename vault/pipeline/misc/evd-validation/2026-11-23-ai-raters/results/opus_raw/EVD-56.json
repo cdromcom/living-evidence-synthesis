@@ -1,0 +1,30 @@
+{
+ "evd": 56,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.72,
+  "reason": "LLM accuracy per appraisal question is a performance finding, though which questions are lowest is only meaningful with labels."
+ },
+ "fidelity": {
+  "label": "Partially Met",
+  "probs": {
+   "Met": 0.2,
+   "Partially Met": 0.45,
+   "Unmet": 0.35
+  },
+  "reason": "Quote gives lowest Q8, Q15, Q1 by number only; nothing says these concern statistical software or funding."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.01,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.95,
+   "Missing": 0.02,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "reason": "Screenshot shows a QUADAS-2 study aim sentence from a different paper, not the Akyon Q12/Q8 percentages passage."
+ },
+ "table": null
+}

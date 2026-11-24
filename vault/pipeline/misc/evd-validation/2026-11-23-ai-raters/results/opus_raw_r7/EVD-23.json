@@ -1,0 +1,33 @@
+{
+ "evd": 23,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.01,
+   "Partially Correct": 0.04,
+   "Incorrect": 0.94,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.05,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.35
+  ],
+  "reason": "Screenshot shows the lowest-rate sentence (GPT 4-0613 44.1%), not the Table 3 ranking sentence with 66.9%."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Table 3 is referenced but not shown; only text."
+ }
+}

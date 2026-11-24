@@ -1,0 +1,1 @@
+{"evd": 11, "quote": {"label": "Partially Correct", "probs": {"Correct": 0.1, "Partially Correct": 0.8, "Incorrect": 0.1, "Missing": 0, "NA": 0}, "p_screenshot_shows_quote": 0.95, "shot_connects": [0.95], "reason": "Screenshot reads 'in OCS percentage (figure 2)'; quote ending 'between human evaluation and ChatGPT' differs."}}

@@ -1,0 +1,1 @@
+{"evd": 18, "quote": {"label": "Incorrect", "probs": {"Correct": 0.01, "Partially Correct": 0.03, "Incorrect": 0.96, "Missing": 0, "NA": 0}, "p_screenshot_shows_quote": 0.03, "shot_connects": [0.1], "reason": "Screenshot shows GPT-4 Vision flowchart accuracy, not base vs fine-tuned F1/accuracy sentences."}}

@@ -1,0 +1,28 @@
+{
+ "evd": 11,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.93,
+   "Partially Met": 0.05,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives Bland-Altman mean difference of 4.92% in OCS between humans and ChatGPT."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.15,
+   "Partially Correct": 0.78,
+   "Incorrect": 0.07,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.92,
+  "quote_fully_visible": 0.1,
+  "shot_connects": [
+   0.92
+  ],
+  "reason": "Screenshot shows passage, but page reads 'in OCS percentage (figure 2)', not 'between human evaluation and ChatGPT'."
+ }
+}

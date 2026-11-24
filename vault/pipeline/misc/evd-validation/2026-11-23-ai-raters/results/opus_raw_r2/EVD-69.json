@@ -1,0 +1,46 @@
+{
+ "evd": 69,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.75,
+  "reason": "LLM-judge win rates of an AI reviewer against other LLMs; performance comparison though judged by an LLM."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote gives win rates 60% vs GPT4o and 76% vs Llama-3.1-70B."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.95,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "Screenshot shows the quoted win-rate sentence word for word."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.12,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.05,
+   "Missing": 0.03,
+   "NA": 0.77
+  },
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "60% and 76% are in the quote; Figure 2 is mentioned but not needed."
+ }
+}

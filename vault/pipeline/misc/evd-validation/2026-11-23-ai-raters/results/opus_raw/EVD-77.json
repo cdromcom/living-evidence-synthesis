@@ -1,0 +1,30 @@
+{
+ "evd": 77,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.5,
+  "reason": "AI emulating IRB decisions is ethics review; 'responded correctly to all 10' is vague about accuracy."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.55,
+   "Partially Met": 0.38,
+   "Unmet": 0.07
+  },
+  "reason": "Quote says platforms responded to queries from all case studies; it does not say responses were correct."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.95,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "reason": "Screenshot shows the study-aim passage ('we scrutinized the ability of three AI platforms...'), not the quoted results passage."
+ },
+ "table": null
+}

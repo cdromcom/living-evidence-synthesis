@@ -1,0 +1,28 @@
+{
+ "evd": 42,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.9,
+   "Partially Met": 0.08,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives GPT-4o-mini F1 0.85, precision 0.96, and over 40% gain over prior state-of-the-art."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.15,
+   "Incorrect": 0.8,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.15,
+  "quote_fully_visible": 0.05,
+  "shot_connects": [
+   0.55
+  ],
+  "reason": "Screenshot shows the conclusion paragraph on GPT-4o-mini, not the quoted results passage."
+ }
+}

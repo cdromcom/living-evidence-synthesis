@@ -1,0 +1,46 @@
+{
+ "evd": 64,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "LLMs judging equation correctness in papers; best F1 47.98% vs 40% baseline is a clear performance finding."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.85,
+   "Partially Met": 0.13,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives best LLM 47.98% vs 40% all-positive baseline; o3-mini not named but gist present."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.4,
+   "Partially Correct": 0.55,
+   "Incorrect": 0.03,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.9,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot matches but quote changes 'even cannot' to 'cannot' and '1:3 of' to '1:3 ratio of' unmarked."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.2,
+   "Missing": 0.7,
+   "NA": 0.05
+  },
+  "shot_connects": [
+   0.6
+  ],
+  "reason": "Identifying o3-mini as best needs Table 1 (paraphrased text); screenshot shows body text only."
+ }
+}

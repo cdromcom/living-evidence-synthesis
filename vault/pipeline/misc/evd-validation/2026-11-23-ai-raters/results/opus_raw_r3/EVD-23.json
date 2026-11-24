@@ -1,0 +1,1 @@
+{"evd": 23, "quote": {"label": "Incorrect", "probs": {"Correct": 0.03, "Partially Correct": 0.15, "Incorrect": 0.82, "Missing": 0, "NA": 0}, "p_screenshot_shows_quote": 0.2, "shot_connects": [0.4], "reason": "Screenshot shows the lowest-percentage/Gemini sentence, not the ranked list of all six LLM percentages."}}

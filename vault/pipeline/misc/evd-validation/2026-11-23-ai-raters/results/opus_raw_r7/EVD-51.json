@@ -1,0 +1,33 @@
+{
+ "evd": 51,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.04,
+   "Partially Correct": 0.92,
+   "Incorrect": 0.04,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "quote_fully_visible": 0.05,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "First two sentences shown; quoted P4 and P5 sentences are not in the screenshot."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.96,
+   "NA": 0.0
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Text only; no table or figure."
+ }
+}

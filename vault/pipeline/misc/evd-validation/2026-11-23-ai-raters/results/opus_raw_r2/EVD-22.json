@@ -1,0 +1,46 @@
+{
+ "evd": 22,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.9,
+  "reason": "GAR acceptance-prediction F1 0.66 vs human reviewers 0.49; specific performance comparison against humans."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.88,
+   "Partially Met": 0.1,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives average F1 0.66 vs human 0.49, significant; ICLR 23 specification absent but gist present."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.6,
+   "Partially Correct": 0.37,
+   "Incorrect": 0.02,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.85,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot shows the quoted passage, but it is cut off at '(p' so 'p < 0.002' is not visible."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.35,
+   "Missing": 0,
+   "NA": 0.55
+  },
+  "shot_connects": [
+   0.6
+  ],
+  "reason": "Numbers are in the quote; Table 3 is mentioned in the screenshot but not in caption or paraphrase."
+ }
+}

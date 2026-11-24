@@ -1,0 +1,38 @@
+{
+ "evd": 3,
+ "relevancy": {
+  "label": "Irrelevant",
+  "p_relevant": 0.3,
+  "reason": "Drafting SOPs is document generation, not evaluation of research; finding is vague with no performance measure."
+ },
+ "fidelity": null,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.9,
+   "Missing": 0,
+   "NA": 0.03
+  },
+  "p_screenshot_shows_quote": 0.05,
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "Screenshot shows 'none of the AI platforms recognized the necessity of achieving a quorum', a different passage from the quote."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.2,
+   "Missing": 0,
+   "NA": 0.75
+  },
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "No numbers; quote mentions Table 2 but the EVD needs no table. Screenshot is body text only."
+ }
+}

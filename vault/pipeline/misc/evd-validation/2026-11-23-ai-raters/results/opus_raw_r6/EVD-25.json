@@ -1,0 +1,33 @@
+{
+ "evd": 25,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.88,
+   "Incorrect": 0.05,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "quote_fully_visible": 0.35,
+  "shot_connects": [
+   1
+  ],
+  "reason": "Right passage shown, but wording differs: 'correlation with humans (0.651 Pearson correlation value under...'."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.01,
+   "Incorrect": 0.02,
+   "Missing": 0.85,
+   "NA": 0.12
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "Paraphrase cites Table 1 row 2, but only a text screenshot is shown."
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "evd": 36,
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.9,
+   "Partially Correct": 0.08,
+   "Incorrect": 0.01,
+   "Missing": 0.005,
+   "NA": 0.005
+  },
+  "p_screenshot_shows_quote": 0.98,
+  "quote_fully_visible": 0.97,
+  "shot_connects": [
+   0.98
+  ],
+  "reason": "Quote fully highlighted and legible with a line of its paragraph around it."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.03,
+   "Missing": 0.9,
+   "NA": 0.03
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "70.0% accuracy comes from Table 3 per paraphrase, but no table is shown."
+ }
+}
