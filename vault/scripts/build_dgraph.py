@@ -1,4 +1,4 @@
-"""Build DGRAPH.md — a comprehensive nested view of the discourse graph.
+"""Build indexes/dgraph.md — a comprehensive nested view of the discourse graph.
 
 Structure:
   # Discourse Graph
@@ -113,8 +113,8 @@ def main():
     # YAML frontmatter (Obsidian properties)
     from datetime import date
     today = date.today().isoformat()
-    # Preserve created date if DGRAPH.md already has one
-    out = VAULT / 'DGRAPH.md'
+    # Preserve created date if indexes/dgraph.md already has one
+    out = VAULT / 'indexes' / 'dgraph.md'
     created_date = today
     if out.exists():
         existing = out.read_text()

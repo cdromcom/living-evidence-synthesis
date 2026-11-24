@@ -77,10 +77,12 @@ Instead of one long literature-review document, the vault decomposes findings in
 
 ```
 living-synthesis/
-├── 🗺️  DGRAPH.md             ← start here — central nested index
-├── 📜  History.md            ← chronological log of vault changes
-├── 🛠️  SKILL.md              ← skill for extracting nodes from new papers
 ├── 👋  Welcome.md            ← this file
+├── 🗺️  indexes/              ← dgraph.md (start here: central nested index), DGRAPH-TABLE.md, Review-Arena.md, ESS files
+├── 🛠️  skills/               ← Skill*.md (how new papers are extracted), Tools-and-Models.md, Vault-structure.md
+├── 📜  logs/                 ← History.md (chronological log of vault changes), Log.md
+├── ⚖️  legal/                ← LICENSE-CONTENT.md, PERMISSIONS.md (licences and takedown route)
+├── 🗃️  reference/            ← background notes and the paraphrase audit TSV
 ├── ❓  questions/            ← QUE notes
 ├── 💡  claims/               ← CLM notes
 ├── 🔬  evidence/             ← EVD notes + Attachments/ (all PNGs)
@@ -143,7 +145,7 @@ CLMs, CVTs, and QUEs follow analogous structures with their own reverse-link sec
 > [!info] On every node
 >
 > - `NodeFormality: ReadyForInternal` — structurally complete; ready for human review and use.
-> - `NodeFormality: draft` — not yet trusted; usually flagged by the verbatim audit at <50% match. See `paraphrase_audit_<date>.tsv` at the vault root for which quotes diverge from their source.
+> - `NodeFormality: draft` — not yet trusted; usually flagged by the verbatim audit at <50% match. See `reference/paraphrase_audit_<date>.tsv` for which quotes diverge from their source.
 
 ---
 
@@ -224,7 +226,7 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 > [!caution] Read before you cite
 >
 > - **Auto-derived links are paper-level overlaps, not statement-level entailments.** When DGRAPH.md or a node's reverse-link section says "EVDs from the cited papers", that's a paper-citekey match — not a guarantee that the EVD specifically supports the CLM. Always verify before quoting.
-> - **49 paraphrased quotes flagged but not yet fixed.** See `paraphrase_audit_2026-04-27.tsv`. Most are minor (tail-only divergence) but 23 are major (<50% verbatim match) and would benefit from a manual sweep.
+> - **49 paraphrased quotes flagged but not yet fixed.** See `reference/paraphrase_audit_2026-04-27.tsv`. Most are minor (tail-only divergence) but 23 are major (<50% verbatim match) and would benefit from a manual sweep.
 > - **27 nodes still at `NodeFormality: draft`** — those flagged in the audit. Don't rely on these without re-verifying against the source PDF.
 > - **Methods Context anchors are paper-level for many EVDs.** Where multiple EVDs from the same paper share a single methods quote, the anchor is approximate. EVDs from sub-experiments of the same paper that have specific anchors are listed in `History.md` Phase 2d/2f.
 > - **The vault is scoped** to LLM-related research evaluation. Other domains' literature is not represented.

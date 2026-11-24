@@ -386,8 +386,8 @@ without re-deriving the method from scratch.
 For the TRIPOD-LLM and Quality Appraisal tables themselves — the
 verbatim-quote-grounding procedure, the 5-domain-plus-6-Rigor-signal
 table shape, and how new sources fit into the discourse-graph extraction
-pipeline — see the canonical vault's `Skill.md` /
-`Skill-templates.md` at `/Users/ppatel/Documents/living-synthesis/`,
+pipeline — see the canonical vault's `skills/Skill.md` /
+`skills/Skill-templates.md` at `/Users/ppatel/Documents/living-synthesis/`,
 Step 6.c and Step 4b.
 
 **Current priority**: DOI-based checks (below) over PDF-text-based checks.

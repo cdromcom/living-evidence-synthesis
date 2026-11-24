@@ -9,8 +9,8 @@ Helper scripts that maintain the discourse graph. Run from the vault root.
 | `cvt_screenshot_pipeline.py` | Auto-locate quotes in CVTs lacking screenshots and embed them. |
 | `reverse_links.py` | Build `## Caveats`, `## Supports Claim(s)`, `### Supporting Evidence` sections (idempotent). |
 | `readability_pass.py` | Apply blank-line rules across all node files. |
-| `verbatim_audit.py` | Compare every quote to its source PDF and write `paraphrase_audit_<date>.tsv`. |
-| `build_dgraph.py` | Regenerate `DGRAPH.md` central index from the vault's current state. |
+| `verbatim_audit.py` | Compare every quote to its source PDF and write `reference/paraphrase_audit_<date>.tsv`. |
+| `build_dgraph.py` | Regenerate `indexes/dgraph.md` central index from the vault's current state. |
 
 All scripts are idempotent. Re-run any script after making structural changes — the output stays in sync.
 

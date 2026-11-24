@@ -550,7 +550,7 @@ Run `scripts/verbatim_audit.py` to compare every quote against its source PDF an
 
 1. Normalize both the quote text and the cited page's text (NFKD + alnum-only).
 2. If the quote isn't a substring of any page's normalized text, find the page with the longest matching prefix and report `matched X of Y chars`.
-3. Save the report as `paraphrase_audit_<date>.tsv` at the vault root.
+3. Save the report as `paraphrase_audit_<date>.tsv` in `reference/`.
 
 Severity tiers:
 - **0% match (Tier 1)**: fabricated or wrong page citation. Fix or annotate.
