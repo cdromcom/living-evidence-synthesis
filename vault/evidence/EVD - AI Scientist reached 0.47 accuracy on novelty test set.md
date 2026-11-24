@@ -30,7 +30,7 @@ title: "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty e
 
 ## Description
 
-> "Our approach achieved over 10 times more agreement with expert-labeled examples compared to AI Scientist, and approximately 13% higher agreement than AI Researcher." (Shahid et al., 2025, p. 7)
+> "Our approach achieved over 10 times more agreement with expert-labeled examples compared to AI Scientist, and approximately 13% higher agreement than AI Researcher." (Shahid et al., 2025, p. 101)
 >
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p6-1.png]]
 > AI Scientist results from Table 1: Accuracy=0.47, Precision=0.55, Recall=0.53, F1=0.44, Cohen's Kappa=0.05. (Shahid et al., 2025, p. 7)
@@ -57,7 +57,7 @@ title: "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty e
 
 > **Procedure:** to ensure a fair prompt-only comparison, the test ideas were standardized to a fixed set of the 10 most relevant papers per idea (the same papers used to elicit expert judgments) and the input idea was reformatted to match each system's expected idea-input style. AI Scientist's full system normally generates Semantic Scholar queries iteratively, compares an idea against retrieved papers up to a preset iteration limit, and reaches a decision via string-matching on phrases like "decision made: novel" / "decision made: not novel"; if no decision string appears, the idea is **automatically classified as "not novel"** by default. In Shahid et al.'s evaluation, AI Scientist's default-to-"not novel" behavior triggered on **18 / 32 test ideas** (failure to reach a conclusion within the prompt). AI Researcher uses a Swiss-system tournament ranking that compares ideas pairwise against individual papers for similarity and novelty; if any single comparison reaches "sufficient similarity" the idea is marked not novel. Standard binary classification metrics (accuracy/precision/recall/F1/κ) computed against expert labels.
 >
-> "It is important to note that AI Scientist defaults to 'not novel' when it fails to reach a conclusion in novelty evaluation (18 out of 32 times), which may have impacted its agreement rates." (Shahid et al., 2025, p. 7)
+> "It is important to note that AI Scientist defaults to 'not novel' when it fails to reach a conclusion in novelty evaluation (18 out of 32 times), which may have impacted its agreement rates." (Shahid et al., 2025, p. 101)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p6-6.png]]
 
 ### Who?
@@ -68,7 +68,7 @@ title: "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty e
 >
 > **No human evaluators in the loop** for the comparison; all metrics are automatic against the expert labels.
 >
-> "we standardize the most relevant papers to ensure a fair comparison of the prompts alone. Additionally, since both setups require a different style of input idea, we adapted the ideas to match the requirements of each system." (Shahid et al., 2025, p. 6)
+> "we standardize the most relevant papers to ensure a fair comparison of the prompts alone. Additionally, since both setups require a different style of input idea, we adapted the ideas to match the requirements of each system." (Shahid et al., 2025, p. 101)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p6-2.png]]
 
 ## Other Notes

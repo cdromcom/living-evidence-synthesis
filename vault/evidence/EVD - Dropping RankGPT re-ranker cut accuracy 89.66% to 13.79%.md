@@ -28,7 +28,7 @@ title: "Removing facet-based RankGPT re-ranker dropped not-novel prediction accu
 
 ## Description
 
-> "Table 2 shows that the complete system, which employs facet-based re-ranking in RankGPT, significantly outperforms its ablated variants in accuracy." (Shahid et al., 2025, p. 7)
+> "Table 2 shows that the complete system, which employs facet-based re-ranking in RankGPT, significantly outperforms its ablated variants in accuracy." (Shahid et al., 2025, p. 102)
 >
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p7-1.png]]
 > Complete system accuracy for 'not novel' prediction: 89.66%; removing RankGPT relevance re-ranker: 13.79%; removing embedding filtering: 10.34%. (Shahid et al., 2025, p. 7, Table 2)
@@ -48,14 +48,14 @@ title: "Removing facet-based RankGPT re-ranker dropped not-novel prediction accu
 >
 > **Independent variable:** ablation condition, (i) Complete System; (ii) Relevance RankGPT (general-relevance prompt instead of facet-based); (iii) Embedding Filtering only (no LLM re-ranker); (iv) Snippet Retrieval only (no embedding filter, no re-ranker); (v) Keyword Retrieval only.
 >
-> "To assess the contribution of each component in our novelty checker, we conducted ablation studies using 58 ideas (comprising 13 'not novel' instances from our test set and 45 NLP papers from the literature). For this experiment, we focus on the 'not novel' cases, since the ideas labeled novel in expert-labeled test data can vary with different retrieved paper sets." (Shahid et al., 2025, p. 6)
+> "To assess the contribution of each component in our novelty checker, we conducted ablation studies using 58 ideas (comprising 13 'not novel' instances from our test set and 45 NLP papers from the literature). For this experiment, we focus on the 'not novel' cases, since the ideas labeled novel in expert-labeled test data can vary with different retrieved paper sets." (Shahid et al., 2025, p. 101)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p6-4.png]]
 
 ### How?
 
 > **Procedure:** four ablation variants were compared to the complete system. (i) **Complete System**, full pipeline with keyword + snippet retrieval (each returning top-k by Semantic Scholar's ranking), embedding filtering, and facet-based RankGPT re-ranking. (ii) **Relevance RankGPT**, same retrieval and embedding filtering, but the facet-based RankGPT re-ranker is swapped for a general-relevance RankGPT (Sun et al.); isolates the value of facet-based reranking. (iii) **Embedding Filtering**, drops the LLM re-ranker entirely; isolates the value of the LLM-reranker step. (iv) **Snippet Retrieval**: top-k from snippet API alone, no embedding filter, no LLM reranker. (v) **Keyword Retrieval**, top-k from keyword search alone. For Step 3 novelty evaluation the authors used **o3-mini**, and **gpt-4o** for Step 2 re-ranking. Outputs scored as accuracy of predicting "not novel" on the ablation set. A complementary analysis (Table 3) reports overlap of top-10 papers and average rank-shift vs. the complete system.
 >
-> "We use o3-mini for evaluating novelty (Step 3) and gpt-4o for re-ranking (Step 2)." (Shahid et al., 2025, p. 7)
+> "We use o3-mini for evaluating novelty (Step 3) and gpt-4o for re-ranking (Step 2)." (Shahid et al., 2025, p. 102)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p7-2.png]]
 
 ### Who?
@@ -66,7 +66,7 @@ title: "Removing facet-based RankGPT re-ranker dropped not-novel prediction accu
 >
 > **No human evaluators** in the ablation loop; performance derived from automated comparison against the "not novel" gold class.
 >
-> "ablation studies using 58 ideas (comprising 13 'not novel' instances from our test set and 45 NLP papers from the literature)." (Shahid et al., 2025, p. 6)
+> "ablation studies using 58 ideas (comprising 13 'not novel' instances from our test set and 45 NLP papers from the literature)." (Shahid et al., 2025, p. 101)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p6-5.png]]
 
 ## Other Notes

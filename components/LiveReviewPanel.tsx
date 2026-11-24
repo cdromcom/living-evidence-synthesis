@@ -20,7 +20,7 @@ export default function LiveReviewPanel() {
     // there's nothing to reset here when there's no session to fetch for.
     if (!session || !supabase) return;
     supabase
-      .from("node_reviews")
+      .from("node_reviews_public")
       .select("*")
       .order("updated_at", { ascending: false })
       .limit(200)
@@ -127,7 +127,7 @@ export default function LiveReviewPanel() {
                         {v?.symbol}
                       </span>
                     </td>
-                    <td className="p-3 text-xs text-muted-ink">{r.reviewer_email}</td>
+                    <td className="p-3 text-xs text-muted-ink">{r.reviewer_name}</td>
                     <td className="p-3 text-xs text-muted-ink">{r.note || "—"}</td>
                   </tr>
                 );

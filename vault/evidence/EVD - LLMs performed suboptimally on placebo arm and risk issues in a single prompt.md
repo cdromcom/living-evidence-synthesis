@@ -28,7 +28,7 @@ title: "LLMs performed suboptimally identifying placebo arm suitability and risk
 
 ## Description
 
-> "LLMs performed suboptimally in identifying the suitability of the placebo arm, risk mitigation strategies and potential risks to study participants in certain case studies with a single prompt. However, multiple prompts led to better outputs in all of these domains." (Sridharan & Sivaramakrishnan, 2025, p. 131)
+> "LLMs performed suboptimally in identifying the suitability of the placebo arm, risk mitigation strategies and potential risks to study participants in certain case studies with a single prompt. However, multiple prompts led to better outputs in all of these domains." (Sridharan & Sivaramakrishnan, 2025, p. 126)
 >
 > ![[sridharanLeveragingArtificialIntelligence2025-table2-p4-1.png]]
 

@@ -30,7 +30,7 @@ title: "GAR achieved a human-likeness score of 3.89 to 4.02 across three dataset
 
 ## Description
 
-> "As shown in Table 7, our method significantly outperforms AI-Scientist in generating reviews that align closely with human feedback. GAR scores are consistently higher, suggesting that the inclusion of graph-based memory and profile modules enhances the human-likeness of reviews." (Bougie & Watanabe, 2024, p. 14)
+> "As shown in Table 7, our method significantly outperforms AI-Scientist in generating reviews that align closely with human feedback. GAR scores are consistently higher, suggesting that the inclusion of graph-based memory and profile modules enhances the human-likeness of reviews." (Bougie & Watanabe, 2024, p. 15)
 >
 > ![[bougieGenerativeAdversarialReviews2024a-evd-p15-1.png]]
 > *Table 7 row for the GAR reviewer agent (values reformatted as inline text):* "GAR: NeurIPS 3.89 ± 0.11\*, ICLR 22 4.02 ± 0.10\*, ICLR 23 3.99 ± 0.09\*" (Bougie & Watanabe, 2024, p. 15, Table 7)

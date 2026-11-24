@@ -37,6 +37,9 @@ tags:
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2506.22026
+license: "cc-by"
+license_source: "OpenAlex (primary location: Workshop on Scholarly Document Processing (SDP))"
+oa_status: "hybrid"
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked
 predatoryPublisherNote: "arXiv preprint — not applicable (not a journal publisher)"
