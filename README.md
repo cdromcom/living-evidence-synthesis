@@ -494,3 +494,7 @@ only when the authors claim no artifact at all. That distinction matters:
 nine artifact pairs in the corpus are live-but-unscored, and reporting those
 as "not applicable" made a working, scoreable repository look like an absent
 one.
+
+---
+
+**Licence and takedown.** Code is MIT (`LICENSE`); original vault content is CC BY 4.0 while quotes and screenshots keep their source papers' licences (`vault/LICENSE-CONTENT.md`, `docs/PERMISSIONS.md`). Takedown route: open an issue at https://github.com/cdromcom/living-evidence-synthesis/issues. Not legal advice.

@@ -35,6 +35,9 @@ tags:
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
 doi: 10.48550/arXiv.2412.10635
+license: "cc-by"
+license_source: "OpenAlex (primary location: Journal of Causal Inference)"
+oa_status: "gold"
 nameConsistency: consistent
 predatoryPublisherFlag: false
 authorTrackRecord: not-checked

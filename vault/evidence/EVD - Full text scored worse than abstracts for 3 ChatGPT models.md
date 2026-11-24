@@ -28,7 +28,7 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 
 ## Description
 
-> "The optimal input for ChatGPT 3.5-turbo seems to be article abstracts (with titles)... Extending abstracts to truncated full texts decreases the correlation but restricting the input text to article titles substantially decreases it." (Thelwall, 2024, p. 7)
+> "The optimal input for ChatGPT 3.5-turbo seems to be article abstracts (with titles)... Extending abstracts to truncated full texts decreases the correlation but restricting the input text to article titles substantially decreases it." (Thelwall, 2024, p. 14)
 >
 > ![[thelwallEvaluatingResearchQuality2024-evd-p7-1.png]]
 >
@@ -50,14 +50,14 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 >
 > **Independent variable:** input text format, Title only / Abstract (title+abstract) / Truncated full text (full text minus references, tables, figures, authors, keywords). Held constant within each model row: model identity, system prompt, temperature=1, top_p=1, max_tokens=1000, the 51-article corpus, and the 30-iteration averaging procedure.
 >
-> "This article assesses which ChatGPT inputs (full text without tables, figures and references; title and abstract; title only) produce better quality score estimates, and the extent to which scores are affected by ChatGPT models and system prompts." (Thelwall, 2024, p. 1)
+> "This article assesses which ChatGPT inputs (full text without tables, figures and references; title and abstract; title only) produce better quality score estimates, and the extent to which scores are affected by ChatGPT models and system prompts." (Thelwall, 2024, p. 7)
 > ![[thelwallEvaluatingResearchQuality2024-evd-p1-1.png]]
 
 ### How?
 
 > **Procedure:** (1) Three parallel input datasets built from the same 51 articles, *Truncated* (full text without references, tables, figures, authors, keywords), *Abstract* (title + abstract only), *Title* (titles only). (2) For each (model × input) cell, run 30 consecutive ChatGPT API calls per article carrying the Strategy 6 system prompt and the user prompt `"Score the following journal article: " + <article text>`. Parameters fixed at temperature=1, top_p=1, max_tokens=1000. (3) Extract the model score from each free-text report with pattern-matching software; missing scores dropped from per-article averages; score ranges averaged to midpoint. (4) Compute the Spearman correlation between the per-article mean ChatGPT score and the author's REF score for each cell. (5) For the iteration-count subanalysis, compute correlations for each k ∈ {1…30} via subset permutations and average; t-distribution confidence intervals derived from the SD across permutations. Figure 1 (3.5-turbo) and Table 1 (all three models) report the per-input correlations side by side.
 >
-> "Several different datasets were generated to try different extents of input. Truncated dataset: This consisted of the full text files without the reference list (not strongly relevant), the contents of tables (difficult to process by an LLM), the authors, and the keywords. … Abstract dataset: This consisted of the title and abstract alone after removing the authors, keywords and the remaining text. Title dataset: This consisted of article titles alone." (Thelwall, 2024, p. 4)
+> "Several different datasets were generated to try different extents of input. Truncated dataset: This consisted of the full text files without the reference list (not strongly relevant), the contents of tables (difficult to process by an LLM), the authors, and the keywords. … Abstract dataset: This consisted of the title and abstract alone after removing the authors, keywords and the remaining text. Title dataset: This consisted of article titles alone." (Thelwall, 2024, p. 11)
 > ![[thelwallEvaluatingResearchQuality2024-evd-p4-1.png]]
 
 ### Who?
@@ -68,7 +68,7 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 >
 > **Models compared:** GPT-3.5-turbo (3 input cells), GPT-4o (3 input cells), GPT-4o-mini (3 input cells), 9 (model × input) cells total feeding Table 1.
 >
-> "The raw data for this paper is a set of 51 information science journal articles that have either been published or prepared for submission and subsequently rejected or not submitted. All were written by the author, who has copyright, and were scored by him using the REF quality scale of 1*, 2*, 3* or 4* (REF, 2019), with which he is familiar." (Thelwall, 2024, p. 3)
+> "The raw data for this paper is a set of 51 information science journal articles that have either been published or prepared for submission and subsequently rejected or not submitted. All were written by the author, who has copyright, and were scored by him using the REF quality scale of 1*, 2*, 3* or 4* (REF, 2019), with which he is familiar." (Thelwall, 2024, p. 10)
 > ![[thelwallEvaluatingResearchQuality2024-evd-p3-1.png]]
 
 ## Other Notes

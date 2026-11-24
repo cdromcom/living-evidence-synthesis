@@ -30,7 +30,7 @@ title: "Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 out
 
 ## Description
 
-> "Our extensive experiments demonstrate that our novelty checker achieves approximately 13% higher agreement than existing approaches." (Shahid et al., 2025, p. 1)
+> "Our extensive experiments demonstrate that our novelty checker achieves approximately 13% higher agreement than existing approaches." (Shahid et al., 2025, p. 96)
 >
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p1-1.png]]
 > Full results from Table 1: Complete system with idea, most relevant papers, class, and reasoning: Accuracy=0.81, Precision=0.84, Recall=0.78, F1=0.79, Cohen's Kappa=0.59. (Shahid et al., 2025, p. 7)
@@ -72,7 +72,7 @@ title: "Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 out
 >
 > **No human evaluators in the test loop**; classifier outputs scored against the gold expert labels.
 >
-> "From our formative study, we collected 67 consensus-labeled examples (39 labeled as novel and 28 as non-novel). We split into training and test sets (35 for training and 32 for testing) with a balanced distribution of novel and non-novel ideas." (Shahid et al., 2025, p. 5)
+> "From our formative study, we collected 67 consensus-labeled examples (39 labeled as novel and 28 as non-novel). We split into training and test sets (35 for training and 32 for testing) with a balanced distribution of novel and non-novel ideas." (Shahid et al., 2025, p. 100)
 > ![[shahidLiteratureGroundedNoveltyAssessment2025-evd-p5-3.png]]
 
 ## Other Notes
