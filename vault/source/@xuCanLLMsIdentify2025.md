@@ -51,7 +51,7 @@ authors:
   - "Patwardhan, Manasi"
   - "Vig, Lovekesh"
   - "Cohan, Arman"
-pubType: other
+pubType: conference-paper
 selfCitationRate: not-assessable
 doajListed: not-applicable
 pubpeerCommentCount: 0
@@ -73,7 +73,7 @@ apaAuthors:
     family: "Vig"
   - given: "Arman"
     family: "Cohan"
-peerReviewStatus: not-found
+peerReviewStatus: peer-reviewed
 peerReviewNote: "ACL 2025 long paper in peer-reviewed proceedings; no review report found on the ACL Anthology page (checked 2026-11-24)"
 curatedWithModel: "Claude Sonnet 5"
 curatedWithModelDate: 2026-08-25

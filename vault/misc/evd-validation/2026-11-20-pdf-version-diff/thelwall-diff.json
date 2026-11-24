@@ -1,0 +1,296 @@
+{
+  "paper": "Thelwall, M. Evaluating research quality with Large Language Models: An analysis of ChatGPT's effectiveness with different settings and inputs. Preprint (2024) vs Journal of Data and Information Science 2025, 10(1), 7-25, doi 10.2478/jdis-2025-0011",
+  "old_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Archive - Thelwall - 2024.pdf",
+  "new_file": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Thelwall - 2025 - Evaluating research quality with Large Language Models An analysis of ChatGPT's effectiveness with.pdf",
+  "page_numbering_note": "OLD is 18 PDF pages, printed page numbers equal PDF page numbers. NEW is 19 PDF pages, printed journal pages 7-25, so NEW PDF page n = journal page n+6. All page numbers below are PDF pages; journal page given in parentheses where useful.",
+  "method_note": "Both PDFs extracted with pdftotext -layout and compared with a word-level diff. Every numeric token was compared as a multiset: the only differences are DOI/licence/CSTR numbers in the NEW front matter and a '3.5' vs 'GPT-3.5' label split in the Table 1 header. Table 1 and Figure 1 were rendered and inspected in both versions and are identical in content. Tables 2 and 3 were compared from extracted text (all values identical). Figures 2-5 were compared by caption text only; their images were not rendered.",
+  "substantive_changes": [
+    {
+      "area": "Discussion 4.1 / iteration-count recommendation (answer to RQ2)",
+      "old": "but five might be taken as sufficient for general purposes but additional iterations used when more precise estimates are needed (answering RQ2).",
+      "new": "but five might be taken as sufficient for general purposes and additional iterations used when more precise estimates are needed (answering RQ2).",
+      "old_page": 13,
+      "new_page": "13 (j.19)",
+      "matters_for_EVDs": true
+    },
+    {
+      "area": "Abstract, Design/methodology/approach (serial comma)",
+      "old": "full text without tables, figures and references; title and abstract; title only",
+      "new": "full text without tables, figures, and references; title and abstract; title only",
+      "old_page": 1,
+      "new_page": "1 (j.7)",
+      "matters_for_EVDs": true
+    },
+    {
+      "area": "Results 3.1, sentence after Hsieh et al. citation (connective reworded)",
+      "old": "Nevertheless, both 4o and 4o-mini, with much longer context windows, also performed better on shorter text, although the difference was marginal for 4o (Table 1).",
+      "new": "Despite this possibility, both 4o and 4o-mini, with much longer context windows, also performed better on shorter text, although the difference was marginal for 4o (Table 1).",
+      "old_page": 7,
+      "new_page": "9 (j.15)",
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Methods 2.4 (score extraction): punctuation of the user prompt",
+      "old": "with the prompt, \"Score the following journal article: \", followed by",
+      "new": "with the prompt, “Score the following journal article:”, followed by (curly quotes, trailing space inside the quote removed; sentence now spans the page break)",
+      "old_page": 5,
+      "new_page": "5-6 (j.11-12)",
+      "matters_for_EVDs": true
+    },
+    {
+      "area": "Methods 2.3 heading paragraph",
+      "old": "Six variations of the basic REF prompt were tested",
+      "new": "Six variations of the basic REF system prompt were tested",
+      "old_page": 5,
+      "new_page": "6 (j.12)",
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Introduction, bibliometrics sentence",
+      "old": "which has (controversially: MacRoberts & MacRoberts, 2018) developed ... have obtained mixed results, however, with article level Pearson correlations between traditional machine learning (e.g., extreme gradient boost) predictions and expert scores varying between 0.028 (Art and Design) and 0.562 (Clinical Medicine)",
+      "new": "which has, controversially (MacRoberts & MacRoberts, 2018), developed ... have obtained mixed results; however, article level Pearson correlations between traditional machine learning (e.g., extreme gradient boost) predictions and expert scores vary between 0.028 (Art and Design) and 0.562 (Clinical Medicine)",
+      "old_page": 1,
+      "new_page": "2 (j.8)",
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Introduction, grant-triage example",
+      "old": "The experimental results showed that LLMs were not reliable enough to be used without human judgements",
+      "new": "LLMs were not reliable enough to be used without human judgements",
+      "old_page": 2,
+      "new_page": "2 (j.8)",
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Discussion 4.2, abstracts-vs-full-text sentence",
+      "old": "(in combination with: Thelwall, 2024) better inputs than full texts",
+      "new": "in combination with (Thelwall, 2024), better inputs than full texts",
+      "old_page": 13,
+      "new_page": "14 (j.20)",
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "References",
+      "old": "Moed (2006) 'Citation analysis in research evaluatio).'; Zhou et al. (2024) '... LREC-COLING 2024 (pp. 9340-9351).'",
+      "new": "Moed (2006) 'Citation analysis in research evaluation.'; Zhou et al. (2024) '... In Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024) (pp. 9340-9351).'",
+      "old_page": "16-17",
+      "new_page": "16-17 (j.22-23)",
+      "matters_for_EVDs": false
+    },
+    {
+      "area": "Front matter (publication metadata added)",
+      "old": "Title + 'Mike Thelwall, Information School, University of Sheffield, UK.'",
+      "new": "Adds journal masthead, Sheffield S10 2TN postcode, citation line, DOI 10.2478/jdis-2025-0011, CSTR 32295.14.jdis-2025-0011, 'Received: Aug. 22, 2024; Revised: Nov. 7, 2024; Nov. 29, 2024; Accepted: Dec. 11, 2024', corresponding-author email and ORCID, and a CC BY 4.0 copyright line (p17). Title changed to sentence case only.",
+      "old_page": 1,
+      "new_page": "1 (j.7), 17 (j.23)",
+      "matters_for_EVDs": false
+    }
+  ],
+  "unchanged_confirmed": [
+    "Title wording (capitalisation only), single author, all abstract numbers (0.67, 0.66, 0.66, 31%, 51 papers, 30 iterations).",
+    "Section structure 1-5 and subsections 2.1-2.5, 3.1-3.4, 4.1-4.2 identical; Appendix 1 (Strategies 0-6) and Appendix 2 text identical.",
+    "Methods: 51 articles, author self-scores, 30 iterations, July 2024, temperature 1, top_p 1, max_tokens 1000, models GPT-3.5-turbo / GPT-4o / GPT-4o-mini - identical.",
+    "Table 1 (all 28 correlations), Table 2 (mean scores), Table 3 (MAD, regression intercepts/coefficients, % improvements) identical; Figure 1 image identical; Figure 2-5 captions identical.",
+    "In-text numbers identical, including the pre-existing inconsistencies 0.754 (text) vs 0.757 (Table 1) for abstracts-truncated agreement, and 0.46 (text, titles) vs 0.434 (Table 1).",
+    "Limitations and Conclusion text identical apart from the RQ2 'but'->'and' edit."
+  ],
+  "cosmetic_changes": [
+    "Re-typeset into JDIS journal template: 18 -> 19 PDF pages; journal pagination 7-25; running headers and footers added; page breaks moved, so most content is one PDF page later from p2 onwards.",
+    "Title changed from Title Case to sentence case.",
+    "Section numbers dropped from References ('6 References' -> 'References') and Appendices ('7 Appendix 1' / '8 Appendix 2' -> 'Appendix 1' / 'Appendix 2').",
+    "Straight quotes replaced with curly quotes throughout (prompts, examples, references).",
+    "Number formatting: '87028' -> '87,028', '1000' -> '1,000' in the Analysis section (p6 old / p7 new); '(Spearman: 0.282)' -> '(Spearman = 0.282)'; '1*,2*,3*' -> '1*, 2*, 3*'.",
+    "Minor punctuation: serial commas, 'consisted: of' -> 'consisted of:', 'Twitter”' -> 'Twitter”)'.",
+    "Bullet glyphs for RQ1-RQ4 and averaging list changed (renders as a private-use glyph in text extraction).",
+    "Table 1 re-set with booktabs-style rules; the bold on GPT-4o Abstracts 0.678 (Human column) present in OLD is not bold in NEW. Tables 2 and 3 re-set; values unchanged.",
+    "Figure 1 moved from below the context-window paragraph (old p7) to directly after the 'optimal input' paragraph (new p8); the 'predictions from the three types of input' paragraph moved from old p7 to new p9, after Table 1.",
+    "Hyphenation at line ends in the journal layout (e.g., 'infor- mation', 'sci- ence') - extraction artefacts only."
+  ],
+  "evd_checks": [
+    {
+      "page": "EVD - Full text scored worse than abstracts for 3 ChatGPT models",
+      "quotes": [
+        {
+          "quote_start": "The optimal input for ChatGPT 3.5-turbo seems to be article abstracts (with titles)... Extending abstracts",
+          "still_verbatim": true,
+          "new_page": "8 (j.14)",
+          "cited_page": 7
+        },
+        {
+          "quote_start": "This article assesses which ChatGPT inputs (full text without tables, figures and references;",
+          "still_verbatim": false,
+          "new_page": "1 (j.7); NEW reads 'tables, figures, and references' (serial comma added)",
+          "cited_page": 1
+        },
+        {
+          "quote_start": "Several different datasets were generated to try different extents of input. Truncated dataset:",
+          "still_verbatim": true,
+          "new_page": "5 (j.11)",
+          "cited_page": 4
+        },
+        {
+          "quote_start": "The raw data for this paper is a set of 51 information science journal articles",
+          "still_verbatim": true,
+          "new_page": "4 (j.10)",
+          "cited_page": 3
+        },
+        {
+          "quote_start": "(Other Notes, in quotation marks) obscures the main value of an article by including less relevant text",
+          "still_verbatim": false,
+          "new_page": "14 (j.20); old p13. Not verbatim in either version: the paper says 'full texts as inputs may tend to obscure the main value of an article by including less relevant text that an LLM could pay partial attention to.'",
+          "cited_page": "none cited"
+        }
+      ],
+      "numbers": [
+        {
+          "value": "3 (models, page title)",
+          "status": "same",
+          "note": "Table 1 still has abstract and truncated-text cells for GPT-3.5-turbo, GPT-4o and GPT-4o-mini."
+        },
+        {
+          "value": "0.674 / 0.625 (GPT-3.5-turbo abstracts / truncated)",
+          "status": "same",
+          "note": "Table 1, Human column; new p9 (j.15)."
+        },
+        {
+          "value": "0.678 / 0.675 (GPT-4o abstracts / truncated)",
+          "status": "same",
+          "note": "Table 1; 0.678 is no longer bold in NEW (cosmetic)."
+        },
+        {
+          "value": "0.571 / 0.506 (GPT-4o-mini abstracts / truncated)",
+          "status": "same",
+          "note": "Table 1."
+        },
+        {
+          "value": "0.434 (GPT-3.5-turbo titles)",
+          "status": "same",
+          "note": "Table 1. The text on old p7 / new p8 still says titles correlate 0.46 (Figure 1 at n=30); this paper-internal inconsistency is unchanged."
+        },
+        {
+          "value": "0.539 (labelled 'GPT-4o' titles in Other Notes and the table)",
+          "status": "same",
+          "note": "Value unchanged, but the EVD mislabels it in both versions: 0.539 is the correlation between GPT-3.5-turbo Titles predictions and GPT-4o Abstracts predictions, not a GPT-4o title-only score vs humans. The paper never ran GPT-4o on titles."
+        },
+        {
+          "value": "0.754 (Other Notes, abstract vs truncated agreement)",
+          "status": "same",
+          "note": "In text (new p9). Table 1 cell is 0.757 in both versions; the EVD uses 0.754 in Other Notes and 0.757 in its table. Inconsistency is the paper's, unchanged."
+        },
+        {
+          "value": "0.757 / 0.439 / 0.444 (cross-input agreement table)",
+          "status": "same",
+          "note": "Table 1."
+        },
+        {
+          "value": "Deltas +0.049 / +0.003 / +0.065",
+          "status": "same",
+          "note": "Derived from unchanged Table 1 values; arithmetic correct."
+        },
+        {
+          "value": "51 articles, 30 iterations, temperature 1, top_p 1, max_tokens 1000",
+          "status": "same",
+          "note": "Methods unchanged."
+        }
+      ],
+      "screenshots_note": "Embedded image filenames encode OLD pages (p7, p8, p1, p4, p3). In NEW these passages are on p8 (j.14) for the p7 quote, p9 (j.15) for Table 1 (was p8), p1 (j.7) for the abstract, p5 (j.11) for the datasets passage (was p4), and p4 (j.10) for the raw-data passage (was p3). Table number (Table 1) and Figure 1 reference unchanged. Screenshot images show OLD typesetting and the abstract screenshot shows the pre-serial-comma wording.",
+      "evd_statement_holds": true,
+      "recommended_page_changes": [
+        "If the page is rebased to the published version: update citation to Thelwall (2025) and page cites p7->p8 (j.14), Table 1 p8->p9 (j.15), p1 stays p1 (j.7), p4->p5 (j.11), p3->p4 (j.10).",
+        "Abstract quote: 'tables, figures and references' -> 'tables, figures, and references' to match NEW.",
+        "Other Notes: either quote the paper exactly ('may tend to obscure the main value of an article by including less relevant text that an LLM could pay partial attention to') or drop the quotation marks.",
+        "Other Notes and table (independent of version): fix the 'GPT-4o 0.539' title-only claim; the paper reports no GPT-4o title-only correlation. Set GPT-4o Titles to '—' and remove 'even higher for GPT-4o at 0.539'.",
+        "Other Notes (independent of version): say 0.754 is the in-text value and 0.757 the Table 1 value, or use one consistently."
+      ]
+    },
+    {
+      "page": "EVD - GPT-4o abstract scores correlated r=0.67 with humans",
+      "quotes": [
+        {
+          "quote_start": "The optimal input is the article title and abstract, with average ChatGPT scores based on these",
+          "still_verbatim": true,
+          "new_page": "1 (j.7)",
+          "cited_page": 1
+        },
+        {
+          "quote_start": "The overall research design was to run a series of experiments guided by the research questions",
+          "still_verbatim": true,
+          "new_page": "4 (j.10)",
+          "cited_page": 3
+        },
+        {
+          "quote_start": "Each score request was a single API call, specifying a ChatGPT model, including the system instructions",
+          "still_verbatim": false,
+          "new_page": "5-6 (j.11-12); words identical but NEW renders the prompt as “Score the following journal article:”, (curly quotes, no trailing space). The EVD's single quotes 'Score the following journal article: ' were already a punctuation adaptation of OLD's double quotes.",
+          "cited_page": 5
+        },
+        {
+          "quote_start": "The raw data for this paper is a set of 51 information science journal articles",
+          "still_verbatim": true,
+          "new_page": "4 (j.10)",
+          "cited_page": 3
+        },
+        {
+          "quote_start": "(Other Notes) five might be taken as sufficient for general purposes but additional iterations",
+          "still_verbatim": false,
+          "new_page": "13 (j.19); NEW reads 'for general purposes and additional iterations used when more precise estimates are needed'",
+          "cited_page": "none cited (old p13)"
+        }
+      ],
+      "numbers": [
+        {
+          "value": "0.67 (page title, abstract)",
+          "status": "same",
+          "note": "Abstract new p1 (j.7)."
+        },
+        {
+          "value": "0.678 (GPT-4o Abstracts, Table 1)",
+          "status": "same",
+          "note": "Table 1 new p9 (j.15)."
+        },
+        {
+          "value": "51 articles, 30 iterations, 29 repeats, July 2024, temperature 1, top_p 1, max_tokens 1000",
+          "status": "same",
+          "note": "Methods unchanged."
+        },
+        {
+          "value": "~0.40 single-iteration r",
+          "status": "same",
+          "note": "Not stated as a number in either version; read off Figure 1 (abstracts ~0.39 at n=1), which is identical in NEW (p8, j.14)."
+        },
+        {
+          "value": "-3.40 intercept, 2.05 coefficient, 31%, baseline 2.75",
+          "status": "same",
+          "note": "Table 3 new p12 (j.18) and text new p11-12."
+        },
+        {
+          "value": "0.875 (GPT-4o Abstracts vs GPT-3.5-turbo Abstracts)",
+          "status": "same",
+          "note": "Table 1."
+        },
+        {
+          "value": "Table 3 rows: MAD 0.62/0.69/0.60/0.70/0.63/0.75/0.68; intercepts -3.40/-4.44/-3.46/-7.49/-3.32/-2.44/-1.16; coefficients 2.05/2.28/2.26/3.38/2.07/1.61/1.57; regression MAD 0.50/0.50/0.51/0.55/0.59/0.60/0.63; improvement 31/31/30/24/19/17/13%",
+          "status": "same",
+          "note": "All Table 3 values identical in NEW."
+        },
+        {
+          "value": "Spearman r column 0.678/0.675/0.674/0.625/0.571/0.506/0.434",
+          "status": "same",
+          "note": "Table 1."
+        },
+        {
+          "value": "0.51 (ChatGPT-4 web interface, 15 iterations) and 0.562 (Clinical Medicine)",
+          "status": "same",
+          "note": "Introduction and Discussion 4.1."
+        }
+      ],
+      "screenshots_note": "Embedded image filenames encode OLD pages (p1, p8, p3, p5). In NEW: abstract stays p1 (j.7); Table 1 moves p8->p9 (j.15); both p3 passages move to p4 (j.10); the p5 API-call passage now starts on p5 (j.11) and finishes on p6 (j.12). Table 1 / Table 3 numbering unchanged.",
+      "evd_statement_holds": true,
+      "recommended_page_changes": [
+        "If the page is rebased to the published version: update citation to Thelwall (2025) and page cites Table 1 p8->p9 (j.15), p3->p4 (j.10) for both p3 quotes, p5->pp. 5-6 (j.11-12).",
+        "Other Notes: change the iteration quote to 'five might be taken as sufficient for general purposes and additional iterations used when more precise estimates are needed' and attribute it to the paper's author (single author), not 'Authors'.",
+        "Optional: match the API-call quote's prompt punctuation to NEW (“Score the following journal article:”,)."
+      ]
+    }
+  ]
+}

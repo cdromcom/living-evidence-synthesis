@@ -267,6 +267,7 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 - **[[dgraph]]** — the comprehensive nested index.
 - **[[History]]** — every change ever made to the vault, with phase summaries.
 - **[[Skill]]** — the skill for extracting nodes from new papers.
+- **[[Tools-and-Models]]** — the PDF tools and AI models used so far, and the planned OCR and model toolchain (for maintainers).
 
 ---
 

@@ -74,7 +74,7 @@ apaAuthors:
     family: "Weld"
   - given: "Tom"
     family: "Hope"
-peerReviewStatus: not-checked
+peerReviewStatus: peer-reviewed
 peerReviewNote: "Published in the SDP 2025 workshop proceedings (ACL Anthology); the workshop review process was not checked"
 curatedWithModel: "Claude Sonnet 5"
 curatedWithModelDate: 2026-08-25
