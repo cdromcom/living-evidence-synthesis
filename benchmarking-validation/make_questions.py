@@ -21,7 +21,7 @@ for r in csv.DictReader(open(HERE / "inputs/que_tab.csv")):
         if len(qs) == 1 and len(dq) >= 2: qs = dq      # a split described only in the verdict text
     clean[a] = qs
 QU = []
-for f in sorted((bp.VAULT / "questions").glob("QUE - *.md")):
+for f in sorted((bp.VAULT / "sysrev" / "questions").glob("QUE - *.md")):
     title, body = bp.front(f.read_text())
     keyp = re.search(r"### Key Papers Asking Question(.*?)###", body, re.S)
     QU.append({"title": title.strip(), "papers": set(re.findall(r"\[\[@([^\]|#]+)", keyp.group(1))) if keyp else set()})

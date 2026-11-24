@@ -20,9 +20,9 @@ from PIL import Image
 
 import os
 VAULT = Path(os.environ.get("LIVES_VAULT", Path(__file__).resolve().parent.parent / "vault"))  # the vault/ folder of this repository by default
-EVD_DIR = VAULT / "evidence"
+EVD_DIR = VAULT / "sysrev" / "evidence"
 ATT = EVD_DIR / "Attachments"
-PDF_DIR = VAULT / "source/pdfs"
+PDF_DIR = VAULT / "sysrev" / "source/pdfs"
 OUT = Path(__file__).resolve().parent / "packets"
 QUESTIONS = json.loads((Path(__file__).resolve().parent / "questions_by_evd.json").read_text())  # JP-edited review questions (QUE tab), mapped via paper
 MAX_SIDE, MIN_SIDE = 1400, 280  # fits Perplexity (<=2048 32px tiles) and Jev (each side 280-1568 px, 78,400-2,458,624 px total)
