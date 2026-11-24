@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-021",
+  "evd_title": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines",
+  "citekey": "bougieGenerativeAdversarialReviews2024a",
+  "source_id": "SRC-003",
+  "finding": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines",
+  "P": "1,000-paper subsets each of NeurIPS 2023, ICLR 2022, ICLR 2023 (OpenReview)",
+  "I": "GAR reviewer agent (graph-based memory, persona, multi-round refinement), GPT-4o-mini backbone",
+  "C": "AI-Scientist, OpenReviewer, ReviewerGPT, AI-Review (GPT-4o-mini)",
+  "O": "GPT-4o human-likeness (1-5): GAR 3.89-4.02 vs AI-Scientist 3.34-3.39, AI-Review 3.30-3.42, ReviewerGPT 3.25-3.29, OpenReviewer 2.43-2.45",
+  "S": "LLM-as-judge cross-dataset evaluation",
+  "T": "NeurIPS 2023, ICLR 2022, ICLR 2023 submissions (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

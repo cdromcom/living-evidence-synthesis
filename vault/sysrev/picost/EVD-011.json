@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-011",
+  "evd_title": "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A",
+  "citekey": "robertsComparativeStudyChatGPT2023",
+  "source_id": "SRC-012",
+  "finding": "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A",
+  "P": "30 implant-dentistry RCT abstracts (Menne, Pandis & Faggion 2021 SR)",
+  "I": "ChatGPT GPT-3.5 (no version pin), zero-shot fixed prompt with CONSORT-A item definitions; single run",
+  "C": "2 clinician reviewers (consensus >=80%, then one reviewer solo)",
+  "O": "Bland-Altman mean difference in overall compliance score % (human - ChatGPT) = 4.92% (printed 95% CI 0.62%, 0.37% likely typo)",
+  "S": "Cross-sectional method-comparison / agreement study",
+  "T": "Not reported (paper 2023)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

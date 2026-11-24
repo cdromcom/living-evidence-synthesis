@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-004",
+  "evd_title": "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set",
+  "citekey": "shahidLiteratureGroundedNoveltyAssessment2025",
+  "source_id": "SRC-014",
+  "finding": "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set",
+  "P": "32-idea held-out test set of scientific ideas (CS/NLP; Scideator + ICLR/NeurIPS), expert binary novelty labels",
+  "I": "AI Scientist (Lu et al.) novelty prompt, few-shot, given idea + fixed top-10 retrieved papers (prompt-only swap)",
+  "C": "Expert labels (2 authors); Idea Novelty Checker gpt-4o (kappa 0.59); AI Researcher gpt-4o and Claude-3.5-Sonnet",
+  "O": "AI Scientist: Acc 0.47, F1 0.44, kappa 0.05; vs INC F1 0.79/kappa 0.59; AI Researcher gpt-4o F1 0.75/kappa 0.52",
+  "S": "Comparative few-shot LLM benchmark on expert-annotated test set",
+  "T": "Ideas from Scideator + ICLR 2022/NeurIPS 2023 OpenReview; gpt-4o run Aug-Sep 2024; paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

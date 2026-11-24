@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-049",
+  "evd_title": "LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases",
+  "citekey": "sonWhenAICoScientists2025",
+  "source_id": "SRC-015",
+  "finding": "LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases",
+  "P": "SPOT benchmark: 83 STEM manuscripts, 91 author-confirmed errors (47 source papers, 10 domains); 83 x 6 = 498 model-instance evaluations",
+  "I": "6 proprietary multimodal LLMs (o3, GPT-4.1, Gemini-2.5-Pro, Gemini-2.0-Flash-Lite, Claude-3.7-Sonnet +/-Thinking); zero-shot, text+images, 8 runs",
+  "C": "Other models; perfect-calibration diagonal vs pass@4",
+  "O": "Run-frequency confidence: full confidence (detected in 8/8 runs) in 2 of 498 evaluations, both o3; KDE peaks near 0",
+  "S": "Post-hoc calibration sub-analysis of benchmark",
+  "T": "Post-2024 WithdrarXiv/PubPeer papers; models o3 2025-04-16, GPT-4.1 2025-04-14 etc. (paper 2025)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-016",
+  "evd_title": "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings",
+  "citekey": "woelfleBenchmarkingHumanAICollaboration2024",
+  "source_id": "SRC-021",
+  "finding": "Combined LLMs with consistency approach reached 75-88 percent accuracy for PRISMA while deferring 4-74 percent of ratings",
+  "P": "PRISMA ratings: 27 items x 112 pediatric-surgery SRs/MAs (up to 3,024; Cullis et al.)",
+  "I": "Ensemble of 9 runs (2x Claude-3-Opus, 2x Claude-2, 1x GPT-4, 2x GPT-3.5, 2x Mixtral-8x22B); consistency threshold 5/9-9/9, temp 0",
+  "C": "Human consensus of 2 raters (reference); deferred items go to humans",
+  "O": "PRISMA kappa 0.59 (5/9, 4% deferred) to 0.77 (9/9, 74% deferred); accuracy 75-88%",
+  "S": "Cross-sectional benchmark (consistency-based LLM ensemble)",
+  "T": "Not reported (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

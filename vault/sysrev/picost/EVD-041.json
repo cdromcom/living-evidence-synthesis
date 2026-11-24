@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-041",
+  "evd_title": "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%",
+  "citekey": "xuCanLLMsIdentify2025",
+  "source_id": "SRC-024",
+  "finding": "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%",
+  "P": "LIMITGEN-Syn: 1,000 perturbed examples from 500 NLP arXiv papers (11 limitation subtypes)",
+  "I": "GPT-4o zero-shot limitation generation (top-3); also GPT-4o-mini, Llama-3.3-70B, Qwen-2.5-72B",
+  "C": "Human experts (2 annotators); MARG multi-agent (GPT-4o-mini agents); other LLMs",
+  "O": "Coarse accuracy (GPT-4o judge): GPT-4o 52.0%, MARG 68.1%, human 86.0%; judge IAA kappa 0.833",
+  "S": "Cross-sectional benchmark (synthetic perturbations)",
+  "T": "arXiv NLP papers Mar-May 2024 (paper 2025)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

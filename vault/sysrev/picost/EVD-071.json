@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-071",
+  "evd_title": "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs",
+  "citekey": "srinivasanEvaluatingReportingQuality2025a",
+  "source_id": "SRC-018",
+  "finding": "Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs",
+  "P": "21,041 open-access human RCT full texts from PubMed (of 53,137), medicine; high-confidence subset; periods n=2,771/1,969/3,765/10,447",
+  "I": "GPT-4o-mini (Azure), zero-shot, one prompt per CONSORT criterion over full text (PDF->XML); 21 of 25 items; high-confidence only",
+  "C": "None (between-period comparison)",
+  "O": "Mean CONSORT compliance 27.3% (1966-1990), 33.9%, 45.0%, 56.1% (2010-2024); p<0.0001 each step",
+  "S": "Cross-sectional + temporal trend analysis",
+  "T": "RCTs published 1966-2024 (paper 2025)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

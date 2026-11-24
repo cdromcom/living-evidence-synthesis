@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-054",
+  "evd_title": "LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams",
+  "citekey": "huntington-kleinLLMsActRepositories2024",
+  "source_id": "SRC-006",
+  "finding": "LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams",
+  "P": "172 candidate confounders (112 expert-considered + 60 non-confounders), Coronary Drug Project, causal inference/medicine",
+  "I": "Claude 3.5 Sonnet, GPT-4o (temp 0.7, 10 calls), GPT-o1-preview (1 call); few-shot (3 worked examples), MCQ, direct/indirect prompts",
+  "C": "Expert-curated confounder sets (CDPRG 1980, Murray & Hernan 2016, Debertin 2024) incl. trimmed and non-confounders",
+  "O": "Direct, % at 100% confounder: trimmed 79/89/95% vs Added-in-2016 50/50/80% and Final DAG 69/76/71% (Claude/GPT-4o/o1)",
+  "S": "Ground-truth-anchored LLM benchmark (single case study)",
+  "T": "Not reported; expert sets from CDPRG 1980, Murray & Hernan 2016, Debertin 2024 (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

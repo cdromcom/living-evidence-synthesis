@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-015",
+  "evd_title": "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments",
+  "citekey": "louAAAR10AssessingAIs2025",
+  "source_id": "SRC-011",
+  "finding": "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments",
+  "P": "11,376 review segments from 380 human reviews of 100 ICLR papers (ReviewCritique, AAAR-1.0), expert deficiency labels",
+  "I": "Claude Opus (page also lists claude-3-5-sonnet-20240620), zero-shot; Labeling-All/Select-Deficient prompts + ensembling",
+  "C": "40+ AI expert labels; GPT-4, Gemini 1.5 Pro, Llama3-8B/70B, Qwen2-72B",
+  "O": "Segment-level F1: Claude Opus 21.99% (P 16.94, R 42.12, Either-No); GPT-4 20.66%; Gemini 1.5 20.34%; Llama3-70B 18.43%",
+  "S": "Cross-sectional benchmark (zero-shot)",
+  "T": "ICLR submissions (years not reported); paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}
