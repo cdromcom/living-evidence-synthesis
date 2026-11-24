@@ -109,8 +109,8 @@ extend the discourse graph directly:
    so you can tell AI-drafted nodes from human-checked ones.
 
 The vault has two parent folders: `vault/sysrev/` holds the systematic-review content
-(questions, claims, evidence and its `Attachments/`, caveats, evd-patterns, source, indexes,
-reference) and `vault/pipeline/` holds the meta content about how the review is built and
+(the discourse-graph nodes under `dgraph/`: questions, claims, evidence and its `Attachments/`,
+caveats, evd-patterns, source; plus indexes, picost, reference) and `vault/pipeline/` holds the meta content about how the review is built and
 published (skills, templates, scripts, logs, legal, misc). Only `vault/Welcome.md` sits at
 the vault root.
 
@@ -133,7 +133,7 @@ at `vault/` into `lib/graph-data.generated.json`. Re-run it
 (`node scripts/build-graph.mjs`) after editing the vault, and commit both
 the vault change and the regenerated JSON together.
 
-Note: `vault/sysrev/source/pdfs/` (the full source paper PDFs) is deliberately
+Note: `vault/sysrev/dgraph/source/pdfs/` (the full source paper PDFs) is deliberately
 excluded from this repo; publishing entire copyrighted articles publicly
 isn't something this project does. The embedded screenshot crops of
 individual tables/figures inside node markdown files are committed, under
@@ -398,7 +398,7 @@ recurring:
 
 ## Source page design (SRC nodes)
 
-Each `SRC` node page (`vault/sysrev/source/*.md`) renders its trust signals as a
+Each `SRC` node page (`vault/sysrev/dgraph/source/*.md`) renders its trust signals as a
 **nutrition-style panel** behind the "Show Quality Signals" button
 (`components/QualitySignalsTable.tsx`): one row per signal, grouped under
 Transparency / Openness / Rigor / Integrity, with Rigor's bands (Validity,

@@ -20,7 +20,7 @@ from pathlib import Path
 
 VAULT = Path("/Users/ppatel/Documents/living-synthesis")
 TOPICS = VAULT / "sysrev" / "indexes" / "Review-Arena.md"
-QUE_DIR = VAULT / "sysrev" / "questions"
+QUE_DIR = VAULT / "sysrev" / "dgraph" / "questions"
 
 # Match the QUE wikilink in a Details cell.
 # Format inside table cells: [[QUE - title?\|→]] or [[QUE - title?\|→ 5 EVDs]]

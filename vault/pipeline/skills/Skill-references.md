@@ -60,7 +60,7 @@ from pathlib import Path
 
 embeds = defaultdict(list)
 for f in Path('.').rglob('*.md'):
-    if not any(p in str(f) for p in ('sysrev/evidence/', 'sysrev/claims/', 'sysrev/caveats/', 'sysrev/questions/', 'sysrev/source/')):
+    if not any(p in str(f) for p in ('sysrev/dgraph/evidence/', 'sysrev/dgraph/claims/', 'sysrev/dgraph/caveats/', 'sysrev/dgraph/questions/', 'sysrev/dgraph/source/')):
         continue
     lines = f.read_text().split('\n')
     for i, line in enumerate(lines):
@@ -97,7 +97,7 @@ for png, refs in embeds.items():
 10. **Discourse-graph attachment invariants (Step 5b enforces).** Every CVT's `appliesTo` lists only EVDs (no CLMs). Every CLM appears in at least one QUE's nested `### Supporting Claims (with their evidence)` block. Every EVD appears in at least one CLM's `### Supporting Evidence` *and* at least one QUE's nested structure. Violations are blockers — fix or document before promoting NodeFormality.
 11. **Generated documents (DGRAPH.md, audit reports, etc.) carry properties + provenance.** YAML frontmatter must include `author`, `page_type`, `created`, `updated`, `generated_by` (the script or skill), and `prompt_source` (a wikilink to the originating prompt saved under `prompts/`). Notes for human readers go below the frontmatter as Obsidian callout boxes (`[!info]`, `[!tip]`, `[!caution]`, etc.) rather than free prose, so the rendered properties panel stays clean.
 12. **Every QUE / CLM / EVD / CVT carries a populated `nodeID` (UUIDv7) in its frontmatter.** This is a stable, file-rename-safe identifier for the node — used for deduplication, cross-referencing across vault renames, and any future external indexing. Generate at node-creation time with `python3 -c "import uuid; print(uuid.uuid7())"`. Never leave the `nodeID:` field blank. To backfill an empty nodeID across the whole vault: `python3` script in `History.md` Phase 22 entry.
-13. **Every EVD carries 8 inherited paper-level rigor tags in its frontmatter**, and every source (`sysrev/source/@<citekey>.md`) carries those same 8 plus 6 more benchmarking-specific ones directly. These summarize the paper's `## Quality appraisal` (renamed from "Critical appraisal" in 2026-08; 5 original domains × 🟢/🟡/🔴, now a 10–11-row quote-grounded table — see Skill-templates.md Step 6.c) and `## TRIPOD-LLM reporting summary` (✅/⚠️/❌/➖ across 42 items, now with a verbatim-quote `Quote` column — see Step 4b) so a reader can filter EVDs by methodological rigor without opening the source page. Tag scheme:
+13. **Every EVD carries 8 inherited paper-level rigor tags in its frontmatter**, and every source (`sysrev/dgraph/source/@<citekey>.md`) carries those same 8 plus 6 more benchmarking-specific ones directly. These summarize the paper's `## Quality appraisal` (renamed from "Critical appraisal" in 2026-08; 5 original domains × 🟢/🟡/🔴, now a 10–11-row quote-grounded table — see Skill-templates.md Step 6.c) and `## TRIPOD-LLM reporting summary` (✅/⚠️/❌/➖ across 42 items, now with a verbatim-quote `Quote` column — see Step 4b) so a reader can filter EVDs by methodological rigor without opening the source page. Tag scheme:
     - 5 per-domain appraisal tags: `appraisal/{construct-validity,internal-validity,external-validity,statistical-rigor,reproducibility}/{low-risk,some-concerns,high-risk}`
     - 1 appraisal-summary tag: `appraisal/overall/L<n>-M<n>-H<n>` (counts of low / some-concerns / high domains)
     - 1 TRIPOD-LLM compliance bucket: `tripod-llm/compliance/{high,moderate,low}` — high ≥80% ✅ rate, moderate 60-80%, low <60% (proportion = ✅ / (✅+⚠️+❌), ➖ excluded; **scoped to Methods 5a–15 + Results 16a–18 only** — the four 2026-08-added Title/Abstract/Background/Objectives items 1–4 do not factor into this percentage)
@@ -177,14 +177,14 @@ Prevention: Skill.md Step 6b (numeric audit). Full record: `pipeline/misc/evd-va
 ### Subagent batching (when scaling across many papers)
 
 - **Watchdog timeout is 10 min of no-progress.** Watch for: many tool calls, large PDFs read in one shot, exploratory `ls`/`grep`/`Read` after the work is done. Stalled agents are killed mid-stream.
-- **Reach 10-min timeout != lost work.** Failed agents often completed most of the writes. Before re-launching, check artifact state (`grep -l "updated: <today>"`, `wc -l sysrev/source/@<citekey>.md`) — sometimes only the source-file table needs to be finished.
+- **Reach 10-min timeout != lost work.** Failed agents often completed most of the writes. Before re-launching, check artifact state (`grep -l "updated: <today>"`, `wc -l sysrev/dgraph/source/@<citekey>.md`) — sometimes only the source-file table needs to be finished.
 - **Subagent prompts should reference a shared brief** under `pipeline/misc/prompts/<date>-<task>.md` instead of duplicating the full schema 26 times. Keep the per-paper prompt to ~150 words: citekey, PDF path, working dir, brief path, "report back per the brief".
 - **Subagents must NOT run the screenshot pipeline.** The parent runs it once after all subagents return so canonical-name idx values are globally consistent.
 - **Subagents must NOT insert quote-region embed lines.** They edit markdown text only; the parent's pipeline run inserts embeds.
 
 ### Source-file structure (frontmatter-only papers)
 
-When a `sysrev/source/@<citekey>.md` is just frontmatter (no `## TRIPOD-LLM reporting summary` section), that paper hasn't been processed under the Phase 18 schema. Append the section, don't replace the frontmatter.
+When a `sysrev/dgraph/source/@<citekey>.md` is just frontmatter (no `## TRIPOD-LLM reporting summary` section), that paper hasn't been processed under the Phase 18 schema. Append the section, don't replace the frontmatter.
 
 ### `curatedWithModel` / `curatedWithModelDate` frontmatter (2026-08 addition)
 

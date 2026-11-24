@@ -51,7 +51,7 @@ Instead of one long literature-review document, the vault decomposes findings in
 >     ↳ bundles 🔬 EVDs from Zhang Reviewing, Son SPOT, Lou AAAR, …
 > ```
 >
-> EPs are the *cross-paper* layer: a single EP wires together ≥2 EVDs from independent papers that converge on the same regularity, even if no single paper makes the EP-level claim itself. EPs live in `sysrev/evd-patterns/` and currently number 21.
+> EPs are the *cross-paper* layer: a single EP wires together ≥2 EVDs from independent papers that converge on the same regularity, even if no single paper makes the EP-level claim itself. EPs live in `sysrev/dgraph/evd-patterns/` and currently number 21.
 
 ---
 
@@ -63,11 +63,11 @@ Instead of one long literature-review document, the vault decomposes findings in
 >
 > 🟪 **Filter-by-property.** Open [[ESS - Demo]] — a live database with 22 pre-built views for slicing the corpus by node type, 5C research dimension, methodological rigor, severity, or workflow status. Best when you want "show me only EVDs from low-external-validity-risk papers" or similar property filters.
 >
-> 🟩 **Question-first.** Browse the `sysrev/questions/` folder. Each QUE file lists its supporting CLMs with EVDs nested underneath.
+> 🟩 **Question-first.** Browse the `sysrev/dgraph/questions/` folder. Each QUE file lists its supporting CLMs with EVDs nested underneath.
 >
-> 🟨 **Paper-first.** Browse `sysrev/source/pdfs/` (the original papers) or `sysrev/source/@<citekey>.md` (the bibliographic stub). EVDs from a paper are filename-tagged with `@<citekey>` so a folder grep finds them. The [[DGRAPH-TABLE]] shows a paper × node-type matrix for skimming.
+> 🟨 **Paper-first.** Browse `sysrev/dgraph/source/pdfs/` (the original papers) or `sysrev/dgraph/source/@<citekey>.md` (the bibliographic stub). EVDs from a paper are filename-tagged with `@<citekey>` so a folder grep finds them. The [[DGRAPH-TABLE]] shows a paper × node-type matrix for skimming.
 >
-> 🕸️ **Pattern-first.** Browse `sysrev/evd-patterns/` — the 21 cross-paper EvidencePatterns (EPs). Each EP names a regularity that ≥2 papers' EVDs jointly support, with a `## Supporting Evidence` block listing the constituent EVDs and a `## Connected discourse-graph nodes` block tying the pattern to the within-paper CLMs it generalizes. Best when you want the *thesis-level* takeaways across the corpus rather than per-paper findings.
+> 🕸️ **Pattern-first.** Browse `sysrev/dgraph/evd-patterns/` — the 21 cross-paper EvidencePatterns (EPs). Each EP names a regularity that ≥2 papers' EVDs jointly support, with a `## Supporting Evidence` block listing the constituent EVDs and a `## Connected discourse-graph nodes` block tying the pattern to the within-paper CLMs it generalizes. Best when you want the *thesis-level* takeaways across the corpus rather than per-paper findings.
 >
 > 🏆 **Leaderboard view.** Open [[Review-Arena]] — a head-to-head leaderboard of who wins at each subtask: AI alone, Human alone, or Human + AI. Each Subtask cell links back to its QUE for the full evidence base.
 
@@ -80,12 +80,13 @@ living-synthesis/
 ├── 👋  Welcome.md                  ← this file (the only file at the root)
 ├── 🔬  sysrev/                     ← the systematic-review content
 │   ├── 🗺️  indexes/               ← dgraph.md (start here: central nested index), DGRAPH-TABLE.md, Review-Arena.md, ESS files
-│   ├── ❓  questions/             ← QUE notes
-│   ├── 💡  claims/                ← CLM notes
-│   ├── 🔬  evidence/              ← EVD notes + Attachments/ (all PNGs)
-│   ├── ⚠️  caveats/               ← CVT notes
-│   ├── 🕸️  evd-patterns/          ← EP notes (cross-paper regularities, ≥2 EVDs each)
-│   ├── 📚  source/                ← bibliographic notes + pdfs/
+│   ├── 🧩  dgraph/                ← the discourse-graph nodes
+│   │   ├── ❓  questions/             ← QUE notes
+│   │   ├── 💡  claims/                ← CLM notes
+│   │   ├── 🔬  evidence/              ← EVD notes + Attachments/ (all PNGs)
+│   │   ├── ⚠️  caveats/               ← CVT notes
+│   │   ├── 🕸️  evd-patterns/          ← EP notes (cross-paper regularities, ≥2 EVDs each)
+│   │   └── 📚  source/                ← bibliographic notes + pdfs/
 │   └── 🗃️  reference/             ← background notes and the paraphrase audit TSV
 └── 🛠️  pipeline/                   ← how the review is built and published
     ├── 🛠️  skills/                ← Skill*.md (how new papers are extracted), Tools-and-Models.md
@@ -333,7 +334,7 @@ flowchart TB
 
 **Per-paper extraction** (one PDF in, ~5 nodes + ~8 PNGs out):
 
-1. Drop the PDF into `sysrev/source/pdfs/<citekey>.pdf`.
+1. Drop the PDF into `sysrev/dgraph/source/pdfs/<citekey>.pdf`.
 2. Follow `Skill.md` Steps 1–10 — read the paper, identify QUE / EVD / CLM / CVT nodes, render screenshots, write the node files (with the What/How/Who Methods Context schema), write the source-page TRIPOD-LLM table + critical-appraisal table, run the screenshot pipeline, build reverse links, audit, and promote `NodeFormality`.
 3. Save the originating prompt (your request that scoped the extraction) to `pipeline/misc/prompts/<date>-<slug>.md`.
 4. Append a phase entry to `History.md` describing every concrete change (files added/edited, PNG counts, lessons).
@@ -341,7 +342,7 @@ flowchart TB
 
 **Cross-paper synthesis refresh** (run when the new paper's EVDs/CLMs may bear on existing EvidencePatterns or leaderboard rows):
 
-6. **Open / extend EvidencePatterns.** If the new paper's EVDs converge with ≥1 existing paper on a regularity, add the new EVD wikilinks to the relevant `sysrev/evd-patterns/EP - …md` file's `## Supporting Evidence` block. If the new paper opens a *new* cross-paper pattern with ≥1 prior paper, write a new EP node (see `Skill.md` Step 11 for the template).
+6. **Open / extend EvidencePatterns.** If the new paper's EVDs converge with ≥1 existing paper on a regularity, add the new EVD wikilinks to the relevant `sysrev/dgraph/evd-patterns/EP - …md` file's `## Supporting Evidence` block. If the new paper opens a *new* cross-paper pattern with ≥1 prior paper, write a new EP node (see `Skill.md` Step 11 for the template).
 7. Run `python3 pipeline/misc/scripts/link_eps_to_ques.py` to refresh the `### Cross-paper patterns` section on every QUE based on EP↔EVD overlap.
 8. Run `python3 pipeline/misc/scripts/add_tldr_callouts.py` if the new source page added or changed its `**Bottom line.**` paragraph (regenerates the TL;DR callout above the structured abstract).
 9. Run `python3 pipeline/misc/scripts/count_evds_per_subtask.py` to refresh the `→ N EVDs` caption next to each Subtask name on `Review-Arena.md`.

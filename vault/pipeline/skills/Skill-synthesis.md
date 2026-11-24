@@ -25,7 +25,7 @@ The discourse-graph layer (QUE / CLM / EVD / CVT) is paper-internal: each EVD be
 
 ### EvidencePattern (EP) node format
 
-EP files live in `sysrev/evd-patterns/` and use the same frontmatter conventions as other discourse-graph nodes (`nodeID`, `5c/*` tags, etc.) plus:
+EP files live in `sysrev/dgraph/evd-patterns/` and use the same frontmatter conventions as other discourse-graph nodes (`nodeID`, `5c/*` tags, etc.) plus:
 
 - `nodeTypeId: node_tzL95oDi6eYeRIHeY_rCh` — the discourse-graph plugin's EP type ID
 - `tags:` includes `ep/strength/<N>-papers` (count of distinct source papers in the supporting EVDs) and `ep/scope/cross-paper`
@@ -98,7 +98,7 @@ Build output goes to `../../../living-synthesis-site/` (sibling to the vault). M
 
 Hooks run in this order (set in `mkdocs.yml`):
 
-1. **`rigor_badges.py`** — for each `sysrev/source/@*.md` page, emits a 4-badge bar (Topic / Rigor / TRIPOD-LLM / Caveats) above the TL;DR. Reads raw `[[QUE]]` / `[[CVT]]` wikilinks, so it must run before `wikilinks.py`.
+1. **`rigor_badges.py`** — for each `sysrev/dgraph/source/@*.md` page, emits a 4-badge bar (Topic / Rigor / TRIPOD-LLM / Caveats) above the TL;DR. Reads raw `[[QUE]]` / `[[CVT]]` wikilinks, so it must run before `wikilinks.py`.
 2. **`leaderboard.py`** — wraps each markdown table on `sysrev/indexes/Review-Arena.md` in a `<div class="ls-leaderboard">` wrapper so `sortable.js` can find and decorate it. Page set is the `LEADERBOARD_PAGES` constant — add new pages there as new leaderboards appear.
 3. **`bases.py`** — intercepts `![[*.base]]` embeds (which Obsidian Bases owns and MkDocs doesn't natively render) and emits a Material `=== "Tab Name"` tabbed block, one tab per view in the .base file. Filter language supported: `file.name.startsWith()`, `file.name.contains()`, `file.tags.contains()`, `file.inFolder()`, `note.PROP == "X"`.
 4. **`wikilinks.py`** — converts Obsidian `[[wikilinks]]` and `![[embeds]]` into URL-encoded relative markdown links MkDocs can resolve. Crucially, **unescapes `\|`** (the markdown-table escape) before splitting target/display, so wikilinks inside table cells work.
@@ -112,7 +112,7 @@ Hooks run in this order (set in `mkdocs.yml`):
 
 ### Excludes
 
-`exclude_docs:` in `mkdocs.yml` hides `pipeline/public/.venv/`, `pipeline/public/site/`, `pipeline/public/hooks/`, `pipeline/misc/`, `pipeline/templates/`, `*.base`, `sysrev/questions/attachments/`, `sysrev/source/pdfs/`, `pipeline/logs/History.md`, `pipeline/logs/Log.md`, `pipeline/skills/Skill.md`. Update when adding new internal-only files.
+`exclude_docs:` in `mkdocs.yml` hides `pipeline/public/.venv/`, `pipeline/public/site/`, `pipeline/public/hooks/`, `pipeline/misc/`, `pipeline/templates/`, `*.base`, `sysrev/dgraph/questions/attachments/`, `sysrev/dgraph/source/pdfs/`, `pipeline/logs/History.md`, `pipeline/logs/Log.md`, `pipeline/skills/Skill.md`. Update when adding new internal-only files.
 
 ---
 

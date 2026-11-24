@@ -18,8 +18,8 @@ import re
 from pathlib import Path
 
 VAULT = Path("/Users/ppatel/Documents/living-synthesis")
-QUE_DIR = VAULT / "sysrev" / "questions"
-EP_DIR = VAULT / "sysrev" / "evd-patterns"
+QUE_DIR = VAULT / "sysrev" / "dgraph" / "questions"
+EP_DIR = VAULT / "sysrev" / "dgraph" / "evd-patterns"
 
 WIKILINK_RE = re.compile(r"\[\[([^\]]+?)\]\]")
 EVD_PREFIX = "EVD -"
@@ -43,7 +43,7 @@ def extract_evd_links(text: str) -> set[str]:
 
 def evd_to_citekey(evd_target: str) -> str | None:
     """Citekey of an EVD, read from the [[@citekey]] link in its `## Source` section."""
-    p = VAULT / 'sysrev' / 'evidence' / f'{evd_target.split('#')[0].strip()}.md'
+    p = VAULT / 'sysrev' / 'dgraph' / 'evidence' / f'{evd_target.split('#')[0].strip()}.md'
     if not p.exists():
         return None
     m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)

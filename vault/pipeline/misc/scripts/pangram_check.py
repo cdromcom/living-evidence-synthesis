@@ -31,7 +31,7 @@ import fitz  # PyMuPDF
 from pangram import Pangram
 
 VAULT = Path(__file__).resolve().parents[3]
-PDF_DIR = VAULT / "sysrev" / "source" / "pdfs"
+PDF_DIR = VAULT / "sysrev" / "dgraph" / "source" / "pdfs"
 MODEL = "pangram-4"
 
 # citekey -> (SRC node id, PDF filename)
