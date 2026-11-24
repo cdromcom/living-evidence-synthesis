@@ -22,9 +22,9 @@ def bar(text, ncols=8):
     cell(r, 1, text, True, GREEN, TXT); r += 1
 cell(r, 1, f"LOG: {NAME}. Prompts, example requests and every output, kept for later review", True, size=14); r += 1
 for k, v in [("Model id / access", f"{META[0]} via {META[1]}"),
-             ("Runs", "smoke and lat = pilots (earlier prompts, EVD 4-6 and 7-9); r1 = Run 1 (judgment of record, 2026-11-24 UTC); r1fix = EVD 21 and 38 re-judged after the quote-parser fix, overriding r1 for those two EVDs; Run 2 = not run yet."),
+             ("Runs", "smoke and lat = pilots (earlier prompts, EVD 4-6 and 7-9); r1 = Run 1 (judgment of record, 2026-11-24 UTC); r1fix = EVD 21 and 38 re-judged after the quote-parser fix, overriding r1 for those two EVDs; r2 = Run 2 (2026-11-24 UTC, every screenshot shown, paraphrased text added to the table task); r2t = Run 2 table/figure rerun with JP's Missing-by-rule (r2t holds the r2 relevancy, fidelity and quote records unchanged plus the rerun table/figure records; r2 table/figure rows are superseded by r2t)."),
              ("Run 1 prompt state", "fidelity prompt v3 (JP gist rule, worked examples from EVD 1-3), review questions, verbatim-quote rule, quote and table/figure judged from the slot the vault page used, no-table-screenshot = Missing by rule."),
-             ("Run 2 prompt state", "every Description screenshot shown without slot labels with a per-screenshot question; table/figure task also gets the paraphrased text under the table/figure; Missing by rule only when the page has no screenshot."),
+             ("Run 2 prompt state", "every Description screenshot shown without slot labels with a per-screenshot question; table/figure task also gets the paraphrased text under the table/figure; Missing by rule only when the page has no screenshot (r2). r2t: Missing by rule when the page has no screenshot in the table/figure slot (JP's rule), otherwise the models judge with every screenshot shown; Opus's r2 judgements were reused for the EVDs that have one."),
              ("Code and data", "github.com/cdromcom/living-evidence-synthesis, folder benchmarking-validation (pull request 8). Raw outputs: results/<provider>.<run>.jsonl.")]:
     cell(r, 1, k, True); cell(r, 2, v); ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=8); r += 1
 r += 1
@@ -50,7 +50,7 @@ if prov != "opus":
             cell(r, 1, run); cell(r, 2, f.stem.replace("perplexity-", ""), True); cell(r, 3, f.read_text()); ws.merge_cells(start_row=r, start_column=3, end_row=r, end_column=8); r += 1
     r += 1
 bar("C. OUTPUTS (one row per record; r1fix rows supersede r1 for the same EVD and task)", 14)
-H = ["Run id", "EVD", "Task", "Rule-based (no model call)", "Model id returned", "Time (UTC)", "Input tokens", "Latency (s)", "Images sent", "Label", "Probabilities", "All answers (JSON)", "Reason (Opus only)", "Superseded by r1fix"]
+H = ["Run id", "EVD", "Task", "Rule-based (no model call)", "Model id returned", "Time (UTC)", "Input tokens", "Latency (s)", "Images sent", "Label", "Probabilities", "All answers (JSON)", "Reason (Opus only)", "Superseded (r1fix, or r2t for r2 table rows)"]
 for c, h in enumerate(H, 1): cell(r, c, h, True)
 head_row = r; r += 1
 fixed = set()
@@ -72,8 +72,8 @@ for f in sorted(glob.glob(str(HERE / f"results/{prov}.*.jsonl"))):
     for x in map(json.loads, open(f)):
         rows.append((run, x["evd"], x["task"], "yes" if x.get("rule_based") else "", x.get("model", ""), (x.get("ts") or "")[:19].replace("T", " "),
                      (x.get("usage") or {}).get("input_tokens", ""), x.get("latency_s", ""), x.get("images_sent", ""), label(x), probs(x),
-                     json.dumps(x.get("answers"), ensure_ascii=False), x.get("reason", ""), "yes" if run == "r1" and (x["evd"], x["task"]) in fixed else ""))
-order = {"smoke": 0, "lat": 1, "r1": 2, "r1fix": 3}
+                     json.dumps(x.get("answers"), ensure_ascii=False), x.get("reason", ""), "yes" if (run == "r1" and (x["evd"], x["task"]) in fixed) or (run == "r2" and x["task"] == "table") else ""))
+order = {"smoke": 0, "lat": 1, "r1": 2, "r1fix": 3, "r2": 4, "r2t": 5}
 for row in sorted(rows, key=lambda t: (order.get(t[0], 9), t[1], t[2])):
     for c, v in enumerate(row, 1): cell(r, c, v, wrap=(c in (11, 13)))
     r += 1
@@ -81,9 +81,11 @@ if prov == "opus" and (HERE / "opus_usage.json").exists():
     u = json.load(open(HERE / "opus_usage.json")); r += 1; bar("D. OPUS SUBAGENT BATCHES (tokens and time)", 8)
     for c, h in enumerate(["Batch", "EVDs", "Subagent tokens", "Duration (s)"], 1): cell(r, c, h, True)
     r += 1
-    for b in u["batches"]:
-        for c, v in enumerate([b["evds"], b["evds_n"], b["tokens"], round(b["duration_ms"] / 1000, 1)], 1): cell(r, c, v)
-        r += 1
-    cell(r, 1, u["cost_note"]); ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=8)
+    u2 = json.load(open(HERE / "opus_usage_r2.json"))
+    for lab, uu in (("Run 1", u), ("Run 2", u2)):
+        for b in uu["batches"]:
+            for c, v in enumerate([f"{lab}: {b['evds']}", b["evds_n"], b["tokens"], round(b["duration_ms"] / 1000, 1)], 1): cell(r, c, v)
+            r += 1
+        cell(r, 1, uu["cost_note"]); ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=8); r += 1
 for col, w in zip("ABCDEFGHIJKLMN", [26, 34, 70, 22, 22, 20, 14, 12, 12, 18, 60, 70, 60, 14]): ws.column_dimensions[col].width = w / 7 * 1.0 if w < 30 else w / 7
 wb.save(HERE / f"sheets/log-{prov}.xlsx"); print(prov, "log rows:", len(rows), "total rows:", r)
