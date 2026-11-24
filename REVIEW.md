@@ -378,7 +378,7 @@ Also explicitly out of scope, with reasons on record:
 ## Runbook: adding trust signals for a new or updated source
 
 This is the reusable procedure for extending trust-signal coverage —
-whether new sources get added to `vault/sysrev/source/`, or previously-missing
+whether new sources get added to `vault/sysrev/dgraph/source/`, or previously-missing
 PDFs finally sync in. It's written so a future session can follow it
 without re-deriving the method from scratch.
 
@@ -467,9 +467,9 @@ python3 - <<'PYEOF'
 import os, re
 FIELDS = ["doi", "predatoryPublisherFlag", "critiqueStatus", "authorTrackRecord",
           "selfCitationRate", "doajListed", "pubpeerCommentCount", "apaTitle", "peerReviewStatus"]
-for f in sorted(os.listdir("vault/sysrev/source")):
+for f in sorted(os.listdir("vault/sysrev/dgraph/source")):
     if not f.endswith(".md"): continue
-    fm = open(f"vault/sysrev/source/{f}").read().split("---")[1]
+    fm = open(f"vault/sysrev/dgraph/source/{f}").read().split("---")[1]
     missing = [field for field in FIELDS if not re.search(rf"^{field}:", fm, re.M)]
     if missing:
         print(f[1:-3], missing)
@@ -484,7 +484,7 @@ list as new trust signals get built.
 
 1. Validate YAML across all 27 files before moving on — a single misplaced
    list item breaks the whole frontmatter block silently:
-   `python3 -c "import glob, yaml; [yaml.safe_load(open(f).read().split('---')[1]) for f in glob.glob('vault/sysrev/source/*.md')]"`
+   `python3 -c "import glob, yaml; [yaml.safe_load(open(f).read().split('---')[1]) for f in glob.glob('vault/sysrev/dgraph/source/*.md')]"`
 2. `node scripts/build-graph.mjs` to regenerate `lib/graph-data.generated.json`.
 3. Spot-check the rendered page for at least one changed source (`curl -s
    http://localhost:3010/nodes/<id>` and grep for the new field's expected

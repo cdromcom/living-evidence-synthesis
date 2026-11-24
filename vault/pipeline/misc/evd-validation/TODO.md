@@ -71,7 +71,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
 ## B. Vault and PDF audit
 
 - [x] **0d. NEXT WEEK, after the Skill refinement: decide which version the EVD pages cite**  
-  **Done 2026-11-24:** most recent report is cited: Thelwall 2025 journal (PR 11), Xu ACL 2025 (12), Shahid SDP 2025 (13), Zhang & Abernethy 2025 arXiv v3 (14), Huntington-Klein 2026 journal (15). Older PDFs go to sysrev/source/pdfs/Archive - superseded versions/. Akyon and Liang published versions still need JP's download (0b).
+  **Done 2026-11-24:** most recent report is cited: Thelwall 2025 journal (PR 11), Xu ACL 2025 (12), Shahid SDP 2025 (13), Zhang & Abernethy 2025 arXiv v3 (14), Huntington-Klein 2026 journal (15). Older PDFs go to sysrev/dgraph/source/pdfs/Archive - superseded versions/. Akyon and Liang published versions still need JP's download (0b).
   Where: EVD pages for Thelwall, Huntington-Klein, Shahid, Xu (and Akyon, Liang once downloaded)  
   Citing the published versions shifts page numbers, some quote wording and screenshots. Calendar reminder: Wed 2026-11-25, 10:00 ET.  
   *Source: prompt 48*

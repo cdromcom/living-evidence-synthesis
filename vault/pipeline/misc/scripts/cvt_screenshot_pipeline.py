@@ -16,8 +16,8 @@ from pathlib import Path
 import fitz
 
 VAULT = Path('/Users/ppatel/Documents/living-synthesis')
-PDFS = VAULT / 'sysrev' / 'source' / 'pdfs'
-ATTACH = VAULT / 'sysrev' / 'evidence' / 'Attachments'
+PDFS = VAULT / 'sysrev' / 'dgraph' / 'source' / 'pdfs'
+ATTACH = VAULT / 'sysrev' / 'dgraph' / 'evidence' / 'Attachments'
 
 CITEKEY_TO_PDF_HINT = {
     'sonWhenAICoScientists2025': 'son et al',
@@ -247,7 +247,7 @@ def main():
     total_added = 0
     total_failed = 0
     cvts_processed = 0
-    for f in sorted((VAULT / 'sysrev' / 'caveats').glob('CVT*.md')):
+    for f in sorted((VAULT / 'sysrev' / 'dgraph' / 'caveats').glob('CVT*.md')):
         added, failed, fails = process_cvt(f)
         if added or failed:
             cvts_processed += 1

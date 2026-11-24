@@ -46,7 +46,7 @@ Quotes and screenshots are required not only for EVD results but for **every tab
 
 ### EVD template body
 
-The EVD body has four required content blocks plus three reverse-link sections. The `## Methods Context` slots use a structured schema (study design + tools + DV/IV; procedure; participants + sample-size flow). The `## Other Notes` block carries an EVD-specific TRIPOD-LLM **item 17 (Performance)** mini-table; the *paper-level* TRIPOD-LLM Methods + Results compliance table lives in the source file (`sysrev/source/@<citekey>.md`) and is linked from each EVD — see [Step 4b](#step-4b-paper-level-tripod-llm-table-in-the-source-file) below.
+The EVD body has four required content blocks plus three reverse-link sections. The `## Methods Context` slots use a structured schema (study design + tools + DV/IV; procedure; participants + sample-size flow). The `## Other Notes` block carries an EVD-specific TRIPOD-LLM **item 17 (Performance)** mini-table; the *paper-level* TRIPOD-LLM Methods + Results compliance table lives in the source file (`sysrev/dgraph/source/@<citekey>.md`) and is linked from each EVD — see [Step 4b](#step-4b-paper-level-tripod-llm-table-in-the-source-file) below.
 
 ```
 ---
@@ -119,7 +119,7 @@ nodeID: <UUIDv7 — generate with `python3 -c "import uuid; print(uuid.uuid7())"
 
 #### Step 6: Structured abstract on the source page
 
-Each `sysrev/source/@<citekey>.md` carries a plain-language **structured abstract** at the top, synthesized from that paper's discourse-graph nodes. It is the entry point for any human reader: someone landing on the source page should be able to learn what the paper asks, what it does, what it finds, what it claims, and what limits those claims, without leaving the page.
+Each `sysrev/dgraph/source/@<citekey>.md` carries a plain-language **structured abstract** at the top, synthesized from that paper's discourse-graph nodes. It is the entry point for any human reader: someone landing on the source page should be able to learn what the paper asks, what it does, what it finds, what it claims, and what limits those claims, without leaving the page.
 
 **Synthesize from already-extracted nodes — never re-read the PDF.** The EVDs (Description quote + Methods Context What/How/Who + Other-Notes item-17 mini-table), the CLM(s) the paper supports, the CVTs that apply to its EVDs, and the QUE that frames it together contain everything the abstract needs.
 
@@ -178,7 +178,7 @@ Each `sysrev/source/@<citekey>.md` carries a plain-language **structured abstrac
 - Do **not** modify the frontmatter or the TRIPOD-LLM table when inserting the abstract.
 - Wikilinks are mandatory: every EVD bullet, the QUE in Question, the CLM(s) in Claim, and every CVT in Caveats must link.
 
-The Sarol source file (`sysrev/source/@sarolAssessingCitationIntegrity2024.md`) is the canonical example — match its tone and depth.
+The Sarol source file (`sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024.md`) is the canonical example — match its tone and depth.
 
 ##### Step 6.b: Results visualization (Mermaid)
 
@@ -255,13 +255,13 @@ End with a `**Bottom line.**` paragraph: 2–3 sentences synthesizing the practi
 - ○ Addressed = defensible only when the design is rigorous on this domain.
 - Don't mistake reporting transparency for methodological quality. A paper can be ● (fully reported) across the TRIPOD-LLM table and still ● (high risk) on construct validity in this one.
 
-The louAAAR10 (`@louAAAR10AssessingAIs2025.md`) and woelfle (`@woelfleBenchmarkingHumanAICollaboration2024.md`) source files are the canonical examples for Step 6.b and the current (2026-08) Step 6.c format — **but note they live in `living-synthesis-site`'s own `vault/source/` copy, not this vault** (see the Skill.md build-output note: the two have diverged, and this vault's own `sysrev/source/*.md` files haven't been re-extracted to the new format yet). Read one there in full before writing a new file in this vault to the same standard.
+The louAAAR10 (`@louAAAR10AssessingAIs2025.md`) and woelfle (`@woelfleBenchmarkingHumanAICollaboration2024.md`) source files are the canonical examples for Step 6.b and the current (2026-08) Step 6.c format — **but note they live in `living-synthesis-site`'s own `vault/source/` copy, not this vault** (see the Skill.md build-output note: the two have diverged, and this vault's own `sysrev/dgraph/source/*.md` files haven't been re-extracted to the new format yet). Read one there in full before writing a new file in this vault to the same standard.
 
 ---
 
 #### Step 4b: Paper-level TRIPOD-LLM table in the source file
 
-Each `sysrev/source/@<citekey>.md` carries a paper-level TRIPOD-LLM reporting summary covering the Title/Abstract/Background/Objectives items (1–4), every Methods item (5a–15), and every Results item (16a–18) — **42 rows total, as of 2026-08** (previously 37; items 1–4 were added). **Four columns**:
+Each `sysrev/dgraph/source/@<citekey>.md` carries a paper-level TRIPOD-LLM reporting summary covering the Title/Abstract/Background/Objectives items (1–4), every Methods item (5a–15), and every Results item (16a–18) — **42 rows total, as of 2026-08** (previously 37; items 1–4 were added). **Four columns**:
 
 | # | Item | RATING | Quote |
 | --- | --- | :---: | --- |
