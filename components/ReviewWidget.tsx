@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { supabase, supabaseConfigured, REVIEW_NOTE_MAX, REVIEW_NAME_MAX, type Verdict, type NodeReview } from "@/lib/supabase";
+import { supabase, supabaseConfigured, REVIEW_NOTE_MAX, type Verdict, type NodeReview } from "@/lib/supabase";
 import { useAuth } from "@/lib/useAuth";
 import { VERDICT_VOCAB } from "@/lib/ui";
 
@@ -16,7 +16,6 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
   const [verdict, setVerdict] = useState<Verdict | "">("");
   const [proposed, setProposed] = useState("");
   const [note, setNote] = useState("");
-  const [displayName, setDisplayName] = useState("");
   const [consent, setConsent] = useState(false);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
@@ -61,7 +60,6 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
     setVerdict(mine.verdict);
     setProposed(mine.proposed ?? "");
     setNote(mine.note ?? "");
-    setDisplayName(mine.reviewer_name === "Anonymous reviewer" ? "" : mine.reviewer_name);
     setConsent(true);
   }
 
@@ -73,7 +71,6 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
     const { error } = await supabase.from("node_reviews").upsert(
       {
         reviewer_id: session.user.id,
-        display_name: displayName.trim() || null,
         node_id: nodeId,
         dimension: "overall",
         verdict,
@@ -155,14 +152,6 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
             className="w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
           />
 
-          <input
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-            maxLength={REVIEW_NAME_MAX}
-            placeholder="Display name (optional; blank shows “Anonymous reviewer”)"
-            className="w-full rounded-md border border-border bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted-ink focus:border-forest focus:outline-none"
-          />
-
           <label className="flex items-start gap-2 text-xs text-muted-ink">
             <input
               type="checkbox"
@@ -171,8 +160,10 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
               className="mt-0.5"
             />
             <span>
-              Privacy: your verdict, note and display name are shown to other
-              signed-in reviewers. Your email address is never shown to them.
+              Privacy: your verdict and note are shown to other signed-in
+              reviewers under a randomly assigned galaxy name
+              {mine ? ` (yours is ${mine.reviewer_name})` : ""}, which stays the same
+              for all your reviews. Your email address is never shown to them.
               You can change or delete your review at any time. I agree.
             </span>
           </label>

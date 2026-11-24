@@ -11,7 +11,11 @@ Nothing here has been applied. JP runs it by hand in the Supabase SQL editor.
    `select id, reviewer_id, reviewer_email, node_id, verdict, updated_at from node_reviews;`
 2. **Run the migration.** Paste `supabase/migrations/2026-11-reviewer-privacy.sql` into
    SQL Editor, New query, Run. It is safe to run twice. It:
-   - adds `display_name` (optional, 1 to 40 characters) and drops `reviewer_email`;
+   - drops `reviewer_email`;
+   - adds a `reviewer_aliases` table, a trigger, and the function `assign_reviewer_alias`: each reviewer gets one random,
+     unique galaxy name (166 names; once all are used, "Name II", "Name III", and so on) at their first review,
+     kept for good. The name is enforced unique by a database constraint. Existing reviewers are given names by
+     the migration. Clients cannot read the alias table directly;
    - adds checks: `node_id` format (e.g. `EVD-062`), note and proposed at most 2000
      characters, dimension length. They apply to new and edited rows; old rows are not
      re-checked (`not valid`). Once you are happy, `alter table node_reviews validate
@@ -23,7 +27,7 @@ Nothing here has been applied. JP runs it by hand in the Supabase SQL editor.
    - creates the view `node_reviews_public` (no email, no user id, with an `is_mine` flag)
      for everyone else.
 3. **Deploy this branch's code** (after step 2). The site now reads `node_reviews_public`
-   and writes `display_name`. Deploying the code before the SQL breaks the review panel
+   and no longer sends a name. Deploying the code before the SQL breaks the review panel
    (the view does not exist yet); running the SQL before the code makes the old site fail
    to submit reviews (it still sends `reviewer_email`). Do steps 2 and 3 close together.
 4. **Check** while signed in as a normal user: `select * from node_reviews` returns only your
@@ -34,7 +38,5 @@ migration on top of it.
 
 To change the rate limit, edit the `60` in `enforce_review_rate_limit()`.
 
-## Decision for JP
-
-Display names are free text chosen by the reviewer. If you want accountability among
-reviewers (for example real names), say so and the "Anonymous reviewer" fallback can go.
+To see who is behind a galaxy name (for moderation), run as the project owner in SQL Editor:
+`select a.alias, u.email from reviewer_aliases a join auth.users u on u.id = a.reviewer_id;`

@@ -46,4 +46,3 @@ export type NodeReview = {
 };
 
 export const REVIEW_NOTE_MAX = 2000;
-export const REVIEW_NAME_MAX = 40;
