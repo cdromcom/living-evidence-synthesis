@@ -1,1 +1,0 @@
-{"evd": 53, "quote": {"label": "Partially Correct", "probs": {"Correct": 0.03, "Partially Correct": 0.92, "Incorrect": 0.05, "Missing": 0.0, "NA": 0.0}, "p_screenshot_shows_quote": 0.95, "shot_connects": [0.95], "reason": "Screenshot shows only the opening words of the quote, cropped at both sides; rest of passage about sampling and exclusions not visible."}}

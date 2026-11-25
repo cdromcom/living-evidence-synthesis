@@ -1,1 +1,0 @@
-{"evd": 55, "quote": {"label": "Incorrect", "probs": {"Correct": 0.01, "Partially Correct": 0.04, "Incorrect": 0.95, "Missing": 0.0, "NA": 0.0}, "p_screenshot_shows_quote": 0.04, "shot_connects": [0.15], "reason": "Screenshot shows the study aims passage (four LLMs, seven case studies), not the placebo arm/single prompt sentence."}}

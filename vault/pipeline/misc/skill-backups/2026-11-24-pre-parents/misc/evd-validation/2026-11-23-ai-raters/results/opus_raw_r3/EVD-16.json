@@ -1,1 +1,0 @@
-{"evd": 16, "quote": {"label": "Correct", "probs": {"Correct": 0.6, "Partially Correct": 0.37, "Incorrect": 0.03, "Missing": 0, "NA": 0}, "p_screenshot_shows_quote": 0.97, "shot_connects": [0.97, 0.3, 0.6], "reason": "Shot 1 shows the full abstract sentence, though only 'Combined LLM ratings led to' is highlighted."}}

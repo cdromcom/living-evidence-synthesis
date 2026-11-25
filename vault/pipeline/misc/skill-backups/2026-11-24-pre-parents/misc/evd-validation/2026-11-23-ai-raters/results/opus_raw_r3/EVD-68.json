@@ -1,1 +1,0 @@
-{"evd": 68, "quote": {"label": "Correct", "probs": {"Correct": 0.94, "Partially Correct": 0.04, "Incorrect": 0.02, "Missing": 0.0, "NA": 0.0}, "p_screenshot_shows_quote": 0.98, "shot_connects": [0.98], "reason": "Full quote on 55.5% vs 23.8% matches and recommendation errors shown and highlighted."}}

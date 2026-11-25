@@ -1,1 +1,0 @@
-{"evd": 22, "quote": {"label": "Partially Correct", "probs": {"Correct": 0.03, "Partially Correct": 0.92, "Incorrect": 0.05, "Missing": 0, "NA": 0}, "p_screenshot_shows_quote": 0.95, "shot_connects": [0.95], "reason": "Text cropped at '(p'; the p < 0.002 ending is missing and only the first clause highlighted."}}

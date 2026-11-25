@@ -1,1 +1,0 @@
-{"evd": 1, "quote": {"label": "Partially Correct", "probs": {"Correct": 0.2, "Partially Correct": 0.75, "Incorrect": 0.05, "Missing": 0, "NA": 0}, "p_screenshot_shows_quote": 0.97, "shot_connects": [0.97, 0.9], "reason": "Quote omits two intervening sentences (median citations, Table 1) without ellipsis; all text visible in shot 1."}}

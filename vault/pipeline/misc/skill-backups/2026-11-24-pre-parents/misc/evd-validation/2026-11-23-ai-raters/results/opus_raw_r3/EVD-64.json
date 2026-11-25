@@ -1,1 +1,0 @@
-{"evd": 64, "quote": {"label": "Partially Correct", "probs": {"Correct": 0.4, "Partially Correct": 0.57, "Incorrect": 0.03, "Missing": 0.0, "NA": 0.0}, "p_screenshot_shows_quote": 0.98, "shot_connects": [0.98], "reason": "Passage fully visible but quote has unmarked edits: adds 'ratio', drops 'even' and the trailing 'compared with other similar benchmarks'."}}
