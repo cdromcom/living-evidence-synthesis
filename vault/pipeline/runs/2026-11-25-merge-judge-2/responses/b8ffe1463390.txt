@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["input context amount vs prompt design", "more context can degrade vs performance varies", "structured-task scope vs broad prompt-engineering role"], "reason": "Both concern LLM sensitivity to how input is framed, but they describe different levers and claims, so one page cannot replace both."}

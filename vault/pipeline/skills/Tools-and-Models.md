@@ -242,4 +242,4 @@ Pushing these to the GitHub repository needs JP's approval.
 
 ## Local embedding and merge tooling (added 2026-11-25)
 - **Embeddings:** EmbeddingGemma 2, weights in `~/.cache/lives-bench/models/embeddinggemma-2/`, run with `~/.cache/lives-bench/venv-embed/bin/python` (transformers 5.24.1, sentence-transformers 6.3.0, torch 2.15.0). `pipeline/scripts/embed_candidates.py` lists same-type candidate pairs with difference hints.
-- **Second opinion:** `pipeline/scripts/merge_judge.py` with `pipeline/prompts/merge-judge-v1.md` (Claude Sonnet 5.5, effort medium; 35 calls cost about $0.12). Inkling 2 Small not wired up yet. A human verifies every merge.
+- **Second opinion:** `pipeline/scripts/merge_judge.py` with `pipeline/prompts/merge-judge-v1.md` (Claude Sonnet 5.5, effort medium; 35 calls cost about $0.12). Inkling 2 Small is wired up as a second judge (`merge_judge.py --inkling`, via `call_logger.logged_tinker`, Tinker's OpenAI-compatible endpoint, model id `thinkingmachines/Inkling-2-Small`, 90 pairs cost about $0.05). First result: Inkling over-groups (89 of 90 "group under an umbrella"); Sonnet 5.5 was more discriminating. A human verifies every merge.

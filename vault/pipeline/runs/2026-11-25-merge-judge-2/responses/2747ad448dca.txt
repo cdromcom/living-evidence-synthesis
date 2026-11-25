@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A: aggregate metrics hide near-zero per-paper correlation", "B: agreement differs across item types"], "reason": "Both concern disaggregated LLM-human agreement, but one addresses correlation granularity and the other variation by item type."}

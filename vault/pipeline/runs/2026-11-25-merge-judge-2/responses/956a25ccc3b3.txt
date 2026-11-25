@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["ICLR only vs ICLR and NeurIPS 2022 onwards", "novelty prediction dataset vs OpenReviewer training/test data", "different papers/models"], "reason": "Both warn that ML/AI conference-only peer-review data may not generalize, but they concern different systems and venue scopes."}

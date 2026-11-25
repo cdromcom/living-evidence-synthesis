@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["subject: human-AI collaboration vs individual LLMs", "accuracy figures differ", "human reference differs"], "reason": "Both report PRISMA/AMSTAR accuracy, but measure different systems with different numbers and comparators."}

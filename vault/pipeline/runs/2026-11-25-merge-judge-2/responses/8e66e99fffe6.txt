@@ -1,0 +1,1 @@
+{"verdict":"group_under_umbrella","differences":["over-rating vs predicting acceptance/preference","general-purpose LLMs vs LLM peer-review systems","calibration bias vs near-human accuracy"],"reason":"Both concern LLM peer review, but one describes systematic over-scoring and the other predictive accuracy, so they are related findings rather than the same claim."}

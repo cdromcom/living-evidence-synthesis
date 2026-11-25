@@ -17,9 +17,10 @@ from pathlib import Path
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])
 RUNS = VAULT / 'pipeline' / 'runs'
 DISPLAY = {'claude-opus-5-5': 'Claude Opus 5.5', 'claude-sonnet-5-5': 'Claude Sonnet 5.5', 'claude-fable-5-2': 'Claude Fable 5.2', 'claude-haiku-5-5': 'Claude Haiku 5.5',
-           'gpt-6.2-sol': 'GPT-6.2 Sol', 'pplx-decider-v1.3': 'Perplexity Decider 1.3', 'd1-ultra': 'Liquid d1-ultra', 'jev-1.14.0': 'Jev 1.14.0'}
+           'gpt-6.2-sol': 'GPT-6.2 Sol', 'pplx-decider-v1.3': 'Perplexity Decider 1.3', 'd1-ultra': 'Liquid d1-ultra', 'jev-1.14.0': 'Jev 1.14.0', 'thinkingmachines/Inkling-2-Small': 'Inkling 2 Small'}
 PRICE = {'claude-opus-5-5': (4, 20), 'claude-sonnet-5-5': (2, 10), 'claude-fable-5-2': (8, 40), 'claude-haiku-5-5': (0.10, 0.50),   # USD per million tokens, list prices 2026-11
-         'pplx-decider-v1.3': (0.02, 0), 'd1-ultra': (0.042, 0), 'jev-1.14.0': (0.042, 0)}   # gpt-6.2-sol: price not confirmed, left blank on purpose
+         'pplx-decider-v1.3': (0.02, 0), 'd1-ultra': (0.042, 0), 'jev-1.14.0': (0.042, 0), 'thinkingmachines/Inkling-2-Small': (0.30, 1.00)}   # Inkling 2 Small on Tinker: prefill 0.30, sample 1.00 (from a model-extracted summary of the pricing page; verify)
+#   # gpt-6.2-sol: price not confirmed, left blank on purpose
 
 
 def load_env(path=None):
@@ -58,7 +59,7 @@ def record(run_id, step, model, prompt_file, provider=None, citekey=None, node=N
            output_text=None, harness='API', notes=None, run_dir=None):
     d = Path(run_dir) if run_dir else RUNS / run_id; d.mkdir(parents=True, exist_ok=True)
     rec = {'ts_utc': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'run_id': run_id, 'step': step, 'citekey': citekey, 'node': node,
-           'provider': provider or ('anthropic' if model.startswith('claude') else 'openai' if model.startswith('gpt') else 'decision-model'),
+           'provider': provider or ('anthropic' if model.startswith('claude') else 'openai' if model.startswith('gpt') else 'tinker' if model.startswith('thinkingmachines') else 'decision-model'),
            'model_id': model, 'model': DISPLAY.get(model, model), 'effort': effort, **prompt_info(prompt_file), 'tokens_in': tokens_in, 'tokens_out': tokens_out,
            'cost_usd_est': cost_usd(model, tokens_in, tokens_out), 'latency_s': latency_s, 'harness': harness,
            'output_sha256': hashlib.sha256(output_text.encode()).hexdigest() if output_text else None, 'notes': notes}
@@ -84,6 +85,20 @@ def logged_openai(run_id, step, model, prompt_file, user_text, effort='high', **
     r = OpenAI().responses.create(model=model, input=user_text, reasoning={'effort': effort})
     text = r.output_text; u = getattr(r, 'usage', None)
     rec = record(run_id, step, model, prompt_file, 'openai', effort=effort, tokens_in=getattr(u, 'input_tokens', None), tokens_out=getattr(u, 'output_tokens', None),
+                 latency_s=round(time.time() - t0, 1), output_text=text, notes=meta.pop('notes', None), **meta)
+    return text, rec
+
+
+TINKER_URL = 'https://tinker.thinkingmachines.dev/services/tinker-prod/oai/api/v1/chat/completions'
+
+
+def logged_tinker(run_id, step, model, prompt_file, user_text, effort='low', max_tokens=3000, **meta):
+    """Inkling models on Tinker through the OpenAI-compatible endpoint (key TINKER_API_KEY). Max tokens includes the model's reasoning tokens."""
+    import urllib.request; load_env(); t0 = time.time()
+    body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': user_text}], 'max_completion_tokens': max_tokens, 'reasoning_effort': effort}).encode()
+    req = urllib.request.Request(TINKER_URL, body, {'Authorization': 'Bearer ' + os.environ['TINKER_API_KEY'], 'Content-Type': 'application/json', 'User-Agent': 'LIVES-provenance/1.0'})
+    r = json.load(urllib.request.urlopen(req, timeout=180)); text = r['choices'][0]['message'].get('content') or ''; u = r.get('usage', {})
+    rec = record(run_id, step, model, prompt_file, 'tinker', effort=effort, tokens_in=u.get('prompt_tokens'), tokens_out=u.get('completion_tokens'),
                  latency_s=round(time.time() - t0, 1), output_text=text, notes=meta.pop('notes', None), **meta)
     return text, rec
 

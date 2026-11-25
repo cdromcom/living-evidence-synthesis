@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["fine-tuning vs prompting", "overly favorable bias vs usefulness over blunt review request", "different papers"], "reason": "Both describe interventions that improve LLM review feedback, but they name different methods and different failure modes, so they should sit under a shared theme rather than merge."}

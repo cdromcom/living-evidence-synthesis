@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["task: constructed short CS papers vs abstract comparison pairs", "metric: 7 of 13 correctly detected vs 6 of 10 favored inferior abstract", "denominator/count differs"], "reason": "Both are evidence about GPT-4 unreliability in judging scientific text, but the tasks, counts and error directions differ."}

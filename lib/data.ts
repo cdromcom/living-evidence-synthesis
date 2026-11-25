@@ -1,4 +1,5 @@
 import graphData from "./graph-data.generated.json";
+import { labelFor } from "./qualityLabels";
 
 export type NodeType = "QUE" | "CLM" | "EVD" | "CVT" | "SRC" | "EP";
 
@@ -453,7 +454,7 @@ export function getSpinSignal(node: Pick<GraphNode, "tags">) {
  * AI Writing Check — an independent Pangram (pangram.com) AI-text-detection
  * recheck of the paper's own prose, distinct from the TOP "AI disclosure"
  * transparency signal (whether authors *say* they used AI to write). Silent
- * unless actually run: as of 2026-08 only sources whose Statistical Accuracy
+ * unless actually run: as of 2026-08 only sources whose statistical-accuracy row
  * check flagged an issue ("issues-found") have been checked, as a broader
  * integrity recheck prompted by that flag — absence of this tag means "not
  * yet checked," not "clean." See pipeline/misc/scripts/pangram_check.py in the vault.
@@ -544,7 +545,7 @@ export const REPO_CHECK_LABELS: Record<ReproducibilityRisk | "not-addressed", st
   "not-addressed": "No repository claimed",
 };
 
-export const RIGOR_CHECK_LABELS = {
+const RIGOR_CHECK_LABELS_RAW = {
   "baseline-adequacy": "Baseline adequacy",
   "train-dev-test": "Train/dev/test hygiene",
   "multiple-comparisons": "Multiple-comparisons correction",
@@ -553,7 +554,7 @@ export const RIGOR_CHECK_LABELS = {
   "confidence-intervals": "Confidence intervals",
   "effect-size": "Effect size",
   "exact-p-values": "Exact p-values",
-  spin: "Hype/spin",
+  spin: "spin",
   "repository-check": "Dataset check",
   "code-check": "Code check",
   statcheck: "Statistical consistency",
@@ -580,6 +581,11 @@ export const STATISTICAL_POWER_LABELS: Record<StatisticalPowerStatus, string> = 
   adequate: "Power analysis reported",
   inadequate: "Power analysis reported but underpowered",
 };
+
+// Row names come from the vault registry (see lib/qualityLabels.ts).
+export const RIGOR_CHECK_LABELS = Object.fromEntries(
+  Object.entries(RIGOR_CHECK_LABELS_RAW).map(([k, v]) => [k, labelFor(k, v)]),
+) as typeof RIGOR_CHECK_LABELS_RAW;
 export function getStatisticalPower(node: Pick<GraphNode, "tags">): StatisticalPowerStatus | null {
   const prefix = "rigor/statistical-power/";
   const tag = node.tags.find((t) => t.startsWith(prefix));

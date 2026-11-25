@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["overall compliance vs conclusion domain", "mean 4.92% vs mean difference 0.764", "overall score vs domain-specific divergence"], "reason": "Both quantify ChatGPT-human differences on CONSORT-A, but they report different metrics and scopes, so they fit under one broader comparison theme."}

@@ -1,4 +1,5 @@
 import { marked } from "marked";
+import { ROW_LABEL_TO_ID } from "./qualityLabels";
 import katex from "katex";
 import { sanitizeRenderedHtml } from "./sanitize";
 import { openSync, readSync, closeSync } from "node:fs";
@@ -490,14 +491,13 @@ const APPRAISAL_ROW_SLUGS: Record<string, string> = {
   "confidence intervals": "confidence-intervals",
   "chance-corrected metrics": "chance-corrected-metrics",
   "statistic accuracy": "statistic-accuracy",
-  "statistical accuracy": "statistic-accuracy",
-  "non-significant result spin": "spin",
-  "hype/spin": "spin",
   "ablation experiment(s)": "ablation-experiments",
   "ai writing check": "ai-writing-check",
   "code quality": "code-quality-fair",
   "data quality": "data-quality-fair",
 };
+// Current and old row names from the vault registry are added to the map above (lib/qualityLabels.ts).
+Object.assign(APPRAISAL_ROW_SLUGS, ROW_LABEL_TO_ID);
 
 /**
  * Tags each row of the "## Quality appraisal" table with a stable

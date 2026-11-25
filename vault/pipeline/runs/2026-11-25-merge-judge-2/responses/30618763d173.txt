@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["model", "accuracy value", "metric", "checklist/domain", "sample size"], "reason": "Both report LLM checklist-question accuracy on papers, but differ in model, numbers, domains and samples, so they fit one umbrella theme, not one node."}

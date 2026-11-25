@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["prompt sensitivity in novelty evaluation vs small pilot/sample and multicentric-cultural limits", "Shahid et al. vs Sridharan & Sivaramakrishnan"], "reason": "Both are caveats about limits of using LLMs to evaluate papers, but they name distinct failure modes and studies."}

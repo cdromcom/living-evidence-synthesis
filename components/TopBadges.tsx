@@ -1,4 +1,5 @@
 import ChipRows from "@/components/ChipRows";
+import { labelFor } from "@/lib/qualityLabels";
 import CollapsibleSignalBlock from "@/components/CollapsibleSignalBlock";
 import ScaleTooltip from "@/components/ScaleTooltip";
 import QualitySignalsTable, { type SignalGroup, type SignalRow } from "@/components/QualitySignalsTable";
@@ -652,7 +653,7 @@ function StatisticalConsistencyBadge({ status, linkBase = "" }: { status: Statis
     <ScaleTooltip
       scale={STATISTICAL_CONSISTENCY_SCALE}
       current={status}
-      description={`Statistical Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity). Click to view the row.`}
+      description={`${labelFor("statistic-accuracy", "Statistical accuracy")}: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity). Click to view the row.`}
     >
       <a
         href={`${linkBase}#qa-statistic-accuracy`}
@@ -661,7 +662,7 @@ function StatisticalConsistencyBadge({ status, linkBase = "" }: { status: Statis
         <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
           <RigorCheckGlyph kind="statcheck" />
         </span>
-        Statistical Accuracy
+        {labelFor("statistic-accuracy", "Statistical accuracy")}
       </a>
     </ScaleTooltip>
   );

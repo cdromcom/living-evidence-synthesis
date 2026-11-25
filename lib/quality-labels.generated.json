@@ -1,0 +1,171 @@
+{
+ "_about": "Single source of truth for the names of the Quality signal rows (JP, 2026-11-25). To rename a row: change \"label\", keep the old name in \"aliases\", run pipeline/scripts/quality_labels.py apply, then rebuild the app (scripts/build-graph.mjs copies this file to lib/quality-labels.generated.json).",
+ "rows": [
+  {
+   "id": "ablation-experiments",
+   "label": "Ablation Experiment(s)",
+   "aliases": []
+  },
+  {
+   "id": "ai-writing-check",
+   "label": "AI Writing Check",
+   "aliases": []
+  },
+  {
+   "id": "baseline-adequacy",
+   "label": "Baseline Adequacy",
+   "aliases": []
+  },
+  {
+   "id": "chance-corrected-metrics",
+   "label": "Chance-Corrected Metrics",
+   "aliases": []
+  },
+  {
+   "id": "code-check",
+   "label": "Code Check",
+   "aliases": []
+  },
+  {
+   "id": "code-quality-fair",
+   "label": "Code Quality",
+   "aliases": []
+  },
+  {
+   "id": "coi-disclosure",
+   "label": "Conflicts of Interest",
+   "aliases": []
+  },
+  {
+   "id": "confidence-intervals",
+   "label": "Confidence Intervals",
+   "aliases": []
+  },
+  {
+   "id": "construct-validity",
+   "label": "Construct Validity",
+   "aliases": []
+  },
+  {
+   "id": "data-leakage",
+   "label": "Data Leakage",
+   "aliases": []
+  },
+  {
+   "id": "data-quality-fair",
+   "label": "Data Quality",
+   "aliases": []
+  },
+  {
+   "id": "data-repo-check",
+   "label": "Dataset check",
+   "aliases": []
+  },
+  {
+   "id": "effect-size",
+   "label": "Effect size",
+   "aliases": []
+  },
+  {
+   "id": "ethical-approval",
+   "label": "Ethical Approval",
+   "aliases": []
+  },
+  {
+   "id": "exact-p-values",
+   "label": "Exact p-values",
+   "aliases": []
+  },
+  {
+   "id": "external-validity",
+   "label": "External Validity",
+   "aliases": []
+  },
+  {
+   "id": "funding-disclosure",
+   "label": "Funding Disclosure",
+   "aliases": []
+  },
+  {
+   "id": "human-baseline",
+   "label": "Human-Baseline Comparability",
+   "aliases": []
+  },
+  {
+   "id": "internal-validity",
+   "label": "Internal Validity",
+   "aliases": []
+  },
+  {
+   "id": "multiple-comparisons",
+   "label": "Multiple-Comparisons Correction",
+   "aliases": []
+  },
+  {
+   "id": "prompt-engineering",
+   "label": "Prompt Engineering",
+   "aliases": []
+  },
+  {
+   "id": "protocol",
+   "label": "Protocol",
+   "aliases": []
+  },
+  {
+   "id": "registration",
+   "label": "Registration",
+   "aliases": []
+  },
+  {
+   "id": "repository-check",
+   "label": "Dataset check",
+   "aliases": []
+  },
+  {
+   "id": "reproducibility",
+   "label": "Reproducibility",
+   "aliases": []
+  },
+  {
+   "id": "spin",
+   "label": "Hype/spin",
+   "aliases": [
+    "Non-Significant Result Spin",
+    "non-significant result spin"
+   ]
+  },
+  {
+   "id": "statcheck",
+   "label": "Statistical consistency",
+   "aliases": []
+  },
+  {
+   "id": "statistic-accuracy",
+   "label": "Statistical Accuracy",
+   "aliases": [
+    "Statistic Accuracy",
+    "statistic accuracy"
+   ]
+  },
+  {
+   "id": "statistical-power",
+   "label": "Statistical Power",
+   "aliases": []
+  },
+  {
+   "id": "statistical-rigor",
+   "label": "Statistical Conclusion Validity",
+   "aliases": []
+  },
+  {
+   "id": "train-dev-test",
+   "label": "Train/Dev/Test Hygiene",
+   "aliases": []
+  },
+  {
+   "id": "transparency",
+   "label": "Transparency",
+   "aliases": []
+  }
+ ]
+}

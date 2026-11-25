@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A: single GPT-3.5 via free GUI, reproducibility/prompt control", "B: only public versions tested, paid/newer/fine-tuned may perform better in risk-of-bias assessment"], "reason": "Both are caveats about public/free web or GUI LLMs instead of API/paid advanced versions, but they stress different limits and contexts."}

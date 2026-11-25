@@ -556,3 +556,11 @@ const sortedMap = Object.fromEntries(Object.entries(idMap).sort(([a], [b]) => a.
 fs.writeFileSync(ID_MAP, JSON.stringify(sortedMap, null, 2) + "\n");
 console.log(`Wrote ${OUT}`);
 console.log(`Wrote ${ID_MAP} (${Object.keys(idMap).length} pinned IDs)`);
+
+// Quality signal row names: one file in the vault is the source of truth (JP, 2026-11-25).
+// Copy it for the app; lib/qualityLabels.ts reads the copy.
+const LABELS_SRC = path.join(VAULT, "pipeline", "templates", "quality-signal-labels.json");
+if (fs.existsSync(LABELS_SRC)) {
+  fs.writeFileSync(path.join(process.cwd(), "lib", "quality-labels.generated.json"), fs.readFileSync(LABELS_SRC, "utf8"));
+  console.log("Copied quality-signal-labels.json to lib/quality-labels.generated.json");
+}

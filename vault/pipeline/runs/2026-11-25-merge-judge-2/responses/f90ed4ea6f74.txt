@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["task: quality-score input format vs critical-error detection", "model focus: ChatGPT title/abstract vs reasoning o-series", "source papers differ"], "reason": "Both support LLM assistance in paper review, but they claim different capabilities from different studies and evidence."}

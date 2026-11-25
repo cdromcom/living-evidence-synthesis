@@ -1,0 +1,1 @@
+{"verdict":"group_under_umbrella","differences":["different metric: average recommendation score vs percent matching at least one human reviewer","different numbers: 5.4/7.7 vs 55.5%/23.8%"],"reason":"Same models, papers and comparison direction, but they report distinct agreement metrics, so an umbrella rather than one node fits."}

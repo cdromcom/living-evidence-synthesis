@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["different evaluation metric", "different numbers", "B specifies 400 test papers", "A also compares Llama-3.1-70B"], "reason": "Both report OpenReviewer outperforming GPT-4o, but they measure different outcomes under different evaluation setups, so a common parent can cover them without merging."}

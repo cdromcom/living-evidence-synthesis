@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["GAR vs GPT-4 Turbo", "GPT-4 preference evaluation vs human preference", "0.684 outperforming humans at 0.523 vs 0.558 ranked first"], "reason": "Both report preference-evaluation results for AI academic review but differ in model, evaluator, score and comparison."}
