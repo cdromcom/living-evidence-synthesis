@@ -38,21 +38,29 @@ def main():
         prow.append([ck, Path(p['pdf']).name, p['preflight']['pages'], 'ok', f"{tiers['primary']} / {tiers['secondary']} / {tiers['tertiary']}", len(p.get('flagged', [])), len(p.get('disagreements', [])), round(sum(v.get('cost_usd', 0) for v in p['stages'].values() if isinstance(v, dict)), 3)])
         for f in fs:
             v = adj.get(f['id']); frow.append([ck, f['id'], f.get('tier', ''), f.get('tier_reason', ''), '; '.join(f.get('supports', [])), f.get('statement', ''), f.get('P', ''), f.get('I', ''), f.get('C', ''), f.get('O', ''), f.get('S', ''), f.get('T', ''), nums(f),
-                                               f.get('confidence', ''), ', '.join(f.get('flags', [])), 'yes' if f['id'] in p.get('flagged', []) else 'no', ('different' if f['id'] in p.get('disagreements', []) else 'agrees') if f['id'] in rc else '', v['verdict'] if v else '', f.get('merged_screenshot') or '', '', '', '', '', ''])
+                                               f.get('confidence', ''), ', '.join(f.get('flags', [])), 'yes' if f['id'] in p.get('flagged', []) else 'no', ('different' if f['id'] in p.get('disagreements', []) else 'agrees') if f['id'] in rc else '', v['verdict'] if v else '', f.get('merged_screenshot') or '', '; '.join(f.get('answers_QUE', [])), '', '', '', '', ''])
             for k, sp in enumerate(f.get('spans', []), 1): crow.append([ck, f['id'], k, sp.get('text', '')[:300], sp.get('pdf_page', ''), 'yes' if sp.get('found') else 'NO', ', '.join(map(str, sp.get('pages_found', []))), len(sp.get('bbox', [])), '', ''])
             if f['id'] in rc: rrow.append([ck, f['id'], '; '.join(str(n.get('value')) for n in f.get('numbers', [])), '; '.join(str(n.get('value')) for n in rc[f['id']].get('numbers', [])), ('different' if f['id'] in p.get('disagreements', []) else 'agrees'), (adj.get(f['id']) or {}).get('verdict', ''), (adj.get(f['id']) or {}).get('reason', ''), '', ''])
     tab('Papers', ['Paper', 'File', 'Pages', 'Status', 'Findings primary / secondary / tertiary', 'Flagged', 'Disagreements', 'Cost USD'], prow, [40, 50, 7, 12, 22, 9, 12, 10])
-    ws = tab('Findings', ['Paper', 'Id', 'Tier', 'Why this tier', 'Supports', 'Statement (Neon)', 'Population', 'Intervention', 'Comparator', 'Outcome', 'Study design', 'Timeframe', 'Numbers with locators', 'Confidence', 'Flags', 'Sent to recheck', 'Sol vs Neon', 'Opus verdict', 'Merged screenshot',
-                      'JP: tier right? (yes/no)', 'JP: correct tier', 'JP: statement and numbers right? (yes/no)', 'JP: missed finding (describe)', 'JP: notes'], frow, [30, 6, 10, 30, 10, 60, 22, 22, 22, 22, 18, 14, 50, 10, 24, 9, 10, 10, 22, 12, 12, 14, 30, 30], jp_from=20)
-    for col in range(20, 25): ws.cell(1, col).fill = PatternFill('solid', fgColor='B8860B')
-    dv = DataValidation(type='list', formula1='"yes,no,unsure"', allow_blank=True); ws.add_data_validation(dv); dv.add(f'T2:T{ws.max_row + 1}'); dv.add(f'V2:V{ws.max_row + 1}')
-    dv2 = DataValidation(type='list', formula1='"primary,secondary,tertiary,not an EVD"', allow_blank=True); ws.add_data_validation(dv2); dv2.add(f'U2:U{ws.max_row + 1}'); ws.auto_filter.ref = ws.dimensions
+    ws = tab('Findings', ['Paper', 'Id', 'Tier', 'Why this tier', 'Supports', 'Statement (Neon)', 'Population', 'Intervention', 'Comparator', 'Outcome', 'Study design', 'Timeframe', 'Numbers with locators', 'Confidence', 'Flags', 'Sent to recheck', 'Sol vs Neon', 'Opus verdict', 'Merged screenshot', 'Answers question(s)',
+                      'JP: tier right? (yes/no)', 'JP: correct tier', 'JP: statement and numbers right? (yes/no)', 'JP: missed finding (describe)', 'JP: notes'], frow, [30, 6, 10, 30, 10, 60, 22, 22, 22, 22, 18, 14, 50, 10, 24, 9, 10, 10, 22, 14, 12, 12, 14, 30, 30], jp_from=21)
+    for col in range(21, 26): ws.cell(1, col).fill = PatternFill('solid', fgColor='B8860B')
+    dv = DataValidation(type='list', formula1='"yes,no,unsure"', allow_blank=True); ws.add_data_validation(dv); dv.add(f'U2:U{ws.max_row + 1}'); dv.add(f'W2:W{ws.max_row + 1}')
+    dv2 = DataValidation(type='list', formula1='"primary,secondary,tertiary,not an EVD"', allow_blank=True); ws.add_data_validation(dv2); dv2.add(f'V2:V{ws.max_row + 1}'); ws.auto_filter.ref = ws.dimensions
     tab('Checks', ['Paper', 'Finding', 'Span', 'Quoted span (verbatim)', 'Page cited', 'Found in PDF text', 'Pages where found', 'Word boxes', 'JP: quote correct? (yes/no)', 'JP: notes'], crow, [30, 8, 6, 80, 9, 10, 14, 9, 14, 30], jp_from=9)
     tab('Rechecks', ['Paper', 'Finding', 'Neon numbers', 'Sol numbers', 'Compare', 'Opus verdict (A = Neon, B = Sol)', 'Opus reason', 'JP: who is right? (Neon, Sol, neither)', 'JP: notes'], rrow, [30, 8, 40, 40, 10, 14, 60, 16, 30], jp_from=8)
     srow = []
     for ck, p in M['papers'].items():
         for sl, e in (p.get('shadow') or {}).items(): srow.append([ck, e.get('model', sl), e.get('findings', ''), '/'.join(str(e.get('tiers', {}).get(k, '')) for k in ('primary', 'secondary', 'tertiary')) if e.get('tiers') else '', e.get('span_found_rate', ''), e.get('numbers_on_page_rate', ''), e.get('recall_of_neon_primary_numbers', ''), e.get('tokens_out', ''), e.get('cost_usd', ''), e.get('failed', ''), '', ''])
     if srow: tab('Open-model shadow', ['Paper', 'Model (benchmark only)', 'Findings', 'Primary / secondary / tertiary', 'Quotes found in the PDF', 'Numbers on the PDF page', 'Share of Neon primary numbers also found', 'Tokens out', 'Cost USD', 'Failure', 'JP: how many of this model\'s findings are right?', 'JP: notes'], srow, [30, 34, 9, 14, 12, 12, 16, 10, 9, 30, 20, 30], jp_from=11)
+    qrows = []
+    for ck, p in M['papers'].items():
+        if not (d / ck / 'picost.json').exists(): continue
+        psq = json.load(open(d / ck / 'picost.json')); fl = psq.get('findings', [])
+        for q in psq.get('questions', []):
+            ev = [f['id'] for f in fl if q['id'] in (f.get('answers_QUE') or [])]; cl_ = [c['id'] for c in psq.get('claims', []) if q['id'] in (c.get('answers_QUE') or [])]
+            qrows.append([ck, q['id'], q.get('kind', ''), q.get('section', ''), q.get('printed_page') or q.get('pdf_page', ''), q.get('original_wording', ''), 'yes' if q.get('found') else 'NO', q.get('reframed', ''), q.get('split_from') or '', ', '.join(ev), ', '.join(cl_), '', '', ''])
+    if qrows: tab('Questions found', ['Paper', 'Id', 'Kind', 'Section', 'Page', 'Original wording (verbatim)', 'Quote found in PDF', 'Reframed as a clear, granular question', 'Split from', 'EVD findings that answer it', 'Claims that answer it', 'JP: is the question right? (yes/no)', 'JP: better wording', 'JP: notes'], qrows, [30, 6, 10, 14, 7, 70, 10, 60, 8, 20, 14, 14, 40, 30], jp_from=12)
     ck_rows = []; dr_rows = []; qr_rows = []; qa_rows = []
     for ck, p in M['papers'].items():
         if (d / ck / 'checks.json').exists():

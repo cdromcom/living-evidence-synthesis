@@ -9,7 +9,6 @@ const VAULT_DIR: Record<NodeType, string> = {
   EVD: "sysrev/dgraph/evidence",
   CVT: "sysrev/dgraph/caveats",
   SRC: "sysrev/dgraph/source",
-  EP: "sysrev/dgraph/evd-patterns",
 };
 
 function wikilink(id: string): string {
@@ -45,8 +44,6 @@ export type ContributionEdges = {
   supports?: string[]; // CLM's supporting EVD ids, or EVD's supported CLM ids
   derivedFrom?: string[]; // EVD -> SRC (exactly one expected)
   qualifies?: string[]; // CVT -> EVD
-  instantiates?: string[]; // EP's supporting EVD ids
-  relatesTo?: string[]; // EP -> CLM/EP
 };
 
 export type ContributionInput = {
@@ -63,7 +60,7 @@ export type ContributionInput = {
   screenshot?: string; // image filename, e.g. smithExample2026-evd-p5-1.png (added to the PR by the reviewer)
 };
 
-export const CONTRIBUTION_TYPES: readonly NodeType[] = ["QUE", "CLM", "EVD", "CVT", "SRC", "EP"];
+export const CONTRIBUTION_TYPES: readonly NodeType[] = ["QUE", "CLM", "EVD", "CVT", "SRC"];
 
 /** Single-line, no markdown-structure characters: safe inside a blockquote line or [[embed]]. */
 function oneLine(s: string): string {
@@ -144,9 +141,6 @@ export function buildContributionFiles(input: ContributionInput): {
       if (edges.supports?.length) {
         sections += `\n## Supports Claim(s)\n\n${linkList(edges.supports)}\n`;
       }
-      if (edges.instantiates?.length) {
-        sections += `\n## Instantiates Pattern\n\n${linkList(edges.instantiates)}\n`;
-      }
       break;
     }
     case "CVT": {
@@ -162,17 +156,6 @@ export function buildContributionFiles(input: ContributionInput): {
       const citekey = sanitizeForFilename(input.citekey || title);
       filename = `@${citekey}.md`;
       sections = `## Description\n\n${body}\n`;
-      break;
-    }
-    case "EP": {
-      filename = `EP - ${fileTitle}.md`;
-      sections = `## Pattern statement\n\n${body}\n`;
-      if (edges.instantiates?.length) {
-        sections += `\n## Supporting Evidence\n\n${linkList(edges.instantiates)}\n`;
-      }
-      if (edges.relatesTo?.length) {
-        sections += `\n## Connected discourse-graph nodes\n\n${linkList(edges.relatesTo)}\n`;
-      }
       break;
     }
   }

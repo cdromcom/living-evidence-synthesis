@@ -75,9 +75,3 @@ title: "Is LLM a reliable reviewer for automatic paper reviewing tasks?"
     - [[sysrev/dgraph/evidence/EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items|EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs]]
     - [[sysrev/dgraph/evidence/EVD - GPT-4 detected errors in 7 of 13 constructed papers|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]]
     - [[sysrev/dgraph/evidence/EVD - GPT-4 favored the worse abstract in 6 of 10 pairs|EVD - GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the inferior abstract]]
-
-### Cross-paper patterns
-
-> [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
-
-- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy|EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]

@@ -28,7 +28,7 @@ print('prompts and registries')
 import lives_run as R, lives_stages as S
 for st, pth in R.STAGE_PROMPT.items(): check(f'prompt {pth}', (V / pth).exists())
 check('picost prompt has the tier placeholders', all(x in (V / R.STAGE_PROMPT['picost']).read_text() for x in ('{MAX_PRIMARY}', '{MAX_SECONDARY}', '{MAX_TERTIARY}')))
-for n in ('draft-nodes-v1', 'critique-revise-v1', 'vote-v1', 'claim-check-v1', 'rate-signals-v1', 'vision-check-v1'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
+for n in ('draft-nodes-v2', 'critique-revise-v2', 'vote-v1', 'claim-check-v1', 'rate-signals-v1', 'vision-check-v1'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
 ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}
 check('quality signals rated by the models are valid row ids', set(S.SIGNALS) <= ids, str(sorted(set(S.SIGNALS) - ids)))
@@ -46,15 +46,16 @@ with tempfile.TemporaryDirectory() as td:
     for i in range(C.PIPE['limits']['max_papers'] + 1):
         d = fitz.open(); pg = d.new_page(); pg.insert_text((72, 100), f'Paper {i}. Results: Model A scored {60 + i}.1% (n = 100).'); f = td / f'Paper {i}.pdf'; d.save(str(f)); pdfs.append(str(f))
     run = lambda args: subprocess.run([sys.executable, str(here / 'lives_run.py')] + args, capture_output=True, text=True)
-    check('too many PDFs are refused', 'Refused' in run(pdfs + ['--question', 'q', '--dry-run']).stdout + run(pdfs + ['--question', 'q', '--dry-run']).stderr)
+    check('too many PDFs are refused', 'Refused' in run(pdfs + ['--question', 'q', '--dry-run', '--run-id', 'test-selftest']).stdout + run(pdfs + ['--question', 'q', '--dry-run', '--run-id', 'test-selftest']).stderr)
     check('a cap above the limit is refused', 'cap per batch' in run([pdfs[0], '--question', 'q', '--cap', '99']).stdout + run([pdfs[0], '--question', 'q', '--cap', '99']).stderr)
-    check('a missing research question is refused', 'research question' in run([pdfs[0]]).stdout + run([pdfs[0]]).stderr)
+    check('a run without a question works (the model finds the paper\'s own questions)', 'Refused' not in run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stdout + run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stderr)
     sup = td / 'Paper 0 - supplement 1.pdf'; d = fitz.open(); d.new_page().insert_text((72, 100), 'Supplementary Table S1'); d.save(str(sup)); d.close()
     check('a supplement is found next to its paper', [x.name for x in R.find_supplements(pdfs[0])] == ['Paper 0 - supplement 1.pdf'])
     comb = td / 'c.pdf'; sp = R.combine_pdfs(pdfs[0], [sup], str(comb)); check('supplement is combined after the paper', fitz.open(str(comb)).page_count == 2 and sp[0][1] == 1)
     out, keep = R.slice_pdf(str(comb), [2], str(td / 's.pdf'), around=0, limit=1.0); check('slice_pdf keeps only the cited pages', keep == [2])
     import pdf_pages as pp
     r = pp.merge_regions(str(comb), [(1, [(72, 90, 200, 105)]), (2, [(72, 90, 200, 105)])], str(td / 'm.png'), dpi=60); check('merged screenshot over two pages', r.get('ok') and (td / 'm.png').exists())
+import shutil; shutil.rmtree(C.VAULT / 'pipeline/runs/test-selftest', ignore_errors=True)
 print('packages')
 for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
     try: print(f'  {pkg} {md.version(pkg)}'); ok += 1

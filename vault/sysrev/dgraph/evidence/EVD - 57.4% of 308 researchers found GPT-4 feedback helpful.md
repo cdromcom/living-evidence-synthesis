@@ -102,9 +102,3 @@ title: "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it
 - [[sysrev/dgraph/claims/CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
 
 - [[sysrev/dgraph/claims/CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers|EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

@@ -87,9 +87,3 @@ title: "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 pe
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
 - [[sysrev/dgraph/claims/CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs|EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]

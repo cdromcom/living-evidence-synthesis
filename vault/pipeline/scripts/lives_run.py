@@ -5,7 +5,7 @@
   python3 lives_run.py --resume RUN_ID              continue a stopped or interrupted run (a submitted batch job is picked up again, not paid twice)
 
 Stages (one request per paper, or per paper with flagged findings, per stage; the whole stage goes out as ONE batch or one parallel standard run):
-  1 picost      Gemini 4 Neon reads each PDF and returns PICOST records with locators and verbatim spans (prompts/picost-v3.md)
+  1 picost      Gemini 4 Neon reads each PDF and returns PICOST records with locators and verbatim spans (prompts/picost-v4.md)
   2 spans       local, free: PyMuPDF finds every span, returns bounding boxes, saves highlighted pages, checks that each number is on the page; flags low-confidence,
                 multi-page, scanned and not-found items
   3 recheck     GPT-6.2 Sol re-extracts the flagged findings independently, without seeing Neon's values (prompts/recheck-v1.md)
@@ -39,7 +39,7 @@ TOK_PER_PAGE = TOK['per_page_input']   # input tokens per PDF page (measured on 
 MAX_TIER = C.PIPE['tiers']             # findings per tier: primary is the seed maximum (6 EVDs); secondary and tertiary are first guesses for the pilot
 MAX_FINDINGS = sum(MAX_TIER.values())
 STAGE_MODEL = {'picost': C.ROLES['extract'], 'recheck': C.ROLES['recheck'], 'adjudicate': C.ROLES['adjudicate']}   # roles in pipeline/config/models.json
-STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v3.md', 'recheck': 'pipeline/prompts/recheck-v1.md', 'adjudicate': 'pipeline/prompts/adjudicate-v1.md'}
+STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v4.md', 'recheck': 'pipeline/prompts/recheck-v1.md', 'adjudicate': 'pipeline/prompts/adjudicate-v1.md'}
 def max_out(stage, n=0):   # n = pages for picost, flagged or disputed findings for recheck and adjudicate
     """Output plus thinking budget (max tokens) per request, from pipeline/config/pipeline.json. Measured on real runs: Neon 27,317 tokens for 10 pages and 12 findings (about 11,000 visible,
     16,000 thinking); Sol about 670 per flagged finding; Opus about 226 per dispute plus a thinking floor (it ran out at 1,450 on one dispute). Beyond 10 pages the picost growth is an extrapolation."""
@@ -168,7 +168,7 @@ def norm_num(v):
 # ---------------------------------------------------------------- requests per stage
 def build(stage, M, run):
     P = M.m['papers']; reqs = []; system = (VAULT / STAGE_PROMPT[stage]).read_text(encoding='utf-8')
-    q = f"\nResearch question (RQ): {M.m['question']}\n" if M.m.get('question') else ''
+    q = f"\nReview-level question (context only; the paper's own questions come first): {M.m['question']}\n" if M.m.get('question') else ''
     for ck, p in P.items():
         if p.get('failed'): continue
         if stage == 'picost':
@@ -226,6 +226,12 @@ def stage_spans(M, run):
                 if v and v not in ptxt: why.append('number_not_in_pdf_text')
             f['flags'] = sorted(set(why))
             if why: flagged[f['id']] = f['flags']
+        qmiss = 0
+        for kind, key_ in (('questions', 'original_wording'), ('claims', None), ('caveats', None)):   # the quotes behind the questions, claims and caveats must be in the PDF too
+            for it in ps.get(kind, []):
+                qt = it.get(key_) if key_ else (it.get('span') or {}).get('text', '')
+                it['found'] = bool(qt) and pp.find_quote(doc, qt)['found']; qmiss += 0 if it['found'] else 1
+        p['quotes_not_found_other'] = qmiss
         doc.close(); (out / 'picost.json').write_text(json.dumps(ps, indent=1, ensure_ascii=False), encoding='utf-8')
         p['flagged'] = sorted(flagged); p['span_miss_rate'] = round(miss / max(total, 1), 3); p['stages']['spans'] = {'status': 'done', 'spans': total, 'not_found': miss, 'flagged': len(flagged)}
         M.event(f"[{ck}] spans: {total} checked, {miss} not found, {len(flagged)} of {len(ps.get('findings', []))} findings flagged")
@@ -305,7 +311,7 @@ def stage_shadow(M, mode):
     models = M.m.get('shadow_models') or []; st = M.m['stage_log'].setdefault('shadow', {})
     if not models or st.get('status') == 'done': return
     system = (VAULT / STAGE_PROMPT['picost']).read_text(encoding='utf-8').replace('{MAX_PRIMARY}', str(MAX_TIER['primary'])).replace('{MAX_SECONDARY}', str(MAX_TIER['secondary'])).replace('{MAX_TERTIARY}', str(MAX_TIER['tertiary']))
-    q = f"\nResearch question (RQ): {M.m['question']}\n" if M.m.get('question') else ''; reqs = []
+    q = f"\nReview-level question (context only): {M.m['question']}\n" if M.m.get('question') else ''; reqs = []
     for ck, p in M.m['papers'].items():
         if p.get('failed') or 'picost' not in p.get('stages', {}): continue
         for m_ in models:
@@ -361,7 +367,7 @@ def halt(M, reason):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter); ap.add_argument('pdfs', nargs='*'); ap.add_argument('--mode', choices=['standard', 'batch'], default='standard')
-    ap.add_argument('--cap', type=float, default=CAP); ap.add_argument('--question', default=''); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--resume'); ap.add_argument('--run-id')
+    ap.add_argument('--cap', type=float, default=CAP); ap.add_argument('--question', default='', help='optional review-level question for context; without it the model finds each paper\'s own questions'); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--resume'); ap.add_argument('--new-batch', action='store_true', help='with --resume: start a new batch of the same run with a fresh cap (the earlier spend is kept in spent_previous_batches)'); ap.add_argument('--run-id')
     ap.add_argument('--shadow', nargs='*', default=[], help='open or cheap models that extract the same papers from the PDF text, for benchmarking only (never used for decisions), e.g. thinkingmachines/Inkling-2-Small'); ap.add_argument('--skip', nargs='*', default=[], choices=['checks', 'draft', 'qs'], help='leave out the later stages'); ap.add_argument('--allow-repeat', action='store_true'); ap.add_argument('--flag-medium', action='store_true', help='also send medium-confidence findings to the independent recheck (more cost, fewer misses)'); a = ap.parse_args()
     cl.load_env()
     if a.resume:
@@ -369,10 +375,11 @@ def main():
         if not M.m: sys.exit('no such run')
         mode = M.m['mode']
         M.m['status'] = 'running'; M.m.pop('stop_reason', None)
+        if a.new_batch:
+            M.m.setdefault('spent_previous_batches', []).append({'spent_usd': M.m['spent_usd'], 'ended': now(), 'cap_usd': M.m['cap_usd']}); M.m['spent_usd'] = 0.0; M.m['cap_usd'] = min(a.cap, CAP) if a.cap else CAP; M.save()
     else:
         if not a.pdfs: ap.error('give 1 to %d PDFs' % MAX_PAPERS)
         if len(a.pdfs) > MAX_PAPERS: sys.exit(f'Refused: {len(a.pdfs)} PDFs. The limit is {MAX_PAPERS} papers per batch.')
-        if not a.question and not a.dry_run: sys.exit('Refused: give the research question with --question "..." (or a QUE name); the primary, secondary and tertiary tiers are defined relative to it.')
         for m_ in a.shadow:
             if m_ not in L.PRICE: sys.exit(f'Refused: no price for {m_} in llm_batch.PRICE; add it first so the cap can be enforced.')
         if a.cap > CAP: sys.exit(f'Refused: the cap per batch is ${CAP}; --cap can only lower it.')

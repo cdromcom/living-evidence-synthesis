@@ -66,7 +66,6 @@ const TYPE_CONFIG = [
   { type: "EVD", dir: "sysrev/dgraph/evidence", expected: 77 },
   { type: "CVT", dir: "sysrev/dgraph/caveats", expected: 49 },
   { type: "SRC", dir: "sysrev/dgraph/source", expected: 27 }, // spec said 28; actual vault has 27 .md files
-  { type: "EP", dir: "sysrev/dgraph/evd-patterns", expected: 21 },
 ];
 
 /**
@@ -149,7 +148,7 @@ const seenKeys = new Set();
 const rawNodes = []; // { id, type, filename (no ext), frontmatter, body }
 const titleToId = new Map(); // normalized filename -> id
 const realNameById = new Map(); // id -> "PREFIX - real title", for nodes whose filename had to drop characters
-// Every node's file name without the extension (for example "EP - Task-specific fine-tuning…"): the display name of a link that has no alias.
+// Every node's file name without the extension (for example "EVD - Full text scored worse than abstracts…"): the display name of a link that has no alias.
 const fileNameById = new Map();
 
 for (const cfg of TYPE_CONFIG) {
@@ -273,11 +272,6 @@ for (const n of rawNodes) {
       addEdge("addresses", clmId, n.id);
       markConnected(clmId, n.id);
     }
-    const crossPaper = extractSection(n.body, [/^###\s+Cross-paper patterns/i]);
-    for (const epId of extractTopLevelListLinks(crossPaper)) {
-      addEdge("relatesTo", epId, n.id);
-      markConnected(epId, n.id);
-    }
   } else if (n.type === "CLM") {
     const supportingEvidence = extractSection(n.body, [
       /^###\s+Supporting Evidence/i,
@@ -309,13 +303,6 @@ for (const n of rawNodes) {
       addEdge("derivedFrom", n.id, srcId);
       markConnected(n.id, srcId);
     }
-    const instantiatesSection = extractSection(n.body, [
-      /^##\s+Instantiates Pattern/i,
-    ]);
-    for (const epId of extractLinksFromText(instantiatesSection)) {
-      addEdge("instantiates", n.id, epId);
-      markConnected(n.id, epId);
-    }
   } else if (n.type === "CVT") {
     // frontmatter appliesTo array
     const appliesTo = n.frontmatter.appliesTo;
@@ -335,24 +322,6 @@ for (const n of rawNodes) {
     for (const evdId of extractLinksFromText(appliesToSection)) {
       addEdge("qualifies", n.id, evdId);
       markConnected(n.id, evdId);
-    }
-  } else if (n.type === "EP") {
-    const supportingEvidence = extractSection(n.body, [
-      /^##\s+Supporting Evidence/i,
-    ]);
-    for (const evdId of extractTopLevelListLinks(supportingEvidence)) {
-      addEdge("instantiates", evdId, n.id);
-      markConnected(evdId, n.id);
-    }
-    const connected = extractSection(n.body, [
-      /^##\s+Connected discourse-graph nodes/i,
-    ]);
-    for (const targetId of extractLinksFromText(connected)) {
-      const target = byId.get(targetId);
-      if (target && (target.type === "CLM" || target.type === "EP")) {
-        addEdge("relatesTo", n.id, targetId);
-        markConnected(n.id, targetId);
-      }
     }
   }
 }
@@ -399,7 +368,7 @@ function rewriteBody(body) {
     let id = titleToId.get(target.toLowerCase());
     if (!id && target.includes("/")) id = titleToId.get(target.slice(target.lastIndexOf("/") + 1).toLowerCase());
     // A link without an alias shows the node's name, never the folder path it was written with
-    // ([[sysrev/dgraph/evd-patterns/EP - x]] shows "EP - x"), whether or not the node has a separate frontmatter title.
+    // ([[sysrev/dgraph/evidence/EVD - x]] shows "EVD - x"), whether or not the node has a separate frontmatter title.
     const bare = targetRaw.split("#")[0].split("/").pop();
     const label = (aliasRaw || (id && (realNameById.get(id) || fileNameById.get(id))) || bare).trim();
     if (id) return `[${label}](/nodes/${id})`;
@@ -416,7 +385,6 @@ const PREFIX_LABEL = {
   EVD: "Evidence",
   CVT: "Caveat",
   SRC: "Source",
-  EP: "Evidence Pattern",
 };
 
 function shortLabel(title, max = 90) {
@@ -430,7 +398,7 @@ const nodes = rawNodes.map((n) => {
   // Windows-invalid characters); fall back to the filename.
   let title = typeof fm.title === "string" && fm.title.trim() ? fm.title.trim() : n.filename;
   // strip leading "PREFIX - " and, for SRC, keep the @citekey form as-is
-  const prefixMatch = title.match(/^(QUE|CLM|EVD|CVT|EP)\s*-\s*/);
+  const prefixMatch = title.match(/^(QUE|CLM|EVD|CVT)\s*-\s*/);
   if (prefixMatch) title = title.slice(prefixMatch[0].length);
   if (n.type === "EVD") {
     // strip trailing " - @citekey"
@@ -514,31 +482,7 @@ const edgeTypeCounts = {};
 for (const e of edges) edgeTypeCounts[e.type] = (edgeTypeCounts[e.type] || 0) + 1;
 console.log("Edge type counts:", edgeTypeCounts);
 
-// Spot check: EP "Human-AI collaboration outperforms either alone" should have
-// 2 supporting EVD edges and 2 relatesTo CLM edges.
-const spotCheckEp = nodes.find(
-  (n) =>
-    n.type === "EP" &&
-    /Human-AI collaboration outperforms either alone/i.test(n.title)
-);
-if (spotCheckEp) {
-  const supportingEvd = edges.filter(
-    (e) => e.type === "instantiates" && e.to === spotCheckEp.id
-  );
-  const relatesToClm = edges.filter(
-    (e) =>
-      e.type === "relatesTo" &&
-      e.from === spotCheckEp.id &&
-      byId.get(e.to)?.type === "CLM"
-  );
-  console.log(
-    `Spot check "${spotCheckEp.title}" (${spotCheckEp.id}): ${supportingEvd.length} supporting EVD edges, ${relatesToClm.length} relatesTo CLM edges`
-  );
-} else {
-  console.warn(
-    'WARNING: spot-check EP "Human-AI collaboration outperforms either alone..." not found by title match'
-  );
-}
+// EvidencePatterns were archived on 2026-11-25; cross-paper claims are CLMs that list several key papers.
 
 // ---- ID map bookkeeping ----
 

@@ -1,7 +1,7 @@
 import graphData from "./graph-data.generated.json";
 import { labelFor } from "./qualityLabels";
 
-export type NodeType = "QUE" | "CLM" | "EVD" | "CVT" | "SRC" | "EP";
+export type NodeType = "QUE" | "CLM" | "EVD" | "CVT" | "SRC";
 
 export type GraphNode = {
   id: string;
@@ -64,7 +64,7 @@ export function getDegree(id: string): number {
   return ALL_EDGES.filter((e) => e.from === id || e.to === id).length;
 }
 
-export const NODE_TYPE_ORDER: NodeType[] = ["QUE", "CLM", "EVD", "CVT", "SRC", "EP"];
+export const NODE_TYPE_ORDER: NodeType[] = ["QUE", "CLM", "EVD", "CVT", "SRC"];
 
 export const NODE_TYPE_LABELS: Record<NodeType, string> = {
   QUE: "Question",
@@ -72,7 +72,6 @@ export const NODE_TYPE_LABELS: Record<NodeType, string> = {
   EVD: "Evidence",
   CVT: "Caveat",
   SRC: "Source",
-  EP: "Evidence Pattern",
 };
 
 /**
@@ -111,7 +110,7 @@ export function getFiveCs(node: Pick<GraphNode, "tags">): FiveC[] {
  * Evaluative Task taxonomy — what research-evaluation capability a finding
  * is *about* (e.g. "risk-of-bias assessment", "novelty assessment"), as
  * distinct from the appraisal/* tags above (which rate how trustworthy the
- * *source study itself* is). Only EVD/CLM/EP nodes carry these, since only
+ * *source study itself* is). Only EVD/CLM nodes carry these, since only
  * they represent a specific finding about LLM performance on some task.
  * Grouped by the 5C branch each leaf belongs to, with a sixth "Cross-cutting"
  * bucket for findings about the evaluator's general behavior (prompt
@@ -654,7 +653,7 @@ export const EDGE_TYPE_LABELS: Record<EdgeType, string> = {
 };
 
 export function getCounts(): Record<NodeType, number> {
-  const counts = { QUE: 0, CLM: 0, EVD: 0, CVT: 0, SRC: 0, EP: 0 } as Record<
+  const counts = { QUE: 0, CLM: 0, EVD: 0, CVT: 0, SRC: 0 } as Record<
     NodeType,
     number
   >;
@@ -841,11 +840,4 @@ export function getParentSource(nodeId: string): GraphNode | null {
   const edge = ALL_EDGES.find((e) => e.type === "derivedFrom" && e.from === nodeId);
   if (!edge) return null;
   return nodeById.get(edge.to) ?? null;
-}
-
-/** Evidence Patterns this EVD instantiates, via its outbound `instantiates` edges. */
-export function getEvidencePatternsForEvd(evdId: string): GraphNode[] {
-  return ALL_EDGES.filter((e) => e.type === "instantiates" && e.from === evdId)
-    .map((e) => nodeById.get(e.to))
-    .filter((n): n is GraphNode => Boolean(n));
 }

@@ -25,7 +25,7 @@ Work in **batches of four papers at most** (hard limit in `pipeline/scripts/live
 
 ## Vault structure (summary)
 
-The vault has two parent folders: `sysrev/` (the systematic-review content) and `pipeline/` (how the review is built and published). The folders are `sysrev/dgraph/questions/` (QUE), `sysrev/dgraph/claims/` (CLM), `sysrev/dgraph/evidence/` (EVD), `sysrev/dgraph/caveats/` (CVT), `sysrev/dgraph/source/` (SRC notes `@citekey.md`; PDFs in `sysrev/dgraph/source/pdfs/`, older versions in `sysrev/dgraph/source/pdfs/Archive - superseded versions/`), `sysrev/dgraph/evd-patterns/` (the 21 existing, retired EP nodes) and `sysrev/picost/` (PICOST JSON), plus `pipeline/templates/`, `pipeline/scripts/`, `pipeline/misc/` (audits, prompts, validation work), `pipeline/public/` (MkDocs site) and the folders `pipeline/skills/` (this Skill system, `Tools-and-Models.md`, `Vault-structure.md`), `sysrev/indexes/` (`dgraph.md`, `DGRAPH-TABLE.md`, `Review-Arena.md`, `ESS - Demo.md`, `ESS.base`, `EvidencePattern Nodes.base`), `pipeline/logs/` (`History.md`, `Log.md`), `pipeline/legal/` (`LICENSE-CONTENT.md`, `PERMISSIONS.md`) and `sysrev/reference/` (`BenchmarkLLM.md`, `Class-Imbalance-Text-Classification.md`, `paraphrase_audit_<date>.tsv`); `Welcome.md` is the only file at the vault root. Screenshots live in `sysrev/dgraph/evidence/Attachments/`. The full tree and file-format notes are in `Vault-structure.md`.
+The vault has two parent folders: `sysrev/` (the systematic-review content) and `pipeline/` (how the review is built and published). The folders are `sysrev/dgraph/questions/` (QUE), `sysrev/dgraph/claims/` (CLM), `sysrev/dgraph/evidence/` (EVD), `sysrev/dgraph/caveats/` (CVT), `sysrev/dgraph/source/` (SRC notes `@citekey.md`; PDFs in `sysrev/dgraph/source/pdfs/`, older versions in `sysrev/dgraph/source/pdfs/Archive - superseded versions/`), and `sysrev/picost/` (PICOST JSON), plus `pipeline/templates/`, `pipeline/scripts/`, `pipeline/misc/` (audits, prompts, validation work), `pipeline/public/` (MkDocs site) and the folders `pipeline/skills/` (this Skill system, `Tools-and-Models.md`, `Vault-structure.md`), `sysrev/indexes/` (`dgraph.md`, `DGRAPH-TABLE.md`, `Review-Arena.md`, `ESS - Demo.md`, `ESS.base`, `EvidencePattern Nodes.base`), `pipeline/logs/` (`History.md`, `Log.md`), `pipeline/legal/` (`LICENSE-CONTENT.md`, `PERMISSIONS.md`) and `sysrev/reference/` (`BenchmarkLLM.md`, `Class-Imbalance-Text-Classification.md`, `paraphrase_audit_<date>.tsv`); `Welcome.md` is the only file at the vault root. Screenshots live in `sysrev/dgraph/evidence/Attachments/`. The full tree and file-format notes are in `Vault-structure.md`.
 
 ## Node Types and Their Roles
 
@@ -35,7 +35,7 @@ The vault has two parent folders: `sysrev/` (the systematic-review content) and 
 | Evidence         | `EVD`  | Atomic empirical observations from data             | Direct quotes + figure/table + quote screenshots |
 | Claim            | `CLM`  | Generalizations from EVDs (results)                 | Direct quotes that state what findings mean      |
 | Caveat           | `CVT`  | Methodological limitations on EVDs                  | Author-stated or inferred; flagged accordingly   |
-| EvidencePattern (retired 2026-11-25) | `EP` | Cross-paper regularities bundling 2+ EVDs; no longer written by the pipeline | the 21 existing nodes stay until JP decides |
+| EvidencePattern (archived 2026-11-25) | `EP` | Cross-paper regularities bundling 2+ EVDs; replaced by cross-paper CLMs | archived in `pipeline/misc/archive/evd-patterns-2026-11-25/` |
 
 **Critical distinction — CLM vs. EVD:**
 - EVD = *what was measured/observed* (e.g., "GPT-4 detected errors in 7 of 13 papers")
@@ -105,7 +105,7 @@ Question rules for the QUEs you propose here are in Step 2 and in `Skill-templat
 
 JP reads and judges accuracy in a Google Sheet, not in markdown; Obsidian markdown stays the source of truth but should not dominate the human reading experience. For every batch of papers:
 1. Write one PICOST file per EVD to `sysrev/picost/<EVD-id>.json` (schema in `sysrev/picost/SCHEMA.md`; every number and value carries a locator; `Not reported` when the paper is silent).
-2. Rebuild the review mirror with `pipeline/scripts/vault_to_gsheet.py` and upload it as the Google Sheet "LIVES vault mirror (JP review)" (tabs SRC, QUE, CLM, EP (the 21 existing nodes), EVD, CVT, PICOST, SCREENING, each with JP accuracy-judgment dropdowns and a Notes column; screenshots as image formulas). JP judges there; apply his judgments back to the markdown only with his approval.
+2. Rebuild the review mirror with `pipeline/scripts/vault_to_gsheet.py` and upload it as the Google Sheet "LIVES vault mirror (JP review)" (tabs SRC, QUE, CLM, EVD, CVT, PICOST, SCREENING, each with JP accuracy-judgment dropdowns and a Notes column; screenshots as image formulas). JP judges there; apply his judgments back to the markdown only with his approval.
 3. Paper screening (Include or Exclude) is recorded on the SCREENING tab; decision-model screening uses JP's labelled sets and keeps recall near 100%.
 
 ### Run records and reasoning traces (JP, 2026-11-24)
@@ -243,7 +243,7 @@ New nodes must fit into the graph that exists. Three models share the work, and 
 5. **Log the origin story of every node** in `pipeline/runs/<run>/node-history.jsonl`, one row per event: created (paper, quote, model, UTC time, prompt link), candidate proposed (similarity), each judge's verdict and reason, action taken, human review (who, when, decision). Log each model call with `call_logger.py` (step `match`, `merge` or `split`). The page footer links to the node's history.
 6. **Record the pipeline overview** in the AAA Benchmarking sheet, tab "Pipeline overview (links, merges)": the decision log has one row per pair with the three decisions side by side. The agreement rate between Inkling 2 Small and Claude Sonnet 5.5 is reported per run; this is also how the project learns how a small open model compares with a frontier model.
 7a. **Write path-qualified links with an alias** (`[[sysrev/dgraph/<folder>/<TYPE> - title|<TYPE> - title]]`) so they read as names, not folder paths; `python3 pipeline/scripts/add_link_aliases.py --apply` fixes any that lack one (source-paper links are left as written). The web app also shows the node name for an alias-less link, so a missing alias is cosmetic.
-7. **Check structure afterwards** with `python3 pipeline/scripts/check_links.py` (both directions agree, every EVD has one source and a claim, every CLM is listed by a QUE, every existing EP rests on two or more papers, nothing is unlinked).
+7. **Check structure afterwards** with `python3 pipeline/scripts/check_links.py` (both directions agree, every EVD has one source and a claim, every CLM is listed by a QUE, nothing is unlinked).
 8. **Later (JP, 2026-11-25):** after Stage II EVD writing and human verification, fine-tune Inkling 2 Mini (or Small) to write QUEs, CLMs, EVDs, EPs and CVTs from verified examples (see `TODO.md`). Until then the writers are Opus 5.5 and Sonnet 5.5.
 
 ## Step 5: Build Reverse Links → see `Skill-templates.md`

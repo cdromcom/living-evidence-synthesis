@@ -8,7 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent)); import call_logger as cl
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2]); D = VAULT / 'sysrev/dgraph'
-FOLDER = {'QUE': 'questions', 'CLM': 'claims', 'CVT': 'caveats', 'EP': 'evd-patterns', 'EVD': 'evidence'}
+FOLDER = {'QUE': 'questions', 'CLM': 'claims', 'CVT': 'caveats', 'EVD': 'evidence'}
 def body(typ, name):
     t = (D / FOLDER[typ] / (name + '.md')).read_text(encoding='utf-8'); m = re.search(r'^title:\s*"?(.+?)"?\s*$', t, re.M)
     q = re.search(r'> \[!info\] Quotes\s*\n((?:>[^\n]*\n?)+)', t); p = re.search(r'> \[!info\] Papers\s*\n((?:>[^\n]*\n?)+)', t)

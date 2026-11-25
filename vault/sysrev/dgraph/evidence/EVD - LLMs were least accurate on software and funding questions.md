@@ -109,9 +109,3 @@ Per-question correct % across all 6 LLMs (from Figure 3 / Table 4):
 - [[sysrev/dgraph/claims/CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
 
 - [[sysrev/dgraph/claims/CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]

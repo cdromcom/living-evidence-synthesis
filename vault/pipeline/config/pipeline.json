@@ -1,18 +1,58 @@
 {
-  "_about": "Limits, budgets, thresholds and ethics switches of the batch runner (JP, 2026-11-25). The values were set by JP; change them here with a note in LOG.md. Run scripts/selftest.py after an edit.",
-  "limits": {"max_papers": 4, "cap_usd": 5.55, "overrun_factor": 1.5, "max_span_miss": 0.25, "file_api_min_mb": 6},
-  "tiers": {"primary": 6, "secondary": 4, "tertiary": 2},
-  "checks": {"dm_low": 0.60, "dm_spread": 0.35, "sample": 0.10},
+  "_about": "Limits, budgets, thresholds and ethics switches of the batch runner (JP, 2026-11-25). The values were set by JP; change them here with a note in LOG.md. Run scripts/selftest.py after an edit. Cap raised from 5.55 to 8.00 per batch on 2026-11-25 for the four-paper pilot (JP), batch mode only; the pilot runs in two batches (extraction and checks, then drafting and ratings) with a fresh cap each. Revert to 5.55 after the pilot unless JP says otherwise.",
+  "limits": {
+    "max_papers": 4,
+    "cap_usd": 8.0,
+    "overrun_factor": 1.5,
+    "max_span_miss": 0.25,
+    "file_api_min_mb": 6
+  },
+  "tiers": {
+    "primary": 6,
+    "secondary": 4,
+    "tertiary": 2
+  },
+  "checks": {
+    "dm_low": 0.6,
+    "dm_spread": 0.35,
+    "sample": 0.1
+  },
   "tokens": {
-    "per_page_input": {"google": 1400, "openai": 1400, "anthropic": 2800},
-    "picost": {"base": 24000, "per_page": 1000, "max": 64000},
-    "recheck": {"base": 3000, "per_finding": 1000, "max": 16000},
-    "adjudicate": {"base": 4000, "per_finding": 700, "max": 16000},
-    "expected_share_used": {"picost": 0.8, "recheck": 0.7, "adjudicate": 0.7}
+    "per_page_input": {
+      "google": 1400,
+      "openai": 1400,
+      "anthropic": 2800
+    },
+    "picost": {
+      "base": 24000,
+      "per_page": 1000,
+      "max": 64000
+    },
+    "recheck": {
+      "base": 3000,
+      "per_finding": 1000,
+      "max": 16000
+    },
+    "adjudicate": {
+      "base": 4000,
+      "per_finding": 700,
+      "max": 16000
+    },
+    "expected_share_used": {
+      "picost": 0.8,
+      "recheck": 0.7,
+      "adjudicate": 0.7
+    }
   },
   "ethics": {
     "human_spot_check_before_vault_write": true,
-    "never_commit": ["PDFs", "abstracts", "local file paths", "API keys", "private extractions of copyrighted text beyond short verbatim spans"],
+    "never_commit": [
+      "PDFs",
+      "abstracts",
+      "local file paths",
+      "API keys",
+      "private extractions of copyrighted text beyond short verbatim spans"
+    ],
     "ai_use_footer_required": true,
     "downloads_need_listing": "report every downloaded supplement (file, source URL, size) and never bypass a paywall or login"
   }

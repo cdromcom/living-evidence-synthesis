@@ -97,10 +97,3 @@ Source-file tables: see Table 2 (p. 128) for single-prompt failures and Table 3 
 - [[sysrev/dgraph/claims/CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
 
 - [[sysrev/dgraph/claims/CLM - Multiple prompts elicit more complete and nuanced LLM ethics review than single prompts|CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing|EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks|EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

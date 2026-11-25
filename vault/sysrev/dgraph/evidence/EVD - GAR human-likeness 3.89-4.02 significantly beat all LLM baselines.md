@@ -104,9 +104,3 @@ AI-Scientist scores: NeurIPS 3.34 ± 0.09, ICLR 22 3.39 ± 0.11, ICLR 23 3.38 ±
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
 - [[sysrev/dgraph/claims/CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers|EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Candidate duplicate nodes with EmbeddingGemma 2 (local). Run with the embedding environment:
   ~/.cache/lives-bench/venv-embed/bin/python embed_candidates.py [--top 30] [--outdir DIR]
-For each node type (QUE, CLM, CVT, EP, EVD) it embeds the title and, separately, the title plus the node's first quote, then lists same-type pairs by similarity.
+For each node type (QUE, CLM, CVT, EVD) it embeds the title and, separately, the title plus the node's first quote, then lists same-type pairs by similarity.
 Nothing is merged. Each pair carries "difference hints" (numbers, model names, negations that differ) because near-duplicates that differ in one detail must NOT be merged.
 JP, 2026-11-25: subtle differences mean do not merge; a human verifies every merge in addition to the two model judges."""
 import argparse, itertools, os, re, sys
 from pathlib import Path
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path.home() / 'Documents/living-synthesis')
 D = VAULT / 'sysrev' / 'dgraph'; MODEL = Path.home() / '.cache/lives-bench/models/embeddinggemma-2'
-TYPES = {'QUE': 'questions', 'CLM': 'claims', 'CVT': 'caveats', 'EP': 'evd-patterns', 'EVD': 'evidence'}
+TYPES = {'QUE': 'questions', 'CLM': 'claims', 'CVT': 'caveats', 'EVD': 'evidence'}
 def read(p):
     t = p.read_text(encoding='utf-8'); m = re.search(r'^title:\s*"?(.+?)"?\s*$', t, re.M); title = m.group(1) if m else p.stem.split(' - ', 1)[-1]
     papers = sorted(set(re.findall(r'\[\[(?:[^\]|]*/)?(@[^\]|#]+)', (re.search(r'> \[!info\] Papers\s*\n((?:>[^\n]*\n?)+)', t) or [None, ''])[1])))

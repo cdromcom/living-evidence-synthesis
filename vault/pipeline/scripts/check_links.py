@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Structural check of the discourse-graph links, so a linking mistake (by a model or a person) is caught. Read-only. Prints a report; exit 1 if any problem.
 Checks: (1) every wikilink resolves; (2) EVD <-> CVT agree both ways (the EVD's ## Caveats list vs the CVT's appliesTo); (3) every CVT applies to at least one EVD;
-(4) every EVD has exactly one source and at least one claim; (5) every CLM is listed by a QUE; (6) every EP cites evidence from at least two papers; (7) nodes nobody links to.
+(4) every EVD has exactly one source and at least one claim; (5) every CLM is listed by a QUE; (6) nodes nobody links to. (EP nodes were archived on 2026-11-25.)
   python3 check_links.py [--json out.json]"""
 import json, os, re, sys, collections
 from pathlib import Path
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2]); D = VAULT / 'sysrev' / 'dgraph'
-DIRS = {'QUE': 'questions', 'CLM': 'claims', 'EVD': 'evidence', 'CVT': 'caveats', 'SRC': 'source', 'EP': 'evd-patterns'}
+DIRS = {'QUE': 'questions', 'CLM': 'claims', 'EVD': 'evidence', 'CVT': 'caveats', 'SRC': 'source'}
 pages = {}
 for t, d in DIRS.items():
     for f in (D / d).glob('*.md'):
@@ -40,12 +40,6 @@ for k, (t, f) in pages.items():
     if not [l for l in links(section(T[k], '## Supports Claim(s)')) if l.startswith('CLM')]: issues['EVD supports no claim'].append(f.stem[:80])
 for k, (t, f) in pages.items():
     if t == 'CLM' and not any(pages[q][0] == 'QUE' and k in {l.lower() for l in links(T[q])} for q in pages): issues['CLM that no question lists'].append(f.stem[:80])
-    if t == 'EP':
-        papers = set()
-        for l in links(section(T[k], '## Supporting Evidence')):
-            e = pages.get(l.lower())
-            if e: papers |= {x for x in links(section(e[1].read_text(encoding='utf-8'), '## Source'))}
-        if len(papers) < 2: issues['EP rests on fewer than 2 papers'].append(f'{f.stem[:70]} ({len(papers)})')
     if t != 'SRC' and inbound[k] == 0: issues['node nobody links to'].append(f.stem[:80])
 total = sum(len(v) for v in issues.values())
 for name, xs in issues.items():

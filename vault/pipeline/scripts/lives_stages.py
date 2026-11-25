@@ -75,7 +75,7 @@ def dispatch(M, key, reqs, mode, cap_frac=1.0):
     res = {k: L.Res(**v) for k, v in json.loads(f.read_text()).items()}; actual = 0.0
     for r in reqs:
         x = res.get(r.id) or L.Res(r.id, False, err='missing'); c = L.cost(r.model, x.tin, x.tout, batch); actual += c
-        cl.record(M.m['run_id'], key, r.model, st.get('prompt', 'pipeline/prompts/draft-nodes-v1.md'), provider=L.provider_of(r.model), citekey=r.id.split('__')[0], effort=r.effort, tokens_in=x.tin, tokens_out=x.tout, output_text=x.text or None, notes=f'mode={mode}; cost_usd={c:.4f}; finish={x.finish}; err={x.err}')
+        cl.record(M.m['run_id'], key, r.model, st.get('prompt', 'pipeline/prompts/draft-nodes-v2.md'), provider=L.provider_of(r.model), citekey=r.id.split('__')[0], effort=r.effort, tokens_in=x.tin, tokens_out=x.tout, output_text=x.text or None, notes=f'mode={mode}; cost_usd={c:.4f}; finish={x.finish}; err={x.err}')
     M.m['spent_usd'] = round(M.m['spent_usd'] + actual, 4); st.update(status='done', actual_usd=round(actual, 4), ended=now()); M.save()
     M.event(f"stage {key}: done, actual ${actual:.3f} (worst case ${worst:.2f}); total spent ${M.m['spent_usd']:.2f} of ${M.m['cap_usd']:.2f}")
     if M.m['spent_usd'] > M.m['cap_usd']: raise Halt('spend passed the cap')
@@ -112,7 +112,7 @@ def final_findings(M, ck):
 
 def card_text(M, ck):
     fs, ps = final_findings(M, ck)
-    return json.dumps({'research_question': M.m.get('question', ''), 'paper': ps.get('paper'), 'findings': [{k: f.get(k) for k in ('id', 'tier', 'supports', 'section', 'statement', 'P', 'I', 'C', 'O', 'S', 'T', 'numbers', 'spans', 'notes')} for f in fs],
+    return json.dumps({'review_level_question': M.m.get('question', ''), 'paper': ps.get('paper'), 'findings': [{k: f.get(k) for k in ('id', 'tier', 'answers_QUE', 'supports', 'section', 'statement', 'P', 'I', 'C', 'O', 'S', 'T', 'numbers', 'spans', 'notes')} for f in fs],
                        'caveats': ps.get('caveats', []), 'claims': ps.get('claims', []), 'questions': ps.get('questions', [])}, ensure_ascii=False)
 
 
@@ -134,8 +134,9 @@ def lint(node, card_nums):
         out['readability_ok'] = out['fk_grade'] <= 14
     if t == 'QUE': out['question_ok'] = txt.strip().endswith('?')
     if t in ('CLM', 'CVT', 'EVD'): out['has_quote'] = bool((node.get('quote') or '').strip())
+    if t == 'EVD' and node.get('tier') == 'primary': out['links_to_question'] = bool(node.get('answers_QUE'))
     out['no_emdash'] = '\u2014' not in ' '.join(str(v) for v in node.values() if isinstance(v, str))   # JP's writing rule: no em dashes in written text
-    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('question_ok', True), out.get('has_quote', True)]); return out
+    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('question_ok', True), out.get('has_quote', True), out.get('links_to_question', True)]); return out
 
 
 def card_numbers(M, ck):
@@ -147,14 +148,15 @@ def card_numbers(M, ck):
 
 
 # ---------------------------------------------------------------- stage: checks (decision models, Sol vision, Opus on disputes)
-def dm_state(M, f):
+def dm_state(M, f, qs=None):
+    qtext = ' | '.join(f"{q['id']}: {q.get('reframed') or q.get('original_wording', '')}" for q in (qs or []) if q.get('id') in (f.get('answers_QUE') or []))
     nums = '; '.join(f"{n.get('label', '')} = {n.get('value', '')}{n.get('unit', '')} ({n.get('table_or_figure', '')}, row {n.get('row', '')}, column {n.get('column', '')}, printed page {n.get('printed_page', '')})" for n in f.get('numbers', []))
     spans = ' | '.join(x.get('text', '') for x in f.get('spans', []))
-    return f"Research question: {M.m.get('question', '')}\nFinding ({f.get('tier', '')}): {f.get('statement', '')}\nPICOST: P={f.get('P', '')}; I={f.get('I', '')}; C={f.get('C', '')}; O={f.get('O', '')}; S={f.get('S', '')}; T={f.get('T', '')}\nNumbers: {nums}\nSource span(s): {spans}"
+    return f"Question(s) this finding answers: {qtext or M.m.get('question', '') or 'not given'}\nFinding ({f.get('tier', '')}): {f.get('statement', '')}\nPICOST: P={f.get('P', '')}; I={f.get('I', '')}; C={f.get('C', '')}; O={f.get('O', '')}; S={f.get('S', '')}; T={f.get('T', '')}\nNumbers: {nums}\nSource span(s): {spans}"
 
 
 def dm_questions(M, text_kind='finding', table=True):
-    q = {'relevancy': dm.noul('Does this finding directly answer, or help interpret an answer to, the research question?'),
+    q = {'relevancy': dm.noul('Does this finding directly answer one of the questions listed, or help interpret an answer to it?'),
             'fidelity': dm.noul(f'Does the {text_kind} say exactly what the numbers and source span support, with no added or changed number, model, comparator, direction or claim?'),
             'quote_grounding': dm.noul('Is every number in the finding stated in the source span, attributed to the right model or condition?'),
             'table_figure_grounding': dm.noul('Does the table or figure cell named in the numbers (row and column) show the stated values?')}
@@ -193,16 +195,19 @@ def make_crop(M, ck, f):
     except Exception: return None
 
 
+QS = {}   # the paper's own questions, by paper, for the relevancy check
+
+
 def stage_checks(M, mode):
     key = 'checks'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
     rng = random.Random(M.m['run_id']); items = []; sys_v = prompt('vision-check-v1.md'); st['prompt'] = 'pipeline/prompts/vision-check-v1.md'
     for ck, p in M.m['papers'].items():
         if p.get('failed') or 'picost' not in p.get('stages', {}): continue
-        fs, _ = final_findings(M, ck)
+        fs, ps_ = final_findings(M, ck); QS[ck] = ps_.get('questions', [])
         for f in fs: items.append((ck, f))
     with cf.ThreadPoolExecutor(6) as ex_:
-        dmres = list(ex_.map(lambda it: run_dm(dm_state(M, it[1]), dm_questions(M, table=rests_on_table(it[1]))), items))
+        dmres = list(ex_.map(lambda it: run_dm(dm_state(M, it[1], QS.get(it[0])), dm_questions(M, table=rests_on_table(it[1]))), items))
     rows = {}; total_tokens = 0
     for (ck, f), r in zip(items, dmres):
         s = dm_summary(r); total_tokens += sum(r[p].get('_tokens', 0) for p in r); why = []
@@ -250,11 +255,11 @@ def nodes_of(j): return {n['id']: n for n in (j or {}).get('nodes', []) if isins
 def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v1.md'); sys1 = prompt('critique-revise-v1.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('claim-check-v1.md')
+    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v2.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('claim-check-v1.md')
     cards = {ck: card_text(M, ck) for ck in papers}; cn = {ck: card_numbers(M, ck) for ck in papers}; data = {ck: {'authors': {}} for ck in papers}
     # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
     reqs = [L.Req(f'{ck}__r0-{a}', m, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, e, 9000) for ck in papers for a, m, e in AUTHORS] + [L.Req(f"{ck}__r0-{INKP['key']}", INK, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, INKP['effort'], 9000) for ck in papers]
-    st['prompt'] = 'pipeline/prompts/draft-nodes-v1.md'; r0 = dispatch(M, 'draft_r0', reqs, mode)
+    st['prompt'] = 'pipeline/prompts/draft-nodes-v2.md'; r0 = dispatch(M, 'draft_r0', reqs, mode)
     for ck in papers:
         for a, _, _ in AUTHORS + [(INKP['key'], INK, '')]:
             j = safe_json(r0.get(f'{ck}__r0-{a}') or L.Res('', False)); nodes = nodes_of(j); data[ck]['authors'][a] = {'r0': nodes, 'r0_lint': {i: lint(n, cn[ck]) for i, n in nodes.items()}}
@@ -265,7 +270,7 @@ def stage_draft(M, mode):
         for a, m, e in AUTHORS:
             idx = shuffle_labels(rng, have); order[(ck, a)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r0'].values()), 'lint': data[ck]['authors'][h]['r0_lint']} for k, h in enumerate(order[(ck, a)])}
             if have: reqs.append(L.Req(f'{ck}__r1-{a}', m, f'Extraction:\n{cards[ck]}\n\nDrafts:\n{json.dumps(blob, ensure_ascii=False)}\n\nCritique and revise now.', sys1, None, e, 14000))
-    st['prompt'] = 'pipeline/prompts/critique-revise-v1.md'; r1 = dispatch(M, 'draft_r1', reqs, mode)
+    st['prompt'] = 'pipeline/prompts/critique-revise-v2.md'; r1 = dispatch(M, 'draft_r1', reqs, mode)
     for ck in papers:
         for a, _, _ in AUTHORS:
             j = safe_json(r1.get(f'{ck}__r1-{a}') or L.Res('', False)); d = data[ck]['authors'][a]; d['critiques'] = (j or {}).get('critiques', []); d['r1'] = nodes_of((j or {}).get('revised')) or d['r0']; d['r1_lint'] = {i: lint(n, cn[ck]) for i, n in d['r1'].items()}
@@ -312,7 +317,7 @@ def stage_draft(M, mode):
     evd = [(ck, nid, f) for ck in papers for nid, f in data[ck]['finals'].items() if f['node'].get('type') == 'EVD']
     def dm_evd(t):
         ck, nid, f = t; fnd = next((x for x in final_findings(M, ck)[0] if x['id'] == f['node'].get('source_id')), {})
-        return run_dm(dm_state(M, {**fnd, 'statement': f['node'].get('statement', '')}), {'fidelity': dm_questions(M, 'EVD statement')['fidelity'], 'quote_grounding': dm_questions(M)['quote_grounding']})
+        return run_dm(dm_state(M, {**fnd, 'statement': f['node'].get('statement', '')}, final_findings(M, ck)[1].get('questions', [])), {'fidelity': dm_questions(M, 'EVD statement')['fidelity'], 'quote_grounding': dm_questions(M)['quote_grounding']})
     with cf.ThreadPoolExecutor(6) as ex_: dres = list(ex_.map(dm_evd, evd))
     for (ck, nid, f), r in zip(evd, dres): f['dm'] = dm_summary(r)
     for ck in papers:

@@ -37,7 +37,6 @@ Instead of one long literature-review document, the vault decomposes findings in
 |  ❓   | **Question**         | `QUE`  | Research questions the field is asking     |
 |  💡  | **Claim**            | `CLM`  | Generalizations that papers argue for      |
 |  🔬  | **Evidence**         | `EVD`  | Atomic empirical observations from a paper, in three tiers: primary (answers the research question), secondary (meta or contextual), tertiary |
-| 🕸️  | **Evidence Pattern** (retired from the pipeline, 2026-11-25) | `EP`   | Empirical regularities across papers; the 21 existing ones stay until JP decides |
 |  ⚠️  | **Caveat**           | `CVT`  | Methodological limitations on evidence     |
 |  📄  | **Source**           | `SRC`  | One paper: its summary, quality appraisal and reporting checks |
 
@@ -48,12 +47,9 @@ Instead of one long literature-review document, the vault decomposes findings in
 >     ↳ 💡 CLM: Reasoning LLMs outperform non-reasoning models at error detection.
 >         ↳ 🔬 EVD: OpenAI o3 achieved 48.2% hit rate on PDF inputs.
 >             ↳ ⚠️ CVT: Only closed-source reasoning LLMs were evaluated.
->
-> 🕸️ EP: Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks.
->     ↳ bundles 🔬 EVDs from Zhang Reviewing, Son SPOT, Lou AAAR, …
 > ```
 >
-> EPs are the *cross-paper* layer: a single EP wires together ≥2 EVDs from independent papers that converge on the same regularity, even if no single paper makes the EP-level claim itself. EPs live in `evd-patterns/` and currently number 21.
+> Claims can be *cross-paper*: a CLM lists every paper that makes it under "Key Papers Making This Claim". (EvidencePatterns were archived on 2026-11-25; see `pipeline/misc/archive/evd-patterns-2026-11-25/`.)
 
 ---
 
@@ -69,7 +65,7 @@ Instead of one long literature-review document, the vault decomposes findings in
 >
 > 🟨 **Paper-first.** Browse `sysrev/dgraph/source/pdfs/` (the original papers, on your computer only) or `sysrev/dgraph/source/@<citekey>.md` (the bibliographic stub). EVDs from a paper are filename-tagged with `@<citekey>` so a folder grep finds them. The [[DGRAPH-TABLE]] shows a paper × node-type matrix for skimming.
 >
-> 🕸️ **Pattern-first.** Browse `evd-patterns/` — the 21 cross-paper EvidencePatterns (EPs). Each EP names a regularity that ≥2 papers' EVDs jointly support, with a `## Supporting Evidence` block listing the constituent EVDs and a `## Connected discourse-graph nodes` block tying the pattern to the within-paper CLMs it generalizes. Best when you want the *thesis-level* takeaways across the corpus rather than per-paper findings.
+> 🕸️ **Claim-first.** Browse `claims/`. A claim that several papers make lists all of them, with the supporting EVDs and the questions it answers.
 >
 > 🏆 **Leaderboard view.** Open [[Review-Arena]] — a head-to-head leaderboard of who wins at each subtask: AI alone, Human alone, or Human + AI. Each Subtask cell links back to its QUE for the full evidence base.
 
@@ -86,7 +82,6 @@ living-synthesis/
 │   │   ├── claims/                ← CLM notes
 │   │   ├── evidence/              ← EVD notes + Attachments/ (all PNGs)
 │   │   ├── caveats/               ← CVT notes
-│   │   ├── evd-patterns/          ← EP notes (cross-paper regularities, ≥2 papers each)
 │   │   └── source/                ← one SRC note per paper + pdfs/ (the PDFs stay on your computer, not on GitHub)
 │   ├── indexes/                   ← 🗺️ dgraph.md (start here), DGRAPH-TABLE.md, Review-Arena.md, ESS views
 │   ├── picost/                    ← per-finding extraction records (JSON)
@@ -156,7 +151,7 @@ CLMs, CVTs, and QUEs follow analogous structures with their own reverse-link sec
 > [!info] On every node
 >
 > - `NodeFormality: ReadyForInternal` — structurally complete; ready for human review and use.
-> - `NodeFormality: draft` — not yet trusted: flagged by the verbatim audit, or waiting for human review. Today 45 of 232 nodes are drafts (all 21 EPs, 14 EVDs, 6 CLMs, 4 CVTs). `pipeline/misc/evd-validation/paraphrase_report.tsv` lists the quotes that diverge from their paper.
+> - `NodeFormality: draft` — not yet trusted: flagged by the verbatim audit, or waiting for human review. Today 24 of 211 nodes are drafts (14 EVDs, 6 CLMs, 4 CVTs). `pipeline/misc/evd-validation/paraphrase_report.tsv` lists the quotes that diverge from their paper.
 > - **AI-use footer.** Every page written by the new pipeline ends with a collapsed footer that says which model and version made it, when, from which prompt (a link) and whether a person has checked it, following the GAMER checklist for reporting AI use. Older pages get a footer that says what is known and what is not. The project-wide answers are in `pipeline/provenance/AI-disclosure.md`; who wrote what, by date, is in `pipeline/provenance/model-history.md`.
 > - **Quality signal rows** (on each source page: validity, rigor, openness, reporting, and so on) use the names in `pipeline/templates/quality-signal-labels.json`, which is the one place a row is renamed. Two recent names: **Statistical Accuracy** (scripted checks on the paper's own numbers: percentages, GRIM and GRIMMER, sample sizes, confidence intervals, F1 and kappa, effect sizes and more) and **Hype/spin** (formerly Non-Significant Result Spin). Quality signals are produced by the optional Module Q, run only on request.
 
@@ -240,7 +235,7 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 >
 > - **Auto-derived links are paper-level overlaps, not statement-level entailments.** When `dgraph.md` or a node's reverse-link section says "EVDs from the cited papers", that is a paper-citekey match, not a guarantee that the EVD supports the claim.
 > - **Not every quote is word-for-word.** A script compares quotes with the PDFs (`pipeline/misc/evd-validation/2026-11-24-signal-quote-audit.csv` for the quality tables; `paraphrase_report.tsv` for node quotes). On 2026-11-25, of 1,042 quoted quality-table rows, 579 matched a PDF with the right printed page, 221 matched with a PDF page number (fine when a paper prints none), 106 cited the wrong page, 72 were not found and 64 cited a PDF position on a PDF that prints page numbers, or no page; the audit flags roughly 110 EVD, CLM and CVT quotes as not verbatim.
-> - **45 of 232 nodes are still `NodeFormality: draft`** (all 21 EPs, 14 EVDs, 6 CLMs, 4 CVTs). Do not rely on them without checking the source PDF.
+> - **24 of 211 nodes are still `NodeFormality: draft`** (14 EVDs, 6 CLMs, 4 CVTs). Do not rely on them without checking the source PDF.
 > - **Most pages predate the AI-use footer.** Pages from April to August 2026 were written mostly by Claude Sonnet 4.6, with some quote and quality-table re-curation by Claude Sonnet 5 on 2026-08-25. The model of some early batch agents was not recorded (see `pipeline/provenance/model-history.md`).
 > - **Quality signals are AI-drafted and not yet human-verified.** The tables on the source pages have not been checked by a person row by row.
 > - **Similar nodes are kept separate on purpose.** Caveats and questions that look alike often differ in a number, a model or a dataset; merging is only done after two models and a person agree (see the Skill).
