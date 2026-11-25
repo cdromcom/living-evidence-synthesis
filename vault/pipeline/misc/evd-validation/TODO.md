@@ -201,3 +201,16 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   Where: Methods section of the paper  
   Claude's relevancy calls for rows 46 and 49 and notes for rows 79-82 were made on 2026-11-17, later than the other Claude rows (2026-11-10 to 11-13). Claude's Fidelity/Grounding for the 31 Jay rows were graded on 2026-11-17 against the live app; the other Claude rows on 2026-11-11.  
   *Source: ABOUT TODO 13; prompt 38*
+
+
+## 2026-11-25 plan (added by Claude; JP edits freely)
+**JP, next three days:** work on the protocol; manually review the vault and screen papers; add `PANGRAM_API_KEY` to `~/.config/lives-ai-raters/.env` when ready (Pangram runs only on JP's command, likely Dec/Jan); review the signals sheet v2 (judgments, models, failure causes); re-rate the quote labels listed in `benchmarking-validation/README.md`; decide on merging PRs #26 (vault alignment and v2 backbone), #27 (design docs), #8 and #21 (benchmarking).
+**Before the Monday run (fresh batch of dozens of PDFs):**
+- [ ] Put PDFs in `sysrev/dgraph/source/pdfs/`; pick the five-paper pilot batch (Woelfle, Bougie, Tyser first, per the budget note).
+- [ ] Write and commit the prompts the run needs in `pipeline/prompts/` (pdf-read, picost, write-nodes, checks) so footers can link them; log every call with `call_logger.py`.
+- [ ] Add the provenance footer to the node templates in the web app render (callout at page bottom, byline under the title).
+- [ ] Decide: backfill legacy footers for the 232 existing pages (model and date from `History.md`, `Log.md`, `curatedWithModel`).
+- [ ] Module Q (quality signals) stays OFF unless JP says so.
+**Cleanup found by the scripts:** review the 115 quotes `verbatim_audit.py` flags (`pipeline/misc/evd-validation/paraphrase_report.tsv`) and the 85 signal-table quotes not found; check why two Sarol EVD pages list caveats their CVT `appliesTo` does not (`reverse_links.py` would drop those two links); decide the page rule for 157 rows that cite PDF position, 104 wrong pages.
+**Web app (Opus 5.5, about $11 for phase 1):** adopt the revised plan from the four-model design consult (`pipeline/runs/2026-11-25-design-consult/`): gates from phase 1, byline plus footer, CLM and EVD templates, list-first graph, library combobox.
+**Ideas, not scheduled:** INSPECT-SR-inspired trustworthiness signals (post-publication notices via Crossref or OpenAlex, registration-versus-paper consistency, internal count consistency, version consistency between preprint and journal); span-extraction of quotes in Module Q.

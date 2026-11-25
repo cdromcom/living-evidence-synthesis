@@ -4,8 +4,7 @@ ignoring what is deliberately not published (PDFs, backups, caches, Obsidian set
   python3 check_repo_sync.py [--repo /path/to/checkout] [--ref origin/main]"""
 import argparse, hashlib, os, subprocess
 from pathlib import Path
-VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])
-ap = argparse.ArgumentParser(); ap.add_argument('--repo', default=str(Path.home() / '.cache/lives-bench/wt-align')); ap.add_argument('--ref', default='HEAD'); a = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument('--vault', default=os.environ.get('LIVES_VAULT') or str(Path.home() / 'Documents/living-synthesis'), help='the working vault (not the checkout)'); ap.add_argument('--repo', default=str(Path.home() / '.cache/lives-bench/wt-align')); ap.add_argument('--ref', default='HEAD'); a = ap.parse_args(); VAULT = Path(a.vault).expanduser().resolve()
 SKIP_DIRS = {'pdfs', 'skill-backups', '__pycache__', '.obsidian', '.claude', 'public', 'misc'}   # pipeline/public = generated site; top-level misc = stray scratch
 SKIP_FILES = {'.DS_Store', '.Rhistory'}
 def local():
