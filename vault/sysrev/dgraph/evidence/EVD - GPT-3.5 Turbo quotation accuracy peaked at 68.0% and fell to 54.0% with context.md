@@ -101,4 +101,4 @@ Pattern: more reference context did **not** monotonically improve GPT-3.5 Turbo.
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks|EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]

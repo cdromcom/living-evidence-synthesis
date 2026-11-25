@@ -33,4 +33,4 @@ The pattern says text/non-text input has a substantive effect on accuracy that r
 ## Connected discourse-graph nodes
 
 - **Caveats that flag this gap structurally:** [[sysrev/dgraph/caveats/CVT - Most LLMs were text-only and blind to figures and tables|CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal]], [[sysrev/dgraph/caveats/CVT - AAAR excluded figures and other non-text inputs|CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation]], these CVTs document the gap from the *evaluation* side; this EP documents it from the *finding* side.
-- **Adjacent pattern (per-item variance, related):** [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]], visual-content items are one specific kind of item where LLMs struggle.
+- **Adjacent pattern (per-item variance, related):** [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]], visual-content items are one specific kind of item where LLMs struggle.

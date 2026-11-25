@@ -106,5 +106,5 @@ title: "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuff
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
-- [[sysrev/dgraph/evd-patterns/EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation|EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM-generated peer review feedback is paper-specific not generic boilerplate|EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]

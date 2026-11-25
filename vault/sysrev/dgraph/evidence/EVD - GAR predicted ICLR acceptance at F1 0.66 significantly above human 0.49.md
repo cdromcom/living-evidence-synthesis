@@ -105,4 +105,4 @@ GAR^> achieved F1 = 0.62 ± 0.05 on NeurIPS 23 (vanilla GAR 0.61 ± 0.04); on IC
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy|EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]

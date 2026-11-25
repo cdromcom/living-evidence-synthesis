@@ -98,5 +98,5 @@ title: "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but det
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]
-- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information|EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]

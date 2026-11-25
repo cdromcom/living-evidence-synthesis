@@ -123,4 +123,4 @@ title: "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist que
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification|EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]

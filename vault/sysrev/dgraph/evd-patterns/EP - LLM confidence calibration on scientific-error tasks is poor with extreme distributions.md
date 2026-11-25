@@ -33,5 +33,5 @@ The pattern says LLMs do not produce honest "I'm uncertain" or "this is borderli
 
 ## Connected discourse-graph nodes
 
-- **Adjacent pattern (mechanism vs. outcome):** [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]; the rare-class F1 collapse is the *measurement* of poor calibration; this EP names the *mechanism*.
-- **Mitigation path:** [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]], scaffolding helps the average but doesn't typically fix calibration; pass@k and ensemble approaches may be needed.
+- **Adjacent pattern (mechanism vs. outcome):** [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable|EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]; the rare-class F1 collapse is the *measurement* of poor calibration; this EP names the *mechanism*.
+- **Mitigation path:** [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap|EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]], scaffolding helps the average but doesn't typically fix calibration; pass@k and ensemble approaches may be needed.

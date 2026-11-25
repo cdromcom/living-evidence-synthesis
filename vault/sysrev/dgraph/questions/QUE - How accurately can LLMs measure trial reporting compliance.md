@@ -55,7 +55,7 @@ title: "How accurately can LLMs measure reporting guideline compliance in clinic
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]
-- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
-- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification|EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information|EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]

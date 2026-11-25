@@ -35,5 +35,5 @@ The pattern says: at zero-shot inference time, closed-source frontier LLMs are t
 ## Connected discourse-graph nodes
 
 - **Within-paper claim this pattern generalizes:** [[sysrev/dgraph/claims/CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]].
-- **The fine-tuning exception:** [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]], fine-tuning is the path through which open-source models flip the closed-source default.
+- **The fine-tuning exception:** [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]], fine-tuning is the path through which open-source models flip the closed-source default.
 - **Reproducibility caveat:** [[sysrev/dgraph/caveats/CVT - Only closed-source reasoning LLMs were tested as checkers|CVT - Only closed-source reasoning LLMs were evaluated as scientific paper quality checkers excluding open-source alternatives]], not all papers in the corpus tested open-source models, so the gap may be partially under-measured.

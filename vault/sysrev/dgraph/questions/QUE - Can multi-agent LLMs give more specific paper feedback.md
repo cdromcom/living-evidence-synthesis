@@ -76,6 +76,6 @@ title: "Can multi-agent LLM systems improve the specificity and helpfulness of s
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]
-- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
-- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM-generated peer review feedback is paper-specific not generic boilerplate|EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]
+- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap|EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers|EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

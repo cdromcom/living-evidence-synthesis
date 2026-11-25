@@ -79,8 +79,8 @@ title: "Do specialized fine-tuned LLMs generate more critical and realistic peer
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
-- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]
-- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
-- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception|EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
+- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers|EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant|EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy|EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]

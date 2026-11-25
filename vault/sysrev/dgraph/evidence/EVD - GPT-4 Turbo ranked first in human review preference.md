@@ -108,4 +108,4 @@ title: "GPT-4 Turbo ranked first in human preference for academic review quality
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy|EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]

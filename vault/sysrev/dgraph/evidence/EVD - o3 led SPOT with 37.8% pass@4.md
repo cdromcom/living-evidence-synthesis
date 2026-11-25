@@ -119,5 +119,5 @@ title: "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 3
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[sysrev/dgraph/evd-patterns/EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]
+- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception|EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
+- [[sysrev/dgraph/evd-patterns/EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks|EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]

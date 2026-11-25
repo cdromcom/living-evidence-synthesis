@@ -161,5 +161,5 @@ Option-ordering 0% ↔ 100% flips (Fig 11, p. 18):
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
-- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs|EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing|EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]

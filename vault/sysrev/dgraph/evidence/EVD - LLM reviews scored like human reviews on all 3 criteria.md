@@ -106,4 +106,4 @@ title: "LLM reviews scored comparably to human reviews on all three expert evalu
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers|EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

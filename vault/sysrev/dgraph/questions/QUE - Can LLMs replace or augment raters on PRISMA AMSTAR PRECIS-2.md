@@ -78,7 +78,7 @@ title: "Can LLMs replace or augment human raters in evidence appraisal using PRI
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
-- [[sysrev/dgraph/evd-patterns/EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]
-- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
-- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range|EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
+- [[sysrev/dgraph/evd-patterns/EP - Human-AI collaboration outperforms either alone on structured appraisal tasks|EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs|EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant|EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]

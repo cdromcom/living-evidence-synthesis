@@ -123,4 +123,4 @@ title: "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percen
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range|EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]

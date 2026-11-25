@@ -106,4 +106,4 @@ title: "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming 
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification|EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]

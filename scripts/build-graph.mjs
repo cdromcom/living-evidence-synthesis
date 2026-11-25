@@ -149,6 +149,8 @@ const seenKeys = new Set();
 const rawNodes = []; // { id, type, filename (no ext), frontmatter, body }
 const titleToId = new Map(); // normalized filename -> id
 const realNameById = new Map(); // id -> "PREFIX - real title", for nodes whose filename had to drop characters
+// Every node's file name without the extension (for example "EP - Task-specific fine-tuning…"): the display name of a link that has no alias.
+const fileNameById = new Map();
 
 for (const cfg of TYPE_CONFIG) {
   const dir = path.join(VAULT, cfg.dir);
@@ -168,6 +170,7 @@ for (const cfg of TYPE_CONFIG) {
       body: content || "",
     });
     titleToId.set(filenameNoExt.trim().toLowerCase(), id);
+    fileNameById.set(id, filenameNoExt);
     // Filenames can't hold characters Windows forbids (e.g. a question's "?"),
     // so such nodes keep their real title in frontmatter `title`. Also accept
     // wikilinks written with that real title.
@@ -395,7 +398,10 @@ function rewriteBody(body) {
     const target = targetRaw.split("#")[0].trim();
     let id = titleToId.get(target.toLowerCase());
     if (!id && target.includes("/")) id = titleToId.get(target.slice(target.lastIndexOf("/") + 1).toLowerCase());
-    const label = (aliasRaw || (id && realNameById.get(id)) || targetRaw.split("#")[0]).trim();
+    // A link without an alias shows the node's name, never the folder path it was written with
+    // ([[sysrev/dgraph/evd-patterns/EP - x]] shows "EP - x"), whether or not the node has a separate frontmatter title.
+    const bare = targetRaw.split("#")[0].split("/").pop();
+    const label = (aliasRaw || (id && (realNameById.get(id) || fileNameById.get(id))) || bare).trim();
     if (id) return `[${label}](/nodes/${id})`;
     return label; // broken link: render as plain text
   });

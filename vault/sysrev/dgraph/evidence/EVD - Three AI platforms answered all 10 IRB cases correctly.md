@@ -97,4 +97,4 @@ title: "Three AI platforms responded correctly to all 10 IRB case study queries"
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks|EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

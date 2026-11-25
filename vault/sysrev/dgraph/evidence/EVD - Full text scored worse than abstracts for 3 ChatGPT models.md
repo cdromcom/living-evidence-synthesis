@@ -121,4 +121,4 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks|EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]

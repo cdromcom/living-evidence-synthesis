@@ -33,4 +33,4 @@ The pattern challenges the default practitioner assumption that "more context = 
 ## Connected discourse-graph nodes
 
 - **Within-paper claim this pattern generalizes:** [[sysrev/dgraph/claims/CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]].
-- **Adjacent pattern (the opposing direction):** [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]], RAG-style augmentation often helps, but this EP flags that it does not always help; the structured-task / summary-suffices condition can flip the sign.
+- **Adjacent pattern (the opposing direction):** [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap|EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]], RAG-style augmentation often helps, but this EP flags that it does not always help; the structured-task / summary-suffices condition can flip the sign.

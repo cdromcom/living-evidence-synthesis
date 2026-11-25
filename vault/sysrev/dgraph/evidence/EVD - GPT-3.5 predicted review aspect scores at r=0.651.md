@@ -112,4 +112,4 @@ When given the paper (not the review), GPT-3.5 correlation drops dramatically (b
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy|EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
