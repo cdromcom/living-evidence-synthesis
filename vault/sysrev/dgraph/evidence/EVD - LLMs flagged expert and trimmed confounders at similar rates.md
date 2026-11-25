@@ -194,4 +194,4 @@ Sequential method, share designated a confounder in all 10 iterations (Fig 7, p.
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation|EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]

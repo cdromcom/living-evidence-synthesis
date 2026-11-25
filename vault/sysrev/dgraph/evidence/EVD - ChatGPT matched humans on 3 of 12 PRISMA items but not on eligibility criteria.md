@@ -116,4 +116,4 @@ title: "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA c
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]

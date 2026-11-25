@@ -75,5 +75,5 @@ title: "Can LLMs identify critical limitations within scientific research papers
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
-- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable|EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap|EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]

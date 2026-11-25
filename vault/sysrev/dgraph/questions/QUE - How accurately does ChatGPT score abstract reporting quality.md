@@ -37,5 +37,5 @@ title: "How accurately does ChatGPT score medical literature abstracts compared 
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation|EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]

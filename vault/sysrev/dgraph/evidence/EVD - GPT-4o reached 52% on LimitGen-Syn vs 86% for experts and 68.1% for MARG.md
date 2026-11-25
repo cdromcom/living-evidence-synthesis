@@ -120,4 +120,4 @@ title: "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human expert
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable|EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]

@@ -108,4 +108,4 @@ title: "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% 
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]

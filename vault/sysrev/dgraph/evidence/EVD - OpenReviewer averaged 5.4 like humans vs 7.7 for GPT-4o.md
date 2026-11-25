@@ -101,4 +101,4 @@ title: "OpenReviewer average recommendation was 5.4 matching human reviewers whi
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers|EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]

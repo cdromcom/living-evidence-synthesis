@@ -81,7 +81,7 @@ title: "How well do LLM-generated peer reviews overlap with human reviewer feedb
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
-- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
-- [[sysrev/dgraph/evd-patterns/EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]
-- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation|EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers|EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM-generated peer review feedback is paper-specific not generic boilerplate|EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers|EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

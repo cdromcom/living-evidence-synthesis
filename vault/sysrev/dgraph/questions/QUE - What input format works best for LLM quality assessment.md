@@ -38,7 +38,7 @@ title: "What is the optimal input format for LLM-based research quality assessme
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks|EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
 
 ### PDF check
 

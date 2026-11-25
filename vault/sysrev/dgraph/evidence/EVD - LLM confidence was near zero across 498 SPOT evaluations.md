@@ -111,4 +111,4 @@ title: "LLM confidence approaches zero across 498 model-instance SPOT evaluation
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions|EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]

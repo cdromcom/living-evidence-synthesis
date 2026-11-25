@@ -95,4 +95,4 @@ title: "Removing the knowledge-guided module from the novelty prediction model d
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]

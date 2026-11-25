@@ -75,5 +75,5 @@ title: "Can integrating LLM knowledge with human reviewer knowledge improve auto
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]
-- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Human-AI collaboration outperforms either alone on structured appraisal tasks|EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]

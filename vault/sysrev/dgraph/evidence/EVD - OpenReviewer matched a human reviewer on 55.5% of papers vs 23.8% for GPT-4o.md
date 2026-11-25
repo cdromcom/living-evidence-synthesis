@@ -101,5 +101,5 @@ title: "OpenReviewer matched at least one human reviewer recommendation in 55.5%
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
-- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers|EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]

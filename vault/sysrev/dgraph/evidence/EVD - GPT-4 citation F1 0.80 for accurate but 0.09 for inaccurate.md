@@ -109,5 +109,5 @@ title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accu
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
-- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions|EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable|EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]

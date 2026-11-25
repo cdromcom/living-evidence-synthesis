@@ -102,5 +102,5 @@ Source-file tables: see Table 2 (p. 128) for single-prompt failures and Table 3 
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing|EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks|EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

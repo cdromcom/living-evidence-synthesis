@@ -100,4 +100,4 @@ title: "Inter-annotator agreement on citation accuracy labels was only kappa 0.1
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
+- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs|EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]

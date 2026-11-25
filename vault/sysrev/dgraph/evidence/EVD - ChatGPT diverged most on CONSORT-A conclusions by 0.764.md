@@ -107,4 +107,4 @@ title: "ChatGPT diverged most from humans in the conclusion domain with mean dif
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]

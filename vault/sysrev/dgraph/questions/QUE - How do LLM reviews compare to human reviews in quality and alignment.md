@@ -80,6 +80,6 @@ title: "How do LLM-generated academic reviews compare to human reviews in qualit
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
-- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
-- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers|EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy|EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers|EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

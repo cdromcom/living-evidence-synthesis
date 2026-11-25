@@ -114,4 +114,4 @@ Per-question correct % across all 6 LLMs (from Figure 3 / Table 4):
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]

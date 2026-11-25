@@ -113,4 +113,4 @@ title: "o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a c
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant|EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]

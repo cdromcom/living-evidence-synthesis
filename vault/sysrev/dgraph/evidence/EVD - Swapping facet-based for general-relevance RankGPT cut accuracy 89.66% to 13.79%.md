@@ -119,5 +119,5 @@ Grounding table: Table 3, "Comparing rank and overlap in retrieved papers with e
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing|EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap|EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]

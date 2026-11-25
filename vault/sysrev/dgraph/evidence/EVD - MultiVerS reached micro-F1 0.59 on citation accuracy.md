@@ -114,4 +114,4 @@ title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]

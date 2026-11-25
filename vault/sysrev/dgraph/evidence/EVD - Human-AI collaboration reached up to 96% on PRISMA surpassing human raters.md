@@ -129,4 +129,4 @@ Values checked against the source PDF (Woelfle et al., 2024, Table 3, p. 7) on 2
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Human-AI collaboration outperforms either alone on structured appraisal tasks|EP - Human-AI collaboration outperforms either alone on structured appraisal tasks]]

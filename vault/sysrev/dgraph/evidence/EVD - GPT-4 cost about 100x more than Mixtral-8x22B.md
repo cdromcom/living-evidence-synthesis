@@ -100,4 +100,4 @@ title: "GPT-4 cost approximately 100x more than Mixtral-8x22B per 100 papers in 
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant|EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]

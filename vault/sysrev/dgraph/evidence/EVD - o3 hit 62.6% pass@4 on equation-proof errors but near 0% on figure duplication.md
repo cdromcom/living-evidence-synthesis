@@ -117,4 +117,4 @@ title: "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% 
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]
+- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information|EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]

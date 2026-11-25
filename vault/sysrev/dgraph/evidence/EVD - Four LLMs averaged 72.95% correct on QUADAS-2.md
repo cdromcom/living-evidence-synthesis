@@ -116,4 +116,4 @@ By domain: Flow and timing was highest (80.63%), then index test (73.75%), then 
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range|EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]

@@ -92,4 +92,4 @@ title: "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 pe
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
+- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs|EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]

@@ -40,6 +40,20 @@ Held-out comparison is EVD 4-77. On 2026-11-24 JP decided to drop rows from the 
 The fidelity and quote sets were chosen from rows all four raters got wrong, so those exclusions are outcome-selected; every-row
 figures are in `results/metrics-*-all.json` and in section E of each summary tab.
 
+## Getting this folder on its own
+
+This folder is a research record, not part of the website. It is in the repository (branch `main`) and is left out of the Vercel deployment (`.vercelignore` at the repository root and `benchmarking-validation/vercel.json`).
+
+- **Only this folder, with git** (about 30 MB):
+  ```
+  git clone --depth 1 --filter=blob:none --sparse https://github.com/cdromcom/living-evidence-synthesis.git
+  cd living-evidence-synthesis
+  git sparse-checkout set benchmarking-validation
+  ```
+- **Only this folder, without git history:** `npx degit cdromcom/living-evidence-synthesis/benchmarking-validation`
+- **Whole repository as a zip:** on GitHub, Code, Download ZIP.
+- **Check nothing changed:** from inside this folder run `shasum -a 256 -c MANIFEST.sha256` (on 2026-11-25 all 777 listed files passed).
+
 ## Raters (all through hosted APIs, except Opus)
 
 | Rater | Model id | Access | Notes |

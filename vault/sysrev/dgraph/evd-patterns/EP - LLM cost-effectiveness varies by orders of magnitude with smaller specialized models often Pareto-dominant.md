@@ -34,5 +34,5 @@ The pattern shifts the deployment-decision frame. The default question "which LL
 ## Connected discourse-graph nodes
 
 - **Within-paper claim this pattern generalizes:** [[sysrev/dgraph/claims/CLM - Fine-tuning on review data overcomes overly favorable LLM assessments|CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]], fine-tuned smaller models are part of the cost-effective Pareto frontier.
-- **Compatible pattern:** [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]], fine-tuning is a key path to a Pareto-dominant smaller model.
+- **Compatible pattern:** [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]], fine-tuning is a key path to a Pareto-dominant smaller model.
 - **Practical caveat:** for closed-source pricing, the cost gap is at the API-list-price level; deployment-time cost may differ with caching, batching, or self-hosted alternatives.

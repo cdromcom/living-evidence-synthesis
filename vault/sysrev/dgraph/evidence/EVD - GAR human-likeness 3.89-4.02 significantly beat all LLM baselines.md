@@ -109,4 +109,4 @@ AI-Scientist scores: NeurIPS 3.34 ± 0.09, ICLR 22 3.39 ± 0.11, ICLR 23 3.38 ±
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers|EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

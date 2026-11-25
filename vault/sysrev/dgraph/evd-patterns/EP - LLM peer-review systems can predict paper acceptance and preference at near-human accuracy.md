@@ -36,4 +36,4 @@ The pattern is the cousin of the helpfulness pattern (#3). Helpfulness is about 
 ## Connected discourse-graph nodes
 
 - **Within-paper claims this pattern generalizes:** [[sysrev/dgraph/claims/CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]].
-- **Compatible with (does not contradict):** [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]], predictive signal does not imply calibrated scores; ranks can be informative even when raw scores are biased upward.
+- **Compatible with (does not contradict):** [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers|EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]], predictive signal does not imply calibrated scores; ranks can be informative even when raw scores are biased upward.

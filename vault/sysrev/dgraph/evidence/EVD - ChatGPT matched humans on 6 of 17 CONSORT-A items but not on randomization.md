@@ -122,4 +122,4 @@ title: "ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]

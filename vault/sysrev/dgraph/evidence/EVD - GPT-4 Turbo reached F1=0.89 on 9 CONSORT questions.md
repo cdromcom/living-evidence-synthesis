@@ -111,4 +111,4 @@ title: "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT te
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification|EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]

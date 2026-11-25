@@ -107,4 +107,4 @@ Source-file table: see Table 4 (p. 132).
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks|EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

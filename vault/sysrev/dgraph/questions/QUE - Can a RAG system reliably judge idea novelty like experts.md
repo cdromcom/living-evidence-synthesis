@@ -46,5 +46,5 @@ title: "Can an LLM-based RAG system reliably evaluate the novelty of scientific 
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing|EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap|EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]

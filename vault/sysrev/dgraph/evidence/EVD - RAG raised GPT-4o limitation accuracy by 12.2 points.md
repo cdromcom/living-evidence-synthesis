@@ -134,4 +134,4 @@ title: "RAG augmentation improved GPT-4o limitation identification coarse accura
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
+- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap|EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]

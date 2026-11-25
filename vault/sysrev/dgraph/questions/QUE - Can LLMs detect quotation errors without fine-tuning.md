@@ -74,4 +74,4 @@ title: "Can LLMs detect quotation errors in scientific papers without fine-tunin
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks|EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]

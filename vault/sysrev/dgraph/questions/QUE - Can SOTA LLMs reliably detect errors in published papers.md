@@ -74,7 +74,7 @@ title: "Can state-of-the-art LLMs reliably detect errors in published scientific
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
-- [[sysrev/dgraph/evd-patterns/EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]
-- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]
+- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception|EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions|EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
+- [[sysrev/dgraph/evd-patterns/EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks|EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]
+- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information|EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]
