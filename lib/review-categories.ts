@@ -27,8 +27,8 @@ export const JUDGMENT_DIMENSIONS: JudgmentDimension[] = [
     label: "Selection relevancy",
     help: "Was this passage the right thing to extract for the node?",
     verdicts: [
-      { label: "Relevant", verdict: "correct" },
-      { label: "Irrelevant", verdict: "wrong" },
+      { label: "Relevant", verdict: "correct", help: "This passage is the right thing to extract for the node." },
+      { label: "Irrelevant", verdict: "wrong", help: "This passage does not belong to the node." },
       { label: "NA", verdict: "na" },
     ],
   },
@@ -37,9 +37,9 @@ export const JUDGMENT_DIMENSIONS: JudgmentDimension[] = [
     label: "Fidelity",
     help: "Does the node's wording stay faithful to what the paper says?",
     verdicts: [
-      { label: "Met", verdict: "correct" },
-      { label: "Partially Met", verdict: "edit" },
-      { label: "Unmet", verdict: "wrong" },
+      { label: "Met", verdict: "correct", help: "The wording is faithful to the paper." },
+      { label: "Partially Met", verdict: "edit", help: "Mostly faithful, but scope, polarity or a number is off." },
+      { label: "Unmet", verdict: "wrong", help: "The wording misstates the paper." },
       { label: "NA", verdict: "na" },
     ],
   },

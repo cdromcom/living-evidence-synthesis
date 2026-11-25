@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { supabase, supabaseConfigured, type NodeReview } from "@/lib/supabase";
+import { supabaseConfigured, type NodeReview } from "@/lib/supabase";
+import { loadReviews } from "@/lib/reviews";
 import { useAuth } from "@/lib/useAuth";
 import { VERDICT_VOCAB } from "@/lib/ui";
 import { getCategory, verdictLabelFor } from "@/lib/review-categories";
@@ -14,22 +15,19 @@ export default function LiveReviewPanel() {
   const [reviews, setReviews] = useState<NodeReview[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [viewMissing, setViewMissing] = useState(false);
 
   useEffect(() => {
     // `loading` is only ever read once the JSX below already knows `session`
     // is truthy (the `!session` branch renders and returns first) — so
     // there's nothing to reset here when there's no session to fetch for.
-    if (!session || !supabase) return;
-    supabase
-      .from("node_reviews_public")
-      .select("*")
-      .order("updated_at", { ascending: false })
-      .limit(200)
-      .then(({ data, error }) => {
-        if (error) setError(error.message);
-        else setReviews((data as NodeReview[]) ?? []);
-        setLoading(false);
-      });
+    if (!session) return;
+    loadReviews({ userId: session.user.id, limit: 200 }).then((r) => {
+      setReviews(r.reviews);
+      setViewMissing(r.viewMissing);
+      setError(r.error);
+      setLoading(false);
+    });
   }, [session]);
 
   if (!supabaseConfigured) {
@@ -61,6 +59,9 @@ export default function LiveReviewPanel() {
 
   return (
     <div className="mt-4 space-y-6">
+      {viewMissing && (
+        <p className="text-sm text-muted-ink">Showing only your own reviews. Everyone&apos;s reviews will appear here once the site&apos;s review list is switched on.</p>
+      )}
       <div className="flex flex-wrap gap-3">
         {VERDICT_VOCAB.map((v) => (
           <div
