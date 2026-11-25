@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-031",
+  "evd_title": "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers",
+  "citekey": "liuReviewerGPTExploratoryStudy2023",
+  "source_id": "SRC-010",
+  "finding": "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers",
+  "P": "13 hand-constructed short CS papers, each with one inserted error",
+  "I": "GPT-4 via ChatGPT (May 3/12 2023 builds); Prompt-Direct, Prompt-OneShot, Prompt-Parts (sentence at a time); 3 responses each",
+  "C": "Other prompt strategies; 8 other LLMs (Bard, Vicuna, Koala, Alpaca, LLaMa, Dolly, OpenAssistant, StableLM)",
+  "O": "Errors detected: Parts 7/13, OneShot 6/13, Direct 5/13, overall 7/13 (53.8%); 2 false alarms; other LLMs 0/13",
+  "S": "Controlled benchmark on hand-constructed adversarial corpus",
+  "T": "GPT-4 ChatGPT builds May 3 and May 12 2023; paper 2023",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

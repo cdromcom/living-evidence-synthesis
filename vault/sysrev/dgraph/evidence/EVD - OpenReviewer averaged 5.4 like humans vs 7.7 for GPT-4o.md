@@ -85,7 +85,9 @@ title: "OpenReviewer average recommendation was 5.4 matching human reviewers whi
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - OpenReviewer data was only ICLR and NeurIPS|CVT - The OpenReviewer training and test data were limited to ICLR and NeurIPS conferences limiting domain generalizability]]
 
 ## Supports Claim(s)
 

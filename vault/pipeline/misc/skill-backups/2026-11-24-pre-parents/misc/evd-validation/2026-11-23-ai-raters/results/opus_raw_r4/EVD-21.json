@@ -1,0 +1,29 @@
+{
+ "evd": 21,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.75,
+   "Partially Met": 0.22,
+   "Unmet": 0.03
+  },
+  "reason": "Quote gives GAR 3.89-4.02 with significance markers; explicit comparison is only to AI-Scientist, not all baselines."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.92,
+   "Partially Correct": 0.06,
+   "Incorrect": 0.02,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.98,
+  "quote_fully_visible": 0.93,
+  "shot_connects": [
+   0.98,
+   0.95
+  ],
+  "reason": "Shot 1 shows the text sentence; shot 2 shows Table 7 with the GAR row values."
+ }
+}

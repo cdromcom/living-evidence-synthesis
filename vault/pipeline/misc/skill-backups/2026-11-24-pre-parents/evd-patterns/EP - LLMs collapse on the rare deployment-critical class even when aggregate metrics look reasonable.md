@@ -1,0 +1,39 @@
+---
+NodeFormality: draft
+human_reviewed: no
+TruthValue: 0.8
+aliases:
+tags:
+  - task/rare-class-reliability
+  - 5c/credibility
+  - ep/strength/5-papers
+  - ep/scope/cross-paper
+created: 2026-04-29
+updated: 2026-04-29
+nodeID: 019ddc10-aada-707e-ac01-1ccc72642e27
+nodeTypeId: node_tzL95oDi6eYeRIHeY_rCh
+nodeInstanceId: 019ddc10-aada-707e-ac01-1ccc72642e27
+---
+
+## Pattern statement
+
+When LLMs are evaluated on tasks where the deployment-relevant class is rare (the inaccurate-citation class, the limitation-present class, the error-present class, the equation-incorrect class), LLMs produce reasonable aggregate scores but collapse on the rare positive class, meaning headline metrics like accuracy and micro-F1 systematically overstate practical utility. The "deployment-critical class" is the one a real user actually cares about: errors to flag, weaknesses to surface, citations to verify.
+
+## What is being claimed
+
+The pattern is a measurement-vs-construct mismatch. A reasonable-looking 0.65 micro-F1 on a citation-accuracy benchmark can hide an 0.09 F1 on the inaccurate-citation class, which is the class anyone deploying the tool actually cares about. The same logic generalizes to limitation-detection (where the LLM rarely surfaces a real limitation), error-detection (where the LLM defaults to "no problem"), and equation-correctness (where reasoning models barely beat the trivial all-positive baseline). When evaluating LLM-as-tool feasibility for any of these tasks, never trust an aggregate metric, demand the per-class breakdown for the rare-but-important class.
+
+## Supporting Evidence
+
+> [!info] EVDs from independent papers that instantiate this pattern.
+
+- [[sysrev/dgraph/evidence/EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate|EVD - GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accurate citations]], Sarol et al. 2024: 0.80 F1 on the easy class, **0.09** on the deployment-critical class (inaccurate citations).
+- [[sysrev/dgraph/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 11.0%|EVD - Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker]], Zhang & Abernethy 2026: Claude defaults to "no problem" 64.9% of the time when papers contain known errors.
+- [[sysrev/dgraph/evidence/EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG|EVD - GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human experts achieved 86% and MARG reached 68.1%]], Xu et al. 2025: GPT-4o catches 52% of limitations while humans catch 86%; the rare positive (limitation present) is where LLMs miss most often.
+- [[sysrev/dgraph/evidence/EVD - GPT-4 detected errors in 7 of 13 constructed papers|EVD - GPT-4 correctly detected errors in 7 of 13 constructed short CS papers]], Liu & Shah 2023: GPT-4 misses errors in nearly half of papers with planted errors.
+- [[sysrev/dgraph/evidence/EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]], Lou et al. 2025: even the best reasoning LLM is only ~8 percentage points above the trivial all-positive baseline on equation correctness.
+
+## Connected discourse-graph nodes
+
+- **Within-paper claims this pattern generalizes:** [[sysrev/dgraph/claims/CLM - Quotation errors are subtle and currently hard for NLP models to catch|CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]], [[sysrev/dgraph/claims/CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]], [[sysrev/dgraph/claims/CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]].
+- **Adjacent pattern:** [[pipeline/misc/skill-backups/2026-11-24-pre-parents/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]], both patterns describe ways that headline numbers hide failure modes; this one is class-imbalance, the other is per-instance correlation.

@@ -52,7 +52,7 @@ def evd_stem_to_citekey(stem: str) -> str | None:
 
 def parse_appliesTo(text: str) -> list[str]:
     """Return list of EVD stems referenced in CVT's appliesTo block."""
-    m = re.search(r'^appliesTo:\s*\n((?:^\s*-\s*"\[\[.*?\]\]"\s*\n?)+)', text, re.MULTILINE)
+    m = re.search(r'^appliesTo:[ \t]*\n((?:[ \t]*-[ \t]*"\[\[.*?\]\]"[ \t]*\n?)+)', text, re.MULTILINE)
     if not m:
         return []
     return re.findall(r'\[\[(?:[^\]|]*/)?(EVD - [^\]|#]+?)(?:[|#][^\]]*)?\]\]', m.group(1))

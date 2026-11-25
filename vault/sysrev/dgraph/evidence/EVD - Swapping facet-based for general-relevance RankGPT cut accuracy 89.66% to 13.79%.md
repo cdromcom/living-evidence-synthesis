@@ -103,7 +103,9 @@ Grounding table: Table 3, "Comparing rank and overlap in retrieved papers with e
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
 
 ## Supports Claim(s)
 

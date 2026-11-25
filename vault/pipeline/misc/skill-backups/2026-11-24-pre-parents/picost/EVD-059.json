@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-059",
+  "evd_title": "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%",
+  "citekey": "leucutaRiskBiasAssessment2025",
+  "source_id": "SRC-008",
+  "finding": "Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%",
+  "P": "10 diagnostic-accuracy articles (diabetes, PubMed, 7 specialties), 11 QUADAS-2 signaling questions (110 per model)",
+  "I": "Grok 3, ChatGPT 4o, DeepSeek V3, Gemini 2.0 Flash; zero-shot via web UI, PDF upload",
+  "C": "2-author expert consensus QUADAS-2 assessments; models compared",
+  "O": "% correct (answer + reasoning): mean 72.95%; Grok 3 77.27%, GPT-4o 75.45%, DeepSeek 71.82%, Gemini 67.27%",
+  "S": "Cross-sectional benchmark",
+  "T": "PubMed search 9 May 2025 (most recent articles); paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

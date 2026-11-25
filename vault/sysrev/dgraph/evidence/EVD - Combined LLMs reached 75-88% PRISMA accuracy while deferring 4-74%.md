@@ -108,7 +108,11 @@ title: "Combined LLMs with consistency approach reached 75-88 percent accuracy f
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Public human consensus datasets raise training contamination concerns|CVT - Human consensus datasets used as comparators were openly available online raising train test contamination concerns]]
+
+- [[sysrev/dgraph/caveats/CVT - Most LLMs were text-only and blind to figures and tables|CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal]]
 
 ## Supports Claim(s)
 

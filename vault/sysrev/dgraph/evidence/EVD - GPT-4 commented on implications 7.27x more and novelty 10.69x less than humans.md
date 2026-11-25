@@ -93,7 +93,9 @@ title: "GPT-4 commented on research implications 7.27x more than humans and on n
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Liang et al used only accepted papers which may not represent the full range|CVT - The Liang et al study used papers already accepted to journals which may not represent the full quality distribution]]
 
 ## Supports Claim(s)
 

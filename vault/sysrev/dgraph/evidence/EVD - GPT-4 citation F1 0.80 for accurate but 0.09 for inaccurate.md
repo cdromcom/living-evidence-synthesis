@@ -95,8 +95,9 @@ title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accu
 
 > [!info] Caveats applying to this evidence
 
-- [[sysrev/dgraph/caveats/CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
 - [[sysrev/dgraph/caveats/CVT - Low annotator agreement weakened citation accuracy labels|CVT - Low inter-annotator agreement on citation accuracy labels limited quality of training and evaluation data]]
+
+- [[sysrev/dgraph/caveats/CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
 
 ## Supports Claim(s)
 

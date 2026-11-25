@@ -62,6 +62,9 @@ def record(run_id, step, model, prompt_file, provider=None, citekey=None, node=N
            'model_id': model, 'model': DISPLAY.get(model, model), 'effort': effort, **prompt_info(prompt_file), 'tokens_in': tokens_in, 'tokens_out': tokens_out,
            'cost_usd_est': cost_usd(model, tokens_in, tokens_out), 'latency_s': latency_s, 'harness': harness,
            'output_sha256': hashlib.sha256(output_text.encode()).hexdigest() if output_text else None, 'notes': notes}
+    if output_text:   # GAMER item 3: keep the unedited response, named by its hash
+        (d / 'responses').mkdir(exist_ok=True); (d / 'responses' / f"{rec['output_sha256'][:12]}.txt").write_text(output_text, encoding='utf-8')
+        rec['response_file'] = f"responses/{rec['output_sha256'][:12]}.txt"
     with open(d / 'calls.jsonl', 'a') as f: f.write(json.dumps(rec) + '\n')
     return rec
 
@@ -90,20 +93,36 @@ def read_calls(run_id=None, run_dir=None):
     return [json.loads(l) for l in f.read_text().splitlines()] if f.exists() else []
 
 
-def render_footer(calls, human=None):
-    """Markdown block for the bottom of a node page. Legacy pages with no log use render_legacy_footer."""
-    rows = ['> [!info] How this page was made', '>', '> | Step | Model and version | Effort | Accessed (UTC) | Prompt |', '> |---|---|---|---|---|']
+DISCLOSURE = '[[pipeline/provenance/AI-disclosure|full AI disclosure (GAMER)]]'
+
+
+def _short(m): return m.replace(' (Claude Code)', '').replace('Claude ', '')
+
+
+def render_footer(calls, human=None, roles=None, sections=None):
+    """Collapsed callout for the bottom of a node page. One line shows; click (Obsidian) or open (web app) for the table. Follows the GAMER checklist
+    (Generative AI tools in MEdical Research): tools+versions+dates (2), prompts (3), role (5), sections (6), verification (7), influence (9).
+    Items 1, 4, 8 and the unedited responses (3) live in the linked disclosure page and the run folder."""
+    models = list(dict.fromkeys(_short(c['model']) for c in calls)); dates = sorted({c['ts_utc'][:10] for c in calls})
+    when = dates[0] if len(dates) == 1 else f'{dates[0]} to {dates[-1]}'
+    status = human or 'not yet human-checked'
+    rows = [f"> [!info]- AI use: {', '.join(models)} · {when} · {status}", '>',
+            '> | Step | Model and version | Effort | Accessed (UTC) | Prompt | Response |', '> |---|---|---|---|---|---|']
     for c in calls:
         pr = f"[{Path(c['prompt_file']).name}]({c['prompt_url']}) `{(c['prompt_sha256'] or '')[:8]}`" if c.get('prompt_url') else (f"`{Path(c['prompt_file']).name}` ({c['prompt_state']})" if c.get('prompt_file') else 'n/a')
-        rows.append(f"> | {c['step']} | {c['model']} (`{c['model_id']}`) | {c.get('effort') or 'n/a'} | {c['ts_utc'].replace('T', ' ')[:16]} | {pr} |")
-    ids = sorted({c['run_id'] for c in calls}); rows += ['>', f"> Run{'s' if len(ids) > 1 else ''}: {', '.join(ids)}. Full call log: `pipeline/runs/<run>/calls.jsonl`."]
-    rows.append('> Human check: ' + (human or 'not yet reviewed (`human_verified: no`)'))
+        rs = f"`{c['response_file']}`" if c.get('response_file') else f"hash `{(c.get('output_sha256') or 'n/a')[:8]}`"
+        rows.append(f"> | {c['step']} | {c['model']} (`{c['model_id']}`) | {c.get('effort') or 'n/a'} | {c['ts_utc'].replace('T', ' ')[:16]} | {pr} | {rs} |")
+    ids = sorted({c['run_id'] for c in calls})
+    rows += ['>', f"> **Role:** {roles or 'read the PDF, drafted this page from it'} · **Sections:** {sections or 'all'} · **Checked by:** {status}",
+             f"> Run {', '.join(ids)} (`pipeline/runs/<run>/`: `calls.jsonl`, `responses/`) · {DISCLOSURE}"]
     return '\n'.join(rows)
 
 
-def render_legacy_footer(model, date, note):
-    return ('> [!info] How this page was made\n>\n> | Step | Model and version | Accessed | Prompt |\n> |---|---|---|---|\n'
-            f'> | Original extraction and writing | {model} | {date} | not archived |\n>\n> {note}\n> Human check: `human_verified: no`')
+def render_legacy_footer(model, date, note, human=None):
+    """Footer for pages made before the call log existed: the same shape, with 'not recorded' stated outright."""
+    status = human or 'not yet human-checked'
+    return (f'> [!info]- AI use: {_short(model)} · {date} · {status}\n>\n> | Step | Model and version | Accessed | Prompt | Response |\n> |---|---|---|---|---|\n'
+            f'> | Original extraction and writing | {model} | {date} | not archived | not archived |\n>\n> {note}\n> {DISCLOSURE} · [[pipeline/provenance/model-history|model history by date]]')
 
 
 if __name__ == '__main__':

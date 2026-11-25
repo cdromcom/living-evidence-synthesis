@@ -1,0 +1,18 @@
+{
+ "evd": 42,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.01,
+   "Partially Correct": 0.06,
+   "Incorrect": 0.93,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.05,
+  "shot_connects": [
+   0.4
+  ],
+  "reason": "Screenshot shows a conclusion passage on GPT-4o-mini F1 0.85, not the quoted results paragraph."
+ }
+}

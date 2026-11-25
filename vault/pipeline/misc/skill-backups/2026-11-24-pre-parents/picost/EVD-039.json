@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-039",
+  "evd_title": "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy",
+  "citekey": "wrightsonGPTRCTsUsing2025",
+  "source_id": "SRC-022",
+  "finding": "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but detected missing participant details at only 57% accuracy",
+  "P": "20 flow-diagram images (10 CONSORT, 10 distractors) from Schulz et al. dataset RCTs, TRAIN+TEST",
+  "I": "GPT-4 Vision, zero-shot, Base64 image + same system prompt",
+  "C": "Schulz et al. labels (Q10) and author labels (Q11)",
+  "O": "Flow diagram identified: F1 1.0, acc 100% (89-100%); missing loss/exclusion reasons: F1 0.58, acc 57% (39-73%)",
+  "S": "Image-only sub-study of cross-sectional benchmark",
+  "T": "Papers published 2020; GPT-4 Vision used on/before May 2024; paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

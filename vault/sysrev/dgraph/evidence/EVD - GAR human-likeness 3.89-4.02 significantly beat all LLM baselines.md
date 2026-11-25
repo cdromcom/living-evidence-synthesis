@@ -95,7 +95,9 @@ AI-Scientist scores: NeurIPS 3.34 ± 0.09, ICLR 22 3.39 ± 0.11, ICLR 23 3.38 ±
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - GPT-4 was both reviewer and judge in GAR preference ranking|CVT - GPT-4 was used as both reviewer backbone and preference evaluator introducing circular evaluation in the GAR preference ranking experiment]]
 
 ## Supports Claim(s)
 

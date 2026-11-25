@@ -1,0 +1,10 @@
+{
+	"id": "semble-collect",
+	"name": "Semble Collect",
+	"version": "0.7.1",
+	"minAppVersion": "1.11.4",
+	"description": "Organize and interact with web links in your notes using Semble.",
+	"author": "Cosmik Network",
+	"authorUrl": "https://cosmik.network",
+	"isDesktopOnly": false
+}

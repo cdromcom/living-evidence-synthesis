@@ -1,0 +1,46 @@
+{
+ "evd": 30,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "Aspect frequency differences between GPT-4 and human reviews (7.27x implications, 10.69x less novelty); relevant to review overlap."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.94,
+   "Partially Met": 0.05,
+   "Unmet": 0.01
+  },
+  "reason": "Quote states 7.27 times more on implications and 10.69 times less on novelty; ICLR context is extra."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.94,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.02,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.96,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "Screenshot shows 'LLM comments on the implications of research 7.27 times ... novelty than humans are.' word for word."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.1,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.12,
+   "Missing": 0,
+   "NA": 0.73
+  },
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "7.27 and 10.69 are fully in the quote; Fig. 3 is mentioned but not needed for the numbers."
+ }
+}

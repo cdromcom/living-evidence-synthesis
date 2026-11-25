@@ -107,7 +107,9 @@ title: "Full text input produced lower Spearman correlations than abstracts for 
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Thelwall dataset was 51 articles by one author|CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]]
 
 ## Supports Claim(s)
 

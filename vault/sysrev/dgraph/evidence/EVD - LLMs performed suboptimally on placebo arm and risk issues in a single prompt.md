@@ -86,7 +86,9 @@ Source-file tables: see Table 2 (p. 128) for single-prompt failures and Table 3 
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Only cloud LLMs on seven pilot cases limits applicability|CVT - LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability]]
 
 ## Supports Claim(s)
 

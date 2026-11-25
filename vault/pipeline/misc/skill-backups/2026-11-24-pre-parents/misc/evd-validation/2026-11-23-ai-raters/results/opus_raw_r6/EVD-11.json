@@ -1,0 +1,33 @@
+{
+ "evd": 11,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.8,
+   "Incorrect": 0.13,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "quote_fully_visible": 0.2,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Quote start visible but words differ ('in OCS percentage (figure 2)'); Figure 2 caption fragment is extraneous."
+ },
+ "table": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.85,
+   "Incorrect": 0.04,
+   "Missing": 0.06,
+   "NA": 0.02
+  },
+  "shot_connects": [
+   0.85
+  ],
+  "reason": "Only the bottom axis and caption of Figure 2 are shown; plot cropped and Table 1 absent."
+ }
+}

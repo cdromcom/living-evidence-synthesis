@@ -101,7 +101,9 @@ title: "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% 
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - SPOT included only author-confirmed errors potentially excluding harder ones|CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors]]
 
 ## Supports Claim(s)
 

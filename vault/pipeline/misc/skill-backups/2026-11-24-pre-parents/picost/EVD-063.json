@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-063",
+  "evd_title": "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4",
+  "citekey": "sonWhenAICoScientists2025",
+  "source_id": "SRC-015",
+  "finding": "o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4",
+  "P": "SPOT benchmark: 83 STEM manuscripts, 91 author-confirmed errors (47 source papers, 10 domains)",
+  "I": "o3 (2025-04-16) zero-shot, full paper as interleaved text+images, JSON output, temp 0.6, 8 runs; GPT-4.1 judge",
+  "C": "9 other multimodal LLMs (GPT-4.1, Gemini-2.5-Pro, Claude-3.7, Qwen2.5-VL, Llama-4 etc.); author-confirmed errors as truth",
+  "O": "o3 precision 6.1%, recall 21.1%, pass@1 18.4%, pass@4 37.8%; Gemini-2.5-Pro recall 10.1%, pass@4 25.9%",
+  "S": "Cross-sectional benchmark",
+  "T": "Post-2024 WithdrarXiv/PubPeer papers; models o3 2025-04-16, GPT-4.1 2025-04-14 etc. (paper 2025)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

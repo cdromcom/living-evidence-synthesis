@@ -86,7 +86,9 @@ title: "AI platforms drafted SOPs covering fundamental sections with variations 
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - IRB study tested only three AI platforms on ten cases|CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings]]
 
 ## Supports Claim(s)
 

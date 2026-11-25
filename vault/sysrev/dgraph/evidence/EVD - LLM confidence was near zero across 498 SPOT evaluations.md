@@ -95,7 +95,9 @@ title: "LLM confidence approaches zero across 498 model-instance SPOT evaluation
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - SPOT had only 83 manuscripts with 91 errors|CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]
 
 ## Supports Claim(s)
 

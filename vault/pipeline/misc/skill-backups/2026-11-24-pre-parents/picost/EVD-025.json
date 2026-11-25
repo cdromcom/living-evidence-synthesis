@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-025",
+  "evd_title": "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review",
+  "citekey": "zhouLLMReliableReviewer2024",
+  "source_id": "SRC-027",
+  "finding": "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when given the human-written review",
+  "P": "427 official ICLR-2017 reviews with 1.3k human aspect scores (PeerRead), CS/ML",
+  "I": "GPT-3.5-turbo-0613 (16k for whole paper), temp 0.3; few-shot (5 examples) given the human review; also zero-shot, MCQ, paper-only",
+  "C": "Most-frequent-score baseline; gold human aspect scores; paper-only input conditions",
+  "O": "Pearson r: given review few-shot 0.651 (Spearman 0.659) vs baseline 0.333; given paper only 0.131-0.258",
+  "S": "Zero-/few-shot evaluation on existing benchmark",
+  "T": "ICLR-2017 reviews; models version 0613 (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

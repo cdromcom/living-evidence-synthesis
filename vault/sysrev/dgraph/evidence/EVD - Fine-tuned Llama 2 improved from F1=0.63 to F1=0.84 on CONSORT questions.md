@@ -96,6 +96,8 @@ title: "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% 
 
 - [[sysrev/dgraph/caveats/CVT - Llama 2 context window forced splitting papers into sections|CVT - The Llama 2 context window required splitting each paper into sections preventing whole-paper analysis]]
 
+- [[sysrev/dgraph/caveats/CVT - Study used only sports medicine and orthopaedic papers|CVT - The study used only sports medicine and orthopaedic journal papers limiting generalizability to other medical fields]]
+
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)

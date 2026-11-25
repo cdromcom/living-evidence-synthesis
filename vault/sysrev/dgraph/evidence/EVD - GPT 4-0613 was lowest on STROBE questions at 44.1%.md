@@ -86,7 +86,11 @@ The authors discuss that compression techniques used in developing newer model v
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Benchmark gold standard relied on one medical professor|CVT - The benchmark gold standard relied on a single medical professor limiting reference standard validity]]
+
+- [[sysrev/dgraph/caveats/CVT - Training cutoffs confounded STROBE LLM comparisons|CVT - Training data cutoff differences across LLM versions confounded performance comparisons in the STROBE benchmark study]]
 
 ## Supports Claim(s)
 

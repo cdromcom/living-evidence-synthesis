@@ -1,0 +1,295 @@
+---
+dg_type: Source
+status: seed
+keywords: ""
+rating: 3
+tags:
+  - top/code-quality-fair/1
+  - integrity/ai-writing-check/addressed
+  - dg/source
+  - trust/reproducibility/some-concerns
+  - top/study-protocol/not-disclosed
+  - top/study-registration/not-applicable
+  - top/data-transparency/not-disclosed
+  - top/code-transparency/level-2-shared
+  - appraisal/construct-validity/some-concerns
+  - appraisal/internal-validity/some-concerns
+  - appraisal/external-validity/high-risk
+  - appraisal/statistical-rigor/some-concerns
+  - rigor/sample-size-estimation/not-done
+  - rigor/study-type/exploratory
+  - rigor/data-leakage/not-addressed
+  - rigor/baseline-adequacy/partial
+  - rigor/train-dev-test/not-addressed
+  - rigor/multiple-comparisons/not-addressed
+  - rigor/human-baseline/partial
+  - rigor/confidence-intervals/partial
+  - integrity/ethical-approval/not-applicable
+  - integrity/funding-disclosure/not-disclosed
+  - integrity/coi-disclosure/not-disclosed
+  - top/repository-check/not-addressed
+  - top/code-check/addressed
+  - transparency/effect-size/not-addressed
+  - transparency/exact-p-values/not-addressed
+  - integrity/spin/not-addressed
+  - rigor/prompt-engineering/addressed
+  - rigor/chance-corrected-metrics/not-addressed
+  - rigor/ablation-experiments/addressed
+doi: 10.2478/jdis-2025-0011
+license: "cc-by"
+license_source: "OpenAlex (primary location: Journal of Data and Information Science)"
+oa_status: "diamond"
+nameConsistency: consistent
+predatoryPublisherFlag: false
+authorTrackRecord: not-checked
+predatoryPublisherNote: "Not re-checked for the 2025 journal version (the earlier check was for the arXiv preprint)"
+critiqueStatus: not-registered
+critiqueNote: "Not re-checked for the 2025 journal version (the earlier note covered the arXiv preprint)"
+authors:
+  - "Thelwall, Mike"
+pubType: journal-article
+selfCitationRate: not-assessable
+doajListed: not-applicable
+pubpeerCommentCount: 0
+crossNodeChecked: 2
+crossNodeCorroborated: 2
+apaTitle: "Evaluating research quality with Large Language Models: An analysis of ChatGPT's effectiveness with different settings and inputs"
+apaContainer: "Journal of Data and Information Science"
+apaYear: 2025
+apaVolume: "10"
+apaIssue: "1"
+apaPages: "7-25"
+apaLandingUrl: "https://doi.org/10.2478/jdis-2025-0011"
+apaAuthors:
+  - given: "Mike"
+    family: "Thelwall"
+peerReviewStatus: peer-reviewed
+peerReviewNote: "Journal article; front matter gives received 22 Aug 2024, revised 7 and 29 Nov 2024, accepted 11 Dec 2024"
+curatedWithModel: "Claude Sonnet 5"
+curatedWithModelDate: 2026-08-25
+earlierVersion: "Archive - superseded versions/Archive - Thelwall - 2024.pdf"
+earlierVersionNote: "arXiv preprint 2408.06752 (2024), kept as the archived earlier version; the citekey keeps the 2024 label"
+citekey: thelwallEvaluatingResearchQuality2024
+nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
+nodeInstanceId: 019dd17a-f951-7716-87b8-85d879b3e235
+---
+
+> [!success] **TL;DR**
+> The result that abstracts beat full text, counterintuitive but consistent across three models, is a useful and cheap finding for anyone building LLM-assisted quality-screening tools. But the headline r=0.678 should be read as the upper bound of what a single expert can predict about his own work, not as evidence that ChatGPT can grade research at REF-panel quality.
+
+## Abstract
+
+### Question
+
+When you ask ChatGPT to score how good a research paper is, what part of the paper should you actually feed it: the title, the title plus abstract, or the trimmed-down full text? The author tests three input formats across three OpenAI models and checks which one produces scores that line up best with a human expert's quality ratings. The benchmark is the UK's Research Excellence Framework (REF), a national exercise that grades research on a 1* to 4* scale, where 4* means "world-leading". See [[sysrev/dgraph/questions/QUE - What input format works best for LLM quality assessment|QUE - What is the optimal input format for LLM-based research quality assessment?]].
+
+### Methods
+
+**Design.** The author ran a single-author convenience-sample experiment on 51 of his own information-science articles, comparing three OpenAI models against three input formats while holding the prompt and parameters constant.
+
+**Tools.** The pipeline relied on the OpenAI ChatGPT API in three flavours, GPT-3.5-turbo, GPT-4o, and GPT-4o-mini (the cheaper, smaller GPT-4o variant). The system prompt was the full text of the REF 2019 Main Panel D scoring guidelines (used by UK reviewers in social sciences). PDFs were converted to text using PyMuPDF (an open-source PDF parser) plus Webometric Analyst (the author's own toolkit for cleaning headers, footers, and merging paragraphs). Score extraction used regex pattern-matching on the free-text reports the model wrote.
+
+**Procedure.** The author first built three parallel input datasets from the same 51 papers: titles only, titles plus abstracts, and "truncated full text" (the body minus references, tables, figures, authors, and keywords). For each combination of model and input format that was run (seven in Table 1: all three formats for GPT-3.5-turbo, abstracts and truncated text for GPT-4o and GPT-4o-mini), the author sent 30 separate API calls per article, with temperature set to 1 (the default) and a 1000-token output cap. Each call carried the same REF guidelines as a system prompt and a user prompt of "Score the following journal article: " followed by the text. The author then extracted the 1*–4* score from each free-text report using regex rules, averaged the 30 scores per article, and computed the Spearman rank correlation (Spearman r runs from -1 to 1; 1 means the model's ranking of papers perfectly matches the human's; 0 means no relationship) between the model's average score and his own REF score across all 51 papers. To check how many iterations are needed, the author also computed correlations for every k from 1 to 30 using subset permutations.
+
+**Sample.** The author drew on his own information-science output, restricted to articles he held copyright over and could legally feed to the API, ending at 51 articles (a mix of published, prepared-for-submission, and rejected pieces). He scored each one himself on the REF 1*–4* scale, allowing half-stars for borderline cases. The unit of analysis is the article. There is one human rater, the author, who also wrote every paper.
+
+
+**At a glance.**
+
+```mermaid
+flowchart TD
+    A["Author's own<br/>information-science papers"] --> B["Filter to copyright-held<br/>+ shareable with API"]
+    B --> C["<b>51 articles</b><br/>(unit of analysis)"]
+    C --> D["Author REF self-scores<br/>(1*–4*, mid-scores allowed)"]
+    C --> E["PyMuPDF +<br/>Webometric Analyst<br/>cleanup → JSONL"]
+    E --> F["Build 3 input datasets"]
+    F --> G["Titles only"]
+    F --> H["Title + Abstract"]
+    F --> I["Truncated full text<br/>(no refs/tables/figures)"]
+    G --> J{"3 OpenAI models"}
+    H --> J
+    I --> J
+    J --> K["GPT-3.5-turbo"]
+    J --> L["GPT-4o"]
+    J --> M["GPT-4o-mini"]
+    K --> N["30 API calls per article<br/>system = REF Strategy 6<br/>temp=1, top_p=1, max=1000"]
+    L --> N
+    M --> N
+    N --> O["Regex score extraction<br/>+ per-article mean"]
+    O --> P["Spearman r vs.<br/>author REF score<br/>(across 51 articles)"]
+
+    classDef data fill:#E3F2FD,stroke:#1565C0,color:#0D47A1;
+    classDef step fill:#FFF8E1,stroke:#F57F17,color:#5D4037;
+    classDef model fill:#F1F8E9,stroke:#2E7D32,color:#1B5E20;
+    classDef result fill:#FCE4EC,stroke:#AD1457,color:#880E4F;
+    class A,B,C,D data;
+    class E,F,G,H,I,N,O step;
+    class J,K,L,M model;
+    class P result;
+```
+---
+
+### Findings
+
+- **Title plus abstract beat full text across the board.** GPT-4o on title-plus-abstract reached a Spearman correlation of 0.678 with the author's REF scores after averaging 30 iterations; the highest the author has ever reported and above the prior benchmark of 0.51 from the ChatGPT-4 web interface on full PDFs. A linear regression mapping model scores onto the REF scale cut the average error by 31% versus simply guessing the corpus mean of 2.75. [[sysrev/dgraph/evidence/EVD - GPT-4o abstract scores correlated r=0.67 with humans|EVD - GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 51 information science articles the highest reported]]
+
+- **Feeding more text actually hurt the model.** All three ChatGPT models scored worse on truncated full text than on title-plus-abstract. GPT-3.5-turbo dropped from 0.674 (abstracts) to 0.625 (full text), GPT-4o-mini dropped from 0.571 to 0.506, and GPT-4o was essentially tied at 0.678 versus 0.675. Title-only input dropped further, to 0.434 for GPT-3.5-turbo. The author's interpretation is that the abstract concentrates the originality and significance signals while the full text dilutes them with noise the model partially attends to. [[sysrev/dgraph/evidence/EVD - Full text scored worse than abstracts for 3 ChatGPT models|EVD - Full text input produced lower Spearman correlations than abstracts for all three ChatGPT models tested]]
+
+### Claim supported
+
+These findings collectively support the claim that [[sysrev/dgraph/claims/CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]. The practical implication is counterintuitive but actionable: anyone building an LLM-assisted research-quality tool should default to feeding titles and abstracts rather than the whole paper, which is also faster and roughly 100x cheaper at API rates.
+
+### Caveats
+
+- **Single author, single field, self-scored ground truth.** The 51 articles are all written by the author and graded by the author against his own memory of the REF scale. The "human ground truth" is therefore one person's self-evaluation in one narrow subfield, not a panel-level REF score from independent reviewers. [[sysrev/dgraph/caveats/CVT - Thelwall dataset was 51 articles by one author|CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]]
+
+## Quality appraisal
+
+> [!info] Risk-of-bias and validity assessment, synthesized from this paper's discourse-graph nodes and grounded in the same paper this page's top trust-signal chips summarize. Covers *methodological quality*, the TRIPOD-LLM table below covers *reporting compliance* instead.
+> <dl class="callout-legend">
+> <dt><span class="status-icon status-icon-low-risk">○</span> Low risk</dt><dd>No meaningful threat to this domain identified</dd>
+> <dt><span class="status-icon status-icon-some-risk">◐</span> Some risk</dt><dd>A real but non-fatal limitation</dd>
+> <dt><span class="status-icon status-icon-high-risk">●</span> High risk</dt><dd>A significant, unaddressed threat to validity</dd>
+> </dl>
+
+| Domain | Rating | Quote |
+| --- | :---: | --- |
+| **Construct validity**: does the metric actually measure the construct? | 🟡 | *"it should not be used for peer review of conference papers or journal articles and also not for promotion and hiring decisions"* `§5 Conclusion, p.21` |
+| **Internal validity**: could the comparison be biased? | 🟡 | *"ChatGPT might have learned that some of the articles had attracted attention online or were associated with highly regarded journals even if only fed with an article's title and abstract"* `§4 Discussion, p.18` |
+| **External validity**: do findings generalize? | 🔴 | *"This study has many limitations, the most important of which is the restriction to a relatively small number of articles written by single person"* `§4 Discussion, p.18` |
+| **Statistical conclusion validity**: appropriate uncertainty + comparisons? | 🟡 | *"The standard deviation was calculated to estimate confidence intervals for the mean correlation from a single iteration with the t distribution"* `§2.5, p.13` |
+| **Reproducibility**: code, data, determinism? | 🟡 | *"converted to text with PyMuPDF in Python (Convert_academic_pdf_to_jsonl.py in https://github.com/MikeThelwall/Python_misc)"* `§2.1, p.10` |
+| **Data leakage**: could models have seen this data pretraining? | 🔴 | Not reported, the paper never assesses whether the 51 articles (several already published) were present in ChatGPT's pretraining data, though it speculates elsewhere that ChatGPT "might have learned that some of the articles had attracted attention online" |
+| **Baseline adequacy**: is there a meaningful floor to beat? | 🟡 | *"They are nevertheless slightly better than the baseline strategy of assigning all articles the average score (2.75)"* `§3.4, p.17` |
+| **Train/dev/test hygiene**: are data splits kept separate? | 🔴 | *"In machine learning, it is typical to use separate development and training sets to allow an AI system to be configured with data that it is not tested on. This was not done in this case"* `§2.2, p.11` |
+| **Multiple-comparisons correction**: controlled for repeated testing? | 🔴 | Not reported, correlations across seven model-by-input cells (Table 1) and seven system-prompt strategies (Figure 4) are compared with no stated correction for multiple testing |
+| **Human-baseline comparability**: is there a human reference point? | 🟡 | *"the author's scores are less relevant than the scores of more independent and less expert (on this topic) senior researchers, who would be the ones forming the evaluations in the most important context"* `§2.1, p.10` |
+| **Confidence Intervals**: are point estimates accompanied by an interval? | 🟡 | *"The standard deviation was calculated to estimate confidence intervals for the mean correlation from a single iteration with the t distribution."* `§2.5, p.13`; an interval is derived, but only for the single-iteration sub-analysis, via an ad hoc method (t-distribution over permutation subsets) rather than a standard CI on the headline correlations |
+| **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: model-quality agreement is assessed via Spearman correlation and mean absolute difference against citation/journal-rank proxies, not a chance-corrected statistic |
+| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance testing framework is applied to the headline correlations, so there is no null finding to spin |
+| **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"If the Strategy 3 specific part (defining significance, rigour, originality) is removed from Strategy 6 then this performs slightly worse than strategy 6... so the full instructions seem to be the optimal choice."* `p.17` |
+| **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/48951609-f079-463b-90a3-862ee10dab0f) |
+| **Code Quality**: does the released code follow FAIR-software practices? | 🔴 | `howfairis` (fair-software.eu 5-criteria checklist) against https://github.com/MikeThelwall/Python_misc: **1/5**: open repository only: no license, package-registry listing, citation metadata, or quality-checklist badge. |
+
+**Bottom line.** The result that abstracts beat full text, counterintuitive but consistent across three models, is a useful and cheap finding for anyone building LLM-assisted quality-screening tools. But the headline r=0.678 should be read as the upper bound of what a single expert can predict about his own work, not as evidence that ChatGPT can grade research at REF-panel quality. Before this becomes deployment-ready, the experiment needs to repeat on a multi-author, multi-field corpus with independent reviewer panels and pinned model snapshots.
+
+> [!tip] **Applicable external appraisal frameworks beyond TRIPOD-LLM** (already covered by the table below): **HELM** (Liang et al. 2022) for holistic LLM-evaluation principles · **Datasheets for Datasets** (Gebru et al. 2021) for the evaluation corpus · **Model Cards** (Mitchell et al. 2019) for the LLMs being evaluated
+
+---
+
+## TRIPOD-LLM reporting
+
+> [!info] Reporting compliance for this paper, mapped to the TRIPOD-LLM checklist (Title/Abstract/Introduction items 1–4, Methods items 5a–15, Results items 16a–18). TRIPOD-LLM is a clinical-ML guideline being applied here to a non-clinical AI-research benchmark, where an item's own wording says "healthcare context" or "care pathway," it's read as "research-evaluation context" / "research workflow" instead. Item 17 (Performance) is reported per-EVD; see each EVD's `## Other Notes`.
+> <div class="callout-legend-flat">
+> <span><span class="status-icon status-icon-good">●</span>Fully reported</span>
+> <span><span class="status-icon status-icon-partial">◐</span>Partial / unclear</span>
+> <span><span class="status-icon status-icon-bad">○</span>Not reported</span>
+> <span><span class="status-icon status-icon-na">–</span>Not applicable</span>
+> </div>
+
+| # | Item | ✓ | Quote |
+| --- | --- | :---: | --- |
+| **1** | Title | ✅ | *"Evaluating research quality with Large Language Models: An analysis of ChatGPT's effectiveness with different settings and inputs"* `Title` |
+| **2** | Abstract | ➖ | Assessed separately under TRIPOD-LLM's own Abstract extension, not scored here |
+| **3a** | Background: context + rationale | ✅ | *"Evaluating the quality of academic research is necessary for many national research evaluation exercises, such as in UK and New Zealand (Buckle & Creedy, 2024; Sivertsen, 2017), as well as for appointments, promotions, and tenure"* `§1, p.8` |
+| **3b** | Background: target population | ⚠️ | *"The raw data for this paper is a set of 51 information science journal articles that have either been published or prepared for submission and subsequently rejected or not submitted."* `§2.1, p.10`, defines the study's own corpus but not a broader target population beyond the author's own field |
+| **4** | Objectives | ✅ | *"RQ1: What is the optimal input for ChatGPT post-publication research quality assessment: full text, abstract, or title only?"* `§1, p.9` |
+| **5a** | Data sources | ✅ | *"The raw data for this paper is a set of 51 information science journal articles that have either been published or prepared for submission and subsequently rejected or not submitted. All were written by the author, who has copyright"* `§2.1, p.10` |
+| **5b** | Data points + distribution | ⚠️ | *"Table 2. Average humans scores and model average scores."* `Table 2, p.15`, corpus size (n=51) and overall human-score mean (2.75) reported, but per-article topic/length distribution and the count per REF score level are not tabulated |
+| **5c** | Date range of data | ⚠️ | *"The queries were all submitted in July 2024."* `§2, p.10`, publication-date range of the 51 source articles not reported; only the API-inference month is given, and OpenAI training cutoffs are not disclosed |
+| **5d** | Pre-processing / quality checks | ✅ | *"The PDF documents were converted to text with PyMuPDF in Python (Convert_academic_pdf_to_jsonl.py in https://github.com/MikeThelwall/Python_misc)."* `§2.1, p.10` |
+| **5e** | Missing / imbalanced data | ⚠️ | *"For example, if two of the 30 scores for article 1 were missing, then the article 1 average score would be the average of the remaining 28."* `§2.4, p.12` |
+| **6a** | LLM name + version | ⚠️ | *"ChatGPT 4o is slightly better than 3.5-turbo (0.66), and 4o-mini (0.66)."* `Findings, p.7`, model families named but no dated snapshot IDs; only "The queries were all submitted in July 2024." gives an inference window |
+| **6b** | Development process | ➖ | Not applicable: off-the-shelf ChatGPT API models used with no fine-tuning or training of the LLMs themselves |
+| **6c** | Inference settings / prompting | ✅ | *"The maximum temperature parameter was set to 1, the default, the top_p parameter was also set to its default of 1, and the max_tokens parameter was set to 1000"* `§2.2, p.12` |
+| **6d** | Output | ✅ | *"Score the following journal article:"* `§2.2, p.12`, free-text report containing an embedded 1*–4* score |
+| **6e** | Classification thresholds | ✅ | *"one rule was to extract the number between "Overall Score**: **" and "*""* `§2.4, p.12` |
+| **7a** | Quality metrics | ✅ | *"Spearman correlations were used to assess the extent to which the 51 human scores agreed with the ChatGPT scores"* `§2.5, p.12` |
+| **7b** | Relevance to downstream | ⚠️ | *"it should not be used for peer review of conference papers or journal articles and also not for promotion and hiring decisions"* `§5, p.21`, caution against real deployment given but no formal downstream-utility quantification |
+| **7c** | Outcome definition | ✅ | *"All were written by the author, who has copyright, and were scored by him using the REF quality scale of 1*, 2*, 3* or 4* (REF, 2019)"* `§2.1, p.10` |
+| **7d** | Subjective interpretation | ⚠️ | *"This dataset is not ideal since (a) it is part of a single author's output and therefore not representative even of its field, (b) the author's scores are less relevant than the scores of more independent and less expert (on this topic) senior researchers"* `§2.1, p.10` |
+| **7e** | Comparison | ✅ | *"The results improve on the prior attempt to predict REF scores on the same set of articles with ChatGPT 4 using the web interface"* `§4.1, p.19` |
+| **8a** | Annotation guidelines | ✅ | *"The main system prompt used was like that used in the previous paper and consists of the REF guidelines for the research area (Main Panel D)"* `§2.2, p.11` |
+| **8b** | Annotators + IAA | ⚠️ | *"This study has many limitations, the most important of which is the restriction to a relatively small number of articles written by single person."* `§4, p.18`, single self-evaluator, no inter-annotator agreement possible |
+| **8c** | Annotator background | ✅ | *"scored by him using the REF quality scale of 1*, 2*, 3* or 4* (REF, 2019), with which he is familiar"* `§2.1, p.10` |
+| **9a** | Prompt design | ✅ | *"Six variations of the basic REF system prompt were tested to assess whether alternative prompts might give better results."* `§2.3, p.12` |
+| **9b** | Prompt-development data | ⚠️ | *"This exercise consisted of: (a) fruitless tests with different prompts to try to get the score prediction to be reported more consistently, and (b) fruitless experiments with attempts to get score predictions from DOIs or full text URLs."* `§2.2, p.11` |
+| **10** | Summarization | ➖ | Not applicable: scoring task, not summarization |
+| **11** | Instruction tuning / alignment | ➖ | Not applicable: off-the-shelf models, no fine-tuning or alignment performed |
+| **12** | Compute | ⚠️ | *"API calls with ChatGPT 4o are ten times more expensive than calls with ChatGPT 3.5-turbo and twenty times more expensive than ChatGPT 4o-mini calls (as of July 2024)"* `§3.2, p.15`, cost ratio given but no token counts or wall-clock time |
+| **13** | Ethical approval | ➖ | Not applicable: no human subjects beyond the investigator-author scoring his own work |
+| **14a** | Funding | ❌ | Not reported |
+| **14b** | Conflicts of interest | ❌ | Not reported |
+| **14c** | Protocol | ❌ | Not reported |
+| **14d** | Registration | ➖ | Not applicable: not a registered clinical study |
+| **14e** | Data availability | ❌ | *"The scores given to these papers have never been disclosed to anyone else or uploaded to any Artificial Intelligence (AI) system."* `§2.1, p.10`, describes non-disclosure to date, but no future public-release plan is stated for the 51 texts or scores |
+| **14f** | Code availability | ✅ | *"Convert_academic_pdf_to_jsonl.py in https://github.com/MikeThelwall/Python_misc"* `§2.1, p.10` |
+| **15** | Patient/public involvement | ➖ | Not applicable |
+| **16a** | Flow of data | ⚠️ | *"For each experiment, the ChatGPT completion requests were carried out consecutively and then repeated a further 29 times to give 30 scores for each article."* `§2, p.10`, iteration flow given, no diagram of API-call success/failure |
+| **16b** | Characteristics | ⚠️ | *"the papers are relatively homogeneous in topic, giving more scope for AI to differentiate quality differences from topic differences."* `§2.1, p.10` |
+| **16c** | Distribution comparison | ➖ | Not applicable: no train/test split or subgroup comparison |
+| **16d** | N per analysis | ✅ | *"Averaging 2 or 28 iterations. In both cases there are 30x29=870 permutations of sets of iterations to average"* `§2.5, p.13` |
+| **17** | Performance | `per-EVD` | Reported per-EVD. See each EVD's `## Other Notes` for the EVD-specific Spearman, MAD, and regression numbers. |
+| **18** | LLM updating | ➖ | Not applicable: no model updating performed |
+
+## PDF check
+
+- PDF check 2026-11-24: source version: the page set now cites the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011), with printed journal page numbers; the 2024 preprint (arXiv 2408.06752) is kept as "Archive - superseded versions/Archive - Thelwall - 2024.pdf". The citekey and filename keep "2024".
+- PDF check 2026-11-24: metadata doi: 10.48550/arXiv.2408.06752 -> doi: 10.2478/jdis-2025-0011
+- PDF check 2026-11-24: metadata pubType: preprint -> pubType: journal-article
+- PDF check 2026-11-24: metadata apaTitle: "Evaluating Research Quality with Large Language Models: An Analysis of ChatGPT's Effectiveness with Different Settings and Inputs" -> apaTitle: "Evaluating research quality with Large Language Models: An analysis of ChatGPT's effectiveness with different settings and inputs"
+- PDF check 2026-11-24: metadata apaContainer: "arXiv" -> apaContainer: "Journal of Data and Information Science"
+- PDF check 2026-11-24: metadata apaLandingUrl: "https://arxiv.org/abs/2408.06752" -> apaLandingUrl: "https://doi.org/10.2478/jdis-2025-0011"
+- PDF check 2026-11-24: metadata peerReviewStatus: not-applicable -> peerReviewStatus: peer-reviewed
+- PDF check 2026-11-24: metadata peerReviewNote: "Preprint — not peer reviewed" -> peerReviewNote: "Journal article; front matter gives received 22 Aug 2024, revised 7 and 29 Nov 2024, accepted 11 Dec 2024"
+- PDF check 2026-11-24: metadata predatoryPublisherNote: "arXiv preprint — not applicable (not a journal publisher)" -> predatoryPublisherNote: "Not re-checked for the 2025 journal version (the earlier check was for the arXiv preprint)"
+- PDF check 2026-11-24: metadata critiqueNote: "No retraction registry exists for arXiv preprints (checked via DataCite)" -> critiqueNote: "Not re-checked for the 2025 journal version (the earlier note covered the arXiv preprint)"
+- PDF check 2026-11-24: metadata apaYear: 2024 -> apaYear: 2025
+- PDF check 2026-11-24: metadata added apaVolume: "10", apaIssue: "1", apaPages: "7-25"
+- PDF check 2026-11-24: metadata added earlierVersion: "Archive - superseded versions/Archive - Thelwall - 2024.pdf" (arXiv 2408.06752, 10.48550/arXiv.2408.06752); citekey and filename unchanged
+- PDF check 2026-11-24: citation of "it should not be used for peer review of conference pap..." `§5 Conclusion, p.15` -> p.21
+- PDF check 2026-11-24: citation of "ChatGPT might have learned that some of the articles ha..." `§4 Discussion, p.12` -> p.18
+- PDF check 2026-11-24: citation of "This study has many limitations, the most important of ..." `§4 Discussion, p.12` -> p.18
+- PDF check 2026-11-24: citation of "The standard deviation was calculated to estimate confi..." `§2.5, p.6` -> p.13
+- PDF check 2026-11-24: citation of "converted to text with PyMuPDF in Python (Convert_acade..." `§2.1, p.4` -> p.10
+- PDF check 2026-11-24: citation of "They are nevertheless slightly better than the baseline..." `§3.4, p.11` -> p.17
+- PDF check 2026-11-24: quote "In machine learning it is typical..." -> "In machine learning, it is typical..." (comma in the journal text; Train/dev/test row)
+- PDF check 2026-11-24: citation of "In machine learning it is typical to use separate devel..." `§2.2, p.4` -> p.11
+- PDF check 2026-11-24: citation of "the author's scores are less relevant than the scores o..." `§2.1, p.4` -> p.10
+- PDF check 2026-11-24: citation of "The standard deviation was calculated to estimate confi..." `§2.5, p.6` -> p.13
+- PDF check 2026-11-24: citation of "If the Strategy 3 specific part (defining significance,..." `p.10` -> p.17
+- PDF check 2026-11-24: citation of "Evaluating the quality of academic research is necessar..." `§1, p.1` -> p.8
+- PDF check 2026-11-24: citation of "The raw data for this paper is a set of 51 information ..." `§2.1, p.3` -> p.10
+- PDF check 2026-11-24: citation of "RQ1: What is the optimal input for ChatGPT post-publica..." `§1, p.3` -> p.9
+- PDF check 2026-11-24: citation of "The raw data for this paper is a set of 51 information ..." `§2.1, p.3` -> p.10
+- PDF check 2026-11-24: citation of "Table 2. Average humans scores and model average scores..." `Table 2, p.8` -> p.15
+- PDF check 2026-11-24: citation of "The queries were all submitted in July 2024."* `§2, p.3..." `§2, p.3` -> p.10
+- PDF check 2026-11-24: citation of "The PDF documents were converted to text with PyMuPDF i..." `§2.1, p.4` -> p.10
+- PDF check 2026-11-24: citation of "For example, if two of the 30 scores for article 1 were..." `§2.4, p.5` -> p.12
+- PDF check 2026-11-24: quote "the queries were all submitted..." -> "The queries were all submitted in July 2024." (capitalised as in the journal text; item 6a)
+- PDF check 2026-11-24: citation of "ChatGPT 4o is slightly better than 3.5-turbo (0.66), an..." `Findings, p.1` -> p.7
+- PDF check 2026-11-24: citation of "The maximum temperature parameter was set to 1, the def..." `§2.2, p.5` -> p.12
+- PDF check 2026-11-24: prompt quote "Score the following journal article: " -> "Score the following journal article:" (no trailing space in the journal text; item 6d)
+- PDF check 2026-11-24: citation of "Score the following journal article: "* `§2.2, p.5`, fr..." `§2.2, p.5` -> p.12
+- PDF check 2026-11-24: citation of "one rule was to extract the number between "Overall Sco..." `§2.4, p.5` -> p.12
+- PDF check 2026-11-24: citation of "Spearman correlations were used to assess the extent to..." `§2.5, p.5` -> p.12
+- PDF check 2026-11-24: citation of "it should not be used for peer review of conference pap..." `§5, p.15` -> p.21
+- PDF check 2026-11-24: citation of "All were written by the author, who has copyright, and ..." `§2.1, p.3` -> p.10
+- PDF check 2026-11-24: citation of "This dataset is not ideal since (a) it is part of a sin..." `§2.1, p.3` -> p.10
+- PDF check 2026-11-24: citation of "The results improve on the prior attempt to predict REF..." `§4.1, p.12` -> p.19
+- PDF check 2026-11-24: citation of "The main system prompt used was like that used in the p..." `§2.2, p.4` -> p.11
+- PDF check 2026-11-24: citation of "This study has many limitations, the most important of ..." `§4, p.12` -> p.18
+- PDF check 2026-11-24: citation of "scored by him using the REF quality scale of 1*, 2*, 3*..." `§2.1, p.3` -> p.10
+- PDF check 2026-11-24: quote "Six variations of the basic REF prompt..." -> "Six variations of the basic REF system prompt..." (journal wording; item 9a)
+- PDF check 2026-11-24: citation of "Six variations of the basic REF prompt were tested to a..." `§2.3, p.5` -> p.12
+- PDF check 2026-11-24: quote "This exercise consisted: of (a)..." -> "This exercise consisted of: (a)..." (journal wording; item 9b)
+- PDF check 2026-11-24: citation of "This exercise consisted: of (a) fruitless tests with di..." `§2.2, p.4` -> p.11
+- PDF check 2026-11-24: citation of "API calls with ChatGPT 4o are ten times more expensive ..." `§3.2, p.8` -> p.15
+- PDF check 2026-11-24: citation of "The scores given to these papers have never been disclo..." `§2.1, p.3` -> p.10
+- PDF check 2026-11-24: citation of "Convert_academic_pdf_to_jsonl.py in https://github.com/..." `§2.1, p.4` -> p.10
+- PDF check 2026-11-24: citation of "For each experiment, the ChatGPT completion requests we..." `§2, p.3` -> p.10
+- PDF check 2026-11-24: citation of "the papers are relatively homogeneous in topic, giving ..." `§2.1, p.3` -> p.10
+- PDF check 2026-11-24: citation of "Averaging 2 or 28 iterations. In both cases there are 3..." `§2.5, p.6` -> p.13
+- PDF check 2026-11-24: item 1 title quote -> journal sentence-case title
+- PDF check 2026-11-24: "nine model-by-input cells" -> "seven" (Table 1 has seven model-by-input columns; Multiple-comparisons row)
+- PDF check 2026-11-24: Methods paragraph "each combination of model and input format" -> the seven combinations actually in Table 1 (titles were run only with GPT-3.5-turbo)

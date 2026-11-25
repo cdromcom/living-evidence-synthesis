@@ -1,0 +1,46 @@
+{
+ "evd": 19,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "Compares LLM quality-score correlations by input format (abstracts vs full text); specific finding on assessment performance."
+ },
+ "fidelity": {
+  "label": "Partially Met",
+  "probs": {
+   "Met": 0.35,
+   "Partially Met": 0.55,
+   "Unmet": 0.1
+  },
+  "reason": "Quote covers only ChatGPT 3.5-turbo; statement claims all three models, which the quote does not support."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.8,
+   "Partially Correct": 0.15,
+   "Incorrect": 0.03,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.9,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot shows both quoted sentences; the omitted middle sentence is marked by the ellipsis."
+ },
+ "table": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.04,
+   "Incorrect": 0.85,
+   "Missing": 0,
+   "NA": 0.08
+  },
+  "shot_connects": [
+   0.4
+  ],
+  "reason": "Paraphrased values (0.674, 0.625, 0.678, 0.675) are from Table 1, which is not shown; body text only."
+ }
+}

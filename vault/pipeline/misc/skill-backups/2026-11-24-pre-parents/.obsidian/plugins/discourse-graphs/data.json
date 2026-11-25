@@ -1,0 +1,316 @@
+{
+  "nodeTypes": [
+    {
+      "id": "node_jKotme91CblmMaQ3_erJh",
+      "name": "Question",
+      "format": "QUE - {content}",
+      "color": "#99890e",
+      "created": 1771515768303,
+      "modified": 1772810972273,
+      "description": "Unknowns that we want to make known, and is addressable by our experiments, prototypes, etc.",
+      "template": "T - Question"
+    },
+    {
+      "id": "node_e4Yq051ZoxfvA3hKq7pQC",
+      "name": "Claim",
+      "format": "CLM - {content}",
+      "color": "#7DA13E",
+      "tag": "clm-candidate",
+      "created": 1771515768303,
+      "modified": 1772810987967,
+      "description": "Atomic, generalized assertions about the world that (propose to) answer research questions",
+      "template": "T - Claim"
+    },
+    {
+      "id": "node_3vlm67QvkJJM8EKTkxXgg",
+      "name": "Evidence",
+      "format": "EVD - {content}",
+      "color": "#DB134A",
+      "tag": "evd-candidate",
+      "created": 1771515768303,
+      "modified": 1772811004270,
+      "description": "A specific empirical observation from a particular study",
+      "template": "T - Evidence",
+      "keyImage": true
+    },
+    {
+      "id": "node_WloBZlAOaEodMKQ82S_Dn",
+      "name": "Source",
+      "format": "@{content}",
+      "color": "#3B82F6",
+      "tag": "src-candidate",
+      "created": 1771515768303,
+      "modified": 1774020927205,
+      "description": "Some published research source, like a book, conference paper, or journal article",
+      "template": "T - Source",
+      "folderPath": "Discourse Graph/Sources"
+    },
+    {
+      "id": "node_P1dPJa9J5gBxcCv83gyb7",
+      "name": "Task",
+      "format": "TA - {content}",
+      "template": "T - Experiment",
+      "tag": "",
+      "created": 1771535804443,
+      "modified": 1774020905386,
+      "color": "#78d2e8",
+      "folderPath": "resources/Tasks",
+      "keyImage": true
+    },
+    {
+      "id": "node_M3yVTmuBJh4UeS2Bg0uFE",
+      "name": "Project",
+      "format": "PRJ - {content}",
+      "template": "",
+      "tag": "",
+      "created": 1771535841171,
+      "modified": 1771535852715,
+      "color": "#dadd46"
+    },
+    {
+      "id": "node_B_Ume40Gnfox54mBaicgi",
+      "name": "Pattern",
+      "format": "PTN - {content}",
+      "template": "T - Pattern",
+      "tag": "ptn-candidate",
+      "created": 1772811027198,
+      "modified": 1774020911968,
+      "description": "Conceptual classes such as theoretical objects, heuristics, design patterns, and system/methodological approaches, that are abstracted from a *specific* implementation. They are what make specific systems \\\"work\\\" or not, matched to a model of the problem.",
+      "keyImage": true,
+      "color": "#5bca53",
+      "folderPath": "Discourse Graph/Patterns"
+    },
+    {
+      "id": "node_ENo_JkCyTcd3mqINJQ8-a",
+      "name": "Artifact",
+      "format": "ART - {content}",
+      "template": "T - Artifact",
+      "tag": "art-candidate",
+      "created": 1772811077097,
+      "modified": 1774020920522,
+      "description": "Specific concrete systems (prototypes, standards, etc.) that instantiate one or more conceptual patterns or methods",
+      "color": "#dc7474",
+      "keyImage": true,
+      "folderPath": "Discourse Graph/Artifacts"
+    },
+    {
+      "id": "node_W8AMvC4ObRG5jZ9qakbzH",
+      "name": "Research Method",
+      "format": "RM - {content}",
+      "template": "",
+      "tag": "",
+      "color": "#72df88",
+      "created": 1773848652998,
+      "modified": 1773848687341,
+      "description": "A systematic research method",
+      "folderPath": "resources/Methods"
+    },
+    {
+      "id": "node_CWFhMxpFhFR_hwbvZUUkM",
+      "name": "Caveat",
+      "format": "CVT - {content}",
+      "template": "",
+      "tag": "cvt-candidate",
+      "color": "#808080",
+      "created": 1775855367512,
+      "modified": 1775855596069,
+      "description": "Methodological limitations on EVDs and CLMs"
+    },
+    {
+      "id": "node_tzL95oDi6eYeRIHeY_rCh",
+      "name": "EvidencePattern",
+      "format": "EVD-P - {content}",
+      "template": "T - Claim",
+      "tag": "evdP",
+      "color": "#633f88",
+      "created": 1777512100137,
+      "modified": 1777512171889,
+      "description": "empirical regularities from a bundle of EVDs bridging up to a CLM",
+      "keyImage": true
+    }
+  ],
+  "relationTypes": [
+    {
+      "id": "relation_5ScW5vbMT6EM8mO2IHPvB",
+      "label": "supports",
+      "complement": "is supported by",
+      "color": "green",
+      "created": 1771515768303,
+      "modified": 1771515768303
+    },
+    {
+      "id": "relation_RZbGcqKuL0cvPyU72a3Qd",
+      "label": "opposes",
+      "complement": "is opposed by",
+      "color": "red",
+      "created": 1771515768303,
+      "modified": 1771515768303
+    },
+    {
+      "id": "relation_sOClb6NkQ7Ei2LnvAdifG",
+      "label": "informs",
+      "complement": "is informed by",
+      "color": "grey",
+      "created": 1771515768303,
+      "modified": 1771515768303
+    },
+    {
+      "id": "relation_iPELuntHr8NmgnaRHkgiU",
+      "label": "derived from",
+      "complement": "has derivation",
+      "color": "blue",
+      "created": 1771515768303,
+      "modified": 1771515768303
+    },
+    {
+      "id": "rel_Uv4kjb9NiWMq8p5FufwMm",
+      "label": "involves",
+      "complement": "involved in",
+      "color": "grey",
+      "created": 1772811160676,
+      "modified": 1772811172906
+    },
+    {
+      "id": "rel_yI4wdC44a3mTW-S4YoN1S",
+      "label": "resource for",
+      "complement": "has resource",
+      "color": "light-green",
+      "created": 1773848035042,
+      "modified": 1773848056103
+    },
+    {
+      "id": "rel_Ve1DvNbv-Peksxvq-NiaO",
+      "label": "instance of",
+      "complement": "instanced by",
+      "color": "black",
+      "created": 1774383614552,
+      "modified": 1774383619606
+    },
+    {
+      "id": "rel_3_koAHCC3G9FL36JIZjZE",
+      "label": "is supported by",
+      "complement": "informs",
+      "color": "light-violet",
+      "created": 1777512191481,
+      "modified": 1777512327391
+    }
+  ],
+  "discourseRelations": [
+    {
+      "id": "rel3_Ty-jr6oCH5OHF9LAPYskX",
+      "sourceId": "node_3vlm67QvkJJM8EKTkxXgg",
+      "destinationId": "node_jKotme91CblmMaQ3_erJh",
+      "relationshipTypeId": "relation_sOClb6NkQ7Ei2LnvAdifG",
+      "created": 1771515768303,
+      "modified": 1771515768303
+    },
+    {
+      "id": "rel3_j8JsW32B6CdNt7HQgJeLg",
+      "sourceId": "node_3vlm67QvkJJM8EKTkxXgg",
+      "destinationId": "node_e4Yq051ZoxfvA3hKq7pQC",
+      "relationshipTypeId": "relation_5ScW5vbMT6EM8mO2IHPvB",
+      "created": 1771515768303,
+      "modified": 1771515768303
+    },
+    {
+      "id": "rel3_lnvCaK_36KmY3F10poBlP",
+      "sourceId": "node_3vlm67QvkJJM8EKTkxXgg",
+      "destinationId": "node_e4Yq051ZoxfvA3hKq7pQC",
+      "relationshipTypeId": "relation_RZbGcqKuL0cvPyU72a3Qd",
+      "created": 1771515768303,
+      "modified": 1771515768303
+    },
+    {
+      "id": "rel3_zgsCgicO9xF5FE_56Ih-C",
+      "sourceId": "node_3vlm67QvkJJM8EKTkxXgg",
+      "destinationId": "node_WloBZlAOaEodMKQ82S_Dn",
+      "relationshipTypeId": "relation_iPELuntHr8NmgnaRHkgiU",
+      "created": 1771515768303,
+      "modified": 1771515768303
+    },
+    {
+      "id": "rel3_fdpQ_J3GU-I0JnA_SZ3yk",
+      "sourceId": "node_ENo_JkCyTcd3mqINJQ8-a",
+      "destinationId": "node_3vlm67QvkJJM8EKTkxXgg",
+      "relationshipTypeId": "rel_Uv4kjb9NiWMq8p5FufwMm",
+      "created": 1772811116796,
+      "modified": 1772811186593
+    },
+    {
+      "id": "rel3_D96xNaS_NNT4c1ORooZUX",
+      "sourceId": "node_B_Ume40Gnfox54mBaicgi",
+      "destinationId": "node_e4Yq051ZoxfvA3hKq7pQC",
+      "relationshipTypeId": "rel_Uv4kjb9NiWMq8p5FufwMm",
+      "created": 1772811136436,
+      "modified": 1772811193524
+    },
+    {
+      "id": "rel3_4iru--chwDK1PHogwQyB0",
+      "sourceId": "node_B_Ume40Gnfox54mBaicgi",
+      "destinationId": "node_P1dPJa9J5gBxcCv83gyb7",
+      "relationshipTypeId": "rel_yI4wdC44a3mTW-S4YoN1S",
+      "created": 1773848059189,
+      "modified": 1773848064882
+    },
+    {
+      "id": "rel3_shfKxTGAezFCdW1fm8Eok",
+      "sourceId": "node_ENo_JkCyTcd3mqINJQ8-a",
+      "destinationId": "node_P1dPJa9J5gBxcCv83gyb7",
+      "relationshipTypeId": "rel_yI4wdC44a3mTW-S4YoN1S",
+      "created": 1773848065748,
+      "modified": 1773848071568
+    },
+    {
+      "id": "rel3_Zf5IjgcjIE6pw0Cwlm_a5",
+      "sourceId": "node_e4Yq051ZoxfvA3hKq7pQC",
+      "destinationId": "node_P1dPJa9J5gBxcCv83gyb7",
+      "relationshipTypeId": "relation_sOClb6NkQ7Ei2LnvAdifG",
+      "created": 1773848086009,
+      "modified": 1773848095203
+    },
+    {
+      "id": "rel3_2FnsbAD0UrsaitLASdWjH",
+      "sourceId": "node_3vlm67QvkJJM8EKTkxXgg",
+      "destinationId": "node_P1dPJa9J5gBxcCv83gyb7",
+      "relationshipTypeId": "relation_sOClb6NkQ7Ei2LnvAdifG",
+      "created": 1773848097430,
+      "modified": 1773848105950
+    },
+    {
+      "id": "rel3_TH4zGNcwOjke307RVFoNp",
+      "sourceId": "node_ENo_JkCyTcd3mqINJQ8-a",
+      "destinationId": "node_B_Ume40Gnfox54mBaicgi",
+      "relationshipTypeId": "rel_Ve1DvNbv-Peksxvq-NiaO",
+      "created": 1774383624077,
+      "modified": 1774383632078
+    },
+    {
+      "id": "rel3_LLjkmYNumVa1G5jpxTR7u",
+      "sourceId": "node_tzL95oDi6eYeRIHeY_rCh",
+      "destinationId": "node_3vlm67QvkJJM8EKTkxXgg",
+      "relationshipTypeId": "relation_5ScW5vbMT6EM8mO2IHPvB",
+      "created": 1777512339841,
+      "modified": 1777512350236
+    },
+    {
+      "id": "rel3_3pjzGI3PykgSNF6OWoKUB",
+      "sourceId": "node_tzL95oDi6eYeRIHeY_rCh",
+      "destinationId": "node_e4Yq051ZoxfvA3hKq7pQC",
+      "relationshipTypeId": "relation_5ScW5vbMT6EM8mO2IHPvB",
+      "created": 1777512351408,
+      "modified": 1777512361374
+    }
+  ],
+  "showIdsInFrontmatter": true,
+  "nodesFolderPath": "Discourse Graph",
+  "canvasFolderPath": "Discourse Canvas",
+  "canvasAttachmentsFolderPath": "attachments",
+  "nodeTagHotkey": "\\",
+  "showHelpMenuStatusBarIcon": false,
+  "showDiscourseContextOverlay": true,
+  "spacePassword": "85fd4087-6c59-4bc2-95b4-e5f7c76f7041",
+  "accountLocalId": "popupsynthesiscentersgrantDP8T91",
+  "syncModeEnabled": false,
+  "nodeCardContextMenuEnabled": false,
+  "spaceNames": {}
+}

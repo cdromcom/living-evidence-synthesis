@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-062",
+  "evd_title": "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication",
+  "citekey": "sonWhenAICoScientists2025",
+  "source_id": "SRC-015",
+  "finding": "o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication",
+  "P": "SPOT benchmark: 83 STEM manuscripts, 91 author-confirmed errors (47 source papers, 10 domains); Equation/Proof 37 errors, Figure duplication 27",
+  "I": "o3 (2025-04-16) zero-shot, full paper as text+images, temp 0.6, 8 runs, GPT-4.1 judge",
+  "C": "GPT-4.1, Gemini-2.5-Pro, Gemini-2.0-Flash-Lite, Claude-3.7-Sonnet +/-Thinking",
+  "O": "pass@4 Equation/Proof: o3 62.6% vs Gemini-2.5-Pro 36.4%, others <5%; Figure dup: o3 0%, GPT-4.1 44.4%, Claude-Think 33.3%",
+  "S": "Error-category breakdown of cross-sectional benchmark",
+  "T": "Post-2024 WithdrarXiv/PubPeer papers; models o3 2025-04-16, GPT-4.1 2025-04-14 etc. (paper 2025)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

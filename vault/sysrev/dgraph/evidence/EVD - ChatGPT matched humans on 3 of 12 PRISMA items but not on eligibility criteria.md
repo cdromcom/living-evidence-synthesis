@@ -98,7 +98,11 @@ title: "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA c
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Only one LLM version was tested via free chat GUI not API|CVT - Only a single LLM version was tested via free chat GUI rather than API limiting reproducibility and prompt control]]
+
+- [[sysrev/dgraph/caveats/CVT - Only 20 RCTs and 20 reviews limited statistical power|CVT - The small sample of 20 RCTs and 20 systematic reviews limited statistical power to detect differences in checklist item performance]]
 
 ## Supports Claim(s)
 

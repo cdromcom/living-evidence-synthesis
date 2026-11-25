@@ -102,7 +102,9 @@ title: "AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty e
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Shahid et al. used only 67 labeled examples and 32 test ideas|CVT - Shahid et al. novelty evaluation used only 67 consensus-labeled examples with a test set of 32 ideas]]
 
 ## Supports Claim(s)
 

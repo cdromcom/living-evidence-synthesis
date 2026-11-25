@@ -12,6 +12,7 @@ tags:
 appliesTo:
   - "[[sysrev/dgraph/evidence/EVD - 39.18% of 3063 biomedical citations had accuracy errors|EVD - 39.18% of 3063 annotated biomedical citation instances contained accuracy errors]]"
   - "[[sysrev/dgraph/evidence/EVD - MultiVerS reached micro-F1 0.59 on citation accuracy|EVD - Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52 on citation accuracy classification]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate|EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb6-76a7-a86f-ebb132c3f50d

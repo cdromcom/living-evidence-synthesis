@@ -93,7 +93,9 @@ title: "ChatGPT-human correlation was weakest in intervention and objective CONS
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Roberts study tested only GPT-3.5|CVT - The Roberts study used only GPT-3.5 and did not test GPT-4 or other LLMs]]
 
 ## Supports Claim(s)
 

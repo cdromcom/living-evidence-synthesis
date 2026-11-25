@@ -116,7 +116,9 @@ title: "RAG augmentation improved GPT-4o limitation identification coarse accura
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - LimitGen covers only AI research|CVT - The LimitGen benchmark focused only on AI research limiting applicability to other scientific domains]]
 
 ## Supports Claim(s)
 

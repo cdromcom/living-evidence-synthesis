@@ -92,7 +92,9 @@ title: "LLM reviews scored comparably to human reviews on all three expert evalu
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Review alignment depends on venue guidelines and human bias|CVT - LLM review alignment findings based on venue-specific guidelines requiring yearly updates and subject to human preference biases]]
 
 ## Supports Claim(s)
 

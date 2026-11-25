@@ -1,0 +1,137 @@
+site_name: Living Synthesis — LLMs for scientific evaluation
+site_description: Discourse-graph evidence synthesis on LLMs as scientific reviewers
+site_url: ""
+site_author: P. Patel
+
+# Render the Obsidian vault directly as the source of docs.
+# mkdocs.yml lives inside public/, vault root is one level up.
+docs_dir: ..
+site_dir: ../../living-synthesis-site
+use_directory_urls: true
+strict: false
+
+# Hide vault internals and tooling from the public site.
+exclude_docs: |
+  public/.venv/
+  public/site/
+  public/hooks/
+  public/mkdocs.yml
+  public/README.md
+  misc/
+  templates/
+  *.base
+  questions/attachments/
+  source/pdfs/
+  paraphrase_audit_*.tsv
+  logs/History.md
+  logs/Log.md
+  skills/Skill.md
+  skills/Skill-templates.md
+  skills/Skill-synthesis.md
+  skills/Skill-references.md
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tooltips
+  icon:
+    repo: fontawesome/brands/github
+  favicon: assets/favicon.svg
+
+extra_css:
+  - public/assets/extra.css
+  - public/assets/badges.css
+  - public/assets/leaderboard.css
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js
+  - public/assets/sortable.js
+
+# Reader-friendly URL: the landing page of the public site.
+nav:
+  - Home: Welcome.md
+  - "Review Arena 🧠-🤖": indexes/Review-Arena.md
+  - Source pages:
+      - source/@sarolAssessingCitationIntegrity2024.md
+  - Cross-paper patterns:
+      - evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable.md
+      - evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception.md
+      - evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions.md
+
+hooks:
+  # Order matters:
+  # - rigor_badges & leaderboard need raw markdown
+  # - bases must run before wikilinks so it can intercept `![[*.base]]`
+  #   embeds (otherwise wikilinks turns them into broken <img> tags)
+  - hooks/rigor_badges.py
+  - hooks/leaderboard.py
+  - hooks/bases.py
+  - hooks/wikilinks.py
+
+plugins:
+  - search
+  - callouts
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      zoomable: true
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde

@@ -1,0 +1,296 @@
+[
+ {
+  "id": 0,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.7 Table 3 PRISMA 7/9: 1627/1958 (83%, 81%-85%); page's 81% is wrong."
+ },
+ {
+  "id": 1,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.7 Table 3 AMSTAR 7/9 kappa 0.68 (0.63-0.73); page had 0.65."
+ },
+ {
+  "id": 2,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.7 Table 3 AMSTAR 5/9 deferring 68/1232 (6%, 4%-7%) (rendered image)."
+ },
+ {
+  "id": 3,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.7 Table 3 PRECIS-2 8/9: 79/106 (75%, 65%-83%) (rendered image)."
+ },
+ {
+  "id": 4,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.7 Sec 3.1.3: '9/9 for PRISMA and AMSTAR and >=8/9 for PRECIS-2' statistically indifferent from humans."
+ },
+ {
+  "id": 5,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Abstract and p.7 text give PRECIS-2 deferring 29%-88%, but Table 3 p.7 5/9 row is 89/504 (18%); note line is correct and the page table uses 18%."
+ },
+ {
+  "id": 6,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8 Sec 3.3: GPT-3.5 failed 3/112 for PRISMA and 2/56 for PRECIS-2; Table 2 p.5 GPT-3.5 AMSTAR 652/1232 with no footnote b, so no AMSTAR failures."
+ },
+ {
+  "id": 7,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.3 Table 1: Claude-3-Opus via Anthropic; Claude-2 and GPT-4 via OpenRouter; GPT-3.5 via OpenAI; Mixtral via OpenRouter."
+ },
+ {
+  "id": 8,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.3 Table 1 access routes as above."
+ },
+ {
+  "id": 9,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8 Sec 3.3 and Table 2 p.5 (GPT-3.5 AMSTAR N=1232)."
+ },
+ {
+  "id": 10,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8 Sec 3.1.4: 'Only the combination of human rater 2 with GPT-3.5 led to significantly more accurate responses than human rater 2 alone (1 of 10)'."
+ },
+ {
+  "id": 11,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8: 4 LLMs significant vs 'either human rater 1 or 2' = '8 of 10 possible pairs', and PRECIS-2's 1 of 10 is a rater-2 pair, so 10 = 2 raters x 5 LLMs; the page's run list sums to 9; Table 3 p.7 lists only rater-1 pairs."
+ },
+ {
+  "id": 12,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Same evidence as id 11 (p.8 text, Table 3 p.7)."
+ },
+ {
+  "id": 13,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8 Sec 3.3 and Table 2 p.5."
+ },
+ {
+  "id": 14,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered p.7 Table 3: PRISMA 'Human Rater 1 & Mixtral-8x22B' row not bold (Opus, Claude-2, GPT-3.5 bold), while p.8 text lists Mixtral among significant pairs."
+ },
+ {
+  "id": 15,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8: 'median quote similarity with the original full text was 99%' reported once overall; no per-tool values in main text."
+ },
+ {
+  "id": 16,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8 single overall 99% figure."
+ },
+ {
+  "id": 17,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8 single overall 99% figure."
+ },
+ {
+  "id": 18,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8 Sec 3.3 and Table 2 p.5."
+ },
+ {
+  "id": 19,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered p.5 Table 2 PRISMA Claude-3-Opus reliability 2318/2889 (80%, 78%-82%); 89% (87-91%) belongs to Claude-2."
+ },
+ {
+  "id": 20,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered p.5 Table 2 PRECIS-2 GPT-4 kappa 0.02 (-0.04 to 0.08)."
+ },
+ {
+  "id": 21,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.3 Table 1 access routes."
+ },
+ {
+  "id": 22,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p.8 Sec 3.3 and Table 2 p.5."
+ },
+ {
+  "id": 41,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Sarol p.5 Sec 3.2: kappa 0.96 for citation context computed over first two phases, one pooled value."
+ },
+ {
+  "id": 42,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Sarol p.5 Sec 3.2: 'accuracy labels: 0.18-0.31' given as one range without phase assignment."
+ },
+ {
+  "id": 43,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Sarol p.6 Discussion: comparable datasets 0.16-0.52; 0.18-0.31 lies below the midpoint 0.34, so 'lower half' not 'middle'."
+ },
+ {
+  "id": 54,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wrightson p.5: base 64% (57%-71%) vs fine-tuned 83% (77%-88%), CIs do not overlap; Discussion p.5: 'fine-tuning the Llama 2 model significantly improved its accuracy'."
+ },
+ {
+  "id": 55,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wrightson p.4: base and fine-tuned Llama 2 run 'using the platform default hyper-parameter values (temperature and Top P=0.7)'; the default was hyperparameters, not the prompt."
+ },
+ {
+  "id": 56,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wrightson p.1 'Received 14 May 2024'; no analysis date given, so 'mid-2024' is unsupported."
+ },
+ {
+  "id": 57,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered p.2 Figure 1: Actual(GPT) YES/Predicted(label) NO = 13, Actual NO/Predicted YES = 7, TP 84, TN 94; Supplement Table S3 sums FN 13, FP 7, TN 97, TP 85, so the note is accurate."
+ },
+ {
+  "id": 58,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wrightson pp.4-5 Image analysis: 10 papers with flow diagrams lacking reasons (Q10 YES, Q11 NO), remainder complete (YES both), plus 10 non-participant-flow diagrams for question 10 only; Table 1 p.3 items 10/11 n=20, adherence 100%/50%."
+ },
+ {
+  "id": 59,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wrightson p.5 text as above; Supplement Table S3 footnote '10 flow diagrams not taken from the papers in dataset'."
+ },
+ {
+  "id": 60,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Same pp.4-5 text, Table 1 p.3 and Table S3 footnote; distractors were not drawn from the 113 papers."
+ },
+ {
+  "id": 61,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table S3 counts sum to 30 for Q10 and Q11; 17/30 = 57% and its Wilson CI is 39%-73%, and 30/30 gives a lower bound of about 89%, whereas n=20 gives 83%; the 'CIs match n=20' claim is wrong."
+ },
+ {
+  "id": 62,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 2 footnote p.3 n=20 vs Supplement Table S3 rows summing to 30 per image question; 57% is unreachable with n=20."
+ },
+ {
+  "id": 121,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Akyon Table 1 (pp.10-11): Q15 'Is the funding of the study mentioned in the article? 1: yes 2: no'; Q2 (4 options) and Q8 (7 options) are the two multiple-choice items per 'two multiple-choice, and thirteen yes/no questions'."
+ },
+ {
+  "id": 122,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Akyon Table 1 p.11 Q15 is a yes/no question about whether funding is mentioned."
+ },
+ {
+  "id": 123,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Akyon Results: Claude v1 limited to 33 articles; Table 3 Claude v1 total 4950 = 33x15x10 vs 5850 = 39x15x10 for others, so 5x390 + 330 = 2280 per question."
+ },
+ {
+  "id": 124,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Akyon LLMs section text: '3.5-turbo 1106 (11th June version), ChatGPT 4-0613 (6th November version), ChatGPT 4-1106 (11th June version)' vs Table 2: GPT 3.5-turbo and GPT 4-1106 6 November 2023, GPT 4-0613 13th June 2023."
+ },
+ {
+  "id": 129,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wu p.1461 Table 2 HK and LLMK: Claude 0.69/0.68 vs GPT-4o 0.68/0.68, so Claude is the strongest zero-shot LLM."
+ },
+ {
+  "id": 130,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wu Table 2 p.1461: Claude 0.68/0.67 (HK+MT) to 0.69/0.68 (HK+LLMK), GPT-4o and ChatGPT decline; p.1462 says 'only LLama 3.1 shows performance improvement'."
+ },
+ {
+  "id": 131,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wu Table 2: ALBERT 0.52 (HK+MT), 0.64 (HK+LLMK), Ours-ALBERT 0.76; 0.52 to 0.76 mixes input conditions; 0.64 to 0.76 (+0.12) is still the largest framework gain."
+ },
+ {
+  "id": 132,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wu Table 2 HK and MT: BERT 0.70/0.71 and SciBERT 0.70/0.71 tie; 'GPT-4o-style' label is meaningless."
+ },
+ {
+  "id": 133,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Wu p.1461 Implementation details: 'The trained model represents the best-performing model based on the test set results'; no validation-based checkpoint selection is described."
+ },
+ {
+  "id": 134,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Srinivasan p.5 Sec 4.2: after human validation 'we excluded these four items' (7b, 3b, 6b, 14b); the appendix lists 33 CONSORT items used, and 21 retained is never stated."
+ },
+ {
+  "id": 135,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Srinivasan p.3: 2a Background was excluded only in the CONSORT-TM corpus; p.5 Sec 4.3.1 reports 2a in the large-scale analysis (95.88%); only 7b, 3b, 6b, 14b were removed."
+ },
+ {
+  "id": 136,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Same Srinivasan p.3 and p.5 passages."
+ },
+ {
+  "id": 137,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "The page's values (Claude PDF HR 16.3%, LaTeX 33.1%) come from the archived v1 text, where Table 2 falls on page 4 and 'Table 3: Hit rate results by individual judge' on page 7 by page-break count."
+ },
+ {
+  "id": 142,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Leucuta p.9 Table 2: Grok 3 85/110 (77.27), and the four values average to 72.95; the abstract and p.9 text say 'ranging from 74.45% to 67.27%'; Discussion gives Grok 3 77.27%."
+ }
+]

@@ -18,11 +18,16 @@ PDF_DIR = VAULT / 'sysrev' / 'dgraph' / 'source' / 'pdfs'
 _FIX = {'−': '-', '‐': '-', '‑': '-', '‒': '-', '–': '-', '—': '-', 'ﬁ': 'fi', 'ﬂ': 'fl', 'ﬀ': 'ff', 'ﬃ': 'ffi', 'ﬄ': 'ffl'}
 
 
+_SUP_SUB = dict.fromkeys(map(ord, '\u00b9\u00b2\u00b3\u2070\u2074\u2075\u2076\u2077\u2078\u2079\u207a\u207b\u207c\u207d\u207e\u2080\u2081\u2082\u2083\u2084\u2085\u2086\u2087\u2088\u2089\u208a\u208b\u208c\u208d\u208e\u2020\u2021'), None)
+
+
 def norm(s: str) -> str:
-    """Lower-case letters and digits only, after NFKD, dash and ligature fixes and de-hyphenation of line breaks."""
+    """Letters and digits only, lower case, so punctuation never decides a match: dashes, curly quotes, hyphenated line breaks, ligatures, footnote
+    superscripts and subscripts are ignored. The one exception is the decimal point between digits (0.79 must not match 079): it becomes 'dot'."""
     s = re.sub(r'-\s*\n\s*', '', s)
-    s = ''.join(_FIX.get(c, c) for c in s)
+    s = ''.join(_FIX.get(c, c) for c in s).translate(_SUP_SUB)   # superscript and subscript marks (footnote numbers, daggers) are dropped, not turned into digits
     s = unicodedata.normalize('NFKD', s)
+    s = re.sub(r'(?<=\d)\.(?=\d)', 'dot', s)
     return re.sub(r'[^a-z0-9]', '', s.lower())
 
 
@@ -51,8 +56,30 @@ def page_map(doc) -> list:
     return out
 
 
+def page_text(page) -> str:
+    """Page text without superscript spans (footnote numbers, daggers) and without tiny-font marks, so 'OpenReview5 we' reads 'OpenReview we'."""
+    d = page.get_text('dict'); sizes = [sp['size'] for b in d['blocks'] if b.get('type') == 0 for l in b['lines'] for sp in l['spans'] if sp['text'].strip()]
+    med = sorted(sizes)[len(sizes) // 2] if sizes else 10; out = []
+    for b in d['blocks']:
+        if b.get('type') != 0: continue
+        for l in b['lines']:
+            out.append(''.join(sp['text'] for sp in l['spans'] if not (sp['flags'] & 1) and not (sp['size'] < 0.72 * med and sp['text'].strip().isdigit())))
+            out.append('\n')
+    return ''.join(out)
+
+
+_NORM_CACHE = {}
+
+
+def _norms(doc):
+    k = id(doc)
+    if k not in _NORM_CACHE:
+        _NORM_CACHE.clear(); _NORM_CACHE[k] = ([norm(page_text(p)) for p in doc], [norm(p.get_text()) for p in doc])
+    return _NORM_CACHE[k]
+
+
 def _page_texts(doc):
-    return [p.get_text() for p in doc]
+    return [page_text(p) for p in doc]
 
 
 def find_quote(doc, quote: str, min_frag: int = 18) -> dict:
@@ -61,13 +88,20 @@ def find_quote(doc, quote: str, min_frag: int = 18) -> dict:
     Returns {'found': bool, 'fragments': [{'text','pages':[pdf pages],'ok':bool}], 'pages': sorted pdf pages}."""
     frags = [f.strip() for f in re.split(r'\.{3}|\u2026|\[\.\.\.\]', quote) if len(norm(f)) >= min_frag]
     if not frags: frags = [quote]
-    nt = [norm(p.get_text()) for p in doc]
+    nc, nr = _norms(doc)   # cleaned text (no footnote marks) and raw text, computed once per document: a quote may or may not include the marks
+    nt = [a + '\x00' + b for a, b in zip(nc, nr)]
     res = []
     for f in frags:
         k = norm(f)
         pages = [i + 1 for i, t in enumerate(nt) if k and k in t]
         if not pages:   # across a page break: tail of page i plus head of page i+1
-            pages = [i + 1 for i in range(len(nt) - 1) if k and k in (nt[i][-600:] + nt[i + 1][:600])]
+            pages = [i + 1 for i in range(len(nc) - 1) if k and (k in (nc[i][-600:] + nc[i + 1][:600]) or k in (nr[i][-600:] + nr[i + 1][:600]))]
+        if not pages and len(f.split()) >= 16:   # a float (figure or table caption) can sit inside a sentence in the text layer: match the sentence in 2 or 3 pieces on one page
+            w = f.split()
+            for k in (2, 3):
+                step = len(w) // k; chunks = [norm(' '.join(w[i * step:(i + 1) * step if i < k - 1 else len(w)])) for i in range(k)]
+                pages = [i + 1 for i, t in enumerate(nt) if all(c and c in t for c in chunks)]
+                if pages: break
         res.append({'text': f[:80], 'pages': pages, 'ok': bool(pages)})
     allp = sorted({p for r in res for p in r['pages']})
     return {'found': all(r['ok'] for r in res), 'fragments': res, 'pages': allp}

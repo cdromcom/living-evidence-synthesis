@@ -98,7 +98,9 @@ Per-question correct % across all 6 LLMs (from Figure 3 / Table 4):
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Benchmark gold standard relied on one medical professor|CVT - The benchmark gold standard relied on a single medical professor limiting reference standard validity]]
 
 ## Supports Claim(s)
 

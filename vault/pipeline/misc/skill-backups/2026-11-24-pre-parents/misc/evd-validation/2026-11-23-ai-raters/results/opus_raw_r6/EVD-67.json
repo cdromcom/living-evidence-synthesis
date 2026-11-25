@@ -1,0 +1,33 @@
+{
+ "evd": 67,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.96,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.1
+  ],
+  "reason": "Screenshot shows LLM-judge win-rate passage, not the average-recommendation 5.4 quote."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.03,
+   "Missing": 0.6,
+   "NA": 0.37
+  },
+  "shot_connects": [
+   0.05
+  ],
+  "reason": "GPT-4o 7.7 average is not in quote, implying a table; none shown."
+ }
+}

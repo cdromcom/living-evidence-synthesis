@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-014",
+  "evd_title": "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker",
+  "citekey": "zhangReviewingScientificPapers2025a",
+  "source_id": "SRC-026",
+  "finding": "Claude 3.7 Sonnet found no problem in 64.9% of test papers and achieved only 11.0% hit rate as a PDF-based scientific quality checker",
+  "P": "245 withdrawn arXiv papers with author-stated critical errors (WithdrarXiv-Check test set; Math 52%, Physics 29%, CS 15%)",
+  "I": "Claude 3.7 Sonnet (20250219), extended thinking, zero-shot fixed prompt, up to 5 problems; PDF attachment (also LaTeX)",
+  "C": "Same model with LaTeX input; hits judged by Gemini 2.5 Pro + o3 (both must affirm)",
+  "O": "HR@5 16.3% (PDF) vs 33.1% (LaTeX); no problem found in 64.9% of papers (PDF); avg 1.6 problems; $0.159/paper",
+  "S": "Cross-sectional benchmark (zero-shot, LLM-as-judge scoring)",
+  "T": "Claude 3.7 Sonnet 20250219; judges Gemini 2.5 Pro preview-05-06, o3 2025-04-16; paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

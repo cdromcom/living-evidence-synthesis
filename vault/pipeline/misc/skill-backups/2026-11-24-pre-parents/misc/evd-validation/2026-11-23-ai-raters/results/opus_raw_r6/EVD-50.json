@@ -1,0 +1,35 @@
+{
+ "evd": 50,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.9,
+   "Incorrect": 0.04,
+   "Missing": 0.02,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "quote_fully_visible": 0.25,
+  "shot_connects": [
+   0.9,
+   0.9
+  ],
+  "reason": "First quote truncated mid-paragraph at '.16. Cla'; second quote's .13 is GPT-4o on page, Claude is .41."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.03,
+   "Missing": 0.1,
+   "NA": 0.83
+  },
+  "shot_connects": [
+   0.03,
+   0.03
+  ],
+  "reason": "No caption or paraphrase; kappa 0.16 is stated in the quoted text."
+ }
+}

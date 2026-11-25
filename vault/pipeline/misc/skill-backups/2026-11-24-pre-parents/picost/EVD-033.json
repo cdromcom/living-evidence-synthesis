@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-033",
+  "evd_title": "GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%",
+  "citekey": "liangCanLargeLanguage2024a",
+  "source_id": "SRC-009",
+  "finding": "GPT-4 feedback overlapped 30.85% with individual human reviewers on Nature journals comparable to human-human overlap of 28.58%",
+  "P": "3,096 accepted papers, 15 Nature family journals, 8,745 human reviews (multidisciplinary); replication 1,709 ICLR papers",
+  "I": "GPT-4 zero-shot single-pass 4-section feedback (~6,500 tokens); GPT-4 extract-then-match pipeline (match F1 0.824)",
+  "C": "Individual human reviewers (human-human overlap controlled for comment count); shuffled-LLM null",
+  "O": "Pairwise hit rate: GPT-4 vs human 30.85% vs human-human 28.58% (Nature); ICLR 39.23% vs 35.25%",
+  "S": "Retrospective benchmark vs published human reviews",
+  "T": "Nature papers Jan 2022-Jun 2023; ICLR 2022+2023 (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

@@ -75,7 +75,7 @@ def parse_clm_supporting_evds(clm_path: Path) -> list[str]:
 
 def parse_cvt_appliesTo(cvt_path: Path) -> list[str]:
     text = cvt_path.read_text()
-    m = re.search(r'^appliesTo:\s*\n((?:^\s*-\s*"\[\[.*?\]\]"\s*\n?)+)', text, re.MULTILINE)
+    m = re.search(r'^appliesTo:[ \t]*\n((?:[ \t]*-[ \t]*"\[\[.*?\]\]"[ \t]*\n?)+)', text, re.MULTILINE)
     if not m:
         return []
     return re.findall(r'\[\[(EVD[^\]|\\]+)[^\]]*\]\]', m.group(1))

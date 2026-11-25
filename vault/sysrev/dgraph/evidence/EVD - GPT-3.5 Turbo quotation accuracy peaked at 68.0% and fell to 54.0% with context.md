@@ -87,7 +87,9 @@ Pattern: more reference context did **not** monotonically improve GPT-3.5 Turbo.
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Quotation error dataset was mostly natural science papers|CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]]
 
 ## Supports Claim(s)
 

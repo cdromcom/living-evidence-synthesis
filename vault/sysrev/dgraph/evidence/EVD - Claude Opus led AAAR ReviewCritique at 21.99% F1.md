@@ -90,7 +90,11 @@ Despite being the best model, Claude Opus F1=21.99% is very low in absolute term
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - AAAR excluded figures and other non-text inputs|CVT - The AAAR benchmark excluded non-textual inputs such as figures that are integral to scientific evaluation]]
+
+- [[sysrev/dgraph/caveats/CVT - AAAR training data leakage was not resolved|CVT - The AAAR data leakage problem from LLM training corpus was not resolved]]
 
 ## Supports Claim(s)
 

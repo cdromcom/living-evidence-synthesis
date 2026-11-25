@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-048",
+  "evd_title": "Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2",
+  "citekey": "sarolAssessingCitationIntegrity2024",
+  "source_id": "SRC-013",
+  "finding": "Inter-annotator agreement on citation accuracy labels was only kappa 0.18-0.31 in annotation phases 1-2",
+  "P": "Citations to first 30 of 100 PMC-OA biomedical reference articles (phases 1-2 of Sarol corpus)",
+  "I": "None (human annotation reliability)",
+  "C": "Pairwise between 5 life-science student annotators",
+  "O": "Cohen's kappa: accuracy labels 0.18-0.31; evidence sentences 0.20 -> 0.37; citation context 0.96",
+  "S": "Inter-annotator reliability sub-study within corpus annotation",
+  "T": "Not reported (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

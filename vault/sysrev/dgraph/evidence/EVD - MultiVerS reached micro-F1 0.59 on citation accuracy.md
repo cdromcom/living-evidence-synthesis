@@ -100,8 +100,9 @@ title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52
 
 > [!info] Caveats applying to this evidence
 
-- [[sysrev/dgraph/caveats/CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
 - [[sysrev/dgraph/caveats/CVT - Low annotator agreement weakened citation accuracy labels|CVT - Low inter-annotator agreement on citation accuracy labels limited quality of training and evaluation data]]
+
+- [[sysrev/dgraph/caveats/CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
 
 ## Supports Claim(s)
 

@@ -1,0 +1,29 @@
+{
+ "evd": 50,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.85,
+   "Partially Met": 0.12,
+   "Unmet": 0.03
+  },
+  "reason": "Quote reports low kappas (.16, .21, .24) across prompting methods."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.06,
+   "Partially Correct": 0.86,
+   "Incorrect": 0.08,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "quote_fully_visible": 0.1,
+  "shot_connects": [
+   0.85,
+   0.9
+  ],
+  "reason": "First quote cut off at right edge; second quote says kappa .13 for Claude but screenshot shows .41."
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "evd": 37,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.92,
+  "reason": "GPT-4 Turbo F1 0.89 and 90% accuracy on CONSORT items; clear reporting-guideline compliance finding."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.96,
+   "Partially Met": 0.03,
+   "Unmet": 0.01
+  },
+  "reason": "Quote states pooled F1 0.89 and accuracy 90% for GPT-4 Turbo on the TEST dataset."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.92,
+   "Missing": 0,
+   "NA": 0.03
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "shot_connects": [
+   0.15
+  ],
+  "reason": "Screenshot shows the GPT-4 Vision flowchart passage (100%, 57%), not the pooled F1=0.89, 90% accuracy passage."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.2,
+   "Missing": 0,
+   "NA": 0.75
+  },
+  "shot_connects": [
+   0.15
+  ],
+  "reason": "F1 0.89 and 90% are fully in the quote; no table referenced, so none needed."
+ }
+}

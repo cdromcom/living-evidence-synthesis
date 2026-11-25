@@ -1,0 +1,23 @@
+{
+ "evd": 31,
+ "evd_statement": "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers",
+ "review_questions": "- How well can LLMs identify errors in research reports?\n- Can LLMs select the higher-quality paper when comparing two abstracts?\n- How well can LLMs assess alignment of a research report with submission checklists?",
+ "citekey": "liuReviewerGPTExploratoryStudy2023",
+ "pdf": "Liu and Shah - 2023 - ReviewerGPT An Exploratory Study on Using Large Language Models for Paper Reviewing.pdf",
+ "quote_text": "\"We find that the LLM (GPT-4) can detect the error in 7 of the 13 short papers. Furthermore, in each of the 6 papers where it failed to detect the error, the paper did not contain the complete proof for the claim, thereby disallowing the LLM to detect a deductive error, and requiring it to figure out the flaw based on extraneous knowledge.\" (Liu & Shah, 2023, p. 5)",
+ "description_other_text": "",
+ "grounding_table_text": "Grounding table (Table 1, p. 6): per-paper success across the three prompt types and three responses per prompt.",
+ "methods_context": "### What?\n\n**Study design:** controlled benchmark on a hand-constructed adversarial corpus (13 short CS papers each containing one deliberately inserted error).\n\n**Method type:** zero-shot / one-shot LLM error detection with majority-vote scoring across 3 responses \u00d7 3 prompt strategies.\n\n**Tools:** GPT-4 accessed through ChatGPT (May 3 and May 12 2023 builds); 3 prompt templates (`Prompt-Direct`, `Prompt-OneShot`, `Prompt-Parts`); inference settings not reported (ChatGPT defaults).\n\n**Dependent variable:** per-paper detection success, checkmark if any of the 3 responses for a given prompt detected the error; \"Overall\" checkmark if any response across any prompt detected it.\n\n**Independent variables / covariates:** prompt strategy (Direct vs. OneShot vs. Parts); paper topic (13 topics: bias/fairness, regression, sorting \u00d7 2, noisy pairwise comparisons \u00d7 2, classification, game theory, error-correcting codes, optimization, clustering, distinguishing styles \u00d7 2).\n\n\"we deliberately inserted an error, encompassing mathematical mistakes to conceptual fallacies. We then asked the LLM to identify if there are any errors in the short paper.\" (Liu & Shah, 2023, p. 4)\n\n### How?\n\n**Procedure:** (1) Authors hand-constructed 13 short CS papers (Section 3.3.1\u20133.3.13), each seeded with one specific error (e.g., wrong sqrt-vs-log lower bound for sorting; conflating mean-square convergence with convergence in probability; non-linearity of majority vote of linear classifiers; misapplied Stackelberg-equilibrium argument; etc.). Topics were chosen to span mathematical and conceptual fallacies. (2) For each paper, queried GPT-4 with three prompt strategies, `Prompt-Direct` (full short paper, no example), `Prompt-OneShot` (full short paper preceded by a worked example of an erroneous binary-search paper + an instructive review), and `Prompt-Parts` (paper provided one sentence at a time, asking the model to flag errors incrementally). All prompts cast GPT-4 as \"an expert reviewer for a scientific conference\" and instructed it to \"think step by step.\" (3) Sampled 3 responses per prompt \u2192 cell receives \u2713 if any of the 3 responses detected the error, \u2717 otherwise, ! if a false alarm was raised. (4) \"Overall\" column receives \u2713 if any response across any of the three prompts detected the error.\n\n\"We queried the LLM for three responses per prompt and we provide an evaluation of each response as well as an overall quantification of the performance. In the 'overall' row and column in the table, we consider it as a \u2713 if any of the responses to any of the prompts was a \u2713.\" (Liu & Shah, 2023, p. 5)\n\n### Who?\n\n**Models / participants:** GPT-4 via ChatGPT (May 3 and May 12 2023 builds). Comparator open-source models (Bard, Vicuna, Koala, Alpaca, LLaMa, Dolly, OpenAssistant, StableLM) were also tried but failed on every paper, so only GPT-4 results are tabulated. No human participants.\n\n**Sample-size flow:** 13 hand-constructed short papers (the entire corpus) \u2192 all 13 evaluated under all 3 prompt strategies \u2192 3 responses per (paper, prompt) cell \u2192 13 paper-level decisions analyzed. No exclusions; the corpus was not split.\n\n\"We constructed 13 short papers (detailed in Section 3.3).\" (Liu & Shah, 2023, p. 4)",
+ "images": [
+  {
+   "file": "quote-1.png",
+   "kind": "quote",
+   "orig": "liuReviewerGPTExploratoryStudy2023-evd-p5-1.png"
+  },
+  {
+   "file": "tablefig-2.png",
+   "kind": "tablefig",
+   "orig": "liuReviewerGPTExploratoryStudy2023-table1-p6-06.png"
+  }
+ ]
+}

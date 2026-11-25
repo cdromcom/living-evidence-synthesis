@@ -113,6 +113,10 @@ Values checked against the source PDF (Woelfle et al., 2024, Table 3, p. 7) on 2
 
 > [!info] Caveats applying to this evidence
 
+- [[sysrev/dgraph/caveats/CVT - Appraisal benchmark had two raters and skewed PRECIS-2 data|CVT - Evidence appraisal benchmark used only two human raters and datasets skewed toward pragmatic trials limiting PRECIS-2 findings]]
+
+- [[sysrev/dgraph/caveats/CVT - Public human consensus datasets raise training contamination concerns|CVT - Human consensus datasets used as comparators were openly available online raising train test contamination concerns]]
+
 - [[sysrev/dgraph/caveats/CVT - Benchmark did not record human time on task|CVT - The benchmark datasets did not record human time on task preventing quantification of efficiency gains]]
 
 ## Supports Claim(s)

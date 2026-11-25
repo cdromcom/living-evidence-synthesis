@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-055",
+  "evd_title": "LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt",
+  "citekey": "sridharanLeveragingArtificialIntelligence2025",
+  "source_id": "SRC-017",
+  "finding": "LLMs performed suboptimally identifying placebo arm suitability and risk mitigation in single prompt",
+  "P": "7 health research ethics case studies (FERCAP-SIDCER handbook), 28 LLM-case cells per condition",
+  "I": "Google Bard, ChatGPT 3.5, Claude-Instant-100k, ChatGPT 4.0; single prompt vs multiple prompts (one query at a time)",
+  "C": "Single vs multiple prompting (within-LLM); expected key responses, 2 author raters with consensus",
+  "O": "Qualitative: single prompt suboptimal on placebo-arm suitability, risk mitigation, participant risks; multi-prompt better; no stats test",
+  "S": "Observational cross-sectional pilot (within-LLM prompt comparison)",
+  "T": "LLMs queried Oct-Nov 2023; FERCAP-SIDCER handbook 2012; paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

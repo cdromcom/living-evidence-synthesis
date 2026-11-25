@@ -1,0 +1,33 @@
+{
+ "evd": 6,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.97,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "quote_fully_visible": 0,
+  "shot_connects": [
+   0.15
+  ],
+  "reason": "Screenshot shows the introduction's study-aim text, not the quoted results about homogeneous LLM responses."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.01,
+   "Missing": 0.03,
+   "NA": 0.96
+  },
+  "shot_connects": [
+   0.01
+  ],
+  "reason": "No table or figure referenced; statement has no detailed numbers."
+ }
+}

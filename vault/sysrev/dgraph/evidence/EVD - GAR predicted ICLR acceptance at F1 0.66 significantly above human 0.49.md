@@ -91,7 +91,9 @@ GAR^> achieved F1 = 0.62 ± 0.05 on NeurIPS 23 (vanilla GAR 0.61 ± 0.04); on IC
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - GAR test papers may have been in LLM training data|CVT - Evaluated papers may have been present in LLM training data introducing potential contamination bias in GAR performance estimates]]
 
 ## Supports Claim(s)
 

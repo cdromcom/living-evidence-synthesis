@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-036",
+  "evd_title": "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts",
+  "citekey": "zhangDetectingReferenceErrors2024",
+  "source_id": "SRC-025",
+  "finding": "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts",
+  "P": "250 statement-reference pairs from earlier studies, PubPeer and PubMed; expert-annotated quotation-error benchmark",
+  "I": "GPT-4 Turbo (gpt-4-0125-preview), zero-shot; inputs: title + abstract + reference excerpts (best), or title + PDF via Assistant API",
+  "C": "GPT-4o, GPT-3.5 Turbo; input settings (title, title+abstract, +excerpts, +PDF); expert labels",
+  "O": "Overall accuracy: GPT-4 Turbo title+abstract+excerpts 70.0% (title+PDF 67.6%) vs best GPT-4o 68.0%, best GPT-3.5 Turbo 68.0%",
+  "S": "Cross-sectional zero-shot benchmark on held-out expert-annotated quotation-error set",
+  "T": "Not reported (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

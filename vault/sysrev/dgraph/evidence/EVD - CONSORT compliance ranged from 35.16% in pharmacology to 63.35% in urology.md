@@ -81,7 +81,9 @@ title: "CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 pe
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - CONSORT analysis used open-access papers and presence only|CVT - CONSORT analysis restricted to open-access articles and assessed presence not accuracy of reporting elements]]
 
 ## Supports Claim(s)
 

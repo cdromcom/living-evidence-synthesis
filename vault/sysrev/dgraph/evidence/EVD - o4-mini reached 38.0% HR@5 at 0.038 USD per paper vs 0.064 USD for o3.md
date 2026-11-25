@@ -99,7 +99,9 @@ title: "o4-mini achieved 38.0% HR@5 as a scientific paper quality checker at a c
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Only closed-source reasoning LLMs were tested as checkers|CVT - Only closed-source reasoning LLMs were evaluated as scientific paper quality checkers excluding open-source alternatives]]
 
 ## Supports Claim(s)
 

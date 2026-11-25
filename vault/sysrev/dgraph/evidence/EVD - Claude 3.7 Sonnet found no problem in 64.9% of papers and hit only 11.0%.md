@@ -109,7 +109,9 @@ Grounding table (Table 3, p. 6): hit rate and average precision by individual ju
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Error detection dataset was mostly math and physics and may not generalize|CVT - The error detection dataset was rich in math and physics papers and may not generalize to other scientific domains]]
 
 ## Supports Claim(s)
 

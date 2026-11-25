@@ -13,7 +13,7 @@ only = sys.argv[sys.argv.index('--only') + 1] if '--only' in sys.argv else None
 outdir = Path(sys.argv[sys.argv.index('--outdir') + 1]) if '--outdir' in sys.argv else Path('.')
 rows_out, per_src = [], {}
 for path in sorted(sc.SRC_DIR.glob('@*.md')):
-    if only and path.stem != only.lstrip('@') and ('@' + path.stem) != only: continue
+    if only and path.stem.lstrip('@') != only.lstrip('@'): continue
     rows = sc.source_rows(path); pdf = pp.resolve_pdf(path.stem)
     if not pdf: per_src[path.stem] = 'no PDF'; continue
     doc = fitz.open(pdf); pm = {r['pdf']: r for r in pp.page_map(doc)}

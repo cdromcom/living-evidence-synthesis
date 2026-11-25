@@ -1,0 +1,33 @@
+{
+ "evd": 14,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.96,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "quote_fully_visible": 0,
+  "shot_connects": [
+   0.25
+  ],
+  "reason": "Screenshot shows a sentence about o4-mini cost-effectiveness, not the Claude 3.7 Sonnet PDF result."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.01,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.02
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Paraphrase cites Table 2 for the numbers, but no table appears in the screenshot."
+ }
+}

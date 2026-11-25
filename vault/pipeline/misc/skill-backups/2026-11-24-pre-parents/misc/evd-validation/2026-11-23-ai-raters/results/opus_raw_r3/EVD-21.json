@@ -1,0 +1,1 @@
+{"evd": 21, "quote": {"label": "Correct", "probs": {"Correct": 0.88, "Partially Correct": 0.1, "Incorrect": 0.02, "Missing": 0, "NA": 0}, "p_screenshot_shows_quote": 0.98, "shot_connects": [0.98, 0.95], "reason": "Shot 1 shows the text passage verbatim; shot 2 shows Table 7 with the GAR row values."}}

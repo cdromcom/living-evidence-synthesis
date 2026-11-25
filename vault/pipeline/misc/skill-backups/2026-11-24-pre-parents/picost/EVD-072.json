@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-072",
+  "evd_title": "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity",
+  "citekey": "liangCanLargeLanguage2024a",
+  "source_id": "SRC-009",
+  "finding": "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuffling confirming paper-specificity",
+  "P": "3,096 Nature-family papers (15 journals) and 1,709 ICLR 2022+2023 papers with human reviews",
+  "I": "GPT-4 zero-shot feedback; extract-then-match pipeline; shuffle test within journal x category / conference year",
+  "C": "Real vs shuffled GPT-4 feedback (null model)",
+  "O": "Pairwise hit rate: Nature 30.85% -> 0.43%; ICLR 39.23% -> 3.91% (p<0.0001); global 57.55% -> 1.13% (Nature)",
+  "S": "Null-model permutation (shuffling) experiment",
+  "T": "Nature papers Jan 2022-Jun 2023; ICLR 2022+2023 (paper 2024)",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

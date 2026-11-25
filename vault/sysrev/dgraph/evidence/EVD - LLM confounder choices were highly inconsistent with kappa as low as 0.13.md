@@ -147,7 +147,9 @@ Option-ordering 0% ↔ 100% flips (Fig 11, p. 18):
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Huntington-Klein used a single causal dataset|CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge]]
 
 ## Supports Claim(s)
 

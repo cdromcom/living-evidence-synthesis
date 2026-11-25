@@ -93,7 +93,9 @@ title: "ChatGPT diverged most from humans in the conclusion domain with mean dif
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - ChatGPT saw only abstracts due to token limits|CVT - ChatGPT evaluation was restricted to abstracts only due to token length constraints]]
 
 ## Supports Claim(s)
 

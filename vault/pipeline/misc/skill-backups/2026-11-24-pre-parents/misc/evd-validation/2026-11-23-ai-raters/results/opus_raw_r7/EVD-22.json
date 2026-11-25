@@ -1,0 +1,33 @@
+{
+ "evd": 22,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.9,
+   "Incorrect": 0.04,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "quote_fully_visible": 0.1,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Most of the quote visible but cut off before '(p < 0.002)' at the page break."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Table 3 is referenced but not shown; only text."
+ }
+}

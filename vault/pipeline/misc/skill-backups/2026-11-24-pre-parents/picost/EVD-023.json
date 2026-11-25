@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-023",
+  "evd_title": "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles",
+  "citekey": "akyonEvaluatingCapabilitiesGenerative2024",
+  "source_id": "SRC-001",
+  "finding": "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles",
+  "P": "39 observational obesity studies from PubMed (33 for Claude v1); 15 STROBE questions x 10 trials",
+  "I": "6 LLMs with RAG, zero-shot, T=0.1: GPT 3.5-turbo-1106, GPT 4-0613, GPT 4-1106, Claude v1, PaLM 2, Gemini Pro 1.0",
+  "C": "Gold answers from 1 medical professor (verified by 1 epidemiologist); other LLMs",
+  "O": "% correct: GPT-3.5-turbo 66.9%, GPT-4-1106 65.6% (p=.061), PaLM 2 62.1%, Claude v1 58.3%, Gemini 49.2%, GPT-4-0613 44.1%",
+  "S": "Cross-sectional benchmark",
+  "T": "PubMed search 19 Dec 2023, articles from last 5 years; paper 2024",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

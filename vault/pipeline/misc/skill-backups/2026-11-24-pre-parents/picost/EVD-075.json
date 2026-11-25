@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-075",
+  "evd_title": "Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%",
+  "citekey": "shahidLiteratureGroundedNoveltyAssessment2025",
+  "source_id": "SRC-014",
+  "finding": "Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%",
+  "P": "58 not-novel ideas (13 from test set + 45 published NLP papers)",
+  "I": "Idea Novelty Checker complete pipeline with facet-based RankGPT (gpt-4o re-ranking, o3-mini novelty evaluation)",
+  "C": "Ablations: general-relevance RankGPT, embedding filtering only, snippet only, keyword only",
+  "O": "Not-novel accuracy: complete 89.66% vs relevance RankGPT 13.79%, embedding-only 10.34%, snippet 8.62%, keyword 5.17%",
+  "S": "Ablation study",
+  "T": "Not reported for ablation (o3-mini used); paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

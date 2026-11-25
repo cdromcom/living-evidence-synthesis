@@ -1,0 +1,46 @@
+{
+ "evd": 60,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.6,
+  "reason": "LLM quote-extraction fidelity (99% similarity) during guideline appraisal is a performance measure, though secondary."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote states median quote similarity with original full text was 99%; matches exactly."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot shows 'The median quote similarity ... was 99% ... or rephrased' verbatim."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.07,
+   "Missing": 0.1,
+   "NA": 0.75
+  },
+  "shot_connects": [
+   0.8
+  ],
+  "reason": "99% is in the quoted text; Supplementary Table 3 is cited but not needed for the number."
+ }
+}

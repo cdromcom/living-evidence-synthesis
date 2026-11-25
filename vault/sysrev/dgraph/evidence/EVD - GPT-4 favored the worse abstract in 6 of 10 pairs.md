@@ -90,7 +90,9 @@ title: "GPT-4 made errors in 6 of 10 abstract comparison pairs favoring the infe
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Error detection used constructed papers not real submissions|CVT - The error detection study used constructed short papers rather than real manuscript submissions]]
 
 ## Supports Claim(s)
 

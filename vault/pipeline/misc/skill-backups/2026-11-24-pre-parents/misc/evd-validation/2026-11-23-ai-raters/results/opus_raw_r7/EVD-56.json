@@ -1,0 +1,33 @@
+{
+ "evd": 56,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.01,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.97,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.01,
+  "quote_fully_visible": 0.0,
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "Screenshot shows a QUADAS-2 study-aim passage, not the Akyon Q12/Q8 percentage sentences."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Screenshots show only text; no table or figure appears."
+ }
+}

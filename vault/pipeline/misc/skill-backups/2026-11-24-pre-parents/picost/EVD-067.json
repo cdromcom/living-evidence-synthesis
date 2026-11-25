@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "evd_id": "EVD-067",
+  "evd_title": "OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers",
+  "citekey": "idahlOpenReviewerSpecializedLarge2025",
+  "source_id": "SRC-007",
+  "finding": "OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers",
+  "P": "400 held-out NeurIPS 2024 + ICLR 2025 papers with OpenReview reviews",
+  "I": "OpenReviewer (Llama-3.1-8B-Instruct full fine-tuned on ~79K reviews); greedy decoding, same prompts",
+  "C": "Human reviewers; Llama-3.1-8B/70B-Instruct, Claude-3.5-Sonnet (Oct 22), GPT-4o (2024-11-20)",
+  "O": "Mean recommendation (1-10): OpenReviewer 5.4 +/- 1.1 = humans 5.4 +/- 1.2; GPT-4o 7.7, Claude 7.6, Llama-8B 8.1",
+  "S": "Cross-sectional benchmark",
+  "T": "NeurIPS 2024 + ICLR 2025 test papers; training ICLR/NeurIPS 2022 onward; paper 2025",
+  "numbers": [],
+  "locators_status": "legacy-not-recorded",
+  "origin": "PICOST tab 2026-11-17 legacy",
+  "extraction_model": null,
+  "verified_by": null,
+  "verified_on": null
+}

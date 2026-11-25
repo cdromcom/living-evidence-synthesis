@@ -1,0 +1,33 @@
+{
+ "evd": 71,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.08,
+   "Incorrect": 0.9,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.06,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.35
+  ],
+  "reason": "Screenshot shows discussion passage on underreporting; the quoted period-by-period compliance sentences are absent."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.02,
+   "Missing": 0.2,
+   "NA": 0.78
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "Compliance percentages are in the quote; no table referenced; 21041 not in quote."
+ }
+}
