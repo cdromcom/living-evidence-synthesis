@@ -23,3 +23,10 @@ Short, practical notes learned while running the pipeline. Add one entry per les
 
 ## Screening sheet
 - To add new papers, follow "Adding new papers to the whole-library screening sheet" in `pipeline/screening/README.md`. Do not re-upload the sheet: that would replace your labels.
+
+## Version control for the vault (Obsidian Git)
+- The vault is the ground truth but had no history; only the GitHub copy did. Install the **Obsidian Git** plugin and initialize a repository in the vault folder (the `.gitignore` is already there).
+- Suggested settings: auto commit every 10 minutes, commit message `vault: {{date}}`, pull and push only if you add a **private** remote. Keep the history local if you prefer.
+- The GitHub repository stays the public mirror (`vault/` inside it). Syncing to it is still a pull request made with `check_repo_sync.py`; the vault's own git history is separate.
+- PDFs, local run outputs and backups are ignored on purpose (see `.gitignore`).
+- Before a risky edit, make a commit by hand. A bad edit on 2026-11-25 damaged a script and the only good copy was the last GitHub push.

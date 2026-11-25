@@ -87,7 +87,7 @@ living-synthesis/
 │   ├── picost/                    ← per-finding extraction records (JSON)
 │   └── reference/
 └── pipeline/                      ← how the evidence is made
-    ├── skills/                    ← 🛠️ Skill.md (the pipeline), Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md, Review-sheets-spec.md, TIPS.md
+    ├── skills/                    ← 🛠️ Skill.md (the steps), Skill-controls.md (run controls, drafting, checks), Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md, Review-sheets-spec.md, TIPS.md
     ├── scripts/                   ← reproducible scripts (see scripts/README.md)
     ├── templates/                 ← node templates (including the EVD tiers spec) and the quality-signal row names
     ├── screening/                 ← screening runs: which Zotero papers to ingest (reports and metadata-only data)
@@ -247,7 +247,7 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 ## 🛠️ The data pipeline: from PDFs to the LIVES web app
 
 > [!info] Updated 2026-11-25 (pipeline v2)
-> Papers go through the steps below in **batches of four (at most)**, with human checks along the way. The rules are in `pipeline/skills/Skill.md`; models, prices and tools are in `pipeline/skills/Tools-and-Models.md`. Quality signals are a separate, optional stage (Module Q) that runs only when asked.
+> Papers go through the steps below in **batches of four (at most)**, with human checks along the way. The steps are in `pipeline/skills/Skill.md` and the run controls, drafting, checks and optional modules in `pipeline/skills/Skill-controls.md`; models, prices and tools are in `pipeline/skills/Tools-and-Models.md`. Quality signals are a separate, optional stage (Module Q) that runs only when asked.
 
 ```mermaid
 flowchart TB

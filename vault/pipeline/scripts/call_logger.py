@@ -104,7 +104,7 @@ def logged_tinker(run_id, step, model, prompt_file, user_text, effort='low', max
 
 def logged_gemini(run_id, step, model, prompt_file, user_text, effort='high', max_tokens=16000, pdf_path=None, **meta):
     """Gemini models (default gemini-4-neon) through the Gemini API (key GEMINI_API_KEY). effort = thinking level (low, medium, high); thinking tokens are billed as output, so
-    they are added to tokens_out. pdf_path sends one PDF inline (base64, under about 20 MB). Use the Batch API for unattended runs (Skill.md, Step 1 item 11)."""
+    they are added to tokens_out. pdf_path sends one PDF inline (base64, under about 20 MB). Use the Batch API for unattended runs (Skill-controls.md, The batch runner)."""
     import base64, urllib.request; load_env(); t0 = time.time(); parts = [{'text': user_text}]
     if pdf_path: parts.insert(0, {'inline_data': {'mime_type': 'application/pdf', 'data': base64.b64encode(Path(pdf_path).read_bytes()).decode()}})
     body = json.dumps({'contents': [{'parts': parts}], 'generationConfig': {'maxOutputTokens': max_tokens, 'thinkingConfig': {'thinkingLevel': effort}}}).encode()

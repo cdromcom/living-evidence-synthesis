@@ -17,7 +17,7 @@ Runs so far:
 - `2026-11-25_Zotero-all-libraries` (17,544 distinct papers from all seven Zotero libraries; 3,441 sheet rows: every ingest-folder paper plus papers found elsewhere; open-access column from OpenAlex).
 
 ## Adding new papers to the whole-library screening sheet
-The sheet (`https://docs.google.com/spreadsheets/d/171mPb_rNCHEoZm-9ThYnjpU73Dnb6ToeRfj715YAvjs/edit`) keeps one row per paper and never reorders, so your labels stay put. Each row has a **Stable id** (Zotero library:key).
+The sheet (`https://docs.google.com/spreadsheets/d/1R70T7JJD3-RDM5kPc6-rI1ZZ2qCb82TVE19OjzyuyrA/edit`) keeps one row per paper and never reorders, so your labels stay put. Each row has a **Stable id** (Zotero library:key).
 1. Add the papers to Zotero and let it sync, then close Zotero if you want the duplicate merge (`zotero_merge_duplicates.py` needs it closed; the inventory only reads a copy).
 2. `python3 pipeline/scripts/zotero_inventory.py`
 3. In the embedding environment: `screen_all.py prepare`, then `screen_all.py embed` (only new texts are embedded; the rest comes from the cache), then `screen_all.py analyze`.

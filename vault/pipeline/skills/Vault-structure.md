@@ -25,7 +25,7 @@ living-synthesis/
 │   ├── reference/                  # BenchmarkLLM.md, Class-Imbalance-Text-Classification.md, paraphrase_audit_<date>.tsv (latest verbatim-audit report)
 │   └── Clippings/                  # Web clipper inbox (local vault only)
 ├── pipeline/                       # Meta content about how the review is built and published
-│   ├── skills/                     # Skill.md, Skill-references.md, Skill-synthesis.md, Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md, Review-sheets-spec.md, TIPS.md
+│   ├── skills/                     # Skill.md, Skill-controls.md, Skill-references.md, Skill-synthesis.md, Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md, Review-sheets-spec.md, TIPS.md
 │   ├── templates/                  # T - <NodeType>.md templates; T - EVD tiers.md (primary, secondary, tertiary spec); quality-signal-labels.json (names of the Quality signal rows)
 │   ├── screening/                  # Screening runs (README, metadata-only data per run; shared/ seed papers and category names); abstracts and local paths stay out
 │   ├── prompts/                    # Versioned prompts the pipeline sends to models (committed before use)
