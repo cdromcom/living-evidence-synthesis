@@ -18,15 +18,20 @@ import fitz
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 PDFS = VAULT / 'sysrev' / 'dgraph' / 'source' / 'pdfs'
 
-sys.path.insert(0, '/tmp')
-from quote_pipeline_v3 import find_pdf, normalize, CITEKEY_TO_PDF_HINT
+import pdf_pages as _pp
+normalize = _pp.norm
+CITEKEY_TO_PDF_HINT = {}
+
+
+def find_pdf(citekey):
+    return _pp.resolve_pdf(citekey)
 
 
 def get_node_citekey(text: str, filename: str = '') -> str | None:
     m = re.search(r'@([a-zA-Z][a-zA-Z0-9-]+)\.md$', filename)
     if m:
         return m.group(1)
-    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)\]\]', text, re.MULTILINE)
+    m = re.search(r'^## Source\s*\n+\[\[(?:[^\]|]*/)?@([a-zA-Z][a-zA-Z0-9-]+)\]\]', text, re.MULTILINE)
     if m:
         return m.group(1)
     return None
@@ -34,7 +39,7 @@ def get_node_citekey(text: str, filename: str = '') -> str | None:
 
 def get_clm_citekeys(text: str) -> list[str]:
     """Return list of citekeys for CLM (multi-paper)."""
-    m = re.search(r'> \[!info\] Papers\s*\n((?:>\s*\[\[@.*?\]\]\s*\n?)+)', text)
+    m = re.search(r'> \[!info\] Papers\s*\n((?:>\s*\[\[(?:[^\]|]*/)?@.*?\]\]\s*\n?)+)', text)
     if not m:
         return []
     return list(set(re.findall(r'@([a-zA-Z][a-zA-Z0-9-]+)\b', m.group(1))))
@@ -106,6 +111,7 @@ def quote_in_pdf(doc, quote_text: str) -> tuple[bool, int | None, str | None]:
 
 
 def main():
+    n_audited = 0
     paraphrases = []  # (file, quote_text_first_120, citekey, cited_page, found_page, snippet)
     pdf_doc_cache = {}
     for kind, dir_name in [('EVD', 'evidence'), ('CLM', 'claims'), ('CVT', 'caveats')]:
@@ -149,18 +155,20 @@ def main():
                 if doc is None:
                     continue
                 found, found_pg, snippet = quote_in_pdf(doc, quote)
+                n_audited += 1
                 if not found:
                     paraphrases.append((f.name, quote[:120], quote_ck, cited_page, found_pg, snippet))
     for d in pdf_doc_cache.values():
         if d:
             d.close()
     # Write report
-    out = Path('/tmp/paraphrase_report.tsv')
+    out = VAULT / 'pipeline' / 'misc' / 'evd-validation' / 'paraphrase_report.tsv'
+    out.parent.mkdir(parents=True, exist_ok=True)
     with out.open('w') as fp:
         fp.write('file\tcitekey\tcited_page\tfound_partial_page\tdivergence\tquote_first_120\n')
         for row in paraphrases:
             fp.write(f'{row[0]}\t{row[2]}\t{row[3]}\t{row[4]}\t{row[5]}\t{row[1]}\n')
-    print(f'Audited. Paraphrases found: {len(paraphrases)}. Report: {out}')
+    print(f'Audited {n_audited} quotes in {len(pdf_doc_cache)} papers. Paraphrases found: {len(paraphrases)}. Report: {out}')
     # Group by paper
     by_paper = defaultdict(list)
     for row in paraphrases:

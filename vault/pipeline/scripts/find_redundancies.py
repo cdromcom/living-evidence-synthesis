@@ -40,7 +40,7 @@ def evd_citekey(stem: str) -> str | None:
     p = VAULT / 'sysrev' / 'dgraph' / 'evidence' / f'{stem}.md'
     if not p.exists():
         return None
-    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
+    m = re.search(r'^## Source\s*\n+\[\[(?:[^\]|]*/)?@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
     return m.group(1) if m else None
 
 

@@ -174,7 +174,7 @@ def render(pdf_path: Path, page_num: int, bbox: tuple, out_path: Path, dpi: int 
 
 
 def get_citekey(text: str) -> str | None:
-    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)\]\]', text, re.MULTILINE)
+    m = re.search(r'^## Source\s*\n+\[\[(?:[^\]|]*/)?@([a-zA-Z][a-zA-Z0-9-]+)\]\]', text, re.MULTILINE)
     if m:
         return m.group(1)
     m = re.search(r'^appliesTo:[^\n]*\n((?:^\s*-\s*"\[\[.*?\]\]"\s*\n?)+)', text, re.MULTILINE)

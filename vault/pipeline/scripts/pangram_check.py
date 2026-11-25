@@ -72,6 +72,8 @@ def extract_text(pdf_path: Path) -> str:
 
 
 def main() -> int:
+    import decision_models
+    decision_models.load_env()   # reads ~/.config/lives-ai-raters/.env
     if not os.environ.get("PANGRAM_API_KEY"):
         print("PANGRAM_API_KEY is not set in the environment.", file=sys.stderr)
         return 1

@@ -26,7 +26,7 @@ def evd_stem_to_citekey(stem: str) -> str | None:
     p = VAULT / 'sysrev' / 'dgraph' / 'evidence' / f'{stem}.md'
     if not p.exists():
         return None
-    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
+    m = re.search(r'^## Source\s*\n+\[\[(?:[^\]|]*/)?@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
     return m.group(1) if m else None
 
 
@@ -40,7 +40,7 @@ def parse_appliesTo(text: str) -> list[str]:
 
 def parse_clm_papers(text: str) -> list[str]:
     """Return list of citekeys from CLM's Papers block."""
-    m = re.search(r'> \[!info\] Papers\s*\n((?:>\s*\[\[@.*?\]\]\s*\n?)+)', text)
+    m = re.search(r'> \[!info\] Papers\s*\n((?:>\s*\[\[(?:[^\]|]*/)?@.*?\]\]\s*\n?)+)', text)
     if not m:
         return []
     keys = []

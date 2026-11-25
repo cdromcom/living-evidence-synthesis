@@ -37,6 +37,10 @@ Legend: **S** = on the source (SRC) page; **E** = on each EVD page. Values are t
 | Statistics | `forensic/*-check` (ci, closure, f1, kappa, monotonicity, reproduction) | E, only where a recomputation was possible | consistent, in-bounds, match, discrepancy, bounds-reversed |
 | Topic (not a signal) | `task/*`, `5c/*` | E | see `Skill-references.md` |
 
+## Locator standard (every judged row)
+`` `<Section>, p.<printed page>[, Table <n> | Fig <n>]` `` after the quote, for example `` `Methods, p.9` `` or `` `Results, p.12, Table 2` ``. The page is the **printed journal page**. If the PDF prints no page numbers (preprints), write `p.<n> (pdf)` and nothing else. If the quote is on a page spanning two pages, cite the page where it starts. Rows judged from an external tool cite the tool, the URL and the score instead of a quote.
+`audit_signal_quotes.py` checks this: quote verbatim in the PDF text, page equals the printed page label. Existing sources (2026-11-24): of 999 quoted rows, 534 verbatim with the right printed page, 98 right page in a preprint without printed numbers, 157 cite the PDF position instead of the printed page, 104 cite a wrong page, 85 quotes not found, 21 give no page. Results per row: `pipeline/misc/evd-validation/2026-11-24-signal-quote-audit.csv`.
+
 ## Rules
 - Every judged tag comes with a verbatim quote and a locator in the `## Quality appraisal` table; tags are regenerated from the table, not typed.
 - Keep the headings `## Quality appraisal` and `## TRIPOD-LLM reporting` exactly; the app anchors on them.

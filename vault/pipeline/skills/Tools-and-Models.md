@@ -38,7 +38,7 @@ Checked against `Skill.md`, `Skill-references.md`, `Skill-templates.md`, `Histor
 
 | Model | Role | Where it is recorded |
 |---|---|---|
-| Claude Sonnet 4.6 and Claude Opus 4.7 (Claude Code) | Built the vault in April 2026: first extraction of QUE, EVD, CLM and CVT nodes, EVD rewrites, subagent batches | `Log.md`; `History.md` (`author: Claude (Opus 4.7 / Sonnet 4.6)`; the April notes were "Claude 4.7, per user recollection, only partly sure") |
+| Claude Sonnet 4.6 (Claude Code; Opus 4.7 only appears in a welcome banner, not as the model used) | Built the vault in April 2026 (correction 2026-11-24 from `Log.md`: banner reads "Sonnet 4.6", orchestrator messages are stamped `claude-sonnet-4-6`; the 2026-04-17 run created 52 EVD, 12 CLM and 45 CVT nodes; the model of the batch agents and of the roughly 22 earlier EVDs is not recorded): first extraction of QUE, EVD, CLM and CVT nodes, EVD rewrites, subagent batches | `Log.md`; `History.md` (`author: Claude (Opus 4.7 / Sonnet 4.6)`; the April notes were "Claude 4.7, per user recollection, only partly sure") |
 | "Claude Sonnet 5" | Recorded as the curation model on 27 source pages | `curatedWithModel` in source frontmatter; convention in `Skill-references.md` |
 | Claude Opus 5.5 (Claude Code) | All work from 2026-11-11 to 2026-11-20: EVD drafts, PDF number audit, Fidelity/Grounding grading, version comparisons | AI Prompt Log tab in the GSheet; `pipeline/misc/prompts/2026-11-11-evd-validation-gsheet-prompt-log.md` |
 | Pangram `pangram-4` (API) | AI-writing detection on the source PDFs (text only) | `pipeline/scripts/pangram_check.py` |

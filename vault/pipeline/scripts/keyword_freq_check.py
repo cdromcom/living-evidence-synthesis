@@ -14,7 +14,8 @@ import json
 import re
 from pathlib import Path
 
-import fitz  # PyMuPDF
+import fitz
+fitz.TOOLS.mupdf_display_errors(False)  # PyMuPDF
 
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])
 PDF_DIR = VAULT / 'sysrev' / 'dgraph' / 'source' / 'pdfs'
@@ -87,6 +88,9 @@ def main():
     for citekey, pdf_name in PDFS.items():
         pdf_path = PDF_DIR / pdf_name
         if not pdf_path.exists():
+            import pdf_pages
+            pdf_path = pdf_pages.resolve_pdf(citekey) or pdf_path   # file names change when a paper moves to a newer version
+        if not pdf_path.exists():
             print(f"MISSING: {citekey} -> {pdf_path}")
             continue
         text = extract_text(pdf_path)
@@ -100,7 +104,8 @@ def main():
             "rate_per_1000": round(total / word_count * 1000, 2) if word_count else 0,
             "counts": counts,
         })
-    out_path = Path("/private/tmp/claude-501/-Users-ppatel/e5c11288-2632-4b4e-9ba3-04dc3e16228c/scratchpad/keyword_freq_results.json")
+    out_path = VAULT / "pipeline" / "misc" / "keyword_freq_results.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(rows, indent=2))
     print(f"Wrote {out_path}")
     print(f"Processed {len(rows)} of {len(PDFS)} papers")

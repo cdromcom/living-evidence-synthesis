@@ -16,6 +16,12 @@ Differences from v3:
 Usage:
     python3 quote_pipeline.py [evd|clm|cvt|que ...] [--force]
 """
+
+import sys as _sys
+if '--force' not in _sys.argv:
+    _sys.exit('RETIRED (Skill v2): use pdf_pages.py (find, crop) and audit_signal_quotes.py / verbatim_audit.py. Pass --force to run the old v1 code.')
+_sys.argv = [a for a in _sys.argv if a != '--force']
+
 import os
 import re
 import sys
@@ -267,7 +273,7 @@ def get_node_citekey(text: str, filename: str = '') -> str | None:
     m = re.search(r'@([a-zA-Z][a-zA-Z0-9-]+)\.md$', filename)
     if m:
         return m.group(1)
-    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)\]\]', text, re.MULTILINE)
+    m = re.search(r'^## Source\s*\n+\[\[(?:[^\]|]*/)?@([a-zA-Z][a-zA-Z0-9-]+)\]\]', text, re.MULTILINE)
     if m:
         return m.group(1)
     m = re.search(r'^appliesTo:[^\n]*\n((?:^\s*-\s*"\[\[.*?\]\]"\s*\n?)+)', text, re.MULTILINE)
@@ -285,7 +291,7 @@ def get_papers_from_block(text: str) -> list[str]:
     m = re.search(r'> \[!info\] Papers\s*\n((?:>.*\n?)+)', text)
     if not m:
         return []
-    return re.findall(r'\[\[@([a-zA-Z][a-zA-Z0-9-]+)\]\]', m.group(1))
+    return re.findall(r'\[\[(?:[^\]|]*/)?@([a-zA-Z][a-zA-Z0-9-]+)\]\]', m.group(1))
 
 
 def get_quote_citekey_from_attribution(line: str, fallback_citekeys: list[str]) -> str | None:
