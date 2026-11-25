@@ -269,10 +269,14 @@ def check_scale(rows, pm):
                 seen.add((m.group(0), i)); out.append(dict(check='SCALE', page=page_label(pm, i), section=sec, finding=f"{m.group(1)} of {m.group(2)}% is above 100%.", text=m.group(0)))
     return out
 
-EXAMINED = {'PERCENT': 0, 'GRIM': 0, 'SAMPLE': 0, 'INTERVAL': 0, 'RATIO': 0, 'METRIC': 0, 'EFFECT': 0, 'ANALYTIC': 0, 'SCALE': 0}
+import stat_checks_more as more
+EXAMINED = {'PERCENT': 0, 'GRIM': 0, 'SAMPLE': 0, 'INTERVAL': 0, 'RATIO': 0, 'METRIC': 0, 'EFFECT': 0, 'ANALYTIC': 0, 'SCALE': 0, 'PROP': 0, 'CIP': 0, 'MONO': 0, 'DELTA': 0, 'SDBOUND': 0, 'STATCHECK': 0, 'GRIMMER': 0, 'CONFUSION': 0, 'MACRO': 0}
 
 def run(doc):
-    pm = pp.page_map(doc); rows = sectioned(pages_text(doc))
+    more.bind(globals())
+    pm = pp.page_map(doc); rows = sectioned(pages_text(doc)); extra = []
+    for fn in more.CHECKS:
+        f, e = fn(rows, pm); extra += f; EXAMINED[fn.__name__.replace('check_', '').upper()] += e
     for _, _, c in chunks(rows):   # how much each check had to work with, so "no findings" is not mistaken for "not looked at"
         if len(PCT.findall(c)) >= 3 and not SKIP_PCT.search(c): EXAMINED['PERCENT'] += 1
         if (MEAN_SD.search(c) or MEAN_WORD.search(c)) and (NVAL.search(c) or NOUN.search(c)): EXAMINED['GRIM'] += 1
@@ -284,7 +288,7 @@ def run(doc):
         if first_nums(TOT, w) and first_nums(EXC, w) and first_nums(FIN, w): EXAMINED['ANALYTIC'] += 1
     for _, _, w in windows(rows, 2):
         if any(r.search(w) for r in RANGE) or KPT.search(w): EXAMINED['SCALE'] += 1
-    return check_percent(rows, pm) + check_grim(rows, pm) + check_sample(rows, pm) + check_interval(rows, pm) + check_ratio(rows, pm) + check_metric(rows, pm) + check_effect(rows, pm) + check_analytic(rows, pm) + check_scale(rows, pm)
+    return check_percent(rows, pm) + check_grim(rows, pm) + check_sample(rows, pm) + check_interval(rows, pm) + check_ratio(rows, pm) + check_metric(rows, pm) + check_effect(rows, pm) + check_analytic(rows, pm) + check_scale(rows, pm) + extra
 
 def selftest():
     """Planted errors the checks must catch, and clean text they must leave alone."""
@@ -294,12 +298,23 @@ def selftest():
                ('results', 'Mean satisfaction was 3.47 (SD 0.9) among 25 raters.'), ('results', 'A total of 118 participants completed the study.'))
     good = rows(('abstract', 'We enrolled 118 participants.'), ('methods', 'Of the 118 participants, 40% were novices, 35% were intermediate and 25% were experts.'), ('results', 'Mean satisfaction was 3.48 (SD 0.9) among 25 raters.'))
     bad += rows(('results', 'The odds were 2.4 (95% CI 0.5 to 1.9) overall.'), ('results', 'Accuracy was 31 of 40 (82%).'), ('results', 'Precision was 0.80, recall 0.60 and F1 0.90.'),
-                ('results', 'Observed agreement 0.90, chance agreement 0.50, kappa 0.60.'), ('results', 'The effect was large (d = 4.2).'), ('methods', 'We recruited 120 participants. We excluded 8 participants for incomplete answers. The final sample comprised 110 participants.'), ('results', 'Raters used a 1 to 5 scale and the mean rating was 5.3.'))
+                ('results', 'Observed agreement 0.90, chance agreement 0.50, kappa 0.60.'), ('results', 'The effect was large (d = 4.2).'), ('methods', 'We recruited 120 participants. We excluded 8 participants for incomplete answers. The final sample comprised 110 participants.'), ('results', 'Raters used a 1 to 5 scale and the mean rating was 5.3.'),
+                ('results', 'Accuracy was 84.7% on n = 100 items.'), ('results', 'The difference was 0.8 (95% CI -0.2 to 1.5), p = 0.01.'), ('results', 'pass@1 was 40% and pass@5 was 35%.'),
+                ('results', 'Accuracy rose from 63% to 84% (+25 points).'), ('results', 'Accuracy was 0.80 (SD 0.60) across items.'), ('results', 'The test was t(28) = 2.20, p = .30.'),
+                ('results', 'Raters gave a mean rating of 3.50 (SD 0.50) with n = 10.'), ('results', 'TP = 45, FP = 5, FN = 10, TN = 40. Precision was 0.95.'),
+                ('results', 'Class A 0.80 0.70'), ('results', 'Class B 0.60 0.50'), ('results', 'Class C 0.70 0.60'), ('results', 'Macro avg 0.90 0.60'),
+                ('results', 'Model pass@1 pass@5 pass@10'), ('results', 'GPT 0.40 0.30 0.55'))
     good += rows(('results', 'The odds were 1.2 (95% CI 0.5 to 1.9) overall.'), ('results', 'Accuracy was 31 of 40 (77.5%).'), ('results', 'Precision was 0.80, recall 0.60 and F1 0.69.'),
-                 ('results', 'Observed agreement 0.90, chance agreement 0.50, kappa 0.80.'), ('results', 'The effect was moderate (d = 0.6).'), ('methods', 'We recruited 120 participants. We excluded 8 participants for incomplete answers. The final sample comprised 112 participants.'), ('results', 'Raters used a 1 to 5 scale and the mean rating was 3.3.'))
-    allc = lambda r: check_percent(r, pm) + check_grim(r, pm) + check_sample(r, pm) + check_interval(r, pm) + check_ratio(r, pm) + check_metric(r, pm) + check_effect(r, pm) + check_analytic(r, pm) + check_scale(r, pm)
+                 ('results', 'Observed agreement 0.90, chance agreement 0.50, kappa 0.80.'), ('results', 'The effect was moderate (d = 0.6).'), ('methods', 'We recruited 120 participants. We excluded 8 participants for incomplete answers. The final sample comprised 112 participants.'), ('results', 'Raters used a 1 to 5 scale and the mean rating was 3.3.'),
+                 ('results', 'Accuracy was 84% on n = 100 items.'), ('results', 'The difference was 0.8 (95% CI 0.2 to 1.5), p = 0.01.'), ('results', 'pass@1 was 40% and pass@5 was 55%.'),
+                 ('results', 'Accuracy rose from 63% to 84% (+21 points).'), ('results', 'Accuracy was 0.80 (SD 0.30) across items.'), ('results', 'The test was t(28) = 2.20, p = .036.'),
+                 ('results', 'Raters gave a mean rating of 3.50 (SD 0.53) with n = 10.'), ('results', 'TP = 45, FP = 5, FN = 10, TN = 40. Precision was 0.90.'),
+                 ('results', 'Class A 0.80 0.70'), ('results', 'Class B 0.60 0.50'), ('results', 'Class C 0.70 0.60'), ('results', 'Macro avg 0.70 0.60'),
+                 ('results', 'Model pass@1 pass@5 pass@10'), ('results', 'GPT 0.40 0.50 0.55'))
+    more.bind(globals())
+    allc = lambda r: [f for fn in more.CHECKS for f in fn(r, pm)[0]] + check_percent(r, pm) + check_grim(r, pm) + check_sample(r, pm) + check_interval(r, pm) + check_ratio(r, pm) + check_metric(r, pm) + check_effect(r, pm) + check_analytic(r, pm) + check_scale(r, pm)
     got = {f['check'] for f in allc(bad)}; clean = allc(good)
-    print('catches all nine planted error kinds:', got == {'PERCENT', 'GRIM', 'SAMPLE', 'INTERVAL', 'RATIO', 'METRIC', 'EFFECT', 'ANALYTIC', 'SCALE'}, got); print('clean text flagged nothing:', not clean, clean)
+    print('catches all planted error kinds:', got == {'PERCENT', 'GRIM', 'SAMPLE', 'INTERVAL', 'RATIO', 'METRIC', 'EFFECT', 'ANALYTIC', 'SCALE', 'PROP', 'CIP', 'MONO', 'DELTA', 'SDBOUND', 'STATCHECK', 'GRIMMER', 'CONFUSION', 'MACRO'}, got); print('clean text flagged nothing:', not clean, clean)
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('args', nargs='*'); ap.add_argument('--only'); ap.add_argument('--outdir', default=str(OUT)); a = ap.parse_args()
