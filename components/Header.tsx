@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Mascot from "./Mascot";
+import { Turtle } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import AuthStatus from "./AuthStatus";
 import SearchPalette from "./SearchPalette";
@@ -40,7 +40,7 @@ export default function Header() {
           href="/"
           className="flex min-w-0 items-center gap-2 font-heading text-base font-semibold tracking-tight"
         >
-          <Mascot className="h-9 w-[2.9rem] shrink-0" />
+          <Turtle className="h-5 w-5 shrink-0 text-forest" aria-hidden />
           <span className="truncate">Living Evidence Synthesis</span>
         </Link>
 
