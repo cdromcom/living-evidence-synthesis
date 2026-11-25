@@ -492,6 +492,7 @@ const APPRAISAL_ROW_SLUGS: Record<string, string> = {
   "statistic accuracy": "statistic-accuracy",
   "statistical accuracy": "statistic-accuracy",
   "non-significant result spin": "spin",
+  "hype/spin": "spin",
   "ablation experiment(s)": "ablation-experiments",
   "ai writing check": "ai-writing-check",
   "code quality": "code-quality-fair",

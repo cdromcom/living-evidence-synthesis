@@ -553,7 +553,7 @@ export const RIGOR_CHECK_LABELS = {
   "confidence-intervals": "Confidence intervals",
   "effect-size": "Effect size",
   "exact-p-values": "Exact p-values",
-  spin: "Non-significant result spin",
+  spin: "Hype/spin",
   "repository-check": "Dataset check",
   "code-check": "Code check",
   statcheck: "Statistical consistency",

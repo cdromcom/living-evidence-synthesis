@@ -227,7 +227,7 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
   },
   {
     id: "spin",
-    label: "Non-Significant Result Spin",
+    label: "Hype/spin",
     group: "Rigor — Interpretation",
     defaultVisible: false,
     value: (_evd, src) => riskCell(getSpinSignal(src)),

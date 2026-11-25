@@ -169,7 +169,7 @@ Together, these findings support the broader claim that [[sysrev/dgraph/claims/C
 | **Human-baseline comparability**: is there a human reference point? | 🔴 | Not reported, the two author-reviewers judge AI outputs against published references but no independent human-authored response is scored under the same rubric |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🔴 | Not reported: no quantitative metric of any kind is computed, so no interval is possible |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: comparisons are purely qualitative "stated/not stated" judgments (Table 1-2), with no statistic computed at all |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance testing is performed at all, so there is no null finding to spin |
+| **Hype/spin**: are null or negative findings framed plainly? | 🔴 | Not applicable: no significance testing is performed at all, so there is no null finding to spin |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🔴 | Not reported: a qualitative 10-case-study comparison of three AI platforms' SOP outputs; no system component is removed or varied and re-measured |
 | **AI writing check**: does the paper's own prose read as AI-generated? | 🟢 | Independent recheck run because this source's Dataset check and Code check both returned "No repository claimed". Pangram v3.3.2 AI-text detector: *"We believe that this document is fully human-written"* (0% AI-generated, 0% AI-assisted). [Dashboard](https://www.pangram.com/history/bc302f1e-b8cf-473e-8195-458c7bad2c45) |
 
