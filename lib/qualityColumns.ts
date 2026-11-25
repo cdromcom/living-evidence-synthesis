@@ -215,7 +215,7 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
   },
   {
     id: "statistic-accuracy",
-    label: "Statistic Accuracy",
+    label: "Statistical Accuracy",
     group: "Rigor — Reporting",
     defaultVisible: false,
     value: (_evd, src) => {
@@ -227,7 +227,7 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
   },
   {
     id: "spin",
-    label: "Non-Significant Result Spin",
+    label: "Hype/spin",
     group: "Rigor — Interpretation",
     defaultVisible: false,
     value: (_evd, src) => riskCell(getSpinSignal(src)),

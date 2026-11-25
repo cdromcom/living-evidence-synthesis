@@ -35,54 +35,69 @@ tags:
   - rigor/chance-corrected-metrics/not-addressed
   - rigor/ablation-experiments/addressed
 doi: 10.1136/bmjopen-2024-088735
-license: "http://creativecommons.org/licenses/by-nc/4.0/"
+license: http://creativecommons.org/licenses/by-nc/4.0/
 license_source: "Crossref (content-version: unspecified)"
-oa_status: "gold"
+oa_status: gold
 citationCount: 9
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
-  - "James G Wrightson — Department of Physical Therapy, The University of British Columbia Faculty of Medicine, Vancouver, British Columbia, Canada"
-  - "Paul Blazey — Centre for Aging SMART, The University of British Columbia, Vancouver, British Columbia, Canada"
-  - "David Moher — Ottawa Methods Centre, Ottawa Hospital Research Institute, Ottawa, Ontario, Canada"
-  - "Karim M Khan — Department of Family Practice, The University of British Columbia, Vancouver, British Columbia, Canada"
-  - "Clare L Ardern — Department of Physical Therapy, The University of British Columbia Faculty of Medicine, Vancouver, British Columbia, Canada"
+  - James G Wrightson — Department of Physical Therapy, The University of British Columbia Faculty of Medicine, Vancouver, British Columbia, Canada
+  - Paul Blazey — Centre for Aging SMART, The University of British Columbia, Vancouver, British Columbia, Canada
+  - David Moher — Ottawa Methods Centre, Ottawa Hospital Research Institute, Ottawa, Ontario, Canada
+  - Karim M Khan — Department of Family Practice, The University of British Columbia, Vancouver, British Columbia, Canada
+  - Clare L Ardern — Department of Physical Therapy, The University of British Columbia Faculty of Medicine, Vancouver, British Columbia, Canada
 authorTrackRecord: clean
 authorTrackRecordChecked: 2 of 5 authors (ORCID on record)
 pubType: journal-article
-selfCitationRate: 0.000
-selfCitationChecked: "23 of 36 references had author metadata"
+selfCitationRate: 0
+selfCitationChecked: 23 of 36 references had author metadata
 doajListed: true
 pubpeerCommentCount: 0
 crossNodeChecked: 3
 crossNodeCorroborated: 3
 nameConsistency: consistent
-apaTitle: "GPT for RCTs? Using AI to determine adherence to clinical trial reporting guidelines"
-apaContainer: "BMJ Open"
+apaTitle: GPT for RCTs? Using AI to determine adherence to clinical trial reporting guidelines
+apaContainer: BMJ Open
 apaYear: 2025
 apaVolume: "15"
 apaIssue: "3"
-apaPages: "e088735"
-apaLandingUrl: "https://syndication.highwire.org/content/doi/10.1136/bmjopen-2024-088735"
+apaPages: e088735
+apaLandingUrl: https://syndication.highwire.org/content/doi/10.1136/bmjopen-2024-088735
 apaAuthors:
-  - given: "James G"
-    family: "Wrightson"
-  - given: "Paul"
-    family: "Blazey"
-  - given: "David"
-    family: "Moher"
-  - given: "Karim M"
-    family: "Khan"
-  - given: "Clare L"
-    family: "Ardern"
+  - given: James G
+    family: Wrightson
+  - given: Paul
+    family: Blazey
+  - given: David
+    family: Moher
+  - given: Karim M
+    family: Khan
+  - given: Clare L
+    family: Ardern
 peerReviewStatus: not-found
-peerReviewNote: "Checked the full paper PDF directly — no peer review report link or reference found"
-curatedWithModel: "Claude Sonnet 5"
+peerReviewNote: Checked the full paper PDF directly — no peer review report link or reference found
+curatedWithModel: Claude Sonnet 5
 curatedWithModelDate: 2026-08-25
 citekey: wrightsonGPTRCTsUsing2025
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn
 nodeInstanceId: 019dd17a-f955-747f-ab03-c133a3aa122e
+zotero-key: 7Q7R4YIF
+year: "2025"
+journal: BMJ open
+itemType: journalArticle
+DOI: 10.1136/bmjopen-2024-088735
+abstract: |-
+  <AbstractText Label="OBJECTIVES" NlmCategory="OBJECTIVE">Adherence to established reporting guidelines can improve clinical trial reporting standards, but attempts to improve adherence have produced mixed results. This exploratory study aimed to determine how accurate a large language model generative artificial intelligence system (AI-LLM) was for determining reporting guideline compliance in a sample of sports medicine clinical trial reports.</AbstractText>
+  <AbstractText Label="DESIGN" NlmCategory="METHODS">This study was an exploratory retrospective data analysis. OpenAI GPT-4 and Meta Llama 2 AI-LLM were evaluated for their ability to determine reporting guideline adherence in a sample of sports medicine and exercise science clinical trial reports.</AbstractText>
+  <AbstractText Label="SETTING" NlmCategory="METHODS">Academic research institution.</AbstractText>
+  <AbstractText Label="PARTICIPANTS" NlmCategory="METHODS">The study sample included 113 published sports medicine and exercise science clinical trial papers. For each paper, the GPT-4 Turbo and Llama 2 70B models were prompted to answer a series of nine reporting guideline questions about the text of the article. The GPT-4 Vision model was prompted to answer two additional reporting guideline questions about the participant flow diagram in a subset of articles. The dataset was randomly split (80/20) into a TRAIN and TEST dataset. Hyperparameter and fine-tuning were performed using the TRAIN dataset. The Llama 2 model was fine-tuned using the data from the GPT-4 Turbo analysis of the TRAIN dataset.</AbstractText>
+  <AbstractText Label="PRIMARY AND SECONDARY OUTCOME MEASURES" NlmCategory="METHODS">The primary outcome was the F1-score, a measure of model performance on the TEST dataset. The secondary outcome was the model's classification accuracy (%).</AbstractText>
+  <AbstractText Label="RESULTS" NlmCategory="RESULTS">Across all questions about the article text, the GPT-4 Turbo AI-LLM demonstrated acceptable performance (F1-score=0.89, accuracy (95% CI) = 90% (85% to 94%)). Accuracy for all reporting guidelines was &gt;80%. The Llama 2 model accuracy was initially poor (F1-score=0.63, accuracy (95% CI) = 64% (57% to 71%)) and improved with fine-tuning (F1-score=0.84, accuracy (95% CI) = 83% (77% to 88%)). The GPT-4 Vision model accurately identified all participant flow diagrams (accuracy (95% CI) = 100% (89% to 100%)) but was less accurate at identifying when details were missing from the flow diagram (accuracy (95% CI) = 57% (39% to 73%)).</AbstractText>
+  <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Both the GPT-4 and fine-tuned Llama 2 AI-LLMs showed promise as tools for assessing reporting guideline compliance. Next steps should include developing an efficient, open-source AI-LLM and exploring methods to improve model accuracy.</AbstractText>
+  <CopyrightInformation>© Author(s) (or their employer(s)) 2025. Re-use permitted under CC BY-NC. No commercial re-use. See rights and permissions. Published by BMJ Group.</CopyrightInformation>
+zotero: zotero://select/library/items/7Q7R4YIF
 ---
 
 > [!success] **TL;DR**
@@ -177,7 +192,7 @@ Together these findings support [[sysrev/dgraph/claims/CLM - LLMs can assess tri
 | **Human-baseline comparability**: is there a human reference point? | 🔴 | Not reported, the "ground truth" for every question is inherited from Schulz et al.'s prior systematic review labels rather than an independent human comparator evaluated alongside the model within this study |
 | **Confidence Intervals**: are point estimates accompanied by an interval? | 🟢 | *"the accuracy of the base model was low (F1-score=0.63, accuracy (95% CI) = 64% (57% to 71%)). Fine-tuning the model improved accuracy (F1-score=0.84, accuracy (95% CI) = 83% (77% to 88%))."* (Wrightson et al., 2025, p. 5), with 95% Clopper–Pearson CIs reported for every accuracy figure in the paper |
 | **Chance-Corrected Metrics**: does agreement/accuracy correct for chance? | 🔴 | Not reported: only F1-score and accuracy (with 95% CI) are reported throughout; no kappa or MCC appears anywhere |
-| **Non-Significant Result Spin**: are null or negative findings framed plainly? | 🟢 | *"asked the harder follow-up... it scored only 57% accuracy (95% CI 39% to 73%) with F1 = 0.58"* `p.6`, reported directly alongside the model's strong 100%-accuracy result on the easier sub-task, not minimized |
+| **Hype/spin**: are null or negative findings framed plainly? | 🟢 | *"asked the harder follow-up... it scored only 57% accuracy (95% CI 39% to 73%) with F1 = 0.58"* `p.6`, reported directly alongside the model's strong 100%-accuracy result on the easier sub-task, not minimized |
 | **Ablation Experiment(s)**: does the paper isolate a component's contribution? | 🟢 | *"The Llama 2 model accuracy was initially poor (F1-score=0.63, accuracy (95% CI) = 64% (57% to 71%)) and improved with fine-tuning (F1-score=0.84, accuracy (95% CI) = 83% (77% to 88%))."* (Abstract, p. 1), base vs. fine-tuned model isolates the fine-tuning component's contribution |
 | **Data Quality**: is the released dataset FAIR? | 🟢 | FAIR-Checker (12 semantic-web metrics, 0-2 each) against https://osf.io/4shmt: **16/24**. |
 

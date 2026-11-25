@@ -186,7 +186,7 @@ const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: 
   { id: "confidence-intervals", label: "Confidence Intervals", group: "Rigor — Analyses", getter: getConfidenceIntervals },
   { id: "multiple-comparisons", label: "Multiple-Comparisons Correction", group: "Rigor — Analyses", getter: getMultipleComparisonsCorrection },
   { id: "chance-corrected-metrics", label: "Chance-Corrected Metrics", group: "Rigor — Analyses", getter: getChanceCorrectedMetrics },
-  { id: "spin", label: "Non-Significant Result Spin", group: "Rigor — Interpretation", getter: getSpinSignal },
+  { id: "spin", label: "Hype/spin", group: "Rigor — Interpretation", getter: getSpinSignal },
 ];
 
 // Only Registration and Protocol get their own filter checkboxes here — Data
@@ -243,7 +243,7 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
   },
   {
     key: "statistic-accuracy",
-    label: "Statistic Accuracy",
+    label: "Statistical Accuracy",
     group: "Rigor — Reporting",
     test: (n: GraphNode) => getStatisticalConsistency(n) === "consistent",
   },

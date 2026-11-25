@@ -1,0 +1,5 @@
+citekey	check	page	section	finding	text
+@robertsComparativeStudyChatGPT2023	INTERVAL	p. 1	results	estimate 4.92 is outside its own interval 0.62 to 0.37. (A lost minus sign in the PDF text can cause this: look at the page.)	4.92% (95% CI 0.62%, 0.37%)
+@robertsComparativeStudyChatGPT2023	INTERVAL	p. 1	results	estimate 0.764 is outside its own interval 0.186 to 0.280. (A lost minus sign in the PDF text can cause this: look at the page.)	0.764 (95% CI 0.186, 0.280)
+@robertsComparativeStudyChatGPT2023	INTERVAL	p. 1	results	estimate 0.034 is outside its own interval 0.818 to 0.895. (A lost minus sign in the PDF text can cause this: look at the page.)	0.034 (95% CI 0.818, 0.895)
+@robertsComparativeStudyChatGPT2023	INTERVAL	p. 3	results	estimate 4.92 is outside its own interval 0.62 to 0.37. (A lost minus sign in the PDF text can cause this: look at the page.)	4.92% (95% CI 0.62%, 0.37%)

@@ -145,3 +145,28 @@ Kind: "no JP rewrite" = P was empty, "Task for JP" or "? ..."; "practice" = JP d
 
 ## Open TODOs
 See the TODOs and UNCERTAINTIES sections of the ABOUT tab (review drafts, unchecked drafts, Irrelevant/Wrong rows, JP rewrites vs pages, contradictory LIVES pages, PICOST review, EVD 1 page fix, Phase 2, unchecked Claude rows). Added since: EVD 26, 29 and 35-42 have no column Q draft.
+
+
+---
+
+# 2026-11-23 to 2026-11-25 session (one long Claude Code session)
+
+Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-prompt-log]]. Session id 675f3ea2-645b-4b0b-acc2-9007848d0536. Models: Claude Opus 5.5 early in the session, Claude Sonnet 5.5 later, with subagents. This section logs what was done, where it lives, how it was checked, and what is unknown.
+
+## Work log (outputs and checks)
+1. **Decision-model benchmark** (Runs 1 to 6, n = 66 after drops): Perplexity Decider 1.3, Liquid d1-ultra, Jev and Claude Opus 5.5 against JP's grades on the 77 EVDs; sheets in Google Drive (AAA Benchmarking HAI plus per-model rater sheets). Checks: error analysis per run; JP spot checks.
+2. **Vault and repo**: skills backed up and cut (`pipeline/misc/skill-backups/`), repo aligned with the vault (PR 26, merged), redesign decisions (PR 27, merged), benchmarking PRs 8 and 21 merged, 41 labels created. Check: `check_repo_sync.py` (content hashes).
+3. **Quality signals**: `pdf_pages.py` (page map, quote finder, crops), `audit_signal_quotes.py` (27 sources, about 1,570 rows), decision-model runs on 734 rows, review sheet v2 with models and dates, provenance scripts, smoke tests of all scripts. Quote audit result after the punctuation rule: 579 verbatim with printed page ok, 123 ok by PDF position, 106 wrong page, 72 quotes not found.
+4. **Provenance**: `call_logger.py`, collapsed GAMER-style footer, `pipeline/provenance/AI-disclosure.md` and `model-history.md`, Skill Step 4c.
+5. **Design**: two design consults with four models (`pipeline/runs/2026-11-25-design-consult*`), `pipeline/design/LIVES-design-spec.md`.
+6. **Web app (PR 29)**: review sidebar (several categories, tooltips, privacy tooltip, fallback when the reviews view is missing), mascot, "Statistical Accuracy" and "Hype/spin" labels. Checked with eslint and `next build --webpack`; not tested in a browser or against the live database.
+7. **Statistical accuracy checks**: `stat_checks.py` and `stat_checks_more.py` (percent sums, GRIM, GRIMMER, sample sizes, analytic sample, scale range, confidence interval, ratio, F1 and kappa, effect sizes, accuracy times N, p against CI, pass@k order, delta arithmetic, SD bound, statcheck, confusion matrix, macro averages). Planted-error self-test passes for every kind. On the 27 papers: 4 findings, all in one paper (three estimates outside their own confidence intervals in the Roberts 2023 abstract).
+8. **Links**: `check_links.py`; `reverse_links.py` and `build_dgraph.py` list-parsing bug fixed; 32 EVD pages gained caveat back-links; Sarol caveat, Liu question links and the EP-to-CVT link fixed. Result: 0 structural problems.
+9. **EmbeddingGemma 2** downloaded (Hugging Face `google/embeddinggemma-2`, 1.4 GB, own environment). Test on the 27-paper set: `embed_candidates.py` and a blinded Sonnet 5.5 second opinion (`merge_judge.py`, run 2026-11-25-merge-judge, 35 calls, about $0.12): no merges recommended among the top 25 CVT and top 10 QUE pairs; 21 of the 35 pairs "group under an umbrella", 14 "keep separate". Files: `pipeline/misc/evd-validation/embedding-candidates/`.
+10. **Rules decided by JP** (now in the Skill): PDF page number is fine when the PDF prints none; screenshots closed by default; pastel highlight colors by node type; no pill cap but explore other components; subtle differences between nodes mean do not merge; a human verifies every merge (the models only surface candidates); Inkling 2 Small and Sonnet 5.5 as the two judges (Inkling not wired up yet).
+
+## Missing details (not recoverable here)
+- Results for the early benchmarking messages are summarised; the detailed outputs are in the sheets' LOG and AI Prompt Log tabs.
+- Tinker prices for Inkling 2 Small and Mini came from a model-extracted summary of a truncated page: unverified.
+- The model of the April 28 batch agents is not recorded.
+- Inkling 2 Small has not been called yet.

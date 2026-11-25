@@ -3,7 +3,7 @@
 
   python3 pdf_pages.py map  <pdf>                 printed page label for every PDF page
   python3 pdf_pages.py find <pdf> "quote text"    where the quote appears (PDF page, printed page)
-  python3 pdf_pages.py crop <pdf> "quote" out.png [--dpi 250]   highlighted crop of the quote region
+  python3 pdf_pages.py crop <pdf> "quote" out.png [--dpi 250] [--kind EVD|CLM|QUE|EP|CVT]   crop of the quote region, highlighted in that node type's pastel
   python3 pdf_pages.py links <pdf>                hyperlinks embedded in the PDF (code and data URLs)
 
 Printed page = the number printed on the page (the journal page), NOT the position in the PDF file. If the file prints no page
@@ -120,7 +120,15 @@ def locate_rects(page, quote: str):
     return [r for (s0, s1, r) in spans if s1 > i and s0 < i + len(k)]
 
 
-def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14) -> dict:
+# Highlight colors by node type (JP, 2026-11-25): light pastels, easy on the eyes. RGB 0-1.
+HIGHLIGHT = {'QUE': (1.0, 0.86, 0.68),   # light orange
+             'EVD': (1.0, 0.80, 0.80),   # light red
+             'CLM': (0.80, 0.93, 0.82),  # light green (mint, not lime)
+             'EP': (0.80, 0.88, 1.0),    # light blue
+             'CVT': (0.86, 0.86, 0.87)}  # soft gray
+
+
+def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind: str = 'EVD') -> dict:
     hit = find_quote(doc, quote)
     if not hit['pages']: return {'ok': False, 'reason': 'quote not found'}
     page = doc[hit['pages'][0] - 1]
@@ -128,7 +136,9 @@ def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14) -> di
     if not rects: return {'ok': False, 'reason': 'found in text but no word coordinates (scanned or odd encoding)'}
     box = fitz.Rect(rects[0])
     for r in rects[1:]: box |= r
-    for r in rects: page.add_highlight_annot(r)
+    lines = {}   # one band per text line, drawn behind the text, so the color is exactly the pastel (annotation highlights blend to tan)
+    for r in rects: lines.setdefault(round(r.y0 / 3), fitz.Rect(r)).include_rect(r)
+    for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), overlay=False)
     clip = fitz.Rect(page.rect.x0, max(page.rect.y0, box.y0 - pad), page.rect.x1, min(page.rect.y1, box.y1 + pad))
     page.get_pixmap(dpi=dpi, clip=clip).save(out)
     return {'ok': True, 'pdf_page': hit['pages'][0], 'out': out, 'size_px': Path(out).stat().st_size}
@@ -167,6 +177,7 @@ if __name__ == '__main__':
         pm = {r['pdf']: r['printed'] for r in page_map(doc)}; h = find_quote(doc, sys.argv[3])
         print('found' if h['found'] else 'NOT FOUND', [(p, pm.get(p)) for p in h['pages']])
     elif cmd == 'crop':
-        print(crop_quote(doc, sys.argv[3], sys.argv[4], int(sys.argv[sys.argv.index('--dpi') + 1]) if '--dpi' in sys.argv else 250))
+        print(crop_quote(doc, sys.argv[3], sys.argv[4], int(sys.argv[sys.argv.index('--dpi') + 1]) if '--dpi' in sys.argv else 250,
+                         kind=sys.argv[sys.argv.index('--kind') + 1] if '--kind' in sys.argv else 'EVD'))
     elif cmd == 'links':
         for l in links(doc): print(l['pdf_page'], l['uri'])

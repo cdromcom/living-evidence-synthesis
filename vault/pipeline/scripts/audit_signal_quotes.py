@@ -3,7 +3,7 @@
 page right? Read-only. Writes <outdir>/signal-quote-audit.csv and prints a summary.
   python3 audit_signal_quotes.py [--only @citekey] [--outdir DIR]
 Page check: the locator's page is compared with the PDF's printed page labels (page_map); 'pdf-position' means the PDF prints no page
-numbers (preprints) so the PDF position is the reference."""
+numbers (preprints, or a page without one) so the PDF position is the reference (JP, 2026-11-25: fine when the PDF has no page numbers)."""
 import csv, re, sys, collections, difflib
 from pathlib import Path
 import pdf_pages as pp, signals_common as sc
@@ -47,6 +47,7 @@ for path in sorted(sc.SRC_DIR.glob('@*.md')):
                     src = pm[h['pages'][0]]['source']
                     st = ('verbatim, page ok (printed)' if r['page'] in printed and src != 'pdf-position' else
                           'verbatim, page ok (pdf-position; no printed numbers in file)' if r['page'] in printed else
+                          'verbatim, page ok (pdf-position; page prints no number)' if r['page'] in pos and any(pm[p]['printed'] is None for p in h['pages'] if str(p) == r['page']) else
                           'verbatim, cites PDF position not printed page' if r['page'] in pos else 'verbatim, page WRONG')
         r.update(status=st, found_pages=found_pages, cause=cause, ratio=ratio); rows_out.append({k: v for k, v in r.items() if k != 'raw'})
     per_src[path.stem] = len(rows)

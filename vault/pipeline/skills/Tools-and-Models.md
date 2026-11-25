@@ -88,10 +88,10 @@ Every step that uses a closed model also runs open models, and their outputs are
 | Step | Closed model | Open models to contrast | How votes are combined |
 |---|---|---|---|
 | OCR and extraction | none (LlamaParse kept only as a fallback) | **Chandra OCR 2 + OXR-1.0** (OXR-1.0 exempt from the origin policy: open and local), plus the PDF text layer as a third vote | Accepted where they agree; the text layer settles born-digital disagreements; otherwise the page image decides |
-| Skill steps: extracting, writing, judging, linking | **Claude Opus 5.5** | **Inkling 2 Mini + Gemma 4** for the first extraction pass, both run locally (JP, 2026-11-20). Backups via hosted APIs, if local speed or quality falls short: Ripple-65B Preview and Reflection Beam | **Extracting:** Inkling 2 Mini and Gemma 4 extract; a value is accepted when they agree exactly. **Claude Opus 5.5 breaks ties, and does all writing and judging**, with effort set to each task's demands (low for simple pass/fail checks, higher for nuanced judgments; tune on the test set). Linking: EmbeddingGemma 4 finds candidates, Opus 5.5 decides |
+| Skill steps: extracting, writing, judging, linking | **Claude Opus 5.5** | **Inkling 2 Mini + Gemma 4** for the first extraction pass, both run locally (JP, 2026-11-20). Backups via hosted APIs, if local speed or quality falls short: Ripple-65B Preview and Reflection Beam | **Extracting:** Inkling 2 Mini and Gemma 4 extract; a value is accepted when they agree exactly. **Claude Opus 5.5 breaks ties, and does all writing and judging**, with effort set to each task's demands (low for simple pass/fail checks, higher for nuanced judgments; tune on the test set). Linking: EmbeddingGemma 2 finds candidates, Opus 5.5 decides |
 | Contrast for the Skill steps' closed role (optional, JP, 2026-11-20) | Claude Opus 5.5 vs **Gemini 4 Neon** (Google) and **GPT-6.2 Sol** (OpenAI) | none (closed models, hosted APIs) | Run on the fixed test set only, at matched effort, not as extra voters. Compare agreement with JP, verbatim quotes, number correctness and cost per paper from usage logs. To verify before use: version, official pricing (Neon's "slightly higher score, about 40% cheaper at x-high" and Sol's $2 / $10 per million tokens are unverified), data-storage region. Both US developers, so they pass the origin policy |
 | Fast decisions (relevancy, pass/fail) | Google Decision 1 (optional cross-check only) | **Perplexity Decider 1.3** (open, runs locally; preferred, JP 2026-11-20; base model to check) | Perplexity Decider 1.3 decides; disagreements with Opus 5.5 or the human reviewer are logged |
-| Embeddings | none | **EmbeddingGemma 4** (open, local; JP 2026-11-20) for deduplication, linking related nodes, screening and similar tasks | n/a |
+| Embeddings | none | **EmbeddingGemma 2** (open, local; JP 2026-11-20) for deduplication, linking related nodes, screening and similar tasks | n/a |
 | AI-writing and plagiarism checks | **Pangram 4.1** (closed API; acceptable, JP 2026-11-20) | none needed | n/a |
 
 > [!important] Model-origin policy: US models only (JP, 2026-11-20)
@@ -107,7 +107,7 @@ Every step that uses a closed model also runs open models, and their outputs are
 > | Extraction backups (only if needed later, for speed or quality) | **Ripple-65B Preview** (Ricursive Intelligence) and **Reflection Beam** (Reflection AI) | Open | Called through hosted APIs (Beam is too large to run locally; JP, 2026-11-20) |
 > | OCR | **Chandra OCR 2** (Datalab) and **OXR-1.0**, plus the PDF text layer | Open | Locally |
 > | Fast decisions | **Perplexity Decider 1.3** | Open | Locally |
-> | Embeddings (deduplication, linking, screening) | **EmbeddingGemma 4** (Google) | Open | Locally |
+> | Embeddings (deduplication, linking, screening) | **EmbeddingGemma 2** (Google) | Open | Locally |
 > | AI-writing and plagiarism checks | **Pangram 4.1** | Closed | API |
 >
 > Set aside: OpenAI gpt-oss and Olmo 3 (JP, 2026-11-20). Gemma 4 is back as a local extractor (2026-11-20). Not in Roam yet and to check before use: Ripple-65B Preview, Reflection Beam, OXR-1.0, and Gemma 4's licence (earlier Gemma models used Google's own Gemma terms, not Apache 2.0). Under the model-origin policy, check the developer and base model of Chandra OCR 2, Inkling 2 Mini, Gemma 4, Perplexity Decider 1.3, Ripple-65B Preview and Reflection Beam (OXR-1.0 is exempt as long as it is open and local).
@@ -217,10 +217,29 @@ Pushing these to the GitHub repository needs JP's approval.
 ### For later
 
 - **GROBID, for reference checks in the Quality Signals pipeline.** GROBID parses each PDF's reference list (and header and section structure) into structured TEI XML. That is what a reference check needs: matching citations to references, resolving DOIs, and flagging missing, wrong or retracted references. It is not needed for OCR or node writing, because source metadata comes from Zotero.
-- **EmbeddingGemma 4, for deduplication, screening and linking** (JP, 2026-11-20; Roam notes record EmbeddingGemma 2, 740M parameters, text, image and code embeddings; confirm the version). Local, free and open. Planned uses:
+- **EmbeddingGemma 2, for deduplication, screening and linking** (JP, 2026-11-20; version 2 confirmed by JP 2026-11-25; released 2026-10-06 under Apache 2.0; reports describe about 740M parameters and text, image, audio and code embeddings; Google's model card is the source to check). Local, free and open. **Downloaded 2026-11-25** (Hugging Face `google/embeddinggemma-2`, 1.4 GB, runs via sentence-transformers in `~/.cache/lives-bench/venv-embed`; the installed Ollama is too old to pull it). Planned uses:
   - finding duplicate or near-duplicate EVDs, CLMs and other nodes (it would replace the keyword-overlap score in `pipeline/misc/scripts/find_redundancies.py`);
   - screening papers found by the AI-assisted search;
   - suggesting links between nodes (EVD to CLM, EVD to QUE, EVD to EVD).
 
 > [!tip] Embeddings and Claude Opus 5.5 do different jobs
-> Use EmbeddingGemma to **find candidates** (fast, free, scores every pair) and Claude Opus 5.5 to **decide** on each candidate (whether two EVDs are really the same finding, and which relation applies: supports, opposes, consistent with). A human confirms merges and links. The April redundancy audit (`pipeline/misc/redundancy_audit_2026-04-27.md`) can serve as a first test set for comparing the two.
+> Use EmbeddingGemma 2 to **find candidates** (fast, free, scores every pair) and, since JP's 2026-11-25 decision, **Inkling 2 Small plus Claude Sonnet 5.5, which must agree**, to decide on each candidate (Claude Opus 5.5 only if they disagree and JP asks) (whether two EVDs are really the same finding, and which relation applies: supports, opposes, consistent with). A human confirms merges and links. The April redundancy audit (`pipeline/misc/redundancy_audit_2026-04-27.md`) can serve as a first test set for comparing the two.
+
+
+## Inkling on Tinker: prices and model card (read 2026-11-25; partly unverified)
+- **Source:** Tinker's models and pricing page (tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/). The page was truncated for the reader, so the Inkling rows below came from a model-extracted summary and are **not verified**; confirm on the page before spending.
+- **Inkling 2 Small** (64K context): prefill $0.30, cached prefill $0.03, sample $1.00, **train $1.50** per million tokens; the 256K row trains at $3.00.
+- **Inkling 2 Mini** (64K): prefill $0.15, sample $0.50, **train $0.75**; 256K trains at $1.50; the page also lists a free row with rate limits.
+- **Inkling (largest):** train $5.61 at 64K, $11.23 at 256K.
+- **Model card** (thinkingmachines.ai/model-card/inkling/, the 975B Inkling only; the Small and Mini cards were not read): Apache 2.0, open weights on Hugging Face, 975B total and 41B active parameters, 1M context, text, image and audio in, text out, released 2026-07-15 by Thinking Machines Lab. No base model is named and training from scratch is not stated, so the model-origin policy check for Small and Mini is still open. Limitations listed: hallucination, instruction-following errors, weaker long multi-turn use; not for medical, legal or safety-critical use without extra work.
+- **Rough budget:** at $1.50 per million training tokens, 1,000 examples of 800 tokens for 3 epochs is about 2.4M tokens, about $3.60. $50 of credit therefore pays for many small runs.
+
+## Statistical accuracy checks (scripts; added 2026-11-25)
+- **Where:** `pipeline/scripts/stat_checks.py` and `stat_checks_more.py`; run `python3 stat_checks.py` (all papers), `--only @citekey`, `selftest`, or `grim <mean> <n>`. Output: `pipeline/misc/evd-validation/stat-checks/`. Needs PyMuPDF and scipy.
+- **Checks:** PERCENT sums, GRIM, GRIMMER, SAMPLE size agreement, ANALYTIC (full minus exclusions), SCALE (mean in range, percentage metric not above 100%), INTERVAL (estimate inside its CI), RATIO (a of b), METRIC (F1, kappa), EFFECT (impossible or outlying effect sizes), PROP (accuracy times N whole), CIP (p against CI), MONO (pass@k order, text and tables), DELTA (from a to b arithmetic), SDBOUND, STATCHECK (p from t, F, chi-square, z, r), CONFUSION (counts), MACRO (average rows).
+- **Source ideas:** GRIM, GRIMMER, DEBIT, SPRITE and statcheck are documented in the metascience literature; [STRAIT](https://github.com/ianhussey/strait) and [Statlint](https://statlint.com/) do similar bound checks. RIVETS is named in a Springer Nature post citing Brown and Heathers (2019) with no method details found; STALT could not be found. Neither is implemented.
+- **Limits:** all are clues for a person, not verdicts; they read the PDF text layer, so numbers in images are missed; table checks depend on the PDF keeping rows on single lines. On the 27 seed papers they flagged only three estimates outside their own confidence intervals (Roberts 2023 abstract).
+
+## Local embedding and merge tooling (added 2026-11-25)
+- **Embeddings:** EmbeddingGemma 2, weights in `~/.cache/lives-bench/models/embeddinggemma-2/`, run with `~/.cache/lives-bench/venv-embed/bin/python` (transformers 5.24.1, sentence-transformers 6.3.0, torch 2.15.0). `pipeline/scripts/embed_candidates.py` lists same-type candidate pairs with difference hints.
+- **Second opinion:** `pipeline/scripts/merge_judge.py` with `pipeline/prompts/merge-judge-v1.md` (Claude Sonnet 5.5, effort medium; 35 calls cost about $0.12). Inkling 2 Small not wired up yet. A human verifies every merge.

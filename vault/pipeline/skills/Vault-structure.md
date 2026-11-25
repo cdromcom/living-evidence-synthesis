@@ -104,7 +104,7 @@ living-synthesis/
 > `pip install pangram-sdk`, needs a `PANGRAM_API_KEY` env var, uses
 > `predict_files()` — the bulk multipart-upload endpoint, one request for
 > every PDF in the batch, not one request per file — against the source
-> PDFs) whenever **either**: (a) a source's Statistic Accuracy check (Step
+> PDFs) whenever **either**: (a) a source's Statistical Accuracy check (Step
 > 6.b) comes back `issues-found`, or (b) a source's Data Repo Check and/or
 > Code Check comes back "No repository claimed" (its data/code transparency
 > can't be verified another way, so its prose gets an extra look instead).
