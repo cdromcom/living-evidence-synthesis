@@ -28,7 +28,7 @@ This file is the single reference for models building the LIVES web app. It merg
 | 5 | Screenshots | Closed by default, a small labelled placeholder opens on click | Owner |
 | 6 | Highlights and mascot | Pastel PDF highlights by node type; cherub-on-tortoise mascot in the header | Owner |
 | 7 | Provenance | Byline under the title plus a collapsed GAMER-style AI-use footer | Owner, v2 summary |
-| 8 | Restraint | Few pills, one accent, no decoration other than the mascot | Owner |
+| 8 | Restraint | Pills are not capped, but they are not the default: try other components first (see section 12); one accent; no decoration other than the mascot | Owner (2026-11-25) |
 | 9 | Keyboard | Every task works without a mouse; tested in CI | Owner (Direction A) |
 | 10 | Build | Tests first; Opus 5.5 builds; another model family reviews; the owner approves each phase | Owner, Opus plan |
 
@@ -232,17 +232,19 @@ Sources say little here. The owner brief governs.
 
 ## 12. Restraint rules
 
-Owner feedback: the homepage uses too many colorful pills.
+Owner feedback: the homepage uses too many colorful pills. Owner decision (2026-11-25): there is no numeric cap on pills; instead, models must explore a variety of other UI components that also work, and use a pill only when it is the best fit.
 
 | Do | Don't |
 |---|---|
 | Use plain text for metadata | Wrap every label in a pill |
-| Allow a few pills or chips per view (at most about three) | Show rows of colored chips |
+| Try a component other than a pill first: plain text, a small table, a definition list, a labelled icon, a segmented control, a tab, a disclosure, a sortable column, a tooltip, a count in the heading | Default to a pill for every label or count |
 | Use one accent (forest) | Add a color per category |
 | Let Concern and Judges split be the only colored statuses | Tint Adequate and Not reported |
 | Keep the mascot as the only illustration | Add decorative art or icons without a job |
 
-- "A few" is capped at about three per view. The owner gave no number, so confirm it.
+- **Components to consider instead of pills:** inline text with a separator; a two-column table of label and value; a definition list; a leading icon with a text label; a segmented control for a choice of one; tabs for parallel views; `<details>` for optional detail; a tooltip for a definition; a count in a heading ("Evidence (12)"); a sorted list with a status icon at the start of each row; a sparkline or small bar where a number has a scale.
+- **When a pill is the right choice:** a short, filterable attribute the reader will click (for example a type filter), where the control itself is the point. When using pills, keep them neutral and use color only for a status that needs attention.
+- **Review step:** the person building a page lists the components considered for each group of labels and why the chosen one fits; the reviewer checks that the page does not read as a wall of chips.
 
 ## 13. Build plan and acceptance checks
 
