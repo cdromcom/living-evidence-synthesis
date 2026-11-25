@@ -2,7 +2,7 @@
 """Build the step-by-step review workbook for one runner batch (JP, 2026-11-25): a human follows each paper from extraction to checks and adds ground-truth labels.
   python3 run_to_gsheet.py RUN_ID [--out FILE]          writes pipeline/runs/<run>/review.xlsx (local; upload it to Google Sheets with the Drive connector)
 Tabs: ABOUT (how to read it), Papers, Findings (one row per extracted finding, with every check and JP's label columns), Checks (one row per quoted span), Rechecks
-(Neon vs Sol vs Opus for the flagged findings), Calls and cost. Later steps (drafts and debate, quality-signal ratings) get their own tabs; see Review-sheets-spec.md."""
+(Neon vs Sol vs Opus for the flagged findings), Checks (decision models, Sol vision, Opus), Drafts and debate, Quality signals (raw and vote), Open-model shadow, Calls and cost; see Review-sheets-spec.md."""
 import argparse, json, sys
 from pathlib import Path
 from openpyxl import Workbook
@@ -49,6 +49,31 @@ def main():
     dv2 = DataValidation(type='list', formula1='"primary,secondary,tertiary,not an EVD"', allow_blank=True); ws.add_data_validation(dv2); dv2.add(f'U2:U{ws.max_row + 1}'); ws.auto_filter.ref = ws.dimensions
     tab('Checks', ['Paper', 'Finding', 'Span', 'Quoted span (verbatim)', 'Page cited', 'Found in PDF text', 'Pages where found', 'Word boxes', 'JP: quote correct? (yes/no)', 'JP: notes'], crow, [30, 8, 6, 80, 9, 10, 14, 9, 14, 30], jp_from=9)
     tab('Rechecks', ['Paper', 'Finding', 'Neon numbers', 'Sol numbers', 'Compare', 'Opus verdict (A = Neon, B = Sol)', 'Opus reason', 'JP: who is right? (Neon, Sol, neither)', 'JP: notes'], rrow, [30, 8, 40, 40, 10, 14, 60, 16, 30], jp_from=8)
+    srow = []
+    for ck, p in M['papers'].items():
+        for sl, e in (p.get('shadow') or {}).items(): srow.append([ck, e.get('model', sl), e.get('findings', ''), '/'.join(str(e.get('tiers', {}).get(k, '')) for k in ('primary', 'secondary', 'tertiary')) if e.get('tiers') else '', e.get('span_found_rate', ''), e.get('numbers_on_page_rate', ''), e.get('recall_of_neon_primary_numbers', ''), e.get('tokens_out', ''), e.get('cost_usd', ''), e.get('failed', ''), '', ''])
+    if srow: tab('Open-model shadow', ['Paper', 'Model (benchmark only)', 'Findings', 'Primary / secondary / tertiary', 'Quotes found in the PDF', 'Numbers on the PDF page', 'Share of Neon primary numbers also found', 'Tokens out', 'Cost USD', 'Failure', 'JP: how many of this model\'s findings are right?', 'JP: notes'], srow, [30, 34, 9, 14, 12, 12, 16, 10, 9, 30, 20, 30], jp_from=11)
+    ck_rows = []; dr_rows = []; qr_rows = []; qa_rows = []
+    for ck, p in M['papers'].items():
+        if (d / ck / 'checks.json').exists():
+            for v in json.load(open(d / ck / 'checks.json')):
+                m = v['summary']['means']; ck_rows.append([ck, v['id'], v.get('tier', ''), v.get('statement', '')[:300], m.get('relevancy', ''), m.get('fidelity', ''), m.get('quote_grounding', ''), m.get('table_figure_grounding', ''), v['summary']['score'], v['summary']['spread'], '; '.join(v.get('why_vision', [])),
+                                                         (v.get('sol') or {}).get('overall', ''), (v.get('sol') or {}).get('reason', ''), (v.get('opus') or {}).get('overall', ''), (v.get('opus') or {}).get('reason', ''), v.get('final', ''), '', ''])
+        if (d / ck / 'drafts.json').exists():
+            dd = json.load(open(d / ck / 'drafts.json'))
+            for nid, f in dd.get('finals', {}).items():
+                n = f['node']; txt = n.get('statement') or n.get('title') or n.get('limitation') or ''; ink = dd['authors'].get('inkling', {}).get('r0', {}).get(nid, {}); inktxt = ink.get('statement') or ink.get('title') or ink.get('limitation') or ''
+                alts = [(dd['authors'].get(a, {}).get('r0', {}).get(nid, {}).get('statement') or dd['authors'].get(a, {}).get('r0', {}).get(nid, {}).get('title') or dd['authors'].get(a, {}).get('r0', {}).get(nid, {}).get('limitation') or '') for a in ('sonnet', 'sol', 'neon')]
+                cc = f.get('claim_check') or {}; lt = f['lint']
+                dr_rows.append([ck, nid, n.get('type', ''), n.get('tier', ''), f['author'], f['how'], txt, lt.get('chars', ''), lt.get('fk_grade', ''), 'yes' if lt.get('pass') else 'no', ', '.join(lt.get('numbers_not_on_card', [])), cc.get('overall', ''), cc.get('fix', ''), cc.get('checker', ''), (f.get('dm') or {}).get('score', ''), f.get('status', ''), f.get('inkling_pick') or '', inktxt, alts[0], alts[1], alts[2], '', '', '', ''])
+        if (d / ck / 'quality_signals.json').exists():
+            q = json.load(open(d / ck / 'quality_signals.json'))
+            for x in q['raw']: qr_rows.append([ck, x['signal'], x['rater'], 'yes' if x['counted'] else 'benchmark only', x['rating'], x['quote'][:400], x['locator'], '' if x['quote_found'] is None else ('yes' if x['quote_found'] else 'NO')])
+            for x in q['aggregate']: qa_rows.append([ck, x['signal'], ', '.join(f'{k}: {v}' for k, v in x['votes'].items()), x['majority'], x['agreement'], x['inkling_benchmark'], x['quotes_not_found'], '', ''])
+    if ck_rows: tab('Checks (decision models)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Quote grounding', 'Table or figure grounding', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'JP: is the finding right? (yes/no)', 'JP: notes'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 14, 30], jp_from=17)
+    if dr_rows: tab('Drafts and debate', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Lint pass', 'Numbers not on the card', 'Claim check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'Inkling pick (benchmark)', 'Inkling draft (benchmark)', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 10, 50, 50, 50, 50, 40, 14, 14, 30], jp_from=22)
+    if qr_rows: tab('Quality signals (raw)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10])
+    if qa_rows: tab('Quality signals (vote)', ['Paper', 'Signal', 'Votes', 'Majority', 'Agreement', 'Inkling (benchmark)', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 40, 16, 10, 16, 10, 16, 30], jp_from=8)
     crows = []
     f = d / 'calls.jsonl'
     for l in (f.read_text().splitlines() if f.exists() else []):

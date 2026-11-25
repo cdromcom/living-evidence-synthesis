@@ -10,6 +10,9 @@ Stages (one request per paper, or per paper with flagged findings, per stage; th
                 multi-page, scanned and not-found items
   3 recheck     GPT-6.2 Sol re-extracts the flagged findings independently, without seeing Neon's values (prompts/recheck-v1.md)
   4 adjudicate  Claude Opus 5.5 decides, from the PDF, where Neon and Sol disagree (prompts/adjudicate-v1.md)
+  5 checks      decision models score every finding (relevancy, fidelity, quote and table grounding); Sol vision on flagged, low-confidence and 10% sampled crops; Opus on rare disputes
+  6 draft       EVD, QUE, CLM, CVT nodes by debate (Sonnet 5.5, Sol, Neon Medium; Sol and Sonnet vote; Neon tie-break; Inkling benchmark only); drafts stay in the run folder
+  7 qs          quality signals rated by Opus 5.5, Sol and Neon (majority vote); Inkling benchmark only (--skip checks draft qs leaves stages out)
   then STOP: status awaiting_spot_check_a. A person reviews review.md; writing nodes and the decision-model gates are separate, later steps.
 
 Safety rails (constants below, not options):
@@ -26,7 +29,7 @@ import argparse, hashlib, json, os, platform, re, sys, time
 from datetime import datetime, timezone
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import call_logger as cl, llm_batch as L, pdf_pages as pp
+import call_logger as cl, llm_batch as L, pdf_pages as pp, lives_stages as S
 import fitz
 
 MAX_PAPERS = 4
@@ -41,23 +44,24 @@ STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v3.md', 'recheck': 'pipeline/
 def max_out(stage, n=0):   # n = pages for picost, flagged or disputed findings for recheck and adjudicate
     """Output plus thinking budget (max tokens) per request. Measured on a real 10-page paper with 29 findings: Neon 37,106 tokens (1,280 per finding including thinking),
     Sol 16,129 for 24 findings (670 each), Opus 5,429 for 24 disputes (226 each). picost: 30% headroom over a fixed 8,000 plus 1,300 per allowed finding (32,000 for 12);
-    recheck: 3,000 plus 1,000 per flagged finding, at most 16,000; adjudicate: 1,000 plus 450 per disputed finding, at most 8,000."""
+    recheck: 3,000 plus 1,000 per flagged finding, at most 16,000; adjudicate: 4,000 plus 700 per disputed finding, at most 16,000."""
     if stage == 'picost': return min(64000, 24000 + 1000 * max(n, 10))   # n = pages; thinking grows with the paper (second real test, 10 pages and 12 findings: 27,317 tokens, about 11,000 visible and 16,000 thinking); beyond 10 pages this is an extrapolation to check on the first batch of four
     if stage == 'recheck': return min(16000, 3000 + 1000 * max(n, 1))
-    return min(8000, 1000 + 450 * max(n, 1))
+    return min(16000, 4000 + 700 * max(n, 1))   # floor raised after Opus ran out at 1,450 tokens on one dispute (adaptive thinking counts against max tokens)
 STAGE_MAX_OUT = {'picost': max_out('picost', 20), 'recheck': max_out('recheck', MAX_FINDINGS), 'adjudicate': max_out('adjudicate', MAX_FINDINGS)}   # worst case, used by the dry run
 VAULT = cl.VAULT; RUNS = cl.RUNS
 now = lambda: datetime.now(timezone.utc).isoformat(timespec='seconds')
 sha = lambda b: hashlib.sha256(b).hexdigest()
 
 
-class Halt(Exception): pass
+Halt = S.Halt
+GEM_FILES = {}   # PDFs already uploaded to the Gemini File API in this process
 
 
 # ---------------------------------------------------------------- manifest
 class Manifest:
     def __init__(self, run_id, d=None):
-        self.dir = RUNS / run_id; self.path = self.dir / 'manifest.json'; self.dir.mkdir(parents=True, exist_ok=True)
+        self.gem_files = GEM_FILES; self.dir = RUNS / run_id; self.path = self.dir / 'manifest.json'; self.dir.mkdir(parents=True, exist_ok=True)
         self.m = json.loads(self.path.read_text()) if self.path.exists() else d
     def save(self):
         tmp = self.path.with_suffix('.tmp'); tmp.write_text(json.dumps(self.m, indent=1, ensure_ascii=False, default=str), encoding='utf-8'); tmp.replace(self.path)   # atomic
@@ -99,7 +103,31 @@ def slice_pdf(pdf, pages, out, around=1, limit=0.5):
     o.save(out); o.close(); d.close(); return out, keep
 
 
+def supp_note(p):
+    if not p.get('supplements'): return ''
+    n = p['main_pages']; out = f"\nPDF pages 1 to {n} are the paper. "
+    for s_ in p['supplements']: out += f"PDF pages {n + 1} to {n + s_['pages']} are supplementary material ({s_['file']}); say 'Supplement' in the locator for evidence from them. "; n += s_['pages']
+    return out
+
+
 def excerpt_note(keep): return '' if not keep else '\nThis PDF is an excerpt. Its pages, in order, are original PDF pages ' + ', '.join(map(str, keep)) + '; use the ORIGINAL page numbers in your answer.'
+
+
+def find_supplements(pdf):
+    """Supplementary files next to a PDF: '<name> - supplement*.pdf' or '<name> - appendix*.pdf' in the same folder."""
+    pdf = Path(pdf); out = []
+    for x in sorted(pdf.parent.glob('*.pdf')):
+        n = x.stem.lower()
+        if x != pdf and any(n.startswith(pdf.stem.lower() + ' - ' + w) for w in ('supplement', 'appendix', 'supplementary')): out.append(x)
+    return out
+
+
+def combine_pdfs(main, supps, out):
+    """One PDF: the paper, then each supplementary file; returns the page count of the paper and of each supplement."""
+    o = fitz.open(); spans = []
+    for f in [main] + list(supps):
+        d = fitz.open(f); o.insert_pdf(d); spans.append((Path(f).name, len(d))); d.close()
+    Path(out).parent.mkdir(parents=True, exist_ok=True); o.save(out); o.close(); return spans
 
 
 def parse_json(text):
@@ -147,7 +175,7 @@ def build(stage, M, run):
     for ck, p in P.items():
         if p.get('failed'): continue
         if stage == 'picost':
-            reqs.append(L.Req(f'{ck}__picost', STAGE_MODEL[stage], f"{q}Page map: {pagemap_text(p['preflight']['page_map'])}\nExtract the findings now.", system.replace('{MAX_PRIMARY}', str(MAX_TIER['primary'])).replace('{MAX_SECONDARY}', str(MAX_TIER['secondary'])).replace('{MAX_TERTIARY}', str(MAX_TIER['tertiary'])), ex(p['pdf']), 'high', max_out('picost', p['preflight']['pages'])))
+            reqs.append(L.Req(f'{ck}__picost', STAGE_MODEL[stage], f"{q}Page map: {pagemap_text(p['preflight']['page_map'])}{supp_note(p)}\nExtract the findings now.", system.replace('{MAX_PRIMARY}', str(MAX_TIER['primary'])).replace('{MAX_SECONDARY}', str(MAX_TIER['secondary'])).replace('{MAX_TERTIARY}', str(MAX_TIER['tertiary'])), ex(p['pdf']), 'high', max_out('picost', p['preflight']['pages'])))
         elif stage == 'recheck':
             fl = [f for f in p.get('flagged', [])]
             if not fl: continue
@@ -221,6 +249,8 @@ def run_stage(stage, M, mode):
         if M.m['spent_usd'] + worst > M.m['cap_usd']: raise Halt(f"stage {stage}: spent ${M.m['spent_usd']:.2f} + worst case ${worst:.2f} would pass the ${M.m['cap_usd']:.2f} cap; nothing was submitted")
         st.update(model=STAGE_MODEL[stage], mode=mode, requests=len(reqs), est_expected_usd=round(expected, 3), est_worst_usd=round(worst, 3), started=now()); M.save()
         M.event(f"stage {stage}: {len(reqs)} request(s) to {STAGE_MODEL[stage]} ({mode}); expected ${expected:.2f}, worst case ${worst:.2f}; spent so far ${M.m['spent_usd']:.2f} of ${M.m['cap_usd']:.2f}")
+        up = L.upload_pdfs(reqs, GEM_FILES)
+        if up: M.m.setdefault('gemini_files', []).extend(up); M.save(); M.event(f'{len(up)} PDF(s) sent through the Gemini File API')
         if batch:
             job = L.submit_batch(reqs); st['job'] = job; M.save(); M.event(f"stage {stage}: batch job {job['id']} submitted")
         else:
@@ -257,6 +287,49 @@ def run_stage(stage, M, mode):
     if sum(1 for p in M.m['papers'].values() if p.get('failed')) >= 2: raise Halt('two or more papers failed')
 
 
+# ---------------------------------------------------------------- shadow models (benchmark only)
+def pdf_text_pages(pdf):
+    d = fitz.open(pdf); t = '\n\n'.join(f"[PDF page {i + 1}]\n{pp.page_text(pg)}" for i, pg in enumerate(d)); d.close(); return t
+
+
+def score_shadow(pdf, sf, nf):
+    """Benchmark metrics for one model's extraction against the PDF and against Neon's primary findings (not ground truth; JP's labels come later)."""
+    d = fitz.open(pdf); ptxt = ' '.join(pp.norm(pp.page_text(pg)) for pg in d); spans = miss = nums = nfound = 0
+    for f in sf:
+        for s_ in f.get('spans', []): spans += 1; miss += 0 if pp.find_quote(d, s_.get('text', ''))['found'] else 1
+        for n in f.get('numbers', []): nums += 1; nfound += 1 if pp.norm(str(n.get('value', ''))) in ptxt else 0
+    d.close(); nn = {norm_num(n.get('value')) for f in nf if f.get('tier') == 'primary' for n in f.get('numbers', [])}; sn = {norm_num(n.get('value')) for f in sf for n in f.get('numbers', [])}
+    t = {k: sum(1 for f in sf if f.get('tier') == k) for k in ('primary', 'secondary', 'tertiary')}
+    return {'findings': len(sf), 'tiers': t, 'spans': spans, 'spans_found': spans - miss, 'span_found_rate': round((spans - miss) / max(spans, 1), 3), 'numbers': nums, 'numbers_on_page_rate': round(nfound / max(nums, 1), 3),
+            'recall_of_neon_primary_numbers': round(len(nn & sn) / max(len(nn), 1), 3)}
+
+
+def stage_shadow(M, mode):
+    models = M.m.get('shadow_models') or []; st = M.m['stage_log'].setdefault('shadow', {})
+    if not models or st.get('status') == 'done': return
+    system = (VAULT / STAGE_PROMPT['picost']).read_text(encoding='utf-8').replace('{MAX_PRIMARY}', str(MAX_TIER['primary'])).replace('{MAX_SECONDARY}', str(MAX_TIER['secondary'])).replace('{MAX_TERTIARY}', str(MAX_TIER['tertiary']))
+    q = f"\nResearch question (RQ): {M.m['question']}\n" if M.m.get('question') else ''; reqs = []
+    for ck, p in M.m['papers'].items():
+        if p.get('failed') or 'picost' not in p.get('stages', {}): continue
+        for m_ in models:
+            reqs.append(L.Req(f"{ck}__shadow-{re.sub(r'[^A-Za-z0-9]+', '-', m_.split('/')[-1])}", m_, f"{q}Page map: {pagemap_text(p['preflight']['page_map'])}{supp_note(p)}\nThe paper's text follows (its text layer; tables may be garbled). Page markers are [PDF page N].\n\n{pdf_text_pages(ex(p['pdf']))}\n\nExtract the findings now.", system, None, 'high', max_out('picost', p['preflight']['pages'])))
+    if not reqs: st.update(status='done'); return
+    worst = sum(L.cost(r.model, est_tokens(r), r.max_tokens) for r in reqs)
+    if M.m['spent_usd'] + worst > M.m['cap_usd']: M.event(f"shadow models skipped: spent ${M.m['spent_usd']:.2f} + worst case ${worst:.2f} would pass the cap"); st.update(status='skipped'); M.save(); return
+    M.event(f"shadow: {len(reqs)} request(s) to {', '.join(models)} (benchmark only; worst case ${worst:.2f})"); res = L.run_standard(reqs, workers=4); total = 0.0
+    for r in reqs:
+        x = res[r.id]; ck = r.id.split('__')[0]; sl = r.id.split('__')[1]; c = L.cost(r.model, x.tin, x.tout); total += c
+        cl.record(M.m['run_id'], 'shadow-picost', r.model, STAGE_PROMPT['picost'], provider=L.provider_of(r.model), citekey=ck, effort=r.effort, tokens_in=x.tin, tokens_out=x.tout, output_text=x.text or None, notes=f"benchmark only; cost_usd={c:.4f}; finish={x.finish}; err={x.err}")
+        p = M.m['papers'][ck]; entry = {'model': r.model, 'cost_usd': round(c, 4), 'tokens_in': x.tin, 'tokens_out': x.tout, 'finish': x.finish}
+        try:
+            if not x.ok: raise ValueError(f'not completed ({x.finish} {x.err})')
+            data = parse_json(x.text); (M.dir / ck / 'shadow' / sl).mkdir(parents=True, exist_ok=True); (M.dir / ck / 'shadow' / sl / 'picost.json').write_text(json.dumps(data, indent=1, ensure_ascii=False), encoding='utf-8')
+            entry.update(score_shadow(ex(p['pdf']), data.get('findings', []), json.loads((M.dir / ck / 'picost.json').read_text()).get('findings', [])))
+        except Exception as e: entry['failed'] = str(e)[:200]
+        p.setdefault('shadow', {})[sl] = entry
+    M.m['spent_usd'] = round(M.m['spent_usd'] + total, 4); st.update(status='done', actual_usd=round(total, 4)); M.save(); M.event(f'shadow: done, ${total:.3f}; total spent ${M.m["spent_usd"]:.2f} of ${M.m["cap_usd"]:.2f}')
+
+
 # ---------------------------------------------------------------- final report
 def finish(M):
     for ck, p in M.m['papers'].items():
@@ -276,7 +349,13 @@ def seen_hashes():
     f = RUNS / 'ledger.jsonl'; return {h for l in f.read_text().splitlines() if l.strip() for h in json.loads(l).get('pdf_sha256', [])} if f.exists() else set()
 
 
+def cleanup_files(M):
+    for n in M.m.pop('gemini_files', []): L.gemini_delete(n)   # uploaded PDFs are deleted when the run ends
+    M.save()
+
+
 def halt(M, reason):
+    cleanup_files(M)
     for st in M.m['stage_log'].values():
         j = st.get('job')
         if j and j.get('id') != 'standard' and st.get('status') != 'done': M.event(f"cancelling batch job {j['id']}: {L.cancel_batch(j)}")
@@ -286,7 +365,7 @@ def halt(M, reason):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter); ap.add_argument('pdfs', nargs='*'); ap.add_argument('--mode', choices=['standard', 'batch'], default='standard')
     ap.add_argument('--cap', type=float, default=CAP); ap.add_argument('--question', default=''); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--resume'); ap.add_argument('--run-id')
-    ap.add_argument('--allow-repeat', action='store_true'); ap.add_argument('--flag-medium', action='store_true', help='also send medium-confidence findings to the independent recheck (more cost, fewer misses)'); a = ap.parse_args()
+    ap.add_argument('--shadow', nargs='*', default=[], help='open or cheap models that extract the same papers from the PDF text, for benchmarking only (never used for decisions), e.g. thinkingmachines/Inkling-2-Small'); ap.add_argument('--skip', nargs='*', default=[], choices=['checks', 'draft', 'qs'], help='leave out the later stages'); ap.add_argument('--allow-repeat', action='store_true'); ap.add_argument('--flag-medium', action='store_true', help='also send medium-confidence findings to the independent recheck (more cost, fewer misses)'); a = ap.parse_args()
     cl.load_env()
     if a.resume:
         M = Manifest(a.resume)
@@ -297,20 +376,26 @@ def main():
         if not a.pdfs: ap.error('give 1 to %d PDFs' % MAX_PAPERS)
         if len(a.pdfs) > MAX_PAPERS: sys.exit(f'Refused: {len(a.pdfs)} PDFs. The limit is {MAX_PAPERS} papers per batch.')
         if not a.question and not a.dry_run: sys.exit('Refused: give the research question with --question "..." (or a QUE name); the primary, secondary and tertiary tiers are defined relative to it.')
+        for m_ in a.shadow:
+            if m_ not in L.PRICE: sys.exit(f'Refused: no price for {m_} in llm_batch.PRICE; add it first so the cap can be enforced.')
         if a.cap > CAP: sys.exit(f'Refused: the cap per batch is ${CAP}; --cap can only lower it.')
         pdfs = [Path(p).expanduser().resolve() for p in a.pdfs]
         for p in pdfs:
             if not p.exists() or p.suffix.lower() != '.pdf': sys.exit(f'Not a PDF: {p}')
         if len({str(p) for p in pdfs}) != len(pdfs): sys.exit('The same PDF is listed twice.')
-        papers = {}; seen = seen_hashes()
+        papers = {}; seen = seen_hashes(); day = datetime.now().strftime('%Y-%m-%d'); n = 1 + len(list(RUNS.glob(f'{day}_batch*'))); run_id = a.run_id or f'{day}_batch{n:02d}'; mode = a.mode
         for p in pdfs:
             h = sha(p.read_bytes()); ck = slug(p)
             if h in seen and not a.allow_repeat: sys.exit(f'Refused: {p.name} was already processed in an earlier run (same SHA-256). Use --allow-repeat to run it again.')
             if ck in papers: ck = f'{ck}-{h[:6]}'
-            papers[ck] = {'pdf': str(p).replace(str(Path.home()), '~'), 'sha256': h, 'preflight': preflight(p), 'stages': {}}
-        day = datetime.now().strftime('%Y-%m-%d'); n = 1 + len(list(RUNS.glob(f'{day}_batch*'))); run_id = a.run_id or f'{day}_batch{n:02d}'; mode = a.mode
+            entry = {'sha256': h, 'stages': {}}; src = p; supps = find_supplements(p)
+            if supps:   # the paper and its supplementary files are read as one PDF
+                comb = RUNS / run_id / ck / 'combined.pdf'; sp = combine_pdfs(p, supps, comb); src = comb
+                entry['supplements'] = [{'file': n_, 'pages': k} for n_, k in sp[1:]]; entry['main_pages'] = sp[0][1]; entry['supplement_sha256'] = [sha(x.read_bytes())[:16] for x in supps]
+                print(f"{p.name}: {len(supps)} supplementary file(s) combined after the paper ({sp[0][1]} + {sum(k for _, k in sp[1:])} pages)")
+            entry['pdf'] = str(src).replace(str(Path.home()), '~'); entry['preflight'] = preflight(src); entry['source_pdf'] = p.name; papers[ck] = entry
         M = Manifest(run_id, {'run_id': run_id, 'created_utc': now(), 'status': 'planned', 'mode': mode, 'cap_usd': a.cap, 'max_papers': MAX_PAPERS, 'overrun_factor': OVERRUN, 'max_span_miss': MAX_SPAN_MISS, 'spent_usd': 0.0,
-                              'question': a.question, 'flag_medium': a.flag_medium, 'models': STAGE_MODEL, 'prompts': STAGE_PROMPT, 'environment': environment(), 'papers': papers, 'stage_log': {}})
+                              'question': a.question, 'flag_medium': a.flag_medium, 'shadow_models': a.shadow, 'models': STAGE_MODEL, 'prompts': STAGE_PROMPT, 'environment': environment(), 'papers': papers, 'stage_log': {}})
         M.save()
     print(f"run {M.m['run_id']}: {len(M.m['papers'])} paper(s), mode {mode}, cap ${M.m['cap_usd']}")
     if a.dry_run:
@@ -320,14 +405,20 @@ def main():
             for ck, p in M.m['papers'].items():
                 reqs.append(L.Req(f'{ck}__{st}', STAGE_MODEL[st], 'x' * 800, (VAULT / STAGE_PROMPT[st]).read_text(encoding='utf-8'), ex(p['pdf']), 'high', max_out('picost', p['preflight']['pages']) if st == 'picost' else STAGE_MAX_OUT[st]))
             w, e = stage_cost(reqs, batch); tot_w += w; tot_e += e; print(f'  {st:11s} {STAGE_MODEL[st]:18s} expected ${e:5.2f}  worst case ${w:5.2f}   (recheck and adjudicate run only for flagged findings; shown for all papers)')
+        pg = sum(p['preflight']['pages'] for p in M.m['papers'].values()); n_p = len(M.m['papers']); d_ = 0.5 if batch else 1.0
+        rough = {'checks': 0.15 * n_p * d_, 'draft': 1.9 * n_p * d_, 'qs': (0.25 * n_p + 0.015 * pg) * d_}   # rough, from the one-page smoke test and per-call prices; the pilot replaces these
+        for k_, v_ in rough.items(): print(f'  {k_:11s} (several models) rough estimate ${v_:5.2f}   (not measured on a real paper yet)'); tot_e += v_; tot_w += v_ * 1.4
         for ck, p in M.m['papers'].items(): pf = p['preflight']; print(f"  {ck}: {pf['pages']} pages, text layer {pf['text_layer']}, {pf['size_mb']} MB, page numbers from {pf['printed_page_source']}")
         print(f'  total expected ${tot_e:.2f}, worst case ${tot_w:.2f}, cap ${M.m["cap_usd"]}'); M.m['status'] = 'dry-run'; M.save(); return
     M.m['status'] = 'running'; M.save()
     try:
         run_stage('picost', M, mode)
         if 'spans' not in M.m['stage_log'] or M.m['stage_log']['spans'].get('status') != 'done': stage_spans(M, M.dir); M.m['stage_log']['spans'] = {'status': 'done'}; M.save()
-        run_stage('recheck', M, mode); run_stage('adjudicate', M, mode)
-        finish(M)
+        stage_shadow(M, mode); run_stage('recheck', M, mode); run_stage('adjudicate', M, mode)
+        if 'checks' not in a.skip: S.stage_checks(M, mode)
+        if 'draft' not in a.skip: S.stage_draft(M, mode)
+        if 'qs' not in a.skip: S.stage_qs(M, mode)
+        cleanup_files(M); finish(M)
     except Halt as e: halt(M, str(e))
     except KeyboardInterrupt:
         M.m['status'] = 'interrupted'; M.event(f"interrupted; resume with: python3 lives_run.py --resume {M.m['run_id']}"); sys.exit(130)

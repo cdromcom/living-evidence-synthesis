@@ -37,7 +37,7 @@ Pages written before the call log existed use `call_logger.render_legacy_footer(
 
 ## Step 4: Write the Node Files
 
-All five node types use the templates in the `pipeline/templates/` folder (EP nodes follow the inline template in [Step 11](#step-11-cross-paper-synthesis-evidencepatterns--review-arena); QUE/CLM/EVD/CVT use the per-type files in `pipeline/templates/`). Each section below specifies the body structure and required slots.
+All five node types use the templates in the `pipeline/templates/` folder (EP nodes are retired from the pipeline, JP 2026-11-25; QUE/CLM/EVD/CVT use the per-type files in `pipeline/templates/`). Each section below specifies the body structure and required slots.
 
 ### EVD statement (headline) style: the Phase 2 standard (JP, 2026-11-17; applies from 2026-11-24)
 
@@ -173,7 +173,7 @@ Each `sysrev/dgraph/source/@<citekey>.md` carries a plain-language **structured 
 ```
 
 **Skimmability and link order (JP, 2026-11-25).** These apply to every SRC page's Methods, Findings and related sections:
-- **Lead with the linked dgnode.** In every bullet, list item or paragraph that cites a node (EVD, CLM, CVT, QUE, EP), put the `[[wikilink]]` first and the model-written summary after it. Never leave the link at the end of the paragraph.
+- **Lead with the linked dgnode.** In every bullet, list item or paragraph that cites a node (EVD, CLM, CVT, QUE), put the `[[wikilink]]` first and the model-written summary after it. Never leave the link at the end of the paragraph.
 - **Numbered lists for procedures.** Steps that happen in order (procedure, pipelines, analysis steps) are a numbered list, one action per step.
 - **Bulleted lists for everything else.** Tools, design facts, sample flow, findings, caveats: short bullets, not paragraphs. Use sub-bullets for numbers that belong together. A reader should get the point from the first few words of each bullet.
 - **Keep paragraphs to 3 sentences or fewer.** If a paragraph carries two ideas, split it into two bullets.
@@ -552,7 +552,7 @@ Each generated section includes a `verify before citing` caveat in the body — 
 
 ### Step 5b: Audit graph attachment invariants
 
-After reverse links are built, audit the vault against the discourse-graph attachment rules (four for QUE/CLM/EVD/CVT plus one for EP). **Fail the extraction if any rule is violated** — the user can then either (a) attach the unattached node manually, (b) write a new QUE/CLM that absorbs it, or (c) accept the violation with a documented reason.
+After reverse links are built, audit the vault against the discourse-graph attachment rules (four for QUE/CLM/EVD/CVT; the fifth, for EP, applies only to the 21 retired nodes). **Fail the extraction if any rule is violated** — the user can then either (a) attach the unattached node manually, (b) write a new QUE/CLM that absorbs it, or (c) accept the violation with a documented reason.
 
 | # | Rule | What it means |
 | - | ---- | ------------- |

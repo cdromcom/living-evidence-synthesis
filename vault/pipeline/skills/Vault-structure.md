@@ -17,7 +17,7 @@ living-synthesis/
 │   │   ├── EVD - ... .md           # EVD nodes (one .md per finding)
 │   │   └── Attachments/            # All PNGs (figure/table pages + quote crops)
 │   ├── caveats/                    # CVT nodes (one .md per limitation)
-│   ├── evd-patterns/               # EP nodes (cross-paper EvidencePatterns; ≥2 EVDs each)
+│   ├── evd-patterns/               # the 21 existing EP nodes (retired from the pipeline 2026-11-25; kept until JP decides)
 │   ├── source/
 │   │   ├── @<citekey>.md           # Bibliographic source notes (one per paper)
 │   │   └── pdfs/                   # Original PDFs (+ Archive - superseded versions)

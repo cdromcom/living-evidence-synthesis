@@ -30,6 +30,8 @@ class Req:
     pdf: str | None = None
     effort: str = 'high'
     max_tokens: int = 16000
+    images: list = field(default_factory=list)   # PNG paths (crops), for vision checks
+    pdf_uri: str | None = None                  # set by upload_pdfs() when the PDF is sent through the Gemini File API
 
 
 @dataclass
@@ -64,7 +66,7 @@ def _safe_id(i): return re.sub(r'[^A-Za-z0-9_-]', '_', i)[:64]
 
 # ------------------------------------------------------------------ Anthropic
 def _anthropic_params(r):
-    content = ([{'type': 'document', 'source': {'type': 'base64', 'media_type': 'application/pdf', 'data': _pdf_b64(r.pdf)}}] if r.pdf else []) + [{'type': 'text', 'text': r.text}]
+    content = ([{'type': 'document', 'source': {'type': 'base64', 'media_type': 'application/pdf', 'data': _pdf_b64(r.pdf)}}] if r.pdf else []) + [{'type': 'image', 'source': {'type': 'base64', 'media_type': 'image/png', 'data': _pdf_b64(i)}} for i in r.images] + [{'type': 'text', 'text': r.text}]
     p = {'model': r.model, 'max_tokens': r.max_tokens, 'messages': [{'role': 'user', 'content': content}]}
     if r.system: p['system'] = r.system
     if r.effort in ('high', 'medium'): p['thinking'] = {'type': 'adaptive'}
@@ -78,7 +80,7 @@ def _anthropic_res(rid, message):
 
 # ------------------------------------------------------------------ OpenAI (Responses API)
 def _openai_body(r):
-    content = ([{'type': 'input_file', 'filename': Path(r.pdf).name, 'file_data': 'data:application/pdf;base64,' + _pdf_b64(r.pdf)}] if r.pdf else []) + [{'type': 'input_text', 'text': r.text}]
+    content = ([{'type': 'input_file', 'filename': Path(r.pdf).name, 'file_data': 'data:application/pdf;base64,' + _pdf_b64(r.pdf)}] if r.pdf else []) + [{'type': 'input_image', 'image_url': 'data:image/png;base64,' + _pdf_b64(i)} for i in r.images] + [{'type': 'input_text', 'text': r.text}]
     b = {'model': r.model, 'input': [{'role': 'user', 'content': content}], 'max_output_tokens': r.max_tokens, 'reasoning': {'effort': r.effort}}
     if r.system: b['instructions'] = r.system
     return b
@@ -91,7 +93,8 @@ def _openai_res(rid, body):
 
 # ------------------------------------------------------------------ Gemini
 def _gemini_body(r):
-    parts = ([{'inline_data': {'mime_type': 'application/pdf', 'data': _pdf_b64(r.pdf)}}] if r.pdf else []) + [{'text': r.text}]
+    pdfpart = [{'file_data': {'mime_type': 'application/pdf', 'file_uri': r.pdf_uri}}] if r.pdf_uri else ([{'inline_data': {'mime_type': 'application/pdf', 'data': _pdf_b64(r.pdf)}}] if r.pdf else [])
+    parts = pdfpart + [{'inline_data': {'mime_type': 'image/png', 'data': _pdf_b64(i)}} for i in r.images] + [{'text': r.text}]
     b = {'contents': [{'role': 'user', 'parts': parts}], 'generationConfig': {'maxOutputTokens': r.max_tokens, 'thinkingConfig': {'thinkingLevel': r.effort}}}
     if r.system: b['systemInstruction'] = {'parts': [{'text': r.system}]}
     return b
@@ -109,9 +112,43 @@ def _gemini_call(path, body=None, method='POST'):
     except urllib.error.HTTPError as e: raise RuntimeError(f'Gemini HTTP {e.code}: {e.read().decode()[:300]}')
 
 
+# ------------------------------------------------------------------ Gemini File API (lifts the inline size limit)
+FILE_API_MIN_MB = 6   # PDFs at or above this size go through the File API; smaller ones are sent inline (a request, and an inline batch as a whole, must stay under about 19 MB)
+
+
+def gemini_upload(path, display_name=None):
+    """Resumable upload to the Gemini File API; waits until the file is ACTIVE. Returns {'name': 'files/...', 'uri': ...}. Files expire after 48 hours; delete them with gemini_delete when the run ends."""
+    _env(); data = Path(path).read_bytes(); key = os.environ['GEMINI_API_KEY']
+    start = urllib.request.Request('https://generativelanguage.googleapis.com/upload/v1beta/files', json.dumps({'file': {'display_name': display_name or Path(path).name[:100]}}).encode(),
+                                   {'x-goog-api-key': key, 'X-Goog-Upload-Protocol': 'resumable', 'X-Goog-Upload-Command': 'start', 'X-Goog-Upload-Header-Content-Length': str(len(data)), 'X-Goog-Upload-Header-Content-Type': 'application/pdf', 'Content-Type': 'application/json'})
+    url = urllib.request.urlopen(start, timeout=120).headers['X-Goog-Upload-URL']
+    up = urllib.request.Request(url, data, {'Content-Length': str(len(data)), 'X-Goog-Upload-Offset': '0', 'X-Goog-Upload-Command': 'upload, finalize'})
+    f = json.load(urllib.request.urlopen(up, timeout=600))['file']
+    for _ in range(60):
+        if f.get('state') == 'ACTIVE': return {'name': f['name'], 'uri': f['uri']}
+        if f.get('state') == 'FAILED': raise RuntimeError('Gemini file processing failed')
+        time.sleep(3); f = _gemini_call(f['name'], method='GET')
+    raise RuntimeError('Gemini file not ACTIVE after 3 minutes')
+
+
+def gemini_delete(name):
+    try: _gemini_call(name, method='DELETE'); return True
+    except Exception: return False
+
+
+def upload_pdfs(reqs, cache):
+    """For Gemini requests whose PDF is at least FILE_API_MIN_MB, upload it (once per file; `cache` maps path to {'name','uri'}) and set pdf_uri. Returns the list of uploaded file names for later deletion."""
+    new = []
+    for r in reqs:
+        if provider_of(r.model) == 'google' and r.pdf and not r.pdf_uri and Path(r.pdf).stat().st_size >= FILE_API_MIN_MB * 1e6:
+            if r.pdf not in cache: cache[r.pdf] = gemini_upload(r.pdf); new.append(cache[r.pdf]['name'])
+            r.pdf_uri = cache[r.pdf]['uri']
+    return new
+
+
 # ------------------------------------------------------------------ Tinker (Inkling)
 def _tinker_one(r):
-    _env(); body = json.dumps({'model': r.model, 'messages': [{'role': 'user', 'content': r.text}], 'max_completion_tokens': r.max_tokens, 'reasoning_effort': r.effort}).encode()
+    _env(); body = json.dumps({'model': r.model, 'messages': ([{'role': 'system', 'content': r.system}] if r.system else []) + [{'role': 'user', 'content': r.text}], 'max_completion_tokens': r.max_tokens, 'reasoning_effort': r.effort}).encode()
     req = urllib.request.Request(cl.TINKER_URL, body, {'Authorization': 'Bearer ' + os.environ['TINKER_API_KEY'], 'Content-Type': 'application/json', 'User-Agent': 'LIVES-provenance/1.0'})
     j = json.load(urllib.request.urlopen(req, timeout=300)); u = j.get('usage', {}); c = j['choices'][0]
     return Res(r.id, bool(c['message'].get('content')), c['message'].get('content') or '', u.get('prompt_tokens', 0), u.get('completion_tokens', 0), str(c.get('finish_reason')))

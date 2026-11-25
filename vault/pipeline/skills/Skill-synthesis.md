@@ -21,6 +21,9 @@ This file holds the detail for **Steps 11 through 14** of the pipeline — the l
 
 ## Step 11: Cross-paper synthesis (EvidencePatterns + Review Arena)
 
+> [!warning] EvidencePatterns are retired from the pipeline (JP, 2026-11-25)
+> The pipeline no longer proposes or writes EP nodes: CLMs and human-generated syntheses suffice. The EP sections below document the **21 existing EP nodes**, which stay in the vault until JP decides whether to archive or delete them (the web app, `vault_to_gsheet.py`, `check_links.py` and the Bases still read them). Review-Arena cells remain human-only.
+
 The discourse-graph layer (QUE / CLM / EVD / CVT) is paper-internal: each EVD belongs to exactly one paper, each CLM ties EVDs together within a paper. The synthesis layer is **cross-paper**: it identifies regularities that *no single paper makes alone* but that emerge when ≥2 independent EVDs from different papers point in the same direction.
 
 ### EvidencePattern (EP) node format

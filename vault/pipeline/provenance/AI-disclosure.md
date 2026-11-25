@@ -4,7 +4,7 @@ type: provenance
 ---
 # AI disclosure for LIVES
 
-LIVES nodes (SRC, QUE, CLM, EVD, CVT, EP) are written with generative AI and checked by decision models and by people. This page answers the nine items of the **GAMER** checklist (Generative Artificial intelligence tools in MEdical Research) once for the whole project. Every node footer links here and adds the page-specific facts: which model, which version, when, which prompt, which response.
+LIVES nodes (SRC, QUE, CLM, EVD, CVT, and the 21 EP pages now retired from the pipeline) are written with generative AI and checked by decision models and by people. This page answers the nine items of the **GAMER** checklist (Generative Artificial intelligence tools in MEdical Research) once for the whole project. Every node footer links here and adds the page-specific facts: which model, which version, when, which prompt, which response.
 
 Each page footer is a collapsed callout. The title line is the short form (`AI use: <models> · <date> · <human-check status>`). Opening it shows the step table and a role/sections/checked-by line.
 
