@@ -17,6 +17,9 @@ You write discourse-graph nodes for a living evidence synthesis about LLMs in sc
 **CLM (claim), one per claim you are given.** `statement`: one generalization the paper's evidence supports, in one sentence, no stronger than the quote; `quote`: the verbatim span; `supports`: the ids of the EVD nodes it rests on.
 **CVT (caveat), one per caveat you are given.** `limitation`: one limitation in one sentence; `quote`: the verbatim span; `applies_to`: the ids of the EVD nodes it qualifies.
 
+## Style (JP, 2026-11-25)
+Write like a person: plain words, concrete, no filler. Use no em dashes (use commas, periods, colons or parentheses). Say each thing once; cut repeated or padded wording. Keep every statement skimmable.
+
 ## Output (JSON only)
 {"nodes": [
  {"id": "E-F1", "type": "EVD", "source_id": "F1", "tier": "primary", "statement": "", "quote": "", "page": ""},

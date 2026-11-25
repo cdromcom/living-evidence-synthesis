@@ -12,15 +12,16 @@ Nothing here writes to the vault. Outputs go to pipeline/runs/<run>/<paper>/ and
 import concurrent.futures as cf, hashlib, json, os, random, re, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import call_logger as cl, llm_batch as L, pdf_pages as pp, decision_models as dm
+import call_logger as cl, llm_batch as L, pdf_pages as pp, decision_models as dm, config as C
 import fitz
 dm.load_env(); cl.load_env()
 
-VAULT = cl.VAULT; INK = 'thinkingmachines/Inkling-2-Small'
-AUTHORS = [('sonnet', 'claude-sonnet-5-5', 'medium'), ('sol', 'gpt-6.2-sol', 'medium'), ('neon', 'gemini-4-neon', 'medium')]
-DM_LOW = 0.60       # first guesses, to calibrate on JP's labels: below this mean probability a check goes to Sol vision
-DM_SPREAD = 0.35    # or when the three decision models disagree by more than this
-SAMPLE = 0.10       # share of untroubled findings that Sol looks at anyway
+VAULT = cl.VAULT; R = C.ROLES; CK = C.PIPE['checks']
+AUTHORS = [(a['key'], a['model'], a['effort']) for a in R['authors']]        # who drafts (pipeline/config/models.json, roles)
+VOTERS = [(a['key'], a['model'], a['effort']) for a in R['voters']]          # who decides
+RATERS = [(a['key'], a['model'], a['effort']) for a in R['raters']]          # who rates quality signals (counted)
+INKP = R['benchmark_open']; INK = INKP['model']                               # the open model that drafts, votes and rates as a benchmark only
+DM_LOW = CK['dm_low']; DM_SPREAD = CK['dm_spread']; SAMPLE = CK['sample']    # first guesses; calibrate on JP's labels (pipeline/config/pipeline.json)
 MAX_FINDINGS_DRAFT = 99
 EXPECT = 0.7        # expected share of an output budget that is used
 
@@ -133,7 +134,8 @@ def lint(node, card_nums):
         out['readability_ok'] = out['fk_grade'] <= 14
     if t == 'QUE': out['question_ok'] = txt.strip().endswith('?')
     if t in ('CLM', 'CVT', 'EVD'): out['has_quote'] = bool((node.get('quote') or '').strip())
-    out['pass'] = all([out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('question_ok', True), out.get('has_quote', True)]); return out
+    out['no_emdash'] = '\u2014' not in ' '.join(str(v) for v in node.values() if isinstance(v, str))   # JP's writing rule: no em dashes in written text
+    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('question_ok', True), out.get('has_quote', True)]); return out
 
 
 def card_numbers(M, ck):
@@ -165,7 +167,7 @@ def rests_on_table(f): return any(re.search(r'table|fig', str(n.get('table_or_fi
 
 def run_dm(state, questions):
     out = {}
-    for pv in ('perplexity', 'liquid', 'jev'):
+    for pv in R['decision_models']:
         r, e = dm.decide(pv, state, questions)
         out[pv] = {k: v.get('noul') for k, v in (r or {}).get('answers', {}).items()} if r else {'error': e}
         out[pv]['_tokens'] = (r or {}).get('usage', {}).get('input_tokens', 0)
@@ -216,14 +218,14 @@ def stage_checks(M, mode):
     for v in vis:
         f = findings[(v['ck'], v['id'])]; crop = make_crop(M, v['ck'], f)
         v['crop'] = crop
-        if crop: reqs.append(L.Req(f"{v['ck']}__vis__{v['id']}", 'gpt-6.2-sol', f"Finding {v['id']}: {f.get('statement', '')}\nQuoted span(s): {' | '.join(x.get('text', '') for x in f.get('spans', []))}\nNumbers: {json.dumps(f.get('numbers', []), ensure_ascii=False)[:1500]}", sys_v, None, 'medium', 1500, images=[crop]))
+        if crop: reqs.append(L.Req(f"{v['ck']}__vis__{v['id']}", R['vision_check'], f"Finding {v['id']}: {f.get('statement', '')}\nQuoted span(s): {' | '.join(x.get('text', '') for x in f.get('spans', []))}\nNumbers: {json.dumps(f.get('numbers', []), ensure_ascii=False)[:1500]}", sys_v, None, 'medium', 1500, images=[crop]))
     res = dispatch(M, 'checks_vision', reqs, mode); opus = []
     for v in vis:
         x = res.get(f"{v['ck']}__vis__{v['id']}"); j = safe_json(x) if x else None; c0 = (j or {}).get('checks', [{}])[0] if j else {}
         v['sol'] = c0 or {'overall': 'no answer'}; sol_pass = c0.get('overall') == 'pass'; dm_pass = v['summary']['score'] >= DM_LOW and v['summary']['spread'] <= DM_SPREAD
         v['dispute'] = bool(c0) and (sol_pass != dm_pass)   # the checks and Sol disagree: the rare dispute, for Opus
         if v['dispute'] and v.get('crop'):
-            f = findings[(v['ck'], v['id'])]; opus.append(L.Req(f"{v['ck']}__opusvis__{v['id']}", 'claude-opus-5-5', f"Finding {v['id']}: {f.get('statement', '')}\nQuoted span(s): {' | '.join(x_.get('text', '') for x_ in f.get('spans', []))}\nThe automatic checks scored this {v['summary']['score']:.2f} (spread {v['summary']['spread']:.2f}); GPT-6.2 Sol said {c0.get('overall')}: {c0.get('reason', '')}. Decide.", sys_v, None, 'medium', 3000, images=[v['crop']]))
+            f = findings[(v['ck'], v['id'])]; opus.append(L.Req(f"{v['ck']}__opusvis__{v['id']}", R['vision_dispute'], f"Finding {v['id']}: {f.get('statement', '')}\nQuoted span(s): {' | '.join(x_.get('text', '') for x_ in f.get('spans', []))}\nThe automatic checks scored this {v['summary']['score']:.2f} (spread {v['summary']['spread']:.2f}); GPT-6.2 Sol said {c0.get('overall')}: {c0.get('reason', '')}. Decide.", sys_v, None, 'medium', 3000, images=[v['crop']]))
     res2 = dispatch(M, 'checks_opus', opus, mode)
     for v in vis:
         x = res2.get(f"{v['ck']}__opusvis__{v['id']}")
@@ -251,10 +253,10 @@ def stage_draft(M, mode):
     papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v1.md'); sys1 = prompt('critique-revise-v1.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('claim-check-v1.md')
     cards = {ck: card_text(M, ck) for ck in papers}; cn = {ck: card_numbers(M, ck) for ck in papers}; data = {ck: {'authors': {}} for ck in papers}
     # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
-    reqs = [L.Req(f'{ck}__r0-{a}', m, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, e, 9000) for ck in papers for a, m, e in AUTHORS] + [L.Req(f'{ck}__r0-inkling', INK, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, 'high', 9000) for ck in papers]
+    reqs = [L.Req(f'{ck}__r0-{a}', m, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, e, 9000) for ck in papers for a, m, e in AUTHORS] + [L.Req(f"{ck}__r0-{INKP['key']}", INK, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, INKP['effort'], 9000) for ck in papers]
     st['prompt'] = 'pipeline/prompts/draft-nodes-v1.md'; r0 = dispatch(M, 'draft_r0', reqs, mode)
     for ck in papers:
-        for a, _, _ in AUTHORS + [('inkling', INK, '')]:
+        for a, _, _ in AUTHORS + [(INKP['key'], INK, '')]:
             j = safe_json(r0.get(f'{ck}__r0-{a}') or L.Res('', False)); nodes = nodes_of(j); data[ck]['authors'][a] = {'r0': nodes, 'r0_lint': {i: lint(n, cn[ck]) for i, n in nodes.items()}}
     # round 1: each author sees all three drafts (anonymous, shuffled) with lint results and revises
     reqs = []; order = {}
@@ -272,39 +274,39 @@ def stage_draft(M, mode):
     for ck in papers:
         have = [a for a, _, _ in AUTHORS if data[ck]['authors'][a]['r1']]
         if len(have) < 2: continue
-        for voter, m, e in [('sol', 'gpt-6.2-sol', 'medium'), ('sonnet', 'claude-sonnet-5-5', 'medium'), ('inkling', INK, 'high')]:
+        for voter, m, e in VOTERS + [(INKP['key'], INK, INKP['effort'])]:
             idx = shuffle_labels(rng, have); vorder[(ck, voter)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r1'].values()), 'lint': data[ck]['authors'][h]['r1_lint']} for k, h in enumerate(vorder[(ck, voter)])}
             reqs.append(L.Req(f'{ck}__vote-{voter}', m, f'Extraction:\n{cards[ck]}\n\nVersions:\n{json.dumps(blob, ensure_ascii=False)}\n\nVote now.', sys2, None, e, 5000))
     st['prompt'] = 'pipeline/prompts/vote-v1.md'; rv = dispatch(M, 'draft_vote', reqs, mode); ties = []
     for ck in papers:
         votes = {}
-        for voter in ('sol', 'sonnet', 'inkling'):
+        for voter in [v[0] for v in VOTERS] + [INKP['key']]:
             j = safe_json(rv.get(f'{ck}__vote-{voter}') or L.Res('', False)); lab = {chr(65 + k): a for k, a in enumerate(vorder.get((ck, voter), []))}
             votes[voter] = {x['node']: {'author': lab.get(x.get('pick')), 'reason': x.get('reason', '')} for x in (j or {}).get('picks', []) if isinstance(x, dict) and x.get('node')}
         data[ck]['votes'] = votes
         for nid in {n for a in data[ck]['authors'].values() for n in a.get('r1', {})}:
-            s, c = votes['sol'].get(nid, {}).get('author'), votes['sonnet'].get(nid, {}).get('author')
+            s, c = votes[VOTERS[0][0]].get(nid, {}).get('author'), votes[VOTERS[1][0]].get(nid, {}).get('author')
             if s and c and s != c: ties.append((ck, nid, s, c))
     reqs = []
     for ck in sorted({t[0] for t in ties}):
         mine = [t for t in ties if t[0] == ck]; blob = {nid: {'candidates': {a: data[ck]['authors'][a]['r1'].get(nid) for a in (s, c)}} for _, nid, s, c in mine}
-        reqs.append(L.Req(f'{ck}__tie', 'gemini-4-neon', f'Extraction:\n{cards[ck]}\n\nTwo voters disagree. Candidates (author names are the keys); pick the better one for each node:\n{json.dumps(blob, ensure_ascii=False)}\n\nReturn {{"picks": [{{"node": "...", "pick": "<author name>", "reason": ""}}]}}.', sys2.replace('(A, B and C, in random order)', '(named by their authors)'), None, 'medium', 3000))
+        reqs.append(L.Req(f'{ck}__tie', R['tiebreak'], f'Extraction:\n{cards[ck]}\n\nTwo voters disagree. Candidates (author names are the keys); pick the better one for each node:\n{json.dumps(blob, ensure_ascii=False)}\n\nReturn {{"picks": [{{"node": "...", "pick": "<author name>", "reason": ""}}]}}.', sys2.replace('(A, B and C, in random order)', '(named by their authors)'), None, 'medium', 3000))
     rt = dispatch(M, 'draft_tie', reqs, mode)
     for ck in papers:
         j = safe_json(rt.get(f'{ck}__tie') or L.Res('', False)); tie = {x['node']: x.get('pick') for x in (j or {}).get('picks', []) if isinstance(x, dict)}; finals = {}
         for nid in {n for a in data[ck]['authors'].values() for n in a.get('r1', {})}:
-            s, c = data[ck]['votes']['sol'].get(nid, {}).get('author'), data[ck]['votes']['sonnet'].get(nid, {}).get('author')
+            s, c = data[ck]['votes'][VOTERS[0][0]].get(nid, {}).get('author'), data[ck]['votes'][VOTERS[1][0]].get(nid, {}).get('author')
             win = s if s and s == c else (tie.get(nid) if tie.get(nid) in data[ck]['authors'] else (s or c or next((a for a in data[ck]['authors'] if nid in data[ck]['authors'][a].get('r1', {})), None)))
             how = 'Sol and Sonnet agree' if s and s == c else ('Neon tie-break' if tie.get(nid) in data[ck]['authors'] else 'single vote or fallback')
             node = data[ck]['authors'].get(win, {}).get('r1', {}).get(nid)
-            if node: finals[nid] = {'node': node, 'author': win, 'how': how, 'lint': lint(node, cn[ck]), 'inkling_pick': data[ck]['votes']['inkling'].get(nid, {}).get('author')}
+            if node: finals[nid] = {'node': node, 'author': win, 'how': how, 'lint': lint(node, cn[ck]), 'inkling_pick': data[ck]['votes'][INKP['key']].get(nid, {}).get('author')}
         data[ck]['finals'] = finals
-    # claim-by-claim check: the cheaper of Sol and Sonnet that did not write the winner (Sonnet checks Sol's winners; Sol checks everyone else's)
+    # claim-by-claim check: the first voter (the cheaper deciders, in registry order) that did not write the winner
     reqs = []
     for ck in papers:
-        for chk, m in (('sol', 'gpt-6.2-sol'), ('sonnet', 'claude-sonnet-5-5')):
-            mine = [f['node'] for f in data[ck]['finals'].values() if (chk == 'sonnet') == (f['author'] == 'sol')]
-            if mine: reqs.append(L.Req(f'{ck}__check-{chk}', m, f'Extraction:\n{cards[ck]}\n\nNodes to check:\n{json.dumps(mine, ensure_ascii=False)}\n\nCheck now.', sys3, None, 'medium', 6000))
+        for chk, m, e in VOTERS:
+            mine = [f['node'] for f in data[ck]['finals'].values() if f['author'] != chk and next((v[0] for v in VOTERS if v[0] != f['author']), None) == chk]
+            if mine: reqs.append(L.Req(f'{ck}__check-{chk}', m, f'Extraction:\n{cards[ck]}\n\nNodes to check:\n{json.dumps(mine, ensure_ascii=False)}\n\nCheck now.', sys3, None, e, 6000))
     st['prompt'] = 'pipeline/prompts/claim-check-v1.md'; rc = dispatch(M, 'draft_check', reqs, mode)
     # decision-model check of each final EVD (fidelity of the written text) and the Inkling benchmark drafts' lint
     evd = [(ck, nid, f) for ck in papers for nid, f in data[ck]['finals'].items() if f['node'].get('type') == 'EVD']
@@ -314,7 +316,7 @@ def stage_draft(M, mode):
     with cf.ThreadPoolExecutor(6) as ex_: dres = list(ex_.map(dm_evd, evd))
     for (ck, nid, f), r in zip(evd, dres): f['dm'] = dm_summary(r)
     for ck in papers:
-        for chk in ('sol', 'sonnet'):
+        for chk in [v[0] for v in VOTERS]:
             j = safe_json(rc.get(f'{ck}__check-{chk}') or L.Res('', False))
             for c in (j or {}).get('checks', []):
                 if c.get('node') in data[ck]['finals']: data[ck]['finals'][c['node']]['claim_check'] = {'checker': chk, **c}
@@ -353,7 +355,6 @@ SIGNALS = {  # signal id: (what it asks, allowed values)
     'code-check': ('Is analysis code shared and checked?', 'addressed | partial | not-addressed'),
     'data-repo-check': ('Are the data in a repository?', 'addressed | partial | not-addressed'),
 }
-RATERS = [('opus', 'claude-opus-5-5', 'medium'), ('sol', 'gpt-6.2-sol', 'medium'), ('neon', 'gemini-4-neon', 'medium')]
 
 
 def stage_qs(M, mode):
@@ -363,22 +364,22 @@ def stage_qs(M, mode):
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
         for r, m, e in RATERS: reqs.append(L.Req(f'{ck}__qs-{r}', m, 'Rate the paper now.', system, ex(p['pdf']), e, 9000))
-        reqs.append(L.Req(f'{ck}__qs-inkling', INK, 'The paper text follows. Page markers are [PDF page N].\n\n' + pdf_text(ex(p['pdf'])) + '\n\nRate the paper now.', system, None, 'high', 9000))
+        reqs.append(L.Req(f"{ck}__qs-{INKP['key']}", INK, 'The paper text follows. Page markers are [PDF page N].\n\n' + pdf_text(ex(p['pdf'])) + '\n\nRate the paper now.', system, None, 'high', 9000))
     res = dispatch(M, 'qs', reqs, mode); allowed = {k: [x.strip() for x in v[1].split('|')] for k, v in SIGNALS.items()}; out = {}
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
         raw = []; doc = fitz.open(ex(p['pdf']))
-        for r in [x[0] for x in RATERS] + ['inkling']:
+        for r in [x[0] for x in RATERS] + [INKP['key']]:
             j = safe_json(res.get(f'{ck}__qs-{r}') or L.Res('', False)); got = {x.get('signal'): x for x in (j or {}).get('ratings', []) if isinstance(x, dict)}
             for sg in SIGNALS:
                 x = got.get(sg); q = (x or {}).get('quote', ''); found = None if not x or q in ('', 'none') else bool(pp.find_quote(doc, q)['found'])
-                rating = (x or {}).get('rating'); raw.append({'paper': ck, 'signal': sg, 'rater': r, 'counted': r != 'inkling', 'rating': rating if rating in allowed[sg] else ('invalid: ' + str(rating) if x else 'no answer'), 'quote': q, 'locator': (x or {}).get('locator', ''), 'quote_found': found})
+                rating = (x or {}).get('rating'); raw.append({'paper': ck, 'signal': sg, 'rater': r, 'counted': r != INKP['key'], 'rating': rating if rating in allowed[sg] else ('invalid: ' + str(rating) if x else 'no answer'), 'quote': q, 'locator': (x or {}).get('locator', ''), 'quote_found': found})
         doc.close(); agg = []
         for sg in SIGNALS:
             votes = [x['rating'] for x in raw if x['signal'] == sg and x['counted'] and x['rating'] in allowed[sg]]; cnt = {}
             for v in votes: cnt[v] = cnt.get(v, 0) + 1
             top = sorted(cnt.items(), key=lambda kv: -kv[1]); maj = top[0][0] if top and (len(top) == 1 or top[0][1] > top[1][1]) and top[0][1] >= 2 else 'no majority'
-            ink = next((x['rating'] for x in raw if x['signal'] == sg and x['rater'] == 'inkling'), '')
+            ink = next((x['rating'] for x in raw if x['signal'] == sg and x['rater'] == INKP['key']), '')
             agg.append({'paper': ck, 'signal': sg, 'votes': cnt, 'majority': maj, 'agreement': f"{top[0][1]} of {len(votes)}" if top else '0', 'inkling_benchmark': ink, 'quotes_not_found': sum(1 for x in raw if x['signal'] == sg and x['counted'] and x['quote_found'] is False)})
         out[ck] = {'raw': raw, 'aggregate': agg}; (M.dir / ck / 'quality_signals.json').write_text(json.dumps(out[ck], indent=1, ensure_ascii=False), encoding='utf-8')
     st['status'] = 'done'; st['summary'] = {ck: {'signals': len(v['aggregate']), 'no_majority': sum(1 for a in v['aggregate'] if a['majority'] == 'no majority')} for ck, v in out.items()}; M.save(); M.event(f"quality signals: {st['summary']}")

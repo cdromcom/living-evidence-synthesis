@@ -12,6 +12,9 @@ Three authors drafted discourse-graph nodes from the same extraction. You see al
 - Each point names the draft, the node id, the problem, and the extraction field or span that shows it. Do not praise; list problems only. At most 12 points, most serious first.
 - Then revise: for every node write the best version you can, taking the best parts of all drafts and fixing the problems. Keep the node ids and types. The same rules as the first round apply (EVD statement pattern, QUE canonical phrasings, one claim or limitation per node, verbatim quotes).
 
+## Style (JP, 2026-11-25)
+Write like a person: plain words, concrete, no filler. Use no em dashes (use commas, periods, colons or parentheses). Say each thing once; cut repeated or padded wording. Keep every statement skimmable.
+
 ## Output (JSON only)
 {"critiques": [{"draft": "A", "node": "E-F1", "problem": "", "evidence": "", "severity": "major"}],
  "revised": {"nodes": [ ...the same node objects as the first round... ]}}

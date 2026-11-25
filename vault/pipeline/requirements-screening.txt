@@ -1,0 +1,9 @@
+# Local embedding screening (scripts/screen_all.py, screen_embed.py). Tested on one Apple-silicon Mac, 24 GB, 2026-11-25. Use a separate virtual environment.
+sentence-transformers==6.3.0
+transformers==5.24.1
+torch==2.15.0
+scikit-learn==1.9.1
+scipy
+PyMuPDF
+openpyxl
+qwen-vl-utils

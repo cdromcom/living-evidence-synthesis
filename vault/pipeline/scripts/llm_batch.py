@@ -14,10 +14,10 @@ Prices (USD per million tokens, list prices, batch = half): see PRICE. GPT-6.2 S
 import base64, concurrent.futures as cf, json, os, re, time, urllib.error, urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
-import call_logger as cl
+import call_logger as cl, config as C
 
-PRICE = {'gemini-4-neon': (3, 15), 'claude-opus-5-5': (4, 20), 'claude-sonnet-5-5': (2, 10), 'gpt-6.2-sol': (2, 10), 'thinkingmachines/Inkling-2-Small': (0.30, 1.00)}   # Sol: unverified
-BATCH_DISCOUNT = 0.5
+PRICE = {k: (v['price_in'], v['price_out']) for k, v in C.MODELS.items()}   # from pipeline/config/models.json
+BATCH_DISCOUNT = 0.5   # default; each model's own batch_discount in the registry wins
 GEMINI = 'https://generativelanguage.googleapis.com/v1beta'
 
 
@@ -46,11 +46,12 @@ class Res:
 
 
 def provider_of(model):
-    return 'anthropic' if model.startswith('claude') else 'openai' if model.startswith('gpt') else 'google' if model.startswith('gemini') else 'tinker' if model.startswith('thinkingmachines') else None
+    p = C.provider_of(model)
+    return p if p in ('anthropic', 'openai', 'google', 'tinker') else None
 
 
 def cost(model, tin, tout, batch=False):
-    pi, po = PRICE[model]; return (tin * pi + tout * po) / 1e6 * (BATCH_DISCOUNT if batch and provider_of(model) != 'tinker' else 1)
+    pi, po = PRICE[model]; return (tin * pi + tout * po) / 1e6 * (C.batch_discount(model) if batch else 1)
 
 
 def _env():
@@ -113,7 +114,7 @@ def _gemini_call(path, body=None, method='POST'):
 
 
 # ------------------------------------------------------------------ Gemini File API (lifts the inline size limit)
-FILE_API_MIN_MB = 6   # PDFs at or above this size go through the File API; smaller ones are sent inline (a request, and an inline batch as a whole, must stay under about 19 MB)
+FILE_API_MIN_MB = C.PIPE['limits']['file_api_min_mb']   # PDFs at or above this size go through the File API; smaller ones are sent inline (a request, and an inline batch as a whole, must stay under about 19 MB)
 
 
 def gemini_upload(path, display_name=None):
@@ -173,13 +174,14 @@ def _one(r):
 
 
 def run_standard(reqs, workers=4):
+    for m in {r.model for r in reqs}: C.assert_allowed(m)   # origin policy
     with cf.ThreadPoolExecutor(workers) as ex: return {x.id: x for x in ex.map(_one, reqs)}
 
 
 # ------------------------------------------------------------------ batch mode
 def submit_batch(reqs):
     """All requests must use one model. Returns a job dict (JSON-serializable) to store before waiting, so a crash can resume."""
-    _env(); models = {r.model for r in reqs}; assert len(models) == 1, 'one model per batch'; model = reqs[0].model; pv = provider_of(model); ids = {r.id: _safe_id(r.id) for r in reqs}
+    _env(); models = {r.model for r in reqs}; assert len(models) == 1, 'one model per batch'; model = reqs[0].model; C.assert_allowed(model); pv = provider_of(model); ids = {r.id: _safe_id(r.id) for r in reqs}
     if len({*ids.values()}) != len(ids): raise ValueError('request ids collide after cleaning')
     job = {'provider': pv, 'model': model, 'ids': ids, 'submitted': time.time(), 'n': len(reqs)}
     if pv == 'anthropic':

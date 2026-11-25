@@ -32,22 +32,19 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import call_logger as cl, llm_batch as L, pdf_pages as pp, lives_stages as S
 import fitz
 
-MAX_PAPERS = 4
-CAP = 5.55
-OVERRUN = 1.5
-MAX_SPAN_MISS = 0.25
-TOK_PER_PAGE = {'google': 1400, 'openai': 1400, 'anthropic': 2800}   # input tokens per PDF page, from the 27 seed PDFs (Claude token counter, about 2,700) and the billed Neon and Sol calls (about 1,300 to 1,400)
-MAX_TIER = {'primary': 6, 'secondary': 4, 'tertiary': 2}   # the 27 seed papers have 1 to 6 EVDs each (median 3): primary is the seed maximum; the secondary and tertiary caps are first guesses for the pilot with JP
+import config as C
+LIM = C.PIPE['limits']; TOK = C.PIPE['tokens']
+MAX_PAPERS = LIM['max_papers']; CAP = LIM['cap_usd']; OVERRUN = LIM['overrun_factor']; MAX_SPAN_MISS = LIM['max_span_miss']   # all from pipeline/config/pipeline.json
+TOK_PER_PAGE = TOK['per_page_input']   # input tokens per PDF page (measured on the 27 seed PDFs and billed calls)
+MAX_TIER = C.PIPE['tiers']             # findings per tier: primary is the seed maximum (6 EVDs); secondary and tertiary are first guesses for the pilot
 MAX_FINDINGS = sum(MAX_TIER.values())
-STAGE_MODEL = {'picost': 'gemini-4-neon', 'recheck': 'gpt-6.2-sol', 'adjudicate': 'claude-opus-5-5'}
+STAGE_MODEL = {'picost': C.ROLES['extract'], 'recheck': C.ROLES['recheck'], 'adjudicate': C.ROLES['adjudicate']}   # roles in pipeline/config/models.json
 STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v3.md', 'recheck': 'pipeline/prompts/recheck-v1.md', 'adjudicate': 'pipeline/prompts/adjudicate-v1.md'}
 def max_out(stage, n=0):   # n = pages for picost, flagged or disputed findings for recheck and adjudicate
-    """Output plus thinking budget (max tokens) per request. Measured on a real 10-page paper with 29 findings: Neon 37,106 tokens (1,280 per finding including thinking),
-    Sol 16,129 for 24 findings (670 each), Opus 5,429 for 24 disputes (226 each). picost: 30% headroom over a fixed 8,000 plus 1,300 per allowed finding (32,000 for 12);
-    recheck: 3,000 plus 1,000 per flagged finding, at most 16,000; adjudicate: 4,000 plus 700 per disputed finding, at most 16,000."""
-    if stage == 'picost': return min(64000, 24000 + 1000 * max(n, 10))   # n = pages; thinking grows with the paper (second real test, 10 pages and 12 findings: 27,317 tokens, about 11,000 visible and 16,000 thinking); beyond 10 pages this is an extrapolation to check on the first batch of four
-    if stage == 'recheck': return min(16000, 3000 + 1000 * max(n, 1))
-    return min(16000, 4000 + 700 * max(n, 1))   # floor raised after Opus ran out at 1,450 tokens on one dispute (adaptive thinking counts against max tokens)
+    """Output plus thinking budget (max tokens) per request, from pipeline/config/pipeline.json. Measured on real runs: Neon 27,317 tokens for 10 pages and 12 findings (about 11,000 visible,
+    16,000 thinking); Sol about 670 per flagged finding; Opus about 226 per dispute plus a thinking floor (it ran out at 1,450 on one dispute). Beyond 10 pages the picost growth is an extrapolation."""
+    if stage == 'picost': t = TOK['picost']; return min(t['max'], t['base'] + t['per_page'] * max(n, 10))
+    t = TOK[stage]; return min(t['max'], t['base'] + t['per_finding'] * max(n, 1))
 STAGE_MAX_OUT = {'picost': max_out('picost', 20), 'recheck': max_out('recheck', MAX_FINDINGS), 'adjudicate': max_out('adjudicate', MAX_FINDINGS)}   # worst case, used by the dry run
 VAULT = cl.VAULT; RUNS = cl.RUNS
 now = lambda: datetime.now(timezone.utc).isoformat(timespec='seconds')
@@ -141,7 +138,7 @@ def pagemap_text(pm): return '; '.join(f"PDF page {r['pdf']} = printed page {r['
 def est_tokens(r): return (len(r.system) + len(r.text)) / 3.5 + (TOK_PER_PAGE[L.provider_of(r.model)] * fitz.open(r.pdf).page_count if r.pdf else 0)
 
 
-EXPECT_OUT = {'picost': 0.8, 'recheck': 0.7, 'adjudicate': 0.7}   # expected share of the output budget actually used (the picost budget is sized close to need: 27,317 of 32,000 in the test)
+EXPECT_OUT = TOK['expected_share_used']   # expected share of the output budget actually used (the picost budget is sized close to need: 27,317 of 32,000 in the test)
 
 
 def stage_cost(reqs, batch):

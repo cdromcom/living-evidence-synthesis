@@ -382,6 +382,7 @@ flowchart TB
 - **[[History]]** — every change made to the vault, newest first.
 - **[[Skill]]** — the skill for extracting nodes from new papers.
 - **[[Tools-and-Models]]** — the PDF tools and AI models, token budgets, prices, and the statistical-check and embedding tools (for maintainers).
+- **[[Pipeline-design-and-longevity]]** — how the pipeline is built to last, and how to swap models or customize it for another review.
 - **[[TIPS]]** — short practical lessons (Google Cloud billing, Zotero).
 - **[[Review-sheets-spec]]** — the step-by-step review sheets and the quality-signals benchmark sheet.
 - **[[T - EVD tiers]]** — primary, secondary and tertiary evidence.

@@ -20,3 +20,6 @@ Short, practical notes learned while running the pipeline. Add one entry per les
 
 - Quit Zotero completely (Cmd+Q, not only the window) before a script writes to `zotero.sqlite`. Check with `pgrep -f Zotero.app`.
 - Merge duplicates only after a backup; `pipeline/scripts/zotero_merge_duplicates.py` writes one automatically and trashes (never deletes) the older copies.
+
+## Screening sheet
+- To add new papers, follow "Adding new papers to the whole-library screening sheet" in `pipeline/screening/README.md`. Do not re-upload the sheet: that would replace your labels.

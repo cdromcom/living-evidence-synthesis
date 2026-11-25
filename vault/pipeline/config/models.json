@@ -1,0 +1,38 @@
+{
+  "_about": "The single registry of models (JP, 2026-11-25). To swap or add a model: edit this file (and, for a new provider, add a route in scripts/llm_batch.py). Scripts read prices, names, providers, roles and the origin policy from here. Prices are USD per million tokens, list prices; check 'price_source' and 'verified' before trusting one. Run scripts/selftest.py after any edit.",
+  "policy": {
+    "_about": "Model-origin policy of 2026-11-25: hosted APIs only from developers in the allowed countries; open-weight models from any country may run locally if near the frontier. Change it here, not in code.",
+    "hosted_api_allowed_countries": ["US"],
+    "local_open_weight_allowed_countries": ["any"]
+  },
+  "models": {
+    "gemini-4-neon": {"display": "Gemini 4 Neon", "provider": "google", "developer": "Google", "country": "US", "weights": "closed", "runs": "api", "price_in": 3, "price_out": 15, "batch_discount": 0.5, "pdf_input": true, "price_source": "third-party pages, 2026-11-25; confirm on Google's pricing page", "verified": null, "notes": "Thinking tokens are billed as output."},
+    "claude-opus-5-5": {"display": "Claude Opus 5.5", "provider": "anthropic", "developer": "Anthropic", "country": "US", "weights": "closed", "runs": "api", "price_in": 4, "price_out": 20, "batch_discount": 0.5, "pdf_input": true, "price_source": "Anthropic API reference, 2026-11", "verified": "2026-11-25"},
+    "claude-sonnet-5-5": {"display": "Claude Sonnet 5.5", "provider": "anthropic", "developer": "Anthropic", "country": "US", "weights": "closed", "runs": "api", "price_in": 2, "price_out": 10, "batch_discount": 0.5, "pdf_input": true, "price_source": "Anthropic API reference, 2026-11", "verified": "2026-11-25"},
+    "gpt-6.2-sol": {"display": "GPT-6.2 Sol", "provider": "openai", "developer": "OpenAI", "country": "US", "weights": "closed", "runs": "api", "price_in": 2, "price_out": 10, "batch_discount": 0.5, "pdf_input": true, "price_source": "third-party pages; unverified", "verified": null},
+    "thinkingmachines/Inkling-2-Small": {"display": "Inkling 2 Small", "provider": "tinker", "developer": "Thinking Machines Lab", "country": "US", "weights": "open", "runs": "api", "price_in": 0.30, "price_out": 1.00, "batch_discount": 1.0, "pdf_input": false, "price_source": "model-extracted summary of Tinker's pricing page; verify", "verified": null, "notes": "Text only (no PDF input); no batch mode, so it runs in parallel."},
+    "claude-fable-5-2": {"display": "Claude Fable 5.2", "provider": "anthropic", "developer": "Anthropic", "country": "US", "weights": "closed", "runs": "api", "price_in": 8, "price_out": 40, "batch_discount": 0.5, "pdf_input": true, "price_source": "list price 2026-11", "verified": null, "notes": "Not used (too costly, JP 2026-11-24)."},
+    "claude-haiku-5-5": {"display": "Claude Haiku 5.5", "provider": "anthropic", "developer": "Anthropic", "country": "US", "weights": "closed", "runs": "api", "price_in": 0.10, "price_out": 0.50, "batch_discount": 0.5, "pdf_input": true, "price_source": "list price 2026-11", "verified": null, "notes": "Not used."},
+    "pplx-decider-v1.3": {"display": "Perplexity Decider 1.3", "provider": "decision", "developer": "Perplexity", "country": "US", "weights": "closed", "runs": "api", "price_in": 0.02, "price_out": 0, "batch_discount": 1.0, "pdf_input": false, "price_source": "list price 2026-11-23", "verified": null},
+    "d1-ultra": {"display": "Liquid d1-ultra", "provider": "decision", "developer": "Liquid AI", "country": "US", "weights": "closed", "runs": "api", "price_in": 0.042, "price_out": 0, "batch_discount": 1.0, "pdf_input": false, "price_source": "list price 2026-11-23", "verified": null},
+    "jev-1.14.0": {"display": "Jev 1.14.0", "provider": "decision", "developer": "Typesafe", "country": "US", "weights": "closed", "runs": "api", "price_in": 0.042, "price_out": 0, "batch_discount": 1.0, "pdf_input": false, "price_source": "list price 2026-11-23", "verified": null}
+  },
+  "roles": {
+    "_about": "Which model does which job. Change a role here to swap a model everywhere.",
+    "extract": "gemini-4-neon",
+    "recheck": "gpt-6.2-sol",
+    "adjudicate": "claude-opus-5-5",
+    "vision_check": "gpt-6.2-sol",
+    "vision_dispute": "claude-opus-5-5",
+    "tiebreak": "gemini-4-neon",
+    "authors": [{"key": "sonnet", "model": "claude-sonnet-5-5", "effort": "medium"}, {"key": "sol", "model": "gpt-6.2-sol", "effort": "medium"}, {"key": "neon", "model": "gemini-4-neon", "effort": "medium"}],
+    "voters": [{"key": "sol", "model": "gpt-6.2-sol", "effort": "medium"}, {"key": "sonnet", "model": "claude-sonnet-5-5", "effort": "medium"}],
+    "raters": [{"key": "opus", "model": "claude-opus-5-5", "effort": "medium"}, {"key": "sol", "model": "gpt-6.2-sol", "effort": "medium"}, {"key": "neon", "model": "gemini-4-neon", "effort": "medium"}],
+    "benchmark_open": {"key": "inkling", "model": "thinkingmachines/Inkling-2-Small", "effort": "high", "_about": "Benchmark only: drafts, votes and rates alongside the ensemble; never counted and never written to the vault."},
+    "decision_models": ["perplexity", "liquid", "jev"]
+  },
+  "embedding_models": {
+    "_about": "Local open-weight models for screening (scripts/screen_all.py reads its list from here in a later step; the paths are folders under ~/.cache/lives-bench/models).",
+    "list": [{"name": "EmbeddingGemma 2", "folder": "embeddinggemma-2", "prompt": null, "dtype": "float32", "batch": 32}, {"name": "harrier-oss-v1-0.6b", "folder": "harrier-oss-v1-0.6b", "prompt": "sts_query", "dtype": "float32", "batch": 32}, {"name": "DNA-VL-STEER-2B", "folder": "DNA-VL-STEER-2B", "prompt": null, "dtype": "float16", "batch": 16}]
+  }
+}

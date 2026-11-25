@@ -13,18 +13,20 @@ sys.path.insert(0, str(Path(__file__).resolve().parent)); from screen_to_gsheet 
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path.home() / 'Documents/living-synthesis'); RUN = '2026-11-25_Zotero-all-libraries'; GH = 'https://github.com/cdromcom/living-evidence-synthesis'
 def gh(p, d=False): return f"{GH}/{'tree' if d else 'blob'}/main/vault/{p}"
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--out', default=str(Path.home() / '.cache/lives-bench/screening/all/stage2-all-zotero.xlsx')); ap.add_argument('--stats-json', default=''); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument('--out', default=str(Path.home() / '.cache/lives-bench/screening/all/stage2-all-zotero.xlsx')); ap.add_argument('--stats-json', default=''); ap.add_argument('--only-new', default='', help='file of stable ids already in the sheet (one per line): build only the rows that are not there yet, ready to append; the repo data files are left alone'); a = ap.parse_args()
     W = Path.home() / '.cache/lives-bench/screening/all'; R = json.load(open(W / 'result.json')); prep = json.load(open(W / 'prepare-stats.json')); rep = R['report']; cats = R['categories']; cl = R['clusters']
     run = VAULT / 'pipeline/screening' / RUN; (run / 'data').mkdir(parents=True, exist_ok=True)
     seed_names = json.load(open(VAULT / 'pipeline/screening/shared/seed-task-groups_names-and-task-types.json')); nf = run / 'data/new-category-names_and-task-types.json'; new_names = json.load(open(nf)) if nf.exists() else {}
     stat = json.load(open(a.stats_json)) if a.stats_json else {}
     category_of = {m: c for c, v in cl.items() for m in v['members']}; sid = lambda c: 'S' + str(cats.index(c) + 1)
+    known = set(Path(a.only_new).read_text().split()) if a.only_new else None
     def info(p):
+        if known is not None and p['majority'] in ('NEW', 'no majority'): return 'U', 'Unsorted: new since the last sort', 'Place by hand, or wait for the next full sort'   # new papers are not forced into the old new-category numbering
         if p['majority'] in ('NEW', 'no majority'):
             c = category_of.get(p['id'], 'unclustered'); n = new_names.get(c, {'name': c if c != 'unclustered' else 'Unclustered (unlike every seed)', 'task_type': ''}); return c, n['name'], n['task_type']
         g = seed_names.get(p['majority'], {'name': p['majority'], 'task_type': ''}); return sid(p['majority']), g['name'], g['task_type']
     names = list(next(iter(R['papers']))['votes'].keys()) if R['papers'] and 'votes' in R['papers'][0] else []
-    P = [p for p in R['papers'] if 'votes' in p]
+    P = [p for p in R['papers'] if 'votes' in p and (known is None or p['keys'][0] not in known)]
     txt = {p['id']: f"{p['title']}. {p['text']}" for p in P}; by = collections.defaultdict(list)
     for p in P:
         by[info(p)[0]].append(txt[p['id']])
@@ -51,11 +53,11 @@ def main():
         row = [pname + (' (new)' if p['majority'] in ('NEW', 'no majority') and pid != 'unclustered' else ''), ptask, pid, p['agreement'], 'yes' if p['relevant'] else 'no', p['relevant_votes'], p['title'], '; '.join(p['authors']), p['year'], p['publication'], p['doi'], p['url'], '; '.join(p['sets']) or '(other folder)',
                ' | '.join(p['collections'])[:300], ', '.join(p['libraries']), p['copies'], p['text_source'], bool(get_oa(p['doi']).get('oa')), get_oa(p['doi']).get('url', '') if get_oa(p['doi']).get('oa') else ('no DOI: not checked' if not p['doi'] else ''), bool(p['pdf_on_disk']), bool(p['html_on_disk']), p.get('seed_match', ''), '; '.join(hints)]
         for n in names: x = v[n]; row += [x['pick'], round(x['sim'], 3), x['best_group'], round(x['second_sim'], 3)]
-        row += [round(float(np.mean(list(p['relevance'].values()))), 3), '', '', '']; rows.append(row)
-    rows.sort(key=lambda r: (r[0], -r[-4]))
+        row += [round(float(np.mean(list(p['relevance'].values()))), 3), '', '', '', p['keys'][0]]; rows.append(row)   # the last column is the stable id (Zotero library:key), the key for merging JP's labels
+    rows.sort(key=lambda r: (r[0], -r[-5]))
     header = ['Category', 'Task type', 'Category id', 'Models agreeing', 'Close to the seed and Elicit papers? (any model)', 'Models saying yes', 'Title', 'Authors', 'Year', 'Venue', 'DOI', 'URL', 'Ingest set', 'Zotero folders', 'Zotero libraries', 'Zotero records merged', 'Text embedded', 'Open access (checkbox)', 'Open-access link', 'PDF on disk (checkbox)', 'HTML snapshot on disk (checkbox)', 'Already in the vault seed set', 'Hints'] \
-        + [f'{n}: {w}' for n in names for w in ('pick', 'similarity', 'best category', '2nd similarity')] + ['Mean similarity to seed and Elicit papers', 'JP: decision', 'JP: category', 'JP: notes']
-    ws = tab('Papers', header, rows, [30, 34, 8, 9, 10, 8, 60, 28, 6, 24, 24, 30, 22, 40, 18, 8, 16, 10, 30, 10, 10, 24, 40] + [12, 8, 22, 8] * len(names) + [10, 14, 20, 30])
+        + [f'{n}: {w}' for n in names for w in ('pick', 'similarity', 'best category', '2nd similarity')] + ['Mean similarity to seed and Elicit papers', 'JP: decision', 'JP: category', 'JP: notes', 'Stable id (Zotero library:key)']
+    ws = tab('Papers', header, rows, [30, 34, 8, 9, 10, 8, 60, 28, 6, 24, 24, 30, 22, 40, 18, 8, 16, 10, 30, 10, 10, 24, 40] + [12, 8, 22, 8] * len(names) + [10, 14, 20, 30, 26])
     ws.auto_filter.ref = ws.dimensions
     for r in range(2, ws.max_row + 1):
         for c in (7,): ws.cell(r, c).alignment = wrap
@@ -85,6 +87,7 @@ def main():
            ('Step 2: categories', f"Each target paper gets the task group of the most similar seed paper in each model, or NEW if below that model's 15th percentile of seed-to-seed nearest similarity. Majority of 3 decides. NEW papers are clustered (Ward linkage on the joined embeddings of the 3 models; 15 to 30 clusters, best silhouette); clusters of 3 or more become new category candidates. Names and task types were written by Claude Sonnet 5.5 and are not yet checked by JP.", gh('pipeline/scripts/screen_all.py')),
            ('Accuracy (expected)', f"Category assignment, leave-one-out on the {rep['category_loo_majority']['n']} seeds, majority of models: {rep['category_loo_majority']['accuracy']:.0%}. " + (f"Relevance, proxy labels (positives: {rp['positives_n']} reference papers left out one at a time; negatives: {rp['negatives_proxy'] if 'negatives_proxy' in rp else rp['negatives_n']} papers from clearly unrelated collections): sensitivity {rp['sensitivity']:.0%}, specificity {rp['specificity']:.0%}, balanced accuracy {rp['balanced_accuracy']:.0%}" + (f", AUC {rp['auc']:.2f}" if 'auc' in rp else '') + '. These are proxy labels, not your decisions; accuracy on your real include/exclude calls is unknown until you fill the JP columns.' if rp else ''), ''),
            ('Time and cost', stat.get('time', 'See the README.') + ' ' + stat.get('cost', ''), ''),
+           ('Adding new papers', 'New Zotero papers are screened the same way and appended as new rows at the bottom, so labels stay where they are (column Stable id). New papers that the models call NEW show as "Unsorted: new since the last sort" until the next full sort. Steps: pipeline/screening/README.md.', gh('pipeline/screening/README.md')),
            ('Limits', 'Embedding similarity is not a judgment of relevance; title-only papers are weakly placed; abstracts can be wrong in Zotero. Every row needs your decision (JP columns). Nothing was deleted or merged in Zotero.', ''),
            ('Code and data on GitHub', f'Metadata-only data files and the README are in pipeline/screening/{RUN}/ (abstracts and local file paths are left out of the public repo). Links work once the pull request is merged.', gh(f'pipeline/screening/{RUN}', True))]
     for it, tx, ln in abt:
@@ -92,9 +95,10 @@ def main():
         for k in (1, 2, 3): ab.cell(r, k).alignment = wrap
         if ln: ab.cell(r, 3).hyperlink = ln; ab.cell(r, 3).font = link
     wb.save(a.out); print('saved', a.out, '| papers rows', len(rows), '| categories', len(pr))
+    if known is not None: print('only-new mode: the repo data files were not touched'); return
     # metadata-only files for the repo
     import csv
     with open(run / 'data/papers_categories-and-model-votes.tsv', 'w', newline='', encoding='utf-8') as f:
-        w = csv.writer(f, delimiter='\t'); w.writerow([h for h in header if not h.startswith('JP:')][:len(header) - 3]); [w.writerow([c if not isinstance(c, str) else c.replace('\t', ' ') for c in r[:len(header) - 3]]) for r in rows]
+        w = csv.writer(f, delimiter='\t'); w.writerow([h for h in header if not h.startswith('JP:')]); [w.writerow([c if not isinstance(c, str) else c.replace('\t', ' ') for c in r[:len(header) - 4] + [r[-1]]]) for r in rows]
     json.dump({'report': rep, 'counts': cc, 'prepare': prep, 'models': names}, open(run / 'data/settings_and_results.json', 'w'), indent=1, default=float)
 if __name__ == '__main__': main()
