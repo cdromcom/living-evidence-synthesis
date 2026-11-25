@@ -115,7 +115,7 @@ nodeID: <UUIDv7 — generate with `python3 -c "import uuid; print(uuid.uuid7())"
 
 **Why this schema (vs. free-form prose):** the four-line What/How/Who frame forces parity across papers — a reader skimming any EVD knows exactly where to find the design, the procedure, and the sample-size flow. The verbatim quote that follows each prose block grounds it in the source PDF (and gets a coloured screenshot via `quote_pipeline.py` — light red for EVD).
 
-**Screenshot embeds are inserted by the pipeline, not by hand.** Author the prose + verbatim quote; run `python3 pipeline/scripts/quote_pipeline.py evd` and the pipeline appends `> ![[<citekey>-evd-p<N>-<idx>.png]]` under each quote with the canonical naming. Across EVDs of the same paper, idx values are globally unique per (citekey, page) so screenshots never collide.
+**Screenshot embeds are inserted by the pipeline, not by hand.** Author the prose + verbatim quote; [v1 wording, retired: `quote_pipeline.py` hard-codes paths and imports a missing module; in v2 the highlight-and-crop step in `Skill.md` Step 3c produces the embeds] the pipeline appends `> ![[<citekey>-evd-p<N>-<idx>.png]]` under each quote with the canonical naming. Across EVDs of the same paper, idx values are globally unique per (citekey, page) so screenshots never collide.
 
 #### Step 6: Structured abstract on the source page
 

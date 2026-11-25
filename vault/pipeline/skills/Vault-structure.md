@@ -100,7 +100,7 @@ living-synthesis/
 
 > **New Integrity check (2026-08): AI Writing Check, with two triggers.**
 > Run an independent AI-text-detection recheck of a source's own prose via
-> Pangram (`pipeline/misc/scripts/pangram_check.py` in this vault — Python,
+> Pangram (`pipeline/scripts/pangram_check.py` in this vault — Python,
 > `pip install pangram-sdk`, needs a `PANGRAM_API_KEY` env var, uses
 > `predict_files()` — the bulk multipart-upload endpoint, one request for
 > every PDF in the batch, not one request per file — against the source

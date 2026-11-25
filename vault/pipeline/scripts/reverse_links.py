@@ -11,13 +11,12 @@ For each CLM:
 Idempotent: if the section already exists, it is regenerated (so re-running
 keeps it in sync).
 """
+import os
 import re
 from pathlib import Path
 from collections import defaultdict
 
-VAULT = Path('/Users/ppatel/Documents/living-synthesis')
-
-
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 def evd_filename_to_stem(name: str) -> str:
     return name[:-3] if name.endswith('.md') else name
 

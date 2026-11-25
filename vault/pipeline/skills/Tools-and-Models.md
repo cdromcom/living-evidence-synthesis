@@ -41,7 +41,7 @@ Checked against `Skill.md`, `Skill-references.md`, `Skill-templates.md`, `Histor
 | Claude Sonnet 4.6 and Claude Opus 4.7 (Claude Code) | Built the vault in April 2026: first extraction of QUE, EVD, CLM and CVT nodes, EVD rewrites, subagent batches | `Log.md`; `History.md` (`author: Claude (Opus 4.7 / Sonnet 4.6)`; the April notes were "Claude 4.7, per user recollection, only partly sure") |
 | "Claude Sonnet 5" | Recorded as the curation model on 27 source pages | `curatedWithModel` in source frontmatter; convention in `Skill-references.md` |
 | Claude Opus 5.5 (Claude Code) | All work from 2026-11-11 to 2026-11-20: EVD drafts, PDF number audit, Fidelity/Grounding grading, version comparisons | AI Prompt Log tab in the GSheet; `pipeline/misc/prompts/2026-11-11-evd-validation-gsheet-prompt-log.md` |
-| Pangram `pangram-4` (API) | AI-writing detection on the source PDFs (text only) | `pipeline/misc/scripts/pangram_check.py` |
+| Pangram `pangram-4` (API) | AI-writing detection on the source PDFs (text only) | `pipeline/scripts/pangram_check.py` |
 
 Model names such as GPT-4 or o3-mini that appear in these files are models studied by the papers, not tools used here.
 
@@ -59,7 +59,7 @@ Model names such as GPT-4 or o3-mini that appear in these files are models studi
 | Crop and highlight | PyMuPDF word coordinates and `pdftoppm` | cross-checked against the parsed table cells; printed page numbers from the page map |
 | Bulk extraction, question splitting and restyling, alt text, link repair | **GPT-6.2 Sol** (High for extraction; Medium for restyling, alt text, link repair) | Max only if a pilot shows it removes errors High leaves (5 papers at Medium, High and Max, scored on the 147 audit corrections); no independent extraction benchmark found |
 | Alt text from screenshots | GPT-6.2 Sol vision (Medium) | reads each image; replaces Gemini 4 Argon |
-| Writing, judging, tie-breaks, spot checks | **Claude Opus 5.5** ($4 and $20; batch $2 and $10) | fallbacks to compare: Fable 5.2, GPT 6.2 Sol |
+| Writing, judging, tie-breaks, spot checks | **Claude Opus 5.5** ($4 and $20; batch $2 and $10) | fallbacks to compare: Sonnet 5.5 ($2 and $10; cheaper), GPT 6.2 Sol. Fable 5.2 is not used (JP, 2026-11-24: too costly) |
 | QA of PICOST extractions | Liquid d1-ultra decision model | **on hold (JP, 2026-11-24); remind JP after the first new batch**; Opus 5.5 on parser disagreements plus a 10% sample meanwhile |
 | Unattended runs | **Batch APIs** (Anthropic, OpenAI) | about half price; cached Skill instructions; standard API only for pilots |
 | EVD candidate voting | GPT-6.2 Sol (Medium) + Inkling 2 Small on Tinker | JP loaded USD 50 on Tinker (2026-11-24); Inkling 2 Small is JP's Inkling model of choice; listed at about USD 0.30 in and 1.00 out per million tokens on third-party sites (confirm on Tinker's pricing page); the Tinker key is in `.env` |
@@ -79,7 +79,7 @@ Open: Anthropic and OpenAI API keys are not set (Google dropped: no key availabl
 2. **Fallbacks.** If those tools fail on a paper, use other tools.
 3. **Highlights and screenshots.** Once the OCR models agree on the text and tables, use **PyMuPDF** and **`pdftoppm`** to locate the agreed quotes, highlight them and take the screenshots. The screenshot pipeline needs exact word coordinates, which these two provide for born-digital PDFs.
 4. **Writing the nodes.** Claude Opus 5.5 works from the extractions and the Skill files to write the EVDs and fill in the SRC, QUE, EVD, CLM, CVT and other discourse-graph `.md` files.
-5. **Quality signals (optional, later).** JP may run **Pangram 4.1** to detect AI-generated text and images and plagiarism, alone or with Claude's help. It could become part of a later-stage Quality Signals check pipeline. The existing `pipeline/misc/scripts/pangram_check.py` calls `pangram-4` and checks text only; it would need updating for 4.1 and images.
+5. **Quality signals (optional, later).** JP may run **Pangram 4.1** to detect AI-generated text and images and plagiarism, alone or with Claude's help. It could become part of a later-stage Quality Signals check pipeline. The existing `pipeline/scripts/pangram_check.py` calls `pangram-4` and checks text only; it would need updating for 4.1 and images.
 
 ### Model ensembles: 2-3 open models for each closed model (JP, 2026-11-20)
 

@@ -13,15 +13,15 @@ Usage
 
 Options (all optional)
     --graph PATH        graph-data.generated.json
-                        (default /Users/ppatel/.cache/lives-bench/wt-final/lib/graph-data.generated.json)
+                        (default: lib/graph-data.generated.json next to the vault folder)
     --picost DIR        folder of <EVD-id>.json files
-                        (default /Users/ppatel/Documents/living-synthesis/sysrev/picost; in the repo: vault/sysrev/picost)
+                        (default <vault>/sysrev/picost; in the repo: vault/sysrev/picost)
     --out PATH          output .xlsx
-                        (default /Users/ppatel/Documents/living-synthesis/pipeline/misc/evd-validation/2026-11-24-vault-mirror.xlsx)
+                        (default <vault>/pipeline/misc/evd-validation/2026-11-24-vault-mirror.xlsx)
     --pdf-dir DIR       source PDF folder, used only to name each paper's PDF file
-                        (default /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs)
+                        (default <vault>/sysrev/dgraph/source/pdfs)
     --permissions PATH  PERMISSIONS.md, used only for the licence column
-                        (default /Users/ppatel/Documents/living-synthesis/pipeline/legal/PERMISSIONS.md)
+                        (default <vault>/pipeline/legal/PERMISSIONS.md)
     --img-base URL      prefix for screenshots
                         (default https://living-evidence-synthesis.vercel.app/vault-img/)
     --build-date DATE   date shown in the README and stored in the file properties (default today)
@@ -39,6 +39,7 @@ import datetime as dt
 import glob
 import json
 import os
+from pathlib import Path
 import re
 import subprocess
 import sys
@@ -50,6 +51,8 @@ from openpyxl.formatting.rule import CellIsRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
+
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])
 
 # ---- pastel colours copied from the benchmark sheets' Run tabs --------------
 GREEN, YELLOW, RED, GREY, BLUE = "D9EAD3", "FFF2CC", "F4CCCC", "EFEFEF", "DDEBF7"
@@ -259,11 +262,11 @@ def match_pdf(src, pdfs):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--graph", default="/Users/ppatel/.cache/lives-bench/wt-final/lib/graph-data.generated.json")
-    ap.add_argument("--picost", default="/Users/ppatel/Documents/living-synthesis/sysrev/picost")
-    ap.add_argument("--out", default="/Users/ppatel/Documents/living-synthesis/pipeline/misc/evd-validation/2026-11-24-vault-mirror.xlsx")
-    ap.add_argument("--pdf-dir", default="/Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs")
-    ap.add_argument("--permissions", default="/Users/ppatel/Documents/living-synthesis/pipeline/legal/PERMISSIONS.md")
+    ap.add_argument("--graph", default=str(VAULT.parent / "lib" / "graph-data.generated.json"))
+    ap.add_argument("--picost", default=str(VAULT / "sysrev" / "picost"))
+    ap.add_argument("--out", default=str(VAULT / "pipeline" / "misc" / "evd-validation" / "2026-11-24-vault-mirror.xlsx"))
+    ap.add_argument("--pdf-dir", default=str(VAULT / "sysrev" / "dgraph" / "source" / "pdfs"))
+    ap.add_argument("--permissions", default=str(VAULT / "pipeline" / "legal" / "PERMISSIONS.md"))
     ap.add_argument("--img-base", default="https://living-evidence-synthesis.vercel.app/vault-img/")
     ap.add_argument("--build-date", default=dt.date.today().isoformat())
     ap.add_argument("--commit", default=None)

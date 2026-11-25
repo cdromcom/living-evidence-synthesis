@@ -17,14 +17,13 @@ Structure:
 
 All node references are Obsidian wikilinks `[[Stem]]`.
 """
+import os
 import json
 import re
 from pathlib import Path
 from collections import defaultdict
 
-VAULT = Path('/Users/ppatel/Documents/living-synthesis')
-
-
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 def wl(stem: str) -> str:
     """Wikilink to a node, showing its full title (frontmatter `title`) when it has one."""
     return f'[[{stem}|{TITLES[stem]}]]' if stem in TITLES else f'[[{stem}]]'

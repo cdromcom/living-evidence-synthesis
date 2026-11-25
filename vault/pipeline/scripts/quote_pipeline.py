@@ -16,6 +16,7 @@ Differences from v3:
 Usage:
     python3 quote_pipeline.py [evd|clm|cvt|que ...] [--force]
 """
+import os
 import re
 import sys
 import unicodedata
@@ -23,7 +24,7 @@ from pathlib import Path
 
 import fitz
 
-VAULT = Path('/Users/ppatel/Documents/living-synthesis')
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 PDFS = VAULT / 'sysrev' / 'dgraph' / 'source' / 'pdfs'
 ATTACH = VAULT / 'sysrev' / 'dgraph' / 'evidence' / 'Attachments'
 

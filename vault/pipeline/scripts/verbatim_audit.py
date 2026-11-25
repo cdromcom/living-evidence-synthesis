@@ -6,6 +6,7 @@ that diverge, and a snippet of the actual page text near where the opening
 words match (if they match anywhere). The output is a TSV-style file the user
 can scan or that downstream scripts can consume to replace with verbatim text.
 """
+import os
 import re
 import sys
 import unicodedata
@@ -14,7 +15,7 @@ from collections import defaultdict
 
 import fitz
 
-VAULT = Path('/Users/ppatel/Documents/living-synthesis')
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 PDFS = VAULT / 'sysrev' / 'dgraph' / 'source' / 'pdfs'
 
 sys.path.insert(0, '/tmp')

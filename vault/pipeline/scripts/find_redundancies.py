@@ -2,12 +2,12 @@
 of title keyword sets. Threshold tuned per node type since EVD titles are longer + more
 specific while QUE/CLM titles are more abstract.
 """
+import os
 import re
 from pathlib import Path
 from itertools import combinations
 
-VAULT = Path('/Users/ppatel/Documents/living-synthesis')
-
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 STOP = set(("a an and are as at be but by could do does for from has have how if in into is it its like may might must "
             "not of on or our should so than that the their them then there these they this to was we were what when "
             "where which who why will with would you your also another any been being both each few many more most "

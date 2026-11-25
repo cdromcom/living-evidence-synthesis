@@ -238,18 +238,18 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 
 **Per-paper extraction** (one PDF in, ~5 nodes + ~8 PNGs out):
 
-1. Drop the PDF into `source/pdfs/<citekey>.pdf`.
+1. Drop the PDF into `sysrev/dgraph/source/pdfs/` (gitignored, so PDFs stay local) and give the Skill its path; the citekey is assigned when the source page is written.
 2. Follow `Skill.md` Steps 1–10 — read the paper, identify QUE / EVD / CLM / CVT nodes, render screenshots, write the node files (with the What/How/Who Methods Context schema), write the source-page TRIPOD-LLM table + critical-appraisal table, run the screenshot pipeline, build reverse links, audit, and promote `NodeFormality`.
 3. Save the originating prompt (your request that scoped the extraction) to `misc/prompts/<date>-<slug>.md`.
 4. Append a phase entry to `History.md` describing every concrete change (files added/edited, PNG counts, lessons).
-5. Run `python3 misc/scripts/build_dgraph.py` to refresh the central nested index (`dgraph.md`).
+5. Run `python3 pipeline/scripts/build_dgraph.py` to refresh the central nested index (`dgraph.md`).
 
 **Cross-paper synthesis refresh** (run when the new paper's EVDs/CLMs may bear on existing EvidencePatterns or leaderboard rows):
 
 6. **Open / extend EvidencePatterns.** If the new paper's EVDs converge with ≥1 existing paper on a regularity, add the new EVD wikilinks to the relevant `evd-patterns/EP - …md` file's `## Supporting Evidence` block. If the new paper opens a *new* cross-paper pattern with ≥1 prior paper, write a new EP node (see `Skill.md` Step 11 for the template).
-7. Run `python3 misc/scripts/link_eps_to_ques.py` to refresh the `### Cross-paper patterns` section on every QUE based on EP↔EVD overlap.
-8. Run `python3 misc/scripts/add_tldr_callouts.py` if the new source page added or changed its `**Bottom line.**` paragraph (regenerates the TL;DR callout above the structured abstract).
-9. Run `python3 misc/scripts/count_evds_per_subtask.py` to refresh the `→ N EVDs` caption next to each Subtask name on `Review-Arena.md`.
+7. Run `python3 pipeline/scripts/link_eps_to_ques.py` to refresh the `### Cross-paper patterns` section on every QUE based on EP↔EVD overlap.
+8. Run `python3 pipeline/scripts/add_tldr_callouts.py` if the new source page added or changed its `**Bottom line.**` paragraph (regenerates the TL;DR callout above the structured abstract).
+9. Run `python3 pipeline/scripts/count_evds_per_subtask.py` to refresh the `→ N EVDs` caption next to each Subtask name on `Review-Arena.md`.
 
 **Review-Arena cells (human-only synthesis):**
 
