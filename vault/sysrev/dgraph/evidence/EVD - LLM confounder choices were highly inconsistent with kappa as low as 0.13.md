@@ -25,7 +25,7 @@ title: "LLM confounder designation was highly inconsistent with Cohen kappa as l
 
 ## Source
 
-[[@huntington-kleinLLMsActRepositories2024]]
+[[sysrev/dgraph/source/@huntington-kleinLLMsActRepositories2024]]
 
 ## Description
 
@@ -97,7 +97,7 @@ title: "LLM confounder designation was highly inconsistent with Cohen kappa as l
 
 Option-ordering sensitivity: 16.3% of GPT-4o variables switched between Never and Always designation solely based on option order, and 5.8% of Claude variables did the same (Fig 11, p. 18; the paper's text on p. 18 gives 4.6% for Claude). The authors describe this as a heavy impact of an irrelevant prompt detail, and the conclusions (p. 20) say the sensitivity holds "for one prompting method": it does not extend to the pick-from-list method (p. 18, Fig 12).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@huntington-kleinLLMsActRepositories2024#TRIPOD-LLM reporting]].
 
 Cross-method agreement (Cohen's κ on Never/Mixed/Always designations; Figs 9–11, pp. 17–18):
 
@@ -147,17 +147,19 @@ Option-ordering 0% ↔ 100% flips (Fig 11, p. 18):
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Huntington-Klein used a single causal dataset|CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
+- [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
-- [[EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]

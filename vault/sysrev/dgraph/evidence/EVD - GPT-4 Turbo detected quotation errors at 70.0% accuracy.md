@@ -24,7 +24,7 @@ title: "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection
 
 ## Source
 
-[[@zhangDetectingReferenceErrors2024]]
+[[sysrev/dgraph/source/@zhangDetectingReferenceErrors2024]]
 
 ## Description
 
@@ -76,7 +76,7 @@ title: "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection
 
 - PDF check 2026-11-24: every number and quote on this page was checked against the vault PDF (arXiv:2411.06101v1, 9 Nov 2024; rendered Table 3 on PDF p. 4); no number changed. This preprint prints no page numbers, so citations now read "PDF p. N". A published version exists (AMIA Annu Symp Proc 2024:1549-1556, published 22 May 2025; PMC12919499). Its Table 3 values are the same as this page's table (checked in the PMC web text), but its PDF could not be downloaded automatically, so quotes, page numbers and screenshots have not been moved to it (listed for JP).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting]].
 
 | Setting | Unsubstantiated acc. | Partially acc. | Fully acc. | Overall acc. |
 | --- | --- | --- | --- | --- |
@@ -91,12 +91,12 @@ title: "GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Quotation error dataset was mostly natural science papers|CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]]
+- [[sysrev/dgraph/caveats/CVT - Quotation error dataset was mostly natural science papers|CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]]
 
-- [[CVT - Sentence-pair annotation treated all citations as equivalent despite varied rationales|CVT - The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation]]
+- [[sysrev/dgraph/caveats/CVT - Sentence-pair annotation treated all citations as equivalent despite varied rationales|CVT - The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - More capable GPT LLMs can detect quotation errors but imperfectly and context-dependently|CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
+- [[sysrev/dgraph/claims/CLM - More capable GPT LLMs can detect quotation errors but imperfectly and context-dependently|CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]

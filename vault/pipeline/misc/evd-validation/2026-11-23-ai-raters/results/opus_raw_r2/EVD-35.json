@@ -1,0 +1,46 @@
+{
+ "evd": 35,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "GPT-4 macro 0.276 and micro 0.710 accuracy on review-revision MCQs; specific accuracy finding for LLM reviewing."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.88,
+   "Partially Met": 0.1,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives micro accuracy 0.710 for GPT-4->GPT-4 and macro 0.276; 196 questions is context."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.15,
+   "Partially Correct": 0.75,
+   "Incorrect": 0.07,
+   "Missing": 0,
+   "NA": 0.03
+  },
+  "p_screenshot_shows_quote": 0.85,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot reads 'macro accuracy is not ideal: the best macro accuracy is only 0.276'; quote silently drops 'is not ideal: the best'."
+ },
+ "table": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.08,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.47,
+   "Missing": 0,
+   "NA": 0.4
+  },
+  "shot_connects": [
+   0.85
+  ],
+  "reason": "Numbers are in the quote, but paraphrased text cites Table 7, which is not shown; screenshot is body text only."
+ }
+}

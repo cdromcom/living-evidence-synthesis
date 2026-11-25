@@ -24,7 +24,7 @@ title: "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 5
 
 ## Source
 
-[[@thelwallEvaluatingResearchQuality2024]]
+[[sysrev/dgraph/source/@thelwallEvaluatingResearchQuality2024]]
 
 ## Description
 
@@ -82,18 +82,18 @@ title: "GPT-4o abstracts achieved Spearman r=0.67 with human quality scores on 5
 - Linear regression (intercept −3.40, coefficient 2.05 for GPT-4o Abstracts) maps model scores onto the REF scale and reduces MAD by 31% vs. the baseline of guessing the corpus mean (2.75).
 - Paper-level mean correlation between GPT-4o-Abstract predictions and predictions from other (model × input) cells is very high (e.g., 0.875 with GPT-3.5-turbo Abstracts), suggesting the underlying language models extract similar quality signals.
 - PDF check 2026-11-24: source version: pages now cite the 2025 journal article (J Data Inf Sci 10(1), 7-25, doi 10.2478/jdis-2025-0011) with printed journal page numbers; the 2024 preprint is kept as "Archive - superseded versions/Archive - Thelwall - 2024.pdf"
-- PDF check 2026-11-24: citation of "The optimal input is the article title and abstract, with av..." (Thelwall, 2024, p. 1) -> (Thelwall, 2025, p. 7)
+- PDF check 2026-11-24: citation of "The optimal input is the article title and abstract, with av..." (Thelwall, 2024, p. 7) -> (Thelwall, 2025, p. 7)
 - PDF check 2026-11-24: citation (Table 1, Thelwall, 2024, p. 8) -> (Table 1, Thelwall, 2025, p. 15)
-- PDF check 2026-11-24: citation of "The overall research design was to run a series of experimen..." (Thelwall, 2024, p. 3) -> (Thelwall, 2025, p. 10)
+- PDF check 2026-11-24: citation of "The overall research design was to run a series of experimen..." (Thelwall, 2024, p. 10) -> (Thelwall, 2025, p. 10)
 - PDF check 2026-11-24: quote "Each score request was a single API call, specifying a ChatGPT model,..." -> verbatim journal wording: "... instructions, as in Appendix 1, and with the prompt, "Score the following journal article:", followed by the article title/abstract/truncated text, as relevant. The maximum temperature parameter was set to 1, the default, the top_p parameter was also set to its default of 1, and the max_tokens parameter was set to 1000, which seemed adequate for the typical reports written by ChatGPT in the previous study (Thelwall, 2024)." (the passage now runs across the journal page break at pp. 11-12; the quote is shortened to the part on p. 12, and the prompt is typeset without a trailing space)
 - PDF check 2026-11-24: citation of "Each score request was a single API call, specifying a ChatG..." (Thelwall, 2024, p. 5) -> (Thelwall, 2025, p. 12)
-- PDF check 2026-11-24: citation of "The raw data for this paper is a set of 51 information scien..." (Thelwall, 2024, p. 3) -> (Thelwall, 2025, p. 10)
+- PDF check 2026-11-24: citation of "The raw data for this paper is a set of 51 information scien..." (Thelwall, 2024, p. 10) -> (Thelwall, 2025, p. 10)
 - PDF check 2026-11-24: prompt text in How? `"Score the following journal article: "` -> `"Score the following journal article:"` (journal wording has no trailing space, p. 12)
 - PDF check 2026-11-24: quote "...for general purposes but additional iterations used..." -> "...for general purposes and additional iterations used..." (Thelwall, 2025, p. 19; wording changed in the journal copy edit)
 - PDF check 2026-11-24: single-iteration r "~0.40" and "averaging 30 iterations roughly doubles correlation" -> "about 0.44 (GPT-4o), 0.38-0.39 (other two), about 1.5 times at 30 iterations" (read from Figure 2, p. 16; approximate, figure values not tabulated)
 - PDF check 2026-11-24: added the Table 3 screenshot (p. 18) that backs the Direct MAD, regression intercept, coefficient, MAD and improvement columns; every value in those columns matches Table 3 (no change)
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@thelwallEvaluatingResearchQuality2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@thelwallEvaluatingResearchQuality2024#TRIPOD-LLM reporting]].
 
 | Model × Input (n=51, 30 iters averaged) | Spearman r vs. human | Direct MAD | Regression intercept | Regression coefficient | Regression MAD | MAD improvement vs. baseline |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -118,10 +118,10 @@ Grounding table (Table 3, p. 18): Mean Average Deviations for direct predictions
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Thelwall dataset was 51 articles by one author|CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]]
+- [[sysrev/dgraph/caveats/CVT - Thelwall dataset was 51 articles by one author|CVT - The Thelwall dataset consisted of 51 articles by a single author limiting generalizability to other researchers and fields]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]
+- [[sysrev/dgraph/claims/CLM - Abstracts beat full text as input for LLM quality assessment|CLM - Abstracts are the optimal input for LLM-based research quality assessment outperforming full text]]

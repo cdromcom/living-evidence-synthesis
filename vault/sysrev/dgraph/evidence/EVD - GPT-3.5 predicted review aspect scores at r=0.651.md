@@ -26,7 +26,7 @@ title: "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when
 
 ## Source
 
-[[@zhouLLMReliableReviewer2024]]
+[[sysrev/dgraph/source/@zhouLLMReliableReviewer2024]]
 
 ## Description
 
@@ -77,7 +77,7 @@ title: "GPT-3.5 achieved Pearson r=0.651 in predicting review aspect scores when
 
 When given the paper (not the review), GPT-3.5 correlation drops dramatically (best Pearson ~0.258 for full paper). This demonstrates that LLMs can understand human-written reviews but cannot reliably judge paper quality from the paper alone.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting]].
 
 | Setting (input → prompt style)          | Accuracy ↑ | \|diff\| ↓ | Pearson ↑ | Spearman ↑ | Kendall τ ↑ |
 | --------------------------------------- | :--------: | :--------: | :-------: | :--------: | :---------: |
@@ -104,12 +104,12 @@ When given the paper (not the review), GPT-3.5 correlation drops dramatically (b
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
+- [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
 
-- [[CLM - General LLMs give overly positive recommendations unlike human reviewers|CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]
+- [[sysrev/dgraph/claims/CLM - General LLMs give overly positive recommendations unlike human reviewers|CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]

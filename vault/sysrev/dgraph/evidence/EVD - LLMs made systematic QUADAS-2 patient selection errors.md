@@ -24,7 +24,7 @@ title: "LLMs demonstrated systematic reasoning errors in QUADAS-2 patient select
 
 ## Source
 
-[[@leucutaRiskBiasAssessment2025]]
+[[sysrev/dgraph/source/@leucutaRiskBiasAssessment2025]]
 
 ## Description
 
@@ -72,7 +72,7 @@ title: "LLMs demonstrated systematic reasoning errors in QUADAS-2 patient select
 
 Four major error categories in patient selection: (1) misunderstanding consecutive sampling in case-control/subgroup designs; (2) inference errors about consecutive sampling based on author reporting; (3) ambiguity handling in contradictory author descriptions; (4) misinterpreting representativeness of diagnostic populations. These errors were systematic, not random.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]].
 
 | Patient-selection signaling question | Error theme(s) observed |
 | --- | --- |
@@ -85,22 +85,24 @@ Four major error categories in patient selection: (1) misunderstanding consecuti
 | Patient-selection correct rate (overall, 4 models × 10 articles × 3 Qs, n=120) | **65.83%** (79/120): the **second-lowest** of the four QUADAS-2 domains |
 | Best models for patient selection | ChatGPT 4o (76.67%) and Grok 3 (73.33%); Gemini 2.0 Flash worst (50%) |
 
-For the Methods/Results compliance items (5a–15, 16a–16d, 18) and the headline accuracy numbers, see the companion EVD and the source-file table linked above. Source-file `## TRIPOD-LLM reporting` is at [[@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]] and includes Supplementary Table S1 as the full per-article error catalogue.
+For the Methods/Results compliance items (5a–15, 16a–16d, 18) and the headline accuracy numbers, see the companion EVD and the source-file table linked above. Source-file `## TRIPOD-LLM reporting` is at [[sysrev/dgraph/source/@leucutaRiskBiasAssessment2025#TRIPOD-LLM reporting]] and includes Supplementary Table S1 as the full per-article error catalogue.
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - One unengineered prompt potentially underestimates LLMs on QUADAS-2|CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
+- [[sysrev/dgraph/claims/CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
 
-- [[CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
+- [[sysrev/dgraph/claims/CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]

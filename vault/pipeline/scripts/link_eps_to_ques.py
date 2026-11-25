@@ -14,10 +14,12 @@ re-writing.
 """
 
 from __future__ import annotations
+import os
 import re
+import sys
 from pathlib import Path
 
-VAULT = Path("/Users/ppatel/Documents/living-synthesis")
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 QUE_DIR = VAULT / "sysrev" / "dgraph" / "questions"
 EP_DIR = VAULT / "sysrev" / "dgraph" / "evd-patterns"
 
@@ -28,14 +30,14 @@ EP_HEADER_RE = re.compile(
 )
 # An EVD wikilink ends with " - @citekey"
 # A QUE's source paper appears as [[@citekey]] under Key Papers Asking Question
-PAPER_LINK_RE = re.compile(r"\[\[@([^\]]+)\]\]")
+PAPER_LINK_RE = re.compile(r"\[\[(?:[^\]|]*/)?@([^\]|#]+)(?:[|#][^\]]*)?\]\]")   # [[@key]] or [[sysrev/dgraph/source/@key|alias]]
 
 
 def extract_evd_links(text: str) -> set[str]:
     """Return the set of EVD wikilink targets in `text`, normalized."""
     out = set()
     for m in WIKILINK_RE.finditer(text):
-        target = m.group(1).split("|")[0].strip()
+        target = m.group(1).split("|")[0].strip().split("/")[-1]   # drop a folder prefix: [[sysrev/dgraph/evidence/EVD - x]]
         if target.startswith(EVD_PREFIX):
             out.add(target)
     return out
@@ -46,7 +48,7 @@ def evd_to_citekey(evd_target: str) -> str | None:
     p = VAULT / 'sysrev' / 'dgraph' / 'evidence' / f'{evd_target.split('#')[0].strip()}.md'
     if not p.exists():
         return None
-    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
+    m = re.search(r'^## Source\s*\n+\[\[(?:[^\]|]*/)?@([a-zA-Z][a-zA-Z0-9-]+)', p.read_text(), re.MULTILINE)
     return m.group(1) if m else None
 
 
@@ -88,7 +90,7 @@ def build_cross_paper_section(ep_names: list[str]) -> str:
         "",
     ]
     for name in sorted(ep_names):
-        lines.append(f"- [[{name}]]")
+        lines.append(f"- [[sysrev/dgraph/evd-patterns/{name}]]")
     return "\n".join(lines) + "\n"
 
 
@@ -105,6 +107,8 @@ def upsert_cross_paper_section(que_text: str, block: str) -> str:
 
 def main():
     ep_index = load_ep_index()
+    if not any(ep_index.values()):
+        sys.exit('No EP-to-paper links could be read (link format changed?). Nothing was written.')
     print(f"Loaded {len(ep_index)} EPs (citekey sets).\n")
 
     que_files = sorted(QUE_DIR.glob("QUE - *.md"))
@@ -137,6 +141,7 @@ def main():
 
     print(f"\n{ques_with_links}/{len(que_files)} QUEs linked to ≥1 EP.")
     print(f"Total QUE↔EP links: {total_links}")
+    if total_links == 0: print("WARNING: 0 links; check the link format before committing these changes.")
 
 
 if __name__ == "__main__":

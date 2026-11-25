@@ -1,0 +1,364 @@
+[
+ {
+  "row": 24,
+  "evd": "23",
+  "llm_evd": "GPT 3.5-turbo achieved the highest correct answer rate of 66.9% on STROBE checklist questions across 39 medical articles",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-023",
+  "citekey": "akyonEvaluatingCapabilitiesGenerative2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Akyon et al. - 2024 - Evaluating the capabilities of generative AI tools in understanding medical papers Qualitative stud.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/akyonEvaluatingCapabilitiesGenerative2024.txt",
+  "images": [
+   {
+    "name": "akyon2024-table3-p18-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/akyon2024-table3-p18-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/akyon2024-table3-p18-1.png"
+   },
+   {
+    "name": "akyonEvaluatingCapabilitiesGenerative2024-evd-p3-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/akyonEvaluatingCapabilitiesGenerative2024-evd-p3-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/akyonEvaluatingCapabilitiesGenerative2024-evd-p3-1.png"
+   },
+   {
+    "name": "akyonEvaluatingCapabilitiesGenerative2024-evd-p11-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/akyonEvaluatingCapabilitiesGenerative2024-evd-p11-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/akyonEvaluatingCapabilitiesGenerative2024-evd-p11-1.png"
+   },
+   {
+    "name": "akyonEvaluatingCapabilitiesGenerative2024-evd-p12-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/akyonEvaluatingCapabilitiesGenerative2024-evd-p12-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/akyonEvaluatingCapabilitiesGenerative2024-evd-p12-1.png"
+   }
+  ]
+ },
+ {
+  "row": 25,
+  "evd": "24",
+  "llm_evd": "GPT 4-0613 achieved the lowest correct answer rate of 44.1% among all tested LLMs on STROBE questions",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - GPT 4-0613 was lowest on STROBE questions at 44.1%.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-024",
+  "citekey": "akyonEvaluatingCapabilitiesGenerative2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Akyon et al. - 2024 - Evaluating the capabilities of generative AI tools in understanding medical papers Qualitative stud.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/akyonEvaluatingCapabilitiesGenerative2024.txt",
+  "images": [
+   {
+    "name": "akyon2024-table3-p18-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/akyon2024-table3-p18-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/akyon2024-table3-p18-1.png"
+   },
+   {
+    "name": "akyonEvaluatingCapabilitiesGenerative2024-evd-p12-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/akyonEvaluatingCapabilitiesGenerative2024-evd-p12-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/akyonEvaluatingCapabilitiesGenerative2024-evd-p12-2.png"
+   },
+   {
+    "name": "akyonEvaluatingCapabilitiesGenerative2024-evd-p14-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/akyonEvaluatingCapabilitiesGenerative2024-evd-p14-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/akyonEvaluatingCapabilitiesGenerative2024-evd-p14-1.png"
+   },
+   {
+    "name": "akyonEvaluatingCapabilitiesGenerative2024-evd-p14-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/akyonEvaluatingCapabilitiesGenerative2024-evd-p14-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/akyonEvaluatingCapabilitiesGenerative2024-evd-p14-2.png"
+   }
+  ]
+ },
+ {
+  "row": 10,
+  "evd": "9",
+  "llm_evd": "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028)",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - ChatGPT matched humans on 3 of 12 PRISMA items but not on eligibility criteria.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-009",
+  "citekey": "alharbiAutomatedAssessmentReporting2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Alharbi and Asiri - 2024 - Automated Assessment of Reporting Completeness in Orthodontic Research Using LLMs An Observational.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/alharbiAutomatedAssessmentReporting2024.txt",
+  "images": [
+   {
+    "name": "alharbi2024-table2-p6-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbi2024-table2-p6-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/alharbi2024-table2-p6-1.png"
+   },
+   {
+    "name": "alharbiAutomatedAssessmentReporting2024-evd-p3-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbiAutomatedAssessmentReporting2024-evd-p3-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/alharbiAutomatedAssessmentReporting2024-evd-p3-1.png"
+   },
+   {
+    "name": "alharbiAutomatedAssessmentReporting2024-evd-p3-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbiAutomatedAssessmentReporting2024-evd-p3-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/alharbiAutomatedAssessmentReporting2024-evd-p3-2.png"
+   },
+   {
+    "name": "alharbiAutomatedAssessmentReporting2024-evd-p2-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbiAutomatedAssessmentReporting2024-evd-p2-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/alharbiAutomatedAssessmentReporting2024-evd-p2-1.png"
+   }
+  ]
+ },
+ {
+  "row": 11,
+  "evd": "10",
+  "llm_evd": "ChatGPT achieved perfect agreement with human raters on 6 of 17 CONSORT-A RCT checklist items and significant discrepancy on randomization (p=0.001)",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - ChatGPT matched humans on 6 of 17 CONSORT-A items but not on randomization.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-010",
+  "citekey": "alharbiAutomatedAssessmentReporting2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Alharbi and Asiri - 2024 - Automated Assessment of Reporting Completeness in Orthodontic Research Using LLMs An Observational.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/alharbiAutomatedAssessmentReporting2024.txt",
+  "images": [
+   {
+    "name": "alharbi2024-table1-p4-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbi2024-table1-p4-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/alharbi2024-table1-p4-1.png"
+   },
+   {
+    "name": "alharbi2024-table1cont-p5-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbi2024-table1cont-p5-1.png",
+    "local": null
+   },
+   {
+    "name": "alharbiAutomatedAssessmentReporting2024-evd-p1-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbiAutomatedAssessmentReporting2024-evd-p1-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/alharbiAutomatedAssessmentReporting2024-evd-p1-1.png"
+   },
+   {
+    "name": "alharbiAutomatedAssessmentReporting2024-evd-p3-3.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbiAutomatedAssessmentReporting2024-evd-p3-3.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/alharbiAutomatedAssessmentReporting2024-evd-p3-3.png"
+   },
+   {
+    "name": "alharbiAutomatedAssessmentReporting2024-evd-p2-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/alharbiAutomatedAssessmentReporting2024-evd-p2-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/alharbiAutomatedAssessmentReporting2024-evd-p2-2.png"
+   }
+  ]
+ },
+ {
+  "row": 21,
+  "evd": "20",
+  "llm_evd": "GAR achieved a Bradley-Terry preference score of 0.684 outperforming human reviewers at 0.523 in GPT-4 preference evaluation",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - GAR beat human reviewers on preference 0.684 vs 0.523.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-020",
+  "citekey": "bougieGenerativeAdversarialReviews2024a",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/bougieGenerativeAdversarialReviews2024a.txt",
+  "images": [
+   {
+    "name": "bougie2024-table1-p10-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougie2024-table1-p10-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougie2024-table1-p10-1.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p10-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p10-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p10-1.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p10-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p10-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p10-2.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p10-3.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p10-3.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p10-3.png"
+   }
+  ]
+ },
+ {
+  "row": 22,
+  "evd": "21",
+  "llm_evd": "GAR achieved a human-likeness score of 3.89 to 4.02 across three datasets significantly outperforming all LLM baselines",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-021",
+  "citekey": "bougieGenerativeAdversarialReviews2024a",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/bougieGenerativeAdversarialReviews2024a.txt",
+  "images": [
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p15-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p15-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p15-1.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-table7-p15.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-table7-p15.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-table7-p15.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p14-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p14-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p14-1.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p9-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p9-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p9-2.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p9-3.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p9-3.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p9-3.png"
+   }
+  ]
+ },
+ {
+  "row": 23,
+  "evd": "22",
+  "llm_evd": "GAR achieved F1 score of 0.66 on ICLR 23 paper acceptance prediction significantly exceeding human baseline of 0.49",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-022",
+  "citekey": "bougieGenerativeAdversarialReviews2024a",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/bougieGenerativeAdversarialReviews2024a.txt",
+  "images": [
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p11-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p11-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p11-1.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p11-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p11-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p11-2.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p12-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p12-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p12-1.png"
+   },
+   {
+    "name": "bougieGenerativeAdversarialReviews2024a-evd-p9-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/bougieGenerativeAdversarialReviews2024a-evd-p9-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/bougieGenerativeAdversarialReviews2024a-evd-p9-1.png"
+   }
+  ]
+ },
+ {
+  "row": 3,
+  "evd": "2",
+  "llm_evd": "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it more beneficial than at least some human reviewers",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - 57.4% of 308 researchers found GPT-4 feedback helpful.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-002",
+  "citekey": "liangCanLargeLanguage2024a",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Liang et al. - 2024 - Can Large Language Models Provide Useful Feedback on Research Papers A Large-Scale Empirical Analys.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/liangCanLargeLanguage2024a.txt",
+  "images": [
+   {
+    "name": "liangCanLargeLanguage2024a-quote-57pct-desc-p1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/liangCanLargeLanguage2024a-quote-57pct-desc-p1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/liangCanLargeLanguage2024a-quote-57pct-desc-p1.png"
+   },
+   {
+    "name": "liangCanLargeLanguage2024a-evd-p5-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/liangCanLargeLanguage2024a-evd-p5-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/liangCanLargeLanguage2024a-evd-p5-1.png"
+   },
+   {
+    "name": "liangCanLargeLanguage2024a-evd-p11-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/liangCanLargeLanguage2024a-evd-p11-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/liangCanLargeLanguage2024a-evd-p11-1.png"
+   },
+   {
+    "name": "liangCanLargeLanguage2024a-evd-p3-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/liangCanLargeLanguage2024a-evd-p3-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/liangCanLargeLanguage2024a-evd-p3-1.png"
+   }
+  ]
+ },
+ {
+  "row": 16,
+  "evd": "15",
+  "llm_evd": "Claude Opus achieved highest ReviewCritique F1 of 21.99% on AAAR across 11376 review segments",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - Claude Opus led AAAR ReviewCritique at 21.99% F1.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-015",
+  "citekey": "louAAAR10AssessingAIs2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Lou et al. - 2025 - AAAR-1.0 Assessing AI's Potential to Assist Resea.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/louAAAR10AssessingAIs2025.txt",
+  "images": [
+   {
+    "name": "louAAAR10AssessingAIs2025-evd-p10-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/louAAAR10AssessingAIs2025-evd-p10-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/louAAAR10AssessingAIs2025-evd-p10-1.png"
+   },
+   {
+    "name": "louAAAR10AssessingAIs2025-evd-p6-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/louAAAR10AssessingAIs2025-evd-p6-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/louAAAR10AssessingAIs2025-evd-p6-1.png"
+   },
+   {
+    "name": "louAAAR10AssessingAIs2025-evd-p10-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/louAAAR10AssessingAIs2025-evd-p10-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/louAAAR10AssessingAIs2025-evd-p10-2.png"
+   },
+   {
+    "name": "louAAAR10AssessingAIs2025-evd-p6-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/louAAAR10AssessingAIs2025-evd-p6-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/louAAAR10AssessingAIs2025-evd-p6-2.png"
+   }
+  ]
+ },
+ {
+  "row": 12,
+  "evd": "11",
+  "llm_evd": "ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-011",
+  "citekey": "robertsComparativeStudyChatGPT2023",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Roberts et al. 2023 - Comparative study of ChatGPT and human evaluators.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/robertsComparativeStudyChatGPT2023.txt",
+  "images": [
+   {
+    "name": "robertsComparativeStudyChatGPT2023-evd-p3-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/robertsComparativeStudyChatGPT2023-evd-p3-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/robertsComparativeStudyChatGPT2023-evd-p3-1.png"
+   },
+   {
+    "name": "robertsComparativeStudyChatGPT2023-evd-p1-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/robertsComparativeStudyChatGPT2023-evd-p1-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/robertsComparativeStudyChatGPT2023-evd-p1-1.png"
+   },
+   {
+    "name": "robertsComparativeStudyChatGPT2023-evd-p3-7.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/robertsComparativeStudyChatGPT2023-evd-p3-7.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/robertsComparativeStudyChatGPT2023-evd-p3-7.png"
+   },
+   {
+    "name": "robertsComparativeStudyChatGPT2023-evd-p1-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/robertsComparativeStudyChatGPT2023-evd-p1-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/robertsComparativeStudyChatGPT2023-evd-p1-2.png"
+   }
+  ]
+ },
+ {
+  "row": 13,
+  "evd": "12",
+  "llm_evd": "DROP - WRONG STATS - FISHY ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A",
+  "live_page": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/pages/EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764.md",
+  "site_url": "https://living-evidence-synthesis.vercel.app/nodes/EVD-012",
+  "citekey": "robertsComparativeStudyChatGPT2023",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Roberts et al. 2023 - Comparative study of ChatGPT and human evaluators.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/robertsComparativeStudyChatGPT2023.txt",
+  "images": [
+   {
+    "name": "robertsComparativeStudyChatGPT2023-evd-p4-1.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/robertsComparativeStudyChatGPT2023-evd-p4-1.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/robertsComparativeStudyChatGPT2023-evd-p4-1.png"
+   },
+   {
+    "name": "robertsComparativeStudyChatGPT2023-evd-p3-2.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/robertsComparativeStudyChatGPT2023-evd-p3-2.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/robertsComparativeStudyChatGPT2023-evd-p3-2.png"
+   },
+   {
+    "name": "robertsComparativeStudyChatGPT2023-evd-p3-3.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/robertsComparativeStudyChatGPT2023-evd-p3-3.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/robertsComparativeStudyChatGPT2023-evd-p3-3.png"
+   },
+   {
+    "name": "robertsComparativeStudyChatGPT2023-evd-p1-3.png",
+    "url": "https://living-evidence-synthesis.vercel.app/vault-img/robertsComparativeStudyChatGPT2023-evd-p1-3.png",
+    "local": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/live/img/robertsComparativeStudyChatGPT2023-evd-p1-3.png"
+   }
+  ]
+ }
+]

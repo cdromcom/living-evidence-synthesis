@@ -1,0 +1,18 @@
+{
+ "evd": 38,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.01,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.96,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "shot_connects": [
+   0.2
+  ],
+  "reason": "Quote is Table 1 rankings; screenshot shows a text passage about P5 score distributions instead."
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "evd": 7,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.88,
+   "Incorrect": 0.06,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "quote_fully_visible": 0.9,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Full quote visible in the abstract, but screenshot is a large page section with many unrelated paragraphs."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.01,
+   "Missing": 0.03,
+   "NA": 0.96
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "No table or figure referenced; no numbers needing one."
+ }
+}

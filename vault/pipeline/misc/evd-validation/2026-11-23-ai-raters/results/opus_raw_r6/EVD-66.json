@@ -1,0 +1,33 @@
+{
+ "evd": 66,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.95,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "Screenshot shows the o4-mini cost-effective sentence, not the quoted 'o3 performed the best' passage."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.02,
+   "Missing": 0.96,
+   "NA": 0.02
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "Hit rates are from Table 2 per paraphrase; no table shown."
+ }
+}

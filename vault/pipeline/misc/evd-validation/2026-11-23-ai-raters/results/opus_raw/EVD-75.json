@@ -1,0 +1,30 @@
+{
+ "evd": 75,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.75,
+  "reason": "Ablation of re-ranker in LLM novelty assessment pipeline is a specific performance finding."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.5,
+   "Partially Met": 0.38,
+   "Unmet": 0.12
+  },
+  "reason": "Quote says the full system with facet-based re-ranking outperforms ablations; 89.66% and 13.79% are absent."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.02,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "reason": "Screenshot shows the 'Table 2 shows that the complete system... in accuracy' sentence word for word."
+ },
+ "table": null
+}

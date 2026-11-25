@@ -13,7 +13,7 @@ title: "Can LLMs act as repositories of causal knowledge for selecting confounde
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[@huntington-kleinLLMsActRepositories2024]]
+> [[sysrev/dgraph/source/@huntington-kleinLLMsActRepositories2024]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -27,14 +27,14 @@ title: "Can LLMs act as repositories of causal knowledge for selecting confounde
 
 > [!info] CLMs whose topic matches this question, with their supporting EVDs nested underneath. Auto-derived via keyword overlap; verify each link is truly supportive before citing.
 
-- [[CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
-    - [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]
-    - [[EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]
+- [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable causal knowledge sources for confounder selection|CLM - LLMs do not yet serve as reliable repositories of causal knowledge for confounder selection]]
+    - [[sysrev/dgraph/evidence/EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]
+    - [[sysrev/dgraph/evidence/EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]
 
 ### Cross-paper patterns
 
 > [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
 
-- [[EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
-- [[EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
-- [[EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]

@@ -25,7 +25,7 @@ title: "LLMs showed lowest accuracy on questions about statistical software used
 
 ## Source
 
-[[@akyonEvaluatingCapabilitiesGenerative2024]]
+[[sysrev/dgraph/source/@akyonEvaluatingCapabilitiesGenerative2024]]
 
 ## Description
 
@@ -74,7 +74,7 @@ title: "LLMs showed lowest accuracy on questions about statistical software used
 
 Q8 (statistical software identification) and Q15 (funding) were multiple-choice questions with 7 and 2 options respectively, which may explain the lower performance. Q12 and Q13 (discussion sections) showed highest accuracy, suggesting LLMs are better at summarizing interpretive content than extracting specific technical details.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@akyonEvaluatingCapabilitiesGenerative2024#TRIPOD-LLM reporting]].
 
 Per-question correct % across all 6 LLMs (from Figure 3 / Table 4):
 
@@ -98,18 +98,20 @@ Per-question correct % across all 6 LLMs (from Figure 3 / Table 4):
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Benchmark gold standard relied on one medical professor|CVT - The benchmark gold standard relied on a single medical professor limiting reference standard validity]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
+- [[sysrev/dgraph/claims/CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
 
-- [[CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
+- [[sysrev/dgraph/claims/CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]

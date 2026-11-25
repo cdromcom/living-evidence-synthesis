@@ -71,7 +71,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
 ## B. Vault and PDF audit
 
 - [x] **0d. NEXT WEEK, after the Skill refinement: decide which version the EVD pages cite**  
-  **Done 2026-11-24:** most recent report is cited: Thelwall 2025 journal (PR 11), Xu ACL 2025 (12), Shahid SDP 2025 (13), Zhang & Abernethy 2025 arXiv v3 (14), Huntington-Klein 2026 journal (15). Older PDFs go to sysrev/dgraph/source/pdfs/Archive - superseded versions/. Akyon and Liang published versions still need JP's download (0b).
+  **Done 2026-11-24:** most recent report is cited: Thelwall 2025 journal (PR 11), Xu ACL 2025 (12), Shahid SDP 2025 (13), Zhang & Abernethy 2025 arXiv v3 (14), Huntington-Klein 2026 journal (15). Older PDFs go to sysrev/source/pdfs/Archive - superseded versions/. Akyon and Liang published versions still need JP's download (0b).
   Where: EVD pages for Thelwall, Huntington-Klein, Shahid, Xu (and Akyon, Liang once downloaded)  
   Citing the published versions shifts page numbers, some quote wording and screenshots. Calendar reminder: Wed 2026-11-25, 10:00 ET.  
   *Source: prompt 48*
@@ -201,3 +201,25 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   Where: Methods section of the paper  
   Claude's relevancy calls for rows 46 and 49 and notes for rows 79-82 were made on 2026-11-17, later than the other Claude rows (2026-11-10 to 11-13). Claude's Fidelity/Grounding for the 31 Jay rows were graded on 2026-11-17 against the live app; the other Claude rows on 2026-11-11.  
   *Source: ABOUT TODO 13; prompt 38*
+
+
+## 2026-11-25 plan (added by Claude; JP edits freely)
+**JP, next three days:** work on the protocol; manually review the vault and screen papers; add `PANGRAM_API_KEY` to `~/.config/lives-ai-raters/.env` when ready (Pangram runs only on JP's command, likely Dec/Jan); review the signals sheet v2 (judgments, models, failure causes); re-rate the quote labels listed in `benchmarking-validation/README.md`; decide on merging PRs #26 (vault alignment and v2 backbone), #27 (design docs), #8 and #21 (benchmarking).
+**Before the Monday run (fresh batch of dozens of PDFs):**
+- [ ] Put PDFs in `sysrev/dgraph/source/pdfs/`; pick the five-paper pilot batch (Woelfle, Bougie, Tyser first, per the budget note).
+- [ ] Write and commit the prompts the run needs in `pipeline/prompts/` (pdf-read, picost, write-nodes, checks) so footers can link them; log every call with `call_logger.py`.
+- [ ] Add the provenance footer to the node templates in the web app render (callout at page bottom, byline under the title).
+- [ ] Decide: backfill legacy footers for the 232 existing pages (model and date from `History.md`, `Log.md`, `curatedWithModel`).
+- [ ] Module Q (quality signals) stays OFF unless JP says so.
+**Cleanup found by the scripts:** review the 115 quotes `verbatim_audit.py` flags (`pipeline/misc/evd-validation/paraphrase_report.tsv`) and the 85 signal-table quotes not found; check why two Sarol EVD pages list caveats their CVT `appliesTo` does not (`reverse_links.py` would drop those two links); decide the page rule for 157 rows that cite PDF position, 104 wrong pages.
+**Web app (Opus 5.5, about $11 for phase 1):** adopt the revised plan from the four-model design consult (`pipeline/runs/2026-11-25-design-consult/`): gates from phase 1, byline plus footer, CLM and EVD templates, list-first graph, library combobox.
+**Ideas, not scheduled:** INSPECT-SR-inspired trustworthiness signals (post-publication notices via Crossref or OpenAlex, registration-versus-paper consistency, internal count consistency, version consistency between preprint and journal); span-extraction of quotes in Module Q.
+
+## 2026-11-25 later additions (JP)
+- [ ] **Wrightson 2025 source page is in the wrong folder in the working vault.** It sits at `source/@wrightsonGPTRCTsUsing2025.md` (vault root, created Nov 24 about 15:55); it belongs in `sysrev/dgraph/source/`, where the repo and the wikilinks expect it. JP is keeping the repo copy in `sysrev/dgraph/source/`. `check_links.py` reports 11 broken links until the vault copy is moved back (`mv source/@wrightsonGPTRCTsUsing2025.md sysrev/dgraph/source/`). `check_repo_sync.py` lists it as "only local" until then. Do not sync the stray copy.
+- [ ] Footers for the 232 existing pages (collapsed GAMER footer, legacy form): after the next pipeline run, when the details have settled.
+- [ ] Re-run the design consult with the two-page prompts (`design-consult-v2.md`, `design-enhance-v2.md`) and read the new color, type, layout, visual, animation and accessibility sections (see the run folder `pipeline/runs/2026-11-25-design-consult-v2/`).
+- [ ] Link checks: `check_links.py` is read-only. 2 questions are linked from no claim list (Can LLMs pick the better of two abstracts; Can LLMs verify author checklists in submissions): decide to link or merge.
+- [ ] Trustworthiness signals (INSPECT-SR-inspired), later: Current Status already covers retraction, correction and expression of concern; consider splitting "Statistic accuracy" into specific forensic checks (GRIM-type means, test statistics vs p values, sample sizes consistent across abstract, methods and tables); registration consistency later when studies are registered.
+- [ ] Embedding model for candidate QUE merges and cross-paper links (EmbeddingGemma or a small bge model, run locally); a light model votes on each pair; JP decides merges.
+- [ ] Model-by-page history: confirm the model of the April 28 batch agents and which pages were rewritten in summer 2026 (`pipeline/provenance/model-history.md`).

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors"
+  - CVT - SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/selection-bias
@@ -10,19 +10,19 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]"
-  - "[[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]"
+  - "[[sysrev/dgraph/evidence/EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]"
+  - "[[sysrev/dgraph/evidence/EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb4-763c-994e-d9feb2027181
 type: author-stated
 severity: moderate
-title: "SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors"
+title: SPOT only included papers with explicitly author-confirmed errors potentially excluding harder-to-detect genuine errors
 ---
 
 ## Source
 
-[[@sonWhenAICoScientists2025]]
+[[sysrev/dgraph/source/@sonWhenAICoScientists2025]]
 
 ### Limitation
 
@@ -37,6 +37,6 @@ SPOT exclusively includes errors that were explicitly acknowledged by the origin
 
 ### Applies To
 
-- [[EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]
+- [[sysrev/dgraph/evidence/EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]
 
-- [[EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]
+- [[sysrev/dgraph/evidence/EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication|EVD - o3 achieved 62.6% pass@4 on equation-proof errors while scoring near 0% on figure duplication]]

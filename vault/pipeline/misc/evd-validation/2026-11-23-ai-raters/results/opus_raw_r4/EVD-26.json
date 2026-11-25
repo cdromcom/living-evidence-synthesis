@@ -1,0 +1,28 @@
+{
+ "evd": 26,
+ "fidelity": {
+  "label": "Unmet",
+  "probs": {
+   "Met": 0.03,
+   "Partially Met": 0.12,
+   "Unmet": 0.85
+  },
+  "reason": "Quote is about GPT-4 models being stricter; no GPT-3.5 accuracy peak or drop with context."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.93,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.05,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "Screenshot shows a different sentence about Unsubstantiated cases, not the stricter-detection quote."
+ }
+}

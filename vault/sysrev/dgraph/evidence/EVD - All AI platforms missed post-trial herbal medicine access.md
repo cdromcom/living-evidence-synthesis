@@ -24,7 +24,7 @@ title: All AI platforms failed to address post-trial herbal medicine access in c
 
 ## Source
 
-[[@sridharanAssessingDecisionMakingCapabilities2024]]
+[[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024]]
 
 ## Description
 
@@ -70,7 +70,7 @@ title: All AI platforms failed to address post-trial herbal medicine access in c
 - The handbook's expected answer hinges on a GCP principle: the Declaration of Helsinki / ICH E6 obligation to provide post-trial access applies when the intervention has been shown beneficial; for an unestablished herbal medicine, the obligation does not attach. None of the three LLMs surfaced that conditional logic.
 - This is the only case (of 10) on which all three platforms failed simultaneously, making it the most-cited failure mode in the paper's discussion.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
 
 | Platform | Addressed unestablished-benefit rationale? |
 | --- | :---: |
@@ -89,10 +89,10 @@ title: All AI platforms failed to address post-trial herbal medicine access in c
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
+- [[sysrev/dgraph/claims/CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

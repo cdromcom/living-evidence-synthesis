@@ -24,7 +24,7 @@ title: "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA c
 
 ## Source
 
-[[@alharbiAutomatedAssessmentReporting2024]]
+[[sysrev/dgraph/source/@alharbiAutomatedAssessmentReporting2024]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA c
 - ChatGPT showed a systematic tendency to over-report: in 9 of 12 PRISMA items, ChatGPT's "Reported" proportion ≥ humans', suggesting it may over-interpret implicit information in abstracts.
 - Funding (item 11): ChatGPT 30% (6/20) vs. humans 5% (1/20), p=0.091, borderline non-significant but a 6-fold disagreement on a checkable factual item.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@alharbiAutomatedAssessmentReporting2024#TRIPOD-LLM reporting]].
 
 | PRISMA-for-abstracts item | ChatGPT Reported | Human Reported | Fisher p |
 | --- | :---: | :---: | :---: |
@@ -98,18 +98,22 @@ title: "ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA c
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Only one LLM version was tested via free chat GUI not API|CVT - Only a single LLM version was tested via free chat GUI rather than API limiting reproducibility and prompt control]]
+
+- [[sysrev/dgraph/caveats/CVT - Only 20 RCTs and 20 reviews limited statistical power|CVT - The small sample of 20 RCTs and 20 systematic reviews limited statistical power to detect differences in checklist item performance]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
+- [[sysrev/dgraph/claims/CLM - LLM checklist agreement varies substantially, higher on factual than judgment items|CLM - LLM performance on structured checklist tasks varies substantially by item type with simpler factual items showing higher agreement than items requiring methodological judgment]]
 
-- [[CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
+- [[sysrev/dgraph/claims/CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]

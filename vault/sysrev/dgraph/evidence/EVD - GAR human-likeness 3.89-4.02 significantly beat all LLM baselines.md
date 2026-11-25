@@ -26,7 +26,7 @@ title: "GAR achieved a human-likeness score of 3.89 to 4.02 across three dataset
 
 ## Source
 
-[[@bougieGenerativeAdversarialReviews2024a]]
+[[sysrev/dgraph/source/@bougieGenerativeAdversarialReviews2024a]]
 
 ## Description
 
@@ -74,7 +74,7 @@ title: "GAR achieved a human-likeness score of 3.89 to 4.02 across three dataset
 
 AI-Scientist scores: NeurIPS 3.34 ± 0.09, ICLR 22 3.39 ± 0.11, ICLR 23 3.38 ± 0.08. OpenReviewer: NeurIPS 2.45 ± 0.10, ICLR 22 2.43 ± 0.09, ICLR 23 2.43 ± 0.09. ReviewerGPT: 3.26 / 3.25 / 3.29. AI-Review: 3.30 / 3.42 / 3.38. The §5.11 ablation on GAR backbones (Table 8) shows GPT-4o highest (4.11 ± 0.10 on ICLR 23), GPT-4o-mini close behind (3.99 ± 0.09), and the open Llama-3.1 / Mistral-7b backbones at 3.64–3.73. Authors attribute GAR's lead to the graph-based memory + multi-round refinement + persona modules.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@bougieGenerativeAdversarialReviews2024a#TRIPOD-LLM reporting]].
 
 | Reviewer (GPT-4o-mini backbone) | NeurIPS 23 | ICLR 22 | ICLR 23 |
 | --- | :---: | :---: | :---: |
@@ -95,16 +95,18 @@ AI-Scientist scores: NeurIPS 3.34 ± 0.09, ICLR 22 3.39 ± 0.11, ICLR 23 3.38 ±
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - GPT-4 was both reviewer and judge in GAR preference ranking|CVT - GPT-4 was used as both reviewer backbone and preference evaluator introducing circular evaluation in the GAR preference ranking experiment]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
+- [[sysrev/dgraph/claims/CLM - LLM review agents with memory and personas can match or exceed humans|CLM - LLM-based peer review agents equipped with memory and persona modules can match or exceed human reviewer quality in providing feedback and predicting paper acceptance]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

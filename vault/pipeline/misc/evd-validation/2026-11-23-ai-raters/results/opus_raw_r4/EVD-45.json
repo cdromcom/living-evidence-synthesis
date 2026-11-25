@@ -1,0 +1,29 @@
+{
+ "evd": 45,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.7,
+   "Partially Met": 0.27,
+   "Unmet": 0.03
+  },
+  "reason": "Quote gives human-AI accuracies 89-96% PRISMA and 91-95% AMSTAR; 'surpassing humans' implied by 'best'."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.12,
+   "Incorrect": 0.83,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.08,
+  "quote_fully_visible": 0.03,
+  "shot_connects": [
+   0.45,
+   0.8
+  ],
+  "reason": "Screenshots show Figure 2 and page 7 results text/Table 3, not the abstract sentence quoted."
+ }
+}

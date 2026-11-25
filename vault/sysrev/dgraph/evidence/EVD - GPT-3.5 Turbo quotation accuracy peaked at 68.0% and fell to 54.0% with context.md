@@ -24,7 +24,7 @@ title: "GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (tit
 
 ## Source
 
-[[@zhangDetectingReferenceErrors2024]]
+[[sysrev/dgraph/source/@zhangDetectingReferenceErrors2024]]
 
 ## Description
 
@@ -74,7 +74,7 @@ title: "GPT-3.5 Turbo accuracy on quotation error detection peaked at 68.0% (tit
 
 - PDF check 2026-11-24: every number and quote on this page was checked against the vault PDF (arXiv:2411.06101v1, 9 Nov 2024; rendered Table 3 on PDF p. 4); no number changed. This preprint prints no page numbers, so citations now read "PDF p. N". A published version exists (AMIA Annu Symp Proc 2024:1549-1556, published 22 May 2025; PMC12919499). Its Table 3 values are the same as this page's table (checked in the PMC web text), but its PDF could not be downloaded automatically, so quotes, page numbers and screenshots have not been moved to it (listed for JP).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@zhangDetectingReferenceErrors2024#TRIPOD-LLM reporting]].
 
 | Setting | Unsubstantiated acc. | Partially acc. | Fully acc. | Overall acc. |
 | --- | --- | --- | --- | --- |
@@ -87,16 +87,18 @@ Pattern: more reference context did **not** monotonically improve GPT-3.5 Turbo.
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Quotation error dataset was mostly natural science papers|CVT - The quotation error dataset was predominantly from natural science journal articles limiting generalizability to conference papers and other publication channels]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - More capable GPT LLMs can detect quotation errors but imperfectly and context-dependently|CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
+- [[sysrev/dgraph/claims/CLM - More capable GPT LLMs can detect quotation errors but imperfectly and context-dependently|CLM - More capable GPT-class LLMs can detect quotation errors in scientific papers without fine-tuning but performance is imperfect and context-dependent]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]

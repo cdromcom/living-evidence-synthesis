@@ -1,0 +1,33 @@
+{
+ "evd": 22,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.85,
+   "Incorrect": 0.08,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 1,
+  "quote_fully_visible": 0.2,
+  "shot_connects": [
+   1
+  ],
+  "reason": "Quote visible but ends at 'confidence level (p'; the '< 0.002)' is cut off."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.02,
+   "Missing": 0.33,
+   "NA": 0.65
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "No caption or paraphrase cites a table; F1 values are in the quote, though ICLR 23 detail is not."
+ }
+}

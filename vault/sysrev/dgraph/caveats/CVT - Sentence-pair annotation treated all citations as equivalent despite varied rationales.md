@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation"
+  - CVT - The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation
 tags:
   - cvt/domain/construct-validity
   - cvt/mechanism/proxy-metric
@@ -10,18 +10,18 @@ tags:
   - cvt/severity/moderate
   - 5c/connectivity
 appliesTo:
-  - "[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]"
 created: 2026-04-17
 updated: 2026-11-24
 nodeID: 019ddb4e-6bc9-75fb-a95b-cb0b5f2118f6
 type: author-stated
 severity: moderate
-title: "The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation"
+title: The simple sentence-pair annotation scheme treated all reference pairs as equivalent despite multiple possible rationales for citation
 ---
 
 ## Source
 
-[[@zhangDetectingReferenceErrors2024]]
+[[sysrev/dgraph/source/@zhangDetectingReferenceErrors2024]]
 
 ### Limitation
 
@@ -36,4 +36,4 @@ The annotation scheme used a simple three-way label (Unsubstantiated, Partially 
 
 ### Applies To
 
-[[EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]
+[[sysrev/dgraph/evidence/EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy|EVD - GPT-4 Turbo achieved 70.0% overall accuracy on quotation error detection with title plus abstract plus excerpts]]

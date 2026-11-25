@@ -24,7 +24,7 @@ title: "GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBI
 
 ## Source
 
-[[@hasanIntegratingLargeLanguage2024]]
+[[sysrev/dgraph/source/@hasanIntegratingLargeLanguage2024]]
 
 ## Description
 
@@ -69,7 +69,7 @@ title: "GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBI
 
 Domain-specific results: D3 (classification of intervention) had highest raw agreement (71%) and D1 (confounding) the lowest (47%). Kappa was low across all domains (range 0.02–0.28); D2 (participant selection) had the highest Kendall coefficient (0.54). Overall Kendall τ of 0.35 suggests fair agreement.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@hasanIntegratingLargeLanguage2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@hasanIntegratingLargeLanguage2024#TRIPOD-LLM reporting]].
 
 | ROBINS-I domain | Raw % agreement | Weighted κ | Kendall τ |
 | --- | :---: | :---: | :---: |
@@ -94,19 +94,19 @@ Domain-specific results: D3 (classification of intervention) had highest raw agr
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - GPT-4 ROBINS-I prompts were developed iteratively without prespecification|CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability]]
+- [[sysrev/dgraph/caveats/CVT - GPT-4 ROBINS-I prompts were developed iteratively without prespecification|CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM use in systematic reviews needs a structured protocol|CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
+- [[sysrev/dgraph/claims/CLM - LLM use in systematic reviews needs a structured protocol|CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
 
-- [[CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
+- [[sysrev/dgraph/claims/CLM - LLMs achieve moderate appraisal accuracy but cannot yet replace expert judgment|CLM - LLMs achieve moderate accuracy on structured quality appraisal tasks but cannot yet substitute for expert human judgment]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]

@@ -1,0 +1,57 @@
+[
+ {
+  "citekey": "sarolAssessingCitationIntegrity2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Sarol et al. - 2024 - Assessing citation integrity.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/sarolAssessingCitationIntegrity2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - 39.18% of 3063 biomedical citations had accuracy errors.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Annotator agreement on citation labels was only kappa 0.18-0.31.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 citation F1 0.80 for accurate but 0.09 for inaccurate.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - MultiVerS reached micro-F1 0.59 on citation accuracy.md"
+  ]
+ },
+ {
+  "citekey": "shahidLiteratureGroundedNoveltyAssessment2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Shahid et al. - 2025 - Literature-Grounded Novelty Assessment of Scientific Ideas.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/shahidLiteratureGroundedNoveltyAssessment2025.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - AI Scientist reached 0.47 accuracy on novelty test set.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Dropping RankGPT re-ranker cut accuracy 89.66% to 13.79%.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines.md"
+  ]
+ },
+ {
+  "citekey": "wrightsonGPTRCTsUsing2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Wrightson et al. - 2025 - GPT for RCTs Using AI to determine adherence to clinical trial reporting guidelines.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/wrightsonGPTRCTsUsing2025.txt",
+  "extra_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/wrightsonGPTRCTsUsing2025_extra.txt",
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Fine-tuned Llama 2 improved from F1=0.63 to F1=0.84 on CONSORT questions.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 Turbo reached F1=0.89 on 9 CONSORT questions.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 Vision read CONSORT flow diagrams at 100% but missing details at only 57%.md"
+  ]
+ },
+ {
+  "citekey": "sonWhenAICoScientists2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Son et al. - 2025 - When AI Co-Scientists Fail SPOT-a Benchmark for Automated Verification of Scientific Research.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/sonWhenAICoScientists2025.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLM confidence was near zero across 498 SPOT evaluations.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 hit 62.6% pass@4 on equation-proof errors but near 0% on figure duplication.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led SPOT with 37.8% pass@4.md"
+  ]
+ },
+ {
+  "citekey": "xuCanLLMsIdentify2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Xu et al. - 2025 - Can LLMs Identify Critical Limitations within Scientific Research A Systematic Evaluation on AI Res.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/xuCanLLMsIdentify2025.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4o reached 52% on LimitGen-Syn vs 86% for experts and 68.1% for MARG.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - RAG raised GPT-4o limitation accuracy by 12.2 points.md"
+  ]
+ }
+]

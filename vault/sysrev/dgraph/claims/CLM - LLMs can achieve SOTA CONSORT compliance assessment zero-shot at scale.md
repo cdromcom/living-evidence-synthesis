@@ -16,7 +16,7 @@ title: "LLMs can achieve state-of-the-art CONSORT compliance assessment performa
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[@srinivasanEvaluatingReportingQuality2025a]]
+> [[sysrev/dgraph/source/@srinivasanEvaluatingReportingQuality2025a]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -29,10 +29,10 @@ title: "LLMs can achieve state-of-the-art CONSORT compliance assessment performa
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology|EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology]]
+- [[sysrev/dgraph/evidence/EVD - CONSORT compliance ranged from 35.16% in pharmacology to 63.35% in urology|EVD - CONSORT compliance varied from 35.16 percent in pharmacology to 63.35 percent in urology-nephrology]]
 
-- [[EVD - GPT-4o-mini reached F1 0.85 on CONSORT-TM beating prior SOTA by over 40%|EVD - GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent]]
+- [[sysrev/dgraph/evidence/EVD - GPT-4o-mini reached F1 0.85 on CONSORT-TM beating prior SOTA by over 40%|EVD - GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent]]
 
-- [[EVD - CONSORT compliance rose from 27.3% to 56.1% over decades|EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs]]
+- [[sysrev/dgraph/evidence/EVD - CONSORT compliance rose from 27.3% to 56.1% over decades|EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs]]
 
-- [[EVD - Only 9.7% of RCTs reported sequence generation and 15.25% allocation concealment|EVD - Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs]]
+- [[sysrev/dgraph/evidence/EVD - Only 9.7% of RCTs reported sequence generation and 15.25% allocation concealment|EVD - Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs]]

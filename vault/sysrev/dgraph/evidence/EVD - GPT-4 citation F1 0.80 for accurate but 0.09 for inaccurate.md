@@ -24,7 +24,7 @@ title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accu
 
 ## Source
 
-[[@sarolAssessingCitationIntegrity2024]]
+[[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
 
 ## Description
 
@@ -76,7 +76,7 @@ title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accu
 - Authors note that "better prompting strategies, specifically focusing on NOT_ACCURATE, could yield better results"; only slight manual variations were tried.
 - GPT-3.5-turbo with 5-shot in-context learning achieved 0.89 F1 on the citation-context (binary) sub-task, no improvement over the trivial citance baseline (0.94).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
 
 | Model | Micro-F1 | Macro-F1 | ACC F1 (recall) | N_ACC F1 | IRR F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |
@@ -95,18 +95,19 @@ title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accu
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
-- [[CVT - Low annotator agreement weakened citation accuracy labels|CVT - Low inter-annotator agreement on citation accuracy labels limited quality of training and evaluation data]]
+- [[sysrev/dgraph/caveats/CVT - Low annotator agreement weakened citation accuracy labels|CVT - Low inter-annotator agreement on citation accuracy labels limited quality of training and evaluation data]]
+
+- [[sysrev/dgraph/caveats/CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Quotation errors are subtle and currently hard for NLP models to catch|CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]
+- [[sysrev/dgraph/claims/CLM - Quotation errors are subtle and currently hard for NLP models to catch|CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
-- [[EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]

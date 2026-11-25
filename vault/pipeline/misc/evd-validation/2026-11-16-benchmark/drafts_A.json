@@ -1,0 +1,110 @@
+[
+ {
+  "row": 3,
+  "draft": "Compared to human reviewers, GPT-4 feedback on 308 AI and computational biology researchers' own research reports was rated more helpful than at least some human reviewers' feedback by 82.4% of those researchers.",
+  "chars": 212,
+  "source_note": "Description quote (p. 1) and Other Notes table (Fig. 4c, levels 2-5 = 82.4%; n = 308). Field from Who? (AI/computational biology, 110 US institutions). Page does not say zero-shot (single-pass prompt), so prompting omitted."
+ },
+ {
+  "row": 4,
+  "draft": "Poe Assistant, GPT 3.5, and Google Bard drafting IRB standard operating procedures (SOPs) on 16 topics covered the key sections of reference SOPs from Mayo Clinic and Harvard Longwood, but differed in content on 7 of 16 topics.",
+  "chars": 227,
+  "source_note": "Description quote (p. 85: purpose, scope, definitions, procedures, responsibilities covered); Other Notes table: 16 topics, 7 topics with distinctive per-platform differences (Table 2). No quantitative score reported."
+ },
+ {
+  "row": 7,
+  "draft": "Compared to the key responses expected by two expert raters, Google Bard, GPT 3.5, Claude-Instant-100k, and GPT 4 single-prompted on 7 health research ethics case studies each caught at most 1 of 7 ethical issues (GPT 4 = 0).",
+  "chars": 225,
+  "source_note": "Other Notes single-prompt domain table (Table 2, p. 128): 7 domain rows; Bard identified placebo (case 5), GPT 3.5 identified ICD content (case 3), Claude partial on placebo, GPT 4 none. The '1 of 7' is my count of the page's 7 domain rows (rows group cases), not a statistic the authors report."
+ },
+ {
+  "row": 8,
+  "draft": "Google Bard, GPT 3.5, Claude-Instant-100k, and GPT 4 writing informed consent documents for 7 health research ethics cases included all fundamental HHS checklist elements, yet fully specified only 1-4 of 8 case-specific items.",
+  "chars": 226,
+  "source_note": "Description quote (p. 127) for fundamental elements; Other Notes Table 4 summary (p. 132): counting 'specified' cells over 8 item rows gives Bard 1, Claude 2, GPT 4 3, GPT 3.5 4 (plus 'partially specified' consent for GPT 3.5/4). Counts are my derivation; authors report no accuracy. JP's '30-60%' could not be reproduced from the page."
+ },
+ {
+  "row": 9,
+  "draft": "Compared to GPT 3.5 and GPT-4 with in-context learning, the bespoke fine-tuned model MultiVerS (top-20 retrieved evidence) classified the accuracy of held-out citations to 100 biomedical research reports best (micro-F1 score = 0.59).",
+  "chars": 233,
+  "source_note": "Description quote (p. 1) and Table 4 (p. 6) row MultiVerS top-20 micro-F1 0.59; GPT comparators named in Who?; Other Notes: best MultiVerS vs. GPT-4 McNemar p<=.05. GPT 3.5/GPT-4 F1 values are not on the page, so not given. 100 PMC-OA reference articles from Who?."
+ },
+ {
+  "row": 10,
+  "draft": "GPT 3.5 with chain-of-thought prompting checking 20 orthodontic systematic review abstracts against 12 items of the reporting guideline PRISMA did not differ significantly from two human raters on 11 items (Fisher's exact test p > 0.05).",
+  "chars": 237,
+  "source_note": "Other Notes PRISMA table: only item 3 (eligibility criteria, 90% vs. 60%) had p = 0.028; all other 11 items p >= 0.091 or perfect agreement. Sample of 20 SR abstracts from 4 orthodontic journals (Who?). Prompting: expert impersonation + chain-of-thought (How?)."
+ },
+ {
+  "row": 11,
+  "draft": "GPT 3.5 with chain-of-thought prompting checking 20 orthodontic RCT abstracts against 17 items of the reporting guideline CONSORT-A did not differ significantly from two human raters on 15 items (Fisher's exact test p > 0.05).",
+  "chars": 226,
+  "source_note": "Other Notes CONSORT-A table: significant only for item 8 randomization (100% vs. 55%, p = 0.001) and item 11 recruitment (100% vs. 0%, p < 0.001); other 15 items p >= 0.082 or perfect. 20 RCT abstracts (Who?)."
+ },
+ {
+  "row": 12,
+  "draft": "Compared to two clinician reviewers, GPT 3.5 zero-shot scoring 30 implant-dentistry RCT abstracts with the reporting guideline CONSORT-A differed on overall compliance score by 4.9 percentage points on average (Bland-Altman mean difference).",
+  "chars": 241,
+  "source_note": "Description quote (p. 3): mean difference 4.92%; Methods: zero-shot template, 30 abstracts, two clinician reviewers. Page notes the printed 95% CI (0.62%, 0.37%) is inconsistent (lower > upper bound), so CI omitted."
+ },
+ {
+  "row": 15,
+  "draft": "Claude 3.7 Sonnet zero-shot checking 245 withdrawn arXiv research reports as PDFs flagged the error behind the withdrawal in only 16.3% of papers within five flagged problems, half its rate when given LaTeX source (33.1%).",
+  "chars": 222,
+  "source_note": "Description quote (p. 3) and Other Notes table (Table 2): HR@5 PDF 16.3%, LaTeX 33.1%; test n = 245 (Who?); zero-shot (What?). Comparator is LaTeX ingestion; other models' HR@5 not on this page. Dropped the 64.9% no-problem figure to keep one finding."
+ },
+ {
+  "row": 16,
+  "draft": "Compared to GPT-4 (20.7%) and four other LLMs, Claude Opus zero-shot flagging deficient segments in 380 human peer reviews of 100 ICLR research reports on the AAAR-1.0 benchmark was best, but poor (F1 score = 22%).",
+  "chars": 214,
+  "source_note": "Description (Table 7, p. 11) and Other Notes table: Claude Opus Either-No F1 21.99, GPT-4 20.66, Gemini 1.5 20.34, Llama3-70B 18.43; 100 papers/380 reviews/11,376 segments (Who?). Inconsistency: Tools line says claude-3-5-sonnet-20240620 is labeled 'Claude Opus' in Table 7; I kept the paper's label."
+ },
+ {
+  "row": 17,
+  "draft": "Combining nine runs of Claude 3 Opus, Claude 2, GPT-4, GPT 3.5, and Mixtral-8x22B on 112 pediatric surgery systematic reviews with the reporting guideline PRISMA agreed more with humans as more ratings were deferred (Cohen's kappa = 0.59-0.77).",
+  "chars": 244,
+  "source_note": "Other Notes table (Table 3, p. 7): PRISMA kappa 0.59 at 5/9 (4% deferred) to 0.77 at 9/9 (74% deferred); accuracy 75-88%. Comparator: two-rater human consensus. Used kappa over accuracy per style rules; deferral range dropped for length."
+ },
+ {
+  "row": 18,
+  "draft": "GPT-4o-mini zero-shot checking 21,041 open-access RCT research reports for alignment with the reporting guideline CONSORT found compliance varied by discipline, from 35.2% of items in pharmacology to 63.4% in urology-nephrology.",
+  "chars": 228,
+  "source_note": "Description quote (p. 6) and Other Notes table: pharmacology 35.16%, urology/nephrology 63.35%; 21,041 RCTs and zero-shot (What?/Who?). Comparator is across disciplines; only percentages reported."
+ },
+ {
+  "row": 19,
+  "draft": "Fine-tuned on GPT-4 Turbo's correct answers, Llama 2 70B checking held-out medical research reports against 8 items of the reporting guideline CONSORT beat its zero-shot base model (F1 score = 0.84 vs. 0.63; GPT-4 Turbo = 0.89).",
+  "chars": 228,
+  "source_note": "Description quote (p. 5) and Other Notes table: base F1 0.63 (acc 64%), fine-tuned F1 0.84 (acc 83%), GPT-4 Turbo reference 0.89 (on 9 questions, so not strictly comparable). TEST split = 20% of 113 papers (Who?), so I did not say '113'. Page does not name the field of Schulz et al. papers; 'medical' follows JP's wording."
+ },
+ {
+  "row": 21,
+  "draft": "Compared to human reviewers, the bespoke reviewer agent GAR (GPT-4o-mini) reviewing 200 ICLR 2023 research reports was preferred more often in pairwise comparisons (Bradley-Terry score: GAR = 0.68 vs. humans = 0.52).",
+  "chars": 216,
+  "source_note": "Description quote (p. 11) and Other Notes table: GPT-4o-judge BT 0.684 vs. 0.523; 200 ICLR 2023 papers (How?). Judge omitted per JP (goes to CVT). Caution: JP's 'Humans preferred' is wrong for these numbers; with the five expert human judges (Table 2) the scores are GAR 0.143 vs. human 0.112."
+ },
+ {
+  "row": 22,
+  "draft": "Compared to AI-Scientist, AI-Review, ReviewerGPT, and OpenReviewer, the bespoke reviewer agent GAR (GPT-4o-mini) reviewing 3,000 NeurIPS and ICLR research reports was rated most human-like by an LLM judge (3.9-4.0 vs. 2.4-3.4 of 5).",
+  "chars": 232,
+  "source_note": "Description quote (Table 7, p. 15) and Other Notes table: GAR 3.89/4.02/3.99; baselines 2.43-3.42; 1,000 papers each from NeurIPS 23, ICLR 22, ICLR 23 (Who?); GPT-4o judge; significance over best baseline t-test p<0.05 (dropped for length)."
+ },
+ {
+  "row": 23,
+  "draft": "Compared to human reviewers (F1 score = 0.49), the bespoke reviewer agent GAR (GPT-4o-mini) predicting acceptance of 3,000 NeurIPS and ICLR research reports did better (F1 score = 0.66, p < 0.002; prior best AI-Scientist = 0.54).",
+  "chars": 229,
+  "source_note": "Description quote (p. 11): average F1 0.66, AI-Scientist 0.54, human 0.49, p < 0.002. Inconsistency: the table shows GAR F1 0.61/0.66/0.60 (0.66 only on ICLR 22; mean about 0.62), so the quote's 'average 0.66' does not match the table. Human baseline comes from a NeurIPS consistency study cited as Beygelzimer et al. 2021 but called 'NeurIPS 2023'."
+ },
+ {
+  "row": 24,
+  "draft": "Compared to five other LLMs with RAG, GPT 3.5-turbo answering 15 questions from the reporting guideline STROBE about 39 observational medical research reports was most accurate (66.9% vs. GPT 4-1106 = 65.6%, p = .061, to 44.1%).",
+  "chars": 228,
+  "source_note": "Description quote (p. 16) and Other Notes tables: 66.9%, 65.6% (p = .061 n.s. vs. GPT 3.5), GPT 4-0613 44.1%; 39 articles, 15 questions (Who?). Only percentages reported. JP flagged the Description screenshot as the wrong quote; the quote text on the page matches the table, but the image was not checked."
+ },
+ {
+  "row": 26,
+  "draft": "GPT 3.5 few-shot predicting aspect scores from 427 human reviews of ICLR 2017 research reports correlated with reviewers' scores (Pearson's r = 0.65 vs. most-frequent-score baseline = 0.33), but not when given only the paper (r ≤ 0.26).",
+  "chars": 236,
+  "source_note": "Description quote and Other Notes Table 1 (p. 9342): few-shot given review Pearson 0.651; baseline 0.333 (quote says 'about 0.3'); given-paper Pearson 0.131-0.258. 427 reviews (Who?)."
+ }
+]

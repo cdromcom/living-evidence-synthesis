@@ -26,7 +26,7 @@ title: "OpenReviewer average recommendation was 5.4 matching human reviewers whi
 
 ## Source
 
-[[@idahlOpenReviewerSpecializedLarge2025]]
+[[sysrev/dgraph/source/@idahlOpenReviewerSpecializedLarge2025]]
 
 ## Description
 
@@ -72,7 +72,7 @@ title: "OpenReviewer average recommendation was 5.4 matching human reviewers whi
 - High recommendation scores (e.g., 8.1 for Llama-3.1-8B-Instruct) would lead to an "accept" outcome for most papers in the test set, making such scores misleading for pre-submission feedback.
 - Llama-OpenReviewer-8B is the full-finetune of the same base model that, off-the-shelf, gives the most inflated recommendations (8.1), so the 5.4 result is attributable to the peer-review fine-tune rather than the base model.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting]].
 
 | Model | Avg. recommendation (1–10) ± SD |
 | --- | :---: |
@@ -85,18 +85,20 @@ title: "OpenReviewer average recommendation was 5.4 matching human reviewers whi
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - OpenReviewer data was only ICLR and NeurIPS|CVT - The OpenReviewer training and test data were limited to ICLR and NeurIPS conferences limiting domain generalizability]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - General LLMs give overly positive recommendations unlike human reviewers|CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]
+- [[sysrev/dgraph/claims/CLM - General LLMs give overly positive recommendations unlike human reviewers|CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]
 
-- [[CLM - Fine-tuning on review data overcomes overly favorable LLM assessments|CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]
+- [[sysrev/dgraph/claims/CLM - Fine-tuning on review data overcomes overly favorable LLM assessments|CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]

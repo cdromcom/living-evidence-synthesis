@@ -26,7 +26,7 @@ title: "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% 
 
 ## Source
 
-[[@idahlOpenReviewerSpecializedLarge2025]]
+[[sysrev/dgraph/source/@idahlOpenReviewerSpecializedLarge2025]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% 
 - Authors acknowledge: "While human judgments could be more meaningful, they are expensive to obtain as, in our case, they would require annotators to be trained reviewers and study each paper in great detail."
 - No order-randomization, position-bias correction, or judge-model-diversity check is reported.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@idahlOpenReviewerSpecializedLarge2025#TRIPOD-LLM reporting]].
 
 | OpenReviewer vs. baseline (judge: GPT-4o 2024-11-20) | OpenReviewer wins | Tie | OpenReviewer loses |
 | --- | :---: | :---: | :---: |
@@ -86,20 +86,20 @@ title: "OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% 
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - LLM-as-judge may favor models similar to the judge|CVT - The evaluation used LLM-as-judge which may favor outputs from models similar to the judge]]
+- [[sysrev/dgraph/caveats/CVT - LLM-as-judge may favor models similar to the judge|CVT - The evaluation used LLM-as-judge which may favor outputs from models similar to the judge]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - General LLMs give overly positive recommendations unlike human reviewers|CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]
+- [[sysrev/dgraph/claims/CLM - General LLMs give overly positive recommendations unlike human reviewers|CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]
 
-- [[CLM - Fine-tuning on review data overcomes overly favorable LLM assessments|CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]
+- [[sysrev/dgraph/claims/CLM - Fine-tuning on review data overcomes overly favorable LLM assessments|CLM - Specialized fine-tuning on peer review data overcomes LLM tendency toward overly favorable assessments]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]
-- [[EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]
+- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM cost-effectiveness varies by orders of magnitude with smaller specialized models often Pareto-dominant]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM peer-review systems can predict paper acceptance and preference at near-human accuracy]]

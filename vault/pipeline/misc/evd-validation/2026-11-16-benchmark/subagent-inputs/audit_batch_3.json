@@ -1,0 +1,66 @@
+[
+ {
+  "citekey": "sridharanAssessingDecisionMakingCapabilities2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Sridharan and Sivaramakrishnan - 2024 - Assessing the Decision-Making Capabilities of AI.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/sridharanAssessingDecisionMakingCapabilities2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - AI platforms drafted SOPs covering fundamental sections with variations.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - All AI platforms missed post-trial herbal medicine access.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - No AI platform recognized the IRB quorum requirement.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Three AI platforms answered all 10 IRB cases correctly.md"
+  ]
+ },
+ {
+  "citekey": "robertsComparativeStudyChatGPT2023",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Roberts et al. 2023 - Comparative study of ChatGPT and human evaluators.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/robertsComparativeStudyChatGPT2023.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective.md"
+  ]
+ },
+ {
+  "citekey": "akyonEvaluatingCapabilitiesGenerative2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Akyon et al. - 2024 - Evaluating the capabilities of generative AI tools in understanding medical papers Qualitative stud.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/akyonEvaluatingCapabilitiesGenerative2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT 3.5-turbo topped STROBE questions at 66.9% correct.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT 4-0613 was lowest on STROBE questions at 44.1%.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLMs were least accurate on software and funding questions.md"
+  ]
+ },
+ {
+  "citekey": "alharbiAutomatedAssessmentReporting2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Alharbi and Asiri - 2024 - Automated Assessment of Reporting Completeness in Orthodontic Research Using LLMs An Observational.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/alharbiAutomatedAssessmentReporting2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - ChatGPT matched humans on 3 of 12 PRISMA items but not on eligibility criteria.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - ChatGPT matched humans on 6 of 17 CONSORT-A items but not on randomization.md"
+  ]
+ },
+ {
+  "citekey": "zhangDetectingReferenceErrors2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Zhang and Abernethy - 2024 - Detecting Reference Errors in Scientific Literature with Large Language Models.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/zhangDetectingReferenceErrors2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-3.5 Turbo quotation accuracy peaked at 68.0% and fell to 54.0% with context.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 Turbo detected quotation errors at 70.0% accuracy.md"
+  ]
+ },
+ {
+  "citekey": "wuAutomatedNoveltyEvaluationa",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Wu et al. - 2024 - Automated novelty evaluation.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/wuAutomatedNoveltyEvaluationa.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74.md"
+  ]
+ }
+]

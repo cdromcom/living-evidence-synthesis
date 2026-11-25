@@ -12,10 +12,11 @@ frontmatter, it is replaced rather than duplicated.
 """
 
 from __future__ import annotations
+import os
 import re
 from pathlib import Path
 
-VAULT = Path("/Users/ppatel/Documents/living-synthesis")
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 SOURCE_DIR = VAULT / "sysrev" / "dgraph" / "source"
 
 FRONTMATTER_RE = re.compile(r"^(---\n.*?\n---\n)", re.DOTALL)

@@ -26,7 +26,7 @@ title: "GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 re
 
 ## Source
 
-[[@zhouLLMReliableReviewer2024]]
+[[sysrev/dgraph/source/@zhouLLMReliableReviewer2024]]
 
 ## Description
 
@@ -81,7 +81,7 @@ title: "GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 re
 
 Macro accuracy (0.276) means only ~28% of questions were answered completely correctly. The task requires both logic reasoning and domain knowledge.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@zhouLLMReliableReviewer2024#TRIPOD-LLM reporting]].
 
 | Pipeline (step1 → step2) | Macro acc ↑ | Macro prec | Macro recall | Macro F1 | Micro acc ↑ | Micro prec | Micro recall | Micro F1 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -100,12 +100,12 @@ Macro accuracy (0.276) means only ~28% of questions were answered completely cor
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Zhou RR-MCQ came from only 14 ICLR papers|CVT - The Zhou RR-MCQ dataset was constructed from only 14 ICLR papers limiting diversity and scale]]
+- [[sysrev/dgraph/caveats/CVT - Zhou RR-MCQ came from only 14 ICLR papers|CVT - The Zhou RR-MCQ dataset was constructed from only 14 ICLR papers limiting diversity and scale]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
+- [[sysrev/dgraph/claims/CLM - LLMs are not yet reliable automatic reviewers|CLM - Current LLMs are not yet qualified as reliable automatic reviewers for scientific papers]]
 
-- [[CLM - General LLMs give overly positive recommendations unlike human reviewers|CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]
+- [[sysrev/dgraph/claims/CLM - General LLMs give overly positive recommendations unlike human reviewers|CLM - General-purpose LLMs produce overly positive peer review recommendations that do not reflect human reviewer distributions]]

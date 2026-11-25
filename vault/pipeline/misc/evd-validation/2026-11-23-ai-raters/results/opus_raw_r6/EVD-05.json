@@ -1,0 +1,33 @@
+{
+ "evd": 5,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.97,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "quote_fully_visible": 0,
+  "shot_connects": [
+   0.1
+  ],
+  "reason": "Screenshot shows the study-aim paragraph, not the passage about post-trial herbal medicine access."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0,
+   "Incorrect": 0.01,
+   "Missing": 0.03,
+   "NA": 0.96
+  },
+  "shot_connects": [
+   0.01
+  ],
+  "reason": "No numbers or table referenced; nothing to ground in a table or figure."
+ }
+}

@@ -17,7 +17,7 @@ title: "Combining human reviewer knowledge with LLM-generated method summaries i
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[@wuAutomatedNoveltyEvaluationa]]
+> [[sysrev/dgraph/source/@wuAutomatedNoveltyEvaluationa]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -31,14 +31,14 @@ title: "Combining human reviewer knowledge with LLM-generated method summaries i
 
 ### Grounding EVDs
 
-- [[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]
+- [[sysrev/dgraph/evidence/EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]
 
-- [[EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74|EVD - Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74]]
+- [[sysrev/dgraph/evidence/EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74|EVD - Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74]]
 
 ### Supporting Evidence
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]
+- [[sysrev/dgraph/evidence/EVD - Ours-SciBERT reached F1=0.83 on method novelty prediction|EVD - Ours-SciBERT with combined human and LLM knowledge achieved F1=0.83 and accuracy=0.84 on method novelty prediction]]
 
-- [[EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74|EVD - Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74]]
+- [[sysrev/dgraph/evidence/EVD - Removing knowledge module cut novelty accuracy from 0.84 to 0.74|EVD - Removing the knowledge-guided module from the novelty prediction model dropped accuracy from 0.84 to 0.74]]

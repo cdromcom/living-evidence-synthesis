@@ -24,7 +24,7 @@ title: "Three AI platforms responded correctly to all 10 IRB case study queries"
 
 ## Source
 
-[[@sridharanAssessingDecisionMakingCapabilities2024]]
+[[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024]]
 
 ## Description
 
@@ -69,7 +69,7 @@ title: "Three AI platforms responded correctly to all 10 IRB case study queries"
 
 - "Successfully responded to queries from all case studies" means all platforms produced an on-topic answer for every case, not that every answer was correct. Table 1 documents 9 distinct domains where at least one platform missed a GCP-relevant sub-issue, and Case Study 10 (post-trial access) was missed by all three.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
 
 | Outcome | Value |
 | --- | --- |
@@ -85,16 +85,16 @@ title: "Three AI platforms responded correctly to all 10 IRB case study queries"
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - IRB study tested only three AI platforms on ten cases|CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings]]
+- [[sysrev/dgraph/caveats/CVT - IRB study tested only three AI platforms on ten cases|CVT - Study used only three AI platforms evaluated on ten case studies limiting generalizability of IRB capability findings]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
+- [[sysrev/dgraph/claims/CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

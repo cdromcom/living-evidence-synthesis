@@ -188,7 +188,9 @@ function resolveWikilink(rawTarget) {
   // rawTarget is the text between [[ and ]], possibly "Target|Alias" and "Target#^anchor" / "Target#Section"
   let target = rawTarget.split("|")[0].trim();
   target = target.split("#")[0].trim();
-  const id = titleToId.get(target.toLowerCase());
+  let id = titleToId.get(target.toLowerCase());
+  // Obsidian path-qualified links ([[sysrev/dgraph/evidence/EVD - x]]): fall back to the file name.
+  if (!id && target.includes("/")) id = titleToId.get(target.slice(target.lastIndexOf("/") + 1).toLowerCase());
   return id || null;
 }
 
@@ -391,7 +393,8 @@ function rewriteBody(body) {
   text = text.replace(/\[\[([^\]]+)\]\]/g, (whole, inner) => {
     const [targetRaw, aliasRaw] = inner.split("|");
     const target = targetRaw.split("#")[0].trim();
-    const id = titleToId.get(target.toLowerCase());
+    let id = titleToId.get(target.toLowerCase());
+    if (!id && target.includes("/")) id = titleToId.get(target.slice(target.lastIndexOf("/") + 1).toLowerCase());
     const label = (aliasRaw || (id && realNameById.get(id)) || targetRaw.split("#")[0]).trim();
     if (id) return `[${label}](/nodes/${id})`;
     return label; // broken link: render as plain text

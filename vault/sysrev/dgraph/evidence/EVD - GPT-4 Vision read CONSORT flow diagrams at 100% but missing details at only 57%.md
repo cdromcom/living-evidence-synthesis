@@ -24,7 +24,7 @@ title: "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but det
 
 ## Source
 
-[[@wrightsonGPTRCTsUsing2025]]
+[[source/@wrightsonGPTRCTsUsing2025]]
 
 ## Description
 
@@ -72,7 +72,7 @@ title: "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but det
 - Q11's 57% accuracy (95% CI 39%–73%) is barely above chance for a binary task, and the lower CI bound (39%) is well below 50%.
 - No mention of whether GPT-4 Vision was prompted with the same temperature=0.2, Top P=0.2 settings used for GPT-4 Turbo text analysis.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@wrightsonGPTRCTsUsing2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[source/@wrightsonGPTRCTsUsing2025#TRIPOD-LLM reporting]].
 
 | CONSORT image question | n | F1-score | Accuracy (95% CI) |
 | --- | :---: | :---: | :---: |
@@ -92,11 +92,11 @@ title: "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but det
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs can assess trial reporting adherence with accuracy approaching 90%|CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]]
+- [[sysrev/dgraph/claims/CLM - LLMs can assess trial reporting adherence with accuracy approaching 90%|CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
-- [[EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]

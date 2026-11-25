@@ -1,0 +1,46 @@
+{
+ "evd": 27,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.92,
+  "reason": "GPT-4 vs Cochrane reviewers on ROBINS-I overall risk of bias: 61% agreement, Kendall 0.35; clear LLM performance finding."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote states 61% raw agreement on overall risk of bias with Kendall 0.35, matching the statement."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.04,
+   "Incorrect": 0.02,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "Screenshot shows the highlighted sentence 'Raw agreement ... was 61% (Kendall coefficient=0.35)' word for word."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.04,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.04,
+   "Missing": 0,
+   "NA": 0.9
+  },
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "61% and 0.35 are fully in the quote; no table or figure referenced."
+ }
+}

@@ -26,7 +26,7 @@ title: "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it
 
 ## Source
 
-[[@liangCanLargeLanguage2024a]]
+[[sysrev/dgraph/source/@liangCanLargeLanguage2024a]]
 
 ## Description
 
@@ -73,7 +73,7 @@ title: "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it
 - 17.5% of participants considered GPT-4 feedback inferior to most human feedback (Fig. 4c), i.e., the helpfulness distribution is real but not uniform.
 - IRB approval obtained from Stanford; participants compensated $20 for ~15–20 min.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
 
 | Survey item (Likert) | Distribution (n=308) |
 | --- | --- |
@@ -93,18 +93,18 @@ title: "57.4% of 308 researchers found GPT-4 feedback helpful and 82.4% found it
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Liang et al user study had self-selection bias|CVT - The Liang et al user study was subject to self-selection bias as participants opted in to receive LLM feedback]]
+- [[sysrev/dgraph/caveats/CVT - Liang et al user study had self-selection bias|CVT - The Liang et al user study was subject to self-selection bias as participants opted in to receive LLM feedback]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
+- [[sysrev/dgraph/claims/CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
 
-- [[CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
+- [[sysrev/dgraph/claims/CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - Users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers]]

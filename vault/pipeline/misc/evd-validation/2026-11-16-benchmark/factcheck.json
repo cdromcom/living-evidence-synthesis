@@ -1,0 +1,242 @@
+[
+ {
+  "row": 3,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 4,
+  "verdict": "OK",
+  "problems": [
+   "(note, no fix needed) Minor: 'key sections of reference SOPs' slightly conflates; page says the platforms covered the fundamental sections of the SOPs requested and were then compared against Mayo/Harvard SOPs. Acceptable."
+  ],
+  "suggested_draft": null
+ },
+ {
+  "row": 7,
+  "verdict": "FIX",
+  "problems": [
+   "'at most 1 of 7 ethical issues (GPT 4 = 0)' is the drafter's count of the page's 7 summary domain rows; it contradicts the page: 'mostly missed' risk-mitigation cells mean some issues were caught, and Other Notes credits GPT 3.5 with case 6 researcher risk and case 7 separate consent, Claude with case 1 procedure observation, Bard with case 7 consent",
+   "'key responses expected by two expert raters' is inaccurate: the two raters were the authors, who rated outputs against expected key responses (Table 1), the FERCAP-SIDCER handbook and HHS checklist"
+  ],
+  "suggested_draft": "Google Bard, GPT 3.5, Claude-Instant-100k, and GPT 4, single-prompted on 7 health research ethics case studies, answered every case, but all four missed the flawed non-randomized design (case 4) and the eligibility issues (cases 1, 3)."
+ },
+ {
+  "row": 8,
+  "verdict": "FIX",
+  "problems": [
+   "'fully specified only 1-4 of 8 case-specific items' is a drafter-derived count from the page's selective summary of Table 4, not an authors' statistic; 2 of the 8 rows ('benefits not guaranteed', 'statement of consent') apply to all 7 cases, so 'case-specific' is wrong; the 8-row denominator is the vault's choice, not the paper's"
+  ],
+  "suggested_draft": "Bard, GPT 3.5, Claude-Instant-100k, and GPT 4 writing informed consent documents for 7 health research ethics cases included all fundamental HHS checklist elements, yet all used jargon and none stated how many participants would be recruited."
+ },
+ {
+  "row": 9,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 10,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 11,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 12,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 15,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 16,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 17,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 18,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 19,
+  "verdict": "FIX",
+  "problems": [
+   "'medical' is not on this page (no field named; the companion GPT-4 Turbo page says sports medicine)",
+   "GPT-4 Turbo = 0.89 is pooled over 9 items incl. the hardest (Q9, F1 0.57) that Llama 2 skipped; presenting it as a like-for-like comparator needs the '9 items' qualifier"
+  ],
+  "suggested_draft": "Fine-tuned on GPT-4 Turbo's correct answers, Llama 2 70B checking held-out text of research reports against 8 items of the reporting guideline CONSORT beat its zero-shot base model (F1 score = 0.84 vs. 0.63; GPT-4 Turbo on 9 items = 0.89)."
+ },
+ {
+  "row": 21,
+  "verdict": "OK",
+  "problems": [
+   "(note, no fix needed) Judge (GPT-4o) not named; 'preferred' is by an LLM judge, which the reader cannot tell. Acceptable if the judge goes to a CVT as noted."
+  ],
+  "suggested_draft": null
+ },
+ {
+  "row": 22,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 23,
+  "verdict": "FIX",
+  "problems": [
+   "'3,000 NeurIPS and ICLR research reports ... F1 = 0.66' does not match the page's table: GAR F1 is 0.61 (NeurIPS 23), 0.66 (ICLR 22), 0.60 (ICLR 23), mean about 0.62; 0.66 holds only for ICLR 2022",
+   "AI-Scientist 0.54 is the cross-dataset mean; on ICLR 2022 it is 0.57",
+   "Human F1 0.49 comes from a separate NeurIPS consistency study, not human reviews of these papers; 'Compared to human reviewers' implies a same-paper comparison"
+  ],
+  "suggested_draft": "Compared to AI-Scientist (F1 score = 0.57), the bespoke reviewer agent GAR (GPT-4o-mini) predicting acceptance of 1,000 ICLR 2022 research reports did best (F1 score = 0.66), above humans in a separate NeurIPS consistency study (0.49)."
+ },
+ {
+  "row": 24,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 26,
+  "verdict": "FIX",
+  "problems": [
+   "'reviewers' scores': page describes the gold as manually annotated aspect scores (PeerRead), not the reviewers' own scores",
+   "'but not when given only the paper (r <= 0.26)' overstates: page reports a dramatic drop (r = 0.13-0.26), not zero correlation"
+  ],
+  "suggested_draft": "GPT 3.5 few-shot predicting aspect scores from 427 human reviews of ICLR 2017 research reports correlated with human-annotated scores (Pearson's r = 0.65 vs. most-frequent-score baseline = 0.33), but far less given only the paper (r ≤ 0.26)."
+ },
+ {
+  "row": 27,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 30,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 36,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 37,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 38,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 39,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 40,
+  "verdict": "FIX",
+  "problems": [
+   "'sports medicine RCT' is not on this page (it says clinical trial papers / Schulz et al. labels; field appears only on the companion GPT-4 Turbo page)",
+   "'but not missing dropout reasons' overstates a 57% accuracy / F1 0.58 result (page: 'less accurate'); also the 20 images include 10 distractors drawn from both TRAIN and TEST"
+  ],
+  "suggested_draft": "GPT-4 Vision zero-shot checking 20 figures from clinical trial research reports against the reporting guideline CONSORT recognized every participant flow diagram (F1 score = 1.0) but often missed absent dropout reasons (F1 score = 0.58)."
+ },
+ {
+  "row": 41,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 42,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 43,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 46,
+  "verdict": "OK",
+  "problems": [
+   "(note, no fix needed) Values verified against Table 3 image (Claude-2 kappa 0.92, 1054/3024 = 35% deferred; combined 9/9 kappa 0.77). Combined-LLM kappa appears only in the image, not the page text."
+  ],
+  "suggested_draft": null
+ },
+ {
+  "row": 47,
+  "verdict": "OK",
+  "problems": [
+   "(note, no fix needed) Verified against Table 3 image (GPT-3.5 kappa 0.93, 645/1232 = 52%; combined 9/9 kappa 0.82)."
+  ],
+  "suggested_draft": null
+ },
+ {
+  "row": 48,
+  "verdict": "OK",
+  "problems": [
+   "(note, no fix needed) Opus pair is not significantly better than human alone (Table 3 cell not bold; only GPT-3.5 pair significant for PRECIS-2). 'agreed more' is numerically true; kappa 0.73 confirmed in Table 3 image (page text table says 0.72)."
+  ],
+  "suggested_draft": null
+ },
+ {
+  "row": 49,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 80,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 81,
+  "verdict": "OK",
+  "problems": [],
+  "suggested_draft": null
+ },
+ {
+  "row": 82,
+  "verdict": "OK",
+  "problems": [
+   "(note, no fix needed) Gold standard is the handbook plus ICH E6 GCP; 'a handbook's answers' is a simplification but not wrong."
+  ],
+  "suggested_draft": null
+ }
+]

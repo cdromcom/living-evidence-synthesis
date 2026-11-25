@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power"
+  - CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power
 tags:
   - cvt/domain/statistical-rigor
   - cvt/mechanism/small-sample
@@ -11,19 +11,19 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]"
-  - "[[EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]"
+  - "[[sysrev/dgraph/evidence/EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]"
+  - "[[sysrev/dgraph/evidence/EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb3-7436-879b-1256d66f19e9
 type: inferred
 severity: moderate
-title: "SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power"
+title: SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power
 ---
 
 ## Source
 
-[[@sonWhenAICoScientists2025]]
+[[sysrev/dgraph/source/@sonWhenAICoScientists2025]]
 
 ### Limitation
 
@@ -39,6 +39,6 @@ The SPOT benchmark contains only 83 manuscripts with 91 annotated errors. Some e
 
 ### Applies To
 
-- [[EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]
+- [[sysrev/dgraph/evidence/EVD - o3 led SPOT with 37.8% pass@4|EVD - o3 achieved best SPOT performance with 6.1% precision 21.1% recall and 37.8% pass@4]]
 
-- [[EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]
+- [[sysrev/dgraph/evidence/EVD - LLM confidence was near zero across 498 SPOT evaluations|EVD - LLM confidence approaches zero across 498 model-instance SPOT evaluations with only 2 full-confidence cases]]

@@ -1,0 +1,46 @@
+{
+ "evd": 68,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.9,
+  "reason": "Match rate with human recommendations, 55.5% vs 23.8%, is a clear LLM reviewer performance result."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote gives 55.5% for OpenReviewer and 23.8% for GPT4o exactly."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.95,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "Screenshot shows the quoted 55.5%/23.8% passage word for word."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.08,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.05,
+   "Missing": 0.02,
+   "NA": 0.83
+  },
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "All numbers (55.5%, 23.8%) are in the quote; no table needed."
+ }
+}

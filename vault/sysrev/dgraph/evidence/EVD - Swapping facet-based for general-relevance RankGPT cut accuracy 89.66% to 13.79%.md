@@ -24,7 +24,7 @@ title: "Swapping the facet-based RankGPT re-ranker for a general-relevance RankG
 
 ## Source
 
-[[@shahidLiteratureGroundedNoveltyAssessment2025]]
+[[sysrev/dgraph/source/@shahidLiteratureGroundedNoveltyAssessment2025]]
 
 ## Description
 
@@ -81,7 +81,7 @@ title: "Swapping the facet-based RankGPT re-ranker for a general-relevance RankG
 - PDF check 2026-11-24: this bullet said removing the LLM re-ranker is "far more harmful" than swapping facet-based for general-relevance; the table shows the reverse (89.66% -> 13.79% for the swap, 13.79% -> 10.34% for removal) (Table 2, p. 102).
 - PDF check 2026-11-24: moved from the arXiv v1 PDF to the SDP 2025 proceedings PDF; quotes cited p. 7 now carry printed pages 101 or 102 (PDF pp. 6 and 7); quote "Table 2 shows that..." and "We use o3-mini..." are on printed p. 102, the two "58 ideas" quotes on p. 101. Table 2 and Table 3 values re-read from the rendered pages; unchanged.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@shahidLiteratureGroundedNoveltyAssessment2025#TRIPOD-LLM reporting]].
 
 | Ablation condition | "Not novel" accuracy |
 | --- | :---: |
@@ -103,19 +103,21 @@ Grounding table: Table 3, "Comparing rank and overlap in retrieved papers with e
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - LLM novelty evaluation is highly prompt-sensitive and hard to replicate|CVT - LLM novelty evaluation is highly sensitive to prompt variations making results difficult to replicate]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Expert in-context examples significantly improve LLM novelty classification|CLM - Expert-annotated in-context examples significantly improve LLM novelty classification accuracy over zero-shot and prompt-optimized baselines]]
+- [[sysrev/dgraph/claims/CLM - Expert in-context examples significantly improve LLM novelty classification|CLM - Expert-annotated in-context examples significantly improve LLM novelty classification accuracy over zero-shot and prompt-optimized baselines]]
 
-- [[CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]
+- [[sysrev/dgraph/claims/CLM - Facet-based re-ranking is critical for novelty evaluation|CLM - Facet-based LLM re-ranking is critical for identifying the most relevant papers for novelty evaluation]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
+- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]

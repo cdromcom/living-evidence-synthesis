@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability"
+  - CVT - Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability
 tags:
   - cvt/domain/reproducibility
   - cvt/mechanism/iterative-protocol
@@ -11,18 +11,18 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bb3-7436-879b-1255fa33fa74
 type: author-stated
 severity: moderate
-title: "Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability"
+title: Prompts and data entry processes for GPT-4 ROBINS-I assessment were developed iteratively without prespecification limiting replicability
 ---
 
 ## Source
 
-[[@hasanIntegratingLargeLanguage2024]]
+[[sysrev/dgraph/source/@hasanIntegratingLargeLanguage2024]]
 
 ### Limitation
 
@@ -37,4 +37,4 @@ The prompts used to instruct GPT-4 were developed iteratively throughout data co
 
 ### Applies To
 
-[[EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]
+[[sysrev/dgraph/evidence/EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]

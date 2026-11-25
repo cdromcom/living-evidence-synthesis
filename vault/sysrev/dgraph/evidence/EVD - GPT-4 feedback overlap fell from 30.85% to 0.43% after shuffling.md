@@ -27,7 +27,7 @@ title: "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuff
 
 ## Source
 
-[[@liangCanLargeLanguage2024a]]
+[[sysrev/dgraph/source/@liangCanLargeLanguage2024a]]
 
 ## Description
 
@@ -74,7 +74,7 @@ title: "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuff
 - The shuffled control was within stratum (same journal + same Nature category, or same ICLR year), so the drop is not attributable to topic-distribution mismatch, only to paper-specificity.
 - Note: the original quote in the Description fixed a typo ("A significant decreased" → "the pairwise overlap significantly decreased") to match the verbatim source text.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
 
 | Dataset | Real LLM hit rate | Shuffled LLM hit rate | Drop | Sig. |
 | --- | :---: | :---: | :---: | :---: |
@@ -98,13 +98,13 @@ title: "Pairwise GPT-4 feedback overlap dropped from 30.85% to 0.43% after shuff
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
+- [[sysrev/dgraph/claims/CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
 
-- [[CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
+- [[sysrev/dgraph/claims/CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
-- [[EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM-generated peer review feedback is paper-specific not generic boilerplate]]

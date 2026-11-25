@@ -1,0 +1,46 @@
+{
+ "evd": 26,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.72,
+  "reason": "GPT-3.5 Turbo quotation-error detection accuracy by context; relevant, though statement's 'title only' peak mislabels Title+PDF."
+ },
+ "fidelity": {
+  "label": "Unmet",
+  "probs": {
+   "Met": 0.03,
+   "Partially Met": 0.1,
+   "Unmet": 0.87
+  },
+  "reason": "Quote only says GPT-4 models are stricter; no 68.0% or 54.0% accuracies or decline with context."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.93,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "Screenshot shows 'GPT-4 Turbo and GPT-4o performed much better ... limited', not the 'stricter in error detection' quote."
+ },
+ "table": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.88,
+   "Missing": 0,
+   "NA": 0.07
+  },
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "Accuracies 68.0% and 54.0% are from Table 3, which is not shown; screenshot is body text."
+ }
+}

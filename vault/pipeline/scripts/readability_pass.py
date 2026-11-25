@@ -9,12 +9,11 @@ Three rules:
 
 Idempotent: collapses any `\n\n\n+` runs to `\n\n`.
 """
+import os
 import re
 from pathlib import Path
 
-VAULT = Path('/Users/ppatel/Documents/living-synthesis')
-
-
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 def fix_readability(text: str) -> str:
     # Preserve YAML frontmatter (don't touch headings inside it)
     fm_end = -1

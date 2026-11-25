@@ -1,0 +1,30 @@
+{
+ "evd": 70,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.75,
+  "reason": "Automated method novelty prediction performance is relevant, a model rather than a general LLM."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.6,
+   "Partially Met": 0.32,
+   "Unmet": 0.08
+  },
+  "reason": "Quote says the SciBERT model with human and LLM knowledge performs best; F1 0.83 and accuracy 0.84 are absent."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.02,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "reason": "Screenshot shows the 'As shown in Table 2... knowledge from LLMs' passage word for word."
+ },
+ "table": null
+}

@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment"
+  - CVT - A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment
 tags:
   - cvt/domain/internal-validity
   - cvt/mechanism/single-prompt
@@ -10,19 +10,19 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]"
-  - "[[EVD - LLMs made systematic QUADAS-2 patient selection errors|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]"
+  - "[[sysrev/dgraph/evidence/EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]"
+  - "[[sysrev/dgraph/evidence/EVD - LLMs made systematic QUADAS-2 patient selection errors|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba6-760c-8784-4728c698876e
 type: author-stated
 severity: moderate
-title: "A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment"
+title: A single standardized prompt was used across all LLMs without prompt engineering potentially underestimating LLM capabilities in QUADAS-2 assessment
 ---
 
 ## Source
 
-[[@leucutaRiskBiasAssessment2025]]
+[[sysrev/dgraph/source/@leucutaRiskBiasAssessment2025]]
 
 ### Limitation
 
@@ -37,6 +37,6 @@ A single identical prompt was used for all four LLMs across all studies, without
 
 ### Applies To
 
-- [[EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]
+- [[sysrev/dgraph/evidence/EVD - Four LLMs averaged 72.95% correct on QUADAS-2|EVD - Mean correct QUADAS-2 assessment rate across four LLMs was 72.95% with Grok 3 highest at 77.27% and Gemini 2.0 Flash lowest at 67.27%]]
 
-- [[EVD - LLMs made systematic QUADAS-2 patient selection errors|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]
+- [[sysrev/dgraph/evidence/EVD - LLMs made systematic QUADAS-2 patient selection errors|EVD - LLMs demonstrated systematic reasoning errors in QUADAS-2 patient selection domain including misinterpreting consecutive sampling and case-control design]]

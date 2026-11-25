@@ -1,0 +1,18 @@
+{
+ "evd": 35,
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.2,
+   "Partially Correct": 0.72,
+   "Incorrect": 0.08,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "shot_connects": [
+   0.97
+  ],
+  "reason": "Right passage, but quote omits 'is not ideal: the best macro accuracy' without marking the edit."
+ }
+}

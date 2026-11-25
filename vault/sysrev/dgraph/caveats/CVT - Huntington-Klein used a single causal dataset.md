@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge"
+  - CVT - The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/single-domain
@@ -10,19 +10,19 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]"
-  - "[[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]"
+  - "[[sysrev/dgraph/evidence/EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]"
+  - "[[sysrev/dgraph/evidence/EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bba-70a7-8bd7-a8dbca60a07c
 type: inferred
 severity: moderate
-title: "The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge"
+title: The Huntington-Klein study used a single causal dataset limiting the scope of conclusions about LLM causal knowledge
 ---
 
 ## Source
 
-[[@huntington-kleinLLMsActRepositories2024]]
+[[sysrev/dgraph/source/@huntington-kleinLLMsActRepositories2024]]
 
 ### Limitation
 
@@ -39,6 +39,6 @@ The study examined LLM causal knowledge using a single, well-known case study (t
 
 ### Applies To
 
-- [[EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]
+- [[sysrev/dgraph/evidence/EVD - LLMs flagged expert and trimmed confounders at similar rates|EVD - LLMs designated expert-selected confounders in CDP as confounders at similar rates to variables trimmed from causal diagrams]]
 
-- [[EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]
+- [[sysrev/dgraph/evidence/EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.13|EVD - LLM confounder designation was highly inconsistent with Cohen kappa as low as 0.13 across prompt variations]]

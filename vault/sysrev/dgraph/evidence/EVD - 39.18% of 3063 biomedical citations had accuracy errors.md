@@ -25,7 +25,7 @@ title: "39.18% of 3063 annotated biomedical citation instances contained accurac
 
 ## Source
 
-[[@sarolAssessingCitationIntegrity2024]]
+[[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
 
 ## Description
 
@@ -80,7 +80,7 @@ title: "39.18% of 3063 annotated biomedical citation instances contained accurac
 - Per paper: average of 0.37 errors per review article vs. 0.40 per original paper (Student's t-test, p=.095, n.s.). Average number of distinct error types per paper was 0.52 (review) and 0.54 (original), each ranging 0–4.
 - Difference in occurrence of minor vs. major errors per paper was statistically significant (Student's t-test, p=.0085).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
 
 | Outcome | Value |
 | --- | --- |
@@ -95,10 +95,10 @@ title: "39.18% of 3063 annotated biomedical citation instances contained accurac
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
+- [[sysrev/dgraph/caveats/CVT - Sarol et al. excluded evidence in tables and figures|CVT - Sarol et al. excluded citation cases where evidence appeared in tables figures or supplementary material]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Quotation errors are subtle and currently hard for NLP models to catch|CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]
+- [[sysrev/dgraph/claims/CLM - Quotation errors are subtle and currently hard for NLP models to catch|CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]

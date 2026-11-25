@@ -15,10 +15,11 @@ nested CLM → EVD list a reader sees on the QUE page.
 """
 
 from __future__ import annotations
+import os
 import re
 from pathlib import Path
 
-VAULT = Path("/Users/ppatel/Documents/living-synthesis")
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 TOPICS = VAULT / "sysrev" / "indexes" / "Review-Arena.md"
 QUE_DIR = VAULT / "sysrev" / "dgraph" / "questions"
 

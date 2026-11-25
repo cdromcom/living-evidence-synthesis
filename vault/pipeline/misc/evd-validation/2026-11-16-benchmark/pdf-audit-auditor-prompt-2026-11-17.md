@@ -1,0 +1,15 @@
+You are auditing evidence pages (Markdown) of a research-synthesis vault against their source PDFs. You have no prior context; work only from files. You must NOT edit any vault file or any PDF. Write ONE output JSON file.
+
+INPUT: {BATCH} — a list of papers, each with: citekey, pdf (path), pdf_text (pdftotext -layout output of the PDF), extra_text (optional: supplement or an archived earlier version of the paper), pages (EVD page paths for that paper).
+
+WHY: these pages were written by LLM agents in April 2026. Their verbatim quotes were machine-checked against the PDFs, but numbers in tables and notes were retyped and never checked. Known error patterns from 3 pages already checked: row shifts (a value taken from the row above), column shifts, swapped +/- values between neighbouring cells, wrong model credited with a result, missing comparators that change who is "best", and the paper's own text contradicting its own table.
+
+TASK, for every page:
+1. Read the whole page. Collect every numeric claim OUTSIDE verbatim quotation blocks (quote lines start with `> "` and end with a citation; you may skip numbers inside those quotes, which were already checked). Include: tables, Other Notes bullets, Methods Context (N, sample sizes, dates, settings like temperature), page numbers cited for tables/figures, and claims of "best/highest/lowest/significant".
+2. Find each number in the PDF. Use pdf_text; for tables, the -layout text can misalign columns, so whenever a table matters and the text is ambiguous, render that PDF page as an image and look at it: `pdftoppm -r 150 -f N -l N -png "<pdf>" /private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/audit_img/<citekey>-pN` then Read the PNG. (mkdir the audit_img folder first.)
+3. Classify each mismatch: "wrong_value", "wrong_attribution", "row_or_column_shift", "missing_comparator", "unsupported" (not in the paper at all), "paper_self_contradiction", "wrong_page_ref". Ignore pure rounding (e.g., 39.18% vs 39.2%) and formatting.
+4. For each real error propose an exact fix as {old, new}: `old` must be a verbatim substring of the page that occurs exactly once (include enough surrounding text to be unique); `new` is the corrected text. Keep edits minimal; do not restyle. For a paper self-contradiction, do not "fix" the quote; propose adding one short note line instead (old = an existing unique line in Other Notes, new = that line followed by a new bullet starting "- PDF check 2026-11-17: ").
+5. Do NOT touch: verbatim quotes, frontmatter, page titles, filenames, wikilinks, image embeds.
+
+OUTPUT: write JSON to {OUT}: {"pages_checked": [paths], "numbers_checked": int, "issues": [ {"page": path, "category": str, "old": str, "new": str, "pdf_evidence": "page N, Table/Figure X or sentence: <short verbatim PDF snippet showing the correct value>", "confidence": "high"|"medium"} ], "notes": [free-text caveats, e.g. version mismatch, unreadable table]}.
+Use Python to confirm each `old` occurs exactly once in its page before writing. Final reply: number of pages, numbers checked, issues by category, and any page you could not verify.

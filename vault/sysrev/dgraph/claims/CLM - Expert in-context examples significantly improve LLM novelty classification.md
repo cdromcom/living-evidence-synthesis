@@ -15,7 +15,7 @@ title: "Expert-annotated in-context examples significantly improve LLM novelty c
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[@shahidLiteratureGroundedNoveltyAssessment2025]]
+> [[sysrev/dgraph/source/@shahidLiteratureGroundedNoveltyAssessment2025]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -28,8 +28,8 @@ title: "Expert-annotated in-context examples significantly improve LLM novelty c
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
+- [[sysrev/dgraph/evidence/EVD - AI Scientist reached 0.47 accuracy on novelty test set|EVD - AI Scientist achieved accuracy 0.47 F1 0.44 kappa 0.05 on same novelty evaluation test set]]
 
-- [[EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
+- [[sysrev/dgraph/evidence/EVD - Idea Novelty Checker reached 0.81 accuracy beating baselines|EVD - Idea Novelty Checker achieved accuracy 0.81 F1 0.79 Cohen kappa 0.59 outperforming baselines on expert-annotated dataset]]
 
-- [[EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]
+- [[sysrev/dgraph/evidence/EVD - Swapping facet-based for general-relevance RankGPT cut accuracy 89.66% to 13.79%|EVD - Swapping the facet-based RankGPT re-ranker for a general-relevance RankGPT dropped not-novel prediction accuracy from 89.66% to 13.79%]]

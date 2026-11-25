@@ -26,7 +26,7 @@ title: "LLM review recommendation scores exceeded human scores without area-chai
 
 ## Source
 
-[[@tyserAIDrivenReviewSystems2024]]
+[[sysrev/dgraph/source/@tyserAIDrivenReviewSystems2024]]
 
 ## Description
 
@@ -77,7 +77,7 @@ title: "LLM review recommendation scores exceeded human scores without area-chai
 - SD also tracks context: human SD = 1.61; P1 SD = 1.03 (over-confident); P5 SD increases (more variability), better matching the human distribution.
 - Authors flag that LLM Confidence scores (Figure 31) are skewed higher than human Confidence even at P5, calibration of the Confidence dimension is not solved by P5.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@tyserAIDrivenReviewSystems2024#TRIPOD-LLM reporting]].
 
 | Reviewer / context | Mean recommendation | SD | Direction vs. human |
 | --- | :---: | :---: | --- |
@@ -102,10 +102,10 @@ title: "LLM review recommendation scores exceeded human scores without area-chai
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
+- [[sysrev/dgraph/claims/CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]
+- [[sysrev/dgraph/evd-patterns/EP - General-purpose LLMs systematically over-rate papers compared to human reviewers]]

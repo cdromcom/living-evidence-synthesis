@@ -15,7 +15,7 @@ title: "LLMs can help automate appraisal of medical literature for reporting sta
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[@robertsComparativeStudyChatGPT2023]]
+> [[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -28,8 +28,8 @@ title: "LLMs can help automate appraisal of medical literature for reporting sta
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT and humans differed by 4.92% on CONSORT-A compliance|EVD - ChatGPT and human evaluators differed by mean 4.92% in overall compliance score on CONSORT-A]]
 
-- [[EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT diverged most on CONSORT-A conclusions by 0.764|EVD - ChatGPT diverged most from humans in the conclusion domain with mean difference 0.764 on CONSORT-A]]
 
-- [[EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]
+- [[sysrev/dgraph/evidence/EVD - ChatGPT-human correlation weakest on CONSORT-A intervention and objective|EVD - ChatGPT-human correlation was weakest in intervention and objective CONSORT-A domains r equals 0.02 and 0.06]]

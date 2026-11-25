@@ -25,7 +25,7 @@ title: "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human expert
 
 ## Source
 
-[[@xuCanLLMsIdentify2025]]
+[[sysrev/dgraph/source/@xuCanLLMsIdentify2025]]
 
 ## Description
 
@@ -82,7 +82,7 @@ title: "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human expert
 - PDF check 2026-11-24: ACL 2025 version (Proceedings of the 63rd ACL, Long Papers) used. Page citations (Xu et al., 2025) p. 9 -> p. 20659 (Table 3 and the "Even the best-performing" quote, PDF page 8), p. 6 -> p. 20658 (PDF page 7), p. 5 -> p. 20657 (PDF page 6), p. 4 -> p. 20656 (PDF page 5). All four quotes are verbatim in the new version.
 - PDF check 2026-11-24: human baseline sample size 100 examples -> 50 examples per subset (Appendix A.4, p. 20666, PDF page 15). The 100-example sample is the human evaluation of the systems (Table 3 caption, p. 20659).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@xuCanLLMsIdentify2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@xuCanLLMsIdentify2025#TRIPOD-LLM reporting]].
 
 | System | Coarse Acc. (auto, %) | Fine (0–5) | Human-eval Acc. (%) |
 | --- | :---: | :---: | :---: |
@@ -102,22 +102,22 @@ title: "GPT-4o identified 52% coarse accuracy on LimitGen-Syn while human expert
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - LimitGen covers only AI research|CVT - The LimitGen benchmark focused only on AI research limiting applicability to other scientific domains]]
+- [[sysrev/dgraph/caveats/CVT - LimitGen covers only AI research|CVT - The LimitGen benchmark focused only on AI research limiting applicability to other scientific domains]]
 
-- [[CVT - LimitGen-Syn limitations are artificial and may not match organic flaws|CVT - The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws]]
+- [[sysrev/dgraph/caveats/CVT - LimitGen-Syn limitations are artificial and may not match organic flaws|CVT - The LimitGen-Syn perturbation approach introduced artificial limitations that may not match organic research flaws]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
+- [[sysrev/dgraph/claims/CLM - LLMs cannot reliably identify paper limitations at expert reviewer level|CLM - LLMs cannot reliably identify scientific paper limitations at the level of human expert reviewers]]
 
-- [[CLM - Multi-agent LLMs give more specific and helpful feedback than single agents|CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]
+- [[sysrev/dgraph/claims/CLM - Multi-agent LLMs give more specific and helpful feedback than single agents|CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]
 
-- [[CLM - RAG improves LLM limitation identification by grounding in relevant literature|CLM - RAG augmentation improves LLM limitation identification by grounding generation in domain-relevant literature]]
+- [[sysrev/dgraph/claims/CLM - RAG improves LLM limitation identification by grounding in relevant literature|CLM - RAG augmentation improves LLM limitation identification by grounding generation in domain-relevant literature]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]

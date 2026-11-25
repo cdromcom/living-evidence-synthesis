@@ -1,0 +1,320 @@
+{
+  "v3_version": "arXiv:2505.23824v3 [cs.CL] 1 Apr 2026",
+  "issues": [
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "LLM-as-judge with Gemini 2.5 Pro (`preview-05-06`) and o3 (`2025-04-16`).",
+      "new": "LLM-as-judge with Gemini 2.5 Pro (`preview-06-05` in v3; v1 used `preview-05-06`) and o3 (`2025-04-16`) (v3 p. 4).",
+      "pdf_evidence": "v3 page 4, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-06-05, for its better performance on related benchmarks than preview-05-06) and o3 (2025-04-16)\"; v1 value: v1 page 3, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-05-06) and o3 (2025-04-16)\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "**Dependent variables:** HR@5; **average",
+      "new": "**Dependent variables:** HR@5; AP@5 (average precision of submissions judged true positives, PDF approach only; new in v3, p. 4); **average",
+      "pdf_evidence": "v3 page 4, Sec 2.3: \"LLM checkers were evaluated by their Average Precision (AP@k) on test papers if nc = 1\"; Table 2 now has an AP@5 column (PDF only); v1 value: v1 Table 2 (page 4) has only \"Hit Rate @5 (%)\", no precision metric",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "**excluded Claude as a judge** because its low PDF-approach hit rates (Table 3: 21.6% / 19.2%) indicated it was unqualified to judge in this task.",
+      "new": "**excluded Claude as a judge** because its overly low PDF-approach hit rate indicated it \"might not qualify\" as a judge (v3 p. 4; v3 no longer points to Table 3 here, and v3 Table 3 single-judge PDF hit rates for Claude as checker are 24.1% / 12.2%). In v3 the same two judges also rate each submission as a true problem or a false alarm against the PDF, which yields AP@5 (v3 p. 4).",
+      "pdf_evidence": "v3 page 4, Sec 2.4: \"its overly low hit rate under the PDF-based approach indicates that it might not qualify for serving as a judge\"; v3 page 6, Table 3: Claude PDF 24.1 / 12.2; v1 value: v1 page 3: \"overly low hit rates under the PDF-based approach (Table 3) indicate that it is unqualified\"; v1 Table 3: 21.6 / 19.2",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "LLM judges are Gemini 2.5 Pro and o3 (Claude was disqualified from the judge pool).",
+      "new": "LLM judges are Gemini 2.5 Pro (`preview-06-05` in v3) and o3 (Claude was disqualified from the judge pool).",
+      "pdf_evidence": "v3 page 4, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-06-05, for its better performance on related benchmarks than preview-05-06) and o3 (2025-04-16)\"; v1 value: v1 page 3, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-05-06) and o3 (2025-04-16)\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "- **Hit rate doubled under LaTeX (16.3% → 33.1%) and average problems submitted rose from 1.6 to 3.4**",
+      "new": "- **Hit rate more than doubled under LaTeX (11.0% → 24.1%, v3 Table 2, p. 5) and average problems submitted rose from 1.6 to 3.4**",
+      "pdf_evidence": "v3 page 5, Table 2: Claude 3.7 Sonnet HR@5 \"11.0\" (PDF), \"24.1\" (LaTeX); Avg 1.6 / 3.4; v1 value: v1 Table 2: 16.3 (PDF), 33.1 (LaTeX)",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "- Single-judge HR@5 (Table 3) for Claude as checker: PDF (Gemini-judge 21.6%, o3-judge 19.2%); LaTeX (Gemini-judge 44.5%, o3-judge 40.8%).",
+      "new": "- Single-judge HR@5 (v3 Table 3, p. 6) for Claude as checker: PDF (Gemini-judge 24.1%, o3-judge 12.2%); LaTeX (Gemini-judge 48.6%, o3-judge 26.5%).\n- Version update 2026-11-17: tables and notes now follow arXiv v3 (arXiv:2505.23824v3 [cs.CL] 1 Apr 2026; NeurIPS 2025 AI for Science workshop version), while the page title, aliases, Description quote/summary line, verbatim quotes and screenshots still reflect v1 (arXiv:2505.23824v1, 28 May 2025). Headline v1 → v3 changes: Claude's combined HR@5 fell from 16.3% to 11.0% (PDF) and from 33.1% to 24.1% (LaTeX) because v3 swapped the Gemini judge to Gemini 2.5 Pro `preview-06-05` (v1 `preview-05-06`); the 64.9% no-problem share, problem counts, token usage and costs are unchanged; v3 adds a precision metric, AP@5 (PDF only), on which Claude scored highest of all five checkers (36.4% vs. o3 29.5%, Gemini 2.5 Pro 35.2%), though it produced only 149 judge-confirmed true problems vs. 350 for o3 (v3 p. 4); v3 reworded the PDF explanation from \"Anthropic's PDF ingestion pipeline\" to \"Claude's PDF ingestion pipeline or scientific understanding via PDF\" (v3 p. 4). The 16.3% in the title is a v1 figure; the v3 equivalent is 11.0%.",
+      "pdf_evidence": "v3 page 6, Table 3: Claude PDF 24.1 / 12.2, LaTeX 48.6 / 26.5; v3 page 5, Table 2: Claude AP@5 36.4; v3 p.4: \"the o3 checker found 350, Gemini Pro found 293, and Claude found only 149\"; v1 value: v1 Table 3: PDF 21.6 / 19.2, LaTeX 44.5 / 40.8",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "*Figures reproduced from Zhang & Abernethy (2025), Tables 2 and 3, pp. 3–4. Single-judge rows are from Table 3; the rest from Table 2.*",
+      "new": "*Figures reproduced from Zhang & Abernethy, arXiv v3 (1 Apr 2026), Tables 2 and 3, pp. 5–6. Single-judge rows are from Table 3; the rest from Table 2. v3 Table 2 also reports AP@5 = 36.4% for Claude (PDF only; not tabulated here).*",
+      "pdf_evidence": "v3 page 5, Table 2 and v3 page 6, Table 3; v1 value: v1 Tables 2 and 3 on pp. 4 and 6",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "| **Claude 3.7 Sonnet: PDF** | **16.3%** |",
+      "new": "| **Claude 3.7 Sonnet: PDF** | **11.0%** |",
+      "pdf_evidence": "v3 page 5, Table 2: \"Claude 3.7 Sonnet 1.6 0, 4 11.0 36.4 43,357 1,630 311 0.159\"; v1 value: v1 Table 2: \"Claude 3.7 Sonnet 1.6 0 4 16.3 43,357 1,630 311 0.159\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "| Claude 3.7 Sonnet: LaTeX | 33.1% |",
+      "new": "| Claude 3.7 Sonnet: LaTeX | 24.1% |",
+      "pdf_evidence": "v3 page 5, Table 2: \"Claude 3.7 Sonnet 3.4 1, 5 24.1 – 28,284 2,701 515 0.133\"; v1 value: v1 Table 2: \"Claude 3.7 Sonnet 3.4 1 5 33.1 28,284 2,701 515 0.133\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "| Single-judge HR@5 (Gemini 2.5 Pro judge / PDF) | 21.6% |",
+      "new": "| Single-judge HR@5 (Gemini 2.5 Pro judge / PDF) | 24.1% |",
+      "pdf_evidence": "v3 page 6, Table 3, Hit Rate Evaluation, Claude 3.7 Sonnet (Gemini 2.5 Pro judge / PDF): 24.1; v1 value: v1 Table 3: 21.6",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "| Single-judge HR@5 (o3 judge / PDF) | 19.2% |",
+      "new": "| Single-judge HR@5 (o3 judge / PDF) | 12.2% |",
+      "pdf_evidence": "v3 page 6, Table 3, Hit Rate Evaluation, Claude 3.7 Sonnet (o3 judge / PDF): 12.2; v1 value: v1 Table 3: 19.2",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "| Single-judge HR@5 (Gemini 2.5 Pro judge / LaTeX) | 44.5% |",
+      "new": "| Single-judge HR@5 (Gemini 2.5 Pro judge / LaTeX) | 48.6% |",
+      "pdf_evidence": "v3 page 6, Table 3, Hit Rate Evaluation, Claude 3.7 Sonnet (Gemini 2.5 Pro judge / LaTeX): 48.6; v1 value: v1 Table 3: 44.5",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - Claude 3.7 Sonnet found no problem in 64.9% of papers and hit only 16.3%.md",
+      "category": "version_update",
+      "old": "| Single-judge HR@5 (o3 judge / LaTeX) | 40.8% |",
+      "new": "| Single-judge HR@5 (o3 judge / LaTeX) | 26.5% |",
+      "pdf_evidence": "v3 page 6, Table 3, Hit Rate Evaluation, Claude 3.7 Sonnet (o3 judge / LaTeX): 26.5; v1 value: v1 Table 3: 40.8",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "two LLM judges (Gemini 2.5 Pro `preview-05-06` and o3 `2025-04-16`).",
+      "new": "two LLM judges (Gemini 2.5 Pro `preview-06-05` in v3, `preview-05-06` in v1; and o3 `2025-04-16`) (v3 p. 4).",
+      "pdf_evidence": "v3 page 4, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-06-05, for its better performance on related benchmarks than preview-05-06) and o3 (2025-04-16)\"; v1 value: v1 page 3, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-05-06) and o3 (2025-04-16)\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "average / Q1 / Q3 number of problems identified, average input/think/output token usage",
+      "new": "Average Precision at k=5 (AP@5; new in v3, PDF approach only: per-paper share of submissions that both judges rate as true problems against the PDF, averaged over papers, v3 p. 4), average / Q1 / Q3 number of problems identified, average input/think/output token usage",
+      "pdf_evidence": "v3 page 4, Sec 2.3: \"LLM checkers were evaluated by their Average Precision (AP@k) on test papers if nc = 1\"; Table 2 now has an AP@5 column (PDF only); v1 value: v1 Table 2 (page 4) has only \"Hit Rate @5 (%)\", no precision metric",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "reasoning summary = \"detailed\"",
+      "new": "reasoning summary = \"auto\" (v3 Appendix B; v1 listed \"detailed\")",
+      "pdf_evidence": "v3 page 11, Appendix B: o3 and o4-mini \"reasoning summary: \\\"auto\\\"\"; v1 value: v1 Appendix B: \"reasoning summary: \\\"detailed\\\"\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "(7) Per-paper cost estimated from recorded token usage at early-May-2025 OpenAI pricing.",
+      "new": "(7) Per-paper cost estimated from recorded token usage at standard June-2025 OpenAI API pricing (v3 p. 4; v1 used early-May-2025 pricing). (8) New in v3: each judge also rates each problem submission as a true problem or a false alarm with the paper PDF attached, and both must affirm for a true positive, giving AP@5 under the PDF approach only (v3 p. 4).",
+      "pdf_evidence": "v3 page 4, Sec 3: \"estimated based on the standard API pricing of the LLM vendors in June 2025\"; v1 value: v1 page 3: \"estimated based on API pricing at the time of our experiments in early May 2025\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "plus 2 LLM judges (Gemini 2.5 Pro, o3 medium).",
+      "new": "plus 2 LLM judges (Gemini 2.5 Pro `preview-06-05` in v3, o3 medium).",
+      "pdf_evidence": "v3 page 4, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-06-05, for its better performance on related benchmarks than preview-05-06) and o3 (2025-04-16)\"; v1 value: v1 page 3, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-05-06) and o3 (2025-04-16)\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "- o3's HR@5 jumped from 64.9% (PDF) to 71.0% (LaTeX), suggesting OpenAI o-series models received specialized LaTeX training. Single-judge HR@5s (Table 3): Gemini-2.5-Pro judge 72.7% (PDF) / 75.5% (LaTeX); o3 judge 75.5% (PDF) / 80.4% (LaTeX), both-judges-affirm fusion drops these to 64.9% / 71.0%, demonstrating resistance of multi-judge approach to inflation.",
+      "new": "- o3's HR@5 rose only slightly from 48.2% (PDF) to 50.6% (LaTeX) (v3 Table 2, p. 5), which v3 reads as \"resistance to format change or a higher familiarity with LaTeX\" rather than v1's suggestion of specialized LaTeX training. Single-judge HR@5s (v3 Table 3, p. 6): Gemini-2.5-Pro judge 80.4% (PDF) / 79.2% (LaTeX); o3 judge 50.2% (PDF) / 51.4% (LaTeX); both-judges-affirm fusion drops these to 48.2% / 50.6%, which v3 describes as \"some resistance\" of the multi-judge approach \"to potential false positives\".",
+      "pdf_evidence": "v3 page 6, Table 3: o3 (medium) PDF 80.4 / 50.2, LaTeX 79.2 / 51.4; v3 page 5, Table 2: HR@5 48.2 / 50.6; v3 page 4, Sec 3: \"the hit rates of OpenAI o-series models remained around the same or slightly increased, suggesting resistance to format change or a higher familiarity with LaTeX\"; v1 value: v1 page 3: \"the hit rates of o-series models increased. This could suggest that they received specialized training with LaTeX or a larger LaTeX training set\"; v1 Table 3: 72.7 / 75.5 (PDF), 75.5 / 80.4 (LaTeX)",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "yet achieved the highest HR, \"potentially overthinking behavior did not result in higher hit rates.\"",
+      "new": "yet achieved the highest HR, \"potentially overthinking behavior did not result in higher hit rates.\" (Token counts unchanged in v3 Table 2, p. 5.)\n- Version update 2026-11-17: tables and notes now follow arXiv v3 (arXiv:2505.23824v3 [cs.CL] 1 Apr 2026; NeurIPS 2025 AI for Science workshop version), while the page title, aliases, Description summary line, verbatim quotes and screenshots still reflect v1 (arXiv:2505.23824v1, 28 May 2025). Headline v1 → v3 changes: o3 is still the top checker by hit rate, but its combined HR@5 fell from 64.9% to 48.2% (PDF) and from 71.0% to 50.6% (LaTeX) after v3 switched the Gemini judge to Gemini 2.5 Pro `preview-06-05`, and its lead over Gemini 2.5 Pro shrank to 9.0 pp (PDF, 48.2 vs. 39.2); estimated cost fell from $0.321 to $0.064 per paper (PDF) and from $0.383 to $0.077 (LaTeX) because v3 uses June-2025 standard pricing instead of early-May-2025 pricing; v3 adds AP@5 (PDF only), on which o3 scored 29.5%, below Gemini 2.5 Pro (35.2%) and Claude 3.7 Sonnet (36.4%), though o3 produced the most judge-confirmed true problems (350 vs. 293 for Gemini 2.5 Pro, v3 p. 4). The abstract sentence quoted in the Description (\"o3 performed the best, while o4-mini was the most cost-effective\") is v1 wording; v3's abstract says \"o3 exhibited the best problem identification performance among all models at a modest cost.\" The 64.9% and 71.0% in the title are v1 figures.",
+      "pdf_evidence": "v3 page 5, Table 2: o3 (medium) \"4.8 5, 5 48.2 29.5 16,594 3,152 729 0.064\" (PDF) and \"4.8 5, 5 50.6 – 21,990 3,156 927 0.077\" (LaTeX); v1 value: v1 Table 2: o3 64.9 / 0.321 (PDF), 71.0 / 0.383 (LaTeX)",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "| **o3 (medium): PDF** | **64.9%** | 4.8 (5, 5) | 16,594 | 3,152 | 729 | $0.321 |",
+      "new": "| **o3 (medium): PDF** | **48.2%** | 4.8 (5, 5) | 16,594 | 3,152 | 729 | $0.064 |",
+      "pdf_evidence": "v3 page 5, Table 2: \"o3 (medium) 4.8 5, 5 48.2 29.5 16,594 3,152 729 0.064\"; v1 value: v1 Table 2: \"o3 (medium) 4.8 5 5 64.9 16,594 3,152 729 0.321\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "| **o3 (medium): LaTeX** | **71.0%** | 4.8 (5, 5) | 21,990 | 3,156 | 927 | $0.383 |",
+      "new": "| **o3 (medium): LaTeX** | **50.6%** | 4.8 (5, 5) | 21,990 | 3,156 | 927 | $0.077 |",
+      "pdf_evidence": "v3 page 5, Table 2: \"o3 (medium) 4.8 5, 5 50.6 – 21,990 3,156 927 0.077\"; v1 value: v1 Table 2: \"o3 (medium) 4.8 5 5 71.0 21,990 3,156 927 0.383\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "| Single-judge HR@5 (Gemini 2.5 Pro judge / PDF) | 72.7% |",
+      "new": "| Single-judge HR@5 (Gemini 2.5 Pro judge / PDF) | 80.4% |",
+      "pdf_evidence": "v3 page 6, Table 3, Hit Rate Evaluation, o3 (medium) checker (Gemini 2.5 Pro judge / PDF): 80.4; v1 value: v1 Table 3: 72.7",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "| Single-judge HR@5 (o3 judge / PDF) | 75.5% |",
+      "new": "| Single-judge HR@5 (o3 judge / PDF) | 50.2% |",
+      "pdf_evidence": "v3 page 6, Table 3, Hit Rate Evaluation, o3 (medium) checker (o3 judge / PDF): 50.2; v1 value: v1 Table 3: 75.5",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "| Single-judge HR@5 (Gemini 2.5 Pro judge / LaTeX) | 75.5% |",
+      "new": "| Single-judge HR@5 (Gemini 2.5 Pro judge / LaTeX) | 79.2% |",
+      "pdf_evidence": "v3 page 6, Table 3, Hit Rate Evaluation, o3 (medium) checker (Gemini 2.5 Pro judge / LaTeX): 79.2; v1 value: v1 Table 3: 75.5",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o3 led reasoning LLMs with 64.9% hit rate on PDF and 71.0% on LaTeX.md",
+      "category": "version_update",
+      "old": "| Single-judge HR@5 (o3 judge / LaTeX) | 80.4% |",
+      "new": "| Single-judge HR@5 (o3 judge / LaTeX) | 51.4% |",
+      "pdf_evidence": "v3 page 6, Table 3, Hit Rate Evaluation, o3 (medium) checker (o3 judge / LaTeX): 51.4; v1 value: v1 Table 3: 80.4",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "LLM-as-judge pipeline with Gemini 2.5 Pro (`preview-05-06`) and o3.",
+      "new": "LLM-as-judge pipeline with Gemini 2.5 Pro (`preview-06-05` in v3; v1 used `preview-05-06`) and o3 (v3 p. 4).",
+      "pdf_evidence": "v3 page 4, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-06-05, for its better performance on related benchmarks than preview-05-06) and o3 (2025-04-16)\"; v1 value: v1 page 3, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-05-06) and o3 (2025-04-16)\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "computed from token usage at OpenAI API pricing in early May 2025.",
+      "new": "computed from token usage at standard OpenAI API pricing in June 2025 (v3 p. 4; v1 used early-May-2025 pricing). v3 also adds AP@5 (average precision of judge-confirmed true problems, PDF approach only).",
+      "pdf_evidence": "v3 page 4, Sec 3: \"estimated based on the standard API pricing of the LLM vendors in June 2025\"; v1 value: v1 page 3: \"estimated based on API pricing at the time of our experiments in early May 2025\"; v3 page 4, Sec 2.3: \"LLM checkers were evaluated by their Average Precision (AP@k) on test papers if nc = 1\"; Table 2 now has an AP@5 column (PDF only); v1 value: v1 Table 2 (page 4) has only \"Hit Rate @5 (%)\", no precision metric",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "reasoning summary = detailed",
+      "new": "reasoning summary = auto (v3 Appendix B; v1 listed detailed)",
+      "pdf_evidence": "v3 page 11, Appendix B: o3 and o4-mini \"reasoning summary: \\\"auto\\\"\"; v1 value: v1 Appendix B: \"reasoning summary: \\\"detailed\\\"\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "summed at early-May-2025 OpenAI API rates.",
+      "new": "summed at standard June-2025 OpenAI API rates (v3 p. 4).",
+      "pdf_evidence": "v3 page 4, Sec 3: \"estimated based on the standard API pricing of the LLM vendors in June 2025\"; v1 value: v1 page 3: \"estimated based on API pricing at the time of our experiments in early May 2025\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "LLM judges are Gemini 2.5 Pro and o3.",
+      "new": "LLM judges are Gemini 2.5 Pro (`preview-06-05` in v3) and o3.",
+      "pdf_evidence": "v3 page 4, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-06-05, for its better performance on related benchmarks than preview-05-06) and o3 (2025-04-16)\"; v1 value: v1 page 3, Sec 2.4: \"The two LLM judges are Gemini 2.5 Pro (preview-05-06) and o3 (2025-04-16)\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "- Cost ratio: o3 PDF ($0.321) is **8.4×** more expensive than o4-mini PDF ($0.038); o3 LaTeX ($0.383) is **8.9×** more expensive than o4-mini LaTeX ($0.043). Performance gap is only 5.3 pp HR@5 (PDF) / 9.4 pp (LaTeX) → o4-mini wins on cost-per-hit by a wide margin under this prompting strategy.",
+      "new": "- Cost ratio (v3 Table 2, p. 5): o3 PDF ($0.064) is **1.7×** as expensive as o4-mini PDF ($0.038); o3 LaTeX ($0.077) is **1.8×** as expensive as o4-mini LaTeX ($0.043). The HR@5 gap is 10.2 pp (PDF, 48.2 vs. 38.0) and 11.8 pp (LaTeX, 50.6 vs. 38.8). Cost per hit (cost divided by HR@5, our calculation) under PDF is about $0.10 for o4-mini vs. $0.13 for o3, so o4-mini's edge is now small, and Gemini 2.5 Flash matches o4-mini's hit rate (38.4%) at a lower cost ($0.033). v3 no longer calls o4-mini the most cost-effective choice.",
+      "pdf_evidence": "v3 page 5, Table 2: o3 \"48.2 ... 0.064\" / \"50.6 ... 0.077\"; o4-mini \"38.0 ... 0.038\" / \"38.8 ... 0.043\"; Gemini 2.5 Flash \"38.4 ... 0.033\"; v1 value: v1 Table 2: o3 64.9 / 0.321, 71.0 / 0.383; o4-mini 59.6 / 0.038, 61.6 / 0.043; v1 p.3 \"o4-mini seems to be the most cost-effective choice for this task\" (absent from v3)",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "- Both o-series models gain HR@5 when switched from PDF to LaTeX (o3: 64.9 → 71.0; o4-mini: 59.6 → 61.6), unlike Gemini models which degraded slightly under LaTeX, suggesting OpenAI models received specialized LaTeX training.",
+      "new": "- Both o-series models hold roughly steady or gain slightly when switched from PDF to LaTeX (o3: 48.2 → 50.6; o4-mini: 38.0 → 38.8; v3 Table 2, p. 5), unlike Gemini models whose hit rates decreased under LaTeX (Gemini 2.5 Pro 39.2 → 36.3; Flash 38.4 → 34.7). v3 reads this as \"resistance to format change or a higher familiarity with LaTeX\" (v3 p. 4), replacing v1's suggestion of specialized LaTeX training.",
+      "pdf_evidence": "v3 page 5, Table 2: o3 48.2 / 50.6, o4-mini 38.0 / 38.8, Gemini 2.5 Pro 39.2 / 36.3, Flash 38.4 / 34.7; v3 page 4, Sec 3: \"the hit rates of OpenAI o-series models remained around the same or slightly increased, suggesting resistance to format change or a higher familiarity with LaTeX\"; v1 value: v1 page 3: \"the hit rates of o-series models increased. This could suggest that they received specialized training with LaTeX or a larger LaTeX training set\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "authors flag this as unexplained.",
+      "new": "authors flag this as unexplained (unchanged in v3, p. 5).\n- Version update 2026-11-17: tables and notes now follow arXiv v3 (arXiv:2505.23824v3 [cs.CL] 1 Apr 2026; NeurIPS 2025 AI for Science workshop version), while the page title, aliases, Description summary line, verbatim quotes and screenshots still reflect v1 (arXiv:2505.23824v1, 28 May 2025). Headline v1 → v3 changes: o4-mini's combined HR@5 fell from 59.6% to 38.0% (PDF) and from 61.6% to 38.8% (LaTeX) after v3 switched the Gemini judge to Gemini 2.5 Pro `preview-06-05`; o4-mini's own cost is unchanged ($0.038 / $0.043), but o3's estimated cost fell from $0.321 to $0.064 (PDF) and $0.383 to $0.077 (LaTeX) under June-2025 standard pricing, so the o3 / o4-mini cost ratio shrank from 8.4× to 1.7× (PDF) and 8.9× to 1.8× (LaTeX); v3 removes the sentence \"o4-mini seems to be the most cost-effective choice for this task\" (quoted in the Description and Methods Context, v1 p. 3) and the abstract's \"o4-mini was the most cost-effective\"; v3 adds AP@5 (PDF only), where o4-mini scored 26.7% vs. o3's 29.5%. The 59.6% and $0.321 in the title are v1 figures.",
+      "pdf_evidence": "v3 page 5, Table 2: o4-mini \"4.7 5, 5 38.0 26.7 17,760 3,582 701 0.038\"; v3 abstract p.1 \"o3 exhibited the best problem identification performance among all models at a modest cost\" (no o4-mini cost-effectiveness claim); v1 value: v1 abstract \"o4-mini was the most cost-effective one in our evaluation\"; v1 Table 2 o4-mini 59.6",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "| **o4-mini (medium): PDF** | **59.6%** |",
+      "new": "| **o4-mini (medium): PDF** | **38.0%** |",
+      "pdf_evidence": "v3 page 5, Table 2: \"o4-mini (medium) 4.7 5, 5 38.0 26.7 17,760 3,582 701 0.038\"; v1 value: v1 Table 2: \"o4-mini (medium) 4.7 5 5 59.6 17,760 3,582 701 0.038\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "| o3 (medium): PDF | 64.9% | 16,594 | 3,152 | 729 | $0.321 | **8.4×** |",
+      "new": "| o3 (medium): PDF | 48.2% | 16,594 | 3,152 | 729 | $0.064 | **1.7×** |",
+      "pdf_evidence": "v3 page 5, Table 2: \"o3 (medium) 4.8 5, 5 48.2 29.5 16,594 3,152 729 0.064\" (0.064/0.038 = 1.7); v1 value: v1 Table 2: \"o3 (medium) ... 64.9 16,594 3,152 729 0.321\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "| **o4-mini (medium): LaTeX** | 61.6% |",
+      "new": "| **o4-mini (medium): LaTeX** | 38.8% |",
+      "pdf_evidence": "v3 page 5, Table 2: \"o4-mini (medium) 4.5 5, 5 38.8 – 22,287 3,421 685 0.043\"; v1 value: v1 Table 2: \"o4-mini (medium) 4.5 5 5 61.6 22,287 3,421 685 0.043\"",
+      "confidence": "high"
+    },
+    {
+      "page": "/Users/ppatel/Documents/living-synthesis/evidence/EVD - o4-mini reached 59.6% HR@5 at 0.038 USD per paper vs 0.321 USD for o3.md",
+      "category": "version_update",
+      "old": "| o3 (medium): LaTeX | 71.0% | 21,990 | 3,156 | 927 | $0.383 | **8.9×** |",
+      "new": "| o3 (medium): LaTeX | 50.6% | 21,990 | 3,156 | 927 | $0.077 | **1.8×** |",
+      "pdf_evidence": "v3 page 5, Table 2: \"o3 (medium) 4.8 5, 5 50.6 – 21,990 3,156 927 0.077\" (0.077/0.043 = 1.8); v1 value: v1 Table 2: \"o3 (medium) ... 71.0 21,990 3,156 927 0.383\"",
+      "confidence": "high"
+    }
+  ],
+  "notes": [
+    "v3 version string from PDF p.1: 'arXiv:2505.23824v3 [cs.CL] 1 Apr 2026' (NeurIPS 2025 Workshop: AI for Science). v1: arXiv:2505.23824v1 [cs.CL] 28 May 2025.",
+    "Main driver of the HR@5 drop across all checkers: v3 changed the Gemini 2.5 Pro judge from preview-05-06 to preview-06-05 (v3 p.4); v3 Table 3 shows the o3 judge is now much stricter (e.g., o3 checker PDF: o3-judge 50.2 in v3 vs 75.5 in v1). Dataset, prompts, problem counts and token usage are unchanged.",
+    "o3 cost changes ($0.321 -> $0.064 PDF; $0.383 -> $0.077 LaTeX) because v3 prices at standard June-2025 API rates (v1: early-May-2025). Other models' costs unchanged.",
+    "New in v3: AP@5 precision metric (PDF only) in Table 2 and per-judge AP in Table 3; total judge-confirmed true problems o3 350, Gemini 2.5 Pro 293, Claude 149 (v3 p.4). Recorded in notes, not added as table columns.",
+    "Removed in v3: the claim that o4-mini is the most cost-effective (abstract and Results); the v1 sentence on temperature 0 / fixed seed in Sec 2.4 (v3 keeps parameters only in Appendix B); 'specialized LaTeX training' wording; 'unqualified' judge wording (now 'might not qualify').",
+    "Not changed (out of editable scope): titles, aliases and filenames still carry v1 numbers (16.3%, 64.9%/71.0%, 59.6%, $0.321); the Description '> Table 2 shows ...' summary lines (blockquote paraphrase in the Description section) still carry v1 numbers and v1 page 4; verbatim quotes citing v1 pages (e.g., 'o4-mini seems to be the most cost-effective choice' which no longer appears in v3) are unchanged. Each page's Version update bullet flags this.",
+    "o3 page Methods Context quote (p.3) says 'We set model temperature to 0 and fixed the decoding seed' — that sentence is absent from v3 Sec 2.4; left unchanged as a verbatim quote.",
+    "Cost-per-hit figures on the o4-mini page ($0.10 vs $0.13) are my own arithmetic from v3 Table 2, labelled as such.",
+    "Page-number citations: v3 Results/Setup p.4, Table 2 p.5, Table 3 p.6, Appendix B p.11 (PDF page numbers equal printed page numbers)."
+  ]
+}

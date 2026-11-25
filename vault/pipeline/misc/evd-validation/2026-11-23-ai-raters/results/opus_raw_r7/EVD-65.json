@@ -1,0 +1,33 @@
+{
+ "evd": 65,
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.92,
+   "Partially Correct": 0.07,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 0.99,
+  "quote_fully_visible": 0.97,
+  "shot_connects": [
+   0.99
+  ],
+  "reason": "Short quote fully highlighted and legible in a tight crop."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Screenshots show only text; Table 2 not shown."
+ }
+}

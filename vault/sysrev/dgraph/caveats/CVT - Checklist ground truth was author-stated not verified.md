@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - Checklist ground truth relied on author-stated responses rather than independent verification"
+  - CVT - Checklist ground truth relied on author-stated responses rather than independent verification
 tags:
   - cvt/domain/construct-validity
   - cvt/mechanism/self-reported-ground-truth
@@ -11,18 +11,18 @@ tags:
   - cvt/severity/moderate
   - 5c/credibility
 appliesTo:
-  - "[[EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items|EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items|EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6ba8-72e1-aaef-820bdf75ff84
 type: inferred
 severity: moderate
-title: "Checklist ground truth relied on author-stated responses rather than independent verification"
+title: Checklist ground truth relied on author-stated responses rather than independent verification
 ---
 
 ## Source
 
-[[@liuReviewerGPTExploratoryStudy2023]]
+[[sysrev/dgraph/source/@liuReviewerGPTExploratoryStudy2023]]
 
 ### Limitation
 
@@ -39,4 +39,4 @@ The ground truth labels for checklist verification were based on the authors' ow
 
 ### Applies To
 
-[[EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items|EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs]]
+[[sysrev/dgraph/evidence/EVD - GPT-4 reached 86.6% accuracy on NeurIPS checklist items|EVD - GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist question-paper pairs]]

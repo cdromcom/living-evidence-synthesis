@@ -24,7 +24,7 @@ title: "All four LLMs answered all seven IRB ethics case queries with homogeneou
 
 ## Source
 
-[[@sridharanLeveragingArtificialIntelligence2025]]
+[[sysrev/dgraph/source/@sridharanLeveragingArtificialIntelligence2025]]
 
 ## Description
 
@@ -70,7 +70,7 @@ title: "All four LLMs answered all seven IRB ethics case queries with homogeneou
 - "Failure-to-identify" patterns are domain-specific rather than model-specific in the single-prompt condition: only Claude-Instant-100k flagged the need for first-time-procedure observation in case 1; only ChatGPT 3.5 identified researcher risk in case 6 (IPV); only ChatGPT 3.5 and Google Bard flagged the need for separate consent for biological samples in case 7.
 - Several "homogeneous" failures are shared across all four models (e.g., none caught the inappropriate non-randomised design in case 4; none flagged the school-site coercion risk in case 3).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sridharanLeveragingArtificialIntelligence2025#TRIPOD-LLM reporting]].
 
 | Domain (single-prompt) | ChatGPT 4.0 | Google Bard | ChatGPT 3.5 | Claude-Instant-100k |
 | --- | :---: | :---: | :---: | :---: |
@@ -89,18 +89,18 @@ Source-file table: see Table 2 (p. 128).
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Only cloud LLMs on seven pilot cases limits applicability|CVT - LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability]]
+- [[sysrev/dgraph/caveats/CVT - Only cloud LLMs on seven pilot cases limits applicability|CVT - LLM evaluation used only cloud-based models on pilot sample of seven cases limiting multicentric and cultural applicability]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
+- [[sysrev/dgraph/claims/CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
 
-- [[CLM - Multiple prompts elicit more complete and nuanced LLM ethics review than single prompts|CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
+- [[sysrev/dgraph/claims/CLM - Multiple prompts elicit more complete and nuanced LLM ethics review than single prompts|CLM - Multiple prompts elicit more complete and nuanced LLM outputs for ethical review tasks than single prompts]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

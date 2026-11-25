@@ -16,7 +16,7 @@ title: "A structured protocol for integrating LLMs into systematic reviews must 
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[@hasanIntegratingLargeLanguage2024]]
+> [[sysrev/dgraph/source/@hasanIntegratingLargeLanguage2024]]
 
 ### Snippet: Quote(s) & Screenshots
 
@@ -33,4 +33,4 @@ title: "A structured protocol for integrating LLMs into systematic reviews must 
 
 > [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)
 
-- [[EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]
+- [[sysrev/dgraph/evidence/EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]

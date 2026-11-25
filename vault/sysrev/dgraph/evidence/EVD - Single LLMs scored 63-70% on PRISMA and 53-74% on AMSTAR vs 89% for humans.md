@@ -25,7 +25,7 @@ title: "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percen
 
 ## Source
 
-[[@woelfleBenchmarkingHumanAICollaboration2024]]
+[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ## Description
 
@@ -80,7 +80,7 @@ title: "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percen
 - All five individual LLMs performed significantly worse than humans (89% PRISMA / 89% AMSTAR / 75% PRECIS-2 for human rater 1) on every tool.
 - Counter-intuitive PRECIS-2 finding: smaller/cheaper GPT-3.5 (55%) and Mixtral (48%) outperformed larger Claude-3-Opus (45%) and Claude-2 (44%) and GPT-4 (38%), authors attribute this partly to the dataset being skewed toward pragmatic trials (smaller models may default toward more pragmatic scores).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
 
 | Tool | Model | Agreement (95% CI) | Cohen's kappa (95% CI) | Intrarater agreement (95% CI) |
 | --- | --- | --- | --- | --- |
@@ -107,20 +107,20 @@ title: "Individual LLM accuracy ranged 63-70 percent for PRISMA and 53-74 percen
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Appraisal benchmark had two raters and skewed PRECIS-2 data|CVT - Evidence appraisal benchmark used only two human raters and datasets skewed toward pragmatic trials limiting PRECIS-2 findings]]
+- [[sysrev/dgraph/caveats/CVT - Appraisal benchmark had two raters and skewed PRECIS-2 data|CVT - Evidence appraisal benchmark used only two human raters and datasets skewed toward pragmatic trials limiting PRECIS-2 findings]]
 
-- [[CVT - Public human consensus datasets raise training contamination concerns|CVT - Human consensus datasets used as comparators were openly available online raising train test contamination concerns]]
+- [[sysrev/dgraph/caveats/CVT - Public human consensus datasets raise training contamination concerns|CVT - Human consensus datasets used as comparators were openly available online raising train test contamination concerns]]
 
-- [[CVT - Most LLMs were text-only and blind to figures and tables|CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal]]
+- [[sysrev/dgraph/caveats/CVT - Most LLMs were text-only and blind to figures and tables|CVT - Most LLMs were text-only and blind to figures and image-rendered tables relevant for evidence appraisal]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]
+- [[sysrev/dgraph/claims/CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate LLM accuracy on evidence-appraisal benchmarks lands in the moderate 60-80 percent range]]

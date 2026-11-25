@@ -1,0 +1,30 @@
+{
+ "evd": 68,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.9,
+  "reason": "Human-reviewer match rate 55.5% vs 23.8% is a specific AI peer-review accuracy finding."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote gives 55.5% for OpenReviewer and 23.8% for GPT4o matching at least one human reviewer."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.02,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.97,
+  "reason": "Screenshot shows the 55.5% / 0.96 / 23.8% / 2.34 passage word for word."
+ },
+ "table": null
+}

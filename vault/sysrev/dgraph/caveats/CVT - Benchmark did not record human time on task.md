@@ -2,7 +2,7 @@
 NodeFormality: ReadyForInternal
 human_reviewed: no
 aliases:
-  - "CVT - The benchmark datasets did not record human time on task preventing quantification of efficiency gains"
+  - CVT - The benchmark datasets did not record human time on task preventing quantification of efficiency gains
 tags:
   - cvt/domain/construct-validity
   - cvt/mechanism/measurement-gap
@@ -11,19 +11,19 @@ tags:
   - 5c/clarity
   - 5c/credibility
 appliesTo:
-  - "[[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]"
-  - "[[CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]"
+  - "[[sysrev/dgraph/evidence/EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]"
+  - "[[sysrev/dgraph/claims/CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]"
 created: 2026-04-27
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc3-718c-917f-a82d0dbea828
 type: author-stated
 severity: high
-title: "The benchmark datasets did not record human time on task preventing quantification of efficiency gains"
+title: The benchmark datasets did not record human time on task preventing quantification of efficiency gains
 ---
 
 ## Source
 
-[[@woelfleBenchmarkingHumanAICollaboration2024]]
+[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Limitation
 
@@ -38,6 +38,6 @@ The benchmark datasets contain no time-on-task data for the human raters, so the
 
 ### Applies To
 
-- [[EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]
+- [[sysrev/dgraph/evidence/EVD - Human-AI collaboration reached up to 96% on PRISMA surpassing human raters|EVD - Human-AI collaboration achieved up to 96 percent accuracy for PRISMA and 95 percent for AMSTAR surpassing individual human raters]]
 
-- [[CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]
+- [[sysrev/dgraph/claims/CLM - Human-AI collaboration outperforms single LLMs and can match or exceed human raters|CLM - Human-AI collaboration outperforms individual LLMs and can match or exceed human rater accuracy for evidence appraisal tasks]]

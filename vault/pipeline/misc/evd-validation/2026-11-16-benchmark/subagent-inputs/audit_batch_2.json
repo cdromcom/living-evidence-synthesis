@@ -1,0 +1,57 @@
+[
+ {
+  "citekey": "liangCanLargeLanguage2024a",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Liang et al. - 2024 - Can Large Language Models Provide Useful Feedback on Research Papers A Large-Scale Empirical Analys.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/liangCanLargeLanguage2024a.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - 57.4% of 308 researchers found GPT-4 feedback helpful.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 commented on implications 7.27x more and novelty 10.69x less than humans.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 feedback overlap fell from 30.85% to 0.43% after shuffling.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GPT-4 feedback overlapped 30.85% with humans vs 28.58% human-human.md"
+  ]
+ },
+ {
+  "citekey": "sridharanLeveragingArtificialIntelligence2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Sridharan and Sivaramakrishnan - 2024 - Leveraging artificial intelligence.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/sridharanLeveragingArtificialIntelligence2025.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - All four LLMs gave similar answers to all 7 IRB cases.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - All four LLMs included core ICD elements in all 7 cases.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLMs performed suboptimally on placebo arm and risk issues in a single prompt.md"
+  ]
+ },
+ {
+  "citekey": "bougieGenerativeAdversarialReviews2024a",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/bougieGenerativeAdversarialReviews2024a.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GAR beat human reviewers on preference 0.684 vs 0.523.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GAR human-likeness 3.89-4.02 significantly beat all LLM baselines.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - GAR predicted ICLR acceptance at F1 0.66 significantly above human 0.49.md"
+  ]
+ },
+ {
+  "citekey": "idahlOpenReviewerSpecializedLarge2025",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Idahl and Ahmadi - 2025 - OpenReviewer A Specialized LLM.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/idahlOpenReviewerSpecializedLarge2025.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o.md"
+  ]
+ },
+ {
+  "citekey": "huntington-kleinLLMsActRepositories2024",
+  "pdf": "/Users/ppatel/Documents/living-synthesis/source/pdfs/Huntington-Klein and Murray - 2024. - Do LLMs Act as Repositories of Causal Knowledge.pdf",
+  "pdf_text": "/private/tmp/claude-501/-Users-ppatel/8b1a8cc8-fee8-4b43-8bb9-1a0f568cde28/scratchpad/pdftext/huntington-kleinLLMsActRepositories2024.txt",
+  "extra_text": null,
+  "pages": [
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLM confounder choices were highly inconsistent with kappa as low as 0.16.md",
+   "/Users/ppatel/Documents/living-synthesis/evidence/EVD - LLMs flagged expert and trimmed confounders at similar rates.md"
+  ]
+ }
+]

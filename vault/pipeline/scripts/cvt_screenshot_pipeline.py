@@ -8,6 +8,7 @@ Improvements over v1:
 - Reports failures with the exact opening + closing strings tried, so manual
   fixes are obvious.
 """
+import os
 import re
 import sys
 import unicodedata
@@ -15,7 +16,7 @@ from pathlib import Path
 
 import fitz
 
-VAULT = Path('/Users/ppatel/Documents/living-synthesis')
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 PDFS = VAULT / 'sysrev' / 'dgraph' / 'source' / 'pdfs'
 ATTACH = VAULT / 'sysrev' / 'dgraph' / 'evidence' / 'Attachments'
 
@@ -173,7 +174,7 @@ def render(pdf_path: Path, page_num: int, bbox: tuple, out_path: Path, dpi: int 
 
 
 def get_citekey(text: str) -> str | None:
-    m = re.search(r'^## Source\s*\n+\[\[@([a-zA-Z][a-zA-Z0-9-]+)\]\]', text, re.MULTILINE)
+    m = re.search(r'^## Source\s*\n+\[\[(?:[^\]|]*/)?@([a-zA-Z][a-zA-Z0-9-]+)\]\]', text, re.MULTILINE)
     if m:
         return m.group(1)
     m = re.search(r'^appliesTo:[^\n]*\n((?:^\s*-\s*"\[\[.*?\]\]"\s*\n?)+)', text, re.MULTILINE)

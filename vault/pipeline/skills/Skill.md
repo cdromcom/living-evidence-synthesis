@@ -12,11 +12,14 @@ For one paper, in order (details in Step 1 and the steps below):
 
 1. **Pick and parse:** most recent version of the paper; GPT-6.2 Sol reads the PDF and the PDF text layer is the second read (Step 1).
 2. **PICOST first:** one record per finding with locators and spotlighted source spans; sources by section (Results for EVDs, Discussion for CVTs and CLMs, Introduction for QUEs).
-3. **Check the extractions:** Liquid d1-ultra (shadow mode in the pilot) and Opus 5.5 on low confidence; JP spot check A (Steps 1 and 6c).
+3. **Check the extractions:** Liquid d1-ultra (shadow mode in the pilot) and Opus 5.5 on low confidence; JP spot check A (Steps 1 and 6e).
 4. **Identify nodes** with atomicity and the QUE rules (Step 2); **write the nodes** from the PICOST records (Step 4, `Skill-templates.md`).
 5. **Crop screenshots** with PyMuPDF and `pdftoppm`; GPT-6.2 Sol checks every crop, Opus 5.5 checks multi-page crops (Step 3).
 6. **Automatic audits** (verbatim quotes, numbers on the PICOST record, page map), reverse links, formatting, NodeFormality, DGRAPH regeneration, history log (Steps 5 to 10, `Skill-templates.md`).
 7. **Mirror to the review sheet** and **JP spot check B**; merge through a pull request and regenerate the graph data.
+8. **Provenance footer** on every page written or changed (Step 4c): model and version, date accessed, prompt link, run id, human-check status, from the call log.
+
+**Not in this run:** quality signals (TRIPOD-LLM and quality appraisal tables, provenance fields, tool checks) are the separate optional **Module Q**, run only on JP's command, so extraction and publishing never spend credits on signals.
 
 Work in **batches of five papers** with the human checks, the cost controls and the ledger below. Cross-paper synthesis (EvidencePatterns, Review-Arena), the public MkDocs render and the ESS Bases are in `Skill-synthesis.md` (Steps 11 to 14), run after a batch, not per paper.
 
@@ -45,12 +48,18 @@ The vault has two parent folders: `sysrev/` (the systematic-review content) and 
 
 ---
 
+## Setup before a run
+
+- **Vault location:** scripts use the folder two levels above `pipeline/scripts/`; set `LIVES_VAULT=/path/to/vault` to override.
+- **API keys** go in `~/.config/lives-ai-raters/.env` (never in chat or the repo): `OPENAI_API_KEY` (PDF reading with GPT-6.2 Sol), `ANTHROPIC_API_KEY` (Claude Opus 5.5), `PERPLEXITY_API_KEY`, `LIQUID_API_KEY`, `TYPESAFE_API_KEY` (Jev), and the Tinker key if the Inkling voter is used. Only the Perplexity, Liquid and Jev keys were set on 2026-11-24.
+- **Scripts:** the one canonical folder is `pipeline/scripts/`. The older copies are in `pipeline/misc/scripts-superseded/` and use the old folder layout; do not run them.
+
 ## Inputs
 
 The user will provide:
-1. **A PDF path** — the paper to extract from
+1. **A PDF path** (or a list of paths for a batch) — put new PDFs in `sysrev/dgraph/source/pdfs/` (gitignored, so PDFs stay local). Older versions go to `sysrev/dgraph/source/pdfs/Archive - superseded versions/`
 2. **A research question** — either inline text or a `[[QUE - ...]]` link. If a link, read it for context.
-3. **An output directory** — if not specified, default to the same directory as the PDF, under a `Discourse Nodes/` subfolder.
+3. **An output directory** — default: the vault itself. Nodes go to `sysrev/dgraph/<type>/` (questions, claims, evidence, caveats, source, evd-patterns); never write next to the PDF.
 
 ---
 
@@ -67,7 +76,7 @@ The user will provide:
 4. **PICOST first.** For each candidate finding write one record as JSON: Population, Intervention, Comparator, Outcome, Study design, Timeframe, the finding in one sentence, and every number. **Every number and every PICOST value carries a locator**: journal page, table or figure, row label, column label. Anything the paper does not state is `Not reported`; never fill a slot with plausible standard detail. The bulk extraction model is GPT-6.2 Sol at reasoning effort High (Medium for simple steps such as restyling, alt text and link repair; Max only if the pilot shows it removes errors that High leaves); Claude Opus 5.5 handles disagreements and tricky cases.
 5. **Reconcile prose against tables.** When the text and the paper's own table disagree, use the table and record the disagreement in a note (`- PDF check <date>: ...`); never edit the quote.
 6. **Check the whole table before "best".** Before any EVD says best, beat, matched or highest, read every row of the table and list every comparator that could change the claim (other models, human baselines, combined methods).
-7. **QA gate (Step 6c), deferred.** The Liquid d1-ultra check of each PICOST record is on hold (JP, 2026-11-24); until it is switched on, the check is Opus 5.5 on every record flagged by a parser disagreement plus a 10% random sample, and a human spot check. Remind JP to revisit it after the first batch of new papers.
+7. **QA gate (Step 6e), deferred.** The Liquid d1-ultra check of each PICOST record is on hold (JP, 2026-11-24); until it is switched on, the check is Opus 5.5 on every record flagged by a parser disagreement plus a 10% random sample, and a human spot check. Remind JP to revisit it after the first batch of new papers.
 8. **Write the EVD from the PICOST cells.** The EVD statement may contain only numbers that appear in its PICOST record, so the statement, the PICOST row and the screenshot agree.
 8a. **Where to look first (JP, 2026-11-24).** EVD content from the **Results** section before any other section; CVTs (caveats) and CLMs (claims) from the **Discussion** (and Limitations) before other sections; QUEs from the **Introduction** (and stated objectives). Fall back to other sections (Abstract, Methods, Conclusion, supplements) only when the preferred section does not give the item, and say in the PICOST record which section each value came from (`section`).
 8b. **Spotlight the passages (accuracy aid).** For each finding GPT-6.2 Sol returns the verbatim span(s) that support it (text and printed page), not coordinates. PyMuPDF then searches for each span in the PDF (exact match after normalising hyphenation and quote marks), draws a highlight on the rendered page and saves it as a PNG under `work/<citekey>/highlights/`. A span PyMuPDF cannot find is a flag (the model paraphrased or misread), and the finding goes back for a fix before anyone writes from it. Humans and Opus 5.5 look at the highlighted page, not the raw PDF.
@@ -176,18 +185,29 @@ Two kinds of screenshots ground a node: **figure/table images** for EVDs, and **
 Writing an EVD from its PICOST card is a short call (about 3k tokens in, 0.5k out), so several models can collaborate cheaply. Fidelity checking stays on in the pilot and beyond; the old fidelity labels are ignored only as a benchmark, because those EVDs were poorly written.
 1. **Lint (free, deterministic):** at most 247 characters; every number, model name and comparator in the statement appears on the PICOST card; metrics spelled out; no unlisted numbers.
 2. **Draft (medium model):** Claude Sonnet 5.5 writes two candidates in the Phase 2 style from the PICOST card, using the three examples in `Skill-templates.md`.
-3. **Pick the better candidate (not Opus):** GPT-6.2 Sol (Medium) and Inkling 2 (on Tinker; sampling via the Tinker API, key `TINKER_API_KEY`; model id to confirm) each choose the better candidate independently, seeing the candidates, the source span and the table crop. If they agree, that candidate goes on. If they disagree, Claude Opus 5.5 breaks the tie.
+3. **Pick the better candidate (not Opus):** GPT-6.2 Sol (Medium) and Inkling 2 Small (on Tinker; JP's choice of Inkling model, newest and efficient; sampling via the Tinker API, key in `~/.config/lives-ai-raters/.env`; model id `thinkingmachines/Inkling-2-Small` to confirm) each choose the better candidate independently, seeing the candidates, the source span and the table crop. If they agree, that candidate goes on. If they disagree, Claude Opus 5.5 breaks the tie.
 4. **Check and edit (large model):** Claude Opus 5.5 checks the chosen candidate claim by claim (model, N, comparison, each number, direction) against the source span or crop (supported, partly supported, unsupported, with the supporting words) and edits it for fidelity, clarity and the Phase 2 style. A claim it cannot support is removed or the candidate goes back for a new draft.
 5. **Record:** the final text, both votes, the per-claim verdicts and the models used go into the PICOST JSON (`evd_checks`), and JP judges Fidelity in the mirror sheet as usual.
 **Pilot A/B (this afternoon):** on two papers compare this loop with Opus 5.5 writing alone (cost, JP's fidelity and style ratings, edit rate, how often the two voters agree).
 
+## Step 4c: Provenance footer on every node page (required; JP, 2026-11-24)
+
+Every page the Skill writes or changes (QUE, CLM, EVD, CVT, SRC, EP) ends with a clean, collapsed **AI-use footer** so a reader can see how the sausage was made. It follows the GAMER checklist (Generative Artificial intelligence tools in MEdical Research) and is generated, not typed. Closed, it shows one line: `AI use: <models> · <date> · <human-check status>`. Open (click in Obsidian; click or hover in the web app), it shows a skimmable table (step, model and version, effort, UTC time, prompt link and hash, saved response) and a role / sections / checked-by line, plus a link to `pipeline/provenance/AI-disclosure.md` (the project-wide answers to all nine GAMER items) and, for older pages, `pipeline/provenance/model-history.md`:
+1. **Prompts live in the repository.** Each prompt used lives in `pipeline/prompts/<name>-v<n>.md` (or `.txt`) and is **committed and pushed before the run**, so its link resolves to a fixed version. Never edit a committed prompt in place; make `-v<n+1>`.
+2. **Log every model call** with `python3 pipeline/scripts/call_logger.py log ...` (or the library functions): exact model id and display name, effort, UTC time of access, prompt file, SHA-256 and commit, tokens, estimated cost, run id.
+3. **Render the block** with `python3 pipeline/scripts/call_logger.py footer --run-id <run> --node "<page title>"` and paste it as the last block of the page. Each later step that changes the page (a vote, a check, a human edit) adds a row; never overwrite earlier rows.
+4. **Save the unedited response** of every call (`call_logger.py` writes it to `pipeline/runs/<run>/responses/`), because GAMER item 3 asks for it. **The block states:** step, model and version, effort, date and time accessed (UTC), a link to the exact prompt and its short hash, the run id, and the human check status (`not yet reviewed` until a person signs off, then who and when).
+5. **Pages written before this rule** (all 232 today) get the legacy footer (`render_legacy_footer`) with what the vault logs record (for example "Claude Sonnet 4.6, 2026-04-17, prompt not archived"; era table in `model-history.md`) and say what is unknown. Add them after the next pipeline run, when the details have settled (JP, 2026-11-25). `scripts/file_model_history.py` lists a page's commits by era.
+6. The web app renders the footer as a `<details>` element (closed by default; also opens on hover for pointer users, and on keyboard focus) at the bottom of the page; a one-line byline under the title links to it.
+7. **Link activity is logged too.** Every time a model creates or changes links between nodes (QUE-CLM, CLM-EVD, EVD-CVT, cross-paper), log the call with step `link` and write the proposed links to `pipeline/runs/<run>/links.jsonl` (from, to, kind, model, reason). Then run `python3 pipeline/scripts/check_links.py` (structure: both directions agree, every EVD has one source and a claim, every CLM is listed by a QUE, every EP rests on two or more papers). Links across papers get a second look: a light model (Haiku 5.5 or a decision model asking "does this evidence bear on this question?") votes yes/no, and every no goes to JP. Candidate merges of near-identical QUEs: a small local embedding model (for example EmbeddingGemma) lists pairs with high cosine similarity; the check model and then JP decide. Never merge automatically.
+
 ## Step 5: Build Reverse Links → see `Skill-templates.md`
 
-Run `pipeline/misc/scripts/reverse_links.py` to populate inbound sections (`## Caveats`, `## Supports Claim(s)`, `### Supporting Evidence`, `### Supporting Claims (with their evidence)`). Idempotent. **Step 5b**: audit the four discourse-graph attachment invariants (CVT→EVDs only, every CLM in some QUE, every EVD in some CLM, every EVD in some QUE). Inline audit script in `Skill-templates.md`.
+Run `pipeline/scripts/reverse_links.py` to populate inbound sections (`## Caveats`, `## Supports Claim(s)`, `### Supporting Evidence`, `### Supporting Claims (with their evidence)`). Idempotent. **Step 5b**: audit the four discourse-graph attachment invariants (CVT→EVDs only, every CLM in some QUE, every EVD in some CLM, every EVD in some QUE). Inline audit script in `Skill-templates.md`.
 
 ## Step 6: Verbatim Audit → see `Skill-templates.md`
 
-`pipeline/misc/scripts/verbatim_audit.py` compares every quote against its source PDF (NFKD + alnum normalization). Saves report as `sysrev/reference/paraphrase_audit_<date>.tsv`. Severity tiers (Tier 1: 0% match, Tier 2: <50%, Tier 3: 50–90%, Tier 4: >90%) and known false positives (en-dash mangling) are documented in `Skill-templates.md`.
+`pipeline/scripts/verbatim_audit.py` compares every quote against its source PDF (NFKD + alnum normalization). Saves report as `sysrev/reference/paraphrase_audit_<date>.tsv`. Severity tiers (Tier 1: 0% match, Tier 2: <50%, Tier 3: 50–90%, Tier 4: >90%) and known false positives (en-dash mangling) are documented in `Skill-templates.md`.
 
 > [!warning] The verbatim audit checks quotes only, not numbers
 > Added 2026-11-17. A PDF audit of all 77 EVD pages found 147 suspected errors in numbers, tables, page references and attributions, while every quote had passed this step. Quotes passing is not evidence that a page is correct. Run Step 6b as well.
@@ -198,7 +218,7 @@ The 2026-11-17 audit found 147 errors that all passed the quote check (record: `
 1. **Second pass by a fresh-context checker** that sees only the page and the PDF, never the drafter's reasoning; it verifies each number and proposes exact `{old, new}` fixes, and only verified fixes are applied.
 2. **Propagate fixes downstream:** a corrected page is corrected in every copy (the review sheet, PICOST JSON, the repository vault that builds the site), or the pending copies are logged.
 
-## Step 6c: Decision-model check of extractions (v2; pilot in shadow mode)
+## Step 6e: Decision-model check of extractions (v2; pilot in shadow mode)
 
 After the nodes and crops are extracted, the **Liquid d1-ultra** decision model (`d1-ultra`, `api.liquid.ai/decisions/v1/systemone`; key in `~/.config/lives-ai-raters/.env`) checks each extraction at a small fraction of an Opus call: calibrated yes/no questions with the page image or passage attached, for example *Does this table show V in the row labelled R and the column labelled C?*, *Is V attributed to model M and not a neighbouring row?*, *Does this crop show the whole quote?*, *Does the highlighted span support this finding?* **Anything below the threshold goes to Claude Opus 5.5 to adjudicate** (and to JP if Opus is unsure). Our benchmark found the decision models reliable on quote and table or figure grounding (about 97%) and not on fidelity, so use them for grounding and numbers, not for judging whether a headline is supported.
 
@@ -206,7 +226,24 @@ After the nodes and crops are extracted, the **Liquid d1-ultra** decision model 
 
 ## Steps 7 to 14 → see `Skill-templates.md` and `Skill-synthesis.md`
 
-Per paper (`Skill-templates.md`): Step 7 readability formatting (`pipeline/misc/scripts/readability_pass.py`), Step 8 promote NodeFormality for structurally complete nodes (audit-flagged nodes stay `draft`), Step 9 regenerate `sysrev/indexes/dgraph.md` (`pipeline/scripts/build_dgraph.py`), Step 10 save the originating prompt and log the change in History.md. Per batch (`Skill-synthesis.md`): Step 11 cross-paper synthesis, Step 12 public render, Step 13 Obsidian visual treatments, Step 14 ESS Bases.
+Per paper (`Skill-templates.md`): Step 7 readability formatting (`pipeline/scripts/readability_pass.py`), Step 8 promote NodeFormality for structurally complete nodes (audit-flagged nodes stay `draft`), Step 9 regenerate `sysrev/indexes/dgraph.md` (`pipeline/scripts/build_dgraph.py`), Step 10 save the originating prompt and log the change in History.md. Per batch (`Skill-synthesis.md`): Step 11 cross-paper synthesis, Step 12 public render, Step 13 Obsidian visual treatments, Step 14 ESS Bases.
+
+## Module Q: Quality signals (OPTIONAL, a separate run, only on JP's command; v2, 2026-11-24)
+
+The web app's Quality Signals tables and `/quality` page read about 35 tags from each source page (and the EVD appraisal tags). They are written by `Step 4b` (TRIPOD-LLM table) and `Step 6.c` in `Skill-templates.md` (the `## Quality appraisal` table). This module is **not part of the core run** (read, extract, write nodes, push to the web app), so API credits spent on extraction are never spent on signals by accident. Run it only when JP says so, one paper batch at a time. Until then the web app shows blank signal cells. the tag list and locator standard are in `Quality-signals-spec.md`.
+
+1. **Judged signals** (validity domains, rigor checks, spin, integrity disclosures, TOP levels, TRIPOD rows): Claude Opus 5.5 rates each from the PICOST record and the Methods and Results text, with a verbatim quote and a locator.
+2. **Independent check:** a model from another family (GPT-6.2 Sol) re-rates every row without seeing the first rating; a script checks that each quote appears in the PDF text layer. Disagreements go to JP's spot check.
+3. **Script-only signals** (howfairis and FAIR-Checker for code and data, Pangram for AI-writing, forensic recomputations) are written as tags by script, never by a model.
+4. **Tags come from the tables:** do not hand-write tags; regenerate them from the two body tables (the headings `## Quality appraisal` and `## TRIPOD-LLM reporting` must stay exactly as written or the app loses its anchors).
+5. **Check before build:** list every source page that lacks a tag in `Quality-signals-spec.md`; fix before running the graph build.
+6. **Traceability (required for every row of both tables):** a verbatim quote plus a locator in the exact form in `Quality-signals-spec.md` (section, printed journal page, and Table or Figure number when the evidence is in one). Check with `python3 pipeline/scripts/audit_signal_quotes.py --only @citekey`: every quote must be found in the PDF and every cited page must match the PDF's printed page; fix every other status before moving on. Baseline on the 27 existing sources (2026-11-24): of 999 quoted rows, 91% verbatim, 63% with the right page.
+7. **Human review sheet (in parallel, not afterwards):** `python3 pipeline/scripts/signals_decision_models.py --only @citekey` asks Perplexity Decider 1.3, Liquid d1-ultra and Jev whether each quote supports its rating; then `python3 pipeline/scripts/signals_to_gsheet.py --only @citekey --audit <audit csv> --models <jsonl>` builds the workbook (quote, locator, PDF check, judgment dropdown, the three models' verdicts, JP judgment and notes) to upload as a Google Sheet. JP reviews that sheet, not the markdown.
+8. **Provenance fields and tool signals** come from scripts, not from a model: `python3 pipeline/scripts/provenance/run_provenance.py --doi <doi> [--code <github url>] [--data <dataset url>]` (OpenAlex, DOAJ, OpenCitations, PubPeer, howfairis, FAIR-Checker). A retraction match is reported as "needs human check" because author ids clash.
+
+**Quotes without typos:** preferred method: the model returns, per row, the printed page and the first and last words of the span; `pdf_pages.py` then extracts the exact text between them from the PDF, so no quote is ever typed by a model. Rows judged from a URL, a table or a figure cite it by locator. (To build; until then run `audit_signal_quotes.py` and fix every non-verbatim row.) **Punctuation does not have to match** (JP, 2026-11-25): the audit ignores dashes, curly quotes, hyphenation at line ends, ligatures and superscript footnote marks, and compares letters and digits only. The exception is decimal points between digits (0.79 is not 079). Only wording and numbers must match.
+**Cost (my estimate, per paper, standard prices; half by batch):** Opus 5.5 rating pass about $0.7, GPT-6.2 Sol blind re-rating about $0.3 to $0.5, the three decision models under $0.01, provenance scripts free. **Pangram (AI-writing check) only on JP's explicit command** (planned Dec/Jan); never as part of a batch.
+**Trigger:** JP names the papers and says "run Module Q". Each paper gets its own provenance footer rows (step `quality-signals`).
 
 ## Reference docs
 

@@ -1,0 +1,1777 @@
+{
+ "run": "r6",
+ "tasks": {
+  "relevancy": {
+   "excluded_evds": [],
+   "n": 74,
+   "baseline": {
+    "label": "Relevant",
+    "correct": 65,
+    "accuracy": 0.8783783783783784
+   },
+   "raters": {
+    "Perplexity Decider 1.3": {
+     "correct": 66,
+     "n": 74,
+     "accuracy": 0.8918918918918919,
+     "kappa": 0.44045368620037817,
+     "f1_macro": 0.7196969696969697,
+     "f1_micro": 0.8918918918918919,
+     "f1_weighted": 0.885954135954136,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 3,
+       "Relevant": 62
+      },
+      "Irrelevant": {
+       "Irrelevant": 4,
+       "Relevant": 5
+      }
+     }
+    },
+    "Liquid d1-ultra": {
+     "correct": 64,
+     "n": 74,
+     "accuracy": 0.8648648648648649,
+     "kappa": 0.4227769110764434,
+     "f1_macro": 0.7109375,
+     "f1_micro": 0.8648648648648649,
+     "f1_weighted": 0.8705658783783784,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 6,
+       "Relevant": 59
+      },
+      "Irrelevant": {
+       "Irrelevant": 5,
+       "Relevant": 4
+      }
+     }
+    },
+    "Jev": {
+     "correct": 59,
+     "n": 74,
+     "accuracy": 0.7972972972972973,
+     "kappa": 0.2893725992317541,
+     "f1_macro": 0.6390243902439025,
+     "f1_micro": 0.7972972972972973,
+     "f1_weighted": 0.8199077125906394,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 11,
+       "Relevant": 54
+      },
+      "Irrelevant": {
+       "Irrelevant": 5,
+       "Relevant": 4
+      }
+     }
+    },
+    "Claude Opus 5.5": {
+     "correct": 64,
+     "n": 74,
+     "accuracy": 0.8648648648648649,
+     "kappa": 0.3675213675213677,
+     "f1_macro": 0.6837606837606838,
+     "f1_micro": 0.8648648648648649,
+     "f1_weighted": 0.8648648648648649,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 5,
+       "Relevant": 60
+      },
+      "Irrelevant": {
+       "Irrelevant": 4,
+       "Relevant": 5
+      }
+     }
+    },
+    "Average of Perplexity + Liquid + Opus": {
+     "correct": 66,
+     "n": 74,
+     "accuracy": 0.8918918918918919,
+     "kappa": 0.494017094017094,
+     "f1_macro": 0.747008547008547,
+     "f1_micro": 0.8918918918918919,
+     "f1_weighted": 0.8918918918918919,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 4,
+       "Relevant": 61
+      },
+      "Irrelevant": {
+       "Irrelevant": 5,
+       "Relevant": 4
+      }
+     }
+    },
+    "Average of Perplexity + Liquid + Jev": {
+     "correct": 66,
+     "n": 74,
+     "accuracy": 0.8918918918918919,
+     "kappa": 0.494017094017094,
+     "f1_macro": 0.747008547008547,
+     "f1_micro": 0.8918918918918919,
+     "f1_weighted": 0.8918918918918919,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 4,
+       "Relevant": 61
+      },
+      "Irrelevant": {
+       "Irrelevant": 5,
+       "Relevant": 4
+      }
+     }
+    },
+    "Average of all four": {
+     "correct": 66,
+     "n": 74,
+     "accuracy": 0.8918918918918919,
+     "kappa": 0.494017094017094,
+     "f1_macro": 0.747008547008547,
+     "f1_micro": 0.8918918918918919,
+     "f1_weighted": 0.8918918918918919,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 4,
+       "Relevant": 61
+      },
+      "Irrelevant": {
+       "Irrelevant": 5,
+       "Relevant": 4
+      }
+     }
+    },
+    "Majority vote of Perplexity + Liquid + Opus": {
+     "correct": 65,
+     "n": 74,
+     "accuracy": 0.8783783783783784,
+     "kappa": 0.4021543985637344,
+     "f1_macro": 0.7009429726088909,
+     "f1_micro": 0.8783783783783784,
+     "f1_weighted": 0.8752654765227734,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 4,
+       "Relevant": 61
+      },
+      "Irrelevant": {
+       "Irrelevant": 4,
+       "Relevant": 5
+      }
+     }
+    },
+    "Majority vote of Perplexity + Liquid + Jev": {
+     "correct": 64,
+     "n": 74,
+     "accuracy": 0.8648648648648649,
+     "kappa": 0.4227769110764434,
+     "f1_macro": 0.7109375,
+     "f1_micro": 0.8648648648648649,
+     "f1_weighted": 0.8705658783783784,
+     "confusion": {
+      "Relevant": {
+       "Irrelevant": 6,
+       "Relevant": 59
+      },
+      "Irrelevant": {
+       "Irrelevant": 5,
+       "Relevant": 4
+      }
+     }
+    }
+   }
+  },
+  "fidelity": {
+   "excluded_evds": [],
+   "n": 74,
+   "baseline": {
+    "label": "Met",
+    "correct": 68,
+    "accuracy": 0.918918918918919
+   },
+   "raters": {
+    "Perplexity Decider 1.3": {
+     "correct": 57,
+     "n": 74,
+     "accuracy": 0.7702702702702703,
+     "kappa": 0.04984894259818741,
+     "f1_macro": 0.32870370370370366,
+     "f1_micro": 0.7702702702702703,
+     "f1_weighted": 0.813063063063063,
+     "confusion": {
+      "Met": {
+       "Met": 56,
+       "Partially Met": 11,
+       "Unmet": 1
+      },
+      "Partially Met": {
+       "Met": 4,
+       "Partially Met": 1,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "Unmet": 0
+      }
+     }
+    },
+    "Liquid d1-ultra": {
+     "correct": 62,
+     "n": 74,
+     "accuracy": 0.8378378378378378,
+     "kappa": 0.022026431718061578,
+     "f1_macro": 0.30617283950617286,
+     "f1_micro": 0.8378378378378378,
+     "f1_weighted": 0.844044044044044,
+     "confusion": {
+      "Met": {
+       "Met": 62,
+       "Partially Met": 2,
+       "Unmet": 4
+      },
+      "Partially Met": {
+       "Met": 5,
+       "Partially Met": 0,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "Unmet": 0
+      }
+     }
+    },
+    "Jev": {
+     "correct": 58,
+     "n": 74,
+     "accuracy": 0.7837837837837838,
+     "kappa": 0.15669515669515682,
+     "f1_macro": 0.3772965879265093,
+     "f1_micro": 0.7837837837837838,
+     "f1_weighted": 0.8306554586082147,
+     "confusion": {
+      "Met": {
+       "Met": 56,
+       "Partially Met": 8,
+       "Unmet": 4
+      },
+      "Partially Met": {
+       "Met": 3,
+       "Partially Met": 2,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "Unmet": 0
+      }
+     }
+    },
+    "Claude Opus 5.5": {
+     "correct": 62,
+     "n": 74,
+     "accuracy": 0.8378378378378378,
+     "kappa": 0.015521064301552236,
+     "f1_macro": 0.30617283950617286,
+     "f1_micro": 0.8378378378378378,
+     "f1_weighted": 0.844044044044044,
+     "confusion": {
+      "Met": {
+       "Met": 62,
+       "Partially Met": 3,
+       "Unmet": 3
+      },
+      "Partially Met": {
+       "Met": 5,
+       "Partially Met": 0,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "Unmet": 0
+      }
+     }
+    },
+    "Average of Perplexity + Liquid + Opus": {
+     "correct": 61,
+     "n": 74,
+     "accuracy": 0.8243243243243243,
+     "kappa": 0.002074688796680426,
+     "f1_macro": 0.3034825870646766,
+     "f1_micro": 0.8243243243243243,
+     "f1_weighted": 0.836627672448568,
+     "confusion": {
+      "Met": {
+       "Met": 61,
+       "Partially Met": 4,
+       "Unmet": 3
+      },
+      "Partially Met": {
+       "Met": 5,
+       "Partially Met": 0,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "Unmet": 0
+      }
+     }
+    },
+    "Average of Perplexity + Liquid + Jev": {
+     "correct": 60,
+     "n": 74,
+     "accuracy": 0.8108108108108109,
+     "kappa": 0.1038062283737025,
+     "f1_macro": 0.3558100084817642,
+     "f1_micro": 0.8108108108108109,
+     "f1_weighted": 0.8412420053641427,
+     "confusion": {
+      "Met": {
+       "Met": 59,
+       "Partially Met": 5,
+       "Unmet": 4
+      },
+      "Partially Met": {
+       "Met": 4,
+       "Partially Met": 1,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "Unmet": 0
+      }
+     }
+    },
+    "Average of all four": {
+     "correct": 60,
+     "n": 74,
+     "accuracy": 0.8108108108108109,
+     "kappa": 0.09913043478260894,
+     "f1_macro": 0.3515365042082599,
+     "f1_micro": 0.8108108108108109,
+     "f1_weighted": 0.8402025043246416,
+     "confusion": {
+      "Met": {
+       "Met": 59,
+       "Partially Met": 6,
+       "Unmet": 3
+      },
+      "Partially Met": {
+       "Met": 4,
+       "Partially Met": 1,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "Unmet": 0
+      }
+     }
+    },
+    "Majority vote of Perplexity + Liquid + Opus": {
+     "correct": 62,
+     "n": 74,
+     "accuracy": 0.8378378378378378,
+     "kappa": 0.015521064301552236,
+     "f1_macro": 0.30617283950617286,
+     "f1_micro": 0.8378378378378378,
+     "f1_weighted": 0.844044044044044,
+     "confusion": {
+      "Met": {
+       "Met": 62,
+       "Partially Met": 3,
+       "Unmet": 3
+      },
+      "Partially Met": {
+       "Met": 5,
+       "Partially Met": 0,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "Unmet": 0
+      }
+     }
+    },
+    "Majority vote of Perplexity + Liquid + Jev": {
+     "correct": 59,
+     "n": 74,
+     "accuracy": 0.7972972972972973,
+     "kappa": 0.08866995073891615,
+     "f1_macro": 0.2615384615384615,
+     "f1_micro": 0.7972972972972973,
+     "f1_weighted": 0.8324324324324324,
+     "confusion": {
+      "Met": {
+       "Met": 58,
+       "Partially Met": 6,
+       "TIE": 1,
+       "Unmet": 3
+      },
+      "Partially Met": {
+       "Met": 4,
+       "Partially Met": 1,
+       "TIE": 0,
+       "Unmet": 1
+      },
+      "Unmet": {
+       "Met": 0,
+       "Partially Met": 0,
+       "TIE": 0,
+       "Unmet": 0
+      }
+     }
+    }
+   }
+  },
+  "quote": {
+   "excluded_evds": [],
+   "n": 74,
+   "baseline": {
+    "label": "Correct",
+    "correct": 60,
+    "accuracy": 0.8108108108108109
+   },
+   "raters": {
+    "Perplexity Decider 1.3": {
+     "correct": 63,
+     "n": 74,
+     "accuracy": 0.8513513513513513,
+     "kappa": 0.6346499102333931,
+     "f1_macro": 0.48898898898898896,
+     "f1_micro": 0.8513513513513513,
+     "f1_weighted": 0.8802045288531775,
+     "confusion": {
+      "Correct": {
+       "Correct": 51,
+       "Incorrect": 3,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 11,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 1,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Liquid d1-ultra": {
+     "correct": 63,
+     "n": 74,
+     "accuracy": 0.8513513513513513,
+     "kappa": 0.6328371673432566,
+     "f1_macro": 0.4886583011583011,
+     "f1_micro": 0.8513513513513513,
+     "f1_weighted": 0.8758608995095482,
+     "confusion": {
+      "Correct": {
+       "Correct": 51,
+       "Incorrect": 4,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 5
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 11,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 1,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Jev": {
+     "correct": 53,
+     "n": 74,
+     "accuracy": 0.7162162162162162,
+     "kappa": 0.4389891696750903,
+     "f1_macro": 0.424505834722553,
+     "f1_micro": 0.7162162162162162,
+     "f1_weighted": 0.7938891499263016,
+     "confusion": {
+      "Correct": {
+       "Correct": 42,
+       "Incorrect": 4,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 14
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 10,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 2
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Claude Opus 5.5": {
+     "correct": 57,
+     "n": 74,
+     "accuracy": 0.7702702702702703,
+     "kappa": 0.5106962271489693,
+     "f1_macro": 0.4464285714285714,
+     "f1_micro": 0.7702702702702703,
+     "f1_weighted": 0.8243243243243242,
+     "confusion": {
+      "Correct": {
+       "Correct": 45,
+       "Incorrect": 4,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 11
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 11,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 1,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Average of Perplexity + Liquid + Opus": {
+     "correct": 61,
+     "n": 74,
+     "accuracy": 0.8243243243243243,
+     "kappa": 0.5880085653104925,
+     "f1_macro": 0.4711992136304063,
+     "f1_micro": 0.8243243243243243,
+     "f1_weighted": 0.8591016967163756,
+     "confusion": {
+      "Correct": {
+       "Correct": 49,
+       "Incorrect": 4,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 7
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 11,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 1,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Average of Perplexity + Liquid + Jev": {
+     "correct": 61,
+     "n": 74,
+     "accuracy": 0.8243243243243243,
+     "kappa": 0.5880085653104925,
+     "f1_macro": 0.4711992136304063,
+     "f1_micro": 0.8243243243243243,
+     "f1_weighted": 0.8591016967163756,
+     "confusion": {
+      "Correct": {
+       "Correct": 49,
+       "Incorrect": 4,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 7
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 11,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 1,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Average of all four": {
+     "correct": 61,
+     "n": 74,
+     "accuracy": 0.8243243243243243,
+     "kappa": 0.5880085653104925,
+     "f1_macro": 0.4711992136304063,
+     "f1_micro": 0.8243243243243243,
+     "f1_weighted": 0.8591016967163756,
+     "confusion": {
+      "Correct": {
+       "Correct": 49,
+       "Incorrect": 4,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 7
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 11,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 1,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Majority vote of Perplexity + Liquid + Opus": {
+     "correct": 63,
+     "n": 74,
+     "accuracy": 0.8513513513513513,
+     "kappa": 0.6328371673432566,
+     "f1_macro": 0.4886583011583011,
+     "f1_micro": 0.8513513513513513,
+     "f1_weighted": 0.8758608995095482,
+     "confusion": {
+      "Correct": {
+       "Correct": 51,
+       "Incorrect": 4,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 5
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 11,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 1,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Majority vote of Perplexity + Liquid + Jev": {
+     "correct": 62,
+     "n": 74,
+     "accuracy": 0.8378378378378378,
+     "kappa": 0.6098418277680141,
+     "f1_macro": 0.47925685425685427,
+     "f1_micro": 0.8378378378378378,
+     "f1_weighted": 0.8675168675168674,
+     "confusion": {
+      "Correct": {
+       "Correct": 50,
+       "Incorrect": 4,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 11,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 1,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    }
+   }
+  },
+  "table": {
+   "excluded_evds": [],
+   "n": 72,
+   "baseline": {
+    "label": "Missing",
+    "correct": 65,
+    "accuracy": 0.9027777777777778
+   },
+   "raters": {
+    "Perplexity Decider 1.3": {
+     "correct": 37,
+     "n": 72,
+     "accuracy": 0.5138888888888888,
+     "kappa": 0.19101123595505612,
+     "f1_macro": 0.3614583333333333,
+     "f1_micro": 0.5138888888888888,
+     "f1_weighted": 0.6497106481481482,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 31,
+       "NA": 32,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Liquid d1-ultra": {
+     "correct": 36,
+     "n": 72,
+     "accuracy": 0.5,
+     "kappa": 0.16923076923076924,
+     "f1_macro": 0.3400297619047619,
+     "f1_micro": 0.5,
+     "f1_weighted": 0.642567791005291,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 1,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 5
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 31,
+       "NA": 32,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Jev": {
+     "correct": 39,
+     "n": 72,
+     "accuracy": 0.5416666666666666,
+     "kappa": 0.2040201005025125,
+     "f1_macro": 0.3683673469387755,
+     "f1_micro": 0.5416666666666666,
+     "f1_weighted": 0.6746598639455783,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 33,
+       "NA": 30,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Claude Opus 5.5": {
+     "correct": 36,
+     "n": 72,
+     "accuracy": 0.5,
+     "kappa": 0.1849056603773585,
+     "f1_macro": 0.35789473684210527,
+     "f1_micro": 0.5,
+     "f1_weighted": 0.6368421052631579,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 30,
+       "NA": 33,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Average of Perplexity + Liquid + Opus": {
+     "correct": 38,
+     "n": 72,
+     "accuracy": 0.5277777777777778,
+     "kappa": 0.19737704918032786,
+     "f1_macro": 0.36494845360824746,
+     "f1_micro": 0.5277777777777778,
+     "f1_weighted": 0.6623138602520046,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 32,
+       "NA": 31,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Average of Perplexity + Liquid + Jev": {
+     "correct": 36,
+     "n": 72,
+     "accuracy": 0.5,
+     "kappa": 0.1849056603773585,
+     "f1_macro": 0.35789473684210527,
+     "f1_micro": 0.5,
+     "f1_weighted": 0.6368421052631579,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 30,
+       "NA": 33,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Average of all four": {
+     "correct": 38,
+     "n": 72,
+     "accuracy": 0.5277777777777778,
+     "kappa": 0.19737704918032786,
+     "f1_macro": 0.36494845360824746,
+     "f1_micro": 0.5277777777777778,
+     "f1_weighted": 0.6623138602520046,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 32,
+       "NA": 31,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Majority vote of Perplexity + Liquid + Opus": {
+     "correct": 38,
+     "n": 72,
+     "accuracy": 0.5277777777777778,
+     "kappa": 0.19737704918032786,
+     "f1_macro": 0.36494845360824746,
+     "f1_micro": 0.5277777777777778,
+     "f1_weighted": 0.6623138602520046,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 32,
+       "NA": 31,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    },
+    "Majority vote of Perplexity + Liquid + Jev": {
+     "correct": 37,
+     "n": 72,
+     "accuracy": 0.5138888888888888,
+     "kappa": 0.19101123595505612,
+     "f1_macro": 0.3614583333333333,
+     "f1_micro": 0.5138888888888888,
+     "f1_weighted": 0.6497106481481482,
+     "confusion": {
+      "Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 1
+      },
+      "Partially Correct": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 6
+      },
+      "Incorrect": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      },
+      "Missing": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 31,
+       "NA": 32,
+       "Partially Correct": 2
+      },
+      "NA": {
+       "Correct": 0,
+       "Incorrect": 0,
+       "Missing": 0,
+       "NA": 0,
+       "Partially Correct": 0
+      }
+     }
+    }
+   }
+  }
+ },
+ "usage": [
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "lat",
+   "records": 9,
+   "model_calls": 9,
+   "input_tokens": 7881,
+   "request_time_s": 3.5,
+   "cost_usd": 0.0002,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r1",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 186595,
+   "request_time_s": 63.4,
+   "cost_usd": 0.0037,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r1fix",
+   "records": 8,
+   "model_calls": 6,
+   "input_tokens": 5855,
+   "request_time_s": 3.0,
+   "cost_usd": 0.0001,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r2",
+   "records": 305,
+   "model_calls": 305,
+   "input_tokens": 273162,
+   "request_time_s": 91.0,
+   "cost_usd": 0.0055,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r2t",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 207985,
+   "request_time_s": 71.0,
+   "cost_usd": 0.0042,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r3",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 210218,
+   "request_time_s": 72.0,
+   "cost_usd": 0.0042,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r3q",
+   "records": 77,
+   "model_calls": 77,
+   "input_tokens": 79895,
+   "request_time_s": 29.0,
+   "cost_usd": 0.0016,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r4",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 222375,
+   "request_time_s": 70.0,
+   "cost_usd": 0.0044,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r4q",
+   "records": 151,
+   "model_calls": 151,
+   "input_tokens": 166528,
+   "request_time_s": 43.6,
+   "cost_usd": 0.0033,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r5",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 222375,
+   "request_time_s": 71.6,
+   "cost_usd": 0.0044,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r6",
+   "records": 305,
+   "model_calls": 305,
+   "input_tokens": 335215,
+   "request_time_s": 94.2,
+   "cost_usd": 0.0067,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "r6q",
+   "records": 154,
+   "model_calls": 154,
+   "input_tokens": 219679,
+   "request_time_s": 57.5,
+   "cost_usd": 0.0044,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Perplexity Decider 1.3",
+   "run": "smoke",
+   "records": 12,
+   "model_calls": 12,
+   "input_tokens": 7192,
+   "request_time_s": 0,
+   "cost_usd": 0.0001,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "lat",
+   "records": 9,
+   "model_calls": 9,
+   "input_tokens": 8473,
+   "request_time_s": 2.3,
+   "cost_usd": 0.0004,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r1",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 193546,
+   "request_time_s": 53.8,
+   "cost_usd": 0.0081,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r1fix",
+   "records": 8,
+   "model_calls": 6,
+   "input_tokens": 6315,
+   "request_time_s": 1.9,
+   "cost_usd": 0.0003,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r2",
+   "records": 305,
+   "model_calls": 305,
+   "input_tokens": 297648,
+   "request_time_s": 73.3,
+   "cost_usd": 0.0125,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r2t",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 222952,
+   "request_time_s": 54.5,
+   "cost_usd": 0.0094,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r3",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 225031,
+   "request_time_s": 60.1,
+   "cost_usd": 0.0095,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r3q",
+   "records": 77,
+   "model_calls": 77,
+   "input_tokens": 97894,
+   "request_time_s": 29.6,
+   "cost_usd": 0.0041,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r4",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 236880,
+   "request_time_s": 54.1,
+   "cost_usd": 0.0099,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r4q",
+   "records": 151,
+   "model_calls": 151,
+   "input_tokens": 177173,
+   "request_time_s": 36.6,
+   "cost_usd": 0.0074,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r5",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 236880,
+   "request_time_s": 56.3,
+   "cost_usd": 0.0099,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r6",
+   "records": 305,
+   "model_calls": 305,
+   "input_tokens": 358700,
+   "request_time_s": 77.1,
+   "cost_usd": 0.0151,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "r6q",
+   "records": 154,
+   "model_calls": 154,
+   "input_tokens": 254067,
+   "request_time_s": 46.3,
+   "cost_usd": 0.0107,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Liquid d1-ultra",
+   "run": "smoke",
+   "records": 12,
+   "model_calls": 12,
+   "input_tokens": 6920,
+   "request_time_s": 0,
+   "cost_usd": 0.0003,
+   "cost_source": "API-reported"
+  },
+  {
+   "model": "Jev",
+   "run": "lat",
+   "records": 9,
+   "model_calls": 9,
+   "input_tokens": 13606,
+   "request_time_s": 1.4,
+   "cost_usd": 0.0006,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r1",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 309786,
+   "request_time_s": 27.9,
+   "cost_usd": 0.013,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r1fix",
+   "records": 8,
+   "model_calls": 6,
+   "input_tokens": 10068,
+   "request_time_s": 0.9,
+   "cost_usd": 0.0004,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r2",
+   "records": 305,
+   "model_calls": 305,
+   "input_tokens": 481376,
+   "request_time_s": 44.2,
+   "cost_usd": 0.0202,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r2t",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 356532,
+   "request_time_s": 33.2,
+   "cost_usd": 0.015,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r3",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 358836,
+   "request_time_s": 32.7,
+   "cost_usd": 0.0151,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r3q",
+   "records": 77,
+   "model_calls": 77,
+   "input_tokens": 167996,
+   "request_time_s": 13.6,
+   "cost_usd": 0.0071,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r4",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 370293,
+   "request_time_s": 31.9,
+   "cost_usd": 0.0156,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r4q",
+   "records": 151,
+   "model_calls": 151,
+   "input_tokens": 271123,
+   "request_time_s": 20.3,
+   "cost_usd": 0.0114,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r5",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 370303,
+   "request_time_s": 31.6,
+   "cost_usd": 0.0156,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r6",
+   "records": 305,
+   "model_calls": 305,
+   "input_tokens": 543413,
+   "request_time_s": 44.4,
+   "cost_usd": 0.0228,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "r6q",
+   "records": 154,
+   "model_calls": 154,
+   "input_tokens": 395229,
+   "request_time_s": 27.7,
+   "cost_usd": 0.0166,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Jev",
+   "run": "smoke",
+   "records": 12,
+   "model_calls": 12,
+   "input_tokens": 11341,
+   "request_time_s": 0,
+   "cost_usd": 0.0005,
+   "cost_source": "computed from list price"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r1",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r2",
+   "records": 305,
+   "model_calls": 305,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r2t",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r3",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r3q",
+   "records": 77,
+   "model_calls": 77,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r4",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r4q",
+   "records": 151,
+   "model_calls": 151,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r5",
+   "records": 305,
+   "model_calls": 235,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r6",
+   "records": 305,
+   "model_calls": 305,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "run": "r6q",
+   "records": 154,
+   "model_calls": 154,
+   "input_tokens": 0,
+   "request_time_s": 0,
+   "cost_usd": 0.0,
+   "cost_source": "see notes"
+  }
+ ]
+}

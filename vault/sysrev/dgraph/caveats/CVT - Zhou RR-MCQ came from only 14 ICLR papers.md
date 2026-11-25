@@ -2,7 +2,7 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
-  - "CVT - The Zhou RR-MCQ dataset was constructed from only 14 ICLR papers limiting diversity and scale"
+  - CVT - The Zhou RR-MCQ dataset was constructed from only 14 ICLR papers limiting diversity and scale
 tags:
   - cvt/domain/external-validity
   - cvt/mechanism/small-sample
@@ -13,18 +13,18 @@ tags:
   - 5c/clarity
   - 5c/creativity
 appliesTo:
-  - "[[EVD - GPT-4 RR-MCQ macro accuracy was 0.276|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]"
+  - "[[sysrev/dgraph/evidence/EVD - GPT-4 RR-MCQ macro accuracy was 0.276|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]"
 created: 2026-04-17
 updated: 2026-04-29
 nodeID: 019ddb4e-6bc2-7023-bcd6-5708a303680b
 type: author-stated
 severity: moderate
-title: "The Zhou RR-MCQ dataset was constructed from only 14 ICLR papers limiting diversity and scale"
+title: The Zhou RR-MCQ dataset was constructed from only 14 ICLR papers limiting diversity and scale
 ---
 do
 ## Source
 
-[[@zhouLLMReliableReviewer2024]]
+[[sysrev/dgraph/source/@zhouLLMReliableReviewer2024]]
 
 ### Limitation
 
@@ -43,4 +43,4 @@ The RR-MCQ evaluation dataset was limited to 196 questions from only 14 ICLR pap
 
 ### Applies To
 
-[[EVD - GPT-4 RR-MCQ macro accuracy was 0.276|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]
+[[sysrev/dgraph/evidence/EVD - GPT-4 RR-MCQ macro accuracy was 0.276|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]

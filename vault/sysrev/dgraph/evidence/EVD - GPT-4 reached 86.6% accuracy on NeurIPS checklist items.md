@@ -25,7 +25,7 @@ title: "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist que
 
 ## Source
 
-[[@liuReviewerGPTExploratoryStudy2023]]
+[[sysrev/dgraph/source/@liuReviewerGPTExploratoryStudy2023]]
 
 ## Description
 
@@ -80,7 +80,7 @@ title: "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist que
 - Author-submitted checklists also matched the ground truth 86.6% of the time, but mismatches barely overlapped: GPT-4 disagreed with 75% (12 of 16) of author mismatches; conversely 9 of 16 (56.3%) of GPT-4's incorrect answers had correct author responses.
 - Per-paper accuracy in Table 2 (15 papers) ranges 0.57–1.00; per-question accuracy across 16 items ranges 0.63–1.00.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@liuReviewerGPTExploratoryStudy2023#TRIPOD-LLM reporting]].
 
 | Metric | Value |
 | --- | --- |
@@ -109,18 +109,18 @@ title: "GPT-4 achieved 86.6% majority-vote accuracy on 119 NeurIPS checklist que
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Checklist ground truth was author-stated not verified|CVT - Checklist ground truth relied on author-stated responses rather than independent verification]]
+- [[sysrev/dgraph/caveats/CVT - Checklist ground truth was author-stated not verified|CVT - Checklist ground truth relied on author-stated responses rather than independent verification]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
+- [[sysrev/dgraph/claims/CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
 
-- [[CLM - Targeted questions elicit substantially better LLM performance than open-ended review|CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
+- [[sysrev/dgraph/claims/CLM - Targeted questions elicit substantially better LLM performance than open-ended review|CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]

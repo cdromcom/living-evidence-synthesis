@@ -24,7 +24,7 @@ title: "ChatGPT-human correlation was weakest in intervention and objective CONS
 
 ## Source
 
-[[@robertsComparativeStudyChatGPT2023]]
+[[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023]]
 
 ## Description
 
@@ -72,7 +72,7 @@ title: "ChatGPT-human correlation was weakest in intervention and objective CONS
 - Most domains have r values in the very-weak range (<0.2): intervention 0.02, number analysed 0.04, objective 0.06, conclusion 0.06, randomisation 0.11, outcome (methods) 0.14, outcome (reporting) 0.15, funding 0.21, participants 0.26.
 - The combination of low Pearson r and small mean differences (e.g., intervention r=0.02 with mean diff only 0.057) suggests ChatGPT and humans are agreeing on the modal label by chance rather than tracking the same per-abstract signal.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@robertsComparativeStudyChatGPT2023#TRIPOD-LLM reporting]].
 
 | CONSORT-A domain | Pearson r | p-value | Author band | Notes |
 | --- | :---: | :---: | --- | --- |
@@ -93,17 +93,19 @@ title: "ChatGPT-human correlation was weakest in intervention and objective CONS
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - Roberts study tested only GPT-3.5|CVT - The Roberts study used only GPT-3.5 and did not test GPT-4 or other LLMs]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs can help automate reporting compliance appraisal|CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
+- [[sysrev/dgraph/claims/CLM - LLMs can help automate reporting compliance appraisal|CLM - LLMs can help automate appraisal of medical literature for reporting standard compliance]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
-- [[EP - Per-item LLM-human agreement varies sharply by item type]]
+- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
+- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type]]

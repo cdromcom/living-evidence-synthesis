@@ -1,0 +1,33 @@
+{
+ "evd": 38,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.92,
+   "Missing": 0.01,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.04,
+  "quote_fully_visible": 0.02,
+  "shot_connects": [
+   0.25
+  ],
+  "reason": "Quote is Table 1 ranking; screenshot shows a text passage about P5 score distributions instead."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.0,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.04,
+   "Missing": 0.93,
+   "NA": 0.0
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "No table shown; only an unrelated text passage. Table 1 rankings absent."
+ }
+}

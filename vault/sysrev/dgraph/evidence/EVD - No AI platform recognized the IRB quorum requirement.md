@@ -24,7 +24,7 @@ title: "None of three AI platforms recognized quorum requirement for initial pro
 
 ## Source
 
-[[@sridharanAssessingDecisionMakingCapabilities2024]]
+[[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024]]
 
 ## Description
 
@@ -70,7 +70,7 @@ title: "None of three AI platforms recognized quorum requirement for initial pro
 - The quorum omission is one of several "common to all three platforms" failures called out in Table 2's rightmost column, alongside: chairperson independence, scope of reviewable proposals, and member appointment / disqualification criteria.
 - The COI section of Table 2 also notes a related quorum failure, none of the three platforms stated that a member with declared COI should not be counted in the quorum, even when ChatGPT and Bard correctly required the conflicted member to leave the room.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sridharanAssessingDecisionMakingCapabilities2024#TRIPOD-LLM reporting]].
 
 | Platform | Mentions quorum requirement for full board review? |
 | --- | :---: |
@@ -89,10 +89,10 @@ title: "None of three AI platforms recognized quorum requirement for initial pro
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
+- [[sysrev/dgraph/claims/CLM - AI can augment IRB review but cannot replace human oversight|CLM - AI tools can augment IRB decision-making and improve review efficiency but cannot replace human oversight]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
+- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]

@@ -24,7 +24,7 @@ title: "LLM confidence approaches zero across 498 model-instance SPOT evaluation
 
 ## Source
 
-[[@sonWhenAICoScientists2025]]
+[[sysrev/dgraph/source/@sonWhenAICoScientists2025]]
 
 ## Description
 
@@ -78,7 +78,7 @@ title: "LLM confidence approaches zero across 498 model-instance SPOT evaluation
 - Models rarely rediscover the same errors across independent runs, further undermining reliability.
 - Confidence here is an **objective frequency-derived estimate** (run-level success rate), not the model's verbalised self-confidence; a stronger calibration signal because it cannot be inflated by overconfident phrasing.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sonWhenAICoScientists2025#TRIPOD-LLM reporting]].
 
 | Calibration metric | Value |
 | --- | :---: |
@@ -95,18 +95,20 @@ title: "LLM confidence approaches zero across 498 model-instance SPOT evaluation
 
 ## Caveats
 
-> [!info] No caveats currently linked to this evidence.
+> [!info] Caveats applying to this evidence
+
+- [[sysrev/dgraph/caveats/CVT - SPOT had only 83 manuscripts with 91 errors|CVT - SPOT benchmark comprised only 83 manuscripts with 91 errors limiting statistical power]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
+- [[sysrev/dgraph/claims/CLM - LLMs fall far short of dependable error verification|CLM - Current LLMs fall far short of requirements for dependable AI-assisted academic error verification]]
 
-- [[CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
+- [[sysrev/dgraph/claims/CLM - Proprietary reasoning models substantially outperform open-source at error detection|CLM - Proprietary reasoning models substantially outperform open-source models on scientific error detection]]
 
 ## Instantiates Pattern(s)
 
 > [!info] Cross-paper EvidencePattern(s) this evidence contributes to
 
-- [[EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]
+- [[sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions]]

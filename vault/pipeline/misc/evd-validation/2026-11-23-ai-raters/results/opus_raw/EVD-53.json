@@ -1,0 +1,30 @@
+{
+ "evd": 53,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "Specific reasoning errors LLMs made in QUADAS-2 patient selection domain; directly about LLM risk-of-bias assessment quality."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.92,
+   "Partially Met": 0.06,
+   "Unmet": 0.02
+  },
+  "reason": "Quote names misinterpretation of consecutive sampling in case-control designs in patient selection domain; gist matches."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.08,
+   "Partially Correct": 0.85,
+   "Incorrect": 0.05,
+   "Missing": 0.02,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.3,
+  "reason": "Screenshot cropped; only 'In ... domain, common issues included' highlighted and part of next lines; most of quote not visible."
+ },
+ "table": null
+}

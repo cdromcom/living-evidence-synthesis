@@ -26,7 +26,7 @@ title: "GPT-4 feedback overlapped 30.85% with individual human reviewers on Natu
 
 ## Source
 
-[[@liangCanLargeLanguage2024a]]
+[[sysrev/dgraph/source/@liangCanLargeLanguage2024a]]
 
 ## Description
 
@@ -80,7 +80,7 @@ title: "GPT-4 feedback overlapped 30.85% with individual human reviewers on Natu
 - Per-journal GPT-4-vs-human overlap ranged from **15.58% (Nature Communications Materials)** to **39.16% (Nature)**.
 - Global hit rate (≥ 1 human reviewer matches a given GPT-4 comment) = 57.55% on Nature, 77.18% on ICLR (Supp. Fig. 1).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@liangCanLargeLanguage2024a#TRIPOD-LLM reporting]].
 
 | Comparison (Nature, n = 3,096 papers) | Hit rate | 95% CI / sig. |
 | --- | :---: | :---: |
@@ -106,12 +106,12 @@ title: "GPT-4 feedback overlapped 30.85% with individual human reviewers on Natu
 
 > [!info] Caveats applying to this evidence
 
-- [[CVT - Liang et al used only accepted papers which may not represent the full range|CVT - The Liang et al study used papers already accepted to journals which may not represent the full quality distribution]]
+- [[sysrev/dgraph/caveats/CVT - Liang et al used only accepted papers which may not represent the full range|CVT - The Liang et al study used papers already accepted to journals which may not represent the full quality distribution]]
 
 ## Supports Claim(s)
 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
-- [[CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
+- [[sysrev/dgraph/claims/CLM - LLM review quality is comparable to humans given sufficient context|CLM - LLM review quality is comparable to human review quality when provided with sufficient contextual information]]
 
-- [[CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]
+- [[sysrev/dgraph/claims/CLM - LLM feedback is paper-specific not generic boilerplate|CLM - LLM-generated scientific feedback is paper-specific and not merely generic boilerplate]]

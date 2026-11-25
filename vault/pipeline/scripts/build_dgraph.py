@@ -17,14 +17,13 @@ Structure:
 
 All node references are Obsidian wikilinks `[[Stem]]`.
 """
+import os
 import json
 import re
 from pathlib import Path
 from collections import defaultdict
 
-VAULT = Path('/Users/ppatel/Documents/living-synthesis')
-
-
+VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
 def wl(stem: str) -> str:
     """Wikilink to a node, showing its full title (frontmatter `title`) when it has one."""
     return f'[[{stem}|{TITLES[stem]}]]' if stem in TITLES else f'[[{stem}]]'
@@ -76,7 +75,7 @@ def parse_clm_supporting_evds(clm_path: Path) -> list[str]:
 
 def parse_cvt_appliesTo(cvt_path: Path) -> list[str]:
     text = cvt_path.read_text()
-    m = re.search(r'^appliesTo:\s*\n((?:^\s*-\s*"\[\[.*?\]\]"\s*\n?)+)', text, re.MULTILINE)
+    m = re.search(r'^appliesTo:[ \t]*\n((?:[ \t]*-[ \t]*"\[\[.*?\]\]"[ \t]*\n?)+)', text, re.MULTILINE)
     if not m:
         return []
     return re.findall(r'\[\[(EVD[^\]|\\]+)[^\]]*\]\]', m.group(1))

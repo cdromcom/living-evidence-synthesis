@@ -1,0 +1,42 @@
+{
+ "run": "r2",
+ "cost_note": "Opus 5.5 ran as six Claude Code subagents on the Run 2 blind folder; token counts are the subagents' reported totals and include reading the screenshots. Run 2 is not billed per token for this subscription session, so no USD figure is given.",
+ "batches": [
+  {
+   "evds": "1-13",
+   "evds_n": 13,
+   "tokens": 83099,
+   "duration_ms": 75896
+  },
+  {
+   "evds": "14-26",
+   "evds_n": 13,
+   "tokens": 83170,
+   "duration_ms": 74375
+  },
+  {
+   "evds": "27-39",
+   "evds_n": 13,
+   "tokens": 78170,
+   "duration_ms": 63959
+  },
+  {
+   "evds": "40-52",
+   "evds_n": 13,
+   "tokens": 84241,
+   "duration_ms": 76055
+  },
+  {
+   "evds": "53-65",
+   "evds_n": 13,
+   "tokens": 75642,
+   "duration_ms": 67767
+  },
+  {
+   "evds": "66-77",
+   "evds_n": 12,
+   "tokens": 72141,
+   "duration_ms": 56118
+  }
+ ]
+}

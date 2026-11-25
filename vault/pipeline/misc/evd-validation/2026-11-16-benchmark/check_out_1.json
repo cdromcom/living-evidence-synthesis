@@ -1,0 +1,296 @@
+[
+ {
+  "id": 32,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 (p. 8) has only a 'GPT-3.5 turbo: Titles' row; 0.539 is that row's correlation with the GPT-4o: Abstracts column, not a GPT-4o title-only result."
+ },
+ {
+  "id": 33,
+  "verdict": "MODIFY",
+  "new_fixed": "- Title-only input is non-trivial (r = 0.434 for GPT-3.5-turbo; titles were run only with GPT-3.5-turbo), but substantially below abstracts.\n- PDF check 2026-11-17: the p. 7 text (and Figure 1 at 30 iterations) gives the title-only correlation as 0.46, while Table 1 (p. 8) gives 0.434.",
+  "reason": "Table 1 p. 8 Human column gives 0.434 for GPT-3.5 Titles; no GPT-4o titles cell exists. p. 7 text says 0.46 and rendered Figure 1 also ends near 0.46, so the note mentions the figure too."
+ },
+ {
+  "id": 34,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 p. 8 gives Abstracts vs Truncated text = 0.757 for GPT-3.5 turbo; p. 7 text says 0.754. The old text is a paraphrase in Other Notes, not a quote, and the page's own table already shows 0.757."
+ },
+ {
+  "id": 35,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 p. 8 has 7 rows: GPT-3.5 turbo Titles/Abstracts/Truncated, GPT-4o-mini Abstracts/Truncated, GPT-4o Abstracts/Truncated. No 4o or 4o-mini title runs."
+ },
+ {
+  "id": 36,
+  "verdict": "MODIFY",
+  "new_fixed": "- Single-iteration Spearman r is much lower (~0.38–0.44 in Figure 2); averaging 30 iterations raises it to ~0.65–0.67.",
+  "reason": "Rendered Figure 2 p. 9: at n=1 the curves are about 0.38 (4o-mini), 0.39 (3.5) and 0.44 (4o); at n=30 about 0.65–0.67. 'Roughly doubles' is wrong, but 'by roughly half' is also loose (+52% to +71%), so I state only the endpoints."
+ },
+ {
+  "id": 37,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 2 (automated eval) lists 10 rows: SARG-B, SARG-TP, MARG-TP, LiZCa, MARG-S, 4 MARG-S ablations, Human. 5+4+1 = 10, not 11."
+ },
+ {
+  "id": 38,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 2: MARG-S recall 15.84, LiZCa 9.67 (gap 6.17), SARG-TP 10.62 (gap 5.22); abstract p.1 says 'outperforms the strongest baseline by 6.1 recall points'. The added note is accurate and leaves the quote alone."
+ },
+ {
+  "id": 39,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Sec 7.3 attaches p=0.02/0.12/0.09/0.16 to the proportion of 'good' comments; Sec 7.2 gives the good-comment count tests (SARG-B p=0.09 related-sample t-test, LiZCa p=0.003)."
+ },
+ {
+  "id": 40,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Same as 39: Sec 7.3 p-values are for the proportion of good comments, and Sec 7.2 gives count-per-review p=0.09 (SARG-B) and p=0.003 (LiZCa)."
+ },
+ {
+  "id": 63,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Figure 4 right (p. 6): x = confidence, y = average pass@4; nearly every marker sits above the dashed y = x line, so 'below the diagonal' was backwards."
+ },
+ {
+  "id": 64,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Appendix C.1 Eq. 5 (p. 24): p̂ = 1 − C(n−c, K)/C(n, K) with n = 8, which equals 1 whenever n − c < K; the paper (p. 6) reports two full-confidence cases without stating K."
+ },
+ {
+  "id": 65,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p. 6 text: o3 62.6%, Gemini 36.4%; rendered Table 4 (o3) Equation/proof pass@4 67.5 (3.7) and Table 6 (Gemini) 38.4 (7.3) on p. 34. The '± 5.7' is not in the PDF."
+ },
+ {
+  "id": 66,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered p. 34–35: Figure duplication pass@4 is o3 0.0 (0.0) in Table 4, GPT-4.1 41.1 (5.6) in Table 5, Gemini 5.5 (3.9) in Table 6, Claude:Thinking 34.9 (6.0) in Table 8; the p. 6 text gives 44.4/33.3/0/0. GPT-4.1 is still the best."
+ },
+ {
+  "id": 67,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p. 6 text says Gemini-2.5-Pro 0% on figure duplication, but Table 6 (p. 34) gives 5.5 (3.9); o3 is 0.0 in both."
+ },
+ {
+  "id": 68,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 8 (p. 35): Claude-3.7-Sonnet:Thinking equation/proof pass@4 is 3.0 and figure duplication 34.9 (33.3% in text), so the old claim that Claude:Thinking excels at proofs is wrong. The text-vs-appendix discrepancies in the note match Tables 4–6."
+ },
+ {
+  "id": 69,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Figure 2 (p. 4): bars read about Math 22, Biology 13, CS 13, Multidisciplinary 11, Chemistry 8, Physics 8, Materials 6, Medicine 5, Env 3, Engineering 2 (sum 91)."
+ },
+ {
+  "id": 70,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 2 (p. 5): Gemini-2.0-Flash-Lite recall is 1.6 with subscript 1.3."
+ },
+ {
+  "id": 71,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 2 (p. 5): Claude-3.7-Sonnet Think pass@4 is 18.6 with subscript 2.8."
+ },
+ {
+  "id": 72,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 2 (p. 5): Qwen2.5-VL-72B precision is 0.6 with subscript 1.2."
+ },
+ {
+  "id": 73,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 2 (p. 5): Qwen2.5-VL-32B precision is 1.9 with subscript 2.0."
+ },
+ {
+  "id": 74,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Figure 3 (p. 6) plots SPOT recall (o3 21, Maverick 0.9, Δ = 20.2 pp); Table 2 pass@4 is o3 37.8 vs Maverick 3.3, a 34.5 pp gap."
+ },
+ {
+  "id": 75,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p. 3 Stage 2: the first GPT-4o filtering pass reduces the pool 'to 1,855 WithdrarXiv and 25,378 PubPeer samples', so 25,378 is a post-filter count, not the raw crawl."
+ },
+ {
+  "id": 89,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Figure 3 (p. 17): Ethical Aspects sits just right of 0 (log ratio about +0.1, similar to Clarity, which the page calls ≈1×); only Theoretical Soundness, Missing Citations, ablations and Novelty are negative."
+ },
+ {
+  "id": 90,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Methods (p. 10): 'To ensure annotation reliability, two researchers with a background in machine learning performed the annotations.' Nothing says each comment was coded by both."
+ },
+ {
+  "id": 91,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Figure 2 caption (p. 16) gives 95% CI error bars and the */**/***/**** P thresholds without naming a test; 'McNemar' does not appear anywhere in the PDF text."
+ },
+ {
+  "id": 96,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "§5.1/§5.2 and the Table 1/2 captions (p. 10–11) report Bradley-Terry scores with no significance test; 'paired t-tests ... (p < 0.002)' appears only in §5.3 (p. 11–12) for F1 vs the human 0.49."
+ },
+ {
+  "id": 97,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Same as 96: the Table 1 and Table 2 captions mention only bold/underline, and no test is given for either preference ranking."
+ },
+ {
+  "id": 98,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 7 (p. 15) carries * on the GAR values but has no caption note defining it (unlike Table 5, which defines * as t-test p<0.05); the §5.9 text says only that GAR 'significantly outperforms AI-Scientist'. The column count is preserved."
+ },
+ {
+  "id": 99,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "§5.9 (p. 14–15) states no paper count; '1,000 papers' belongs to §5.3 (Tables 3/4/9) and §5.8 (ICLR 2023 subset)."
+ },
+ {
+  "id": 100,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 4 (p. 12), ICLR 23: GAR (NN selected) 0.72±0.06 / 0.67±0.05; GAR> (NN selected) 0.74±0.05 / 0.70±0.06."
+ },
+ {
+  "id": 101,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 4 (p. 12), ICLR 23: GAR (w/o memory) 0.61±0.05 / 0.52±0.06."
+ },
+ {
+  "id": 105,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 2 (p. 87): in the Conflict of interest row the ChatGPT and Google Bard cells are blank; leaving the room and not counting toward quorum appear only in the 'Comments common to all three AI platforms' column."
+ },
+ {
+  "id": 106,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "p. 85 says only 'Overall, these platforms managed to cover the fundamental sections of the SOPs requested'; coverage is not reported per draft."
+ },
+ {
+  "id": 107,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "The quorum omission is stated only in the p. 85 Results text; Table 2 (pp. 87–88) rows are Constitution, COI, Expedited, Exemption, Continuing review, Study completion and SAE, with no initial-review row."
+ },
+ {
+  "id": 108,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Same as 107: Table 2 has no row for initial review of proposals, so the quorum omission is not in its common-to-all column."
+ },
+ {
+  "id": 109,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 2 (p. 87): the ChatGPT and Bard COI cells are blank, and the leave-the-room statement sits in the common-to-all column, so the page's 'ChatGPT and Bard correctly required...' is unsupported."
+ },
+ {
+  "id": 110,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 (p. 86): in the 'Failure to state reporting of an event' row for Case Study 2 (Emergency Room Research), Poe, ChatGPT and Bard are all 'Not stated'. The p. 85 text attributes only the Case Study 10 failure to all platforms, and the Discussion never mentions Case Study 10."
+ },
+ {
+  "id": 111,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 (p. 86): in the 'Failure to state reporting of an event' row for Case Study 2 (Emergency Room Research), Poe, ChatGPT and Bard are all 'Not stated', so two cases have an all-three failure."
+ },
+ {
+  "id": 112,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 (p. 86) has 11 rows but 8 distinct domain labels (event reporting, expediting review, reporting deviation to sponsors, written consent, critical suggestions to sponsors, definition of drug, critical ICF information, quantifying risks)."
+ },
+ {
+  "id": 113,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Same as 112: Table 1 lists 8 distinct domains."
+ },
+ {
+  "id": 114,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 (p. 86): in the 'Failure to state reporting of an event' row for Case Study 2 (Emergency Room Research), Poe, ChatGPT and Bard are all 'Not stated'."
+ },
+ {
+  "id": 115,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 (p. 86): in the 'Failure to state reporting of an event' row for Case Study 2 (Emergency Room Research), Poe, ChatGPT and Bard are all 'Not stated'; Case Study 10 comes from the p. 85 text."
+ },
+ {
+  "id": 125,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 2 (p. 6): ChatGPT 'Reported' ≥ Human on all 12 PRISMA items; equal on items 1, 2, 5, 9, 10 and strictly higher on 3, 4, 6, 7, 8, 11, 12."
+ },
+ {
+  "id": 126,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 1 (pp. 4–5): ChatGPT is below humans only on 9 Blinding (8 vs 9) and 16 Trial registration (9 vs 11); it is equal or higher on the other 15 items."
+ },
+ {
+  "id": 127,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered Table 1: both 20/20 only on items 1, 2, 5, 6, 15 (five items); 3 Trial design is 20 (100%) vs 16 (80%), p=0.11, although the p. 4 text lists trial design among six perfect-agreement items. The old text is a table cell, not a quote."
+ },
+ {
+  "id": 128,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 item 3 (p. 4) is 20/20 vs 16/20, p=0.11, against the text's six-item list; the p. 3 RCT formula divides by '19 − Total NA' while p. 4 describes a 17-item checklist. The note is an added line, and the quote is unchanged."
+ },
+ {
+  "id": 143,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 (printed p. 9342): the few-shot given-review row with Pearson 0.651 / Spearman 0.659 is numbered '3. few-shot'; row 2 is zero-shot (0.548)."
+ },
+ {
+  "id": 144,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Table 1 (p. 9342): Pearson 0.258 is '7. selected sections'; '6. whole paper (GPT-3.5-16k)' is 0.131."
+ },
+ {
+  "id": 145,
+  "verdict": "ACCEPT",
+  "new_fixed": null,
+  "reason": "Rendered PDF page 8: Table 7 ('Results on RR-MCQ test data', GPT-4 -> GPT-4 macro accuracy 0.276) sits on printed page 9347."
+ }
+]
