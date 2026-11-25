@@ -26,9 +26,9 @@ This file is the single reference for models building the LIVES web app. It merg
 | 3 | Quality signals | Domain rows with five statuses; no strong/weak tally | Owner brief, Opus plan |
 | 4 | Color | Cream, forest, ink; Okabe-Ito for statuses; never color alone; tuned dark mode | Owner brief, Opus plan |
 | 5 | Screenshots | Closed by default, a small labelled placeholder opens on click | Owner |
-| 6 | Highlights and mascot | Pastel PDF highlights by node type; cherub-on-tortoise mascot in the header | Owner |
+| 6 | Highlights and logo | Pastel PDF highlights by node type; the logo stays the plain green turtle icon (a cherub-on-tortoise mascot was tried on 2026-11-25 and the owner rejected it) | Owner |
 | 7 | Provenance | Byline under the title plus a collapsed GAMER-style AI-use footer | Owner, v2 summary |
-| 8 | Restraint | Pills are not capped, but they are not the default: try other components first (see section 12); one accent; no decoration other than the mascot | Owner (2026-11-25) |
+| 8 | Restraint | Pills are not capped, but they are not the default: try other components first (see section 12); one accent; no decoration beyond the plain turtle logo | Owner (2026-11-25) |
 | 9 | Keyboard | Every task works without a mouse; tested in CI | Owner (Direction A) |
 | 10 | Build | Tests first; Opus 5.5 builds; another model family reviews; the owner approves each phase | Owner, Opus plan |
 
@@ -167,12 +167,10 @@ Light pastels by node type. The highlight also gets an outline, because a tint a
 
 Exact hex values are **not decided**. Choose values that keep ink text readable at 4.5:1 and record them as tokens.
 
-### 7.3 Mascot (owner decision)
+### 7.3 Logo (owner decision, 2026-11-25)
 
-- A small cherub with a halo, riding the green tortoise.
-- Sits in the header on every page.
-- Decorative: empty alt text, not focusable, never animated.
-- Artwork and size are **not decided**. Per project memory, models draw diagrams weakly, so the owner supplies or approves the art.
+- The logo is the plain green turtle icon (lucide `Turtle`) beside the site name. A small cherub with a halo riding the tortoise was built and shipped on 2026-11-25 and the owner reverted it as unattractive. Do not reintroduce a mascot without the owner's request. The icon is decorative (hidden from screen readers; the site name next to it is the link text). Per project memory, models draw diagrams weakly, so the owner supplies or approves any art.
+
 
 ### 7.4 Icons and graph
 
@@ -240,7 +238,7 @@ Owner feedback: the homepage uses too many colorful pills. Owner decision (2026-
 | Try a component other than a pill first: plain text, a small table, a definition list, a labelled icon, a segmented control, a tab, a disclosure, a sortable column, a tooltip, a count in the heading | Default to a pill for every label or count |
 | Use one accent (forest) | Add a color per category |
 | Let Concern and Judges split be the only colored statuses | Tint Adequate and Not reported |
-| Keep the mascot as the only illustration | Add decorative art or icons without a job |
+| Keep the plain turtle logo as the only illustration | Add decorative art or icons without a job |
 
 - **Components to consider instead of pills:** inline text with a separator; a two-column table of label and value; a definition list; a leading icon with a text label; a segmented control for a choice of one; tabs for parallel views; `<details>` for optional detail; a tooltip for a definition; a count in a heading ("Evidence (12)"); a sorted list with a status icon at the start of each row; a sparkline or small bar where a number has a scale.
 - **When a pill is the right choice:** a short, filterable attribute the reader will click (for example a type filter), where the control itself is the point. When using pills, keep them neutral and use color only for a status that needs attention.
@@ -283,7 +281,7 @@ Owner feedback: the homepage uses too many colorful pills. Owner decision (2026-
 | 5 | What "version" and a stable citation mean | Sonnet plan |
 | 6 | Add "Not assessed" as a sixth status? | Opus plan |
 | 7 | How the footer opens on hover without layout shift | Models' critique vs owner |
-| 8 | Mascot artwork, size and highlight hex values | Owner brief |
+| 8 | Highlight hex values | Owner brief |
 | 9 | Review sidebar categories and verdict labels | Owner brief |
 | 10 | Per-node change log (deferred; project changelog first) | Both plans |
 | 11 | Search excerpts: adopted by Opus, deferred by Sonnet pending index size | Plans differ |
@@ -305,10 +303,14 @@ Short names: **Fable** = `design-consult-claude-fable-5-2.md`; **Sol** = `design
 | Serif quotes, fonts, 0.875 rem minimum | Fable 10 to 12, Sol 5 |
 | Breakpoints | Fable 13, Sol 6; resolved by Opus |
 | Crop with context, full page on demand | Fable 14, Sol 7 |
-| Screenshot closed by default, pastel highlights, mascot, restraint rules | Owner |
+| Screenshot closed by default, pastel highlights, plain turtle logo, restraint rules | Owner |
 | Settled graph, no `<details>` animation | Fable 21 and 22, Sol 8 |
 | Combobox from a library | Fable 24; cmdk named by Opus and Sonnet |
 | Focus sequence | Fable 23, Sol 9 |
 | Tests first, vertical slice, budgets, integrity checks, named approver | Fable 28 to 32, Sol 11 and 12; phases from Opus |
 | Review sidebar behavior | Owner |
 | Provenance wording and GAMER items | `pipeline/provenance/AI-disclosure.md` |
+
+
+## Addendum 2026-11-25: report route
+The large "Report on GitHub" box in the node sidebar was replaced by one small link, "Report a problem or request removal on GitHub", which opens a prefilled new issue. The repository's GitHub issues page is the takedown route (owner, 2026-11-24); the link keeps that route visible to signed-out visitors without a second form next to the Review panel.

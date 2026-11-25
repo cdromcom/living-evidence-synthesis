@@ -13,7 +13,6 @@ import NodeTypeBadge from "@/components/NodeTypeBadge";
 import StatusBadge from "@/components/StatusBadge";
 import EdgeGroups from "@/components/EdgeGroup";
 import ReviewWidget from "@/components/ReviewWidget";
-import NodeIssuePanel from "@/components/NodeIssuePanel";
 import NodeArticle from "@/components/NodeArticle";
 import SourceToc from "@/components/SourceToc";
 import TopBadges from "@/components/TopBadges";
@@ -233,7 +232,16 @@ export default async function NodeDetailPage({
 
         <aside aria-label="Review and connections" className="space-y-8">
           <ReviewWidget nodeId={node.id} />
-          <NodeIssuePanel nodeId={node.id} nodeTitle={displayTitle} />
+          <p className="text-xs text-muted-ink">
+            <a
+              href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_REPO || "cdromcom/living-evidence-synthesis"}/issues/new?title=${encodeURIComponent(`[${node.id}] `)}&body=${encodeURIComponent(`Node: ${node.id} (${displayTitle})\n\nWhat is wrong, or what should be removed?\n`)}`}
+              className="underline hover:text-ink"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Report a problem or request removal on GitHub
+            </a>
+          </p>
           <div>
             <h2 className="mb-2 border-b border-border pb-1.5 text-xs font-semibold uppercase tracking-wide text-ink/70">
               Inbound <span className="text-muted-ink">({inbound.length})</span>
