@@ -255,3 +255,5 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
 - [x] **One review box** (2026-11-25): the Report on GitHub box was merged into Review this node; see the design spec addendum. Takedown stays as a footer link to the GitHub issues page.
 - [ ] **Supabase view**: JP to paste `supabase/migrations/2026-11-reviews-view-only.sql` into the Supabase SQL Editor and click Run (no SQL files exist inside Supabase; the file lives in the repository).
 - [x] **Dark mode and shell study** added to the design spec (section 16), measured from JP's Supabase screenshot; owner to confirm the hex values and the optional icon rail.
+
+- [ ] **Embedding model bake-off** (2026-11-25): EmbeddingGemma 2 and harrier-oss-v1-0.6b are both downloaded (see Tools-and-Models.md). After JP labels more same-or-different node pairs (the calibration set), compare them (rank of true merges, false-merge rate at a cutoff) and pick one default for `embed_candidates.py` (it currently uses EmbeddingGemma 2; add a `--model` option when choosing). The 27B leader needs a larger machine.
