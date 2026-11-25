@@ -272,7 +272,7 @@ flowchart TB
     end
 
     subgraph WR["3. Write and crop"]
-        J["Write the nodes from PICOST<br/>EVD pilot: Neon and Sonnet 5.5 draft, Sol and Inkling 2 Small pick,<br/>Opus 5.5 checks and edits<br/>other nodes: Neon, Opus 5.5 checks"]
+        J["Write the nodes from PICOST<br/>EVD pilot: Sonnet 5.5, Sol and Neon draft, critique and revise (2 rounds at most),<br/>Sol and Sonnet vote, Neon breaks ties, Inkling logs a pick only,<br/>cheaper checker verifies claims, Opus 5.5 on escalation<br/>other nodes: same loop"]
         K["Crop screenshots<br/>PyMuPDF + pdftoppm<br/>whole quote, table or figure with caption<br/>pastel highlight by node type"]
         L{"Crop QA<br/>Sol checks every crop<br/>Opus 5.5 checks multi-page crops"}
         M["Automatic audits<br/>quotes verbatim, numbers on the PICOST card,<br/>printed page map, links"]
@@ -348,14 +348,14 @@ flowchart TB
 | Read | Gemini 4 Neon (High) + PDF text layer | page-by-page text and tables | Sol and Opus 5.5 on disagreements |
 | Extract | Gemini 4 Neon (High); Sol re-reads low-confidence and multi-page items | PICOST JSON with locators, bounding boxes and highlighted spans | spot check A |
 | Check | decision models (relevancy, fidelity, quote and table grounding); Sol and Opus 5.5 on flagged records | pass or flag per record | threshold set in the pilot |
-| Write | Neon and Sonnet 5.5 draft, Sol and Inkling 2 Small pick, Opus 5.5 checks (EVD pilot); Neon for the other nodes, Opus 5.5 checks | vault markdown nodes | none until review |
+| Write | Sonnet 5.5, Sol and Neon (Medium) draft and debate; Sol and Sonnet vote; Neon tie-break; Inkling benchmark only; Opus 5.5 on escalation (EVD, QUE, CLM, EP, CVT) | vault markdown nodes | none until review |
 | Crop | PyMuPDF, `pdftoppm`; Sol and Opus 5.5 QA | verified screenshots | spot check B |
 | Audit | scripts (`verbatim_audit.py`, `check_links.py`, `pdf_pages.py`) | verbatim, numbers, page and link checks | none |
 | Fit into the graph | EmbeddingGemma 2, Inkling 2 Small, Sonnet 5.5 | proposed links, merges and splits with reasons, all logged | a person verifies every merge or split |
 | Footer | `call_logger.py` | AI-use footer from the call log | none |
 | Review | `vault_to_gsheet.py` | the mirror Google Sheet | JP judges accuracy there |
 | Publish | GitHub PR, `build-graph.mjs`, Vercel | the live LIVES web app | JP approves merges |
-| Quality signals (optional) | Opus 5.5 and Sol rate; decision models and scripts check | TRIPOD-LLM and appraisal tables, Statistical Accuracy findings | JP reviews the sheet |
+| Quality signals (optional) | Opus 5.5, Sol and Neon rate, majority vote; decision models and scripts check; all ratings logged to a benchmark sheet | TRIPOD-LLM and appraisal tables, Statistical Accuracy findings | JP reviews the sheet |
 
 ---
 

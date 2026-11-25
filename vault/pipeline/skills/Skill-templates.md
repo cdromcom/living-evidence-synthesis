@@ -55,6 +55,9 @@ Examples (Phase 2 final texts):
 2. "Of six LLMs with RAG answering 15 STROBE questions about 39 observational medical research reports, GPT 4-0613 was least accurate (44.1%), below Gemini Pro (49.2%, p < .001) and best-performing GPT 3.5-turbo (66.9%)."
 3. "GPT 3.5 with chain-of-thought prompting checking 20 orthodontic systematic review abstracts against 12 items of the reporting guideline PRISMA did not differ significantly from two human raters on 11 items (Fisher's exact test p > 0.05)."
 
+### EVD tiers (JP, 2026-11-25)
+Every EVD has a tier against the research question: **primary** (answers the RQ directly), **secondary** (meta or contextual about a primary finding; lists the primary EVD in `supports_EVD`) or **tertiary** (other context). The statement style below is the same for all tiers; a secondary EVD's statement names what it qualifies (for example the human raters' agreement behind a primary kappa). Frontmatter fields `evd_tier`, `evd_tier_reason`, `answers_QUE`, `supports_EVD`. Spec, caps and open questions: `pipeline/templates/T - EVD tiers.md`. Drafting by debate: `Skill.md`, "Drafting by debate".
+
 ### Provenance for tables and figures everywhere (JP, 2026-11-24)
 
 Quotes and screenshots are required not only for EVD results but for **every table, figure or design detail cited anywhere**: EVD Methods Context (What / How / Who), EVD Other Notes tables, SRC pages (the TRIPOD-LLM table's Quote column, the Quality Appraisal rows, methods summaries) and any other node. The earlier pages cited method and sample numbers without grounding them; do not repeat that. For each:
@@ -160,7 +163,7 @@ Each `sysrev/dgraph/source/@<citekey>.md` carries a plain-language **structured 
   2. <next step>
 
 ### Findings
-<One bullet per EVD. Each bullet starts with the `[[EVD - …]]` link, then a 5–10-word **bold lead** in plain English, then 2–4 short sentences (or 2–4 sub-bullets) with the actual numbers (define each metric on first use).>
+<One bullet per EVD, **primary EVDs first, then secondary** (tertiary last; say the tier in a few words after the link). Each bullet starts with the `[[EVD - …]]` link, then a 5–10-word **bold lead** in plain English, then 2–4 short sentences (or 2–4 sub-bullets) with the actual numbers (define each metric on first use).>
 
 ### Claim supported
 <Start with each `[[CLM - …]]` link, then 1–2 sentences, then one sentence of editorial framing about what this means in practice.>
