@@ -1,0 +1,119 @@
+{
+ "report": {
+  "models": [
+   "EmbeddingGemma 2",
+   "harrier-oss-v1-0.6b",
+   "DNA-VL-STEER-2B"
+  ],
+  "n_seeds": 27,
+  "n_reference": 125,
+  "n_negatives_proxy": 401,
+  "relevance_majority_rule": {
+   "sensitivity": 0.8979591836734694,
+   "specificity": 1.0,
+   "flagged_outside_ingest_sets": 123
+  },
+  "relevance_proxy": {
+   "rule": "any model above its threshold (favors false positives)",
+   "positives_n": 98,
+   "negatives_n": 401,
+   "sensitivity": 0.9387755102040817,
+   "specificity": 0.9975062344139651,
+   "balanced_accuracy": 0.9681408723090235,
+   "note": "positives = papers JP already treats as in scope (Elicit 2026-11-24 set, Include-CA-Rep; leave-one-out), negatives = clearly unrelated collections; a proxy, not JP labels",
+   "auc": 0.9994401750725228
+  },
+  "category_loo_majority": {
+   "accuracy": 0.7692307692307693,
+   "n": 26
+  },
+  "category_loo_by_model": {
+   "EmbeddingGemma 2": {
+    "accuracy": 0.7307692307692307,
+    "n": 26
+   },
+   "harrier-oss-v1-0.6b": {
+    "accuracy": 0.8076923076923077,
+    "n": 26
+   },
+   "DNA-VL-STEER-2B": {
+    "accuracy": 0.8846153846153846,
+    "n": 26
+   }
+  },
+  "novel_threshold": {
+   "EmbeddingGemma 2": 0.900681734085083,
+   "harrier-oss-v1-0.6b": 0.8743879795074463,
+   "DNA-VL-STEER-2B": 0.7894334197044373
+  },
+  "relevance_threshold": {
+   "EmbeddingGemma 2": 0.8819162249565125,
+   "harrier-oss-v1-0.6b": 0.8513981103897095,
+   "DNA-VL-STEER-2B": 0.778361976146698
+  },
+  "cluster_choice": {
+   "pool": 3318,
+   "silhouette": 0.0168507600428176,
+   "k_chosen": 30,
+   "clusters_of_3_or_more": 30,
+   "papers_in_small_or_no_cluster": 0
+  }
+ },
+ "counts": {
+  "distinct_papers": 17544,
+  "target_rows": 3441,
+  "relevant_not_in_ingest_sets": 436,
+  "ingest_sets": {
+   "Metascience": 2224,
+   "SysRev-LLMApp pool": 606,
+   "Elicit set": 247,
+   "Include-CA-Rep": 5
+  }
+ },
+ "prepare": {
+  "items": 19992,
+  "distinct": 17544,
+  "by_library": {
+   "Gesture Elicitation Studies": {
+    "records": 295,
+    "distinct_within_library": 292
+   },
+   "OASIS Lab": {
+    "records": 13978,
+    "distinct_within_library": 13180
+   },
+   "OTTRS Mental Models": {
+    "records": 94,
+    "distinct_within_library": 93
+   },
+   "Open Science Readings": {
+    "records": 2174,
+    "distinct_within_library": 2132
+   },
+   "Trust & Co": {
+    "records": 13,
+    "distinct_within_library": 12
+   },
+   "personal": {
+    "records": 3256,
+    "distinct_within_library": 3074
+   },
+   "preprint_literature": {
+    "records": 182,
+    "distinct_within_library": 180
+   }
+  },
+  "text_sources": {
+   "abstract (Zotero)": 13270,
+   "HTML snapshot": 321,
+   "title only": 2424,
+   "PDF (abstract section)": 1529
+  },
+  "prepare_seconds": 122.5262520313263
+ },
+ "models": [
+  "EmbeddingGemma 2",
+  "harrier-oss-v1-0.6b",
+  "DNA-VL-STEER-2B"
+ ]
+}

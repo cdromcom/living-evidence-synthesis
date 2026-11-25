@@ -5,6 +5,7 @@
   python3 pdf_pages.py find <pdf> "quote text"    where the quote appears (PDF page, printed page)
   python3 pdf_pages.py crop <pdf> "quote" out.png [--dpi 250] [--kind EVD|CLM|QUE|EP|CVT]   crop of the quote region, highlighted in that node type's pastel
   python3 pdf_pages.py links <pdf>                hyperlinks embedded in the PDF (code and data URLs)
+  merge_regions(pdf, [(page, [rects]), ...], out)  one screenshot from pieces on several pages, stacked with a thin white gap (see its docstring)
 
 Printed page = the number printed on the page (the journal page), NOT the position in the PDF file. If the file prints no page
 numbers (preprints), the map falls back to the PDF position and marks it source='pdf-position'; record that in the locator."""
@@ -142,6 +143,34 @@ def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind:
     clip = fitz.Rect(page.rect.x0, max(page.rect.y0, box.y0 - pad), page.rect.x1, min(page.rect.y1, box.y1 + pad))
     page.get_pixmap(dpi=dpi, clip=clip).save(out)
     return {'ok': True, 'pdf_page': hit['pages'][0], 'out': out, 'size_px': Path(out).stat().st_size}
+
+
+def merge_regions(pdf, regions, out, dpi: int = 200, pad: float = 6, gap_px: int = 10, kind: str = 'EVD', max_height_px: int = 0) -> dict:
+    """One screenshot from pieces on several pages (a table, figure or quote that runs over a page break) (JP, 2026-11-25).
+    regions = [(pdf_page, [(x0, y0, x1, y1), ...]), ...] in reading order (the rectangles are the word boxes of the highlighted text, e.g. spans' 'bbox').
+    Each piece is the full page width and the band from the first to the last rectangle on that page plus `pad` points, with the text lines highlighted
+    in the node type's pastel; the pieces are stacked top to bottom with `gap_px` pixels of white between them, so the join looks like one continuous page.
+    A fresh copy of the PDF is opened, so the caller's document is not marked."""
+    from PIL import Image
+    d = fitz.open(pdf if isinstance(pdf, (str, Path)) else pdf.name); pieces = []
+    for pg, rects in regions:
+        page = d[pg - 1]; rs = [fitz.Rect(*r) for r in rects]
+        if not rs: return {'ok': False, 'reason': f'no rectangles for page {pg}'}
+        lines = {}
+        for r in rs: lines.setdefault(round(r.y0 / 3), fitz.Rect(r)).include_rect(r)
+        for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), overlay=False)
+        box = fitz.Rect(rs[0]);
+        for r in rs[1:]: box |= r
+        allw = [fitz.Rect(w[:4]) for w in page.get_text('words')]   # snap the band to the gap between text lines, so no sliver of the neighbouring line shows at the join
+        below = [w.y0 for w in allw if w.y0 > box.y1 - 0.5 and not any(abs(w.y0 - r.y0) < 1 and w.x0 >= r.x0 - 1 and w.x1 <= r.x1 + 1 for r in rs)]; above = [w.y1 for w in allw if w.y1 < box.y0 + 0.5 and not any(abs(w.y0 - r.y0) < 1 and w.x0 >= r.x0 - 1 and w.x1 <= r.x1 + 1 for r in rs)]
+        y_bot = min([box.y1 + pad] + [y - 0.5 for y in below if y >= box.y1 - 0.5]); y_top = max([box.y0 - pad] + [y + 0.5 for y in above if y <= box.y0 + 0.5])
+        clip = fitz.Rect(page.rect.x0, max(page.rect.y0, min(y_top, box.y0)), page.rect.x1, min(page.rect.y1, max(y_bot, box.y1)))
+        pm = page.get_pixmap(dpi=dpi, clip=clip); pieces.append(Image.frombytes('RGB', (pm.width, pm.height), pm.samples))
+    d.close()
+    W = max(i.width for i in pieces); H = sum(i.height for i in pieces) + gap_px * (len(pieces) - 1); img = Image.new('RGB', (W, H), 'white'); y = 0
+    for i in pieces: img.paste(i, (0, y)); y += i.height + gap_px
+    if max_height_px and H > max_height_px: img = img.resize((round(W * max_height_px / H), max_height_px))
+    img.save(out); return {'ok': True, 'pages': [pg for pg, _ in regions], 'out': str(out), 'size_px': img.size}
 
 
 def links(doc) -> list:

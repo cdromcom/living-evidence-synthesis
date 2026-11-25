@@ -1,0 +1,4 @@
+Model	Leave-one-out accuracy	Seeds tested	Median nearest-seed similarity	NEW threshold
+EmbeddingGemma 2	0.731	26	0.899	0.869
+harrier-oss-v1-0.6b	0.731	26	0.903	0.885
+DNA-VL-STEER-2B	0.769	26	0.829	0.776

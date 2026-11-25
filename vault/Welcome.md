@@ -251,28 +251,28 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 ## 🛠️ The data pipeline: from PDFs to the LIVES web app
 
 > [!info] Updated 2026-11-25 (pipeline v2)
-> Papers go through the steps below in **batches of five**, with human checks along the way. The rules are in `pipeline/skills/Skill.md`; models, prices and tools are in `pipeline/skills/Tools-and-Models.md`. Quality signals are a separate, optional stage (Module Q) that runs only when asked.
+> Papers go through the steps below in **batches of four (at most)**, with human checks along the way. The rules are in `pipeline/skills/Skill.md`; models, prices and tools are in `pipeline/skills/Tools-and-Models.md`. Quality signals are a separate, optional stage (Module Q) that runs only when asked.
 
 ```mermaid
 flowchart TB
     subgraph IN["1. Ingest and read"]
-        A["Choose 5 papers<br/>PDFs, most recent version<br/>older versions go to the Archive folder"]
+        A["Choose up to 4 papers<br/>PDFs, most recent version<br/>older versions go to the Archive folder"]
         B["Preflight check (PyMuPDF)<br/>born-digital or scanned? columns?<br/>tables as images? page labels"]
-        C1["Read 1: GPT-6.2 Sol, High effort<br/>page-by-page markdown, HTML tables,<br/>printed page numbers"]
+        C1["Read 1: Gemini 4 Neon, High thinking<br/>page-by-page markdown, HTML tables,<br/>printed page numbers"]
         C2["Read 2: PDF text layer<br/>PyMuPDF"]
         D{"Do the two reads<br/>agree?"}
-        E["Claude Opus 5.5 decides<br/>from the page image"]
+        E["Page image decides:<br/>Gemini 4 Neon first, then Sol and Opus 5.5<br/>if still unsure"]
     end
 
     subgraph EX["2. Extract (PICOST first)"]
         F["PICOST record per finding, saved as JSON<br/>every number has page, table, row, column<br/>Not reported if the paper is silent<br/>Results give EVDs, Discussion gives CVTs and CLMs,<br/>Introduction gives QUEs"]
-        G["Spotlight: Sol returns the exact quote,<br/>PyMuPDF finds it and highlights the page<br/>a quote not found is a flag"]
-        H["Check: Liquid d1-ultra yes/no questions<br/>shadow mode in the pilot<br/>Opus 5.5 adjudicates low confidence"]
+        G["Spotlight: Neon returns the exact quote,<br/>PyMuPDF finds it, boxes it and highlights the page<br/>a quote not found is a flag"]
+        H["Gates: decision models (d1-ultra, Decider, Jev)<br/>relevancy, fidelity, quote and table grounding<br/>low-confidence and multi-page: Sol re-reads, Opus 5.5 adjudicates"]
         I["JP spot check A<br/>3 PICOST cards per paper<br/>an error stops the batch"]
     end
 
     subgraph WR["3. Write and crop"]
-        J["Write the nodes from PICOST<br/>EVD pilot: Sonnet 5.5 drafts, Sol and Inkling 2 Small pick,<br/>Opus 5.5 checks and edits<br/>other nodes: Opus 5.5"]
+        J["Write the nodes from PICOST<br/>EVD pilot: Neon and Sonnet 5.5 draft, Sol and Inkling 2 Small pick,<br/>Opus 5.5 checks and edits<br/>other nodes: Neon, Opus 5.5 checks"]
         K["Crop screenshots<br/>PyMuPDF + pdftoppm<br/>whole quote, table or figure with caption<br/>pastel highlight by node type"]
         L{"Crop QA<br/>Sol checks every crop<br/>Opus 5.5 checks multi-page crops"}
         M["Automatic audits<br/>quotes verbatim, numbers on the PICOST card,<br/>printed page map, links"]
@@ -340,15 +340,15 @@ flowchart TB
     class F,R,S,MQ out;
 ```
 
-**Legend.** Blue boxes are model steps (GPT-6.2 Sol, Claude Opus 5.5 and Sonnet 5.5, Inkling 2 Small, Liquid d1-ultra). Green boxes are tools and scripts (PyMuPDF, `pdftoppm`, EmbeddingGemma 2, the audit and build scripts). Yellow boxes are human or approval steps. Pink boxes are outputs and the optional quality stage. Dotted arrows are loops or optional paths.
+**Legend.** Blue boxes are model steps (Gemini 4 Neon, GPT-6.2 Sol, Claude Opus 5.5 and Sonnet 5.5, Inkling 2 Small, the decision models). Green boxes are tools and scripts (PyMuPDF, `pdftoppm`, EmbeddingGemma 2, the audit and build scripts). Yellow boxes are human or approval steps. Pink boxes are outputs and the optional quality stage. Dotted arrows are loops or optional paths.
 
 | Step | Model or tool | Output | Human check |
 |---|---|---|---|
 | Preflight | PyMuPDF | PDF health report | none |
-| Read | GPT-6.2 Sol (High) + PDF text layer | page-by-page text and tables | Opus 5.5 on disagreements |
-| Extract | GPT-6.2 Sol (High) | PICOST JSON with locators and highlighted spans | spot check A |
-| Check | Liquid d1-ultra, Opus 5.5 | pass or flag per record | threshold set in the pilot |
-| Write | Sonnet 5.5, Sol, Inkling 2 Small, Opus 5.5 (EVD pilot); Opus 5.5 for the other nodes | vault markdown nodes | none until review |
+| Read | Gemini 4 Neon (High) + PDF text layer | page-by-page text and tables | Sol and Opus 5.5 on disagreements |
+| Extract | Gemini 4 Neon (High); Sol re-reads low-confidence and multi-page items | PICOST JSON with locators, bounding boxes and highlighted spans | spot check A |
+| Check | decision models (relevancy, fidelity, quote and table grounding); Sol and Opus 5.5 on flagged records | pass or flag per record | threshold set in the pilot |
+| Write | Neon and Sonnet 5.5 draft, Sol and Inkling 2 Small pick, Opus 5.5 checks (EVD pilot); Neon for the other nodes, Opus 5.5 checks | vault markdown nodes | none until review |
 | Crop | PyMuPDF, `pdftoppm`; Sol and Opus 5.5 QA | verified screenshots | spot check B |
 | Audit | scripts (`verbatim_audit.py`, `check_links.py`, `pdf_pages.py`) | verbatim, numbers, page and link checks | none |
 | Fit into the graph | EmbeddingGemma 2, Inkling 2 Small, Sonnet 5.5 | proposed links, merges and splits with reasons, all logged | a person verifies every merge or split |

@@ -1,0 +1,26 @@
+{
+ "Peer review reports": {
+  "name": "Peer review reports",
+  "task_type": "Generate or judge peer-review reports"
+ },
+ "Check  reporting guideline compliance": {
+  "name": "Reporting-guideline compliance",
+  "task_type": "Score papers against reporting or risk-of-bias checklists"
+ },
+ "Detect errors / limitations / quality issues": {
+  "name": "Errors, limitations and quality issues",
+  "task_type": "Find errors, limitations or quality problems in papers"
+ },
+ "Assess novelty": {
+  "name": "Novelty assessment",
+  "task_type": "Judge how novel a paper or idea is"
+ },
+ "Assess ethical matters": {
+  "name": "Ethics review",
+  "task_type": "Assess ethics approval, consent and IRB questions"
+ },
+ "Causal inference": {
+  "name": "Causal inference",
+  "task_type": "Use or test LLMs for causal knowledge and reasoning"
+ }
+}

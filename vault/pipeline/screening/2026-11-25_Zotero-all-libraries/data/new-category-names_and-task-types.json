@@ -1,0 +1,122 @@
+{
+ "N1": {
+  "name": "LLM agents versus humans on scientific tasks",
+  "task_type": "Benchmark LLMs and agents against humans on scientific analysis and reasoning tasks"
+ },
+ "N2": {
+  "name": "Grant peer review and funding decisions",
+  "task_type": "Study how funders review proposals and allocate grants"
+ },
+ "N3": {
+  "name": "Theory in psychology and philosophy of science",
+  "task_type": "Discuss theory, epistemology and the aims of science"
+ },
+ "N4": {
+  "name": "Journal peer review process and ethics",
+  "task_type": "Describe, critique or improve journal peer review"
+ },
+ "N5": {
+  "name": "Publishing, citations and research impact",
+  "task_type": "Explain or predict citation, impact and publishing practices"
+ },
+ "N6": {
+  "name": "Systematic review methods and search strategies",
+  "task_type": "Explain how to search for and synthesize evidence"
+ },
+ "N7": {
+  "name": "Statistical errors and effect-size reporting",
+  "task_type": "Detect statistical anomalies and assess effect-size reporting"
+ },
+ "N8": {
+  "name": "Interdisciplinary science and knowledge synthesis",
+  "task_type": "Study how fields and scholars synthesize knowledge"
+ },
+ "N9": {
+  "name": "Clinical trial reporting and medical reviews",
+  "task_type": "Report or appraise clinical findings and trial reporting (partly out of scope)"
+ },
+ "N10": {
+  "name": "HCI, LLM-as-a-judge and collective intelligence",
+  "task_type": "Study LLM judging, bias and human-AI interaction"
+ },
+ "N11": {
+  "name": "Scientific claim verification and text mining",
+  "task_type": "Extract, verify or retrieve claims from the literature with NLP"
+ },
+ "N12": {
+  "name": "Evidence-based policy and evaluation practice",
+  "task_type": "Evaluate programs and rate evidence for policy"
+ },
+ "N13": {
+  "name": "Biomedical research waste and cell-line problems",
+  "task_type": "Document irreproducibility and waste in biomedical research"
+ },
+ "N14": {
+  "name": "Research misconduct, paper mills and retractions",
+  "task_type": "Detect or study misconduct, plagiarism and retractions"
+ },
+ "N15": {
+  "name": "Medical question answering by ChatGPT and other LLMs",
+  "task_type": "Evaluate language models on clinical and medical tasks"
+ },
+ "N16": {
+  "name": "Bibliometrics, h-index and journal quality indicators",
+  "task_type": "Measure research output and journal quality (mostly 2023 Elicit results; probably out of scope)"
+ },
+ "N17": {
+  "name": "Reporting guidelines, preregistration and transparency",
+  "task_type": "Check or promote reporting completeness and preregistration"
+ },
+ "N18": {
+  "name": "Meta-analysis methods",
+  "task_type": "Describe and critique meta-analytic methods"
+ },
+ "N19": {
+  "name": "Web pages, OSF projects, essays and commentary",
+  "task_type": "Index web resources and informal writing (little text to embed)"
+ },
+ "N20": {
+  "name": "Social psychology, personality and scientific disagreement",
+  "task_type": "Report social and personality findings (mostly out of scope)"
+ },
+ "N21": {
+  "name": "Automating systematic review screening and extraction",
+  "task_type": "Screen, extract or classify review content with ML and AI"
+ },
+ "N22": {
+  "name": "Public health, climate and policy outcomes",
+  "task_type": "Report population-level outcomes (out of scope)"
+ },
+ "N23": {
+  "name": "Open science, integrity and research values",
+  "task_type": "Describe or promote open science and responsible research values"
+ },
+ "N24": {
+  "name": "Quality appraisal tools for reviews and evidence",
+  "task_type": "Appraise the quality of reviews, meta-analyses and evidence"
+ },
+ "N25": {
+  "name": "Behavioural interventions and nudges",
+  "task_type": "Evaluate behavioural interventions and megastudies (out of scope)"
+ },
+ "N26": {
+  "name": "Replication and reproducibility in psychology",
+  "task_type": "Assess replicability and replication practice"
+ },
+ "N27": {
+  "name": "AI for science, peer review and the scientific paper",
+  "task_type": "Discuss AI tools and the future of papers and peer review"
+ },
+ "N28": {
+  "name": "Qualitative and mixed-methods research quality",
+  "task_type": "Appraise rigor and reporting of qualitative and mixed methods"
+ },
+ "N29": {
+  "name": "Education research and learning interventions",
+  "task_type": "Synthesize education and learning research (out of scope)"
+ },
+ "N30": {
+  "name": "LLMs for risk-of-bias assessment",
+  "task_type": "Assess risk of bias in trials with language models"
+ }
+}

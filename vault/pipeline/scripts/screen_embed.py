@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Sort newly ingested papers into task-type piles by embedding similarity to the seed set, with a majority vote over three embedding models (JP, 2026-11-25).
-Run with the embedding environment:  ~/.cache/lives-bench/venv-embed/bin/python screen_embed.py --dedup pipeline/misc/screening/dedup.json
+"""Sort newly ingested papers into task-type categories by embedding similarity to the seed set, with a majority vote over three embedding models (JP, 2026-11-25).
+Run with the embedding environment:  ~/.cache/lives-bench/venv-embed/bin/python screen_embed.py --dedup ~/.cache/lives-bench/screening/dedup.json
 Method
   1 text      first 3 PDF pages (superscripts removed), at most 6,000 characters, after the title; the Zotero abstract is used if the PDF has little text
   2 embed     EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B (open weights, local; allowed by the 2026-11-25 origin policy, see Tools-and-Models.md), each on its own
   3 vote      each model gives a paper the task group of its most similar seed paper(s); 'NEW' if even the nearest seed is less similar than the model's own 15th percentile of seed-to-seed similarity
-  4 majority  2 of 3 models agree -> that pile; otherwise 'no majority' (a person decides). Leave-one-out on the seeds reports how often each model is right.
-  5 new piles papers voted NEW or with no majority are clustered together (average linkage on the mean of the three models' distances) and named from their most distinctive words
+  4 majority  2 of 3 models agree -> that category; otherwise 'no majority' (a person decides). Leave-one-out on the seeds reports how often each model is right.
+  5 new categories papers voted NEW or with no majority are clustered together (average linkage on the mean of the three models' distances) and named from their most distinctive words
 Nothing is deleted or moved; the output is a JSON for the review sheet."""
 import argparse, collections, json, os, re, sys
 from pathlib import Path
@@ -19,31 +19,51 @@ def pdf_text(path, chars=6000, pages=3):
     try: doc = fitz.open(path); t = ' '.join(pp.page_text(doc[i]) for i in range(min(pages, len(doc))))
     except Exception: return ''
     t = re.sub(r'-\s*\n\s*', '', t); t = re.sub(r'\s+', ' ', t).strip(); return t[:chars]
+def pdf_abstract(path, chars=1800):
+    """The abstract section of a PDF (text after the word Abstract on the first two pages), else the start of page 1 after the title block."""
+    t = pdf_text(path, chars=9000, pages=2); m = re.search(r'\babstract\b[:.\s\-\u2014]*', t, re.I)
+    return (t[m.end():] if m else t[300:])[:chars]
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--dedup', required=True); ap.add_argument('--out'); ap.add_argument('--novel-pct', type=float, default=15); a = ap.parse_args()
-    seeds = json.load(open(VAULT / 'pipeline/misc/screening/seed-labels.json')); R = json.load(open(a.dedup))
+    ap = argparse.ArgumentParser(); ap.add_argument('--dedup', required=True); ap.add_argument('--out'); ap.add_argument('--novel-pct', type=float, default=15)
+    ap.add_argument('--text-mode', choices=['pdf', 'abstract'], default='pdf', help="pdf: title + first 3 PDF pages (needs a PDF). abstract: title + abstract (Zotero abstract; for seed papers the abstract section of the PDF), for sets where most papers have no PDF"); a = ap.parse_args()
+    seeds = json.load(open(VAULT / 'pipeline/screening/shared/seed-papers_task-groups.json')); R = json.load(open(a.dedup))
     # --- documents: seeds first, then one record per duplicate group (the preferred one that has a PDF on disk)
     docs = []
     for ck, s in seeds.items():
         title = (s['pdf'] or ck).split(' - ', 2)[-1].rsplit('.pdf', 1)[0]; path = VAULT / 'sysrev/dgraph/source/pdfs' / s['pdf']
-        docs.append({'kind': 'seed', 'id': ck, 'title': title, 'groups': s['groups'], 'text': pdf_text(path), 'pdf': s['pdf']})
+        docs.append({'kind': 'seed', 'id': ck, 'title': title, 'groups': s['groups'], 'text': (pdf_abstract(path) if a.text_mode == 'abstract' else pdf_text(path)), 'pdf': s['pdf']})
     byg = collections.defaultdict(list)
     for r in R: byg[r['dup_group'] or r['key']].append(r)
     for g, rs in byg.items():
-        cand = [r for r in rs if r['pdfs'] and r['source'] == 'personal library'] or [r for r in rs if r['pdfs']] or rs
-        keep = max(cand, key=lambda r: ('keep' in r['dup_role'], bool(r['pdfs']), r['source'] == 'personal library'))
-        t = pdf_text(keep['pdfs'][0]['path']) if keep['pdfs'] else ''
-        if len(t) < 500 and keep['abstract']: t = keep['abstract']
-        docs.append({'kind': 'new', 'id': keep['key'], 'group': g, 'title': keep['title'], 'text': t, 'rec': keep, 'copies': len(rs), 'pdf': Path(keep['pdfs'][0]['path']).name if keep['pdfs'] else ''})
+        if a.text_mode == 'abstract':
+            keep = max(rs, key=lambda r: ('keep' in r['dup_role'], len(r['abstract']), r['source'] == 'personal library'))
+            t = keep['abstract'][:1800] or (pdf_abstract(keep['pdfs'][0]['path']) if keep['pdfs'] else '')
+        else:
+            cand = [r for r in rs if r['pdfs'] and r['source'] == 'personal library'] or [r for r in rs if r['pdfs']] or rs
+            keep = max(cand, key=lambda r: ('keep' in r['dup_role'], bool(r['pdfs']), r['source'] == 'personal library'))
+            t = pdf_text(keep['pdfs'][0]['path']) if keep['pdfs'] else ''
+            if len(t) < 500 and keep['abstract']: t = keep['abstract']
+        docs.append({'kind': 'new', 'id': keep['key'], 'group': g, 'title': keep['title'], 'text': t, 'rec': keep, 'copies': len(rs), 'pdf': Path(keep['pdfs'][0]['path']).name if keep['pdfs'] else '', 'text_mode': a.text_mode})
     inputs = [f"{d['title']}. {d['text']}" for d in docs]
     seed_idx = [i for i, d in enumerate(docs) if d['kind'] == 'seed']; new_idx = [i for i, d in enumerate(docs) if d['kind'] == 'new']
     cats = sorted({g for d in docs if d['kind'] == 'seed' for g in d['groups']})
     from sentence_transformers import SentenceTransformer
     sims = {}; embs = {}
     for name, path, pn in MODELS:
-        m = SentenceTransformer(str(path)); m.max_seq_length = 1024
-        e = m.encode(inputs, normalize_embeddings=True, batch_size=4, prompt_name=pn) if pn else m.encode(inputs, normalize_embeddings=True, batch_size=4)
-        embs[name] = e; sims[name] = e @ e.T; del m; print('embedded with', name, flush=True)
+        import hashlib, time; cache = Path.home() / '.cache/lives-bench/screening/emb-cache'; cache.mkdir(parents=True, exist_ok=True)
+        ck = cache / (hashlib.sha1((name + '\x00'.join(inputs)).encode()).hexdigest()[:16] + '.npy')   # reuse embeddings of the same texts and model (a rerun costs nothing)
+        if ck.exists(): e = np.load(ck); print('loaded cached embeddings for', name, flush=True)
+        else:
+            m = SentenceTransformer(str(path)); m.max_seq_length = 1024; parts = []; t0 = time.time()
+            for i in range(0, len(inputs), 24):   # chunks with progress, so a stall is visible
+                chunk = inputs[i:i + 24]
+                parts.append(m.encode(chunk, normalize_embeddings=True, batch_size=4, prompt_name=pn) if pn else m.encode(chunk, normalize_embeddings=True, batch_size=4))
+                print(f'  {name}: {min(i + 24, len(inputs))}/{len(inputs)} texts, {time.time() - t0:.0f}s', flush=True)
+                try:
+                    import torch; torch.mps.empty_cache()
+                except Exception: pass
+            e = np.concatenate(parts); np.save(ck, e); del m
+        embs[name] = e; sims[name] = e @ e.T; print('embedded with', name, flush=True)
     # --- per model: seed-to-seed leave-one-out, then vote for each new paper
     def cat_scores(S, i, exclude=None):   # nearest seed similarity per category (and which seed)
         out = {}
@@ -73,7 +93,7 @@ def main():
         d['votes'] = v; d['majority'] = top if n >= 2 else 'no majority'; d['agreement'] = f'{n} of 3'
         # tie-break hint: which group do the models lean to if they are split?
         d['mean_best_sim'] = float(np.mean([x['sim'] for x in v.values()]))
-    # --- new piles: cluster papers that are NEW or split
+    # --- new categories: cluster papers that are NEW or split
     pool = [i for i in new_idx if docs[i]['majority'] in ('NEW', 'no majority')]
     clusters = {}
     if len(pool) >= 3:
@@ -96,7 +116,7 @@ def main():
     for cid, c in clusters.items():
         for pid in c['members']: next(d for d in docs if d['id'] == pid)['new_pile'] = cid
     out = {'categories': cats, 'report': report, 'clusters': clusters, 'seeds': [{k: d[k] for k in ('id', 'title', 'groups', 'pdf')} for d in docs if d['kind'] == 'seed'],
-           'papers': [{'id': d['id'], 'title': d['title'], 'pdf': d['pdf'], 'copies': d['copies'], 'majority': d['majority'], 'agreement': d['agreement'], 'votes': d['votes'], 'mean_best_sim': d['mean_best_sim'], 'new_pile': d.get('new_pile', ''), 'text_chars': len(d['text']), 'rec': d['rec']} for d in docs if d['kind'] == 'new']}
+           'papers': [{'id': d['id'], 'title': d['title'], 'pdf': d['pdf'], 'copies': d['copies'], 'majority': d['majority'], 'agreement': d['agreement'], 'votes': d['votes'], 'mean_best_sim': d['mean_best_sim'], 'new_pile': d.get('new_pile', ''), 'text_chars': len(d['text']), 'text_mode': d.get('text_mode', 'pdf'), 'rec': d['rec']} for d in docs if d['kind'] == 'new']}
     Path(a.out or Path(a.dedup).parent / 'screen-result.json').write_text(json.dumps(out, indent=1, ensure_ascii=False, default=float), encoding='utf-8')
-    print(json.dumps(report, indent=1, default=float)); print('majority:', collections.Counter(p['majority'] for p in out['papers'])); print('agreement:', collections.Counter(p['agreement'] for p in out['papers'])); print('new piles:', {k: (len(v['members']), v['terms'][:3]) for k, v in clusters.items()})
+    print(json.dumps(report, indent=1, default=float)); print('majority:', collections.Counter(p['majority'] for p in out['papers'])); print('agreement:', collections.Counter(p['agreement'] for p in out['papers'])); print('new categories:', {k: (len(v['members']), v['terms'][:3]) for k, v in clusters.items()})
 if __name__ == '__main__': main()
