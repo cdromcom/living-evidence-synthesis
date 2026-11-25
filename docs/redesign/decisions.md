@@ -44,26 +44,26 @@ Tests: Playwright keyboard-only scripts for the flows above, axe-core in CI, and
 
 ## Models for design and build
 
-- **Build model: Claude Fable 5.2** (`claude-fable-5-2`), chosen by JP on 2026-11-24, replacing the Muse Wonder Max idea. The current site's commits were co-authored mostly by Claude Sonnet 5 (63 of the app, component and lib commits), then Opus 5, Sonnet 5.5 and Opus 5.5, never a Fable model, which supports the switch.
-- **What the evidence says:** Fable 5.2 is first on arena.ai's [Code Arena WebDev](https://arena.ai/leaderboard/code/webdev/models/claude-fable-5.2-xhigh-dum1) (1,824) and on its Agent Arena Index. I could not find a Fable 5.2 entry on Design Arena itself; the Design Arena website figure I found is for Fable 5 (1,332), and boards disagree on the leader. So the claim "Fable 5.2 wins on Design Arena" is unconfirmed; "wins on WebDev Arena" is supported.
-- **Effort:** run at `high`, not `xhigh` or `max`; raise it only on a task where a measured gain pays for itself.
+- **Build model: Claude Opus 5.5** (`claude-opus-5-5`) at `high` effort, with **Claude Sonnet 5.5** (`claude-sonnet-5-5`) for mechanical phases (tests, CI, docs). JP chose a cheaper model than Claude Fable 5.2 on 2026-11-24 (Fable costs twice as much: $8 and $40 per million tokens against $4 and $20). Fable 5.2 stays a possible comparison for one hard phase if Opus 5.5 struggles; it is not in the pipeline.
+- **What the evidence says:** Fable 5.2 is first on arena.ai's [Code Arena WebDev](https://arena.ai/leaderboard/code/webdev/models/claude-fable-5.2-xhigh-dum1), and I could not confirm its Design Arena standing. I did not find Opus 5.5 figures on those boards, so the cheaper choice rests on cost and on Opus 5.5 already being the pipeline's writer and judge, not on a leaderboard.
+- **Past builds:** the current site's commits were co-authored mostly by Claude Sonnet 5 (63 of the app, component and lib commits), then Opus 5, Sonnet 5.5 and Opus 5.5.
 - **Review by another family:** every change is reviewed by a model from a different family (GPT-6.2 Sol), plus axe, Playwright keyboard tests and Lighthouse in CI.
-- **Muse Wonder Max** stays a possible one-page comparison later, not the default.
+- **Muse Wonder Max** stays a possible later comparison, not the default.
 
 ## Cost, time and accuracy (my estimates, not measurements)
 
-Prices (Anthropic list, per million tokens, input and output): Fable 5.2 $8 and $40; Opus 5.5 $4 and $20; Sonnet 5.5 $2 and $10. Cached input is $0.20; the Batch API is half price but not for interactive work.
+Prices (Anthropic list, per million tokens, input and output): Opus 5.5 $4 and $20; Sonnet 5.5 $2 and $10; for reference Fable 5.2 $8 and $40. Cached input is $0.20 on Opus 5.5 and $0.10 on Sonnet 5.5; the Batch API is half price but not for interactive work.
 
-Assumption per build phase: 60 agent turns, 1.0M fresh input tokens, 8M cached input tokens, 250K output tokens including thinking. That is about **$20 per phase on Fable 5.2** (range $12 to $40) and **$11 on Opus 5.5** (range $6 to $22).
+Assumption per build phase: 60 agent turns, 1.0M fresh input tokens, 8M cached input tokens, 250K output tokens including thinking. That is about **$11 per phase on Opus 5.5** (range $6 to $22) and **$5 on Sonnet 5.5**.
 
 | Plan | Phases | Model cost | Review and tests | Elapsed time |
 |---|---|---|---|---|
-| All five on Fable 5.2 | tokens and primitives; header, menu, skip link; node page; graph list and keyboard; tests and CI | about $100 (range $60 to $200) | about $10 to $20 | 2 to 3 working days with JP's review after each phase |
-| Hybrid: Fable 5.2 for the first four, Opus 5.5 for tests and CI | same | about $90 | about $10 to $20 | same |
-| All five on Opus 5.5 | same | about $55 (range $30 to $110) | about $10 to $20 | same |
+| Opus 5.5 for four design phases, Sonnet 5.5 for tests and CI | tokens and primitives; header, menu, skip link; node page; graph list and keyboard; tests and CI | about $50 (range $30 to $100) | about $10 to $20 | 2 to 3 working days with JP's review after each phase |
+| All five on Opus 5.5 | same | about $55 | about $10 to $20 | same |
+| For comparison, all five on Fable 5.2 | same | about $100 (range $60 to $200) | about $10 to $20 | same |
 
 The design doc puts Direction A at 3 to 4 human working days; agent time is shorter, but JP's review and fix rounds set the pace.
 
-**Accuracy** here means passing acceptance tests: 0 serious axe violations, every keyboard flow in the checklist passing, Lighthouse accessibility at least 95, graph still 232 nodes and 784 edges, no visual change beyond the planned one. First-pass rates are unknown; I assume one or two fix rounds per phase and will log the real tokens, dollars and pass rates in a ledger after phase 1 so the rest can be re-estimated.
+**Accuracy** here means passing acceptance tests: 0 serious axe violations, every keyboard flow in the checklist passing, Lighthouse accessibility at least 95, graph still 232 nodes and 784 edges, no visual change beyond the planned one. First-pass rates are unknown; I assume one or two fix rounds per phase and will log the real tokens, dollars and pass rates in a ledger after phase 1.
 
-**Recommendation:** pilot phase 1 on Fable 5.2 (about $20), measure, then decide between all-Fable and hybrid.
+**Recommendation:** start phase 1 on Opus 5.5 (about $11) and log the real cost.

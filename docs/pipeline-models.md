@@ -22,11 +22,11 @@ Status: plan by Claude on JP's instruction (2026-11-24). It follows JP's v2 tool
 | 6 | Relevancy and fidelity judging | relevancy: average of Perplexity Decider 1.3, Liquid d1-ultra and Opus 5.5 (97 to 98.5% on 68 rows against 92.6% for always "Relevant") | disagreements logged and sent to JP | JP; **fidelity stays human for now**: no rater beat always-Met (93.9%) and kappa was near zero |
 | 7 | Synthesis: claims and evidence patterns | Opus 5.5 | GPT-6.2 Sol writes an independent critique; contradictions listed | JP |
 | 8 | Build the graph and the data files | `scripts/build-graph.mjs` (deterministic) | graph counts and snapshot tests in CI | none |
-| 9 | Build and publish the web app | **Claude Fable 5.2** at `high` effort (JP, 2026-11-24; see `redesign/decisions.md` for evidence and cost) | a different model family reviews each change; axe, Playwright keyboard tests and Lighthouse in CI | JP approves each release |
+| 9 | Build and publish the web app | **Claude Opus 5.5** at `high` effort; Sonnet 5.5 for tests, CI and docs (JP, 2026-11-24: a cheaper model than Fable 5.2; see `redesign/decisions.md`) | a different model family reviews each change; axe, Playwright keyboard tests and Lighthouse in CI | JP approves each release |
 
 ## Cost per paper (my estimates, standard prices; batch is half)
 
-From the ingest budget note (`vault/pipeline/misc/evd-validation/2026-11-24-ingest-budget-and-batches.md`): read and PICOST $0.46, write nodes $0.60, verify $0.15, restyle $0.10, about **$1.30 per paper**, $0.65 by batch. Writing and verifying on Fable 5.2 instead of Opus 5.5 doubles those two lines: about **$2.05 per paper**, $1.03 by batch. A five-paper batch is then about $10 standard, over the $5 per-provider batch cap in that note, so keep Opus 5.5 for writing and use Fable 5.2 only for disputes. Time: about 15 to 25 minutes of unattended model time per paper plus JP's 10-minute spot check. Accuracy of reading and extraction is **not yet measured**; the pilot on the 147 audit corrections measures it. Judging accuracy is measured: see phase 6.
+From the ingest budget note (`vault/pipeline/misc/evd-validation/2026-11-24-ingest-budget-and-batches.md`): read and PICOST $0.46, write nodes $0.60, verify $0.15, restyle $0.10, about **$1.30 per paper**, $0.65 by batch, with Opus 5.5 writing and verifying. Quality signals add about $1 to $3 per paper (the trace's guess). Time: about 15 to 25 minutes of unattended model time per paper plus JP's 10-minute spot check. Accuracy of reading, extraction and quality-signal rating is **not yet measured**; JP is confident in the newer models and the per-batch spot checks in the budget note stay as the check. Judging accuracy is measured: see phase 6.
 
 ## Making it modular
 
@@ -40,4 +40,4 @@ From the ingest budget note (`vault/pipeline/misc/evd-validation/2026-11-24-inge
 
 - Confirm Chandra OCR 2, OXR-1.0, Ripple-65B Preview and Inkling 2 Small origins and licences (the base-model check).
 - Decide when to switch Liquid d1-ultra back on for PICOST QA.
-- Approve the phase 1 pilot of the web rebuild on Fable 5.2 (about $20), after which the all-Fable or hybrid choice is made.
+- Start phase 1 of the web rebuild on Opus 5.5 (about $11) and log real cost.
