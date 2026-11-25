@@ -1,0 +1,38 @@
+Category	Task type	Kind	Category id	Seed papers	New papers	Top 7 keywords (TF-IDF)
+Ethics review	Assess ethics approval, consent and IRB questions	Seed category	S1	2	4	leveraging artificial, assessing decision-making, decision-making capabilities, artificial intelligence, irb, institutional review, ethical
+Novelty assessment	Judge how novel a paper or idea is	Seed category	S2	2	6	novelty, ideas, assessment, literature-grounded, automated, evaluation, academic
+Causal inference	Use or test LLMs for causal knowledge and reasoning	Seed category	S3	1	0	causal knowledge, repositories, act
+Reporting-guideline compliance	Score papers against reporting or risk-of-bias checklists	Seed category	S4	10	82	chatgpt, reviews, systematic, human, accuracy, assessment, quality
+Errors, limitations and quality issues	Find errors, limitations or quality problems in papers	Seed category	S5	6	9	citation integrity, assessing citation, reviewing, reasoning, errors, automated verification, critical problems
+Peer review reports	Generate or judge peer-review reports	Seed category	S6	7	22	reviews, feedback, review generation, peer, human, evaluation, review systems
+LLM agents versus humans on scientific tasks	Benchmark LLMs and agents against humans on scientific analysis and reasoning tasks	New category candidate	N1	0	227	tasks, human, gpt-, evaluation, performance, agents, generation
+Grant peer review and funding decisions	Study how funders review proposals and allocate grants	New category candidate	N2	0	218	grant, peer, funding, review, proposals, applications, process
+Theory in psychology and philosophy of science	Discuss theory, epistemology and the aims of science	New category candidate	N3	0	190	theory, theories, science, philosophy, psychology, psychological, cognitive
+Journal peer review process and ethics	Describe, critique or improve journal peer review	New category candidate	N4	0	180	peer, review, process, open, journals, quality, science
+Publishing, citations and research impact	Explain or predict citation, impact and publishing practices	New category candidate	N5	0	180	publishing, citation, journals, publication, science, impact, academic
+Systematic review methods and search strategies	Explain how to search for and synthesize evidence	New category candidate	N6	0	166	systematic, reviews, synthesis, evidence, syntheses, search, studies
+Statistical errors and effect-size reporting	Detect statistical anomalies and assess effect-size reporting	New category candidate	N7	0	164	effect, statistical, data, size, studies, causal, evidence
+Interdisciplinary science and knowledge synthesis	Study how fields and scholars synthesize knowledge	New category candidate	N8	0	136	science, knowledge, interdisciplinary, social, scientists, synthesis, researchers
+Clinical trial reporting and medical reviews	Report or appraise clinical findings and trial reporting (partly out of scope)	New category candidate	N9	0	116	systematic, review, clinical, meta-analysis, depression, studies, patients
+HCI, LLM-as-a-judge and collective intelligence	Study LLM judging, bias and human-AI interaction	New category candidate	N10	0	113	hci, data, interaction, visualization, llm-as-a-judge, collective, intelligence
+Scientific claim verification and text mining	Extract, verify or retrieve claims from the literature with NLP	New category candidate	N11	0	109	claims, information, text, dataset, relevant, task, documents
+Evidence-based policy and evaluation practice	Evaluate programs and rate evidence for policy	New category candidate	N12	0	102	realist, works, evidence, evaluation, policy, practice, implementation
+Biomedical research waste and cell-line problems	Document irreproducibility and waste in biomedical research	New category candidate	N13	0	100	cell, cancer, lines, biological, drug, nature, announcement
+Research misconduct, paper mills and retractions	Detect or study misconduct, plagiarism and retractions	New category candidate	N14	0	99	misconduct, plagiarism, science, retractions, integrity, questionable, practices
+Medical question answering by ChatGPT and other LLMs	Evaluate language models on clinical and medical tasks	New category candidate	N15	0	99	chatgpt, medical, clinical, performance, accuracy, gpt-, intelligence
+Bibliometrics, h-index and journal quality indicators	Measure research output and journal quality (mostly 2023 Elicit results; probably out of scope)	New category candidate	N16	0	98	index, visualization, quality, evaluation, citation, publications, bibliometric
+Reporting guidelines, preregistration and transparency	Check or promote reporting completeness and preregistration	New category candidate	N17	0	94	reporting, guidelines, studies, preregistration, checklist, transparency, items
+Meta-analysis methods	Describe and critique meta-analytic methods	New category candidate	N18	0	94	meta-analysis, meta-analyses, meta-analytic, studies, statistical, effect, data
+Web pages, OSF projects, essays and commentary	Index web resources and informal writing (little text to embed)	New category candidate	N19	0	93	osf, pdf, presented, linkedin, book, preface, post
+Social psychology, personality and scientific disagreement	Report social and personality findings (mostly out of scope)	New category candidate	N20	0	88	social, diversity, personality, traits, sex, correlations, black
+Automating systematic review screening and extraction	Screen, extract or classify review content with ML and AI	New category candidate	N21	0	86	screening, systematic, reviews, title, extraction, machine, abstract
+Public health, climate and policy outcomes	Report population-level outcomes (out of scope)	New category candidate	N22	0	79	mortality, climate, countries, children, emissions, environmental, microplastics
+Open science, integrity and research values	Describe or promote open science and responsible research values	New category candidate	N23	0	74	science, open, reproducibility, transparency, practices, integrity, qualitative
+Quality appraisal tools for reviews and evidence	Appraise the quality of reviews, meta-analyses and evidence	New category candidate	N24	0	72	evidence, quality, appraisal, medicine, tool, systematic, ebm
+Behavioural interventions and nudges	Evaluate behavioural interventions and megastudies (out of scope)	New category candidate	N25	0	71	interventions, vaccine, change, behavioural, nudges, vaccination, effects
+Replication and reproducibility in psychology	Assess replicability and replication practice	New category candidate	N26	0	69	replication, replicability, psychology, original, science, reproducibility, findings
+AI for science, peer review and the scientific paper	Discuss AI tools and the future of papers and peer review	New category candidate	N27	0	63	intelligence, artificial, review, science, peer, human, tools
+Qualitative and mixed-methods research quality	Appraise rigor and reporting of qualitative and mixed methods	New category candidate	N28	0	55	qualitative, mixed, criteria, quantitative, researchers, grounded theory, quality
+Education research and learning interventions	Synthesize education and learning research (out of scope)	New category candidate	N29	0	50	learning, educational, students, teaching, practice, teachers, effects
+LLMs for risk-of-bias assessment	Assess risk of bias in trials with language models	New category candidate	N30	0	33	risk bias, rob, cochrane, trials, tool, risk-of-bias, assessment
+Unclustered (unlike every seed)		Unclustered	unclustered	0	0	

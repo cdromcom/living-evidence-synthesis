@@ -7,7 +7,7 @@ TRIPOD+LLM (Gallifant et al.), applied as far as it fits: the models here only e
 - [TRIPOD+LLM statement](https://www.tripod-statement.org/tripod-llm/)
 
 ## 1. Title and purpose
-Screening papers in the Zotero collection "SysRev - Elicit 2026-11-24" into task-type piles, guided by the 27 seed papers; run 2026-11-25_SysRev-Elicit-2026-11-24. Purpose: help JP decide which incoming papers to include in the living synthesis and which task types exist.
+Screening papers in the Zotero collection "SysRev - Elicit 2026-11-24" into task-type categories, guided by the 27 seed papers; run 2026-11-25_SysRev-Elicit-2026-11-24. Purpose: help JP decide which incoming papers to include in the living synthesis and which task types exist.
 - [This run on GitHub](https://github.com/cdromcom/living-evidence-synthesis/tree/main/vault/pipeline/screening/2026-11-25_SysRev-Elicit-2026-11-24)
 
 ## 2. Objectives
@@ -24,7 +24,7 @@ Records match when they share a DOI or arXiv id, have the same normalized title,
 - [Data](https://github.com/cdromcom/living-evidence-synthesis/tree/main/vault/pipeline/screening/2026-11-25_SysRev-Elicit-2026-11-24/data/duplicates_all-zotero-records.tsv)
 
 ## 5. Outcome
-The task type of each paper: one of the seed task groups, or NEW (then clustered into a candidate new pile).
+The task type of each paper: one of the seed task groups, or NEW (then clustered into a candidate new category).
 
 ## 6. Models (predictors)
 Three open-weight embedding models, run locally on one Apple-silicon computer (no API, no data leaves the machine): EmbeddingGemma 2 (Google, 2026-10, Apache 2.0), harrier-oss-v1-0.6b (Microsoft, MIT; similarity prompt "sts_query"), DNA-VL-STEER-2B (Dnotitia, Korea; Apache 2.0; a calibrated variant of Qwen3-VL-Embedding-2B). Versions and packages: settings_and_versions.json. Origin policy: open-weight foreign models are allowed when local and near state of the art (JP, 2026-11-25).
@@ -40,10 +40,10 @@ The seed papers' task groups come from the Review-Arena sections of the vault (J
 - [Seed labels](https://github.com/cdromcom/living-evidence-synthesis/blob/main/vault/pipeline/screening/shared/seed-papers_task-groups.json)
 
 ## 9. Analysis
-(a) Each model: cosine similarity between the paper and every seed; the paper gets the task group of its most similar seed, or NEW if that similarity is below the model's own 15th percentile of seed-to-seed nearest similarity. (b) Majority vote: a pile needs 2 of 3 models to agree. (c) Papers voted NEW are clustered (average linkage on the mean of the three models' distances); the distance threshold is chosen by silhouette score (0.262, 51 papers clustered); clusters of 2 or more papers become candidate piles. (d) Pile keywords: the 7 highest mean TF-IDF terms of the members' titles and abstracts. (e) Pile names and task-type phrases were written by Claude Sonnet 5.5 from the keywords and member titles and are not yet checked by a person. E-means (a fast k-means for huge datasets) was not used: with this few papers ordinary clustering is instant.
+(a) Each model: cosine similarity between the paper and every seed; the paper gets the task group of its most similar seed, or NEW if that similarity is below the model's own 15th percentile of seed-to-seed nearest similarity. (b) Majority vote: a category needs 2 of 3 models to agree. (c) Papers voted NEW are clustered (average linkage on the mean of the three models' distances); the distance threshold is chosen by silhouette score (0.262, 51 papers clustered); clusters of 2 or more papers become candidate categories. (d) Category keywords: the 7 highest mean TF-IDF terms of the members' titles and abstracts. (e) Category names and task-type phrases were written by Claude Sonnet 5.5 from the keywords and member titles and are not yet checked by a person. E-means (a fast k-means for huge datasets) was not used: with this few papers ordinary clustering is instant.
 - [Script (votes and clusters)](https://github.com/cdromcom/living-evidence-synthesis/blob/main/vault/pipeline/scripts/screen_embed.py)
 - [Script (this workbook and data files)](https://github.com/cdromcom/living-evidence-synthesis/blob/main/vault/pipeline/scripts/screen_to_gsheet.py)
-- [Pile names](https://github.com/cdromcom/living-evidence-synthesis/tree/main/vault/pipeline/screening/2026-11-25_SysRev-Elicit-2026-11-24/data/new-pile-names_and-task-types.json)
+- [Category names](https://github.com/cdromcom/living-evidence-synthesis/tree/main/vault/pipeline/screening/2026-11-25_SysRev-Elicit-2026-11-24/data/new-category-names_and-task-types.json)
 
 ## 10. Performance
 Leave-one-out on the seed papers (each seed hidden, then classified from the others): EmbeddingGemma 2 73%; harrier-oss-v1-0.6b 73%; DNA-VL-STEER-2B 77%. This is the only accuracy measure so far; the sample is small (one task group has a single seed). Agreement with JP's decisions will be added when the Papers tab is filled in.
@@ -53,7 +53,7 @@ Leave-one-out on the seed papers (each seed hidden, then classified from the oth
 Papers with no abstract or little PDF text are flagged in Screening hints; a record with a wrong title in Zotero is flagged too. No imputation.
 
 ## 12. Limitations
-Piles reflect how similar the first pages or abstracts are, not a reading of the paper. Seed task groups are few and uneven. Pile names are suggestions. Embeddings may group by topic or field more than by the task a model performs.
+Categories reflect how similar the first pages or abstracts are, not a reading of the paper. Seed task groups are few and uneven. Category names are suggestions. Embeddings may group by topic or field more than by the task a model performs.
 
 ## 13. Ethics and privacy
 Only titles, abstracts, DOIs and Zotero keys of published papers are used. Abstracts and local file paths stay out of the public repository; the repository holds metadata only.
@@ -65,21 +65,21 @@ All code and metadata-only data are on GitHub in the folders linked here; the wo
 - [Run folder README](https://github.com/cdromcom/living-evidence-synthesis/tree/main/vault/pipeline/screening/2026-11-25_SysRev-Elicit-2026-11-24/README.md)
 
 ## 15. AI-use disclosure (GAMER)
-The scripts, the pile names and this report were written by Claude Sonnet 5.5 (Claude Code) on 2026-11-25; the embedding models are the three named above. A person has not yet reviewed them.
+The scripts, the category names and this report were written by Claude Sonnet 5.5 (Claude Code) on 2026-11-25; the embedding models are the three named above. A person has not yet reviewed them.
 - [AI disclosure](https://github.com/cdromcom/living-evidence-synthesis/blob/main/vault/pipeline/provenance/AI-disclosure.md)
 
 ## How to review
-Use the Papers tab: filter by Proposed pile or Screening hints, then fill JP: decision and JP: pile (dropdown from the Lists tab).
+Use the Papers tab: filter by Proposed category or Screening hints, then fill JP: decision and JP: category (dropdown from the Lists tab).
 
 ## Built
 2026-11-25
 
 ## Files in `data/`
-- `papers_piles-and-model-votes.tsv`: one row per distinct paper, pile, task type, each model's pick and similarity, hints (no abstracts, no local paths).
-- `new-piles_one-paper-per-row.tsv`, `piles_summary.tsv`: the candidate new piles and all piles with task types and keywords.
+- `papers_categories-and-model-votes.tsv`: one row per distinct paper, category, task type, each model's pick and similarity, hints (no abstracts, no local paths).
+- `new-categories_one-paper-per-row.tsv`, `categories_summary.tsv`: the candidate new categories and all categories with task types and keywords.
 - `duplicates_all-zotero-records.tsv`, `folder-dedup_summary.tsv`: every Zotero record with its duplicate role inside its folder and across folders.
 - `model-check_leave-one-out.tsv`, `settings_and_versions.json`: how well each model recovers the seed groups; every setting and package version.
-- `new-pile-names_and-task-types.json`: the names written for the new piles (edit here, rerun the last script).
+- `new-category-names_and-task-types.json`: the names written for the new categories (edit here, rerun the last script).
 
 ## Commands (run from the vault root; Python environment `~/.cache/lives-bench/venv-embed`)
 ```

@@ -1244,3 +1244,10 @@ Goal: validate the new SKILL Step 3b across varied papers before doing all 28. P
 
 ### Recall (no file changes)
 - Reported counts of last week's batch (April 17–18 vault scaffolding + bulk extraction). Initial counts were wrong (claimed 14 EVD and 13 CVT); corrected to 10 CLM, 12 EVD, 12 CVT after re-counting.
+
+## 2026-11-25 (later)
+- SRC pages: skimmable lists and node-link-first rule added to the Skill. Gemini 4 Neon replaces Claude Opus 5.5 as the writing and judging model in the plan (JP's decision); Opus 5.5 is kept as a comparison. See `misc/evd-validation/LOG.md`.
+- Gemini 4 Neon swap reverted at JP's request; Claude Opus 5.5 and Sonnet 5.5 (by task demand), GPT-6.2 Sol for checks, and the decision models are back as the documented roles. See `misc/evd-validation/LOG.md`.
+- Gemini 4 Neon is again the primary PDF reader and extractor, with a supporting cast (GPT-6.2 Sol, Opus 5.5, Sonnet 5.5, decision models); `skills/TIPS.md` added. See `misc/evd-validation/LOG.md`.
+- Batch runner built (`lives_run.py`, `llm_batch.py`, three prompts): four papers at most, $5.55 cap per batch, stop rules, run manifest, standard or batch mode per provider; local extraction stack dropped. See `misc/evd-validation/LOG.md`.
+- Whole-library Zotero screening finished (17,544 distinct papers, 3 local models, sheet and repo folder); runner cost test on a real paper ($1.24) and two over-flagging fixes. See `misc/evd-validation/LOG.md`.

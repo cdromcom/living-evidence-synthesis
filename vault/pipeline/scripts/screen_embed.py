@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Sort newly ingested papers into task-type piles by embedding similarity to the seed set, with a majority vote over three embedding models (JP, 2026-11-25).
+"""Sort newly ingested papers into task-type categories by embedding similarity to the seed set, with a majority vote over three embedding models (JP, 2026-11-25).
 Run with the embedding environment:  ~/.cache/lives-bench/venv-embed/bin/python screen_embed.py --dedup ~/.cache/lives-bench/screening/dedup.json
 Method
   1 text      first 3 PDF pages (superscripts removed), at most 6,000 characters, after the title; the Zotero abstract is used if the PDF has little text
   2 embed     EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B (open weights, local; allowed by the 2026-11-25 origin policy, see Tools-and-Models.md), each on its own
   3 vote      each model gives a paper the task group of its most similar seed paper(s); 'NEW' if even the nearest seed is less similar than the model's own 15th percentile of seed-to-seed similarity
-  4 majority  2 of 3 models agree -> that pile; otherwise 'no majority' (a person decides). Leave-one-out on the seeds reports how often each model is right.
-  5 new piles papers voted NEW or with no majority are clustered together (average linkage on the mean of the three models' distances) and named from their most distinctive words
+  4 majority  2 of 3 models agree -> that category; otherwise 'no majority' (a person decides). Leave-one-out on the seeds reports how often each model is right.
+  5 new categories papers voted NEW or with no majority are clustered together (average linkage on the mean of the three models' distances) and named from their most distinctive words
 Nothing is deleted or moved; the output is a JSON for the review sheet."""
 import argparse, collections, json, os, re, sys
 from pathlib import Path
@@ -50,9 +50,20 @@ def main():
     from sentence_transformers import SentenceTransformer
     sims = {}; embs = {}
     for name, path, pn in MODELS:
-        m = SentenceTransformer(str(path)); m.max_seq_length = 1024
-        e = m.encode(inputs, normalize_embeddings=True, batch_size=4, prompt_name=pn) if pn else m.encode(inputs, normalize_embeddings=True, batch_size=4)
-        embs[name] = e; sims[name] = e @ e.T; del m; print('embedded with', name, flush=True)
+        import hashlib, time; cache = Path.home() / '.cache/lives-bench/screening/emb-cache'; cache.mkdir(parents=True, exist_ok=True)
+        ck = cache / (hashlib.sha1((name + '\x00'.join(inputs)).encode()).hexdigest()[:16] + '.npy')   # reuse embeddings of the same texts and model (a rerun costs nothing)
+        if ck.exists(): e = np.load(ck); print('loaded cached embeddings for', name, flush=True)
+        else:
+            m = SentenceTransformer(str(path)); m.max_seq_length = 1024; parts = []; t0 = time.time()
+            for i in range(0, len(inputs), 24):   # chunks with progress, so a stall is visible
+                chunk = inputs[i:i + 24]
+                parts.append(m.encode(chunk, normalize_embeddings=True, batch_size=4, prompt_name=pn) if pn else m.encode(chunk, normalize_embeddings=True, batch_size=4))
+                print(f'  {name}: {min(i + 24, len(inputs))}/{len(inputs)} texts, {time.time() - t0:.0f}s', flush=True)
+                try:
+                    import torch; torch.mps.empty_cache()
+                except Exception: pass
+            e = np.concatenate(parts); np.save(ck, e); del m
+        embs[name] = e; sims[name] = e @ e.T; print('embedded with', name, flush=True)
     # --- per model: seed-to-seed leave-one-out, then vote for each new paper
     def cat_scores(S, i, exclude=None):   # nearest seed similarity per category (and which seed)
         out = {}
@@ -82,7 +93,7 @@ def main():
         d['votes'] = v; d['majority'] = top if n >= 2 else 'no majority'; d['agreement'] = f'{n} of 3'
         # tie-break hint: which group do the models lean to if they are split?
         d['mean_best_sim'] = float(np.mean([x['sim'] for x in v.values()]))
-    # --- new piles: cluster papers that are NEW or split
+    # --- new categories: cluster papers that are NEW or split
     pool = [i for i in new_idx if docs[i]['majority'] in ('NEW', 'no majority')]
     clusters = {}
     if len(pool) >= 3:
@@ -107,5 +118,5 @@ def main():
     out = {'categories': cats, 'report': report, 'clusters': clusters, 'seeds': [{k: d[k] for k in ('id', 'title', 'groups', 'pdf')} for d in docs if d['kind'] == 'seed'],
            'papers': [{'id': d['id'], 'title': d['title'], 'pdf': d['pdf'], 'copies': d['copies'], 'majority': d['majority'], 'agreement': d['agreement'], 'votes': d['votes'], 'mean_best_sim': d['mean_best_sim'], 'new_pile': d.get('new_pile', ''), 'text_chars': len(d['text']), 'text_mode': d.get('text_mode', 'pdf'), 'rec': d['rec']} for d in docs if d['kind'] == 'new']}
     Path(a.out or Path(a.dedup).parent / 'screen-result.json').write_text(json.dumps(out, indent=1, ensure_ascii=False, default=float), encoding='utf-8')
-    print(json.dumps(report, indent=1, default=float)); print('majority:', collections.Counter(p['majority'] for p in out['papers'])); print('agreement:', collections.Counter(p['agreement'] for p in out['papers'])); print('new piles:', {k: (len(v['members']), v['terms'][:3]) for k, v in clusters.items()})
+    print(json.dumps(report, indent=1, default=float)); print('majority:', collections.Counter(p['majority'] for p in out['papers'])); print('agreement:', collections.Counter(p['agreement'] for p in out['papers'])); print('new categories:', {k: (len(v['members']), v['terms'][:3]) for k, v in clusters.items()})
 if __name__ == '__main__': main()
