@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["four LLMs vs three AI platforms", "seven vs ten IRB queries", "homogeneous vs correct responses"], "reason": "Both concern AI performance on IRB ethics/case queries, but differ in count, query number and outcome criterion."}

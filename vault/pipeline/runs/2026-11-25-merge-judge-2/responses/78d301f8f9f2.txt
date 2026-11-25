@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A: LLM-as-judge bias/conflict with GPT-4o", "B: text-only models blind to figures/tables except Claude-3-Opus", "different limitation and named systems"], "reason": "Both are validity-threat caveats for LLM review evaluation, but they describe different biases and cannot be merged."}

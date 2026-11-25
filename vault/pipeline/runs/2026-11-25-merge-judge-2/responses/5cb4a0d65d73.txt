@@ -1,0 +1,1 @@
+{"verdict":"group_under_umbrella","differences":["limitations vs critical errors/unsoundness","LLMs vs reasoning LLMs","different papers"],"reason":"Both ask whether LLMs can spot consequential flaws in scientific papers, but the flaw types and model qualifier differ."}

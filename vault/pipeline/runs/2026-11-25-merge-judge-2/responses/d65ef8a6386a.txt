@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A is recommendation scores with/without area-chair context", "B is all three expert criteria comparably", "A says exceeded without context; B says comparable"], "reason": "Both concern LLM versus human review scoring, but they cover different metrics and conditions."}

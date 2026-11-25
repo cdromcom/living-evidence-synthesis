@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["multi-agent systems vs reasoning LLMs", "feedback specificity/helpfulness vs critical-error detection", "different papers and evidence"], "reason": "Both are positive claims about LLM assistance in paper review, but they concern different model types, tasks, and metrics."}

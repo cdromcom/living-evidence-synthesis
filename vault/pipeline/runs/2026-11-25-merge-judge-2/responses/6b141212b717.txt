@@ -1,0 +1,1 @@
+{"verdict": "merge", "differences": ["preference-alignment/quality framing vs feedback-overlap/reliability framing"], "reason": "Both ask how LLM-generated peer reviews compare with human reviews on the same subject, differing mainly in wording and emphasis."}

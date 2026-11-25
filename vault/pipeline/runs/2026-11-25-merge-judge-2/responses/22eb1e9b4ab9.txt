@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["different datasets/papers", "ICLR+NeurIPS 2022 onwards vs ICLR-2023 only", "domain generalizability vs diversity/scale", "different sizes and scope"], "reason": "Different datasets and studies: same narrow ML-conference-data theme, but different venues, years, scale, and stated limits."}

@@ -1,0 +1,1 @@
+{"verdict":"keep_separate","differences":["Different models: GPT 3.5-turbo vs GPT 4-0613","Different rates: 66.9% vs 44.1%","Opposite ranks: highest vs lowest","Node A mentions 39 medical articles; Node B does not"],"reason":"The nodes report opposite results (highest vs lowest) for different models with different rates, so one page could not replace both without losing detail."}

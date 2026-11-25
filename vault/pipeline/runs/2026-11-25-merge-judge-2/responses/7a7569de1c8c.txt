@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["combined LLMs vs individual LLMs", "75-88% vs 63-70% PRISMA", "includes deferral rates vs AMSTAR and human baseline"], "reason": "Both concern LLM accuracy on PRISMA/AMSTAR review assessment, but they differ in setup, numbers, and included comparisons, so one page could not replace both."}

@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["quotation errors vs significant errors prompting errata/retraction", "general-domain/no fine-tuning focus vs state-of-the-art LLM verifiers", "scientific papers broadly vs SPOT published-paper dataset"], "reason": "Both ask whether LLMs can catch errors in papers, but differ in error type, setting, and dataset scope."}

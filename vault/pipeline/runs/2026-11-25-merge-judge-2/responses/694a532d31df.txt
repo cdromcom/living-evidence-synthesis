@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A: performance varies by prompt design", "B: RAG/few-shot improve but human gap remains"], "reason": "Both concern prompting effects on LLM performance, but they make different claims and mention different techniques and outcomes."}

@@ -1,3 +1,4 @@
+import { labelFor } from "./qualityLabels";
 import {
   getReportingCompliance,
   getValiditySignals,
@@ -77,7 +78,7 @@ function riskCell(risk: ReproducibilityRisk | "not-addressed" | null, labels = D
 }
 
 /** The full catalog of every per-EVD quality signal, grouped for the column picker. */
-export const QUALITY_COLUMNS: QualityColumn[] = [
+const QUALITY_COLUMNS_RAW: QualityColumn[] = [
   {
     id: "transparency",
     label: "Transparency",
@@ -215,7 +216,7 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
   },
   {
     id: "statistic-accuracy",
-    label: "Statistical Accuracy",
+    label: "statistic-accuracy",
     group: "Rigor — Reporting",
     defaultVisible: false,
     value: (_evd, src) => {
@@ -227,7 +228,7 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
   },
   {
     id: "spin",
-    label: "Hype/spin",
+    label: "spin",
     group: "Rigor — Interpretation",
     defaultVisible: false,
     value: (_evd, src) => riskCell(getSpinSignal(src)),
@@ -297,5 +298,8 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
     },
   },
 ];
+
+// Row names come from the vault registry (see lib/qualityLabels.ts), not from this file.
+export const QUALITY_COLUMNS: QualityColumn[] = QUALITY_COLUMNS_RAW.map((c) => ({ ...c, label: labelFor(c.id, c.label) }));
 
 export const QUALITY_COLUMN_GROUPS = Array.from(new Set(QUALITY_COLUMNS.map((c) => c.group)));

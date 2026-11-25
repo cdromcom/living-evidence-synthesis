@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["error type: quotation errors vs general key errors", "setup: general-domain without fine-tuning vs 13 constructed short papers"], "reason": "Both ask whether LLMs can find flaws in scientific papers, but they target different error kinds and evaluation setups."}

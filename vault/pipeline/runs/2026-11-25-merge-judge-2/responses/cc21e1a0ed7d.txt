@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["input context vs task-specific fine-tuning", "degraded performance vs reduced human gap"], "reason": "Both concern LLM performance on structured tasks, but describe different levers and outcomes, so an umbrella could relate them without merging."}

@@ -1,0 +1,1 @@
+{"verdict":"group_under_umbrella","differences":["LimitGen benchmark vs ICLR novelty dataset","AI-field focus vs single ML conference source","different papers and resources"],"reason":"Both are domain/generalizability caveats for peer-review LLM resources, but they concern different benchmarks/datasets and named scopes, so one page could not replace both."}

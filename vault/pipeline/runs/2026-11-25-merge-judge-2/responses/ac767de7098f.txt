@@ -1,0 +1,1 @@
+{"verdict":"group_under_umbrella","differences":["A concerns score inflation vs human reviewers; B concerns specificity of generated feedback","different aspect of LLM peer review"],"reason":"Both describe LLM review behavior, but one is about over-rating and the other about paper-specific feedback, so they are related, not interchangeable."}

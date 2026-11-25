@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["image/figure blindness vs pilot sample and cultural/multicentric limits", "different papers and scope"], "reason": "Both are caveats about limits of LLMs for paper review, but they identify different limitations and cannot be replaced by one page."}

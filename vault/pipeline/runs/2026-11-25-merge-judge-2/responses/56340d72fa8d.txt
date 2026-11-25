@@ -1,0 +1,1 @@
+{"verdict":"group_under_umbrella","differences":["facet-based LLM re-ranking vs human-LLM knowledge fusion","retrieving relevant papers vs predicting method novelty","different papers and findings"],"reason":"Both concern LLM assistance for scientific novelty evaluation, but they describe different methods and outcomes."}

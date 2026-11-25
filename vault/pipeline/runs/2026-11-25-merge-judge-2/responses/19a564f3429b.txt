@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A is general LLMs and general errors", "B is reasoning LLMs and critical/unsoundness problems"], "reason": "Both ask about LLMs detecting paper errors, but B is narrower in model type and error severity, so one merged page would lose scope."}

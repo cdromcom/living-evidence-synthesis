@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["modality/image blindness vs zero-shot prompting", "evidence appraisal/PRISMA context vs novelty assessment", "different papers and tasks"], "reason": "Both are LLM evaluation limitations, but they concern different tasks and constraints, so an umbrella limitation node fits better than a merge."}

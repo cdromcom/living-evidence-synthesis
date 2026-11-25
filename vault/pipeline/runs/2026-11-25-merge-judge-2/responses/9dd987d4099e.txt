@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["method: RAG/few-shot vs fine-tuning", "gap effect: rarely closed vs substantially closed", "scope: general vs structured evaluation tasks"], "reason": "Both concern methods narrowing LLM-human performance gaps, but the approaches, effects and task scopes differ."}

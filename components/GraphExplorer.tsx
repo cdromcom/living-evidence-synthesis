@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { labelFor } from "@/lib/qualityLabels";
 import Link from "next/link";
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
 import type { ForceGraphMethods, ForceGraphProps } from "react-force-graph-2d";
@@ -174,7 +175,7 @@ type TrustSignalOption = { key: string; label: string; group: string; test: (n: 
 // its risk level as text either, only as the badge's dot color), testing
 // the same "was this handled well" positive condition the pre-existing
 // Openness/Integrity filters below already use.
-const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: GraphNode) => ReproducibilityRisk | "not-addressed" | null }[] = [
+const RIGOR_CHECK_DEFS_RAW: { id: string; label: string; group: string; getter: (n: GraphNode) => ReproducibilityRisk | "not-addressed" | null }[] = [
   { id: "data-repo-check", label: "Dataset check", group: "Openness", getter: getRepositoryCheck },
   { id: "code-check", label: "Code Check", group: "Openness", getter: getCodeCheck },
   { id: "baseline-adequacy", label: "Baseline Adequacy", group: "Rigor — Design", getter: getBaselineAdequacy },
@@ -186,8 +187,11 @@ const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: 
   { id: "confidence-intervals", label: "Confidence Intervals", group: "Rigor — Analyses", getter: getConfidenceIntervals },
   { id: "multiple-comparisons", label: "Multiple-Comparisons Correction", group: "Rigor — Analyses", getter: getMultipleComparisonsCorrection },
   { id: "chance-corrected-metrics", label: "Chance-Corrected Metrics", group: "Rigor — Analyses", getter: getChanceCorrectedMetrics },
-  { id: "spin", label: "Hype/spin", group: "Rigor — Interpretation", getter: getSpinSignal },
+  { id: "spin", label: "spin", group: "Rigor — Interpretation", getter: getSpinSignal },
 ];
+
+// Row names come from the vault registry (see lib/qualityLabels.ts).
+const RIGOR_CHECK_DEFS = RIGOR_CHECK_DEFS_RAW.map((d) => ({ ...d, label: labelFor(d.id, d.label) }));
 
 // Only Registration and Protocol get their own filter checkboxes here — Data
 // and Code transparency have a newer, more specific equivalent already below
@@ -196,7 +200,7 @@ const RIGOR_CHECK_DEFS: { id: string; label: string; group: string; getter: (n: 
 // checkbox would just duplicate those.
 const OPENNESS_FILTER_STANDARDS = ["study-registration", "study-protocol"] as const;
 
-const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
+const TRUST_SIGNAL_OPTIONS_RAW: TrustSignalOption[] = [
   ...OPENNESS_FILTER_STANDARDS.map((standard) => ({
     key: `top:${standard}`,
     label: TOP_STANDARD_LABELS[standard],
@@ -243,7 +247,7 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
   },
   {
     key: "statistic-accuracy",
-    label: "Statistical Accuracy",
+    label: "statistic-accuracy",
     group: "Rigor — Reporting",
     test: (n: GraphNode) => getStatisticalConsistency(n) === "consistent",
   },
@@ -282,6 +286,9 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
     test: (n: GraphNode) => getAiWritingCheck(n) === "low-risk",
   },
 ];
+
+// Row names come from the vault registry (see lib/qualityLabels.ts); a key that is not a registry row keeps its own label.
+const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = TRUST_SIGNAL_OPTIONS_RAW.map((o) => ({ ...o, label: labelFor(o.key, o.label) }));
 
 /** A dropdown filter — a labeled toggle button that opens a grouped list of square checkboxes. */
 function CheckboxDropdown({

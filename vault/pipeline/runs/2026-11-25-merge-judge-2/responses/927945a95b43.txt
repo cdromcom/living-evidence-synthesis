@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A gives baseline 52% and human/MARG comparators", "B gives RAG improvement of 12.2 percentage points", "A lacks RAG condition"], "reason": "Same dataset and metric, but one reports absolute baseline performance and the other a RAG improvement."}

@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["fine-tuning vs reasoning models", "overly favorable bias vs critical-error detection", "constructive feedback vs manuscript quality checking"], "reason": "Both concern LLM assistance in paper review, but they make different performance claims about different model capabilities."}

@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A: average recommendation score vs humans and GPT-4o; B: LLM-as-judge win rates vs GPT-4o and Llama-3.1-70B", "Different metrics, numbers, and comparator models"], "reason": "Both report OpenReviewer evaluation results against LLM baselines, but they measure different outcomes and should not be merged."}

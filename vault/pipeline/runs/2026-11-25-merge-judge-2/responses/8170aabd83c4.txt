@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["closed vs open-source performance", "zero-shot benchmarks vs human-rating bias", "fine-tuning exception", "over-rating direction"], "reason": "Both concern LLM behavior in scientific paper evaluation, but they describe different performance comparisons and rating biases."}

@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["named model", "correct-answer rate", "highest vs lowest rank"], "reason": "Both report LLM accuracy on STROBE checklist questions, but they describe different models and opposite performance ranks."}

@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["3/12 vs 6/17 items", "PRISMA systematic reviews vs CONSORT-A RCT checklists", "eligibility criteria vs randomization discrepancy", "p=0.028 vs p=0.001"], "reason": "Both report ChatGPT-human agreement on reporting-guideline checklist items, but differ in guideline, context, counts and statistics."}

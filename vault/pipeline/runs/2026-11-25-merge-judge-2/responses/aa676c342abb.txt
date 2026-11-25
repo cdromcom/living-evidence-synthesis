@@ -1,0 +1,1 @@
+{"verdict":"group_under_umbrella","differences":["acceptance/preference prediction vs perceived feedback helpfulness","different outcome and evaluation target"],"reason":"Both concern LLM peer review near human-level performance, but they measure different outcomes, so an umbrella page could cover them without merging."}

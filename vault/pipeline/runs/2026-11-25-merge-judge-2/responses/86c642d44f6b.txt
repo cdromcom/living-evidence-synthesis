@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["A: low inter-annotator agreement/expertise", "B: simple sentence-pair scheme ignoring multiple rationales", "different papers"], "reason": "Both are caveats about annotation limits in citation-integrity work, but they describe distinct problems with different remedies and sources."}

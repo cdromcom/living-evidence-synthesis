@@ -15,25 +15,34 @@ def body(typ, name):
     return f"Title: {m.group(1) if m else name}\nPapers: {', '.join(sorted(set(re.findall(r'(@[A-Za-z0-9-]+)', p.group(1))))) if p else 'n/a'}\nQuote: {re.sub(r'^> ?', '', q.group(1), flags=re.M).strip()[:700] if q else 'n/a'}"
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--type', action='append', required=True); ap.add_argument('--top', type=int, action='append', required=True)
-    ap.add_argument('--run-id', required=True); ap.add_argument('--model', default='claude-sonnet-5-5'); a = ap.parse_args()
+    ap.add_argument('--run-id', required=True); ap.add_argument('--model', default='claude-sonnet-5-5'); ap.add_argument('--inkling', action='store_true', help='also ask Inkling 2 Small (Tinker) for each pair'); a = ap.parse_args()
     cdir = VAULT / 'pipeline/misc/evd-validation/embedding-candidates'; rows = list(csv.DictReader(open(cdir / 'candidates.tsv'), delimiter='\t'))
     prompt_file = 'pipeline/prompts/merge-judge-v1.md'; tpl = (VAULT / prompt_file).read_text(encoding='utf-8').split('\n', 2)[2]
     jobs = []
     for typ, top in zip(a.type, a.top): jobs += [r for r in rows if r['type'] == typ][:top]
-    def one(r):
-        text, rec = cl.logged_anthropic(a.run_id, 'merge-judge', a.model, prompt_file, tpl.replace('{A}', body(r['type'], r['node_a'])).replace('{B}', body(r['type'], r['node_b'])), effort='medium', max_tokens=800, node=f"{r['node_a']} || {r['node_b']}")
+    def parse(text):
         m = re.search(r'\{.*\}', text, re.S)
-        try: j = json.loads(m.group(0))
-        except Exception: j = {'verdict': 'unparsed', 'differences': [], 'reason': text[:120]}
-        return {**r, 'verdict': j.get('verdict'), 'differences': '; '.join(j.get('differences', [])), 'reason': j.get('reason', '')}
+        try: return json.loads(m.group(0))
+        except Exception: return {'verdict': 'unparsed', 'differences': [], 'reason': (text or '')[:120]}
+    def one(r):
+        prompt = tpl.replace('{A}', body(r['type'], r['node_a'])).replace('{B}', body(r['type'], r['node_b'])); node = f"{r['node_a']} || {r['node_b']}"
+        text, rec = cl.logged_anthropic(a.run_id, 'merge-judge', a.model, prompt_file, prompt, effort='medium', max_tokens=800, node=node)
+        j = parse(text); out = {**r, 'verdict': j.get('verdict'), 'differences': '; '.join(j.get('differences', [])), 'reason': j.get('reason', '')}
+        if a.inkling:
+            try: it, _ = cl.logged_tinker(a.run_id, 'merge-judge', 'thinkingmachines/Inkling-2-Small', prompt_file, prompt, effort='low', max_tokens=3000, node=node); ij = parse(it)
+            except Exception as e: ij = {'verdict': 'error', 'differences': [], 'reason': repr(e)[:100]}
+            out.update({'inkling_verdict': ij.get('verdict'), 'inkling_reason': ij.get('reason', ''), 'agree': 'yes' if ij.get('verdict') == j.get('verdict') else 'no'})
+        return out
     with ThreadPoolExecutor(4) as ex: res = list(ex.map(one, jobs))
     with open(cdir / 'judgments.tsv', 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, list(res[0].keys()), delimiter='\t'); w.writeheader(); w.writerows(res)
-    md = ['# Second opinion on candidate pairs (Claude Sonnet 5.5, blinded; Inkling 2 Small not wired up yet)', '', 'Verdicts are advice for the human verifier, not decisions. Nothing was merged.', '']
+    md = ['# Second opinion on candidate pairs (Claude Sonnet 5.5' + (' and Inkling 2 Small' if a.inkling else '') + ', each blinded to the other)', '', 'Verdicts are advice for the human verifier, not decisions. Nothing was merged.', '']
     for typ in a.type:
-        md += [f'## {typ}', '', '| # | A | B | Similarity | Verdict | What differs | Reason |', '|---|---|---|---|---|---|---|']
-        for n, r in enumerate([x for x in res if x['type'] == typ], 1): md.append(f"| {n} | {r['node_a'].split(' - ', 1)[-1][:90]} | {r['node_b'].split(' - ', 1)[-1][:90]} | {r['sim_title']} | **{r['verdict']}** | {r['differences'][:120]} | {r['reason']} |")
+        ink = a.inkling
+        md += [f'## {typ}', '', '| # | A | B | Similarity | Sonnet 5.5 | ' + ('Inkling 2 Small | Agree | ' if ink else '') + 'What differs | Reason |', '|---|---|---|---|---|' + ('---|---|' if ink else '') + '---|---|']
+        for n, r in enumerate([x for x in res if x['type'] == typ], 1): md.append(f"| {n} | {r['node_a'].split(' - ', 1)[-1][:90]} | {r['node_b'].split(' - ', 1)[-1][:90]} | {r['sim_title']} | **{r['verdict']}** | " + (f"**{r['inkling_verdict']}** | {r['agree']} | " if ink else '') + f"{r['differences'][:120]} | {r['reason']} |")
         md.append('')
     (cdir / 'judgments.md').write_text('\n'.join(md), encoding='utf-8')
     import collections; print(collections.Counter((r['type'], r['verdict']) for r in res))
+    if a.inkling: print('agreement Inkling vs Sonnet:', collections.Counter((r['type'], r['agree']) for r in res))
 if __name__ == '__main__': main()

@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["facet-based reranking vs specialized peer-review fine-tuning", "novelty/literature relevance vs overly favorable reviews", "different papers"], "reason": "Different interventions and outcomes; both concern improving LLM reliability for scientific paper evaluation."}

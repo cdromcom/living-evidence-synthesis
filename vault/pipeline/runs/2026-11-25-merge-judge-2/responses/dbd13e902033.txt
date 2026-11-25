@@ -1,0 +1,1 @@
+{"verdict": "group_under_umbrella", "differences": ["task: quotation errors vs critical limitations", "A specifies without fine-tuning", "different papers/sources"], "reason": "Both ask whether LLMs can spot problems in scientific papers, but they target different error types and conditions."}
