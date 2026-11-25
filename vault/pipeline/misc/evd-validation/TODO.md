@@ -266,3 +266,47 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
 - [ ] **Zotero cleanup (JP's call):** the Duplicates tab lists the 254 records that duplicate a preferred record; 17 of the 82 papers are already in the older pool and 4 are already seed papers. Nothing was deleted.
 - [ ] **Name the new piles:** 11 candidate new task types (for example replication and reproducibility agents (10 papers), plagiarism detection (6), AI-generated text detection (7), risk-of-bias automation (5), grant and proposal review (4), spin and registration (3), PRISMA adherence (3), claim verification (3), causal language (2), statistical-error detection (2)); decide which belong in the study.
 - [x] **Policy (JP, 2026-11-25):** open-weight foreign models are allowed if SOTA or near it and run locally; no APIs for foreign models. DNA-VL-STEER-2B's vote in the screening is therefore allowed. Docs updated (Tools-and-Models.md, Skill references).
+
+## LONG-TERM GOAL (JP, 2026-11-25): a daily, open and participatory living synthesis
+
+**The vision.** New papers arrive every day from Elicit and Undermind. Claude connects to both through MCP and, together with several embedding models, proposes which papers belong in the study and in which task-type pile. **JP screens the incoming papers daily.** A screened paper moves into the vault's `sysrev/dgraph/source/pdfs/` folder, where data extraction, verification, quality-signal checks and discourse-graph (dgnode) linking happen under the Skill. **People then synthesize the results in small groups, on a regular schedule, with virtual team meetings shown on an open calendar** so anyone can see when and join. The result would be a living synthesis that is open, current, transparent about every AI step, and shaped by a community, not by one lab.
+
+**JP's role: guide the models, do not do their work.** JP sets the rules, screens, approves merges and joins the group syntheses; the models fetch, sort, extract, check, link and log.
+
+### The daily loop (target)
+1. **Fetch.** Scheduled searches in **Elicit** and **Undermind** (the Undermind connector already exists in this environment; check whether Elicit offers an MCP server or API and what it costs) return new candidates with abstracts, DOIs and links. Save only metadata and links by default.
+2. **De-duplicate** against Zotero, the vault (seed and ingested papers) and earlier daily batches by DOI, arXiv id and title (`screen_dedup.py`). Prefer the most recent published version; keep older versions as Archive.
+3. **Sort into piles** with a vote of several local embedding models (EmbeddingGemma 2, harrier, DNA-VL-STEER-2B, later Qwen3-Embedding and others) against the seed task types, and propose new task types when many papers fit none (`screen_embed.py`). Show each model's pick and similarity.
+4. **JP screens** in the review sheet (Include, Exclude, Maybe, plus a pile). Target: a short daily session. Disagreements between the models are surfaced first.
+5. **Move screened-in papers** to `sysrev/dgraph/source/pdfs/` (PDF fetched legally: open access or already in Zotero; no scraping of paywalls).
+6. **Run the Skill** on the batch (batches of five): read, PICOST extraction, checks, node writing, crops, audits, AI-use footers, call logs.
+7. **Fit into the graph:** EmbeddingGemma 2 proposes links and duplicates, Inkling 2 Small and Claude Sonnet 5.5 judge, **a person verifies every merge or split**.
+8. **Quality signals (Module Q)** only on JP's command, with the scripted Statistical Accuracy checks and the decision-model check of quotes.
+9. **Verification by people:** spot checks (A before writing, B after), the review sheet, and the public review box.
+10. **Group synthesis** (weekly or fortnightly): small groups read the new nodes, update EvidencePatterns, Review-Arena rows and the narrative, and decide what the evidence now says.
+11. **Publish** by pull request; the site rebuilds; the changelog and the open calendar show what happened and what is next.
+
+### What to build, in order (each step is small and testable)
+- [ ] **A. Connect the sources.** Use the Undermind MCP tools to run one saved search and save the results; check Elicit (MCP, API, or its export to Zotero, which already works through the Zotero collection "SysRev - Elicit …"). Decide the search topics and how often they run. Check each provider's terms, data handling and cost; hosted APIs must be US developers only (policy of 2026-11-25).
+- [ ] **B. Daily intake script** that fetches, de-duplicates, embeds, votes and writes the day's review sheet; log every model call and keep working files outside the vault (abstracts and local paths stay out of the public repo).
+- [ ] **C. Add more embedding models** to the vote (the bake-off in TODO): measure each model against JP's screening decisions, then drop the ones that do not help.
+- [ ] **D. Learn from JP's screening.** Every Include or Exclude becomes a labeled example; retrain or recalibrate thresholds monthly; track how often the vote agrees with JP (target: kappa above 0.85, JP's earlier goal for the classification study).
+- [ ] **E. Hand-off to the pipeline.** One command moves screened-in papers to `pdfs/`, creates the batch of five and starts the Skill with the cost controls and ledger.
+- [ ] **F. Open calendar and group syntheses.** Choose a calendar that can be public (for example a shared Google Calendar or an iCal feed shown on the site); schedule recurring virtual meetings; write a one-page guide for what a synthesis group does, how people join, and what they may edit; define roles (screeners, verifiers, synthesizers) and a code of conduct; record decisions in the vault (`LOG.md`, History).
+- [ ] **G. Show it on the site.** A "What's new" page (papers screened this week, nodes added, open verification tasks), the calendar, and the AI-use footers; a clear "how to take part" page.
+- [ ] **H. Review and improve each month:** cost per paper, time JP spends screening, error rates found in verification, duplicate rate, and what the group syntheses changed.
+
+### Decisions for JP before starting
+- Which Elicit and Undermind searches (topics, filters, frequency), and who pays for credits.
+- Daily screening budget (minutes) and what to do on days JP is away (batch the queue, or a second screener).
+- How PDFs are obtained legally, and how copyright is handled for screenshots and quotes (see `docs/PERMISSIONS.md`).
+- Who may screen, verify and synthesize (open to anyone, invited team, or both), and how decisions are recorded and disputed.
+- Where the calendar and meetings live (tool, time zone, recording, accessibility).
+- How much automation is acceptable without a person: current rule is none for merges, splits and publishing.
+
+### Risks to manage
+- **Credit and compute cost** (stay inside the budget in `2026-11-24-ingest-budget-and-batches.md`); **model drift** (pin model versions, log them); **bias in what gets screened in** (publish the screening criteria and the piles); **privacy** (no participant data; keep Zotero exports private); **burnout** (keep the daily loop short, rotate roles); **quality** (every AI step stays logged and every merge is human-verified).
+
+### Done when
+A week of daily screening runs with JP spending no more than the agreed minutes; screened-in papers reach the vault and the site with complete AI-use footers; at least two group syntheses have met on the open calendar and their decisions are in the vault; and an outside person can read the "how to take part" page and join.
+
