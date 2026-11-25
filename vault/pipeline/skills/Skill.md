@@ -51,6 +51,7 @@ The vault has two parent folders: `sysrev/` (the systematic-review content) and 
 ## Setup before a run
 
 - **Vault location:** scripts use the folder two levels above `pipeline/scripts/`; set `LIVES_VAULT=/path/to/vault` to override.
+- **Model origin (JP, 2026-11-25):** hosted APIs only from US developers (never send data to a foreign provider's API or hosted endpoint); open-weight models from any country may run **locally** if they are state of the art or close to it for the task. Record developer, country, base model, licence and the date checked (see `Tools-and-Models.md`, "Model-origin policy").
 - **API keys** go in `~/.config/lives-ai-raters/.env` (never in chat or the repo): `OPENAI_API_KEY` (PDF reading with GPT-6.2 Sol), `ANTHROPIC_API_KEY` (Claude Opus 5.5), `PERPLEXITY_API_KEY`, `LIQUID_API_KEY`, `TYPESAFE_API_KEY` (Jev), `TINKER_API_KEY` (Inkling 2 Small), and `PANGRAM_API_KEY` (AI-writing check; use only on JP's command, planned December or January). All of these except the Pangram key were present in `.env` on 2026-11-25; JP added the Pangram key afterwards (confirm before use).
 - **Scripts:** the one canonical folder is `pipeline/scripts/`. The older copies are in `pipeline/misc/scripts-superseded/` and use the old folder layout; do not run them.
 

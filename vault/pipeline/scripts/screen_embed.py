@@ -3,7 +3,7 @@
 Run with the embedding environment:  ~/.cache/lives-bench/venv-embed/bin/python screen_embed.py --dedup pipeline/misc/screening/dedup.json
 Method
   1 text      first 3 PDF pages (superscripts removed), at most 6,000 characters, after the title; the Zotero abstract is used if the PDF has little text
-  2 embed     EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B (test-only exception to the model-origin policy; see Tools-and-Models.md), each on its own
+  2 embed     EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B (open weights, local; allowed by the 2026-11-25 origin policy, see Tools-and-Models.md), each on its own
   3 vote      each model gives a paper the task group of its most similar seed paper(s); 'NEW' if even the nearest seed is less similar than the model's own 15th percentile of seed-to-seed similarity
   4 majority  2 of 3 models agree -> that pile; otherwise 'no majority' (a person decides). Leave-one-out on the seeds reports how often each model is right.
   5 new piles papers voted NEW or with no majority are clustered together (average linkage on the mean of the three models' distances) and named from their most distinctive words
@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent)); import pdf_pages as pp
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path.home() / 'Documents/living-synthesis'); M = Path.home() / '.cache/lives-bench/models'
-MODELS = [('EmbeddingGemma 2', M / 'embeddinggemma-2', None), ('harrier-oss-v1-0.6b', M / 'harrier-oss-v1-0.6b', 'sts_query'), ('DNA-VL-STEER-2B (test-only)', M / 'DNA-VL-STEER-2B', None)]
+MODELS = [('EmbeddingGemma 2', M / 'embeddinggemma-2', None), ('harrier-oss-v1-0.6b', M / 'harrier-oss-v1-0.6b', 'sts_query'), ('DNA-VL-STEER-2B', M / 'DNA-VL-STEER-2B', None)]
 def pdf_text(path, chars=6000, pages=3):
     import fitz
     try: doc = fitz.open(path); t = ' '.join(pp.page_text(doc[i]) for i in range(min(pages, len(doc))))

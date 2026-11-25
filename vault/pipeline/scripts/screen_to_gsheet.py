@@ -20,7 +20,7 @@ def main():
         if p['majority'] == 'NEW':
             cid = pile_of.get(p['id']); return f"NEW {cid}: {', '.join(cl[cid]['terms'][:3])}" if cid else 'NEW (no similar paper yet)'
         return p['majority'].replace('  ', ' ')
-    names = ['EmbeddingGemma 2', 'harrier-oss-v1-0.6b', 'DNA-VL-STEER-2B (test-only)']
+    names = ['EmbeddingGemma 2', 'harrier-oss-v1-0.6b', 'DNA-VL-STEER-2B']
     copies = collections.defaultdict(lambda: collections.Counter())
     for r in D: copies[r['dup_group']][r['source']] += 1
     rows = []
@@ -73,7 +73,7 @@ def main():
          'How the piles were made', 'Each paper = title + the first 3 PDF pages. Three embedding models (EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B) each give a paper the task group of its most similar seed paper, or NEW if no seed is similar enough (below that model\'s 15th percentile of seed-to-seed similarity). A pile needs 2 of 3 models to agree. Papers voted NEW are clustered with each other (average linkage on the mean of the three models\' distances) to suggest new task types.', '',
          'How reliable', 'Leave-one-out on the seeds (each seed hidden, then classified from the others): see the Model check tab. With few seeds per task type (one has a single seed) this is a rough guide only.', '',
          'Scope', f'{len(D)} Zotero records (personal %d, group copy %d) = {len(R["papers"])} distinct papers; each appears about 4 times. The older SysRev-LLMApp pool is checked for overlap, not screened here.' % (sum(1 for r in D if r['source'] == 'personal library'), sum(1 for r in D if r['source'] != 'personal library')), '',
-         'Caveats', 'DNA-VL-STEER-2B is a test-only exception to the US-models-only policy (Korean developer, Qwen base); drop it and rerun to see the two-model result. Hints are suggestions, not decisions. E-means (a fast k-means for huge datasets) was not used: with this few papers ordinary clustering is instant and E-means still needs the number of clusters.', '',
+         'Caveats', 'DNA-VL-STEER-2B (Korean developer, Qwen base) is allowed because it is open-weight, local and near state of the art; no foreign API is used. Drop any model and rerun to see how the vote changes. Hints are suggestions, not decisions. E-means (a fast k-means for huge datasets) was not used: with this few papers ordinary clustering is instant and E-means still needs the number of clusters.', '',
          'To review', 'Use the Papers tab: filter by Proposed pile or Screening hints, then fill JP: decision and JP: pile. Duplicates tab lists every Zotero record; "keep (preferred)" is the published or newest version.', '', 'Built', str(date.today())]
     for i in range(0, len(t), 3): ab.append([t[i], t[i + 1] if i + 1 < len(t) else '']); 
     for r in ab.iter_rows():
