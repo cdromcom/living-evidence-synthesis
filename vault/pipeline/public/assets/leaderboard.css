@@ -1,0 +1,256 @@
+/* ==========================================================================
+   Leaderboard styling for the Topics page.
+   ==========================================================================
+   Targets tables wrapped in .ls-leaderboard and decorated by sortable.js.
+   Sortable headers, filter input, sort indicators, hover row, sticky head.
+   ========================================================================== */
+
+.ls-leaderboard {
+  margin: 1.5rem 0 2rem 0;
+}
+
+/* ==========================================================================
+   Page-width override on pages that host a leaderboard
+   ==========================================================================
+   The Review Arena tables have 8 columns; Material's default 61rem content
+   width forces horizontal scrolling. When any `.ls-leaderboard` wrapper
+   exists on the page we (a) widen the grid + content containers and
+   (b) hide the right-side TOC sidebar to recover ~12rem of horizontal
+   space. Tighter cell padding compounds the effect. Other pages stay at
+   the default reading-friendly width.
+   ========================================================================== */
+
+body:has(.ls-leaderboard) .md-grid {
+  max-width: none;
+}
+body:has(.ls-leaderboard) .md-content {
+  max-width: none;
+  padding: 0 1.5rem;
+}
+body:has(.ls-leaderboard) .md-sidebar--secondary {
+  display: none;
+}
+
+/* On wide-page mode, give the leaderboard table itself a hair more breathing
+   room and tighten cell padding so all 8 columns land without overflow. */
+body:has(.ls-leaderboard) .md-typeset .ls-leaderboard table:not([class]),
+body:has(.ls-leaderboard) .md-typeset .ls-leaderboard .ls-table {
+  table-layout: auto;
+  width: 100%;
+}
+body:has(.ls-leaderboard) .md-typeset .ls-leaderboard tbody td,
+body:has(.ls-leaderboard) .md-typeset .ls-leaderboard thead th {
+  padding: 0.5rem 0.55rem;
+}
+
+/* Mobile / narrow viewport: revert to the in-table horizontal scroll because
+   even a full-viewport laptop screen below ~960px can't fit 8 columns. */
+@media (max-width: 960px) {
+  body:has(.ls-leaderboard) .md-grid {
+    max-width: 61rem;
+  }
+  body:has(.ls-leaderboard) .md-sidebar--secondary {
+    display: revert;
+  }
+}
+
+/* ---------- Filter input ---------- */
+.ls-filter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.6rem 0;
+}
+
+.ls-filter {
+  flex: 1 1 18rem;
+  max-width: 26rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.78rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.4rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ls-filter:focus {
+  outline: none;
+  border-color: var(--md-primary-fg-color, #3f51b5);
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.18);
+}
+.ls-filter::placeholder {
+  color: var(--ls-meta-fg, #607d8b);
+}
+
+.ls-filter-count {
+  font-size: 0.7rem;
+  color: var(--ls-meta-fg, #607d8b);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- Table base ---------- */
+.md-typeset .ls-leaderboard table:not([class]),
+.md-typeset .ls-leaderboard .ls-table {
+  display: table;
+  width: 100%;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  border-collapse: collapse;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.md-typeset .ls-leaderboard thead th {
+  background: var(--md-default-fg-color--lightest);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 2px solid var(--md-default-fg-color--lighter);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.md-typeset .ls-leaderboard tbody td {
+  padding: 0.55rem 0.7rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset .ls-leaderboard tbody tr:hover {
+  background-color: rgba(63, 81, 181, 0.04);
+}
+[data-md-color-scheme="slate"] .md-typeset .ls-leaderboard tbody tr:hover {
+  background-color: rgba(63, 81, 181, 0.10);
+}
+
+/* The first column (Subtask) is the row's anchor — make it a touch heavier */
+.md-typeset .ls-leaderboard tbody td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* The "—" no-data cells sit muted */
+.md-typeset .ls-leaderboard tbody td {
+  position: relative;
+}
+
+/* ---------- Sortable header affordance ---------- */
+.ls-sortable-th {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 1.2rem !important;
+}
+.ls-sortable-th::after {
+  content: "↕";
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.35;
+  font-size: 0.75em;
+  transition: opacity 0.1s ease;
+}
+.ls-sortable-th:hover::after {
+  opacity: 0.9;
+}
+.ls-sortable-th.ls-sort-asc::after {
+  content: "▲";
+  opacity: 1;
+  color: var(--md-primary-fg-color, #3f51b5);
+}
+.ls-sortable-th.ls-sort-desc::after {
+  content: "▼";
+  opacity: 1;
+  color: var(--md-primary-fg-color, #3f51b5);
+}
+.ls-sortable-th:focus-visible {
+  outline: 2px solid var(--md-primary-fg-color, #3f51b5);
+  outline-offset: -2px;
+}
+
+/* ---------- Multi-EVD stack inside a cell ---------- */
+.md-typeset .ls-leaderboard td .stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.1rem 0;
+}
+.md-typeset .ls-leaderboard td .stack abbr[title] + abbr[title] {
+  /* secondary entries are visually subordinate to the primary one on top */
+  opacity: 0.78;
+}
+.md-typeset .ls-leaderboard td .stack abbr[title] .num {
+  font-size: 0.78rem;
+}
+.md-typeset .ls-leaderboard td .stack abbr[title]:first-child .num {
+  font-size: 0.85rem;
+}
+
+/* ---------- Numeric cells with abbr-tooltip + caption ---------- */
+.md-typeset .ls-leaderboard td abbr[title] {
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.28);
+  cursor: help;
+  display: inline-block;
+  line-height: 1.2;
+  text-align: center;
+  min-width: 4rem;
+  max-width: 100%;
+  padding-bottom: 1px;
+  transition: border-bottom-color 0.12s ease;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .ls-leaderboard td abbr[title] {
+  border-bottom-color: rgba(255, 255, 255, 0.30);
+}
+
+.md-typeset .ls-leaderboard td abbr[title] .num {
+  display: block;
+  font-weight: 600;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--md-default-fg-color);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.md-typeset .ls-leaderboard td abbr[title] .cap {
+  display: block;
+  font-size: 0.62rem;
+  color: var(--ls-meta-fg, #607d8b);
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  margin-top: 0.08rem;
+  white-space: nowrap;
+}
+
+.md-typeset .ls-leaderboard td abbr[title]:hover,
+.md-typeset .ls-leaderboard td abbr[title]:focus-visible {
+  border-bottom-color: var(--md-primary-fg-color, #3f51b5);
+}
+
+/* Effect-size cells: tabular-num, slightly muted; positive deltas tint
+   green, negative red, parity neutral. */
+.md-typeset .ls-leaderboard td.ls-effect-pos {
+  color: var(--ls-rigor-low, #2e7d32);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.md-typeset .ls-leaderboard td.ls-effect-neg {
+  color: var(--ls-rigor-high, #c62828);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.md-typeset .ls-leaderboard td.ls-effect-zero {
+  color: var(--ls-meta-fg, #607d8b);
+  font-variant-numeric: tabular-nums;
+}

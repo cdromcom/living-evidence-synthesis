@@ -13,7 +13,6 @@ import NodeTypeBadge from "@/components/NodeTypeBadge";
 import StatusBadge from "@/components/StatusBadge";
 import EdgeGroups from "@/components/EdgeGroup";
 import ReviewWidget from "@/components/ReviewWidget";
-import NodeIssuePanel from "@/components/NodeIssuePanel";
 import NodeArticle from "@/components/NodeArticle";
 import SourceToc from "@/components/SourceToc";
 import TopBadges from "@/components/TopBadges";
@@ -232,8 +231,7 @@ export default async function NodeDetailPage({
         <NodeArticle html={html} />
 
         <aside aria-label="Review and connections" className="space-y-8">
-          <ReviewWidget nodeId={node.id} />
-          <NodeIssuePanel nodeId={node.id} nodeTitle={displayTitle} />
+          <ReviewWidget nodeId={node.id} nodeTitle={displayTitle} />
           <div>
             <h2 className="mb-2 border-b border-border pb-1.5 text-xs font-semibold uppercase tracking-wide text-ink/70">
               Inbound <span className="text-muted-ink">({inbound.length})</span>

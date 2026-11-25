@@ -53,6 +53,15 @@ export default function Footer() {
             <GithubIcon className="h-3.5 w-3.5" />
             Methodology source<span className="sr-only"> (GitHub, opens in a new tab)</span>
           </a>
+          <a
+            href="https://github.com/cdromcom/living-evidence-synthesis/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-ink"
+          >
+            <GithubIcon className="h-3.5 w-3.5" />
+            Report a problem or request removal<span className="sr-only"> (GitHub issues, opens in a new tab)</span>
+          </a>
         </nav>
       </div>
     </footer>

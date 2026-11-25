@@ -7,7 +7,7 @@ import { supabase, supabaseConfigured, REVIEW_NOTE_MAX, type Verdict, type NodeR
 import { loadReviews } from "@/lib/reviews";
 import { useAuth } from "@/lib/useAuth";
 import { VERDICT_VOCAB } from "@/lib/ui";
-import { CATEGORIES, OVERALL_DIMENSION, getCategory, verdictLabelFor, type Category } from "@/lib/review-categories";
+import { CATEGORIES, OVERALL_DIMENSION, buildMultiIssueDraft, getCategory, verdictLabelFor, type Category } from "@/lib/review-categories";
 import InfoTip, { Tip } from "./InfoTip";
 
 const fieldClass =
@@ -21,7 +21,10 @@ function optionsFor(cat: Category): { key: Verdict; label: string; help?: string
   return VERDICT_VOCAB.map((v) => ({ key: v.key as Verdict, label: v.label, help: v.description }));
 }
 
-export default function ReviewWidget({ nodeId }: { nodeId: string }) {
+const REPO = process.env.NEXT_PUBLIC_GITHUB_REPO || "cdromcom/living-evidence-synthesis";
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/+$/, "");
+
+export default function ReviewWidget({ nodeId, nodeTitle }: { nodeId: string; nodeTitle: string }) {
   const { session, loading: authLoading } = useAuth();
   const pathname = usePathname();
   const uid = useId();
@@ -108,6 +111,16 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
   if (!supabaseConfigured) return null;
 
   const myAlias = reviews.find((r) => r.is_mine)?.reviewer_name;
+  const issueDraft = buildMultiIssueDraft({
+    nodeId,
+    nodeTitle,
+    nodeUrl: `${SITE || (typeof window === "undefined" ? "" : window.location.origin)}/nodes/${nodeId}`,
+    entries: picked.map((key) => {
+      const en = entryFor(key);
+      return { categoryKey: key, verdictLabel: verdictLabelFor(key, en.verdict as Verdict) ?? VERDICT_VOCAB.find((v) => v.key === en.verdict)?.label ?? "", proposed: en.proposed, note: en.note };
+    }),
+  });
+  const issueHref = `https://github.com/${REPO}/issues/new?` + new URLSearchParams({ title: issueDraft.title, body: issueDraft.body }).toString();
   const needsProposed = (v: Verdict | "") => v === "edit" || v === "edit-major" || v === "edit-minor";
   const mainCats = CATEGORIES.filter((c) => c.kind !== "error");
   const errorCats = CATEGORIES.filter((c) => c.kind === "error");
@@ -133,6 +146,11 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
       <h2 id={`${uid}-h`} className="text-sm font-semibold uppercase tracking-wide text-muted-ink">
         Review this node
       </h2>
+      {session && (
+        <p className="mt-1 text-xs text-muted-ink">
+          Tick what applies. Submit saves your verdicts here; or open the same details as a GitHub issue.
+        </p>
+      )}
 
       {authLoading ? (
         <p role="status" className="mt-2 text-sm text-muted-ink">
@@ -143,7 +161,7 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
           <Link href={`/login?next=${encodeURIComponent(pathname)}`} className="text-forest underline">
             Sign in
           </Link>{" "}
-          to submit an accuracy verdict for this node.
+          to review this node or report a problem with it.
         </p>
       ) : (
         <form onSubmit={submit} className="mt-3 space-y-4">
@@ -267,6 +285,16 @@ export default function ReviewWidget({ nodeId }: { nodeId: string }) {
               </span>
             )}
           </div>
+          <p className="text-xs text-muted-ink">
+            {ready ? (
+              <a href={issueHref} target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">
+                Open these details as a GitHub issue
+                <span className="sr-only"> (opens GitHub in a new tab)</span>
+              </a>
+            ) : (
+              <span>Choose a verdict in each ticked category to open them as a GitHub issue.</span>
+            )}
+          </p>
           {(!ready || !consent) && (
             <p id={`${uid}-need`} className="text-xs text-muted-ink">
               {!ready ? "Choose a verdict in each category you ticked" : "Tick the privacy agreement"} to submit.

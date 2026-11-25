@@ -31,6 +31,7 @@ This file is the single reference for models building the LIVES web app. It merg
 | 8 | Restraint | Pills are not capped, but they are not the default: try other components first (see section 12); one accent; no decoration beyond the plain turtle logo | Owner (2026-11-25) |
 | 9 | Keyboard | Every task works without a mouse; tested in CI | Owner (Direction A) |
 | 10 | Build | Tests first; Opus 5.5 builds; another model family reviews; the owner approves each phase | Owner, Opus plan |
+| 11 | Dark mode and shell | Take shapes, icons, dark colors, layout and spacing from Supabase's dashboard (measured, with contrast fixes); content and typefaces unchanged; see section 16 | Owner (2026-11-25) |
 
 ## 3. Page structure
 
@@ -287,6 +288,8 @@ Owner feedback: the homepage uses too many colorful pills. Owner decision (2026-
 | 11 | Search excerpts: adopted by Opus, deferred by Sonnet pending index size | Plans differ |
 | 12 | Print and citation styles; slow-connection reader support | v2 open questions |
 | 13 | Body line height, 1.5 or 1.6 | v2 vs Direction A |
+| 14 | Confirm the dark hex values in 16.1 and 16.2 (measured from one screenshot) | Owner, 2026-11-25 |
+| 15 | Optional wide-screen icon rail for the main sections (16.3): yes or no | Owner, 2026-11-25 |
 
 ## 15. Where each decision came from
 
@@ -310,7 +313,8 @@ Short names: **Fable** = `design-consult-claude-fable-5-2.md`; **Sol** = `design
 | Tests first, vertical slice, budgets, integrity checks, named approver | Fable 28 to 32, Sol 11 and 12; phases from Opus |
 | Review sidebar behavior | Owner |
 | Provenance wording and GAMER items | `pipeline/provenance/AI-disclosure.md` |
+| Dark mode and shell (section 16) | Owner request 2026-11-25 with a Supabase SQL Editor screenshot; values measured by Claude Sonnet 5.5 from the image; contrast computed, not assumed |
 
 
-## Addendum 2026-11-25: report route
-The large "Report on GitHub" box in the node sidebar was replaced by one small link, "Report a problem or request removal on GitHub", which opens a prefilled new issue. The repository's GitHub issues page is the takedown route (owner, 2026-11-24); the link keeps that route visible to signed-out visitors without a second form next to the Review panel.
+## Addendum 2026-11-25: one box for review and reporting
+The separate "Report on GitHub" box was folded into the Review box so the node sidebar has one box. Signed out, it shows one line asking the visitor to sign in to review the node or report a problem. Signed in, the visitor ticks categories and chooses verdicts as before, then either **Submit** (saved on the site) or **Open these details as a GitHub issue** (the same categories, verdicts, corrections and notes in a prefilled issue). Reporting through the box therefore requires a site login (owner, 2026-11-25). The takedown route is different on purpose: the footer link "Report a problem or request removal" goes straight to the repository's GitHub issues page without a site login, because a rights holder should not need an account here (owner decision 2026-11-24 made the issues page the takedown route).

@@ -116,7 +116,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   Planned toolchain (JP, 2026-11-20):
   1. OCR: Chandra OCR 2 and OXR-1.0 must agree, with the PDF text layer as a third vote for born-digital PDFs; the page image decides remaining disagreements; add Granite-Docling only if the pilot shows many unresolved disagreements. OXR-1.0 is exempt from the origin policy as long as it is open and runs locally (JP); check its licence. Ripple-65B Preview (Ricursive Intelligence; dense 65B; Apache 2.0; trained from scratch; text only): use a community GGUF build on JP's 128 GB Framework PC (4-bit about 40 GB, 8-bit about 70 GB); the official BF16 (about 130 GB) does not fit and NVFP4 needs NVIDIA GPUs; confirm the developer is US-based and test its extraction quality. Disagreements go to the page image; other tools are fallbacks.
   2. Once the OCR models agree, PyMuPDF and pdftoppm do the highlights and screenshots.
-  3. Skill steps: Inkling 2 Mini and Gemma 4 do the first extraction pass locally (backups via hosted APIs: Ripple-65B Preview, Reflection Beam); Claude Opus 5.5 breaks ties and does all writing and judging, effort set per task (see 0h). No alternates (gpt-oss and Olmo 3 dropped). Fast decisions: Perplexity Decider 1.3 (local). Embeddings: EmbeddingGemma 2 (local) for deduplication, linking and screening. Pangram 4.1 via API. Gemma 4 set aside. Model-origin policy (JP, 2026-11-20): the best open and closed US models only; check each model's base model too.
+  3. Skill steps: Inkling 2 Mini and Gemma 4 do the first extraction pass locally (backups via hosted APIs: Ripple-65B Preview, Reflection Beam); Claude Opus 5.5 breaks ties and does all writing and judging, effort set per task (see 0h). No alternates (gpt-oss and Olmo 3 dropped). Fast decisions: Perplexity Decider 1.3 (local). Embeddings: EmbeddingGemma 2 (local) for deduplication, linking and screening. Pangram 4.1 via API. Gemma 4 set aside. Model-origin policy (JP, 2026-11-20: the best open and closed US models only; **replaced 2026-11-25**: hosted APIs from US developers only, and open-weight models from any country if they run locally and are state of the art or close to it; record each model's base model). Pangram 4.1 is a US API, so it stays allowed.
   4. Optional Pangram 4.1 quality-signal checks.
   
   Pipeline requirements to build in: a fixed test set with pass bars per stage; one OCR model by default, escalating to the others; a fixed, resumable script with a config file (no hard-coded paths); a run manifest (model versions, weight hashes, prompts, settings, raw outputs) and containers; swappable models; checks on licences, data storage, screenshot copyright and non-English papers; a README and one-command run; human review kept at the end. Fold in the lessons from the 2026-11-17 PDF number audit, the grader-prompt refinements, the 2026-11-20 version-diff errors and the provenance check. Claude edits Skill.md only with your approval.  
@@ -190,7 +190,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   - Reproducible: pinned versions and weight hashes, lock file, container (Docker plus Apptainer), run manifest per run, prompts in git with tags, temperature 0 for open models, raw outputs kept, regression run on the test set.
   - Stable and reliable: one package and one command, config file, resumable steps, fail per paper, schema validation, automatic checks, unit and end-to-end tests on three sample papers, fix the known script breakages.
   - Cost-effective (including low- and middle-income countries): open-only mode with no paid API, hardware tiers with measured cost per paper, quantized models, the 0h cost levers, offline after setup, shared outputs for open-access papers.
-  - Usable across countries: model registry (developer, base model, licence, where it runs; US models only), licence and data-protection checks, screenshot copyright rules, non-English test, neutral formats.
+  - Usable across countries: model registry (developer, country, base model, licence, where it runs; hosted APIs US developers only, local open-weight models from any country if near-SOTA, policy of 2026-11-25), licence and data-protection checks, screenshot copyright rules, non-English test, neutral formats.
   - User-friendly: README.md, config.example.yaml, .env.example, LICENSE (you choose the licences), CITATION.cff, CHANGELOG.md, CONTRIBUTING.md, MODELS.md, sample_data/, docs/.
   
   *Source: prompt 60*
@@ -251,3 +251,62 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
 - [x] **JP's first calibration label (2026-11-25):** Inkling 2 Small was right to call QUE "How do LLM reviews compare to human reviews" and QUE "How much do LLM reviews overlap with human reviews" a merge; Sonnet 5.5 said umbrella. Gold label for the calibration set: merge. The merge itself is not done yet (needs the human-verified merge step: keep the old title as an alias, record both pages).
 - [ ] **Run the Supabase view-only SQL** (`supabase/migrations/2026-11-reviews-view-only.sql`): JP asked on 2026-11-25; the Supabase dashboard in the browser session was signed out, so JP must sign in (or run it) first.
 - [x] **Logo reverted** to the plain turtle icon and the big "Report on GitHub" box replaced by a small link (2026-11-25; PR pending).
+- [ ] **CVT patterns (CVT-P)** (JP, 2026-11-25): the first merge test shows many caveats are similar but not duplicates (datasets limited to ICLR or NeurIPS papers; only GPT-3.5 or GPT-4 tested; zero-shot or single-prompt only; curated or constructed error samples; text-only models). Eventually write up recurring caveats as a pattern node type, CVT-P, the way an EP groups evidence across papers: the individual CVTs stay as they are, and a CVT-P names the shared limitation and links its members. Decide the node type, its template and how it differs from the "umbrella" idea (see the "group under an umbrella" TODO). Start from the candidate groups in `pipeline/misc/evd-validation/embedding-candidates/judgments.md`.
+- [x] **One review box** (2026-11-25): the Report on GitHub box was merged into Review this node; see the design spec addendum. Takedown stays as a footer link to the GitHub issues page.
+- [ ] **Supabase view**: JP to paste `supabase/migrations/2026-11-reviews-view-only.sql` into the Supabase SQL Editor and click Run (no SQL files exist inside Supabase; the file lives in the repository).
+- [x] **Dark mode and shell study** added to the design spec (section 16), measured from JP's Supabase screenshot; owner to confirm the hex values and the optional icon rail.
+
+- [ ] **Embedding model bake-off** (2026-11-25): EmbeddingGemma 2 and harrier-oss-v1-0.6b are both downloaded (see Tools-and-Models.md). After JP labels more same-or-different node pairs (the calibration set), compare them (rank of true merges, false-merge rate at a cutoff) and pick one default for `embed_candidates.py` (it currently uses EmbeddingGemma 2; add a `--model` option when choosing). The 27B leader needs a larger machine.
+
+- [ ] **Three-way embedding bake-off, next steps** (2026-11-25): (1) JP labels more same-or-different node pairs; (2) repeat `compare_embedders.py` with those labels and more screenshot pairs (and a harder set: crops from the same paper that differ slightly); (3) try the screenshot-matches-its-quote rule as an automatic crop-QA vote (EmbeddingGemma 2 first, since it is US-origin); (4) add Qwen3-Embedding-4B or 8B (Alibaba) to the bake-off, now allowed as a local open-weight model. harrier-oss-v1-27b still needs a bigger machine.
+
+## 2026-11-25: screening the new Zotero ingest by embedding piles
+- [ ] **JP reviews the sheet** "LIVES Screening: SysRev - Elicit 2026-11-24 (embedding piles, 3-model vote)" (Google Sheet id 1hM6mqNnrlNzulqqtmyTBfXU5PZJhlRknXYcAnBxdwhA): fill "JP: decision" and "JP: pile" on the Papers tab. Metadata-only copy in `pipeline/misc/screening/2026-11-25-screening-summary.tsv`.
+- [ ] **Decide which Zotero set is "the 120+"**: the collection "SysRev - Elicit 2026-11-24" (added 2026-11-24) holds 164 entries = 82 distinct papers (every paper appears twice in the personal library and about twice in the OASIS Lab group copy). The parent SysRev-LLMApp holds 632 older items (607 added 2026-08-20; 119 have a PDF on disk). If JP meant the parent pool, rerun the three scripts on it (`zotero_collection.py`, `screen_dedup.py`, `screen_embed.py`, `screen_to_gsheet.py`).
+- [ ] **Zotero cleanup (JP's call):** the Duplicates tab lists the 254 records that duplicate a preferred record; 17 of the 82 papers are already in the older pool and 4 are already seed papers. Nothing was deleted.
+- [ ] **Name the new piles:** 11 candidate new task types (for example replication and reproducibility agents (10 papers), plagiarism detection (6), AI-generated text detection (7), risk-of-bias automation (5), grant and proposal review (4), spin and registration (3), PRISMA adherence (3), claim verification (3), causal language (2), statistical-error detection (2)); decide which belong in the study.
+- [x] **Policy (JP, 2026-11-25):** open-weight foreign models are allowed if SOTA or near it and run locally; no APIs for foreign models. DNA-VL-STEER-2B's vote in the screening is therefore allowed. Docs updated (Tools-and-Models.md, Skill references).
+
+## LONG-TERM GOAL (JP, 2026-11-25): a daily, open and participatory living synthesis
+
+**The vision.** New papers arrive every day from Elicit and Undermind. Claude connects to both through MCP and, together with several embedding models, proposes which papers belong in the study and in which task-type pile. **JP screens the incoming papers daily.** A screened paper moves into the vault's `sysrev/dgraph/source/pdfs/` folder, where data extraction, verification, quality-signal checks and discourse-graph (dgnode) linking happen under the Skill. **People then synthesize the results in small groups, on a regular schedule, with virtual team meetings shown on an open calendar** so anyone can see when and join. The result would be a living synthesis that is open, current, transparent about every AI step, and shaped by a community, not by one lab.
+
+**JP's role: guide the models, do not do their work.** JP sets the rules, screens, approves merges and joins the group syntheses; the models fetch, sort, extract, check, link and log.
+
+### The daily loop (target)
+1. **Fetch.** Scheduled searches in **Elicit** and **Undermind** (the Undermind connector already exists in this environment; check whether Elicit offers an MCP server or API and what it costs) return new candidates with abstracts, DOIs and links. Save only metadata and links by default.
+2. **De-duplicate** against Zotero, the vault (seed and ingested papers) and earlier daily batches by DOI, arXiv id and title (`screen_dedup.py`). Prefer the most recent published version; keep older versions as Archive.
+3. **Sort into piles** with a vote of several local embedding models (EmbeddingGemma 2, harrier, DNA-VL-STEER-2B, later Qwen3-Embedding and others) against the seed task types, and propose new task types when many papers fit none (`screen_embed.py`). Show each model's pick and similarity.
+4. **JP screens** in the review sheet (Include, Exclude, Maybe, plus a pile). Target: a short daily session. Disagreements between the models are surfaced first.
+5. **Move screened-in papers** to `sysrev/dgraph/source/pdfs/` (PDF fetched legally: open access or already in Zotero; no scraping of paywalls).
+6. **Run the Skill** on the batch (batches of five): read, PICOST extraction, checks, node writing, crops, audits, AI-use footers, call logs.
+7. **Fit into the graph:** EmbeddingGemma 2 proposes links and duplicates, Inkling 2 Small and Claude Sonnet 5.5 judge, **a person verifies every merge or split**.
+8. **Quality signals (Module Q)** only on JP's command, with the scripted Statistical Accuracy checks and the decision-model check of quotes.
+9. **Verification by people:** spot checks (A before writing, B after), the review sheet, and the public review box.
+10. **Group synthesis** (weekly or fortnightly): small groups read the new nodes, update EvidencePatterns, Review-Arena rows and the narrative, and decide what the evidence now says.
+11. **Publish** by pull request; the site rebuilds; the changelog and the open calendar show what happened and what is next.
+
+### What to build, in order (each step is small and testable)
+- [ ] **A. Connect the sources.** Use the Undermind MCP tools to run one saved search and save the results; check Elicit (MCP, API, or its export to Zotero, which already works through the Zotero collection "SysRev - Elicit …"). Decide the search topics and how often they run. Check each provider's terms, data handling and cost; hosted APIs must be US developers only (policy of 2026-11-25).
+- [ ] **B. Daily intake script** that fetches, de-duplicates, embeds, votes and writes the day's review sheet; log every model call and keep working files outside the vault (abstracts and local paths stay out of the public repo).
+- [ ] **C. Add more embedding models** to the vote (the bake-off in TODO): measure each model against JP's screening decisions, then drop the ones that do not help.
+- [ ] **D. Learn from JP's screening.** Every Include or Exclude becomes a labeled example; retrain or recalibrate thresholds monthly; track how often the vote agrees with JP (target: kappa above 0.85, JP's earlier goal for the classification study).
+- [ ] **E. Hand-off to the pipeline.** One command moves screened-in papers to `pdfs/`, creates the batch of five and starts the Skill with the cost controls and ledger.
+- [ ] **F. Open calendar and group syntheses.** Choose a calendar that can be public (for example a shared Google Calendar or an iCal feed shown on the site); schedule recurring virtual meetings; write a one-page guide for what a synthesis group does, how people join, and what they may edit; define roles (screeners, verifiers, synthesizers) and a code of conduct; record decisions in the vault (`LOG.md`, History).
+- [ ] **G. Show it on the site.** A "What's new" page (papers screened this week, nodes added, open verification tasks), the calendar, and the AI-use footers; a clear "how to take part" page.
+- [ ] **H. Review and improve each month:** cost per paper, time JP spends screening, error rates found in verification, duplicate rate, and what the group syntheses changed.
+
+### Decisions for JP before starting
+- Which Elicit and Undermind searches (topics, filters, frequency), and who pays for credits.
+- Daily screening budget (minutes) and what to do on days JP is away (batch the queue, or a second screener).
+- How PDFs are obtained legally, and how copyright is handled for screenshots and quotes (see `docs/PERMISSIONS.md`).
+- Who may screen, verify and synthesize (open to anyone, invited team, or both), and how decisions are recorded and disputed.
+- Where the calendar and meetings live (tool, time zone, recording, accessibility).
+- How much automation is acceptable without a person: current rule is none for merges, splits and publishing.
+
+### Risks to manage
+- **Credit and compute cost** (stay inside the budget in `2026-11-24-ingest-budget-and-batches.md`); **model drift** (pin model versions, log them); **bias in what gets screened in** (publish the screening criteria and the piles); **privacy** (no participant data; keep Zotero exports private); **burnout** (keep the daily loop short, rotate roles); **quality** (every AI step stays logged and every merge is human-verified).
+
+### Done when
+A week of daily screening runs with JP spending no more than the agreed minutes; screened-in papers reach the vault and the site with complete AI-use footers; at least two group syntheses have met on the open calendar and their decisions are in the vault; and an outside person can read the "how to take part" page and join.
+

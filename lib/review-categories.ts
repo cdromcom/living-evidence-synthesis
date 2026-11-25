@@ -142,3 +142,27 @@ export function buildIssueDraft(i: IssueDraftInput): { title: string; body: stri
   ];
   return { title, body: lines.join("\n") };
 }
+
+export type MultiIssueEntry = { categoryKey: string; verdictLabel: string; proposed: string; note: string };
+
+/** Title and body for one prefilled GitHub issue covering every category the reviewer ticked. */
+export function buildMultiIssueDraft(i: {
+  nodeId: string;
+  nodeTitle: string;
+  nodeUrl: string;
+  entries: MultiIssueEntry[];
+}): { title: string; body: string } {
+  const label = (e: MultiIssueEntry) => {
+    const cat = getCategory(e.categoryKey);
+    const name = cat?.label ?? e.categoryKey;
+    return cat?.kind === "error" ? `${name}: error found` : `${name}: ${e.verdictLabel || "(not chosen)"}`;
+  };
+  const title = `[${i.nodeId}] ${i.entries.map(label).join("; ")}`.slice(0, 200);
+  const lines = [`Node: ${i.nodeId} (${i.nodeTitle})`, `Page: ${i.nodeUrl}`, ""];
+  for (const e of i.entries) {
+    lines.push(`- ${label(e)}`);
+    if (e.proposed.trim()) lines.push(`  Proposed correction: ${e.proposed.trim().slice(0, 1500)}`);
+    if (e.note.trim()) lines.push(`  Note: ${e.note.trim().slice(0, 1500)}`);
+  }
+  return { title, body: lines.join("\n") };
+}

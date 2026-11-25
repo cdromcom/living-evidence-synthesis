@@ -9,7 +9,7 @@ Helper scripts that maintain the discourse graph. Run from the vault root.
 | `cvt_screenshot_pipeline.py` | Auto-locate quotes in CVTs lacking screenshots and embed them. |
 | `reverse_links.py` | Build `## Caveats`, `## Supports Claim(s)`, `### Supporting Evidence` sections (idempotent). |
 | `readability_pass.py` | Apply blank-line rules across all node files. |
-| `verbatim_audit.py` | Compare every quote to its source PDF and write `sysrev/reference/paraphrase_audit_<date>.tsv`. |
+| `verbatim_audit.py` | Compare every quote to its source PDF and write `pipeline/misc/evd-validation/paraphrase_report.tsv`. |
 | `build_dgraph.py` | Regenerate `sysrev/indexes/dgraph.md` central index from the vault's current state. |
 
 All scripts are idempotent. Re-run any script after making structural changes — the output stays in sync.
@@ -24,3 +24,14 @@ Dependencies: `fitz` (PyMuPDF), `pdftoppm` (poppler-utils, optional).
 - `provenance/`: `openalex.py`, `doaj.py`, `opencitations.py`, `pubpeer.py`, `howfairis_check.py` (own virtual environment), `fair_checker.py`, `run_provenance.py`.
 - `smoke_test_scripts.py` runs every script on a throwaway vault copy; latest report: `pipeline/misc/evd-validation/2026-11-24-script-smoke-tests.md`.
 - Retired: `quote_pipeline.py` (needs `--force`). The vault path comes from `LIVES_VAULT` or the folder two levels above `pipeline/scripts/`.
+
+## Added 2026-11-25
+- `call_logger.py`: log every model call (Anthropic, OpenAI, Tinker) to `pipeline/runs/<run>/calls.jsonl` with the unedited response; `footer` renders the AI-use footer; `summary` totals cost.
+- `check_links.py`: read-only structural check (links resolve, EVD and CVT agree both ways, one source per EVD, every CLM listed by a QUE, every EP rests on two papers). `check_repo_sync.py`: compare the vault with a GitHub checkout by content hash. `file_model_history.py`: a page's commits by model era. `add_link_aliases.py`: alias for path-qualified node links. `quality_labels.py`: Quality signal row names from `pipeline/templates/quality-signal-labels.json` (`list`, `check`, `apply`).
+- `stat_checks.py` and `stat_checks_more.py`: scripted Statistical Accuracy checks on a paper's own numbers (`selftest` plants one error of every kind). Output: `pipeline/misc/evd-validation/stat-checks/`.
+- `embed_candidates.py` (run with `~/.cache/lives-bench/venv-embed/bin/python`) and `merge_judge.py` (Sonnet 5.5 and, with `--inkling`, Inkling 2 Small): candidate duplicate nodes and blind second opinions. They never merge anything.
+- `design_consult.py`: send a design summary to several models and have others improve the plan (runs in `pipeline/runs/`).
+- `Archive.zip`: old scripts, kept as a zip.
+- `compare_embedders.py` (run with `~/.cache/lives-bench/venv-embed/bin/python`): compare local embedding models (EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B) on node titles and on quote-text-to-screenshot matching. Results: `pipeline/misc/evd-validation/embedder-comparison/`.
+- `zotero_collection.py`, `screen_dedup.py`, `screen_embed.py`, `screen_to_gsheet.py`: screen a Zotero collection into task-type piles by embedding similarity (three-model vote, seed papers as the guide) and build the review sheet. Run `screen_embed.py` and `screen_to_gsheet.py` with `~/.cache/lives-bench/venv-embed/bin/python`. Working files go to `~/.cache/lives-bench/screening/`.
+
