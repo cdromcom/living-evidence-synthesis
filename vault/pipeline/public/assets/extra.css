@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Living Synthesis — public site styles
+   ==========================================================================
+   Step 4: typography + palette adjustments to match an Examine-style
+   evidence-synthesis read. Step 5 adds rigor badges on top of this base.
+   ========================================================================== */
+
+:root {
+  --ls-rigor-low:      #2e7d32; /* 🟢 low risk          */
+  --ls-rigor-mod:      #f9a825; /* 🟡 some concerns     */
+  --ls-rigor-high:     #c62828; /* 🔴 high risk         */
+  --ls-rigor-na:       #757575; /* ➖ not applicable    */
+  --ls-tldr-bg:        #e8f5e9;
+  --ls-tldr-border:    #43a047;
+  --ls-meta-fg:        #455a64;
+}
+
+[data-md-color-scheme="slate"] {
+  --ls-tldr-bg:        #1f3329;
+  --ls-tldr-border:    #66bb6a;
+  --ls-meta-fg:        #b0bec5;
+}
+
+/* ---------- Typography: long-form reading optimization ---------- */
+.md-typeset {
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+.md-typeset h1 { font-weight: 700; letter-spacing: -0.01em; }
+.md-typeset h2 { font-weight: 700; margin-top: 2.4em; }
+.md-typeset h3 { font-weight: 600; margin-top: 1.8em; }
+
+/* Tighter table density for the dense rigor / TRIPOD tables */
+.md-typeset table:not([class]) {
+  font-size: 0.72rem;
+  display: table;
+}
+.md-typeset table:not([class]) th {
+  background-color: var(--md-default-fg-color--lightest);
+}
+
+/* ---------- TL;DR callout: high-emphasis success-style box at top ---------- */
+.md-typeset .admonition.success,
+.md-typeset details.success {
+  border-left: 4px solid var(--ls-tldr-border);
+  background-color: var(--ls-tldr-bg);
+}
+.md-typeset .admonition.success > .admonition-title {
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+/* ---------- Mermaid: ensure diagrams center and breathe ---------- */
+.mermaid {
+  text-align: center;
+  margin: 2em auto;
+}
+
+/* ---------- Inline EVD/CLM/QUE/CVT links: subtle node-type tinting ---------- */
+.md-typeset a[href*="EVD - "] { border-bottom: 1px dotted #c62828; }
+.md-typeset a[href*="CLM - "] { border-bottom: 1px dotted #2e7d32; }
+.md-typeset a[href*="QUE - "] { border-bottom: 1px dotted #1565c0; }
+.md-typeset a[href*="CVT - "] { border-bottom: 1px dotted #f57f17; }
+.md-typeset a[href*="EP - "]  { border-bottom: 1px dotted #6a1b9a; }

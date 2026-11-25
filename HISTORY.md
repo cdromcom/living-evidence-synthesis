@@ -713,6 +713,35 @@ browser followed, since a passing type-checker confirms the code is
 internally consistent, not that clicking the buttons still does what it did
 before.
 
+## The vault becomes the source of truth, and the review box gets simpler
+
+On 24 and 25 November the site was brought in line with the vault. The `vault/`
+folder in this repository is now a copy of the working vault on the owner's
+computer, checked file by file by a small script, and the website builds from
+that copy. Along the way two things broke and were fixed. A cleanup commit had
+overwritten the page text that the site's "Data pipeline" page reads, so that
+page showed only an apology; the text was restored, brought up to date, and its
+diagram was checked to draw. And links written with a folder path but no name
+had been showing the path itself on the page (for example in one evidence
+pattern); the build now always shows the node's name, and a vault script adds
+names to the links themselves.
+
+The sidebar on every node page changed too. Several categories can be ticked at
+once, each with its own verdict, and short tooltips explain the verdict names
+and hide the long privacy notice until someone asks for it. If the database
+view that lists everyone's verdicts is missing, the box shows the reviewer's own
+verdicts instead of a red error (the view has since been created). The separate
+"Report on GitHub" box was folded into this one: it needs a site sign-in, and
+offers either "Submit" (saved here) or "Open as a GitHub issue" with the same
+details filled in. Requests to remove material take a different road on purpose,
+a footer link to the repository's issues page that needs no site account.
+
+Other small changes: the names of the quality rows now come from one file in the
+vault (so a rename, such as "Hype/spin", is one edit); a short-lived cherub-on-a-tortoise logo was
+tried and reverted to the plain turtle; and the folder of benchmarking records
+stays in the repository, can be downloaded on its own, and is kept out of the
+website's deployments.
+
 ## What's next
 
 The "Contribute" page helps someone manually add a new note to the source vault.

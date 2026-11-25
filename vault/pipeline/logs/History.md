@@ -7,6 +7,37 @@ Chronological log of all concrete changes (additions, deletions, edits) made to 
 
 ---
 
+## 2026-11-23 to 2026-11-25 — Decision-model benchmark, pipeline v2, provenance, quality-signal tooling, web app changes
+
+Claude Opus 5.5 (early) and Claude Sonnet 5.5 (later), with subagents, in one Claude Code session with JP. Prompts: [[2026-11-24-session-prompt-log]]. Working log: [[LOG]] (section "2026-11-23 to 2026-11-25 session"). Remaining work: `pipeline/misc/evd-validation/TODO.md`.
+
+### Benchmark of EVD judgments
+- Perplexity Decider 1.3, Liquid d1-ultra, Jev and Claude Opus 5.5 judged the 77 EVDs against JP's grades (Runs 1 to 6, n = 66 after JP's drops). Results are in the AAA Benchmarking Google Sheet and in the repo folder `benchmarking-validation/` (scripts, prompts, raw outputs, checksum manifest).
+
+### Scripts added (`pipeline/scripts/`)
+- `pdf_pages.py` (page map, quote locator, pastel crop by node type), `signals_common.py`, `audit_signal_quotes.py` (traceability audit; punctuation ignored, decimal points kept; PDF page number accepted when no printed number), `decision_models.py`, `signals_decision_models.py`, `signals_to_gsheet.py`, `check_quality_signals.py`.
+- `provenance/` (OpenAlex, DOAJ, OpenCitations, PubPeer, howfairis, FAIR-Checker), `smoke_test_scripts.py`.
+- `call_logger.py` (every model call: model id, UTC time, prompt link and hash, response; renders the AI-use footer), `file_model_history.py`, `design_consult.py`.
+- `check_links.py` (structural link check), `check_repo_sync.py` (vault against the GitHub checkout by content hash), `add_link_aliases.py`, `quality_labels.py` (row names from one registry).
+- `stat_checks.py` and `stat_checks_more.py` (Statistical Accuracy: percentages, GRIM, GRIMMER, sample sizes, analytic sample, scale range, confidence intervals, ratios, F1 and kappa, effect sizes, accuracy times N, p against CI, pass@k order, deltas, SD bound, statcheck, confusion matrix, macro averages; planted-error self-test).
+- `embed_candidates.py` (EmbeddingGemma 2 candidate pairs) and `merge_judge.py` (Claude Sonnet 5.5 and Inkling 2 Small as blind second judges).
+- Fixed: `reverse_links.py` and `build_dgraph.py` (appliesTo list parsing; vault link format), `verbatim_audit.py`, `link_eps_to_ques.py`, `keyword_freq_check.py`, `pangram_check.py`, `cvt_screenshot_pipeline.py`, `find_redundancies.py`; `quote_pipeline.py` retired.
+
+### Skills and docs
+- `Skill.md`: setup, inputs, Step 4c (AI-use footer), the EVD writing loop, Module Q (optional quality signals, Statistical Accuracy checks, row-name registry), "Matching, linking, merging and splitting" (a person verifies every merge), screenshots closed by default, pastel highlight colors, PDF page-number rule, Hype/spin and alias rules. `Skill-templates.md`, `Quality-signals-spec.md`, `Tools-and-Models.md` (model history, prices, statistical and embedding tools), `Vault-structure.md` updated.
+- New: `pipeline/provenance/AI-disclosure.md` and `model-history.md`, `pipeline/design/LIVES-design-spec.md` (with section 16, dark-mode study from Supabase), prompts in `pipeline/prompts/` (design consult v1 and v2, enhance v1 and v2, merge judge v1), `pipeline/templates/quality-signal-labels.json`, run folders in `pipeline/runs/`.
+- `Welcome.md` rewritten in part: six node types, current file layout, quality-signal and limitation facts, the restored and updated "🛠️ The data pipeline" section (the website's Data pipeline page reads that section), and the v2 way to add a paper.
+
+### Vault content
+- Quality signal rows renamed: "Statistic Accuracy" to **Statistical Accuracy** and "Non-Significant Result Spin" to **Hype/spin** (28 source pages, names now from the registry).
+- Links: 32 EVD pages gained caveat back-links; the Sarol CVT lists its EVD; the Liu source page links its three questions; one EP now links the CVT it meant; 177 path-qualified links got aliases; the Wrightson 2025 source page was moved back into `sysrev/dgraph/source/`. `check_links.py`: 0 problems.
+- Repo only note: PRs for this work were 8, 21, 26 to 31, 33 and 34 on `cdromcom/living-evidence-synthesis`; 41 GitHub labels created.
+
+### Not changed
+- No node was merged or split. Inkling 2 Small and Claude Sonnet 5.5 judged 125 candidate pairs; zero merges were made (one pair, two review-comparison questions, was ruled a merge by JP and is waiting for the verified-merge step).
+
+---
+
 ## 2026-05-05 — Skill.md split into orchestrator + 3 reference docs
 
 ### Why

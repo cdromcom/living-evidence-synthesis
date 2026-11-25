@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Rigor badge bar — Step 5 of public-render rollout.
+   ==========================================================================
+   The badge bar replaces the technical tag chips that Obsidian shows on
+   each source page. It surfaces four reader-relevant facts above the fold:
+
+      Topic        — what question the paper tries to answer
+      Rigor        — counts of 🟢 / 🟡 / 🔴 across 5 critical-appraisal domains
+      TRIPOD-LLM   — % of methods/results items fully reported
+      Caveats      — number of flagged limitations on the page
+
+   The badges are color-coded by severity (low / moderate / high) so a reader
+   can triage rigor from the URL bar without reading prose.
+   ========================================================================== */
+
+.rigor-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.4rem 0 1.6rem 0;
+  padding: 0;
+}
+
+.rigor-badge {
+  flex: 0 1 auto;
+  min-width: 11rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  background-color: var(--md-default-bg-color);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.rigor-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.rigor-badge__label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ls-meta-fg);
+  font-weight: 600;
+}
+
+.rigor-badge__value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+}
+
+/* ----- topic badge: indigo accent (mirrors site primary color) ----- */
+.rigor-badge--topic {
+  border-left: 3px solid var(--md-primary-fg-color, #3f51b5);
+}
+
+/* ----- severity tints: applied to rigor / tripod / caveats badges ----- */
+.rigor-badge--low {
+  border-left: 3px solid var(--ls-rigor-low);
+  background-color: rgba(46, 125, 50, 0.04);
+}
+[data-md-color-scheme="slate"] .rigor-badge--low {
+  background-color: rgba(102, 187, 106, 0.07);
+}
+
+.rigor-badge--moderate {
+  border-left: 3px solid var(--ls-rigor-mod);
+  background-color: rgba(249, 168, 37, 0.05);
+}
+[data-md-color-scheme="slate"] .rigor-badge--moderate {
+  background-color: rgba(249, 168, 37, 0.10);
+}
+
+.rigor-badge--high {
+  border-left: 3px solid var(--ls-rigor-high);
+  background-color: rgba(198, 40, 40, 0.05);
+}
+[data-md-color-scheme="slate"] .rigor-badge--high {
+  background-color: rgba(229, 115, 115, 0.10);
+}
+
+/* ----- rigor-counts: render the colored emoji a touch larger ----- */
+.rigor-badge--rigor .rigor-badge__value span {
+  margin-right: 0.25rem;
+  font-size: 0.85rem;
+}
+
+/* ----- responsive: stack badges on narrow viewports ----- */
+@media (max-width: 640px) {
+  .rigor-badge {
+    min-width: 100%;
+  }
+}
+
+/* ----- de-emphasize the legacy chip-style tag list on source pages,
+   since the badge bar now carries the rigor info ----- */
+.md-typeset .md-tags {
+  opacity: 0.55;
+  margin-top: 1rem;
+  font-size: 0.72rem;
+}
