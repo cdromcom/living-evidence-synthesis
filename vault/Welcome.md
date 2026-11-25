@@ -36,7 +36,7 @@ Instead of one long literature-review document, the vault decomposes findings in
 | :--: | -------------------- | ------ | ------------------------------------------ |
 |  ❓   | **Question**         | `QUE`  | Research questions the field is asking     |
 |  💡  | **Claim**            | `CLM`  | Generalizations that papers argue for      |
-|  🔬  | **Evidence**         | `EVD`  | Atomic empirical observations from a paper |
+|  🔬  | **Evidence**         | `EVD`  | Atomic empirical observations from a paper, in three tiers: primary (answers the research question), secondary (meta or contextual), tertiary |
 | 🕸️  | **Evidence Pattern** | `EP`   | Empirical regularities across papers       |
 |  ⚠️  | **Caveat**           | `CVT`  | Methodological limitations on evidence     |
 |  📄  | **Source**           | `SRC`  | One paper: its summary, quality appraisal and reporting checks |
@@ -92,11 +92,12 @@ living-synthesis/
 │   ├── picost/                    ← per-finding extraction records (JSON)
 │   └── reference/
 └── pipeline/                      ← how the evidence is made
-    ├── skills/                    ← 🛠️ Skill.md (the pipeline), Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md
+    ├── skills/                    ← 🛠️ Skill.md (the pipeline), Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md, Review-sheets-spec.md, TIPS.md
     ├── scripts/                   ← reproducible scripts (see scripts/README.md)
-    ├── templates/                 ← node templates and the quality-signal row names
+    ├── templates/                 ← node templates (including the EVD tiers spec) and the quality-signal row names
+    ├── screening/                 ← screening runs: which Zotero papers to ingest (reports and metadata-only data)
     ├── prompts/                   ← the prompts the pipeline sends to models (versioned files)
-    ├── runs/                      ← one folder per run: call log and each model's unedited response
+    ├── runs/                      ← one folder per run: call log, each model's unedited response, and for batch runs the manifest (stays local except design runs)
     ├── provenance/                ← AI-disclosure.md (GAMER checklist answers) and model-history.md
     ├── design/                    ← LIVES-design-spec.md (for the models that build the website)
     ├── logs/                      ← 📜 History.md (every change) and the early session log
@@ -258,7 +259,7 @@ flowchart TB
     subgraph IN["1. Ingest and read"]
         A["Choose up to 4 papers<br/>PDFs, most recent version<br/>older versions go to the Archive folder"]
         B["Preflight check (PyMuPDF)<br/>born-digital or scanned? columns?<br/>tables as images? page labels"]
-        C1["Read 1: Gemini 4 Neon, High thinking<br/>page-by-page markdown, HTML tables,<br/>printed page numbers"]
+        C1["Read 1: Gemini 4 Neon, High thinking<br/>PICOST findings in three tiers (primary, secondary, tertiary)<br/>with printed page numbers and verbatim spans"]
         C2["Read 2: PDF text layer<br/>PyMuPDF"]
         D{"Do the two reads<br/>agree?"}
         E["Page image decides:<br/>Gemini 4 Neon first, then Sol and Opus 5.5<br/>if still unsure"]
@@ -365,10 +366,10 @@ flowchart TB
 > This section is for someone *extending* the vault, not for someone *browsing* it. If you are here to read evidence, jump back to **[How to navigate](#how-to-navigate)**.
 
 1. **Put the PDF in** `sysrev/dgraph/source/pdfs/` (the PDFs stay on your computer; they are not on GitHub). Use the most recent version of a paper; move older versions to the Archive folder.
-2. **Run the pipeline in `pipeline/skills/Skill.md`** (Setup, Inputs, Steps 1 to 10): read the paper, extract PICOST records, check them, write the nodes, crop the screenshots, run the audits. Work in batches of five papers.
+2. **Run the pipeline in `pipeline/skills/Skill.md`** (Setup, Inputs, Steps 1 to 10). For one to four PDFs at a time (the limit is built in) run `python3 pipeline/scripts/lives_run.py <pdfs> --question "<research question>" --mode standard|batch`: Gemini 4 Neon extracts findings in three tiers (primary answers the question, secondary is meta or contextual, tertiary is other context), PyMuPDF checks every quote, GPT-6.2 Sol and Claude Opus 5.5 recheck flagged findings, and the batch stops under a $5.55 cap with a run manifest. Then build the review sheet with `run_to_gsheet.py` and review it. Nodes are then written by debate (Sonnet 5.5, Sol and Neon draft and critique; Sol and Sonnet vote), crops are checked, and the audits run.
 3. **Fit the new nodes into the graph** (Skill section "Matching, linking, merging and splitting"): EmbeddingGemma 2 proposes, Inkling 2 Small and Claude Sonnet 5.5 judge, a person verifies every merge or split. Then run `python3 pipeline/scripts/check_links.py` and `python3 pipeline/scripts/reverse_links.py`.
 4. **Add the AI-use footer** to every page written or changed (Skill Step 4c); log every model call with `pipeline/scripts/call_logger.py`, and commit each prompt in `pipeline/prompts/` before using it.
-5. **Quality signals are optional:** only if JP asks, run Module Q (the TRIPOD-LLM and appraisal tables, `stat_checks.py` for Statistical Accuracy, the provenance scripts). Row names come from `pipeline/templates/quality-signal-labels.json`.
+5. **Quality signals are optional:** only if JP asks, run Module Q (the TRIPOD-LLM and appraisal tables rated by Opus 5.5, Sol and Neon with majority voting and logged to a benchmark sheet, `stat_checks.py` for Statistical Accuracy, the provenance scripts). Row names come from `pipeline/templates/quality-signal-labels.json`.
 6. **Record what you did:** add an entry at the top of `pipeline/logs/History.md` and, for a working session, a section in `pipeline/misc/evd-validation/LOG.md`; save the prompts to `pipeline/misc/prompts/`.
 7. **Cross-paper synthesis** (EvidencePatterns, Review-Arena, MkDocs render, ESS Bases) follows in `pipeline/skills/Skill-synthesis.md`, after a batch. Do **not** auto-fill Review-Arena cells: cell-level synthesis is reserved for humans (governance decision of 2026-05-04, in `History.md`).
 8. **Publish:** run `python3 pipeline/scripts/check_repo_sync.py` against a checkout of the GitHub repository, copy the vault into the repository's `vault/` folder, open a pull request, and merge it after review. The website rebuilds from `vault/`.
@@ -380,7 +381,10 @@ flowchart TB
 - **[[dgraph]]** — the comprehensive nested index.
 - **[[History]]** — every change made to the vault, newest first.
 - **[[Skill]]** — the skill for extracting nodes from new papers.
-- **[[Tools-and-Models]]** — the PDF tools and AI models, prices, and the statistical-check and embedding tools (for maintainers).
+- **[[Tools-and-Models]]** — the PDF tools and AI models, token budgets, prices, and the statistical-check and embedding tools (for maintainers).
+- **[[TIPS]]** — short practical lessons (Google Cloud billing, Zotero).
+- **[[Review-sheets-spec]]** — the step-by-step review sheets and the quality-signals benchmark sheet.
+- **[[T - EVD tiers]]** — primary, secondary and tertiary evidence.
 - **[[AI-disclosure]]** and **[[model-history]]** — how AI was used here (GAMER checklist) and which model wrote what, by date.
 - **[[LOG]]** — the working log of the benchmarking and pipeline-v2 sessions, with the prompt log beside it.
 - **[[LIVES-design-spec]]** — the design and development spec for the website.

@@ -86,7 +86,7 @@ for png, refs in embeds.items():
 ## Key Principles
 
 1. **Direct quotes are critical and must be verbatim.** Every substantive claim or note in the body of a discourse node must have a direct quote that you can find verbatim in the source PDF (after NFKD + alnum normalization). Paraphrases erode trust in the graph and break the audit. If you cannot quote it, mark `[Inferred: ...]` and provide the closest supporting passage.
-2. **Atomicity.** One question per QUE. One result per EVD. One generalization per CLM. One limitation per CVT. When in doubt, split rather than merge.
+2. **Atomicity.** One question per QUE. One result per EVD (each EVD has a tier against the research question: primary, secondary or tertiary; see `pipeline/templates/T - EVD tiers.md`). One generalization per CLM. One limitation per CVT. When in doubt, split rather than merge.
 3. **EVD ≠ CLM.** Numbers and observations are EVD. What they mean is CLM. If authors report a result AND draw a conclusion from it in the same sentence, extract both: one EVD for the result, one CLM for the conclusion.
 4. **Author-stated vs. inferred CVTs are both valuable.** Clearly distinguish them with the `type` field. For inferred CVTs, justify your reasoning in brackets after the quote.
 5. **CLMs transcend single papers.** Title CLMs at the level of the claim, not the paper — multiple papers can make the same claim. Under `### Snippet: Quote(s) & Screenshots`, list each contributing paper's verbatim quote.

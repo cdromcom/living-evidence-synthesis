@@ -12,7 +12,7 @@ A node's footer says exactly which model made it when a call log exists. Pages f
 | 1b | 2026-04-28 | Batch subagents, model not recorded | First TRIPOD-LLM tables (Phase 18, 26 agents) and Quality appraisal prose (Phase 19) | Phase logs record the phase, not the model |
 | 2 | 2026-08-25 | Claude Sonnet 5 | SRC page curation, quotes and quality tables re-curated | `curatedWithModel`, `curatedWithModelDate` in all 26 SRC pages |
 | 3 | 2026-11-23 on | Perplexity Decider 1.3, Liquid d1-ultra, Jev 1.14.0, Claude Opus 5.5 | Decision-model benchmarks against JP's ratings (77 EVDs) | `pipeline/misc/evd-validation/` |
-| 4 | 2026-11-25 on | Logged per call | New runs; design consult (Fable 5.2, GPT-6.2 Sol, Opus 5.5, Sonnet 5.5) | `pipeline/runs/<run>/calls.jsonl` |
+| 4 | 2026-11-25 on | Logged per call | New runs; design consult (Fable 5.2, GPT-6.2 Sol, Opus 5.5, Sonnet 5.5); batch runner extraction (Gemini 4 Neon), rechecks (GPT-6.2 Sol) and adjudication (Opus 5.5); planned: drafting by debate (Sonnet 5.5, Sol, Neon) and quality-signal rating (Opus 5.5, Sol, Neon) | `pipeline/runs/<run>/calls.jsonl` and `manifest.json` |
 
 ## History of one page
 A page can have several authors over time. To list them, take the page's commit dates from GitHub (`git log --format='%h %ad' --date=short -- <path>`) and place each date in the table. `scripts/file_model_history.py <path>` does that.
