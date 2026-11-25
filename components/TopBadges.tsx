@@ -652,7 +652,7 @@ function StatisticalConsistencyBadge({ status, linkBase = "" }: { status: Statis
     <ScaleTooltip
       scale={STATISTICAL_CONSISTENCY_SCALE}
       current={status}
-      description={`Statistic Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity). Click to view the row.`}
+      description={`Statistical Accuracy: ${STATISTICAL_CONSISTENCY_LABELS[status]}. An independent recheck of the paper's own reported numbers (CIs, kappa bounds, table closure/monotonicity). Click to view the row.`}
     >
       <a
         href={`${linkBase}#qa-statistic-accuracy`}
@@ -661,7 +661,7 @@ function StatisticalConsistencyBadge({ status, linkBase = "" }: { status: Statis
         <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-white ${TONE_BG[tone]}`}>
           <RigorCheckGlyph kind="statcheck" />
         </span>
-        Statistic Accuracy
+        Statistical Accuracy
       </a>
     </ScaleTooltip>
   );

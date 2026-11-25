@@ -453,7 +453,7 @@ export function getSpinSignal(node: Pick<GraphNode, "tags">) {
  * AI Writing Check — an independent Pangram (pangram.com) AI-text-detection
  * recheck of the paper's own prose, distinct from the TOP "AI disclosure"
  * transparency signal (whether authors *say* they used AI to write). Silent
- * unless actually run: as of 2026-08 only sources whose Statistic Accuracy
+ * unless actually run: as of 2026-08 only sources whose Statistical Accuracy
  * check flagged an issue ("issues-found") have been checked, as a broader
  * integrity recheck prompted by that flag — absence of this tag means "not
  * yet checked," not "clean." See pipeline/misc/scripts/pangram_check.py in the vault.

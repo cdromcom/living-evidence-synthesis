@@ -490,6 +490,7 @@ const APPRAISAL_ROW_SLUGS: Record<string, string> = {
   "confidence intervals": "confidence-intervals",
   "chance-corrected metrics": "chance-corrected-metrics",
   "statistic accuracy": "statistic-accuracy",
+  "statistical accuracy": "statistic-accuracy",
   "non-significant result spin": "spin",
   "ablation experiment(s)": "ablation-experiments",
   "ai writing check": "ai-writing-check",

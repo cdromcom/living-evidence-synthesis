@@ -243,7 +243,7 @@ const TRUST_SIGNAL_OPTIONS: TrustSignalOption[] = [
   },
   {
     key: "statistic-accuracy",
-    label: "Statistic Accuracy",
+    label: "Statistical Accuracy",
     group: "Rigor — Reporting",
     test: (n: GraphNode) => getStatisticalConsistency(n) === "consistent",
   },

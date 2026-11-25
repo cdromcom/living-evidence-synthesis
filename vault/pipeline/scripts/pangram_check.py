@@ -8,7 +8,7 @@ script extracts each PDF's text itself (PyMuPDF) and submits text, not
 files.
 
 As of 2026-08 this covers the full 27-source corpus, having started as two
-narrower triggers (a "Statistic Accuracy: Issues found" verdict, or a Data
+narrower triggers (a "Statistical Accuracy: Issues found" verdict, or a Data
 Repo Check / Code Check of "No repository claimed") before being widened to
 every source for model consistency. Text-only: Pangram's AI-image detector
 is a research preview with no documented stable API, so it's skipped here.

@@ -215,7 +215,7 @@ export const QUALITY_COLUMNS: QualityColumn[] = [
   },
   {
     id: "statistic-accuracy",
-    label: "Statistic Accuracy",
+    label: "Statistical Accuracy",
     group: "Rigor — Reporting",
     defaultVisible: false,
     value: (_evd, src) => {
