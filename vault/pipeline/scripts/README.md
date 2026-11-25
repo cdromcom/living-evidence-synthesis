@@ -33,3 +33,5 @@ Dependencies: `fitz` (PyMuPDF), `pdftoppm` (poppler-utils, optional).
 - `design_consult.py`: send a design summary to several models and have others improve the plan (runs in `pipeline/runs/`).
 - `Archive.zip`: old scripts, kept as a zip.
 - `compare_embedders.py` (run with `~/.cache/lives-bench/venv-embed/bin/python`): compare local embedding models (EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B) on node titles and on quote-text-to-screenshot matching. Results: `pipeline/misc/evd-validation/embedder-comparison/`.
+- `zotero_collection.py`, `screen_dedup.py`, `screen_embed.py`, `screen_to_gsheet.py`: screen a Zotero collection into task-type piles by embedding similarity (three-model vote, seed papers as the guide) and build the review sheet. Run `screen_embed.py` and `screen_to_gsheet.py` with `~/.cache/lives-bench/venv-embed/bin/python`. Working files go to `~/.cache/lives-bench/screening/`.
+

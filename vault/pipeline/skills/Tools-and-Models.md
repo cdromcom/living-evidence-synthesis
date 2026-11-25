@@ -262,3 +262,12 @@ Pushing these to the GitHub repository needs JP's approval.
 | harrier-oss-v1-0.6b (596M) | text-only, not tested | text-only, not tested | 3 |
 
 - **Reading:** both multimodal models can match a quote screenshot to its text, which suggests a cheap automatic check for the "does this crop show the quote" step (a rule to test: flag a crop whose own text is not the nearest to its image). EmbeddingGemma 2 (Google, US, 740M) comes within a few points of the 2.1B model and passes the origin policy. On title similarity DNA has the widest spread of scores; harrier ranks JP's merge pair highest. One labeled pair and one run: not enough to pick a winner.
+
+## E-means (checked 2026-11-25): not used for screening
+- [E-means](https://e-means.github.io/) (Meta FAIR and ENPC; arXiv 2611.09501, 2026-11-06; in the faiss library as `faiss.contrib.e_means`) is a faster replacement for k-means on very large datasets: mini-batch updates with exponential moving averages and batch size and step size set from fitted scaling laws. It reports 8 to 45 times faster training. It still takes the number of clusters k from the user.
+- For about 80 to 200 papers, ordinary clustering is instant, so E-means adds nothing. The screening uses average-linkage clustering with the number of clusters chosen by silhouette score. Revisit E-means only for a corpus of hundreds of thousands of papers or passages. (Summary from a model-assisted read of the project page and repository; the full paper was not read.)
+
+## Paper screening by embedding piles (2026-11-25)
+- Scripts: `zotero_collection.py` (export a Zotero collection from a copy of the database), `screen_dedup.py` (duplicates by DOI, arXiv id and title; overlap with the seed set and an older pool), `screen_embed.py` (three-model vote against the seed task groups; clusters of papers that fit none), `screen_to_gsheet.py` (review workbook). Working files live in `~/.cache/lives-bench/screening/` because they hold abstracts and local paths; only a metadata-only summary is in the vault.
+- Seed task groups come from the Review-Arena sections (`pipeline/misc/screening/seed-labels.json`): peer review reports (7 seeds), reporting-guideline compliance (10), error and quality-issue detection (6), novelty (2), ethics (2), causal inference (1); one seed has two groups.
+- Leave-one-out on the seeds: EmbeddingGemma 2 73%, harrier-oss-v1-0.6b 73%, DNA-VL-STEER-2B 77% (26 seeds testable; one task group has a single seed).

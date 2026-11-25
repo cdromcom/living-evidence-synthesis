@@ -173,3 +173,8 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - Tinker prices for Inkling 2 Small and Mini came from a model-extracted summary of a truncated page: unverified.
 - The model of the April 28 batch agents is not recorded.
 - Inkling 2 Small has not been called yet.
+
+## Addendum: paper screening by embedding piles (2026-11-25)
+- Found the collection "SysRev - Elicit 2026-11-24" in Zotero (personal library, 164 entries, all with a PDF); it is 82 distinct papers (each appears twice, plus the OASIS Lab group copy). 17 of the 82 were already in the older SysRev-LLMApp pool and 4 are seed papers. The older pool has 632 items (119 PDFs on disk).
+- Embedded the 82 papers and the 27 seed PDFs (title plus the first 3 pages) with EmbeddingGemma 2, harrier-oss-v1-0.6b and DNA-VL-STEER-2B; majority vote against the six Review-Arena task groups. Result: 22 papers to reporting-guideline compliance, 4 to peer review reports, 4 to error detection, 1 to novelty, and 51 voted NEW by all three models, which cluster into 11 candidate new task types (3 papers fit no cluster). Review sheet created in Google Drive (id 1hM6mqNnrlNzulqqtmyTBfXU5PZJhlRknXYcAnBxdwhA). Nothing in Zotero was changed.
+- E-means was read and not used (see Tools-and-Models.md).

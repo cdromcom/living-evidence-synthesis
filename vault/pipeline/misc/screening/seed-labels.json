@@ -1,0 +1,192 @@
+{
+ "@akyonEvaluatingCapabilitiesGenerative2024": {
+  "pdf": "Akyon et al. - 2024 - Evaluating the capabilities of generative AI tools in understanding medical papers Qualitative stud.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 3
+ },
+ "@alharbiAutomatedAssessmentReporting2024": {
+  "pdf": "Alharbi and Asiri - 2024 - Automated Assessment of Reporting Completeness in Orthodontic Research Using LLMs An Observational.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 3
+ },
+ "@bougieGenerativeAdversarialReviews2024a": {
+  "pdf": "Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "groups": [
+   "Peer review reports"
+  ],
+  "overlap": 3
+ },
+ "@darcyMARGMultiAgentReview2024": {
+  "pdf": "D'Arcy et al. - 2024 - MARG Multi-Agent Review Generation for Scientific Papers.pdf",
+  "groups": [
+   "Peer review reports"
+  ],
+  "overlap": 3
+ },
+ "@hasanIntegratingLargeLanguage2024": {
+  "pdf": "Hasan et al_2024_Integrating large language models in systematic reviews.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 3
+ },
+ "@huntington-kleinLLMsActRepositories2024": {
+  "pdf": "Huntington-Klein and Murray - 2026 - Do LLMs act as repositories of causal knowledge.pdf",
+  "groups": [
+   "Causal inference"
+  ],
+  "overlap": 1
+ },
+ "@idahlOpenReviewerSpecializedLarge2025": {
+  "pdf": "Idahl and Ahmadi - 2025 - OpenReviewer A Specialized LLM.pdf",
+  "groups": [
+   "Peer review reports"
+  ],
+  "overlap": 1
+ },
+ "@leucutaRiskBiasAssessment2025": {
+  "pdf": "Leucuta et al. 2025 - Risk of Bias Assessment of Diagnositic Accuracy Studies.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 3
+ },
+ "@liangCanLargeLanguage2024a": {
+  "pdf": "Liang et al. - 2024 - Can Large Language Models Provide Useful Feedback on Research Papers A Large-Scale Empirical Analys.pdf",
+  "groups": [
+   "Peer review reports"
+  ],
+  "overlap": 2
+ },
+ "@liuReviewerGPTExploratoryStudy2023": {
+  "pdf": "Liu and Shah - 2023 - ReviewerGPT An Exploratory Study on Using Large Language Models for Paper Reviewing.pdf",
+  "groups": [
+   "Check  reporting guideline compliance",
+   "Detect errors / limitations / quality issues"
+  ],
+  "overlap": 2
+ },
+ "@louAAAR10AssessingAIs2025": {
+  "pdf": "Lou et al. - 2025 - AAAR-1.0 Assessing AI's Potential to Assist Resea.pdf",
+  "groups": [
+   "Peer review reports"
+  ],
+  "overlap": 1
+ },
+ "@robertsComparativeStudyChatGPT2023": {
+  "pdf": "Roberts et al. 2023 - Comparative study of ChatGPT and human evaluators.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 2
+ },
+ "@sarolAssessingCitationIntegrity2024": {
+  "pdf": "Sarol et al. - 2024 - Assessing citation integrity.pdf",
+  "groups": [
+   "Detect errors / limitations / quality issues"
+  ],
+  "overlap": 3
+ },
+ "@shahidLiteratureGroundedNoveltyAssessment2025": {
+  "pdf": "Shahid et al. - 2025 - Literature-Grounded Novelty Assessment of Scientific Ideas.pdf",
+  "groups": [
+   "Assess novelty"
+  ],
+  "overlap": 4
+ },
+ "@sonWhenAICoScientists2025": {
+  "pdf": "Son et al. - 2025 - When AI Co-Scientists Fail SPOT-a Benchmark for Automated Verification of Scientific Research.pdf",
+  "groups": [
+   "Detect errors / limitations / quality issues"
+  ],
+  "overlap": 2
+ },
+ "@sridharanAssessingDecisionMakingCapabilities2024": {
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Assessing the Decision-Making Capabilities of AI.pdf",
+  "groups": [
+   "Assess ethical matters"
+  ],
+  "overlap": 4
+ },
+ "@sridharanLeveragingArtificialIntelligence2025": {
+  "pdf": "Sridharan and Sivaramakrishnan - 2024 - Leveraging artificial intelligence.pdf",
+  "groups": [
+   "Assess ethical matters"
+  ],
+  "overlap": 3
+ },
+ "@srinivasanEvaluatingReportingQuality2025a": {
+  "pdf": "Srinivasan et al. - 2025 - Evaluating the reporting quality of 21,041 randomized controlled trial articles.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 3
+ },
+ "@thelwallEvaluatingResearchQuality2024": {
+  "pdf": "Thelwall - 2025 - Evaluating research quality with Large Language Models An analysis of ChatGPT's effectiveness with.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 3
+ },
+ "@tyserAIDrivenReviewSystems2024": {
+  "pdf": "Tyser et al. - 2024 - AI-Driven Review Systems Evaluating LLMs in Scalable and Bias-Aware Academic Reviews.pdf",
+  "groups": [
+   "Peer review reports"
+  ],
+  "overlap": 3
+ },
+ "@woelfleBenchmarkingHumanAICollaboration2024": {
+  "pdf": "Woelfle et al. - 2024 - Benchmarking Human–AI collaboration for common evidence appraisal tools.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 3
+ },
+ "@wrightsonGPTRCTsUsing2025": {
+  "pdf": "Wrightson et al. - 2025 - GPT for RCTs Using AI to determine adherence to clinical trial reporting guidelines.pdf",
+  "groups": [
+   "Check  reporting guideline compliance"
+  ],
+  "overlap": 1
+ },
+ "@wuAutomatedNoveltyEvaluationa": {
+  "pdf": "Wu et al. - 2024 - Automated novelty evaluation.pdf",
+  "groups": [
+   "Assess novelty"
+  ],
+  "overlap": 2
+ },
+ "@xuCanLLMsIdentify2025": {
+  "pdf": "Xu et al. - 2025 - Can LLMs Identify Critical Limitations within Scientific Research A Systematic Evaluation on AI Res.pdf",
+  "groups": [
+   "Detect errors / limitations / quality issues"
+  ],
+  "overlap": 1
+ },
+ "@zhangDetectingReferenceErrors2024": {
+  "pdf": "Zhang and Abernethy - 2024 - Detecting Reference Errors in Scientific Literature with Large Language Models.pdf",
+  "groups": [
+   "Detect errors / limitations / quality issues"
+  ],
+  "overlap": 3
+ },
+ "@zhangReviewingScientificPapers2025a": {
+  "pdf": "Zhang and Abernethy - 2026 - Reviewing Scientific Papers for Critical Problems With Reasoning LLMs.pdf",
+  "groups": [
+   "Detect errors / limitations / quality issues"
+  ],
+  "overlap": 3
+ },
+ "@zhouLLMReliableReviewer2024": {
+  "pdf": "Zhou - Is LLM a Reliable Reviewer A Comprehensive Evalua.pdf",
+  "groups": [
+   "Peer review reports"
+  ],
+  "overlap": 2
+ }
+}
