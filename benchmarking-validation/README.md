@@ -131,7 +131,7 @@ Error analyses: `results/error-analysis-r1.md` (all rows, Run 1, three decision 
 ```
 pip install -r requirements.txt
 cp .env.example .env            # fill in the three API keys; keep .env out of git
-# 1. inputs (needs the repository's vault/ folder, or set LIVES_VAULT)
+# 1. inputs (needs the repository's vault/ folder, or set LIVES_VAULT; paths use the vault/sysrev/ layout of 2026-11-24)
 python3 make_questions.py       # -> questions_by_evd.json
 python3 build_packets.py        # -> packets/
 # 2. decision-model judgments, Run 6 (run id r7). Relevancy and fidelity, then the groundings:

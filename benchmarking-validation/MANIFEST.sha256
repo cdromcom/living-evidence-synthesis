@@ -1,7 +1,7 @@
 3ffce4e01625b2f1d4f4f995a787b98356f2cb916da94876d5cc1f5e0d280ac0  ./.env.example
 2d449b81eba13ba9edf7b51690a5a20e7776b0b5658dc8272e1c0fbd87bac7e8  ./.gitignore
 6d2671125039d81a965423e9e262e172fe0eaa6fc86866acd1f585b53d01eb78  ./agreement.py
-f3f3dca4980c16322d0aee9e9a85a3a3c8748a2d82fca8b78e716b52f152d62d  ./build_packets.py
+10ee163a68656ac7b60016c7f1d8902aea928a71e69c0489ded0727b6cdf8f58  ./build_packets.py
 b760fcf3d83d0001d96d8e8bc551ee4a81318ba8abea1124ef075a6ebdddfc77  ./dump_prompts.py
 456c0aa5fa14497031b0d6c52fb0d25c1d6793e48af60c679550ae14a2f81feb  ./error_analysis_r2.py
 20fa251fad8ea94d49d5e8cb1618050a6066164b2212f3bfc47271fbe640971a  ./error_analysis.py
@@ -27,7 +27,7 @@ f3279b87350437af6bf98021c4213afc37eefa92cf724efc9b12e97e6221929f  ./log_src/run1
 3e6164025f093d5c63c40ea4d119f4b5a6fad2e74707d32cafca7a8cc1688c32  ./log_src/run2/perplexity-EVD75-quote.txt
 fe9f07f6ab52f60ff4cc27e8d228436874baf312d77219384da490a627e1d647  ./log_src/run2/perplexity-EVD75-table.txt
 a0da69d9dd0a100fb256eda4340c555fca9f8e0352895b5148443951f06bf669  ./make_log_tab.py
-967267e56190d67e77ac609e580770d107f1aa571e80c602e30fe6824a9fca6d  ./make_questions.py
+e3896c9bddcc25359b342579113d71bf53393472ee7641ec9398e241a3a315ef  ./make_questions.py
 1705a6dc3f3fb9d88ea847f7e82cb0e8ea0db37a1f9267fa627959bed20f60b0  ./make_run_fill.py
 48085a2cc52ec58d77f6c3a8e61f74437be2f175d719e86b4ae053ffcdb87e86  ./make_sheets.py
 57a32fe55c5ec32a8a989fdb3c849d72a52ec7be06215fad24dd8300b24c57d8  ./make_summary_tab.py
@@ -211,7 +211,7 @@ d6d9de5f0fe8150906d17b9f989dedd719128cbc2b9dc1f488785dd46b925a08  ./prompts/OPUS
 f3279b87350437af6bf98021c4213afc37eefa92cf724efc9b12e97e6221929f  ./prompts/rendered/perplexity-EVD04-table.txt
 4fb4f5d17b901190e2a71cc511107fc3fe2752cda3aaab67365699540979c000  ./prompts/rendered/perplexity-EVD16-table.txt
 7eb4e8ad8b37f687a1fa51d0940a19dbb09bd1efe5f8e1ab3efb0f8349a89b5b  ./questions_by_evd.json
-3f59c4f96c659081c89d0286a040380e1cdb26c0d83e5e4d9b4ff5262de0324b  ./README.md
+e064826537ef617e29691fe1bc850738e34ab5fa80629d4d54ec3fd6e0c02b4e  ./README.md
 f5a3038f040018c8e202694a6c05ab17195200bb712e01874a979d4f6c79637b  ./reference/extract_reference.py
 f441248b18f47e98bfa1b3cdd49803b233e24588c60df13d5b24af641227b4f8  ./reference/reference.csv
 4fe55cf22f3473e46c71d816ade7b0569a6d5969e2a1493d82a14a752bd931a2  ./requirements.txt
@@ -760,7 +760,7 @@ e855db775c8eb83e6924d6facdb887c7c844a17a9e8a199f35d6da1e91d162a1  ./results/perp
 b4c4ae65ab5bc2abe9dbe35a48a1b312fd83d4b0b6eb5896eb707960cb47182e  ./results/perplexity.smoke.jsonl
 a420eca9dfdb1bb7fbd7c8947bd521e7a6ea7b99f765ad9c6838046be0f814d5  ./results/summary-r1.csv
 6a35caceddf98a8dee35be09b5b2f61d3a68d8b12e793781d6e0e659a8aae018  ./run_raters.py
-493300e9b65ed9f21ec1f72c0c29d044119e527d22c8d2ad786e3ee378ace379  ./RUN-LOG.md
+6c029c478c80b8a48df63e4696cd6289308a571e8d3dcb4525bae3c5963c050f  ./RUN-LOG.md
 1049462287368226313f884421b716c5b8e82e1628cc966938ace94314c60080  ./sheets/decision-models-summary-r1.xlsx
 6793fb923a913f3fceff0994b8acc9c2a42d39d62ef6ba4195c5049d9bf8715f  ./sheets/decision-models-summary-r2t.xlsx
 b01fbffd253d2f158e285bc2e231a57fffc7c2146e7541adb15ffbf96f0fa0e0  ./sheets/decision-models-summary-r3.xlsx
