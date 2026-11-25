@@ -30,11 +30,11 @@ mods = {}
 if a.models and Path(a.models).exists():
     for r in map(json.loads, open(a.models)):
         if not r.get('error') and r.get('answers'): mods[(r['citekey'], r['kind'], r['row'], r['provider'])] = r['answers']
-HEAD = ['Source', 'Row', 'Item / domain', 'Quote (verbatim)', 'Locator as written', 'Cited page', 'PDF check (script)', 'Found on (pdf:printed page)',
+HEAD = ['Source', 'Row', 'Item / domain', 'Quote (verbatim)', 'Locator as written', 'Cited page', 'PDF check (script)', 'Found on (pdf:printed page)', 'Why not verbatim (script)',
         'Judgment (rating in LIVES)', 'Rating made by (model, date)', 'Quote and locator sourced by (model, date)', 'Provenance note', 'Perplexity: rating it supports', 'Perplexity: P(rating supported)', 'Liquid d1-ultra: rating it supports',
         'Liquid d1-ultra: P(rating supported)', 'Jev: rating it supports', 'Jev: P(rating supported)', 'Models agree with judgment (of 3)',
         'JP judgment', 'JP notes', 'Run / version']
-W = [26, 8, 36, 70, 24, 8, 26, 16, 18, 24, 24, 46, 16, 10, 16, 10, 16, 10, 12, 18, 40, 22]
+W = [26, 8, 36, 70, 24, 8, 26, 16, 30, 18, 24, 24, 46, 16, 10, 16, 10, 16, 10, 12, 18, 40, 22]
 wb = Workbook(); ab = wb.active; ab.title = 'ABOUT'
 for i, t in enumerate(['Quality signals review sheet', 'One row per TRIPOD-LLM item or Quality appraisal domain of each source paper. Quote and locator are copied from the vault page. '
         '"PDF check" is a script: is the quote verbatim in the PDF and is the cited page right (printed page; PDF position where the PDF prints no page numbers). '
@@ -56,7 +56,7 @@ for kind, title in (('TRIPOD', 'TRIPOD-LLM'), ('QUALITY', 'Quality appraisal')):
             def v(p, key): return (mm[p] or {}).get(key, {}).get('choice' if key == 'rating' else 'noul') if mm[p] else None
             agree = sum(1 for p in mm if mm[p] and v(p, 'rating') == r['rating']) if any(mm.values()) else None
             pr = prov(path, kind)
-            ws.append([r['citekey'], r['row'], r['item'][:150], r['quote'], r['locator'], r['page'], au.get('status', ''), au.get('found_pages', ''), r['rating'],
+            ws.append([r['citekey'], r['row'], r['item'][:150], r['quote'], r['locator'], r['page'], au.get('status', ''), au.get('found_pages', ''), au.get('cause', ''), r['rating'],
                        pr[0], pr[1], pr[2], v('perplexity', 'rating'), v('perplexity', 'rating_supported'), v('liquid', 'rating'), v('liquid', 'rating_supported'),
                        v('jev', 'rating'), v('jev', 'rating_supported'), agree, '', '', 'vault 2026-11-24'])
             n += 1

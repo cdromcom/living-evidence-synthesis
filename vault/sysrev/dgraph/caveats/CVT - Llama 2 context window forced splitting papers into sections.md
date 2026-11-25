@@ -21,7 +21,7 @@ title: The Llama 2 context window required splitting each paper into sections pr
 
 ## Source
 
-[[sysrev/dgraph/source/@wrightsonGPTRCTsUsing2025]]
+[[source/@wrightsonGPTRCTsUsing2025]]
 
 ### Limitation
 

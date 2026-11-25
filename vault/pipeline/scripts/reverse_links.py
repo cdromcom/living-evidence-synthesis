@@ -17,6 +17,26 @@ from pathlib import Path
 from collections import defaultdict
 
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])   # vault root: LIVES_VAULT, else two folders above pipeline/scripts
+_TITLES = {}
+
+
+def title_key(folder: str):
+    def k(stem):
+        link(folder, stem)
+        return _TITLES.get((folder, stem)) or stem
+    return k
+
+
+def link(folder: str, stem: str) -> str:
+    """Link in the vault's current form: [[sysrev/dgraph/<folder>/<stem>|<TYPE> - <frontmatter title>]]."""
+    if (folder, stem) not in _TITLES:
+        p = VAULT / 'sysrev' / 'dgraph' / folder / f'{stem}.md'
+        m = re.search(r'^title:\s*"?(.*?)"?\s*$', p.read_text(), re.MULTILINE) if p.exists() else None
+        _TITLES[(folder, stem)] = m.group(1) if m else None
+    t = _TITLES[(folder, stem)]
+    return f'[[sysrev/dgraph/{folder}/{stem}|{stem.split(" - ")[0]} - {t}]]' if t else f'[[sysrev/dgraph/{folder}/{stem}]]'
+
+
 def evd_filename_to_stem(name: str) -> str:
     return name[:-3] if name.endswith('.md') else name
 
@@ -35,12 +55,12 @@ def parse_appliesTo(text: str) -> list[str]:
     m = re.search(r'^appliesTo:\s*\n((?:^\s*-\s*"\[\[.*?\]\]"\s*\n?)+)', text, re.MULTILINE)
     if not m:
         return []
-    return re.findall(r'\[\[(EVD[^\]]+)\]\]', m.group(1))
+    return re.findall(r'\[\[(?:[^\]|]*/)?(EVD - [^\]|#]+?)(?:[|#][^\]]*)?\]\]', m.group(1))
 
 
 def parse_clm_papers(text: str) -> list[str]:
     """Return list of citekeys from CLM's Papers block."""
-    m = re.search(r'> \[!info\] Papers\s*\n((?:>\s*\[\[(?:[^\]|]*/)?@.*?\]\]\s*\n?)+)', text)
+    m = re.search(r'> \[!info\] Papers\s*\n((?:>[^\n]*\n?)+)', text)
     if not m:
         return []
     keys = []
@@ -53,14 +73,16 @@ def parse_clm_papers(text: str) -> list[str]:
 
 
 def insert_or_replace_section(text: str, section_header: str, body: str) -> str:
-    """Replace section_header + its body, or append at end if not present."""
-    pattern = rf'^({re.escape(section_header)}\s*\n)(.*?)(?=^##\s|\Z)'
-    if re.search(pattern, text, re.MULTILINE | re.DOTALL):
-        return re.sub(pattern, section_header + '\n' + body + '\n', text, count=1, flags=re.MULTILINE | re.DOTALL)
-    # Append at end with separator
+    """Replace section_header + its body, or append at end. Layout matches the vault: header, blank line, body, blank line before the next section."""
+    lvl = len(section_header) - len(section_header.lstrip('#'))
+    pattern = rf'^({re.escape(section_header)}\s*\n)(.*?)(?=^#{{1,{lvl}}}\s|\Z)'
+    m = re.search(pattern, text, re.MULTILINE | re.DOTALL)
+    if m:
+        tail = '\n\n' if text[m.end():m.end() + 1] == '#' else '\n'
+        return text[:m.start()] + section_header + '\n\n' + body + tail + text[m.end():]
     if not text.endswith('\n'):
         text += '\n'
-    return text + '\n' + section_header + '\n' + body + '\n'
+    return text + '\n' + section_header + '\n\n' + body + '\n'
 
 
 def main():
@@ -93,17 +115,17 @@ def main():
         if not citekey:
             continue
         # Caveats
-        related_cvts = sorted(evd_to_cvts.get(stem, []))
+        related_cvts = sorted(evd_to_cvts.get(stem, []), key=title_key('caveats'))
         if related_cvts:
-            cvt_lines = '\n'.join(f'- [[{cvt}]]' for cvt in related_cvts)
+            cvt_lines = '\n\n'.join('- ' + link('caveats', cvt) for cvt in related_cvts)
             caveats_body = f'> [!info] Caveats applying to this evidence\n\n{cvt_lines}'
         else:
             caveats_body = '> [!info] No caveats currently linked to this evidence.'
         text = insert_or_replace_section(text, '## Caveats', caveats_body)
         # Supports Claim(s)
-        related_clms = sorted(paper_to_clms.get(citekey, []))
+        related_clms = sorted(paper_to_clms.get(citekey, []), key=title_key('claims'))
         if related_clms:
-            clm_lines = '\n'.join(f'- [[{clm}]]' for clm in related_clms)
+            clm_lines = '\n\n'.join('- ' + link('claims', clm) for clm in related_clms)
             claims_body = f'> [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)\n\n{clm_lines}'
         else:
             claims_body = '> [!info] No claims currently linked to this evidence.'
@@ -128,10 +150,10 @@ def main():
         evd_stems = []
         for p in papers:
             evd_stems.extend(paper_to_evds.get(p, []))
-        evd_stems = sorted(set(evd_stems))
+        evd_stems = sorted(set(evd_stems), key=title_key('evidence'))
         if evd_stems:
-            evd_lines = '\n'.join(f'- [[{e}]]' for e in evd_stems)
-            body = f'> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim — verify before citing)\n\n{evd_lines}'
+            evd_lines = '\n\n'.join('- ' + link('evidence', e) for e in evd_stems)
+            body = f'> [!info] EVDs from the cited papers (auto-derived; not all may directly support the claim; verify before citing)\n\n{evd_lines}'
         else:
             body = '> [!info] No supporting evidence currently linked.'
         # Insert as a ### subsection at the end of the file (or after Snippet section)

@@ -22,7 +22,7 @@ title: The study used only sports medicine and orthopaedic journal papers limiti
 
 ## Source
 
-[[sysrev/dgraph/source/@wrightsonGPTRCTsUsing2025]]
+[[source/@wrightsonGPTRCTsUsing2025]]
 
 ### Limitation
 

@@ -39,7 +39,7 @@ def get_node_citekey(text: str, filename: str = '') -> str | None:
 
 def get_clm_citekeys(text: str) -> list[str]:
     """Return list of citekeys for CLM (multi-paper)."""
-    m = re.search(r'> \[!info\] Papers\s*\n((?:>\s*\[\[(?:[^\]|]*/)?@.*?\]\]\s*\n?)+)', text)
+    m = re.search(r'> \[!info\] Papers\s*\n((?:>[^\n]*\n?)+)', text)
     if not m:
         return []
     return list(set(re.findall(r'@([a-zA-Z][a-zA-Z0-9-]+)\b', m.group(1))))

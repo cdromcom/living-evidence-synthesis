@@ -13,7 +13,7 @@ title: "How accurately can LLMs measure reporting guideline compliance in clinic
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[sysrev/dgraph/source/@wrightsonGPTRCTsUsing2025]]
+> [[source/@wrightsonGPTRCTsUsing2025]]
 
 ### Snippet: Quote(s) & Screenshots
 

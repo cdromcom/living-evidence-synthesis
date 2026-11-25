@@ -8,7 +8,7 @@ human_verified: no
 
 # Quality signals: the tags the web app reads
 
-The LIVES web app shows Quality Signals tables on node pages and on `/quality`. Each signal is a frontmatter tag like `rigor/confidence-intervals/not-addressed`. A missing tag shows as an empty cell. This list is what the vault uses today (surveyed 2026-11-24); a new paper must get the same tags. Check with `python3 pipeline/scripts/check_quality_signals.py`. How they are produced is in `Skill.md` Step 6d.
+The LIVES web app shows Quality Signals tables on node pages and on `/quality`. Each signal is a frontmatter tag like `rigor/confidence-intervals/not-addressed`. A missing tag shows as an empty cell. This list is what the vault uses today (surveyed 2026-11-24); a new paper must get the same tags. Check with `python3 pipeline/scripts/check_quality_signals.py`. How they are produced is in `Skill.md` Module Q.
 
 Legend: **S** = on the source (SRC) page; **E** = on each EVD page. Values are the ones in use; `-` means the tag takes a number or is free-form.
 

@@ -16,7 +16,7 @@ title: "LLMs can assess clinical trial reporting guideline adherence with accept
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[sysrev/dgraph/source/@wrightsonGPTRCTsUsing2025]]
+> [[source/@wrightsonGPTRCTsUsing2025]]
 
 ### Snippet: Quote(s) & Screenshots
 

@@ -24,7 +24,7 @@ title: "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT te
 
 ## Source
 
-[[sysrev/dgraph/source/@wrightsonGPTRCTsUsing2025]]
+[[source/@wrightsonGPTRCTsUsing2025]]
 
 ## Description
 
@@ -71,7 +71,7 @@ title: "GPT-4 Turbo achieved F1=0.89 and 90% accuracy pooled across 9 CONSORT te
 - Item 8 (blinding) reaches the highest accuracy (100%, 95% CI 87% to 100%, F1 = 1.00); item 9 (standardised effect sizes & CIs) the lowest F1 (0.57; accuracy 87%), likely because effect-size reporting is rare (Schulz et al. adherence = 20%) and the question requires combining Method + Results text.
 - Authors flag possible **data leakage**: the same paper can appear in both TRAIN and TEST via different sections, since the split was stratified by section to keep section-mix constant across splits. They warn this may have inflated TEST performance.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@wrightsonGPTRCTsUsing2025#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[source/@wrightsonGPTRCTsUsing2025#TRIPOD-LLM reporting]].
 
 | CONSORT question (text analysis) | F1-score | Accuracy (95% CI) |
 | --- | :---: | :---: |
