@@ -28,17 +28,17 @@ The source article, "Do's and Don't for UI Design" (Design Bootcamp, Medium), **
 |---|---|---|
 | 1.4.3 Contrast (text) | 4.5:1 body, 3:1 for 24 px or 19 px bold | body passes; verdict circles (white on `#10b981`, `#f59e0b`, `#fbbf24`) fail |
 | 1.4.11 Non-text contrast | 3:1 for input borders, focus rings, meaningful graphics | card and input borders are 1.2:1 (light) and 1.4:1 (dark) |
-| 2.4.7 and 2.4.11 Focus visible and not obscured | A visible focus ring on every interactive element, not hidden by sticky headers | no global `:focus-visible`; inputs use a 1 px ring |
+| 2.4.7 and 2.4.11 Focus visible and not obscured | A visible focus ring on every interactive element, not hidden by sticky headers | global `:focus-visible` added in PR #25; ring thickness and contrast still to check |
 | 2.4.13 Focus appearance (AAA, but a good target) | 2 px ring, 3:1 against adjacent colours | not met |
 | 2.5.8 Target size (minimum) | at least 24 by 24 CSS px (aim for 44 on touch) | 32 px icon buttons ok; small chips borderline |
 | 2.1.1 Keyboard | Everything operable without a mouse: tooltips, graph, mermaid fullscreen, resize handle | tooltip, graph canvas and diagram click are unverified |
-| 2.4.1 Bypass blocks | Skip link to main content | missing |
-| 1.4.10 Reflow | No horizontal scroll at 320 px wide (tables may scroll inside their own region) | header nav disappears; tables scroll in place |
+| 2.4.1 Bypass blocks | Skip link to main content | added in PR #25 |
+| 1.4.10 Reflow | No horizontal scroll at 320 px wide (tables may scroll inside their own region) | mobile menu added in PR #25; tables still scroll in place |
 | 1.4.12 Text spacing | Layout survives line-height 1.5, paragraph spacing 2x, letter 0.12em, word 0.16em | use rem and no fixed heights; not tested |
 | 3.3.1 and 3.3.3 Error identification and suggestion | Error text next to the field, announced (`aria-live` or `role="alert"`), says how to fix | status text exists, not announced |
 | 3.2.3 and 3.2.4 Consistent navigation and identification | Same nav order and the same labels on every page | consistent on desktop |
 | 3.3.7 Redundant entry, 3.3.8 Accessible authentication | Do not make users retype; the email-code flow must allow paste (no cognitive test) | verify paste works on the 8-digit field |
-| 2.3.3 / 2.2.2 Motion | Respect `prefers-reduced-motion` for the graph settle, accordions, fullscreen | no rule today |
+| 2.3.3 / 2.2.2 Motion | Respect `prefers-reduced-motion` for the graph settle, accordions, fullscreen | `prefers-reduced-motion` handled in PR #25 (to confirm for the graph) |
 | 1.1.1 Non-text content | Alt for figures (exists), text alternative for the graph and the mermaid diagrams | partly |
 | 1.3.1 and 4.1.2 | Real headings, lists, table headers, landmarks, names and roles on custom widgets | mostly semantic; header `nav` lacks a label |
 

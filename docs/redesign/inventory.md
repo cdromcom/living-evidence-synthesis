@@ -229,8 +229,8 @@ Whether `NODE_TYPE_TEXT_CLASS` is used on dark backgrounds was not traced **[unv
 ### Accessibility
 
 Verified in code:
-- **No skip link** (grep for "skip" and `sr-only` only finds tooltips and graph buttons).
-- **No mobile navigation**: the nav is `hidden md:flex` and there is no menu button, so below 768 px the nine sections are unreachable except from the footer and home cards.
+- ~~No skip link~~ **Fixed in PR #25** (skip link in `app/layout.tsx`). Statement kept for the record; the facts below were written before that change.
+- ~~No mobile navigation~~ **Fixed in PR #25** (`components/MobileNav.tsx`). Before that, the nav was `hidden md:flex` and there is no menu button, so below 768 px the nine sections are unreachable except from the footer and home cards.
 - Landmarks: `header`, `main` (per page), `footer`, a `nav` for the TOC (large screens only). The header `nav` has no `aria-label`. Home hero is fine; node page mixes several `h2`s but only one `h1`.
 - **Focus**: inputs and the theme button use `focus:outline-none focus:ring-1 focus:ring-forest` (1 px ring, thin); links, summaries, chips and most buttons have **no custom focus style** (browser default only) and the global CSS defines no `:focus-visible` rule. The graph's resize handle does define a `focus-visible` outline.
 - **Target size**: icon buttons are 32 px (`h-8 w-8`) which meets WCAG 2.2 AA minimum (24 px) but not 44 px; chips and badges at 11 px type with `py-0.5` are about 20 px tall (if interactive they would fail the 24 px minimum; the type badges are not interactive).
