@@ -10,6 +10,8 @@ Checks
   4 INTERVAL  a point estimate that falls outside its own confidence interval
   5 RATIO     "a of b (p%)" where p is not 100*a/b
   6 METRIC    F1 that does not follow from the precision and recall in the same passage; kappa that does not follow from observed and chance agreement, or exceeds agreement
+  8 ANALYTIC  full sample minus exclusions that does not equal the analytic sample size
+  9 SCALE     a mean outside the stated scale range (for example 5.3 on a 1-5 scale); a percentage metric above 100%
   7 EFFECT    effect sizes outside the possible range or above 3 (d); values more than 3 SD from the mean of the same kind across all papers
   3 SAMPLE    a sample size (participants, papers, trials...) stated in the abstract that never appears in the paper body, or methods and results that share no number for the same unit
 Pages: printed page where the PDF prints one, else "PDF p. N" (fine for preprints)."""
@@ -209,7 +211,65 @@ def outliers_across_papers(by_paper):
             if abs(v - mu) > 3 * sd: res.append(dict(citekey=ck, check='EFFECT', page=pg, section='', finding=f"{typ} = {v:g} is more than 3 SD from the mean ({mu:.2f}, SD {sd:.2f}) of the {len(vals)} {typ} values in these papers.", text=tx))
     return res
 
-EXAMINED = {'PERCENT': 0, 'GRIM': 0, 'SAMPLE': 0, 'INTERVAL': 0, 'RATIO': 0, 'METRIC': 0, 'EFFECT': 0}
+# ---------- 8 ANALYTIC: full sample - exclusions = analytic sample ----------
+def windows(rows, k=3):
+    """Sliding windows of k consecutive sentences within one section and page. Yields (section, page_index, text)."""
+    cur, sents = None, []
+    def emit():
+        for j in range(len(sents)):
+            yield (cur[0], cur[1], ' '.join(sents[j:j + k]))
+    groups = {}
+    for sec, i, l in rows: groups.setdefault((sec, i), []).append(l.strip())
+    for (sec, i), ls in groups.items():
+        text = ' '.join(ls); ss = [x for x in re.split(r'(?<=[.;])\s+(?=[A-Z(\[])', text) if x]
+        for j in range(len(ss)): yield (sec, i, ' '.join(ss[j:j + k]))
+
+N = r'(\d{1,3}(?:,\d{3})+|\d+)'
+TOT = [re.compile(r'\b(?:recruited|enrolled|screened|invited|sampled|randomi[sz]ed|collected|retrieved)\s+(?:a total of\s+|initially\s+)?' + N + r'\b', re.I), re.compile(r'\b' + N + r'\s+(?:\w+\s+){0,3}?(?:were\s+|was\s+)?(?:initially\s+)?(?:recruited|enrolled|screened|assessed|invited|randomi[sz]ed|collected|retrieved|sampled|identified|included at baseline)', re.I),
+       re.compile(r'\b(?:initial|total|full|original|starting)\s+(?:sample|set|dataset|pool|cohort)\b\D{0,25}?' + N, re.I)]
+EXC = [re.compile(r'\b' + N + r'\s+(?:\w+\s+){0,4}?(?:were\s+|was\s+)?(?:excluded|removed|dropped|discarded|filtered out|withdrew|were lost|lost to follow)', re.I),
+       re.compile(r'\b(?:excluded|excluding|removed|removing|dropped|dropping|discarded)\s+' + N + r'\b', re.I)]
+FIN = [re.compile(r'\b(?:final|analytic|analysis|analy[sz]ed|remaining|resulting)\s+(?:sample|dataset|set|cohort)\b\D{0,25}?' + N, re.I),
+       re.compile(r'\b' + N + r'\s+(?:\w+\s+){0,3}?(?:were\s+|was\s+)?(?:included in the analys[ie]s|analy[sz]ed|retained|remained)', re.I)]
+def first_nums(rxs, t): return sorted({int(x.replace(',', '')) for rx in rxs for x in rx.findall(t)})
+def check_analytic(rows, pm):
+    out = []; seen = set()
+    for sec, i, w in windows(rows, 3):
+        t, e, f = first_nums(TOT, w), first_nums(EXC, w), first_nums(FIN, w)
+        if len(t) == 1 and len(e) == 1 and len(f) == 1 and t[0] > f[0] and (t[0], e[0], f[0], i) not in seen:
+            seen.add((t[0], e[0], f[0], i))
+            if t[0] - e[0] != f[0]:
+                out.append(dict(check='ANALYTIC', page=page_label(pm, i), section=sec, finding=f"full sample {t[0]} minus {e[0]} excluded is {t[0] - e[0]}, but the analytic sample is given as {f[0]} (difference {t[0] - e[0] - f[0]:+d}). Exclusions may have several reasons or stages; read the passage.", text=w[:200]))
+    return out
+
+# ---------- 9 SCALE: mean inside the scale range; percentage metrics not above 100% ----------
+RANGE = [re.compile(r'\b(?:scale|rated|rating|ratings|likert|scored|score[sd]?)\b[^.]{0,40}?\b(\d+)\s*(?:to|-|–)\s*(\d+)\b', re.I), re.compile(r'\b(\d+)\s*(?:to|-|–)\s*(\d+)[\s-]*(?:point|scale|likert)', re.I)]
+KPT = re.compile(r'\b(\d+)[\s-]point\b', re.I)
+MEANV = re.compile(r'\b(?:mean|average|avg\.?|M)\b[^0-9\n.]{0,30}?(?<![\d.])(\d{1,3}(?:\.\d+)?)(?![\d.]*\s*%)', re.I)
+PCTMETRIC = re.compile(r'\b(accuracy|precision|recall|F-?1|AUC|agreement|sensitivity|specificity)\b[^.%\d]{0,25}?(\d{3,}(?:\.\d+)?|1[0-9]{2}(?:\.\d+)?)\s*%', re.I)
+def check_scale(rows, pm):
+    out = []; seen = set()
+    for sec, i, w in windows(rows, 2):
+        w = norm_text(w); lo = hi = None
+        for rx in RANGE:
+            m = rx.search(w)
+            if m and int(m.group(1)) in (0, 1) and int(m.group(1)) < int(m.group(2)) <= 1000: lo, hi = float(m.group(1)), float(m.group(2)); break
+        if hi is None:
+            m = KPT.search(w)
+            if m and 2 <= int(m.group(1)) <= 11: lo, hi = 0.0, float(m.group(1))   # a k-point scale runs 1..k or 0..k-1: lenient bounds 0..k
+        if hi is not None:
+            for m in MEANV.finditer(w):
+                v = float(m.group(1))
+                if re.match(r'[^.;]{0,25}\b(?:higher|lower|more|less|greater|difference|gap|increase|decrease|improve)', w[m.end():], re.I): continue   # a difference between means, not a mean
+                if (v < lo or v > hi) and (w[:60], v) not in seen and v != 0 or (v > hi and (w[:60], v) not in seen):
+                    seen.add((w[:60], v))
+                    if v < lo or v > hi: out.append(dict(check='SCALE', page=page_label(pm, i), section=sec, finding=f"mean {m.group(1)} is outside the stated scale range {lo:g} to {hi:g}. Check that the mean and the scale refer to the same measure.", text=w[:200]))
+        for m in PCTMETRIC.finditer(w):
+            if float(m.group(2)) > 100 and (m.group(0), i) not in seen:
+                seen.add((m.group(0), i)); out.append(dict(check='SCALE', page=page_label(pm, i), section=sec, finding=f"{m.group(1)} of {m.group(2)}% is above 100%.", text=m.group(0)))
+    return out
+
+EXAMINED = {'PERCENT': 0, 'GRIM': 0, 'SAMPLE': 0, 'INTERVAL': 0, 'RATIO': 0, 'METRIC': 0, 'EFFECT': 0, 'ANALYTIC': 0, 'SCALE': 0}
 
 def run(doc):
     pm = pp.page_map(doc); rows = sectioned(pages_text(doc))
@@ -220,22 +280,26 @@ def run(doc):
         cn = norm_text(c)
         EXAMINED['INTERVAL'] += len(CI.findall(cn)); EXAMINED['RATIO'] += len(RATIO.findall(cn)); EXAMINED['EFFECT'] += sum(len(r.findall(cn)) for r in EFF.values())
         if re.search(r'precision', cn, re.I) and re.search(r'recall', cn, re.I) or re.search(r'kappa|\u03ba', cn, re.I): EXAMINED['METRIC'] += 1
-    return check_percent(rows, pm) + check_grim(rows, pm) + check_sample(rows, pm) + check_interval(rows, pm) + check_ratio(rows, pm) + check_metric(rows, pm) + check_effect(rows, pm)
+    for _, _, w in windows(rows, 3):
+        if first_nums(TOT, w) and first_nums(EXC, w) and first_nums(FIN, w): EXAMINED['ANALYTIC'] += 1
+    for _, _, w in windows(rows, 2):
+        if any(r.search(w) for r in RANGE) or KPT.search(w): EXAMINED['SCALE'] += 1
+    return check_percent(rows, pm) + check_grim(rows, pm) + check_sample(rows, pm) + check_interval(rows, pm) + check_ratio(rows, pm) + check_metric(rows, pm) + check_effect(rows, pm) + check_analytic(rows, pm) + check_scale(rows, pm)
 
 def selftest():
     """Planted errors the checks must catch, and clean text they must leave alone."""
     pm = [{'printed': None, 'source': None}]
     def rows(*ls): return [(sec, 0, t) for sec, t in ls]
-    bad = rows(('abstract', 'We enrolled 120 participants and compared two prompts.'), ('methods', 'Of the 118 participants, 40% were novices, 35% were intermediate and 20% were experts.'),
+    bad = rows(('abstract', 'We enrolled 130 participants and compared two prompts.'), ('methods', 'Of the 118 participants, 40% were novices, 35% were intermediate and 20% were experts.'),
                ('results', 'Mean satisfaction was 3.47 (SD 0.9) among 25 raters.'), ('results', 'A total of 118 participants completed the study.'))
     good = rows(('abstract', 'We enrolled 118 participants.'), ('methods', 'Of the 118 participants, 40% were novices, 35% were intermediate and 25% were experts.'), ('results', 'Mean satisfaction was 3.48 (SD 0.9) among 25 raters.'))
     bad += rows(('results', 'The odds were 2.4 (95% CI 0.5 to 1.9) overall.'), ('results', 'Accuracy was 31 of 40 (82%).'), ('results', 'Precision was 0.80, recall 0.60 and F1 0.90.'),
-                ('results', 'Observed agreement 0.90, chance agreement 0.50, kappa 0.60.'), ('results', 'The effect was large (d = 4.2).'))
+                ('results', 'Observed agreement 0.90, chance agreement 0.50, kappa 0.60.'), ('results', 'The effect was large (d = 4.2).'), ('methods', 'We recruited 120 participants. We excluded 8 participants for incomplete answers. The final sample comprised 110 participants.'), ('results', 'Raters used a 1 to 5 scale and the mean rating was 5.3.'))
     good += rows(('results', 'The odds were 1.2 (95% CI 0.5 to 1.9) overall.'), ('results', 'Accuracy was 31 of 40 (77.5%).'), ('results', 'Precision was 0.80, recall 0.60 and F1 0.69.'),
-                 ('results', 'Observed agreement 0.90, chance agreement 0.50, kappa 0.80.'), ('results', 'The effect was moderate (d = 0.6).'))
-    allc = lambda r: check_percent(r, pm) + check_grim(r, pm) + check_sample(r, pm) + check_interval(r, pm) + check_ratio(r, pm) + check_metric(r, pm) + check_effect(r, pm)
+                 ('results', 'Observed agreement 0.90, chance agreement 0.50, kappa 0.80.'), ('results', 'The effect was moderate (d = 0.6).'), ('methods', 'We recruited 120 participants. We excluded 8 participants for incomplete answers. The final sample comprised 112 participants.'), ('results', 'Raters used a 1 to 5 scale and the mean rating was 3.3.'))
+    allc = lambda r: check_percent(r, pm) + check_grim(r, pm) + check_sample(r, pm) + check_interval(r, pm) + check_ratio(r, pm) + check_metric(r, pm) + check_effect(r, pm) + check_analytic(r, pm) + check_scale(r, pm)
     got = {f['check'] for f in allc(bad)}; clean = allc(good)
-    print('catches planted PERCENT, GRIM, SAMPLE, INTERVAL, RATIO, METRIC, EFFECT:', got == {'PERCENT', 'GRIM', 'SAMPLE', 'INTERVAL', 'RATIO', 'METRIC', 'EFFECT'}, got); print('clean text flagged nothing:', not clean, clean)
+    print('catches all nine planted error kinds:', got == {'PERCENT', 'GRIM', 'SAMPLE', 'INTERVAL', 'RATIO', 'METRIC', 'EFFECT', 'ANALYTIC', 'SCALE'}, got); print('clean text flagged nothing:', not clean, clean)
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('args', nargs='*'); ap.add_argument('--only'); ap.add_argument('--outdir', default=str(OUT)); a = ap.parse_args()
@@ -263,7 +327,7 @@ def main():
     (out / 'stat-checks.md').write_text('\n'.join(md), encoding='utf-8')
     c = {}
     for r in allrows: c[r['check']] = c.get(r['check'], 0) + 1
-    md.insert(3, f"Examined across all papers: {EXAMINED['PERCENT']} percentage groups, {EXAMINED['GRIM']} mean-with-n passages, {EXAMINED['SAMPLE']} passages naming a sample size, {EXAMINED['INTERVAL']} estimates with a confidence interval, {EXAMINED['RATIO']} 'a of b (p%)' ratios, {EXAMINED['METRIC']} passages with F1 or kappa inputs, {EXAMINED['EFFECT']} effect-size values. A paper with no finding below simply had nothing flagged.\n")
+    md.insert(3, f"Examined across all papers: {EXAMINED['PERCENT']} percentage groups, {EXAMINED['GRIM']} mean-with-n passages, {EXAMINED['SAMPLE']} passages naming a sample size, {EXAMINED['INTERVAL']} estimates with a confidence interval, {EXAMINED['RATIO']} 'a of b (p%)' ratios, {EXAMINED['METRIC']} passages with F1 or kappa inputs, {EXAMINED['EFFECT']} effect-size values, {EXAMINED['ANALYTIC']} passages with full sample, exclusions and analytic sample, {EXAMINED['SCALE']} passages stating a scale range. A paper with no finding below simply had nothing flagged.\n")
     (out / 'stat-checks.md').write_text('\n'.join(md), encoding='utf-8')
     print(f"Examined: {EXAMINED}")
     print(f"{len(by)} papers with findings, {len(allrows)} findings: {c}; wrote {out}/stat-checks.md")

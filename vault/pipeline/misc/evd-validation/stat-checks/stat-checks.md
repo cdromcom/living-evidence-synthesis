@@ -1,7 +1,7 @@
 # Statistical accuracy checks (scripted clues for a person to check)
 
 Checks: PERCENT sums, GRIM means, SAMPLE size agreement. A finding is a clue, not a verdict. See `pipeline/scripts/stat_checks.py`.
-Examined across all papers: 103 percentage groups, 1 mean-with-n passages, 609 passages naming a sample size, 15 estimates with a confidence interval, 101 'a of b (p%)' ratios, 142 passages with F1 or kappa inputs, 44 effect-size values. A paper with no finding below simply had nothing flagged.
+Examined across all papers: 103 percentage groups, 1 mean-with-n passages, 609 passages naming a sample size, 15 estimates with a confidence interval, 101 'a of b (p%)' ratios, 142 passages with F1 or kappa inputs, 44 effect-size values, 0 passages with full sample, exclusions and analytic sample, 49 passages stating a scale range. A paper with no finding below simply had nothing flagged.
 
 
 ## @robertsComparativeStudyChatGPT2023

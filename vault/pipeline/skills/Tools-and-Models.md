@@ -217,7 +217,7 @@ Pushing these to the GitHub repository needs JP's approval.
 ### For later
 
 - **GROBID, for reference checks in the Quality Signals pipeline.** GROBID parses each PDF's reference list (and header and section structure) into structured TEI XML. That is what a reference check needs: matching citations to references, resolving DOIs, and flagging missing, wrong or retracted references. It is not needed for OCR or node writing, because source metadata comes from Zotero.
-- **EmbeddingGemma 2, for deduplication, screening and linking** (JP, 2026-11-20; version 2 confirmed by JP 2026-11-25; released 2026-10-06 under Apache 2.0; reports describe about 740M parameters and text, image, audio and code embeddings; Google's model card is the source to check). Local, free and open. Planned uses:
+- **EmbeddingGemma 2, for deduplication, screening and linking** (JP, 2026-11-20; version 2 confirmed by JP 2026-11-25; released 2026-10-06 under Apache 2.0; reports describe about 740M parameters and text, image, audio and code embeddings; Google's model card is the source to check). Local, free and open. **Downloaded 2026-11-25** (Hugging Face `google/embeddinggemma-2`, 1.4 GB, runs via sentence-transformers in `~/.cache/lives-bench/venv-embed`; the installed Ollama is too old to pull it). Planned uses:
   - finding duplicate or near-duplicate EVDs, CLMs and other nodes (it would replace the keyword-overlap score in `pipeline/misc/scripts/find_redundancies.py`);
   - screening papers found by the AI-assisted search;
   - suggesting links between nodes (EVD to CLM, EVD to QUE, EVD to EVD).
