@@ -34,4 +34,4 @@ Dependencies: `fitz` (PyMuPDF), `pdftoppm` (poppler-utils, optional).
 - `Archive.zip`: old scripts, kept as a zip.
 - `compare_embedders.py` (run with `~/.cache/lives-bench/venv-embed/bin/python`): compare local embedding models (EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B) on node titles and on quote-text-to-screenshot matching. Results: `pipeline/misc/evd-validation/embedder-comparison/`.
 - `zotero_collection.py`, `screen_dedup.py`, `screen_embed.py`, `screen_to_gsheet.py`: screen a Zotero collection into task-type piles by embedding similarity (three-model vote, seed papers as the guide) and build the review sheet. Run `screen_embed.py` and `screen_to_gsheet.py` with `~/.cache/lives-bench/venv-embed/bin/python`. Working files go to `~/.cache/lives-bench/screening/`.
-
+- Screening runs are written to `pipeline/screening/<date>_<collection>/` (README.md in TRIPOD+LLM style, `data/` metadata-only TSV and JSON); `pipeline/screening/shared/` holds the seed papers' task groups and names. `screen_to_gsheet.py` writes both the review workbook and that folder; pile names for new piles are edited in `data/new-pile-names_and-task-types.json`.

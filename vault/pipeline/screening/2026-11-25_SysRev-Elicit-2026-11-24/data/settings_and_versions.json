@@ -1,0 +1,35 @@
+{
+ "run": "2026-11-25_SysRev-Elicit-2026-11-24",
+ "date": "2026-11-25",
+ "collection": "SysRev - Elicit 2026-11-24",
+ "text_mode": "pdf",
+ "models": [
+  "EmbeddingGemma 2",
+  "harrier-oss-v1-0.6b",
+  "DNA-VL-STEER-2B"
+ ],
+ "novel_threshold_percentile": 15,
+ "majority_rule": "2 of 3",
+ "novel_thresholds": {
+  "EmbeddingGemma 2": 0.8690386593341828,
+  "harrier-oss-v1-0.6b": 0.8847577571868896,
+  "DNA-VL-STEER-2B": 0.7756587028503418
+ },
+ "clustering": {
+  "method": "agglomerative, average linkage, mean of the three models' cosine distances",
+  "silhouette": 0.262031227350235,
+  "distance_threshold": 0.22207064009629762,
+  "pool": 51
+ },
+ "keywords": "top 7 mean TF-IDF terms (unigrams and bigrams) of member titles and Zotero abstracts",
+ "packages": {
+  "transformers": "5.24.1",
+  "sentence-transformers": "6.3.0",
+  "torch": "2.15.0",
+  "scikit-learn": "1.9.1",
+  "numpy": "2.5.5",
+  "pymupdf": "2.1"
+ },
+ "hardware": "Apple silicon, 24 GB, PyTorch MPS",
+ "max_sequence_length_tokens": 1024
+}

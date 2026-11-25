@@ -1,0 +1,50 @@
+{
+ "N1": {
+  "name": "Spin and outcome-misreporting detection",
+  "task_type": "Detect spin or switched outcomes in trial reports"
+ },
+ "N2": {
+  "name": "PRISMA adherence checking",
+  "task_type": "Check systematic reviews against PRISMA"
+ },
+ "N3": {
+  "name": "Statistical and analytical error detection",
+  "task_type": "Find statistical or analytical mistakes in published papers"
+ },
+ "N4": {
+  "name": "Replication and reproducibility assessment",
+  "task_type": "Predict replicability or re-run studies with AI agents"
+ },
+ "N5": {
+  "name": "Grant and proposal review",
+  "task_type": "Evaluate research proposals and grant applications"
+ },
+ "N6": {
+  "name": "AI-generated text detection",
+  "task_type": "Tell human-written from machine-written scientific text"
+ },
+ "N7": {
+  "name": "Causal-language detection",
+  "task_type": "Spot overreaching causal claims in text"
+ },
+ "N8": {
+  "name": "Scientific claim verification",
+  "task_type": "Verify scientific claims against evidence"
+ },
+ "N9": {
+  "name": "Fake and duplicate publication detection",
+  "task_type": "Detect fabricated, duplicate or generated papers"
+ },
+ "N10": {
+  "name": "Risk-of-bias automation (machine learning)",
+  "task_type": "Assess risk of bias in trials with ML tools"
+ },
+ "N11": {
+  "name": "Plagiarism detection",
+  "task_type": "Detect plagiarized text, citations or formulas"
+ },
+ "unclustered": {
+  "name": "No similar paper yet",
+  "task_type": "Does not fit a seed or a new pile (check one by one)"
+ }
+}
