@@ -32,4 +32,4 @@ Dependencies: `fitz` (PyMuPDF), `pdftoppm` (poppler-utils, optional).
 - `embed_candidates.py` (run with `~/.cache/lives-bench/venv-embed/bin/python`) and `merge_judge.py` (Sonnet 5.5 and, with `--inkling`, Inkling 2 Small): candidate duplicate nodes and blind second opinions. They never merge anything.
 - `design_consult.py`: send a design summary to several models and have others improve the plan (runs in `pipeline/runs/`).
 - `Archive.zip`: old scripts, kept as a zip.
-
+- `compare_embedders.py` (run with `~/.cache/lives-bench/venv-embed/bin/python`): compare local embedding models (EmbeddingGemma 2, harrier-oss-v1-0.6b, DNA-VL-STEER-2B) on node titles and on quote-text-to-screenshot matching. Results: `pipeline/misc/evd-validation/embedder-comparison/`.

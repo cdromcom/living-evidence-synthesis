@@ -249,3 +249,16 @@ Pushing these to the GitHub repository needs JP's approval.
 - **Not downloaded:** `harrier-oss-v1-27b` (Microsoft, MIT): 54 GB of weights; this Mac has 41 GB free disk and 24 GB RAM. It would need a larger machine or a hosted endpoint. Qwen3-Embedding is from Alibaba and is excluded by the US-developer policy.
 - **Downloaded 2026-11-25:** `microsoft/harrier-oss-v1-0.6b` (MIT, 596M parameters, 1.1 GB) in `~/.cache/lives-bench/models/harrier-oss-v1-0.6b/`, run with the same environment as EmbeddingGemma 2 (`~/.cache/lives-bench/venv-embed`). Use `prompt_name="sts_query"` for similarity between nodes.
 - **First comparison with EmbeddingGemma 2 on our node titles:** JP's one labeled merge pair (the two LLM-versus-human review questions) ranks 3rd of 351 question pairs under harrier-0.6b and 9th under EmbeddingGemma 2; both models make the pair mutual nearest neighbors. Spread of similarity scores (95th minus 50th percentile): questions 0.061 harrier vs 0.085 EmbeddingGemma; caveats 0.072 vs 0.064; claims 0.082 vs 0.056. One labeled pair is thin evidence; choose after JP labels more pairs.
+
+## DNA-VL-STEER-2B and the three-way embedding test (2026-11-25)
+- **Model:** `dnotitia/DNA-VL-STEER-2B` (Dnotitia, Korea; Apache 2.0; 2.1B parameters; 4.0 GB) in `~/.cache/lives-bench/models/DNA-VL-STEER-2B/`. It is a language-bias-calibrated variant of Alibaba's `Qwen/Qwen3-VL-Embedding-2B` (only early layers adjusted; the vision tower is identical to the base). It embeds text, images, screenshots and video in one 2048-dimension space. It needs `transformers >= 5` and `qwen-vl-utils` (installed in `~/.cache/lives-bench/venv-embed`) and runs on the Mac's GPU (MPS).
+- **Model-origin policy: fails.** The developer is not a US company and the base model is Qwen (Alibaba), which the policy of 2026-11-20 excludes. JP asked for the download on 2026-11-25 as a test; treat it as a **test-only exception**. It may not enter the pipeline unless JP waives the policy for it explicitly. (The policy says to check base models; this one is a Qwen derivative.)
+- **Test** (`pipeline/scripts/compare_embedders.py`; results `pipeline/misc/evd-validation/embedder-comparison/2026-11-25.md`; 200 quote texts each with the screenshot of that quote; one run):
+
+| Model | text to image R@1 / R@5 | image to text R@1 / R@5 | JP merge pair rank (of 351) |
+|---|---|---|---|
+| DNA-VL-STEER-2B (2.1B) | 0.93 / 0.99 | 0.90 / 0.99 | 4 |
+| EmbeddingGemma 2 (740M) | 0.86 / 0.99 | 0.87 / 0.98 | 9 |
+| harrier-oss-v1-0.6b (596M) | text-only, not tested | text-only, not tested | 3 |
+
+- **Reading:** both multimodal models can match a quote screenshot to its text, which suggests a cheap automatic check for the "does this crop show the quote" step (a rule to test: flag a crop whose own text is not the nearest to its image). EmbeddingGemma 2 (Google, US, 740M) comes within a few points of the 2.1B model and passes the origin policy. On title similarity DNA has the widest spread of scores; harrier ranks JP's merge pair highest. One labeled pair and one run: not enough to pick a winner.
