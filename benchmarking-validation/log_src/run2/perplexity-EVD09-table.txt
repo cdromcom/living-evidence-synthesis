@@ -1,0 +1,39 @@
+MODEL pplx-decider-v1.3
+QUESTIONS
+{
+ "table_fig_grounding": {
+  "type": "choice",
+  "instructions": "Does the evidence page show the correct table or figure for the EVD statement's numbers?",
+  "criteria": {
+   "Correct": "A screenshot shows the table or figure that holds the EVD statement's numbers or main finding (the one the caption or the paraphrased text describes), complete enough to read the relevant values.",
+   "Partially Correct": "The right table or figure, but cropped so the relevant cells are missing, or only one of several needed.",
+   "Incorrect": "The screenshots shown are not that table or figure (for example body text only, or a different table or figure).",
+   "Missing": "The EVD statement's numbers appear to come from a table or figure (the caption or paraphrased text mentions one, or the numbers are too detailed to come from the quote alone) but none of the screenshots shown is that table or figure.",
+   "NA": "The EVD statement's numbers are fully given in the quoted text and no table or figure is referenced, so none is needed."
+  }
+ },
+ "screenshots_contain_numbers": {
+  "type": "noul",
+  "instructions": "Do the screenshots shown contain the EVD statement's key numbers?"
+ },
+ "shot1_connects_to_quote": {
+  "type": "noul",
+  "instructions": "Does SCREENSHOT 1 show text or a table or figure that connects to the quoted text?"
+ }
+}
+
+STATE (what the model sees)
+EVD STATEMENT (the claim being checked):
+ChatGPT achieved perfect agreement with human raters on 3 of 12 PRISMA checklist items for systematic reviews but significant discrepancy on eligibility criteria (p=0.028)
+
+QUOTED TEXT:
+"The human and ChatGPT ratings achieved perfect agreement for three items: identifying the report as a systematic review, objectives, and interpretation. Near-complete agreement was observed for information sources, the included studies, synthesis of results, and limitations of the evidence. The alignment scores were lower for the remaining five items, with a statistically significant discrepancy identified for the eligibility criteria." (Alharbi & Asiri, 2024, p. 6)
+
+TABLE/FIGURE CAPTION shown on the evidence page (may be empty):
+(none)
+
+PARAPHRASED TEXT shown under the table/figure (unquoted; may be empty):
+(none)
+
+SCREENSHOT 1 on the evidence page:
+<<image quote-1.png>>

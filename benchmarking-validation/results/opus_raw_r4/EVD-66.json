@@ -1,0 +1,28 @@
+{
+ "evd": 66,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.88,
+   "Partially Met": 0.1,
+   "Unmet": 0.02
+  },
+  "reason": "Quote states the OpenAI o3 model performed the best; hit-rate numbers are missing details."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.12,
+   "Incorrect": 0.84,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.1,
+  "quote_fully_visible": 0.03,
+  "shot_connects": [
+   0.4
+  ],
+  "reason": "Screenshot shows the o4-mini cost-effective sentence, not the quoted 'o3 performed the best' abstract sentence."
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "evd": 6,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.01,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.95,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.08
+  ],
+  "reason": "Screenshot shows the study-aims passage about four LLMs, not the homogeneous-responses sentences."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Only a text passage shown; no table or figure."
+ }
+}

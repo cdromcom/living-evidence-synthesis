@@ -1,0 +1,48 @@
+{
+ "evd": 8,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.92,
+  "reason": "Specific NLP performance on citation accuracy classification: MultiVerS top-20 micro-F1 0.59, macro-F1 0.52."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.03,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives the best model (BM25+MonoT5 top-20, MultiVerS) with 0.59 micro-F1 and 0.52 macro-F1."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.04,
+   "Incorrect": 0.02,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "shot_connects": [
+   0.97,
+   0.8
+  ],
+  "reason": "Screenshot 1 shows 'The best performing model... yielded 0.59 micro-F1 and 0.52 macro-F1 score' word for word."
+ },
+ "table": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.88,
+   "Partially Correct": 0.07,
+   "Incorrect": 0.05,
+   "Missing": 0,
+   "NA": 0
+  },
+  "shot_connects": [
+   0.97,
+   0.8
+  ],
+  "reason": "Screenshot 2 shows Table 4 with Top 20 sentences 0.59/0.52, matching the caption."
+ }
+}

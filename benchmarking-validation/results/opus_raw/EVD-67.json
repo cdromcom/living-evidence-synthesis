@@ -1,0 +1,30 @@
+{
+ "evd": 67,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "Compares OpenReviewer and GPT-4o recommendation scores against human reviewers; clear criticality finding."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.7,
+   "Partially Met": 0.25,
+   "Unmet": 0.05
+  },
+  "reason": "OpenReviewer 5.4 matching humans is quoted; GPT-4o 7.7 is not, quote only says baselines 6.9 and higher."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.95,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "reason": "Screenshot shows the LLM-judge win-rate passage (60% vs GPT4o, 76%), not the 5.4 average recommendation sentence."
+ },
+ "table": null
+}

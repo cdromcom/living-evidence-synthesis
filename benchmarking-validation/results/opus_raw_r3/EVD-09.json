@@ -1,0 +1,1 @@
+{"evd": 9, "quote": {"label": "Partially Correct", "probs": {"Correct": 0.03, "Partially Correct": 0.85, "Incorrect": 0.12, "Missing": 0, "NA": 0}, "p_screenshot_shows_quote": 0.9, "shot_connects": [0.9], "reason": "Only the tail of the last sentence is visible; the first two sentences are cropped out."}}

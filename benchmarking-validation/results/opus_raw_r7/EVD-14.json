@@ -1,0 +1,33 @@
+{
+ "evd": 14,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.01,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.95,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.02,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.1
+  ],
+  "reason": "Screenshot shows an o4-mini cost-effectiveness sentence, not the Claude 3.7 Sonnet 64.9%/16.3% sentence."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.01
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Table 2 is described but not shown; only text."
+ }
+}

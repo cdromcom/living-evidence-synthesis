@@ -1,0 +1,46 @@
+{
+ "evd": 25,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.85,
+  "reason": "GPT-3.5 Pearson 0.651 agreement with human aspect scores given the review; specific accuracy figure."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote gives GPT-3.5 0.651 Pearson when predicting scores given the review; matches."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.4,
+   "Partially Correct": 0.55,
+   "Incorrect": 0.03,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.85,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot shows the passage, but the quote drops 'with humans' after 'good correlation' without marking it."
+ },
+ "table": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.6,
+   "Missing": 0,
+   "NA": 0.32
+  },
+  "shot_connects": [
+   0.5
+  ],
+  "reason": "Paraphrased values come from Table 1 (Pearson 0.651, Spearman 0.659); Table 1 is not shown."
+ }
+}

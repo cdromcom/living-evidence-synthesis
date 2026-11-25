@@ -1,0 +1,46 @@
+{
+ "evd": 14,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.92,
+  "reason": "Specific performance of Claude 3.7 Sonnet detecting errors in papers: 64.9% no problem found, 16.3% hit rate."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.92,
+   "Partially Met": 0.05,
+   "Unmet": 0.03
+  },
+  "reason": "Quote states 64.9% no problem and 16.3% hit rate for Claude 3.7 Sonnet on PDFs; matches statement."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.93,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "shot_connects": [
+   0.15
+  ],
+  "reason": "Screenshot shows the o4-mini cost-effectiveness passage, not the Claude 3.7 Sonnet 64.9%/16.3% sentence."
+ },
+ "table": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.6,
+   "Missing": 0,
+   "NA": 0.35
+  },
+  "shot_connects": [
+   0.1
+  ],
+  "reason": "Paraphrased text cites Table 2 (HR@5 16.3%); screenshot is body text about o4-mini, not Table 2."
+ }
+}

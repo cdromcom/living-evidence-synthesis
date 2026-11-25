@@ -1,0 +1,33 @@
+{
+ "evd": 4,
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.94,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0
+  },
+  "p_screenshot_shows_quote": 1,
+  "quote_fully_visible": 1,
+  "shot_connects": [
+   1
+  ],
+  "reason": "Clean capture of the full highlighted quote sentence with neighbouring lines."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0,
+   "Partially Correct": 0.01,
+   "Incorrect": 0.02,
+   "Missing": 0.95,
+   "NA": 0.02
+  },
+  "shot_connects": [
+   0.03
+  ],
+  "reason": "Statement's numbers come from Table 1 per paraphrase, but only a text screenshot is shown."
+ }
+}

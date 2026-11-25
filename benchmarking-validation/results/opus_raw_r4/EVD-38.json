@@ -1,0 +1,28 @@
+{
+ "evd": 38,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.92,
+   "Partially Met": 0.06,
+   "Unmet": 0.02
+  },
+  "reason": "Table quote ranks GPT-4 Turbo first with score 0.558."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.03,
+   "Partially Correct": 0.04,
+   "Incorrect": 0.93,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "quote_fully_visible": 0.02,
+  "shot_connects": [
+   0.25
+  ],
+  "reason": "Screenshot shows P5 score-distribution text, not the Table 1 ranking."
+ }
+}

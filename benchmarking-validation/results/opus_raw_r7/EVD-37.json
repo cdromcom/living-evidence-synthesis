@@ -1,0 +1,33 @@
+{
+ "evd": 37,
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.06,
+   "Incorrect": 0.91,
+   "Missing": 0.01,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.05,
+  "quote_fully_visible": 0.02,
+  "shot_connects": [
+   0.3
+  ],
+  "reason": "Screenshot shows the GPT-4 Vision flowchart passage, not the pooled F1=0.89 accuracy 90% sentence."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.0,
+   "Partially Correct": 0.02,
+   "Incorrect": 0.02,
+   "Missing": 0.96,
+   "NA": 0.0
+  },
+  "shot_connects": [
+   0.02
+  ],
+  "reason": "Only a text passage is shown; no table or figure."
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "evd": 18,
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.95,
+   "Partially Met": 0.04,
+   "Unmet": 0.01
+  },
+  "reason": "Quote gives base F1 0.63 / 64% improving to fine-tuned F1 0.84 / 83%."
+ },
+ "quote": {
+  "label": "Incorrect",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.95,
+   "Missing": 0.0,
+   "NA": 0.0
+  },
+  "p_screenshot_shows_quote": 0.03,
+  "quote_fully_visible": 0.01,
+  "shot_connects": [
+   0.15
+  ],
+  "reason": "Screenshot shows the GPT-4 Vision flowchart sentence, not the fine-tuning accuracy passage."
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "evd": 63,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.9,
+  "reason": "Specific benchmark performance of o3 on SPOT error detection: 6.1% precision, 21.1% recall."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.78,
+   "Partially Met": 0.2,
+   "Unmet": 0.02
+  },
+  "reason": "Quote gives o3 best with 21.1% recall and 6.1% precision; 37.8% pass@4 is not in the quote."
+ },
+ "quote": {
+  "label": "Correct",
+  "probs": {
+   "Correct": 0.93,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.01,
+   "Missing": 0,
+   "NA": 0.01
+  },
+  "p_screenshot_shows_quote": 0.95,
+  "shot_connects": [
+   0.95
+  ],
+  "reason": "Screenshot shows 'Evaluating state-of-the-art LLMs on SPOT... near zero)' verbatim."
+ },
+ "table": {
+  "label": "Missing",
+  "probs": {
+   "Correct": 0.02,
+   "Partially Correct": 0.03,
+   "Incorrect": 0.2,
+   "Missing": 0.7,
+   "NA": 0.05
+  },
+  "shot_connects": [
+   0.5
+  ],
+  "reason": "The 37.8% pass@4 comes from Table 2 (caption); the only screenshot is abstract text, not Table 2."
+ }
+}

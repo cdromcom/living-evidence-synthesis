@@ -1,0 +1,78 @@
+EVD,claude_relevancy,jp_relevancy,claude_fidelity,jp_fidelity,claude_quote,jp_quote,claude_tablefig,jp_tablefig,claude_quote_mismatch_flag
+1,Irrelevant,Relevant,Partially Met,Met,Partially Correct,Partially Correct,Correct,Missing,0
+2,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+3,Irrelevant,Relevant,Met,Met,Incorrect,Incorrect,Missing,Missing,1
+4,Relevant,Relevant,Partially Met,Partially Met,Partially Correct,Correct,Missing,Missing,0
+5,Relevant,Relevant,Met,Met,Incorrect,Correct,NA,Missing,1
+6,Relevant,Relevant,Met,Met,Incorrect,Correct,Missing,Missing,1
+7,Irrelevant,Relevant,Met,Met,Correct,Correct,NA,Missing,1
+8,Relevant,Relevant,Met,Met,Correct,Correct,Correct,Partially Correct,0
+9,Relevant,Relevant,Partially Met,Met,Partially Correct,Correct,Partially Correct,Partially Correct,1
+10,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+11,Relevant,Relevant,Met,Met,Partially Correct,Correct,Partially Correct,Partially Correct,1
+12,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+13,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+14,Relevant,Relevant,Met,Met,Incorrect,Incorrect,Missing,Missing,1
+15,Relevant,Relevant,Partially Met,Met,Partially Correct,Correct,Missing,Missing,0
+16,Relevant,Relevant,Met,Met,Correct,Correct,Correct,Missing,1
+17,Irrelevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+18,Relevant,Relevant,Met,Met,Incorrect,Correct,Missing,Missing,1
+19,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+20,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+21,Irrelevant,Relevant,Partially Met,Partially Met,Partially Correct,Correct,Correct,Partially Correct,0
+22,Relevant,Relevant,Partially Met,Met,Partially Correct,Correct,Missing,Missing,1
+23,Relevant,Relevant,Partially Met,Met,Incorrect,Incorrect,Missing,Missing,0
+24,Relevant,Relevant,Met,Met,Partially Correct,Correct,Missing,Missing,0
+25,Irrelevant,Relevant,Met,Met,Partially Correct,Correct,Missing,Missing,0
+26,Relevant,Relevant,Partially Met,Met,Correct,Incorrect,Missing,Missing,1
+27,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+28,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+29,Relevant,Relevant,Partially Met,Met,Correct,Correct,Correct,Partially Correct,0
+30,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+31,Relevant,Relevant,Met,Met,Correct,Correct,Correct,Correct,0
+32,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+33,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+34,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+35,Relevant,Relevant,Partially Met,Met,Partially Correct,Correct,Missing,Missing,0
+36,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+37,Relevant,Relevant,Partially Met,Met,Correct,Incorrect,Missing,Missing,0
+38,Relevant,Relevant,Met,Partially Met,Correct,Incorrect,Missing,Missing,1
+39,Relevant,Relevant,Met,Met,Partially Correct,Correct,Missing,Missing,0
+40,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+41,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+42,Relevant,Relevant,Met,Met,Correct,Incorrect,Missing,Missing,0
+43,Irrelevant,Irrelevant,Met,Met,Correct,Correct,Missing,NA,0
+44,Relevant,Relevant,Partially Met,Partially Met,Correct,Correct,Missing,Missing,0
+45,Relevant,Relevant,Partially Met,Met,Incorrect,Missing,Correct,Partially Correct,1
+46,Relevant,Relevant,Partially Met,Partially Met,Correct,Correct,Missing,Missing,0
+47,Relevant,Relevant,Partially Met,Met,Correct,Correct,Correct,Missing,0
+48,Irrelevant,Irrelevant,Met,Met,Correct,Correct,Missing,NA,0
+49,Relevant,Irrelevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+50,Relevant,Relevant,Partially Met,Met,Incorrect,Partially Correct,Missing,Missing,1
+51,Relevant,Relevant,Partially Met,Met,Partially Correct,Correct,Missing,Missing,0
+52,Relevant,Relevant,Partially Met,Met,Partially Correct,Correct,Missing,Missing,0
+53,Relevant,Relevant,Met,Met,Correct,Incorrect,Missing,Missing,0
+54,Relevant,Relevant,Partially Met,Met,Partially Correct,Correct,Missing,Missing,0
+55,Relevant,Relevant,Met,Met,Correct,Incorrect,Missing,Missing,0
+56,Relevant,Relevant,Partially Met,Met,Correct,Incorrect,Missing,Missing,1
+57,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+58,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+59,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+60,Relevant,Irrelevant,Met,Met,Correct,Correct,Missing,Missing,0
+61,Irrelevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+62,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+63,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+64,Relevant,Relevant,Partially Met,Met,Partially Correct,Correct,Missing,Missing,0
+65,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+66,Relevant,Relevant,Partially Met,Met,Incorrect,Correct,Missing,Missing,1
+67,Relevant,Relevant,Partially Met,Partially Met,Correct,Incorrect,Missing,Missing,1
+68,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+69,Relevant,Relevant,Met,Met,Correct,Correct,Missing,Missing,0
+70,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+71,Irrelevant,Irrelevant,Partially Met,Met,Partially Correct,Incorrect,Missing,Missing,1
+72,Relevant,Irrelevant,Met,Met,Correct,Correct,Missing,Missing,0
+73,Relevant,Relevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+74,Irrelevant,Irrelevant,Met,Met,Correct,Correct,Missing,Missing,0
+75,Relevant,Irrelevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+76,Relevant,Irrelevant,Partially Met,Met,Correct,Correct,Missing,Missing,0
+77,Relevant,Relevant,Partially Met,Met,Incorrect,Incorrect,Missing,Missing,1

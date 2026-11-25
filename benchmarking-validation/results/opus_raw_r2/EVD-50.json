@@ -1,0 +1,48 @@
+{
+ "evd": 50,
+ "relevancy": {
+  "label": "Relevant",
+  "p_relevant": 0.75,
+  "reason": "LLM confounder designation inconsistency (kappa .13-.24); LLM reliability on research appraisal task."
+ },
+ "fidelity": {
+  "label": "Met",
+  "probs": {
+   "Met": 0.82,
+   "Partially Met": 0.15,
+   "Unmet": 0.03
+  },
+  "reason": "Quote reports low kappas .16, .21, .24 and .13 across prompting/ordering variations."
+ },
+ "quote": {
+  "label": "Partially Correct",
+  "probs": {
+   "Correct": 0.05,
+   "Partially Correct": 0.5,
+   "Incorrect": 0.43,
+   "Missing": 0,
+   "NA": 0.02
+  },
+  "p_screenshot_shows_quote": 0.4,
+  "shot_connects": [
+   0.8,
+   0.85
+  ],
+  "reason": "Shot 1 shows only start of first quote; shot 2 says Claude kappa .41, GPT-4o .13, quote misattributes .13."
+ },
+ "table": {
+  "label": "NA",
+  "probs": {
+   "Correct": 0.08,
+   "Partially Correct": 0.05,
+   "Incorrect": 0.12,
+   "Missing": 0.02,
+   "NA": 0.73
+  },
+  "shot_connects": [
+   0.8,
+   0.85
+  ],
+  "reason": "Kappa values are in the quoted text; no table or figure referenced."
+ }
+}
