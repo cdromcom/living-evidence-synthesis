@@ -83,7 +83,7 @@ Each layer changes at its own speed. Keep them separate and let changes flow dow
 
 - **Human in the loop.** Nothing enters the vault without a person's spot check. The footer on every page names the models and the human check.
 - **Disclosure.** The GAMER answers (`AI-disclosure.md`), `model-history.md` and per-call logs say what AI did.
-- **Privacy and rights.** PDFs, abstracts, local paths and keys never go to the public repository. Only short verbatim spans are quoted. Downloads are limited to freely available files, listed in chat, and never bypass a paywall or login. Uploaded files are deleted from provider storage at the end of a run.
+- **Privacy and rights.** PDFs, local paths and keys never go to the public repository, and abstracts do not either, except the whole-library screening table that JP asked to keep in the repository (2026-11-26). Only short verbatim spans are quoted. Downloads are limited to freely available files, listed in chat, and never bypass a paywall or login. Uploaded files are deleted from provider storage at the end of a run.
 - **Model origin.** Hosted APIs only from allowed countries (the policy is in `models.json` and enforced in code). Open-weight models may run locally from any country.
 - **Fairness and uncertainty.** Report accuracy against human labels with ranges. Models are benchmarks, not authorities.
 - **Environmental cost.** Prefer local and small models where accuracy allows. Report time and cost per paper.

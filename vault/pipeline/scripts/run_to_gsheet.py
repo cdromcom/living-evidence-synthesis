@@ -82,23 +82,23 @@ def main():
     for ck, p in M['papers'].items():
         if (d / ck / 'checks.json').exists():
             for v in json.load(open(d / ck / 'checks.json')):
-                m = v['summary']['means']; ck_crops.append(v.get('crop')); ck_rows.append([ck, v['id'], v.get('tier', ''), v.get('statement', '')[:300], m.get('relevancy', ''), m.get('fidelity', ''), m.get('quote_grounding', ''), m.get('table_figure_grounding', ''), v['summary']['score'], v['summary']['spread'], '; '.join(v.get('why_vision', [])),
+                m = v['summary']['means']; ck_crops.append(v.get('crop')); ck_rows.append([ck, v['id'], v.get('tier', ''), v.get('statement', '')[:300], m.get('relevancy', ''), m.get('fidelity', ''), (m.get('numbers_in_source', m.get('quote_grounding', ''))), (m.get('table_cell_matches', m.get('table_figure_grounding', ''))), v['summary']['score'], v['summary']['spread'], '; '.join(v.get('why_vision', [])),
                                                          (v.get('sol') or {}).get('overall', ''), (v.get('sol') or {}).get('reason', ''), (v.get('opus') or {}).get('overall', ''), (v.get('opus') or {}).get('reason', ''), v.get('final', ''), '', '', ''])
         if (d / ck / 'drafts.json').exists():
             dd = json.load(open(d / ck / 'drafts.json'))
             def txt_of(x): return x.get('statement') or x.get('title') or x.get('limitation') or ''
             for nid, f in dd.get('finals', {}).items():
                 n = f['node']; alts = [txt_of(dd['authors'].get(a_, {}).get('r0', {}).get(nid, {})) for a_ in ('sonnet', 'sol', 'neon')]
-                cc = f.get('detail_check') or f.get('claim_check') or {}; lt = f['lint']
+                cc = f.get('detail_check') or f.get('claim_check') or {}; lt = f.get('writing_rules') or f['lint']
                 dr_rows.append([ck, nid, n.get('type', ''), n.get('tier', ''), f['author'], f['how'], txt_of(n), lt.get('chars', ''), lt.get('fk_grade', ''), 'yes' if lt.get('pass') else 'no', ', '.join(lt.get('numbers_not_on_card', [])), cc.get('overall', ''), cc.get('fix', ''), cc.get('checker', ''), (f.get('dm') or {}).get('score', ''), f.get('status', ''), alts[0], alts[1], alts[2], '', '', '', ''])
         if (d / ck / 'quality_signals.json').exists():
             q = json.load(open(d / ck / 'quality_signals.json'))
             for x in q['raw']: qr_rows.append([ck, x['signal'], x['rater'], 'yes' if x['counted'] else 'benchmark only', x['rating'], x['quote'][:400], x['locator'], '' if x['quote_found'] is None else ('yes' if x['quote_found'] else 'NO')])
             for x in q['aggregate']: qa_rows.append([ck, x['signal'], ', '.join(f'{k}: {v}' for k, v in x['votes'].items()), x['majority'], x['agreement'], x['quotes_not_found'], '', ''])
     if ck_rows:
-        ws2 = tab('Checks (decision models)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Quote grounding', 'Table or figure grounding', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30], jp_from=18, img=(17,))
+        ws2 = tab('Checks (decision models)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30], jp_from=18, img=(17,))
         for i, cp in enumerate(ck_crops, 2): put_image(ws2, d, i, 17, cp, 440, thumbs)
-    if dr_rows: tab('Drafts and debate', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Lint pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
+    if dr_rows: tab('Drafts and debate', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
     # ---- EVDs whose decision-model score is below the threshold: what the models saw and what they scored, for JP to suggest changes
     import re as _re
     lowrows = []
@@ -111,8 +111,8 @@ def main():
             n = f['node']; fnd = src.get(n.get('source_id'), {}); spans = ' | '.join(x.get('text', '') for x in fnd.get('spans', [])); st_ = n.get('statement', '')
             missing = sorted({t for t in _re.findall(r'\d+(?:\.\d+)?', st_) if len(t.replace('.', '')) >= 2 and t not in spans})
             m = dmv['means']; low_q = min(m, key=m.get) if m else ''
-            lowrows.append([ck, nid, n.get('tier', ''), st_, m.get('fidelity', ''), m.get('quote_grounding', ''), dmv['score'], low_q, (f.get('detail_check') or f.get('claim_check') or {}).get('overall', 'not checked'), ', '.join(missing), len(spans), spans, nums(fnd), '', ''])
-    if lowrows: tab('Low decision-model scores', ['Paper', 'Node', 'Tier', 'Drafted EVD statement', 'Fidelity', 'Quote grounding', 'Score (lowest)', 'Lowest question', 'Node-detail check', 'Numbers in the statement that are not in the source span', 'Source span length (characters)', 'Source span(s) the models saw', 'Numbers with locators the models saw', 'JP: suggested change', 'JP: notes'], lowrows, [30, 8, 10, 70, 9, 9, 9, 14, 12, 24, 10, 70, 50, 30, 30], jp_from=14)
+            lowrows.append([ck, nid, n.get('tier', ''), st_, m.get('fidelity', ''), (m.get('numbers_in_source', m.get('quote_grounding', ''))), dmv['score'], low_q, (f.get('detail_check') or f.get('claim_check') or {}).get('overall', 'not checked'), ', '.join(missing), len(spans), spans, nums(fnd), '', ''])
+    if lowrows: tab('Low decision-model scores', ['Paper', 'Node', 'Tier', 'Drafted EVD statement', 'Fidelity', 'Numbers found in source', 'Score (lowest)', 'Lowest question', 'Node-detail check', 'Numbers in the statement that are not in the source span', 'Source span length (characters)', 'Source span(s) the models saw', 'Numbers with locators the models saw', 'JP: suggested change', 'JP: notes'], lowrows, [30, 8, 10, 70, 9, 9, 9, 14, 12, 24, 10, 70, 50, 30, 30], jp_from=14)
     if qr_rows: tab('Quality signals (raw)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10])
     if qa_rows: tab('Quality signals (vote)', ['Paper', 'Signal', 'Votes', 'Majority', 'Agreement', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 40, 16, 10, 10, 16, 30], jp_from=7)
     qg = d / 'question_groups.tsv'
@@ -148,7 +148,7 @@ def main():
         if (d / ck / 'drafts.json').exists():
             dd = json.load(open(d / ck / 'drafts.json'))
             for f in dd.get('finals', {}).values():
-                nodes[f['node'].get('type')] += 1; how[f['how']] += 1; lintp[1] += 1; lintp[0] += 1 if f['lint'].get('pass') else 0; st_[f.get('status')] += 1; ccp[(f.get('detail_check') or f.get('claim_check') or {}).get('overall', 'not checked')] += 1
+                nodes[f['node'].get('type')] += 1; how[f['how']] += 1; lintp[1] += 1; lintp[0] += 1 if (f.get('writing_rules') or f['lint']).get('pass') else 0; st_[f.get('status')] += 1; ccp[(f.get('detail_check') or f.get('claim_check') or {}).get('overall', 'not checked')] += 1
         if (d / ck / 'quality_signals.json').exists():
             q = json.load(open(d / ck / 'quality_signals.json'))
             for x in q['aggregate']: qsd[0] += 1; qsd[1] += 0 if x.get('adjudicated') else 1; qsd[2] += 1 if x.get('adjudicated') else 0; qsd[3] += 1 if x['majority'] == 'no majority' else 0
@@ -163,7 +163,7 @@ def main():
     if finals: mrow('Checks (decision models, Sol vision on every crop)', 'Outcomes', ', '.join(f'{k}: {v}' for k, v in finals.most_common()), 'cannot verify = the crop does not show enough; a person looks'); mrow('Checks (decision models, Sol vision on every crop)', 'Mean decision-model score', f'{sum(dmscore) / len(dmscore):.2f}')
     if nodes:
         mrow('Drafting', 'Nodes written', ', '.join(f'{k}: {v}' for k, v in nodes.most_common())); mrow('Drafting', 'How the winning text was chosen', ', '.join(f'{k}: {v}' for k, v in how.most_common()), 'only primary EVDs are debated; everything else is one draft by Sonnet 5.5')
-        mrow('Drafting accuracy (lint and node-detail check)', 'Lint pass (length, numbers on the card, reading grade, no em dash)', f'{lintp[0]} of {lintp[1]} ({100 * lintp[0] / max(lintp[1], 1):.0f}%)'); mrow('Drafting accuracy (lint and node-detail check)', 'Node-detail check overall', ', '.join(f'{k}: {v}' for k, v in ccp.most_common())); mrow('Drafting accuracy (lint and node-detail check)', 'Status', ', '.join(f'{k}: {v}' for k, v in st_.most_common()))
+        mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Writing-rules check pass (length, numbers on the card, plain-language grade, no em dash)', f'{lintp[0]} of {lintp[1]} ({100 * lintp[0] / max(lintp[1], 1):.0f}%)'); mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Node-detail check overall', ', '.join(f'{k}: {v}' for k, v in ccp.most_common())); mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Status', ', '.join(f'{k}: {v}' for k, v in st_.most_common()))
     if qsd[0]: mrow('Quality signals', 'Signals rated', qsd[0]); mrow('Quality signals', 'Neon (High) and Opus agree', f'{qsd[1]} of {qsd[0]} ({100 * qsd[1] / qsd[0]:.0f}%)'); mrow('Quality signals', 'Sol adjudicated', qsd[2]); mrow('Quality signals', 'Still no majority', qsd[3]); mrow('Quality signals', 'Quotes not found in the PDF', f'{qnf[0]} of {qnf[1]}')
     mrow('About these numbers', 'Accuracy here means agreement between automatic checkers', '', 'It is not accuracy against a person. Fill in the yellow JP columns on the other tabs and these metrics can be recomputed against your labels.')
     tab('Metrics', ['Area', 'Metric', 'Value', 'Note'], mrows, [38, 70, 40, 70])

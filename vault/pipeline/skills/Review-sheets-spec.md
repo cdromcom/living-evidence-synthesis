@@ -22,8 +22,8 @@ Goal: a human can follow every step of a run, see each model's work, and add gro
 ### Added tabs (built 2026-11-25)
 | Tab | Content | JP columns |
 |---|---|---|
-| Checks (decision models) | per finding: mean probability for relevancy, fidelity, quote grounding and table or figure grounding, the score (lowest mean), the spread between the three models, why Sol looked, Sol's vision verdict and reason, Opus on disputes, result | is the finding right?, notes |
-| Drafts and debate | per node (EVD, QUE, CLM, CVT): winner and how it was decided (Sol and Sonnet agree, or Neon tie-break), text, characters, reading grade, lint, node-detail check and suggested fix, decision-model score, status, the three first drafts | best text or your own, fidelity, style, notes |
+| Checks (decision models) | per finding: mean probability for relevancy, fidelity, numbers-in-source and table-cell match, the score (lowest mean), the spread between the three models, why Sol looked, Sol's vision verdict and reason, Opus on disputes, result | is the finding right?, notes |
+| Drafts and debate | per node (EVD, QUE, CLM, CVT): winner and how it was decided (Sol and Sonnet agree, or Neon tie-break), text, characters, reading grade, writing-rules check, node-detail check and suggested fix, decision-model score, status, the three first drafts | best text or your own, fidelity, style, notes |
 | Quality signals (raw) | one row per paper, signal and rater: rating, verbatim quote, locator, quote found in the PDF; Neon (High) and Opus rate; Sol adds a third rating only where they disagreed | none |
 | Metrics | time, cost, accuracy according to the checkers, per stage and overall (a plain list, no labels) | none |
 | Question groups | unified, nested questions proposed from the papers' own questions (`consolidate_questions.py`) | group right, better wording |
@@ -40,7 +40,7 @@ Goal: a human can follow every step of a run, see each model's work, and add gro
 
 ## 4. Rules for all review sheets
 - Data comes from the run folder (`pipeline/runs/<run>/`), never typed by hand; the sheet is rebuilt, not edited, except in JP's columns.
-- Abstracts and local file paths stay out of the public repository; sheets are private Google Sheets.
+- Local file paths stay out of the public repository, and so do abstracts, with one exception: at JP's request (2026-11-26) the whole-library screening table, `pipeline/screening/2026-11-25_Zotero-all-libraries/data/papers_categories-and-model-votes.tsv`, is in the repository with its abstracts. Sheets are private Google Sheets.
 - Every row has a stable id (paper, node, finding, rater) so JP's labels can be merged into a rebuilt sheet.
 
 
