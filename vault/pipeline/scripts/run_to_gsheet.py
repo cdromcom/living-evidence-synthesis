@@ -11,7 +11,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
-sys.path.insert(0, str(Path(__file__).resolve().parent)); import call_logger as cl
+sys.path.insert(0, str(Path(__file__).resolve().parent)); import call_logger as cl, sheet_style as SS, config as C
 HDR = Font(bold=True, color='FFFFFF'); FILL = PatternFill('solid', fgColor='2F5D3A'); JP = PatternFill('solid', fgColor='FFF2CC'); WRAP = Alignment(wrap_text=True, vertical='top')
 def nums(f): return '; '.join(f"{n.get('label', '')}: {n.get('value', '')}{n.get('unit', '')} (p. {n.get('printed_page', '')}, {n.get('table_or_figure', '')} {n.get('row', '')} {n.get('column', '')})".strip() for n in f.get('numbers', []))
 def put_image(ws, d, row, col, path, width, thumbs):
@@ -35,21 +35,24 @@ def first(globs):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--out'); a = ap.parse_args(); d = cl.RUNS / a.run; M = json.load(open(d / 'manifest.json')); wb = Workbook(); wb.remove(wb.active); thumbs = d / '_thumbs'
-    def tab(title, header, rows, widths, jp_from=None):
+    def tab(title, header, rows, widths, jp_from=None, img=()):
         ws = wb.create_sheet(title); ws.append(header)
-        for i, c in enumerate(ws[1], 1):
-            c.font = HDR; c.fill = FILL; c.alignment = WRAP
-            if jp_from and i >= jp_from: c.fill = PatternFill('solid', fgColor='B8860B')
         for r in rows: ws.append(r)
-        for i, w in enumerate(widths, 1): ws.column_dimensions[get_column_letter(i)].width = w
-        ws.freeze_panes = 'C2'; return ws
+        SS.polish(ws, jp_from=jp_from, image_cols=img); ws.freeze_panes = 'C2'; return ws
     ab = wb.create_sheet('ABOUT'); ab.column_dimensions['A'].width = 26; ab.column_dimensions['B'].width = 120
-    for k, t in [('Run', f"{M['run_id']} ({M['mode']} mode, cap ${M['cap_usd']}, spent ${M['spent_usd']:.2f}, status {M['status']}). Research question: {M.get('question') or 'not given'}"),
-                 ('Steps (in order)', '1 Neon extracts findings in three tiers (primary answers the RQ; secondary is meta or contextual about a primary finding; tertiary is other context). 2 PyMuPDF finds every quoted span, boxes it and checks each number is on the page. 3 GPT-6.2 Sol re-extracts flagged findings blind. 4 Claude Opus 5.5 adjudicates disagreements. 5 You review (this sheet). Later: decision-model gates, drafts and debate, quality-signal ratings.'),
-                 ('How to review', 'Go to the Findings tab. Sort by Flags and Tier. Yellow-headed columns are yours: say whether the tier, statement and numbers are right, add findings that were missed, and note why. Your labels are the ground truth for later accuracy numbers.'),
-                 ('Flags', 'low_confidence (Neon says so); multi_page (cited on more than one page); span_not_found, span_on_other_page, number_not_in_pdf_text (the quote or number was not found where it should be); no_text_layer (scanned).'),
-                 ('Costs', 'See Calls and cost. Batch mode is about half price; the cap is a hard limit per batch.')]:
-        ab.append([k, t]); ab.cell(ab.max_row, 1).font = Font(bold=True); ab.cell(ab.max_row, 1).alignment = WRAP; ab.cell(ab.max_row, 2).alignment = WRAP
+    pq = C.PIPE.get('project_question', '')
+    items = [('Run', f"{M['run_id']}: {M['mode']} mode, spent ${M['spent_usd']:.2f} of a ${M['cap_usd']} cap, status {M['status']}."),
+             ('Project question', pq or M.get('question') or 'not given'),
+             ('Step 1', 'Gemini 4 Neon extracts the paper\'s questions (Abstract and Introduction) and its findings in three tiers: primary answers a question directly, secondary qualifies a primary finding, tertiary is other context.'),
+             ('Step 2', 'PyMuPDF finds every quoted span, boxes it and checks the numbers. Findings that look doubtful are flagged.'),
+             ('Step 3', 'GPT-6.2 Sol re-reads flagged findings blind, and Claude Opus 5.5 decides when Sol and Neon disagree.'),
+             ('Step 4', 'Decision models and GPT-6.2 Sol look at a crop of every finding: pass, fail or cannot verify (cannot verify goes to you).'),
+             ('Step 5', 'Drafting: three models debate each primary EVD; Sonnet 5.5 drafts everything else once. Quality signals: Neon (High) and Opus rate, Sol decides disagreements.'),
+             ('Step 6', 'You review this sheet. Your labels become the ground truth for the accuracy numbers.'),
+             ('How to review', 'Start with the Findings tab. Sort by Flags and Tier. Yellow columns are yours: say whether the tier, statement and numbers are right, add findings that were missed, and note why.'),
+             ('Flags', 'low_confidence: Neon says it is unsure. multi_page: the evidence is on more than one page. span_not_found and span_on_other_page: the quote is not where it should be. number_not_in_pdf_text: fewer than half of its numbers are in the PDF text. no_text_layer: scanned PDF.'),
+             ('Costs', 'See Metrics and Calls and cost. Batch mode is about half price; the cap is a hard limit per batch.')]
+    for k, t in items: ab.append([k, t])
     prow = []; frow = []; crow = []; rrow = []; fkeys = []; ckeys = []
     for ck, p in M['papers'].items():
         pj = d / ck / 'picost.json'
@@ -65,14 +68,13 @@ def main():
     frow = [r[:19] + ['', ''] + r[19:] for r in frow]; crow = [r[:8] + [''] + r[8:] for r in crow]
     tab('Papers', ['Paper', 'File', 'Pages', 'Status', 'Findings primary / secondary / tertiary', 'Flagged', 'Disagreements', 'Cost USD'], prow, [40, 50, 7, 12, 22, 9, 12, 10])
     ws = tab('Findings', ['Paper', 'Id', 'Tier', 'Why this tier', 'Supports', 'Statement (Neon)', 'Population', 'Intervention', 'Comparator', 'Outcome', 'Study design', 'Timeframe', 'Numbers with locators', 'Confidence', 'Flags', 'Sent to recheck', 'Sol vs Neon', 'Opus verdict', 'Merged screenshot', 'Evidence crop (image)', 'Highlighted page (image)', 'Answers question(s)',
-                      'JP: tier right? (yes/no)', 'JP: correct tier', 'JP: statement and numbers right? (yes/no)', 'JP: missed finding (describe)', 'JP: notes'], frow, [30, 6, 10, 30, 10, 60, 22, 22, 22, 22, 18, 14, 50, 10, 24, 9, 10, 10, 22, 60, 50, 14, 12, 12, 14, 30, 30], jp_from=23)
+                      'JP: tier right? (yes/no)', 'JP: correct tier', 'JP: statement and numbers right? (yes/no)', 'JP: missed finding (describe)', 'JP: notes'], frow, [30, 6, 10, 30, 10, 60, 22, 22, 22, 22, 18, 14, 50, 10, 24, 9, 10, 10, 22, 60, 50, 14, 12, 12, 14, 30, 30], jp_from=23, img=(20, 21))
     for i, (ck_, f_) in enumerate(fkeys, 2):
         pd = d / ck_; hl = sorted((pd / 'highlights').glob(f"{f_['id']}_s*_p*.png")); mg = (pd / 'highlights' / f_['merged_screenshot']) if f_.get('merged_screenshot') else None
         put_image(ws, d, i, 20, pd / 'crops' / f"{f_['id']}.png", 420, thumbs); put_image(ws, d, i, 21, mg if (mg and mg.exists()) else (hl[0] if hl else None), 340, thumbs)
-    for col in range(23, 28): ws.cell(1, col).fill = PatternFill('solid', fgColor='B8860B')
     dv = DataValidation(type='list', formula1='"yes,no,unsure"', allow_blank=True); ws.add_data_validation(dv); dv.add(f'W2:W{ws.max_row + 1}'); dv.add(f'Y2:Y{ws.max_row + 1}')
     dv2 = DataValidation(type='list', formula1='"primary,secondary,tertiary,not an EVD"', allow_blank=True); ws.add_data_validation(dv2); dv2.add(f'X2:X{ws.max_row + 1}'); ws.auto_filter.ref = ws.dimensions
-    wsc = tab('Checks', ['Paper', 'Finding', 'Span', 'Quoted span (verbatim)', 'Page cited', 'Found in PDF text', 'Pages where found', 'Word boxes', 'Highlighted page (image)', 'JP: quote correct? (yes/no)', 'JP: notes'], crow, [30, 8, 6, 60, 9, 10, 14, 9, 40, 14, 30], jp_from=10)
+    wsc = tab('Checks', ['Paper', 'Finding', 'Span', 'Quoted span (verbatim)', 'Page cited', 'Found in PDF text', 'Pages where found', 'Word boxes', 'Highlighted page (image)', 'JP: quote correct? (yes/no)', 'JP: notes'], crow, [30, 8, 6, 60, 9, 10, 14, 9, 40, 14, 30], jp_from=10, img=(9,))
     for i, (ck_, fid_, k_) in enumerate(ckeys, 2):
         h_ = sorted((d / ck_ / 'highlights').glob(f'{fid_}_s{k_}_p*.png')); put_image(wsc, d, i, 9, h_[0] if h_ else None, 300, thumbs)
     tab('Rechecks', ['Paper', 'Finding', 'Neon numbers', 'Sol numbers', 'Compare', 'Opus verdict (A = Neon, B = Sol)', 'Opus reason', 'JP: who is right? (Neon, Sol, neither)', 'JP: notes'], rrow, [30, 8, 40, 40, 10, 14, 60, 16, 30], jp_from=8)
@@ -94,7 +96,7 @@ def main():
             for x in q['raw']: qr_rows.append([ck, x['signal'], x['rater'], 'yes' if x['counted'] else 'benchmark only', x['rating'], x['quote'][:400], x['locator'], '' if x['quote_found'] is None else ('yes' if x['quote_found'] else 'NO')])
             for x in q['aggregate']: qa_rows.append([ck, x['signal'], ', '.join(f'{k}: {v}' for k, v in x['votes'].items()), x['majority'], x['agreement'], x['quotes_not_found'], '', ''])
     if ck_rows:
-        ws2 = tab('Checks (decision models)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Quote grounding', 'Table or figure grounding', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30], jp_from=18)
+        ws2 = tab('Checks (decision models)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Quote grounding', 'Table or figure grounding', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30], jp_from=18, img=(17,))
         for i, cp in enumerate(ck_crops, 2): put_image(ws2, d, i, 17, cp, 440, thumbs)
     if dr_rows: tab('Drafts and debate', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Lint pass', 'Numbers not on the card', 'Claim check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
     if qr_rows: tab('Quality signals (raw)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10])
@@ -156,5 +158,6 @@ def main():
     for l in (f.read_text().splitlines() if f.exists() else []):
         r = json.loads(l); crows.append([r.get('ts_utc', '')[:19], r.get('citekey', ''), r.get('step', ''), r.get('model', ''), r.get('effort', ''), r.get('tokens_in'), r.get('tokens_out'), r.get('cost_usd_est'), (r.get('notes') or '')[:80]])
     tab('Calls and cost', ['Time (UTC)', 'Paper', 'Step', 'Model', 'Effort', 'Tokens in', 'Tokens out (incl. thinking)', 'Cost USD (list price; batch is half)', 'Notes'], crows, [20, 30, 12, 20, 8, 10, 14, 14, 50])
+    SS.polish_about(ab)
     out = a.out or str(d / 'review.xlsx'); wb.save(out); print('saved', out, '| findings', len(frow), '| spans', len(crow))
 if __name__ == '__main__': main()

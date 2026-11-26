@@ -268,3 +268,8 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - Runs: `2026-11-25_batch02` (Bougie, Sarol, Tyser), `2026-11-25_batch03` (random seed sample: Idahl and Ahmadi, Shahid, Hasan, Liu and Shah), `2026-11-25_batch04` (Woelfle alone, standard mode: 12 minutes for the whole pipeline, $4.60).
 - Bugs fixed: Neon (High) quality-signal budget too small (all ratings lost); claim check read only the primary part of the card (mass false fails); two batches submitting at once shared one temp file; the straggler timer started at once for a one-request stage; `vision-check-v2` returned cannot_verify for 80% of findings (now `vision-check-v3`); findings with no crop were shown as "needs JP" (now "cannot verify"); Gemini batch refuses more than 65,536 output tokens, so large extractions (Woelfle) need standard mode and a 25-minute timeout.
 - Open: about half of the "cannot verify" results have no crop because the quoted span was not found in the PDF text; claim-check fails are 30% of nodes and have not been reviewed; the Jev decision model returned an unknown-model error in earlier runs.
+
+## 2026-11-26: sheets restyled and filed
+- All sheet builders now share `sheet_style.py` (Lato, Butterick and Few rules; see Review-sheets-spec.md). The three review sheets and both screening sheets were rebuilt and re-uploaded (none had JP labels yet).
+- Drive: private folder `SysRev LLMApp (LIVES)` with subfolders 01 to 04 and 99; every LIVES sheet except JP's two AAA Benchmarking sheets was moved in and renamed to `LIVES - <Area> - <date> - <what>`. New screening sheet ids are in TODO.md.
+- The old whole-library screening sheet was moved to 99 Archive instead of trashed (the trash call was blocked); trash it when ready.

@@ -42,3 +42,19 @@ Goal: a human can follow every step of a run, see each model's work, and add gro
 - Data comes from the run folder (`pipeline/runs/<run>/`), never typed by hand; the sheet is rebuilt, not edited, except in JP's columns.
 - Abstracts and local file paths stay out of the public repository; sheets are private Google Sheets.
 - Every row has a stable id (paper, node, finding, rater) so JP's labels can be merged into a rebuilt sheet.
+
+
+## Where the sheets live and how they look (JP, 2026-11-26)
+
+**Drive folder** (private, owner only): `SysRev LLMApp (LIVES)`, with subfolders `01 Screening`, `02 Pipeline review sheets`, `03 AI raters and quality signals`, `04 Vault review` and `99 Archive (superseded)`.
+
+**File names** follow one pattern: `LIVES - <Area> - <YYYY-MM-DD> - <what it is>`. Areas: Screening, Pipeline review (add the batch id), Quality signals, AI rater, Vault review, Archive (replaces the area for superseded sheets and says what superseded it).
+
+**Look** (`pipeline/scripts/sheet_style.py`, used by every sheet builder; Butterick's Practical Typography for the text and Stephen Few's Show Me the Numbers, chapter 8, for the table):
+1. Lato 10, never a default font; bold only for column headers; no italics, underlines or capitals for emphasis.
+2. No gridlines. One dark rule under the header. Fills are limited to a faint grey zebra stripe, the yellow JP input columns and the light green screening rows.
+3. Numbers and brief words or phrases (up to 22 characters) are centered. Longer text is left aligned and wraps with a small indent. Each header is aligned like its data.
+4. Every column is sized to its data; wrapped text stops at a comfortable line length (about 45 to 75 characters).
+5. One number format per column (same decimals, dollars with a sign).
+6. ABOUT tabs: bold key column and one text column about 85 characters wide; steps are listed one per row.
+A new builder calls `polish(ws, jp_from=..., image_cols=...)` after the rows are in; an existing Google Sheet can be styled in place with `sheets_requests`, which leaves labels alone.
