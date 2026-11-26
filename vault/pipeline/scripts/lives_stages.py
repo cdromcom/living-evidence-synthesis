@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """Stages after extraction for lives_run.py (JP, 2026-11-25): checks, drafting by debate, quality-signal rating.
 
-  checks   decision models (relevancy, fidelity, quote grounding, table or figure grounding) score every extracted finding; the mean probability and the spread
-           between the three models say how much to trust it. Findings that are flagged, low-confidence, split or in a 10% random sample get a GPT-6.2 Sol
-           look at the crop (vision); only the rare disagreements between the checks and Sol go to Claude Opus 5.5.
-  draft    EVD, QUE, CLM and CVT nodes written by debate: Sonnet 5.5, GPT-6.2 Sol and Gemini 4 Neon (Medium) draft, critique and revise (one critique round;
-           a second is specified but not built); Sol and Sonnet vote, Neon breaks ties; the cheaper of Sol and Sonnet that did not write the winner checks every
-           claim; decision models check fidelity. Inkling 2 Small writes the nodes too and votes, as a benchmark only.
-  qs       quality signals rated blind by Opus 5.5, Sol and Neon (Medium); majority vote; Inkling rates as a benchmark only. Everything is saved for the sheets.
+  checks   two decision models (Perplexity Decider 1.3 and Liquid d1-ultra) score every extracted finding on relevancy, fidelity, numbers found in the source and (for
+           tables and figures) table-cell match; GPT-6.2 Sol looks at the crop of every finding (pass, fail or cannot verify); only disagreements go to Claude Opus 5.5.
+  draft    EVD, QUE, CLM and CVT nodes. Primary EVDs are written by debate (Sonnet 5.5, GPT-6.2 Sol and Gemini 4 Neon draft, critique and revise; Sol and Sonnet vote,
+           Neon breaks ties); everything else is one Sonnet 5.5 draft. Every node gets the writing-rules check; EVD, CLM and CVT get the node-detail check by the cheaper
+           of Sol and Sonnet that did not write it; EVDs also get a decision-model check.
+  qs       quality signals rated blind by Neon (High) and Opus 5.5; GPT-6.2 Sol decides only the signals where they disagree. Everything is saved for the sheets.
 Nothing here writes to the vault. Outputs go to pipeline/runs/<run>/<paper>/ and the review sheet."""
 import concurrent.futures as cf, hashlib, json, os, random, re, sys, time
 from pathlib import Path
@@ -141,7 +140,7 @@ def card_text(M, ck, part='all'):
     return json.dumps(card, ensure_ascii=False)
 
 
-# ---------------------------------------------------------------- lint
+# ---------------------------------------------------------------- writing-rules check
 def syllables(w):
     w = re.sub(r'[^a-z]', '', w.lower()); n = len(re.findall(r'[aeiouy]+', w)); n -= 1 if w.endswith('e') and n > 1 else 0; return max(n, 1)
 def fk_grade(t):
@@ -150,8 +149,8 @@ def fk_grade(t):
     return round(0.39 * len(w) / len(s) + 11.8 * sum(syllables(x) for x in w) / len(w) - 15.59, 1)
 
 
-def lint(node, card_nums):
-    """Free checks: EVD at most 247 characters, every number in the statement is on the card, readability grade; QUE ends with a question mark; the others have a quote."""
+def writing_rules(node, card_nums):
+    """The writing-rules check (called lint until 2026-11-26): free and deterministic. EVD at most 247 characters, every number in the statement is on the card, readability grade; QUE ends with a question mark; the others have a quote."""
     out = {}; t = node.get('type'); txt = node.get('statement') or node.get('title') or node.get('limitation') or ''
     out['chars'] = len(txt); out['fk_grade'] = fk_grade(txt)
     if t == 'EVD':
@@ -183,9 +182,9 @@ def dm_state(M, f, qs=None):
 def dm_questions(M, text_kind='finding', table=True):
     q = {'relevancy': dm.noul('Does this finding directly answer one of the questions listed, or help interpret an answer to it?'),
             'fidelity': dm.noul(f'Does the {text_kind} say exactly what the numbers and source span support, with no added or changed number, model, comparator, direction or claim?'),
-            'quote_grounding': dm.noul('Is every number in the finding stated in the source span, attributed to the right model or condition?'),
-            'table_figure_grounding': dm.noul('Does the table or figure cell named in the numbers (row and column) show the stated values?')}
-    if not table: q.pop('table_figure_grounding')   # a finding stated in prose has no table or figure to ground against (the first smoke test scored such findings about 0.47 and sent every one to Sol)
+            'numbers_in_source': dm.noul('Is every number in the finding found either in the source span or in the Numbers list (with its table or figure location), and attributed to the right model or condition?'),
+            'table_cell_matches': dm.noul('Does the table or figure cell named in the numbers (row and column) show the stated values?')}
+    if not table: q.pop('table_cell_matches')   # a finding stated in prose has no table or figure to ground against (the first smoke test scored such findings about 0.47 and sent every one to Sol)
     return q
 
 
@@ -281,7 +280,7 @@ def nodes_of(j): return {n['id']: n for n in (j or {}).get('nodes', []) if isins
 def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v2.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('node-detail-check-v1.md')
+    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v3.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('node-detail-check-v1.md')
     cards = {ck: card_text(M, ck, 'primary') for ck in papers}; rest = {ck: card_text(M, ck, 'rest') for ck in papers}; full = {ck: card_text(M, ck, 'all') for ck in papers};   # the claim check reads the whole extraction, not just the primary part
     cn = {ck: card_numbers(M, ck) for ck in papers}; cn_all = cn; data = {ck: {'authors': {}} for ck in papers}
     # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
@@ -290,27 +289,27 @@ def stage_draft(M, mode):
     st['prompt'] = 'pipeline/prompts/draft-nodes-v2.md'; r0 = dispatch(M, 'draft_r0', reqs, mode)
     for ck in papers:
         for a, _, _ in AUTHORS:
-            j = safe_json(r0.get(f'{ck}__r0-{a}') or L.Res('', False)); nodes = nodes_of(j); data[ck]['authors'][a] = {'r0': nodes, 'r0_lint': {i: lint(n, cn[ck]) for i, n in nodes.items()}}
+            j = safe_json(r0.get(f'{ck}__r0-{a}') or L.Res('', False)); nodes = nodes_of(j); data[ck]['authors'][a] = {'r0': nodes, 'r0_writing_rules': {i: writing_rules(n, cn[ck]) for i, n in nodes.items()}}
     for ck in papers:
-        sj = nodes_of(safe_json(r0.get(f'{ck}__single') or L.Res('', False))); data[ck]['single'] = {'author': AUTHORS[0][0], 'nodes': sj, 'lint': {i: lint(n, cn_all[ck]) for i, n in sj.items()}, 'failed': not sj}
-    # round 1: each author sees all three drafts (anonymous, shuffled) with lint results and revises
+        sj = nodes_of(safe_json(r0.get(f'{ck}__single') or L.Res('', False))); data[ck]['single'] = {'author': AUTHORS[0][0], 'nodes': sj, 'writing_rules': {i: writing_rules(n, cn_all[ck]) for i, n in sj.items()}, 'failed': not sj}
+    # round 1: each author sees all three drafts (anonymous, shuffled) with writing-rules check results and revises
     reqs = []; order = {}
     for ck in papers:
         have = [a for a, _, _ in AUTHORS if data[ck]['authors'][a]['r0']]
         for a, m, e in AUTHORS:
-            idx = shuffle_labels(rng, have); order[(ck, a)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r0'].values()), 'lint': data[ck]['authors'][h]['r0_lint']} for k, h in enumerate(order[(ck, a)])}
+            idx = shuffle_labels(rng, have); order[(ck, a)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r0'].values()), 'writing_rules': data[ck]['authors'][h]['r0_writing_rules']} for k, h in enumerate(order[(ck, a)])}
             if have: reqs.append(L.Req(f'{ck}__r1-{a}', m, f'Extraction:\n{cards[ck]}\n\nDrafts:\n{json.dumps(blob, ensure_ascii=False)}\n\nCritique and revise now.', sys1, None, e, 14000))
-    st['prompt'] = 'pipeline/prompts/critique-revise-v2.md'; r1 = dispatch(M, 'draft_r1', reqs, mode)
+    st['prompt'] = 'pipeline/prompts/critique-revise-v3.md'; r1 = dispatch(M, 'draft_r1', reqs, mode)
     for ck in papers:
         for a, _, _ in AUTHORS:
-            j = safe_json(r1.get(f'{ck}__r1-{a}') or L.Res('', False)); d = data[ck]['authors'][a]; d['critiques'] = (j or {}).get('critiques', []); d['r1'] = nodes_of((j or {}).get('revised')) or d['r0']; d['r1_lint'] = {i: lint(n, cn[ck]) for i, n in d['r1'].items()}
+            j = safe_json(r1.get(f'{ck}__r1-{a}') or L.Res('', False)); d = data[ck]['authors'][a]; d['critiques'] = (j or {}).get('critiques', []); d['r1'] = nodes_of((j or {}).get('revised')) or d['r0']; d['r1_writing_rules'] = {i: writing_rules(n, cn[ck]) for i, n in d['r1'].items()}
     # vote: Sol and Sonnet decide (counted), Inkling votes (benchmark only)
     reqs = []; vorder = {}
     for ck in papers:
         have = [a for a, _, _ in AUTHORS if data[ck]['authors'][a]['r1']]
         if len(have) < 2: continue
         for voter, m, e in VOTERS:
-            idx = shuffle_labels(rng, have); vorder[(ck, voter)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r1'].values()), 'lint': data[ck]['authors'][h]['r1_lint']} for k, h in enumerate(vorder[(ck, voter)])}
+            idx = shuffle_labels(rng, have); vorder[(ck, voter)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r1'].values()), 'writing_rules': data[ck]['authors'][h]['r1_writing_rules']} for k, h in enumerate(vorder[(ck, voter)])}
             reqs.append(L.Req(f'{ck}__vote-{voter}', m, f'Extraction:\n{cards[ck]}\n\nVersions:\n{json.dumps(blob, ensure_ascii=False)}\n\nVote now.', sys2, None, e, 5000))
     st['prompt'] = 'pipeline/prompts/vote-v1.md'; rv = dispatch(M, 'draft_vote', reqs, mode); ties = []
     for ck in papers:
@@ -334,8 +333,8 @@ def stage_draft(M, mode):
             win = s if s and s == c else (tie.get(nid) if tie.get(nid) in data[ck]['authors'] else (s or c or next((a for a in data[ck]['authors'] if nid in data[ck]['authors'][a].get('r1', {})), None)))
             how = 'Sol and Sonnet agree' if s and s == c else ('Neon tie-break' if tie.get(nid) in data[ck]['authors'] else 'single vote or fallback')
             node = data[ck]['authors'].get(win, {}).get('r1', {}).get(nid)
-            if node: finals[nid] = {'node': node, 'author': win, 'how': how, 'lint': lint(node, cn[ck])}
-        for nid, node in data[ck]['single']['nodes'].items(): finals[nid] = {'node': node, 'author': AUTHORS[0][0], 'how': 'single draft (not debated)', 'lint': lint(node, cn[ck])}
+            if node: finals[nid] = {'node': node, 'author': win, 'how': how, 'writing_rules': writing_rules(node, cn[ck])}
+        for nid, node in data[ck]['single']['nodes'].items(): finals[nid] = {'node': node, 'author': AUTHORS[0][0], 'how': 'single draft (not debated)', 'writing_rules': writing_rules(node, cn[ck])}
         data[ck]['finals'] = finals
     # node-detail check (was "claim check"; claim now means CLM only): the first voter (the cheaper deciders, in registry order) that did not write the winner
     reqs = []
@@ -344,11 +343,11 @@ def stage_draft(M, mode):
             mine = [f['node'] for f in data[ck]['finals'].values() if f['node'].get('type') != 'QUE' and f['author'] != chk and next((v[0] for v in VOTERS if v[0] != f['author']), None) == chk]
             if mine: reqs.append(L.Req(f'{ck}__check-{chk}', m, f'Extraction:\n{full[ck]}\n\nNodes to check:\n{json.dumps(mine, ensure_ascii=False)}\n\nCheck now.', sys3, None, e, min(32000, 2000 + 450 * len(mine))))   # budget grows with the number of nodes to check
     st['prompt'] = 'pipeline/prompts/node-detail-check-v1.md'; rc = dispatch(M, 'draft_check', reqs, mode)
-    # decision-model check of each final EVD (fidelity of the written text) and the Inkling benchmark drafts' lint
+    # decision-model check of each final EVD (fidelity of the written text and numbers found in the source)
     evd = [(ck, nid, f) for ck in papers for nid, f in data[ck]['finals'].items() if f['node'].get('type') == 'EVD']
     def dm_evd(t):
         ck, nid, f = t; fnd = next((x for x in final_findings(M, ck)[0] if x['id'] == f['node'].get('source_id')), {})
-        return run_dm(dm_state(M, {**fnd, 'statement': f['node'].get('statement', '')}, final_findings(M, ck)[1].get('questions', [])), {'fidelity': dm_questions(M, 'EVD statement')['fidelity'], 'quote_grounding': dm_questions(M)['quote_grounding']})
+        return run_dm(dm_state(M, {**fnd, 'statement': f['node'].get('statement', '')}, final_findings(M, ck)[1].get('questions', [])), {'fidelity': dm_questions(M, 'EVD statement')['fidelity'], 'numbers_in_source': dm_questions(M)['numbers_in_source']})
     with cf.ThreadPoolExecutor(6) as ex_: dres = list(ex_.map(dm_evd, evd))
     for (ck, nid, f), r in zip(evd, dres): f['dm'] = dm_summary(r)
     for ck in papers:
@@ -358,7 +357,7 @@ def stage_draft(M, mode):
                 if c.get('node') in data[ck]['finals']: data[ck]['finals'][c['node']]['detail_check'] = {'checker': chk, **c}
         for nid, f in data[ck]['finals'].items():
             cc = (f.get('detail_check') or {}).get('overall'); dmv = (f.get('dm') or {}).get('score')
-            ok = f['lint']['pass'] and (cc in ('pass', 'minor') or f['node'].get('type') == 'QUE') and (dmv is None or dmv >= DM_LOW)
+            ok = f['writing_rules']['pass'] and (cc in ('pass', 'minor') or f['node'].get('type') == 'QUE') and (dmv is None or dmv >= DM_LOW)
             f['status'] = ('pass with notes' if cc == 'minor' else 'pass') if ok else 'escalate to Opus and JP'
         (M.dir / ck / 'drafts.json').write_text(json.dumps(data[ck], indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     st['status'] = 'done'; st['summary'] = {ck: {'nodes': len(data[ck]['finals']), 'pass': sum(1 for f in data[ck]['finals'].values() if f['status'] == 'pass')} for ck in papers}; M.save(); M.event(f"draft: {st['summary']}")

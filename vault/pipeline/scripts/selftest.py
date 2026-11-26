@@ -2,7 +2,7 @@
 """Offline self-test for the pipeline (JP, 2026-11-25): no API calls, no cost. Run it after changing a model, a package, a prompt, a template or a limit.
   python3 selftest.py
 Checks: the config files and the origin policy; every role's model has a price and a route; prompts exist with their placeholders; the quality-signal ids match the registry of row names;
-lint and readability; the runner's guards (paper limit, cap, research question, repeat PDFs); supplement merging; PDF slicing and merged screenshots; package versions."""
+writing-rules check and readability; the runner's guards (paper limit, cap, research question, repeat PDFs); supplement merging; PDF slicing and merged screenshots; package versions."""
 import importlib.metadata as md, json, subprocess, sys, tempfile
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -30,16 +30,16 @@ for st, pth in R.STAGE_PROMPT.items(): check(f'prompt {pth}', (V / pth).exists()
 check('picost prompt has no leftover cap placeholders (no caps on questions or findings)', '{MAX_' not in (V / R.STAGE_PROMPT['picost']).read_text())
 check('vision-check-v3 allows cannot_verify', 'cannot_verify' in (V / 'pipeline/prompts/vision-check-v3.md').read_text())
 check('quality signals: two raters and a third-model adjudicator', len(S.RATERS) == 2 and S.QS_ADJ['model'] not in [m for _, m, _ in S.RATERS] and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
-for n in ('draft-nodes-v2', 'critique-revise-v2', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
+for n in ('draft-nodes-v2', 'critique-revise-v3', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
 ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}
 check('quality signals rated by the models are valid row ids', set(S.SIGNALS) <= ids, str(sorted(set(S.SIGNALS) - ids)))
-print('lint and parsing')
+print('writing-rules check and parsing')
 good = {'type': 'EVD', 'statement': 'GPT 3.5-turbo scored 71.4% on 120 reviews (kappa = 0.5).', 'quote': 'x'}
-check('lint passes a good EVD', S.lint(good, {S.norm_num(x) for x in ('71.4', '120', '0.5', '3.5')})['pass'])
-check('lint fails an EVD over 247 characters', not S.lint({**good, 'statement': 'word ' * 60}, set())['pass'])
-check('lint flags a number not on the card', S.lint({**good, 'statement': 'Model scored 99.9%.'}, {'71.4'})['numbers_not_on_card'] == ['99.9'])
-check('lint fails an em dash', not S.lint({**good, 'statement': 'Model A \u2014 a model scored 71.4%.'}, {S.norm_num('71.4')})['pass'])
+check('writing-rules check passes a good EVD', S.writing_rules(good, {S.norm_num(x) for x in ('71.4', '120', '0.5', '3.5')})['pass'])
+check('writing-rules check fails an EVD over 247 characters', not S.writing_rules({**good, 'statement': 'word ' * 60}, set())['pass'])
+check('writing-rules check flags a number not on the card', S.writing_rules({**good, 'statement': 'Model scored 99.9%.'}, {'71.4'})['numbers_not_on_card'] == ['99.9'])
+check('writing-rules check fails an em dash', not S.writing_rules({**good, 'statement': 'Model A \u2014 a model scored 71.4%.'}, {S.norm_num('71.4')})['pass'])
 import pdf_pages as _pp
 check('an en dash that the PDF text layer stores as e still matches', _pp.norm('Human Rater 1 0.81 (0.78\u20130.83) 87%\u201390%') == _pp.norm('Human Rater 1 0.81 (0.78e0.83) 87%e90%'))
 check('parse_json tolerates a code fence', S.parse_json('```json\n{"a": 1}\n```') == {'a': 1})
