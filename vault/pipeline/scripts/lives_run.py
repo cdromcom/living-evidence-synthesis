@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LIVES batch runner: PDFs in, checked PICOST records out, with a hard limit of four papers, a spending cap, stop rules and a run manifest (JP, 2026-11-25).
+"""LIVES batch runner: PDFs in, checked PICOST records out, with a hard limit of three papers per batch and a review gate (no new batch until JP has reviewed the earlier ones), a spending cap, stop rules and a run manifest (JP, 2026-11-25).
 
   python3 lives_run.py PDF [PDF ...] [--mode standard|batch] [--cap 5.55] [--question "..."] [--dry-run]
   python3 lives_run.py --resume RUN_ID              continue a stopped or interrupted run (a submitted batch job is picked up again, not paid twice)
@@ -38,7 +38,7 @@ MAX_PAPERS = LIM['max_papers']; CAP = LIM['cap_usd']; OVERRUN = LIM['overrun_fac
 TOK_PER_PAGE = TOK['per_page_input']   # input tokens per PDF page (measured on the 27 seed PDFs and billed calls)
 MAX_FINDINGS = LIM['worst_case_findings_per_paper']   # planning number for output budgets only; there is no cap on findings (JP, 2026-11-25)
 STAGE_MODEL = {'picost': C.ROLES['extract'], 'recheck': C.ROLES['recheck'], 'adjudicate': C.ROLES['adjudicate']}   # roles in pipeline/config/models.json
-STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v6.md', 'recheck': 'pipeline/prompts/recheck-v1.md', 'adjudicate': 'pipeline/prompts/adjudicate-v1.md'}
+STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v7.md', 'recheck': 'pipeline/prompts/recheck-v1.md', 'adjudicate': 'pipeline/prompts/adjudicate-v1.md'}
 def max_out(stage, n=0):   # n = pages for picost, flagged or disputed findings for recheck and adjudicate
     """Output plus thinking budget (max tokens) per request, from pipeline/config/pipeline.json. Measured on real runs: Neon 27,317 tokens for 10 pages and 12 findings (about 11,000 visible,
     16,000 thinking); Sol about 670 per flagged finding; Opus about 226 per dispute plus a thinking floor (it ran out at 1,450 on one dispute). Beyond 10 pages the picost growth is an extrapolation."""
@@ -195,6 +195,37 @@ def build(stage, M, run):
 
 
 # ---------------------------------------------------------------- local stage: spans
+NUM_IN_TEXT = re.compile(r'(?<![A-Za-z0-9.\-])-?\d+(?:[.,]\d+)*%?(?![A-Za-z0-9]|-[A-Za-z])')   # numbers in running text; skips the digits inside names such as GPT-4, PRECIS-2, o3-mini and 5-shot
+NUM_IN_LIST = re.compile(r'\d+(?:\.\d+)?')
+LABEL_WORD = re.compile(r'(?:Rater|Reviewer|Annotator|Expert|Run|Round|Table|Tables|Figure|Fig\.?|Step|Prompt|Version|Study|Experiment|Condition|Group|Persona|Level|Stage|Phase|Task|Set|Section|Appendix|Item|Question|Q|F|RQ|Abstract)\s*$')
+
+
+def _num(t):
+    try: return float(t.replace(',', '').rstrip('%'))
+    except ValueError: return None
+
+
+def numbers_list_gaps(f):
+    """JP, 2026-11-26: every number written in a finding's statement must have an entry in the finding's Numbers list, and that entry must say where the number sits. Returns {'missing': [numbers with no list entry], 'no_location': [numbers whose entry has no table, figure or page]}. Years are skipped; a percent may be listed as a fraction (89% and 0.89 match)."""
+    entries = []
+    for n in f.get('numbers', []):
+        vals = {v for v in (_num(t) for t in NUM_IN_LIST.findall(str(n.get('value', '')) + ' ' + str(n.get('label', '')))) if v is not None}
+        loc = bool(str(n.get('table_or_figure', '')).strip() or n.get('pdf_page') or str(n.get('printed_page', '')).strip())
+        entries.append((vals, loc))
+    missing = []; noloc = []
+    st_ = f.get('statement', '')
+    for m_ in NUM_IN_TEXT.finditer(st_):
+        t = m_.group(0)
+        if re.fullmatch(r'(19|20)\d\d', t): continue
+        if LABEL_WORD.search(st_[:m_.start()]): continue   # "Human Rater 1", "Table 2", "Round 3": a label, not a result
+        v = _num(t)
+        if v is None: continue
+        hit = [loc for vals, loc in entries if any(abs(v - x) < 1e-9 or abs(v / 100 - x) < 1e-9 or abs(v * 100 - x) < 1e-9 for x in vals)]
+        if not hit: missing.append(t)
+        elif not any(hit): noloc.append(t)
+    return {'missing': sorted(set(missing)), 'no_location': sorted(set(noloc))}
+
+
 def stage_spans(M, run):
     P = M.m['papers']
     for ck, p in P.items():
@@ -224,6 +255,9 @@ def stage_spans(M, run):
             for n in f.get('numbers', []):   # loosened (JP, 2026-11-25): look at each number inside the value, ignore single digits, and flag only if fewer than half of them are anywhere in the PDF text
                 toks = [t for t in re.findall(r'\d+(?:[.,]\d+)?', str(n.get('value', ''))) if len(re.sub(r'\D', '', t)) >= 2]
                 if toks and sum(1 for t in toks if pp.norm(t) in ptxt) / len(toks) < 0.5: why.append('number_not_in_pdf_text')
+            gaps = numbers_list_gaps(f); f['numbers_list_gaps'] = gaps
+            if gaps['missing']: why.append('number_not_in_numbers_list')
+            if gaps['no_location']: why.append('numbers_list_entry_without_location')
             f['flags'] = sorted(set(why))
             if why: flagged[f['id']] = f['flags']
         qmiss = 0
@@ -320,11 +354,50 @@ def halt(M, reason):
     M.m['status'] = 'stopped'; M.m['stop_reason'] = reason; M.event(f'STOPPED: {reason}'); sys.exit(2)
 
 
+def unreviewed_batches():
+    """Earlier batches whose review JP has not marked done (jp_review is 'pending' or missing). Test runs and superseded batches do not count."""
+    out = []
+    for d in sorted(RUNS.glob('20??-??-??_batch*')):
+        f = d / 'manifest.json'
+        if not f.exists(): continue
+        m = json.loads(f.read_text())
+        if m.get('status') == 'planned' and not m.get('papers'): continue
+        if m.get('jp_review', 'pending') == 'pending': out.append(d.name)
+    return out
+
+
+def mark_reviewed(runs, status):
+    for r in runs:
+        M = Manifest(r)
+        if not M.m: print('no such run:', r); continue
+        M.m['jp_review'] = status; M.m['jp_review_at'] = now(); M.save(); print(r, '->', status)
+
+
+def recheck_numbers_list(run):
+    """Apply numbers_list_gaps to every finding of a finished run: adds the flags to picost.json and to the manifest, and prints the counts."""
+    M = Manifest(run); total = gaps_n = noloc_n = 0; ex = []
+    for ck, p in M.m['papers'].items():
+        f_ = M.dir / ck / 'picost.json'
+        if not f_.exists(): continue
+        ps = json.loads(f_.read_text(encoding='utf-8')); fl = set(p.get('flagged', []))
+        for f in ps.get('findings', []):
+            total += 1; g = numbers_list_gaps(f); f['numbers_list_gaps'] = g; flags = set(f.get('flags', [])) - {'number_not_in_numbers_list', 'numbers_list_entry_without_location'}
+            if g['missing']: flags.add('number_not_in_numbers_list'); gaps_n += 1; ex.append((ck.split('-')[0], f['id'], g['missing'][:4]))
+            if g['no_location']: flags.add('numbers_list_entry_without_location'); noloc_n += 1
+            f['flags'] = sorted(flags)
+            if flags: fl.add(f['id'])
+        p['flagged'] = sorted(fl); f_.write_text(json.dumps(ps, indent=1, ensure_ascii=False), encoding='utf-8')
+    M.save(); print(f'{run}: {total} findings; {gaps_n} have a number in the statement with no Numbers-list entry; {noloc_n} have a listed number without a location')
+    for e in ex[:6]: print('  e.g.', e)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter); ap.add_argument('pdfs', nargs='*'); ap.add_argument('--mode', choices=['standard', 'batch'], help='REQUIRED for a new run. Ask JP each time papers are given: standard (answers now, full price) or batch (about half price, slower, can stall)')
     ap.add_argument('--cap', type=float, default=CAP); ap.add_argument('--question', default=C.PIPE.get('project_question', ''), help='the overarching project question (default: project_question in pipeline.json); every question found in a paper is taken to fit under it. Pass "" to leave it out'); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--resume'); ap.add_argument('--new-batch', action='store_true', help='with --resume: start a new batch of the same run with a fresh cap (the earlier spend is kept in spent_previous_batches)'); ap.add_argument('--run-id')
-    ap.add_argument('--fast', action='store_true', help='standard mode for every stage, and drafting and quality signals at the same time: about 25 minutes for four papers, at about twice the cost'); ap.add_argument('--skip', nargs='*', default=[], choices=['checks', 'draft', 'qs'], help='leave out the later stages'); ap.add_argument('--allow-repeat', action='store_true'); ap.add_argument('--flag-medium', action='store_true', help='also send medium-confidence findings to the independent recheck (more cost, fewer misses)'); a = ap.parse_args()
+    ap.add_argument('--recheck-numbers-list', metavar='RUN', help='apply the numbers-list check to a finished run (local, free) and print what it finds'); ap.add_argument('--mark-reviewed', nargs='+', metavar='RUN', help='record that JP has reviewed these batches (spot checks A and B, drafts, rework and question groups). Run this only when JP says so'); ap.add_argument('--review-status', choices=['done', 'superseded'], default='done'); ap.add_argument('--waive-review', metavar='REASON', help='start a new batch although an earlier one is not reviewed; only when JP says so, and the reason is recorded in the manifest'); ap.add_argument('--fast', action='store_true', help='standard mode for every stage, and drafting and quality signals at the same time: about 25 minutes for four papers, at about twice the cost'); ap.add_argument('--skip', nargs='*', default=[], choices=['checks', 'draft', 'qs'], help='leave out the later stages'); ap.add_argument('--allow-repeat', action='store_true'); ap.add_argument('--flag-medium', action='store_true', help='also send medium-confidence findings to the independent recheck (more cost, fewer misses)'); a = ap.parse_args()
     cl.load_env()
+    if a.recheck_numbers_list: return recheck_numbers_list(a.recheck_numbers_list)
+    if a.mark_reviewed: return mark_reviewed(a.mark_reviewed, a.review_status)
     if a.resume:
         M = Manifest(a.resume)
         if not M.m: sys.exit('no such run')
@@ -336,6 +409,9 @@ def main():
         if not a.pdfs: ap.error('give 1 to %d PDFs' % MAX_PAPERS)
         if len(a.pdfs) > MAX_PAPERS: sys.exit(f'Refused: {len(a.pdfs)} PDFs. The limit is {MAX_PAPERS} papers per batch.')
         if a.cap > CAP: sys.exit(f'Refused: the cap per batch is ${CAP}; --cap can only lower it.')
+        unreviewed = unreviewed_batches()
+        if unreviewed and not a.waive_review and not a.dry_run: sys.exit('Refused: JP has not reviewed these earlier batches: ' + ', '.join(unreviewed) + '. Batches of three papers need JP\'s review (spot checks A and B, the Drafts, EVD rework and Question groups tabs) before more papers are processed. When JP says the review is done, run: lives_run.py --mark-reviewed RUN [RUN ...]')
+        if unreviewed and a.waive_review: print('NOTE: starting although these batches are not reviewed (waived by JP: %s): %s' % (a.waive_review, ', '.join(unreviewed)))
         pdfs = [Path(p).expanduser().resolve() for p in a.pdfs]
         for p in pdfs:
             if not p.exists() or p.suffix.lower() != '.pdf': sys.exit(f'Not a PDF: {p}')
@@ -352,7 +428,7 @@ def main():
                 entry['supplements'] = [{'file': n_, 'pages': k} for n_, k in sp[1:]]; entry['main_pages'] = sp[0][1]; entry['supplement_sha256'] = [sha(x.read_bytes())[:16] for x in supps]
                 print(f"{p.name}: {len(supps)} supplementary file(s) combined after the paper ({sp[0][1]} + {sum(k for _, k in sp[1:])} pages)")
             entry['pdf'] = str(src).replace(str(Path.home()), '~'); entry['preflight'] = preflight(src); entry['source_pdf'] = p.name; papers[ck] = entry
-        M = Manifest(run_id, {'run_id': run_id, 'created_utc': now(), 'status': 'planned', 'mode': mode, 'cap_usd': a.cap, 'max_papers': MAX_PAPERS, 'overrun_factor': OVERRUN, 'max_span_miss': MAX_SPAN_MISS, 'spent_usd': 0.0,
+        M = Manifest(run_id, {'run_id': run_id, 'created_utc': now(), 'status': 'planned', 'jp_review': 'pending', 'mode': mode, 'cap_usd': a.cap, 'max_papers': MAX_PAPERS, 'overrun_factor': OVERRUN, 'max_span_miss': MAX_SPAN_MISS, 'spent_usd': 0.0,
                               'question': a.question, 'flag_medium': a.flag_medium, 'models': STAGE_MODEL, 'prompts': STAGE_PROMPT, 'environment': environment(), 'papers': papers, 'stage_log': {}})
         M.save()
     print(f"run {M.m['run_id']}: {len(M.m['papers'])} paper(s), mode {mode}, cap ${M.m['cap_usd']}")

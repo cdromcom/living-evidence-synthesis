@@ -50,7 +50,7 @@ def main():
              ('Step 5', 'Drafting: three models debate each primary EVD; Sonnet 5.5 drafts everything else once. Quality signals: Neon (High) and Opus rate, Sol decides disagreements.'),
              ('Step 6', 'You review this sheet. Your labels become the ground truth for the accuracy numbers.'),
              ('How to review', 'Start with the Findings tab. Sort by Flags and Tier. Yellow columns are yours: say whether the tier, statement and numbers are right, add findings that were missed, and note why.'),
-             ('Flags', 'low_confidence: Neon says it is unsure. multi_page: the evidence is on more than one page. span_not_found and span_on_other_page: the quote is not where it should be. number_not_in_pdf_text: fewer than half of its numbers are in the PDF text. no_text_layer: scanned PDF.'),
+             ('Flags', 'low_confidence: Neon says it is unsure. multi_page: the evidence is on more than one page. span_not_found and span_on_other_page: the quote is not where it should be. number_not_in_pdf_text: fewer than half of its numbers are in the PDF text. number_not_in_numbers_list: a number in the statement has no entry in the Numbers list. numbers_list_entry_without_location: a listed number has no table, figure or page. no_text_layer: scanned PDF.'),
              ('Costs', 'See Metrics and Calls and cost. Batch mode is about half price; the cap is a hard limit per batch.')]
     for k, t in items: ab.append([k, t])
     prow = []; frow = []; crow = []; rrow = []; fkeys = []; ckeys = []
@@ -124,6 +124,24 @@ def main():
             nf = [x['number'] for x in rw.get('numbers', []) if x.get('found_in') == 'nowhere']
             rwrows.append([ck, nid, rw['original'], rw['dm_before']['score'], '; '.join(f"{x['number']} ({x['found_in']})" for x in rw.get('numbers', [])), ', '.join(nf), '; '.join(rw.get('fidelity_problems', [])), rw['verdict'], rw.get('proposal', ''), (rw.get('dm_after') or {}).get('score', ''), ('yes' if rw.get('writing_rules_after', {}).get('pass') else 'no') if rw.get('writing_rules_after') else '', 'yes' if rw.get('accepted') else 'no', rw.get('note', ''), f['status'], '', ''])
     if rwrows: tab('EVD rework (Opus 5.5)', ['Paper', 'Node', 'Original EVD statement', 'Decision-model score before', 'Where Opus found each number', 'Numbers found nowhere', 'Fidelity problems', 'Verdict', 'Proposed rewrite', 'Decision-model score after', 'Writing rules pass', 'Rewrite accepted', 'Note for the reviewer', 'Final status', 'JP: right call? (yes/no)', 'JP: notes'], rwrows, [30, 8, 60, 10, 50, 14, 50, 14, 60, 10, 10, 10, 50, 26, 14, 30], jp_from=15)
+    # ---- nodes that break the writing rules, with the rule named
+    wrrows = []
+    for ck, p in M['papers'].items():
+        if not (d / ck / 'drafts.json').exists(): continue
+        dd = json.load(open(d / ck / 'drafts.json'))
+        for nid, f in dd.get('finals', {}).items():
+            w = f.get('writing_rules') or f.get('lint') or {}
+            if w.get('pass', True): continue
+            n = f['node']; why = []
+            if w.get('length_ok') is False: why.append(f"longer than 247 characters ({w.get('chars')})")
+            if w.get('readability_ok') is False: why.append(f"reading grade {w.get('fk_grade')} (limit 14)")
+            if w.get('numbers_not_on_card'): why.append('numbers not on the card: ' + ', '.join(w['numbers_not_on_card']))
+            if w.get('no_emdash') is False: why.append('contains an em dash')
+            if w.get('question_ok') is False: why.append('question does not end with a question mark')
+            if w.get('has_quote') is False: why.append('no quote')
+            if w.get('links_to_question') is False: why.append('primary EVD links to no question')
+            wrrows.append([ck, nid, n.get('type', ''), n.get('tier', ''), n.get('statement') or n.get('title') or n.get('limitation') or '', '; '.join(why), w.get('chars', ''), w.get('fk_grade', ''), ', '.join(w.get('numbers_not_on_card', [])), '', ''])
+    if wrrows: tab('Writing-rules failures', ['Paper', 'Node', 'Type', 'Tier', 'Text as drafted', 'Which rule failed', 'Characters', 'Reading grade', 'Numbers not on the card', 'JP: suggested change', 'JP: notes'], wrrows, [30, 8, 6, 10, 80, 40, 10, 10, 20, 30, 30], jp_from=10)
     if qr_rows: tab('Quality signals (raw)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10])
     if qa_rows: tab('Quality signals (vote)', ['Paper', 'Signal', 'Votes', 'Majority', 'Agreement', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 40, 16, 10, 10, 16, 30], jp_from=7)
     qg = d / 'question_groups.tsv'
