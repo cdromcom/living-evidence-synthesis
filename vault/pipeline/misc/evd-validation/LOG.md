@@ -309,3 +309,9 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - Corrected denominators: earlier totals for CLM, CVT and QUE mixed in the quote-versus-print rows. Judgment rows only: CLM 9 of 15 not passed, CVT 16 of 28, QUE reframing 18 of 21.
 - Opus 5.5 classified 48 (batch05) and 22 (batch07) sampled failures; PICOST failures were all "value outside the shown passage" in the sample (the verifier saw only the cited pages).
 - Anchors rerun (`test-anchors`, Sarol, quality signals): quotes found are the same as in the non-anchor run (Neon 20, Opus 18, Sol 2) and all now carry the exact PDF text.
+
+## 2026-11-26 (late night 2): Methods context, numbers check, Findings tab
+- Verifiers now see page 1 and the Methods pages for PICOST slots; claim, caveat and question checks judge meaning, not wording. Old scores kept (verification tab columns AD-AF).
+- Numbers check: 12 findings had statement numbers that were not in the text of the cited pages; Liquid d1.2-ultra found 34 of 48 numbers on the screenshots (6 of 48 with one digit changed also scored high); 9 numbers are for JP (Bougie F13: 0.78, 0.72; Tyser F6: 2.84, 2.52, 2.56, 3.57; Tyser F12: 10; Tyser F18: 500, 1,000).
+- Findings tab: merged screenshots are images in column S; candidate EVDs from Sonnet 5.5, Sol 6.2 and Neon, and the chosen EVD, are in columns W-AA.
+- A failure-analysis rerun reused saved answers of an earlier sample under the same stage name; fixed with a new stage name per run.
