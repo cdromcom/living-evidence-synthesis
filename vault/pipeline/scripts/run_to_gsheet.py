@@ -137,6 +137,7 @@ def main():
             if w.get('length_ok') is False: why.append(f"longer than 247 characters ({w.get('chars')})")
             if w.get('readability_ok') is False: why.append(f"reading grade {w.get('fk_grade')} (limit 14)")
             if w.get('numbers_not_on_card'): why.append('numbers not on the card: ' + ', '.join(w['numbers_not_on_card']))
+            if w.get('parentheses_ok') is False: why.append('more than one set of parentheses (or brackets)')
             if w.get('no_emdash') is False: why.append('contains an em dash')
             if w.get('question_ok') is False: why.append('question does not end with a question mark')
             if w.get('has_quote') is False: why.append('no quote')
