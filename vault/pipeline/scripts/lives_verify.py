@@ -102,3 +102,123 @@ def stage_verify(M, mode):
         it['agree'] = sum(1 for v in votes.values() if v and v == it['majority']); it.pop('instruction', None); it.pop('item', None); it.pop('passage', None); it.pop('dm_q', None); it.pop('kind', None); it.pop('gid', None); it.pop('slot', None)
     (M.dir / 'verification.json').write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     cnt = collections.Counter((it['ntype'], it['majority']) for it in items); st['status'] = 'done'; st['summary'] = {f'{a} {b}': n for (a, b), n in sorted(cnt.items())}; M.save(); M.event(f"verify: {len(items)} items; {st['summary']}")
+
+
+NUM_PHRASE = 'Compare every digit in TEXT A with the digits in the highlighted (pink) part of the image. Are all digits identical and in the same order?'
+WORD_PHRASE = 'Does TEXT A match the highlighted (pink) passage in the image exactly, with the same words, names, signs and symbols (ignore spacing and hyphenation)?'
+INTRO = 'The image is a page excerpt with the passage of interest highlighted in pink. '
+
+
+def image_question(x, text):
+    """The question Liquid d1.2-ultra answers about the screenshot. Test on 60 Bougie/Sarol quotes (2026-11-26): the digit phrasing separated correct quotes from quotes with one digit changed with pairwise AUC 1.0 (0 of 60 correct quotes failed, 2 of 60 altered ones passed); the general phrasing gave AUC 0.92 with 9 false alarms, so digits are compared whenever the text has any."""
+    a = text.split('\nP (printed)')[0].replace('A (model): ', '')
+    if x['ntype'] in ('QUOTE',) or x['nid'].endswith(' quote'):
+        return 'TEXT A:\n' + a, INTRO + (NUM_PHRASE if re.search(r'\d', a) else WORD_PHRASE)
+    if x['ntype'] == 'QUALITY':
+        sig, rest = a.split(' = ', 1); rating, quote = rest.split('): ', 1); rating = rating.split(' (')[0]
+        return 'TEXT A:\n' + quote, INTRO + f"Does the highlighted passage support the rating '{rating}' for the quality signal '{sig.split(' (')[0]}'?"
+    return 'TEXT A:\n' + a, INTRO + ('Is the claim fully supported by the highlighted passage, with no stronger wording and no wider scope?' if x['ntype'] == 'CLM' else 'Does the highlighted passage state this limitation or caveat?')
+
+
+def add_image_scores(M):
+    """Second verifier on every item that has a screenshot: Liquid d1.2-ultra looks at the image (JP, 2026-11-26). PICOST slots and QUE rewordings are skipped (the screenshot shows one quote, not the Methods page or the reframing)."""
+    f_ = M.dir / 'verification.json'
+    if not f_.exists(): return
+    items = json.loads(f_.read_text(encoding='utf-8')); todo = []
+    for ck in M.m['papers']:
+        pass
+    for x in items:
+        if x['ntype'] == 'PICOST' or (x['ntype'] == 'QUE' and not x['nid'].endswith(' quote')): continue
+        crop = x.get('crop')
+        if not crop and x['ntype'] in ('QUE', 'CLM', 'CVT'):
+            base = x['nid'].split()[0]; d = M.dir / x['paper'] / 'quote_crops'; k = {'Q': 'questions', 'C': 'claims', 'V': 'caveats'}.get(base[0])
+            c = d / f'{base}_{k[0]}.png' if k else None; crop = str(c) if c and c.exists() else None; x['crop'] = crop
+        if crop and Path(crop).exists(): todo.append(x)
+    def run(x):
+        state, q = image_question(x, x['text'])
+        if x['ntype'] in ('CLM', 'CVT'): state = 'TEXT A:\n' + x['text']
+        r, e = dm.decide('liquid', state, {'ok': dm.noul(q)}, images=[x['crop']]); return (r or {}).get('answers', {}).get('ok', {}).get('noul')
+    with cf.ThreadPoolExecutor(6) as ex_: res = list(ex_.map(run, todo))
+    for x, sc in zip(todo, res):
+        x['scores'].pop('liquid_image', None); x.pop('liquid_image_untested', None)
+        # Only digit comparisons on quotes are a validated voter (pairwise AUC 1.0 on 60 quotes). Word comparisons gave false alarms on 5 of 8 correct quotes, and claim, caveat and quality-rating judgments from screenshots are untested: those scores are shown but do not vote.
+        if x['ntype'] == 'QUOTE' or x['nid'].endswith(' quote'):
+            if re.search(r'\d', x['text'].split('\nP (printed)')[0]): x['scores']['liquid_image'] = sc
+            else: x['liquid_image_untested'] = sc
+        else: x['liquid_image_untested'] = sc
+        if 'liquid_image' not in x['scores']: pass
+        votes = {k: ('pass' if (k == 'sonnet' and s >= 0.75) or (k != 'sonnet' and s >= 0.5) else 'fail' if (k != 'sonnet' or s < 0.5) else None) for k, s in x['scores'].items() if s is not None}
+        c = collections.Counter(v for v in votes.values() if v); x['votes'] = votes
+        x['majority'] = 'pass' if c['pass'] > c['fail'] else ('fail' if c['fail'] > c['pass'] else 'split')
+        sc_ = [s for s in x['scores'].values() if s is not None]; x['mean'] = round(sum(sc_) / len(sc_), 3) if sc_ else None; x['agree'] = sum(1 for v in votes.values() if v and v == x['majority'])
+    f_.write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
+    n = sum(1 for sc in res if sc is not None); M.m['stage_log'].setdefault('verify_images', {}).update(status='done', summary={'items with image': len(todo), 'scored': n, 'voting (digit comparisons on quotes)': sum(1 for x in todo if x['scores'].get('liquid_image') is not None), 'judged correct': sum(1 for x in todo if (x['scores'].get('liquid_image') or 0) >= 0.5)}); M.save()
+    M.event(f"verify_images: {n} of {len(todo)} screenshots scored by Liquid d1.2-ultra")
+
+
+def revote(x):
+    """Majority and mean from the scores that vote: Sonnet (1 pass, 0.5 abstains, 0 fail), Perplexity, Liquid text, and Liquid screenshot digit comparisons."""
+    votes = {}
+    for k, sc in x['scores'].items():
+        if sc is None: continue
+        if k == 'sonnet': votes[k] = 'pass' if sc >= 0.75 else ('fail' if sc < 0.5 else None)
+        else: votes[k] = 'pass' if sc >= 0.5 else 'fail'
+    c = collections.Counter(v for v in votes.values() if v); x['votes'] = votes
+    x['majority'] = 'pass' if c['pass'] > c['fail'] else ('fail' if c['fail'] > c['pass'] else 'split')
+    sc_ = [s for s in x['scores'].values() if s is not None]; x['mean'] = round(sum(sc_) / len(sc_), 3) if sc_ else None
+    x['agree'] = sum(1 for v in votes.values() if v and v == x['majority'])
+
+
+def rerun_liquid_text(M):
+    """Rerun the Liquid text checks of the verification stage with the model now set in decision_models.MODELS (d1.2-ultra). The earlier scores (d1-ultra) stay in `liquid_d1_ultra` for comparison; the new ones become the voting `liquid` score. Also attaches the passage each non-PICOST item was checked against, so a person can judge it in the sheet."""
+    f_ = M.dir / 'verification.json'; items = json.loads(f_.read_text(encoding='utf-8')); fresh, _ = build_items(M)
+    assert len(fresh) == len(items), (len(fresh), len(items))
+    for a, b in zip(fresh, items): assert (a['paper'], a['ntype'], a['nid']) == (b['paper'], b['ntype'], b['nid']), (a['nid'], b['nid'])
+    def run(a):
+        state = a['item'] if a['kind'] == 'precomputed' else f"PASSAGE:\n{a['passage']}\n\nITEM:\n{a['item']}"
+        r, e = dm.decide('liquid', state, a['dm_q']); ans = {k: v.get('noul') for k, v in ((r or {}).get('answers') or {}).items() if isinstance(v, dict) and v.get('noul') is not None}
+        return min(ans.values()) if ans else None
+    with cf.ThreadPoolExecutor(8) as ex_: res = list(ex_.map(run, fresh))
+    for a, b, sc in zip(fresh, items, res):
+        if 'liquid_d1_ultra' not in b: b['liquid_d1_ultra'] = b['scores'].get('liquid')
+        b['scores']['liquid'] = sc; b['liquid_model'] = dm.MODELS['liquid']
+        if a['ntype'] != 'PICOST': b['passage'] = short(a.get('passage') or a['item'], 600)
+        revote(b)
+    f_.write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
+    M.m['stage_log'].setdefault('verify_liquid_rerun', {}).update(status='done', model=dm.MODELS['liquid'], scored=sum(1 for r in res if r is not None)); M.save()
+    return items
+
+
+def queue_order(V):
+    """Order for the review sheet and JP's labeling session (2026-11-26): 1 every CLM, 2 every CVT, 3 a random 25% of quality ratings (fixed seed), 4 every QUE reframing; inside a group the items the models disagree on or fail come first; everything else follows in the original order. Sets x['queue']."""
+    import random
+    qual = [x for x in V if x['ntype'] == 'QUALITY']; rnd = random.Random(2026); pick = {id(x) for x in rnd.sample(qual, max(1, round(0.25 * len(qual))))} if qual else set()
+    for x in V:
+        jq = not x['nid'].endswith(' quote')   # the quote-versus-print rows of claims and caveats are not queued
+        x['queue'] = ('1 CLM' if x['ntype'] == 'CLM' and jq else '2 CVT' if x['ntype'] == 'CVT' and jq else '3 QUALITY (25% random sample)' if id(x) in pick else '4 QUE reframing' if x['ntype'] == 'QUE' and not x['nid'].endswith(' quote') else '')
+    order = {'1 CLM': 1, '2 CVT': 2, '3 QUALITY (25% random sample)': 3, '4 QUE reframing': 4, '': 9}
+    idx = {id(x): i for i, x in enumerate(V)}
+    return sorted(V, key=lambda x: (order[x['queue']], 0 if x['majority'] != 'pass' else 1, x['mean'] if x['mean'] is not None else 1, idx[id(x)]) if x['queue'] else (9, 0, 0, idx[id(x)]))
+
+
+STOP = set('the a an of and or to in on for with by is are was were be been that this these those as at from it its their than then which who whom into over under between across not no also can could may might would should will'.split())
+
+
+def novel_share(item, passage):
+    """Share of the item's content words (4+ letters, not stop words) and numbers that do not appear in the passage. A cheap similarity measure for claims, caveats and rewordings that go beyond their quote: 0 means every word is in the quote."""
+    toks = lambda t: [w for w in re.findall(r"[A-Za-z][A-Za-z\-]{3,}|\d+(?:[.,]\d+)?", t.lower()) if w not in STOP]
+    a = toks(item); b = set(toks(passage))
+    stem = lambda w: w[:5]
+    bs = {stem(w) for w in b}
+    return round(sum(1 for w in a if stem(w) not in bs) / len(a), 3) if a else None
+
+
+def add_novel_share(M):
+    f_ = M.dir / 'verification.json'; items = json.loads(f_.read_text(encoding='utf-8')); fresh, _ = build_items(M)
+    for a, b in zip(fresh, items):
+        b.pop('novel_share', None)
+        if b['ntype'] in ('CLM', 'CVT', 'QUE') and not b['nid'].endswith(' quote'):
+            item = a['item'].split('Reframed question: ')[-1] if b['ntype'] == 'QUE' else a['item']
+            b['novel_share'] = novel_share(item, a.get('passage') or '')
+    f_.write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
+    return items

@@ -35,6 +35,9 @@ def first(globs):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--out'); a = ap.parse_args(); d = cl.RUNS / a.run; M = json.load(open(d / 'manifest.json')); wb = Workbook(); wb.remove(wb.active); thumbs = d / '_thumbs'
+    def lowq(d):
+        a = [x for k, x in (d or {}).items() if not str(k).startswith('_') and isinstance(x, (int, float))]
+        return round(min(a), 3) if a else ''
     def tab(title, header, rows, widths, jp_from=None, img=()):
         ws = wb.create_sheet(title); ws.append(header)
         for r in rows: ws.append(r)
@@ -83,7 +86,7 @@ def main():
         if (d / ck / 'checks.json').exists():
             for v in json.load(open(d / ck / 'checks.json')):
                 m = v['summary']['means']; ck_crops.append(v.get('crop')); ck_rows.append([ck, v['id'], v.get('tier', ''), v.get('statement', '')[:300], m.get('relevancy', ''), m.get('fidelity', ''), (m.get('numbers_in_source', m.get('quote_grounding', ''))), (m.get('table_cell_matches', m.get('table_figure_grounding', ''))), v['summary']['score'], v['summary']['spread'], '; '.join(v.get('why_vision', [])),
-                                                         (v.get('sol') or {}).get('overall', ''), (v.get('sol') or {}).get('reason', ''), (v.get('opus') or {}).get('overall', ''), (v.get('opus') or {}).get('reason', ''), v.get('final', ''), '', '', ''])
+                                                         (v.get('sol') or {}).get('overall', ''), (v.get('sol') or {}).get('reason', ''), (v.get('opus') or {}).get('overall', ''), (v.get('opus') or {}).get('reason', ''), v.get('final', ''), '', '', '', lowq(v.get('dm_liquid_d1_ultra')), lowq(v.get('dm_liquid_d12')), lowq((v.get('dm') or {}).get('perplexity'))])
         if (d / ck / 'drafts.json').exists():
             dd = json.load(open(d / ck / 'drafts.json'))
             def txt_of(x): return x.get('statement') or x.get('title') or x.get('limitation') or ''
@@ -97,7 +100,7 @@ def main():
             qr_crops += [x.get('crop') for x in q['raw']]
             for x in q['aggregate']: qa_rows.append([ck, x['signal'], ', '.join(f'{k}: {v}' for k, v in x['votes'].items()), x['majority'], x['agreement'], x['quotes_not_found'], '', ''])
     if ck_rows:
-        ws2 = tab('Decision-model checks (EVD)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30], jp_from=18, img=(17,))
+        ws2 = tab('Decision-model checks (EVD)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes', 'Liquid d1-ultra OLD: lowest question score', 'Liquid d1.2-ultra: lowest question score', 'Perplexity Decider 1.3: lowest question score'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30, 14, 14, 14], jp_from=18, img=(17,))
         for i, cp in enumerate(ck_crops, 2): put_image(ws2, d, i, 17, cp, 440, thumbs)
     if dr_rows: tab('Drafts (EVD, QUE, CLM, CVT)', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
     # ---- EVDs whose decision-model score is below the threshold: what the models saw and what they scored, for JP to suggest changes
@@ -147,28 +150,37 @@ def main():
     # ---- verification of every extracted item by Sonnet 5.5 and the two decision models, with majority vote, mean and JP's open columns
     vf = d / 'verification.json'
     if vf.exists():
-        V = json.load(open(vf)); hdr = ['Paper', 'Node type', 'Node id', 'What was checked', 'Item (as extracted)', 'Screenshot (image)', 'Sonnet 5.5 score', 'Sonnet 5.5 reason', 'Perplexity Decider 1.3 (probability)', 'Liquid d1-ultra (probability)', 'Majority vote', 'Mean score', 'Models agreeing with the majority',
-               'Sonnet pass (1 or 0)', 'Perplexity pass (1 or 0)', 'Liquid pass (1 or 0)', 'Majority pass (1 or 0)', 'Mean pass (1 or 0)', 'JP: is the extraction correct? (yes/no/unsure)', 'JP: notes', 'Truth used for scoring (formula)']
+        import lives_verify as VV
+        V = VV.queue_order(json.load(open(vf))); hdr = ['Paper', 'Node type', 'Node id', 'What was checked', 'Item (as extracted)', 'Screenshot (image)', 'Sonnet 5.5 score', 'Sonnet 5.5 reason', 'Perplexity Decider 1.3 (probability)', 'Liquid d1.2-ultra, text (probability)', 'Majority vote', 'Mean score', 'Models agreeing with the majority',
+               'Sonnet pass (1 or 0)', 'Perplexity pass (1 or 0)', 'Liquid d1.2-ultra text pass (1 or 0)', 'Majority pass (1 or 0)', 'Mean pass (1 or 0)', 'JP: is the extraction correct? (yes/no/unsure)', 'JP: notes', 'Truth used for scoring (formula)',
+               'Liquid d1.2-ultra reading the screenshot (probability)', 'Liquid screenshot score counts as a vote? (digit comparisons on quotes only)', 'Liquid d1-ultra OLD, text (probability)', 'Liquid d1-ultra OLD pass (1 or 0)', 'Liquid d1.2-ultra screenshot pass (1 or 0)', 'Passage or quote it was checked against', 'Labeling queue (tonight)', 'Share of item words not found in the passage (CLM, CVT, QUE; 0 = every word is in the passage)']
         rows_ = []; crops_ = []
         for x in V:
-            sc = x['scores']; so = sc.get('sonnet'); pe = sc.get('perplexity'); li = sc.get('liquid')
-            rows_.append([x['paper'], x['ntype'], x['nid'], x['what'], x['text'], '', so if so is not None else '', x['reasons'].get('sonnet', ''), pe if pe is not None else '', li if li is not None else '', x['majority'], x['mean'] if x['mean'] is not None else '', x['agree'],
-                          ('' if so is None or so == 0.5 else int(so >= 0.75)), ('' if pe is None else int(pe >= 0.5)), ('' if li is None else int(li >= 0.5)), {'pass': 1, 'fail': 0}.get(x['majority'], ''), ('' if x['mean'] is None else int(x['mean'] >= 0.5)), '', '', ''])
+            sc = x['scores']; so = sc.get('sonnet'); pe = sc.get('perplexity'); li = sc.get('liquid'); old = x.get('liquid_d1_ultra'); im = sc.get('liquid_image'); imu = x.get('liquid_image_untested'); imv = im if im is not None else imu
+            rows_.append([x['paper'], x['ntype'] + (' quote' if x['nid'].endswith(' quote') else ''), x['nid'], x['what'], x['text'], '', so if so is not None else '', x['reasons'].get('sonnet', ''), pe if pe is not None else '', li if li is not None else '', x['majority'], x['mean'] if x['mean'] is not None else '', x['agree'],
+                          ('' if so is None or so == 0.5 else int(so >= 0.75)), ('' if pe is None else int(pe >= 0.5)), ('' if li is None else int(li >= 0.5)), {'pass': 1, 'fail': 0}.get(x['majority'], ''), ('' if x['mean'] is None else int(x['mean'] >= 0.5)), '', '', '',
+                          imv if imv is not None else '', ('yes' if im is not None else ('no, untested' if imu is not None else '')), old if old is not None else '', ('' if old is None else int(old >= 0.5)), ('' if imv is None else int(imv >= 0.5)), x.get('passage', ''), x.get('queue', ''), x.get('novel_share', '')])
             crops_.append(x.get('crop') if not (x['ntype'] == 'PICOST' and not x['nid'].endswith('Population')) else None)   # the six slot rows of a finding share one screenshot: shown on the first row only
         for i, r_ in enumerate(rows_, 2): r_[20] = f'=IF(S{i}="yes",1,IF(S{i}="no",0,""))'
-        wv = tab('Verification (all nodes)', hdr, rows_, [30, 10, 16, 30, 60, 50, 10, 40, 12, 12, 10, 9, 10, 9, 9, 9, 9, 9, 16, 30, 12], jp_from=19, img=(6,))
+        wv = tab('Verification (all nodes)', hdr, rows_, [30, 10, 16, 30, 60, 50, 10, 40, 12, 12, 10, 9, 10, 9, 9, 9, 9, 9, 16, 30, 12, 16, 16, 14, 12, 12, 60, 22, 18], jp_from=19, img=(6,))
         for i, cp in enumerate(crops_, 2): put_image(wv, d, i, 6, cp, 360, thumbs)
         n = len(rows_) + 1; sn = "'Verification (all nodes)'!"
         def rng(c): return f"{sn}{c}2:{c}{n}"
         summ = []
-        for label, pc, sc_c in (('Sonnet 5.5 (foundation model)', 'N', 'G'), ('Perplexity Decider 1.3 (decision model)', 'O', 'I'), ('Liquid d1-ultra (decision model)', 'P', 'J'), ('Majority vote of the three', 'Q', None), ('Mean score of the three (pass at 0.5 or more)', 'R', 'L')):
+        for label, pc, sc_c in (('Sonnet 5.5 (foundation model)', 'N', 'G'), ('Perplexity Decider 1.3 (decision model)', 'O', 'I'), ('Liquid d1.2-ultra, text (decision model)', 'P', 'J'), ('Liquid d1-ultra OLD, text (decision model, replaced)', 'Y', 'X'), ('Liquid d1.2-ultra, reading screenshots (digit and other screenshot checks)', 'Z', 'V'), ('Majority vote of the voting models', 'Q', None), ('Mean score of the voting models (pass at 0.5 or more)', 'R', 'L')):
             P, T = rng(pc), rng('U')
             summ.append([label, f'=COUNT({P})', f'=IFERROR(AVERAGE({P}),"")', (f'=IFERROR(AVERAGE({rng(sc_c)}),"")' if sc_c else ''), f'=IFERROR(SUMPRODUCT(--({P}={rng("Q")}),--ISNUMBER({P}),--ISNUMBER({rng("Q")}))/SUMPRODUCT(--ISNUMBER({P}),--ISNUMBER({rng("Q")})),"")',
                          f'=COUNT({T})', f'=IFERROR(SUMPRODUCT(--ISNUMBER({T}),--ISNUMBER({P}),--({P}={T}))/SUMPRODUCT(--ISNUMBER({T}),--ISNUMBER({P})),"")', f'=IFERROR(COUNTIFS({P},1,{T},1)/COUNTIFS({P},1,{T},">=0"),"")', f'=IFERROR(COUNTIFS({P},1,{T},1)/COUNTIFS({T},1,{P},">=0"),"")', f'=IFERROR(COUNTIFS({P},0,{T},0)/COUNTIFS({T},0,{P},">=0"),"")'])
-        tab('Verification summary', ['Verifier', 'Items scored (not abstained)', 'Share judged correct', 'Mean score', 'Agreement with the majority vote', 'Items with JP ground truth', 'Accuracy vs JP', 'Precision vs JP (of items it passed, how many JP calls correct)', 'Recall vs JP (of items JP calls correct, how many it passed)', 'Specificity vs JP (of items JP calls wrong, how many it failed)'], summ, [44, 14, 12, 10, 16, 14, 12, 22, 22, 22])
-        types = sorted({x['ntype'] for x in V}); tt = []
+        tab('Verification summary', ['Verifier', 'Items scored (not abstained)', 'Share judged correct', 'Mean score', 'Agreement with the majority vote', 'Items with JP ground truth', 'Accuracy vs JP', 'Precision vs JP (of items it passed, how many JP calls correct)', 'Recall vs JP (of items JP calls correct, how many it passed)', 'Specificity vs JP (of items JP calls wrong, how many it failed)'], summ, [52, 14, 12, 10, 16, 14, 12, 22, 22, 22])
+        types = sorted({x['ntype'] + (' quote' if x['nid'].endswith(' quote') else '') for x in V}); tt = []
         for t_ in types: tt.append([t_, f'=COUNTIF({rng("B")},"{t_}")', f'=IFERROR(COUNTIFS({rng("B")},"{t_}",{rng("Q")},1)/COUNTIFS({rng("B")},"{t_}",{rng("Q")},">=0"),"")', f'=COUNTIFS({rng("B")},"{t_}",{rng("K")},"split")', f'=COUNTIFS({rng("B")},"{t_}",{rng("U")},">=0")'])
         tab('Verification by node type', ['Node type', 'Items', 'Share the majority judged correct', 'Split votes', 'Items with JP ground truth'], tt, [20, 10, 18, 12, 18])
+    fa_f = d / 'failure_analysis.json'
+    if fa_f.exists():
+        FA = json.load(open(fa_f)); fr = [[x['paper'], x['ntype'], x['nid'], f"'Verification (all nodes)' row {x['row']} (cells A{x['row']}:AB{x['row']})", x['item'], x['passage'], x['sonnet_reason'], x['who_is_right'], x['failure_type'], x['reason'], x['fix'], '', ''] for x in sorted(FA, key=lambda x: (x['ntype'], x['row']))]
+        tab('Failure analysis (sampled)', ['Paper', 'Node type', 'Node id', 'Where the item is', 'Item (as extracted)', 'Passage it was checked against', 'Sonnet 5.5 reason', 'Opus 5.5: who is right', 'Opus 5.5: failure type', 'Opus 5.5: reason', 'Opus 5.5: cheapest fix', 'JP: is Opus right? (yes/no)', 'JP: notes'], fr, [30, 10, 14, 34, 60, 60, 40, 16, 22, 50, 40, 16, 30], jp_from=12)
+        ft = sorted({x['failure_type'] for x in FA if x['failure_type']}); nt = sorted({x['ntype'] for x in FA}); nF = len(fr) + 1; fs = "'Failure analysis (sampled)'!"
+        tab('Failure types (sampled)', ['Node type'] + ft + ['Sampled items'], [[t_] + [f'=COUNTIFS({fs}B2:B{nF},"{t_}",{fs}I2:I{nF},"{f_}")' for f_ in ft] + [f'=COUNTIF({fs}B2:B{nF},"{t_}")'] for t_ in nt], [14] + [18] * (len(ft) + 1))
     if qr_rows:
         wq = tab('Quality signals (raw ratings)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF', 'Quote highlighted and boxed in the PDF (image)'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10, 60], img=(9,))
         for i, cp in enumerate(qr_crops, 2): put_image(wq, d, i, 9, cp, 420, thumbs)

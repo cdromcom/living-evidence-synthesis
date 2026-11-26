@@ -139,6 +139,20 @@
       "pdf_input": false,
       "price_source": "list price 2026-11-23",
       "verified": null
+    },
+    "d1.2-ultra": {
+      "display": "Liquid d1.2-ultra",
+      "provider": "decision",
+      "developer": "Liquid AI",
+      "country": "US",
+      "weights": "closed",
+      "runs": "api",
+      "price_in": 0.042,
+      "price_out": 0,
+      "batch_discount": 1.0,
+      "pdf_input": false,
+      "price_source": "Liquid blog d1.2, 2026-11-16 ($0.042 per million input tokens)",
+      "verified": null
     }
   },
   "roles": {

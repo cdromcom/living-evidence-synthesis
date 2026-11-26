@@ -302,3 +302,10 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - `quote_check` stage (Sonnet 5.5 reads a screenshot of every quote, including questions, claims and caveats; standard mode, about $0.004 per quote): batch05 157 quotes checked, 151 equal the print, 2 flagged for a meaning change; batch07 63 checked, 58 equal.
 - Highlight bug found and fixed: the quote highlight was drawn behind the page text and vanished under shaded table cells (Bougie Table 5), which made a screenshot point at the wrong row.
 - `lives_verify.py` (verify stage): Sonnet 5.5 and the two decision models (Perplexity, Liquid) verify every PICOST slot (one row per slot), quote, QUE reframing, CLM, CVT and quality rating; majority vote and mean per item; JP's columns are open. Sheet tabs: "Verification (all nodes)", "Verification summary", "Verification by node type". 948 items across batch05 and batch07: Sonnet judged 89% correct, Perplexity 75%, Liquid 76%, majority vote 78%. No JP ground truth yet.
+
+## 2026-11-26 (night): d1.2-ultra, screenshots, failure analysis
+- Liquid decision model switched from d1-ultra to d1.2-ultra; the old scores were kept next to the new ones (verification tab columns X-Y, checks tab column T).
+- d1.2-ultra reads screenshots. Digit comparison on quotes works (60 quotes, pairwise AUC 1.0), word comparison does not (5 of 8 correct quotes failed), so only digit comparisons on quotes vote.
+- Corrected denominators: earlier totals for CLM, CVT and QUE mixed in the quote-versus-print rows. Judgment rows only: CLM 9 of 15 not passed, CVT 16 of 28, QUE reframing 18 of 21.
+- Opus 5.5 classified 48 (batch05) and 22 (batch07) sampled failures; PICOST failures were all "value outside the shown passage" in the sample (the verifier saw only the cited pages).
+- Anchors rerun (`test-anchors`, Sarol, quality signals): quotes found are the same as in the non-anchor run (Neon 20, Opus 18, Sol 2) and all now carry the exact PDF text.
