@@ -99,7 +99,7 @@ def dispatch(M, key, reqs, mode, cap_frac=1.0):
     res = {k: L.Res(**v) for k, v in json.loads(f.read_text()).items()}; actual = 0.0
     for r in reqs:
         x = res.get(r.id) or L.Res(r.id, False, err='missing'); c = L.cost(r.model, x.tin, x.tout, batch); actual += c
-        cl.record(M.m['run_id'], key, r.model, st.get('prompt', 'pipeline/prompts/draft-nodes-v3.md'), provider=L.provider_of(r.model), citekey=r.id.split('__')[0], effort=r.effort, tokens_in=x.tin, tokens_out=x.tout, output_text=x.text or None, notes=f'mode={mode}; cost_usd={c:.4f}; finish={x.finish}; err={x.err}')
+        cl.record(M.m['run_id'], key, r.model, st.get('prompt', 'pipeline/prompts/draft-nodes-v4.md'), provider=L.provider_of(r.model), citekey=r.id.split('__')[0], effort=r.effort, tokens_in=x.tin, tokens_out=x.tout, output_text=x.text or None, notes=f'mode={mode}; cost_usd={c:.4f}; finish={x.finish}; err={x.err}')
     with M.lock: M.m['spent_usd'] = round(M.m['spent_usd'] + actual, 4); st.update(status='done', actual_usd=round(actual, 4), ended=now()); M.save()
     M.event(f"stage {key}: done, actual ${actual:.3f} (worst case ${worst:.2f}); total spent ${M.m['spent_usd']:.2f} of ${M.m['cap_usd']:.2f}")
     if M.m['spent_usd'] > M.m['cap_usd']: raise Halt('spend passed the cap')
@@ -159,12 +159,14 @@ def writing_rules(node, card_nums):
     if t == 'EVD':
         out['length_ok'] = len(txt) <= 247; nums = {norm_num(x) for x in re.findall(r'-?\d*\.?\d+', txt.replace(',', ''))}; out['numbers_not_on_card'] = sorted(n for n in nums if n not in card_nums)
         out['readability_ok'] = out['fk_grade'] <= 14
-        out['parentheses_ok'] = txt.count('(') <= 1 and txt.count(')') == txt.count('(') and '[' not in txt   # JP, 2026-11-26: at most one set of parentheses in an EVD
+        out['parentheses_ok'] = txt.count('(') <= 2 and txt.count(')') == txt.count('(') and '[' not in txt and ']' not in txt   # JP, 2026-11-26: one or two sets of parentheses in an EVD, no brackets
+        allowed = set(C.PIPE.get('writing', {}).get('caps_allowed', []))
+        out['caps_words'] = sorted({w for w in re.findall(r'\b[A-Z][A-Z_]{3,}\b', txt) if w not in allowed}); out['caps_ok'] = not out['caps_words']   # JP, 2026-11-26: no all-caps words (ACCURATE); tool, model and metric names are allowed
     if t == 'QUE': out['question_ok'] = txt.strip().endswith('?')
     if t in ('CLM', 'CVT', 'EVD'): out['has_quote'] = bool((node.get('quote') or '').strip())
     if t == 'EVD' and node.get('tier') == 'primary': out['links_to_question'] = bool(node.get('answers_QUE'))
     out['no_emdash'] = '\u2014' not in ' '.join(str(v) for v in node.values() if isinstance(v, str))   # JP's writing rule: no em dashes in written text
-    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('parentheses_ok', True), out.get('question_ok', True), out.get('has_quote', True), out.get('links_to_question', True)]); return out
+    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('parentheses_ok', True), out.get('caps_ok', True), out.get('question_ok', True), out.get('has_quote', True), out.get('links_to_question', True)]); return out
 
 
 def card_numbers(M, ck):
@@ -336,12 +338,12 @@ def rework_low_scores(M, data, evd, dm_evd, cn, mode):
     corrected = {(ck, x['id']) for ck in {t[0] for t in evd} for x in final_findings(M, ck)[0] if x.get('corrected_from_supplement')}   # findings corrected from supplementary material are always reworked: their numbers changed
     low = [(ck, nid, f) for ck, nid, f in evd if (f.get('dm') or {}).get('score', 1) < DM_LOW or (ck, f['node'].get('source_id')) in corrected]
     if not low: return
-    sysr = prompt('evd-rework-v2.md'); reqs = []; items = {}
+    sysr = prompt('evd-rework-v3.md'); reqs = []; items = {}
     for ck, nid, f in low:
         fnd = next((x for x in final_findings(M, ck)[0] if x['id'] == f['node'].get('source_id')), {}); crop = make_crop(M, ck, fnd) if fnd else None; items[f'{ck}__rework__{nid}'] = (ck, nid, f)
         body = {'evd_statement': f['node'].get('statement', ''), 'quote': f['node'].get('quote', ''), 'tier': f['node'].get('tier'), 'finding': {k: fnd.get(k) for k in ('id', 'statement', 'P', 'I', 'C', 'O', 'S', 'T', 'numbers', 'spans')}, 'decision_model_scores': {**f['dm']['means'], 'lowest_question': min(f['dm']['means'], key=f['dm']['means'].get) if f['dm']['means'] else ''}}
         reqs.append(L.Req(f'{ck}__rework__{nid}', R['evd_rework'], 'Check and, if needed, rewrite this EVD statement:\n' + json.dumps(body, ensure_ascii=False), sysr, None, 'medium', 4000, images=[crop] if crop else []))
-    M.m['stage_log'].setdefault('draft_rework', {})['prompt'] = 'pipeline/prompts/evd-rework-v2.md'
+    M.m['stage_log'].setdefault('draft_rework', {})['prompt'] = 'pipeline/prompts/evd-rework-v3.md'
     res = dispatch(M, 'draft_rework', reqs, mode)
     for rid, (ck, nid, f) in items.items():
         j = safe_json(res.get(rid) or L.Res('', False)) or {}; verdict = j.get('verdict', 'no answer'); rev = (j.get('revised_statement') or '').strip()
@@ -357,13 +359,13 @@ def rework_low_scores(M, data, evd, dm_evd, cn, mode):
 def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v3.md'); sys1 = prompt('critique-revise-v3.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('node-detail-check-v1.md')
+    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v4.md'); sys1 = prompt('critique-revise-v4.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('node-detail-check-v1.md')
     cards = {ck: card_text(M, ck, 'primary') for ck in papers}; rest = {ck: card_text(M, ck, 'rest') for ck in papers}; full = {ck: card_text(M, ck, 'all') for ck in papers};   # the claim check reads the whole extraction, not just the primary part
     cn = {ck: card_numbers(M, ck) for ck in papers}; cn_all = cn; data = {ck: {'authors': {}} for ck in papers}
     # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
     reqs = [L.Req(f'{ck}__r0-{a}', m, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, e, 9000) for ck in papers for a, m, e in AUTHORS]
     reqs += [L.Req(f'{ck}__single', AUTHORS[0][1], f'Extraction:\n{rest[ck]}\n\nWrite the nodes now. Write nodes only for the findings, questions, claims and caveats given here (the primary findings are drafted elsewhere; link to them by their ids, "E-" plus the source id).', sys0, None, AUTHORS[0][2], 20000) for ck in papers]   # everything except the primary EVDs: one model, one draft (JP, 2026-11-25)
-    st['prompt'] = 'pipeline/prompts/draft-nodes-v3.md'; r0 = dispatch(M, 'draft_r0', reqs, mode)
+    st['prompt'] = 'pipeline/prompts/draft-nodes-v4.md'; M.m['evd_rules_prompt'] = 'draft-nodes-v4'; r0 = dispatch(M, 'draft_r0', reqs, mode)
     for ck in papers:
         for a, _, _ in AUTHORS:
             j = safe_json(r0.get(f'{ck}__r0-{a}') or L.Res('', False)); nodes = nodes_of(j); data[ck]['authors'][a] = {'r0': nodes, 'r0_writing_rules': {i: writing_rules(n, cn[ck]) for i, n in nodes.items()}}
@@ -376,7 +378,7 @@ def stage_draft(M, mode):
         for a, m, e in AUTHORS:
             idx = shuffle_labels(rng, have); order[(ck, a)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r0'].values()), 'writing_rules': data[ck]['authors'][h]['r0_writing_rules']} for k, h in enumerate(order[(ck, a)])}
             if have: reqs.append(L.Req(f'{ck}__r1-{a}', m, f'Extraction:\n{cards[ck]}\n\nDrafts:\n{json.dumps(blob, ensure_ascii=False)}\n\nCritique and revise now.', sys1, None, e, 14000))
-    st['prompt'] = 'pipeline/prompts/critique-revise-v3.md'; r1 = dispatch(M, 'draft_r1', reqs, mode)
+    st['prompt'] = 'pipeline/prompts/critique-revise-v4.md'; r1 = dispatch(M, 'draft_r1', reqs, mode)
     for ck in papers:
         for a, _, _ in AUTHORS:
             j = safe_json(r1.get(f'{ck}__r1-{a}') or L.Res('', False)); d = data[ck]['authors'][a]; d['critiques'] = (j or {}).get('critiques', []); d['r1'] = nodes_of((j or {}).get('revised')) or d['r0']; d['r1_writing_rules'] = {i: writing_rules(n, cn[ck]) for i, n in d['r1'].items()}

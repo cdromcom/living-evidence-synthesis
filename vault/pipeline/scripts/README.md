@@ -20,7 +20,7 @@ Dependencies: `fitz` (PyMuPDF), `pdftoppm` (poppler-utils, optional).
 ## Added 2026-11-24 (Skill v2 backbone)
 - `pdf_pages.py` page map (printed page vs PDF position), quote locator and verbatim check, highlighted crop, embedded links.
 - `signals_common.py`, `audit_signal_quotes.py`, `signals_decision_models.py`, `signals_to_gsheet.py`, `check_quality_signals.py`: traceability audit, decision-model check and human review sheet for the TRIPOD-LLM and Quality appraisal tables.
-- `decision_models.py` client for Perplexity Decider 1.3, Liquid d1-ultra, Jev.
+- `decision_models.py` client for Perplexity Decider 1.3 (text) and Liquid d1.2-ultra (text and images; d1-ultra until 2026-11-26); Jev was dropped.
 - `provenance/`: `openalex.py`, `doaj.py`, `opencitations.py`, `pubpeer.py`, `howfairis_check.py` (own virtual environment), `fair_checker.py`, `run_provenance.py`.
 - `smoke_test_scripts.py` runs every script on a throwaway vault copy; latest report: `pipeline/misc/evd-validation/2026-11-24-script-smoke-tests.md`.
 - Retired: `quote_pipeline.py` (needs `--force`). The vault path comes from `LIVES_VAULT` or the folder two levels above `pipeline/scripts/`.
@@ -37,3 +37,12 @@ Dependencies: `fitz` (PyMuPDF), `pdftoppm` (poppler-utils, optional).
 - Screening runs are written to `pipeline/screening/<date>_<collection>/` (README.md in TRIPOD+LLM style, `data/` metadata-only TSV and JSON); `pipeline/screening/shared/` holds the seed papers' task groups and names. `screen_to_gsheet.py` writes both the review workbook and that folder; category names for new categories are edited in `data/new-category-names_and-task-types.json`.
 - `lives_run.py`, `llm_batch.py`: the paper processor (1 to 4 PDFs, $5.55 cap per batch, stop-the-batch rules, run manifest; standard or batch mode per provider; Inkling in parallel). Prompts in `pipeline/prompts/` (`picost-v1.md`, `recheck-v1.md`, `adjudicate-v1.md`). Outputs go to `pipeline/runs/<run>/` and stay local. See `Skill.md`, Step 1, item 11a.
 - `zotero_inventory.py`, `screen_all.py`, `screen_all_to_gsheet.py`, `oa_lookup.py`, `zotero_merge_duplicates.py`: whole-library screening (all Zotero libraries), open-access lookup (OpenAlex) and the Zotero duplicate merge (Zotero closed; backup first).
+
+## Added 2026-11-26
+- `lives_verify.py`: verification layer. Claude Sonnet 5.5, Perplexity Decider 1.3 and Liquid d1.2-ultra judge every PICOST slot (with page 1 and the Methods pages), quote, QUE reframing, CLM, CVT and quality rating; Liquid d1.2-ultra also reads digits on screenshots. Majority vote, mean, labeling queue (`queue_order`), rerun functions that keep earlier scores.
+- `lives_dm_rerun.py`: rerun the Liquid parts of a finished run with the current decision-model id and keep the old scores.
+- `analyze_failures.py`: sample the verification items that scored below 0.5 and have Claude Opus 5.5 classify the kinds of problem (`prompts/failure-types-v1.md`).
+- `numbers_on_pages.py`: statement numbers against the text of the cited pages; numbers missing from the text are looked up on the screenshots by Liquid d1.2-ultra (with a changed-digit control).
+- `focused_extract.py`: Sonnet 5.5 focused extraction from a paper's supplement; `quote_vision_check.py`: stand-alone Sonnet 5.5 screenshot check of quotes.
+- `run_to_gsheet.py`: the ABOUT tab now lists every model, package and tool; new tabs Verification (all nodes), Verification summary, Numbers check, Failure analysis.
+

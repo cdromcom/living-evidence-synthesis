@@ -61,5 +61,43 @@
     "ai_use_footer_required": true,
     "downloads_need_listing": "report every downloaded supplement (file, source URL, size) and never bypass a paywall or login"
   },
-  "project_question": "In benchmarking experiments, how accurately, quickly, and cost-effectively can Large Language Models (LLMs), Pretrained Language Models (PLMs), other NLP models, fine-tuned systems, and AI agents evaluate scholarly abstracts, preprints, and full research reports (including journal articles, conference proceedings, scholarly coursework, research proposals and ethics-review materials), across broad tasks such as peer review and narrower tasks such as error and limitation detection, critical appraisal, risk-of-bias assessment, reporting-guideline compliance, claim checking, novelty assessment, replicability prediction, ethics and style compliance, protocol and registration concordance, plagiarism and duplicate-publication detection, and distinguishing human-written from AI-generated scholarly writing? Evidence: empirical comparisons of AI judgments against human experts or another reference standard with quantitative results, plus time and cost where reported."
+  "project_question": "In benchmarking experiments, how accurately, quickly, and cost-effectively can Large Language Models (LLMs), Pretrained Language Models (PLMs), other NLP models, fine-tuned systems, and AI agents evaluate scholarly abstracts, preprints, and full research reports (including journal articles, conference proceedings, scholarly coursework, research proposals and ethics-review materials), across broad tasks such as peer review and narrower tasks such as error and limitation detection, critical appraisal, risk-of-bias assessment, reporting-guideline compliance, claim checking, novelty assessment, replicability prediction, ethics and style compliance, protocol and registration concordance, plagiarism and duplicate-publication detection, and distinguishing human-written from AI-generated scholarly writing? Evidence: empirical comparisons of AI judgments against human experts or another reference standard with quantitative results, plus time and cost where reported.",
+  "writing": {
+    "_about": "EVD writing-rules check (JP, 2026-11-26): all-caps words of four or more letters are flagged unless listed here (names of tools, models and metrics).",
+    "caps_allowed": [
+      "PRISMA",
+      "AMSTAR",
+      "CONSORT",
+      "STROBE",
+      "PRECIS",
+      "QUADAS",
+      "ROBINS",
+      "PICOST",
+      "BERT",
+      "PubMed",
+      "LLMA",
+      "NLP",
+      "MRR",
+      "BM25",
+      "SPOT",
+      "ARIES",
+      "AAAR",
+      "NIPS",
+      "ICLR",
+      "NeurIPS",
+      "MARG",
+      "SARG",
+      "LLM",
+      "LLMs",
+      "RAG",
+      "OpenReviewer",
+      "GPT",
+      "GAR",
+      "COVID",
+      "NRSI",
+      "PROBAST",
+      "MultiVerS",
+      "MonoT5"
+    ]
+  }
 }

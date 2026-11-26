@@ -74,6 +74,7 @@ These apply to every page and section the Skill writes (SRC pages, node bodies, 
 2. **At most one info callout box per page.** Everything else is plain text, lists or tables.
 3. **Write like a human.** Plain words, concrete details, varied sentence length, no filler openers ("It is worth noting"), no staged reveals or slogans.
 4. **Make it skimmable.** Lead with the point, keep sections short, link the node first (see `Skill-templates.md`).
+5. **EVD wording rules (JP, 2026-11-26).** (1) One or two sets of parentheses per EVD, one is better; the statistics go in the last set; no brackets [ ]. (2) No all-caps words: write class labels and ordinary words in lowercase (accurate, not accurate, irrelevant), and keep capitals only for the names of tools, models and metrics (PRISMA, AMSTAR, GPT-4, F1). (3) When the paper reports F1 scores, report the F1 score overall and, if the paper gives them, per class, and leave out precision, recall, macro-F1 and micro-F1: F1 already combines precision and recall, so leaving them out tightens the EVD. (4) At most 247 characters, named models, N and field, comparator, spelled-out metric names. The writing-rules check enforces 1, 2 and the length (`parentheses_ok`, `caps_ok`, `length_ok`); the names allowed in capitals are listed in `pipeline/config/pipeline.json`, key `writing.caps_allowed`; prompts `draft-nodes-v4`, `critique-revise-v4` and `evd-rework-v3` carry rules 1 to 3.
 5. **Use a numbered list** for steps, procedures and ranked items. **Use bullets** for unordered items. Never bullet a sequence.
 6. **No redundancy or bloat.** Say each thing once inside a subsection or paragraph. Cut restatements, recaps of the line above and padding.
 The drafting prompts carry these rules and the writing-rules check flags an em dash in drafted nodes.
@@ -211,7 +212,7 @@ Scripts first, then the decision-model checks (mean probability and spread guide
 
 ## Step 6e: Decision-model check of extractions → see `Skill-controls.md`
 
-Decider 1.3 and d1-ultra run four checks (relevancy, fidelity, numbers-in-source, table-cell match) before any node is written. Part 2, "Step 6e".
+Decider 1.3 and d1.2-ultra run four checks (relevancy, fidelity, numbers-in-source, table-cell match) before any node is written. Part 2, "Step 6e".
 
 ## Steps 7 to 14 → see `Skill-templates.md` and `Skill-synthesis.md`
 

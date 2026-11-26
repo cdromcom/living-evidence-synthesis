@@ -33,6 +33,41 @@ def first(globs):
     return None
 
 
+def about_models_and_tools(M):
+    """Rows for the ABOUT tab: every model by job, with developer, country, how it runs and price, the decision and embedding models, and every Python package and tool (JP, 2026-11-26: name them, do not be vague)."""
+    import importlib.metadata as md, platform, re as _re
+    import decision_models as _dm
+    MO = C.MODELS; R_ = C.ROLES
+    def desc(mid):
+        m = MO.get(mid, {}); price = f"${m.get('price_in')} in / ${m.get('price_out')} out per million tokens" if m.get('price_in') is not None else 'price not listed'
+        return f"{m.get('display', mid)} (id {mid}; {m.get('developer', '?')}, {m.get('country', '?')}; {'hosted API' if m.get('runs') == 'api' else 'runs locally'}; {price})"
+    def role(x): return desc(x['model']) + (f", effort {x['effort']}" if x.get('effort') else '') if isinstance(x, dict) else desc(x)
+    rows = [('MODELS AND TOOLS', 'Every model and package this pipeline uses. Prices are list prices recorded in pipeline/config/models.json with their source and date.'),
+            ('Extraction (picost stage)', role(R_['extract'])), ('Second reading of flagged findings (recheck)', role(R_['recheck'])), ('Adjudication when readers disagree', role(R_['adjudicate'])),
+            ('Screenshot check of every finding (checks stage)', role(R_['vision_check'])), ('Dispute between decision models and screenshot check', role(R_['vision_dispute'])), ('Tie-break between drafts', role(R_['tiebreak'])),
+            ('Quote check: screenshot of every quote against its text', role(R_['quote_check'])), ('EVD rework when a decision-model score is below 0.60', role(R_['evd_rework'])),
+            ('EVD, QUE, CLM, CVT drafting authors', '; '.join(role(a) for a in R_['authors'])), ('Drafting voters', '; '.join(role(a) for a in R_['voters'])),
+            ('Quality-signal raters', '; '.join(role(a) for a in R_['raters'])), ('Quality-signal adjudicator', role(R_['qs_adjudicator'])),
+            ('Verification: foundation model', role(R_['quote_check']) + ' (reads screenshots; judges every PICOST slot, quote, QUE, CLM, CVT and quality rating)'),
+            ('Decision model 1', desc(_dm.MODELS['perplexity']) + '. Text only. Scores every verification item and every EVD check.'),
+            ('Decision model 2', desc(_dm.MODELS['liquid']) + '. Reads text and images (up to 8 per request). Scores every verification item and EVD check; looks for the digits of each quote and for missing statement numbers on screenshots. Replaced d1-ultra on 2026-11-26.'),
+            ('Embedding models (local)', '; '.join(e['name'] for e in C.EMBEDDING) + '. EmbeddingGemma 2 clusters research questions for the Question groups tab; the others are used in screening.'),
+            ('Question grouping and nesting', desc('claude-sonnet-5-5'))]
+    pk = []
+    for fn in ('requirements.txt', 'requirements-screening.txt'):
+        f = C.VAULT / 'pipeline' / fn
+        if f.exists():
+            for line in f.read_text(encoding='utf-8').splitlines():
+                mm = _re.match(r'^([A-Za-z0-9_.\-]+)\s*(?:==|>=)\s*([\w.]+)', line.strip())
+                if mm:
+                    try: inst = md.version(mm.group(1))
+                    except Exception: inst = 'not installed here'
+                    pk.append(f"{mm.group(1)} {mm.group(2)} (installed: {inst})")
+    rows.append(('Python packages', f"Python {platform.python_version()}; " + '; '.join(dict.fromkeys(pk))))
+    rows.append(('Other tools', 'PyMuPDF (reads PDF text, locates quotes, draws highlights, crops screenshots); Pillow (images); openpyxl (builds this workbook); requests (decision-model APIs); Google Drive and Google Sheets connectors (upload); Apps Script macros (pipeline/apps-script/LivesStyle.gs); git and the GitHub CLI (cdromcom/living-evidence-synthesis); Obsidian with the discourse-graph plugin (the vault); the LIVES web app on Vercel.'))
+    return rows
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--out'); a = ap.parse_args(); d = cl.RUNS / a.run; M = json.load(open(d / 'manifest.json')); wb = Workbook(); wb.remove(wb.active); thumbs = d / '_thumbs'
     def lowq(d):
@@ -49,15 +84,20 @@ def main():
              ('Step 1', 'Gemini 4 Neon extracts the paper\'s questions (Abstract and Introduction) and its findings in three tiers: primary answers a question directly, secondary qualifies a primary finding, tertiary is other context.'),
              ('Step 2', 'PyMuPDF finds every quoted span, boxes it and checks the numbers. Findings that look doubtful are flagged.'),
              ('Step 3', 'GPT-6.2 Sol re-reads flagged findings blind, and Claude Opus 5.5 decides when Sol and Neon disagree.'),
-             ('Step 4', 'Decision models and GPT-6.2 Sol look at a crop of every finding: pass, fail or cannot verify (cannot verify goes to you).'),
+             ('Step 4', 'Claude Sonnet 5.5 reads a screenshot of every quote and compares it with the quote text (quote_check stage). Two decision models, Perplexity Decider 1.3 (pplx-decider-v1.3, text only) and Liquid d1.2-ultra (d1.2-ultra, reads text and images), score every finding on relevancy, fidelity, numbers found in the source and table cell matches. GPT-6.2 Sol looks at a crop of every finding: pass, not matched or cannot verify (cannot verify goes to you).'),
              ('Step 5', 'Drafting: three models debate each primary EVD; Sonnet 5.5 drafts everything else once. Quality signals: Neon (High) and Opus rate, Sol decides disagreements.'),
-             ('Step 6', 'You review this sheet. Your labels become the ground truth for the accuracy numbers.'),
+             ('Step 6', 'Verification: Claude Sonnet 5.5, Perplexity Decider 1.3 and Liquid d1.2-ultra each judge every PICOST slot (with page 1 and the Methods pages), quote, question rewording (QUE), claim (CLM), caveat (CVT) and quality rating; Liquid d1.2-ultra also looks for the digits of each quote and for statement numbers missing from the PDF text on the screenshots. Quotes without digits are checked by Sonnet 5.5. The tabs Verification, Numbers check and Failure analysis show the results.'),
+             ('Step 7', 'You review this sheet. Your labels become the ground truth for the accuracy numbers.'),
              ('How to review', 'Start with the Findings tab. Sort by Flags and Tier. Yellow columns are yours: say whether the tier, statement and numbers are right, add findings that were missed, and note why.'),
              ('Flags', 'low_confidence: Neon says it is unsure. multi_page: the evidence is on more than one page. span_not_found and span_on_other_page: the quote is not where it should be. number_not_in_pdf_text: fewer than half of its numbers are in the PDF text. number_not_in_numbers_list: a number in the statement has no entry in the Numbers list. numbers_list_entry_without_location: a listed number has no table, figure or page. no_text_layer: scanned PDF.'),
              ('Costs', 'See Metrics and Calls and cost. Batch mode is about half price; the cap is a hard limit per batch.')]
     for k, t in items: ab.append([k, t])
+    for k, t in about_models_and_tools(M): ab.append([k, t])
     prow = []; frow = []; crow = []; rrow = []; fkeys = []; ckeys = []
     drafts_cache = {}
+    def evd_new(ck, fid):
+        cand(ck, fid); fin = ((drafts_cache.get(ck) or {}).get('finals') or {}).get('E-' + fid)
+        return fin['node'].get('statement', '') if fin else ''
     def cand(ck, fid):
         """Candidate EVD wording from each model that drafted it, plus the chosen EVD (JP wants to compare who writes EVDs at the right level)."""
         if ck not in drafts_cache:
@@ -67,24 +107,25 @@ def main():
         return [st('sonnet'), st('sol'), st('neon'), (fin['node'].get('statement', '') + f"  [{fin.get('author', '')}; {fin.get('how', '')}]") if fin else '', fin.get('status', '') if fin else '']
     for ck, p in M['papers'].items():
         pj = d / ck / 'picost.json'
-        if not pj.exists(): prow.append([ck, Path(p['pdf']).name, p['preflight']['pages'], p.get('failed') or 'no extraction', '', '', '', '']); continue
+        if not pj.exists(): prow.append([ck, Path(p['pdf']).name, p['preflight']['pages'], p.get('failed') or 'no extraction', '', '', '', '', '', '']); continue
         ps = json.load(open(pj)); fs = ps.get('findings', []); tiers = {t: sum(1 for f in fs if f.get('tier') == t) for t in ('primary', 'secondary', 'tertiary')}
         adj = {x['id']: x for x in (p.get('adjudication') or {}).get('adjudications', [])}; rc = {f['id']: f for f in (p.get('recheck') or {}).get('findings', [])}
-        prow.append([ck, Path(p['pdf']).name, p['preflight']['pages'], 'ok', f"{tiers['primary']} / {tiers['secondary']} / {tiers['tertiary']}", len(p.get('flagged', [])), len(p.get('disagreements', [])), round(sum(v.get('cost_usd', 0) for v in p['stages'].values() if isinstance(v, dict)), 3)])
+        prow.append([ck, Path(p['pdf']).name, p['preflight']['pages'], 'ok', tiers['primary'], tiers['secondary'], tiers['tertiary'], len(p.get('flagged', [])), len(p.get('disagreements', [])), round(sum(v.get('cost_usd', 0) for v in p['stages'].values() if isinstance(v, dict)), 3)])
         for f in fs:
-            fkeys.append((ck, f)); v = adj.get(f['id']); frow.append([ck, f['id'], f.get('tier', ''), f.get('tier_reason', ''), '; '.join(f.get('supports', [])), f.get('statement', ''), f.get('P', ''), f.get('I', ''), f.get('C', ''), f.get('O', ''), f.get('S', ''), f.get('T', ''), nums(f),
+            fkeys.append((ck, f)); v = adj.get(f['id']); frow.append([ck, f['id'], f.get('tier', ''), f.get('tier_reason', ''), '; '.join(f.get('supports', [])), f.get('statement', ''), evd_new(ck, f['id']), f.get('P', ''), f.get('I', ''), f.get('C', ''), f.get('O', ''), f.get('S', ''), f.get('T', ''), nums(f),
                                                f.get('confidence', ''), ', '.join(f.get('flags', [])), 'yes' if f['id'] in p.get('flagged', []) else 'no', ('different' if f['id'] in p.get('disagreements', []) else 'agrees') if f['id'] in rc else '', v['verdict'] if v else '', '', '; '.join(f.get('answers_QUE', [])), *cand(ck, f['id']), '', '', '', '', ''])
             for k, sp in enumerate(f.get('spans', []), 1): ckeys.append((ck, f['id'], k)); crow.append([ck, f['id'], k, sp.get('text', '')[:300], sp.get('pdf_page', ''), 'yes' if sp.get('found') else 'NO', ', '.join(map(str, sp.get('pages_found', []))), len(sp.get('bbox', [])), '', ''])
             if f['id'] in rc: rrow.append([ck, f['id'], '; '.join(str(n.get('value')) for n in f.get('numbers', [])), '; '.join(str(n.get('value')) for n in rc[f['id']].get('numbers', [])), ('different' if f['id'] in p.get('disagreements', []) else 'agrees'), (adj.get(f['id']) or {}).get('verdict', ''), (adj.get(f['id']) or {}).get('reason', ''), '', ''])
-    frow = [r[:19] + ['', ''] + r[19:] for r in frow]; crow = [r[:8] + [''] + r[8:] for r in crow]
-    tab('Papers', ['Paper', 'File', 'Pages', 'Status', 'Findings primary / secondary / tertiary', 'Flagged', 'Disagreements', 'Cost USD'], prow, [40, 50, 7, 12, 22, 9, 12, 10])
-    ws = tab('Findings (EVD candidates)', ['Paper', 'Id', 'Tier', 'Why this tier', 'Supports', 'Statement (Neon)', 'Population', 'Intervention', 'Comparator', 'Outcome', 'Study design', 'Timeframe', 'Numbers with locators', 'Confidence', 'Flags', 'Sent to recheck', 'Sol vs Neon', 'Opus verdict', 'Merged screenshot (image; shown when the evidence crosses a page break)', 'Evidence crop (image)', 'Highlighted page (image)', 'Answers question(s)', 'Candidate EVD: Sonnet 5.5', 'Candidate EVD: Sol 6.2', 'Candidate EVD: Neon (Gemini 4)', 'Chosen EVD [author; how chosen]', 'Chosen EVD status',
-                      'JP: tier right? (yes/no)', 'JP: correct tier', 'JP: statement and numbers right? (yes/no)', 'JP: missed finding (describe)', 'JP: notes'], frow, [30, 6, 10, 30, 10, 60, 22, 22, 22, 22, 18, 14, 50, 10, 24, 9, 10, 10, 50, 60, 50, 14, 40, 40, 40, 50, 14, 12, 12, 14, 30, 30], jp_from=28, img=(19, 20, 21))
+    frow = [r[:20] + ['', ''] + r[20:] for r in frow]; crow = [r[:8] + [''] + r[8:] for r in crow]
+    tab('Papers', ['Paper', 'File', 'Pages', 'Status', 'Primary findings', 'Secondary findings', 'Tertiary findings', 'Flagged', 'Disagreements', 'Cost USD'], prow, [40, 50, 7, 12, 10, 10, 10, 9, 12, 10])
+    evd_hdr = 'EVD draft (chosen; new rules: 1-2 parentheses, no brackets, no all caps, F1 only)' if 'draft-nodes-v4' in str(M.get('evd_rules_prompt', '')) else 'EVD draft (chosen; drafted under the older rules, not redrafted)'
+    ws = tab('Findings (EVD candidates)', ['Paper', 'Id', 'Tier', 'Why this tier', 'Supports', 'Statement (Neon)', evd_hdr, 'Population', 'Intervention', 'Comparator', 'Outcome', 'Study design', 'Timeframe', 'Numbers with locators', 'Confidence', 'Flags', 'Sent to recheck', 'Sol vs Neon', 'Opus verdict', 'Merged screenshot (image; shown when the evidence crosses a page break)', 'Evidence crop (image)', 'Highlighted page (image)', 'Answers question(s)', 'Candidate EVD: Sonnet 5.5', 'Candidate EVD: Sol 6.2', 'Candidate EVD: Neon (Gemini 4)', 'Chosen EVD [author; how chosen]', 'Chosen EVD status',
+                      'JP: tier right? (yes/no)', 'JP: correct tier', 'JP: statement and numbers right? (yes/no)', 'JP: missed finding (describe)', 'JP: notes'], frow, [30, 6, 10, 30, 10, 60, 60, 22, 22, 22, 22, 18, 14, 50, 10, 24, 9, 10, 10, 50, 60, 50, 14, 40, 40, 40, 50, 14, 12, 12, 14, 30, 30], jp_from=29, img=(20, 21, 22))
     for i, (ck_, f_) in enumerate(fkeys, 2):
         pd = d / ck_; hl = sorted((pd / 'highlights').glob(f"{f_['id']}_s*_p*.png")); mg = (pd / 'highlights' / f_['merged_screenshot']) if f_.get('merged_screenshot') else None
-        put_image(ws, d, i, 20, pd / 'crops' / f"{f_['id']}.png", 420, thumbs); put_image(ws, d, i, 19, mg if (mg and mg.exists()) else None, 340, thumbs); put_image(ws, d, i, 21, hl[0] if hl else None, 340, thumbs)
-    dv = DataValidation(type='list', formula1='"yes,no,unsure"', allow_blank=True); ws.add_data_validation(dv); dv.add(f'AB2:AB{ws.max_row + 1}'); dv.add(f'AD2:AD{ws.max_row + 1}')
-    dv2 = DataValidation(type='list', formula1='"primary,secondary,tertiary,not an EVD"', allow_blank=True); ws.add_data_validation(dv2); dv2.add(f'AC2:AC{ws.max_row + 1}'); ws.auto_filter.ref = ws.dimensions
+        put_image(ws, d, i, 21, pd / 'crops' / f"{f_['id']}.png", 420, thumbs); put_image(ws, d, i, 20, mg if (mg and mg.exists()) else None, 340, thumbs); put_image(ws, d, i, 22, hl[0] if hl else None, 340, thumbs)
+    dv = DataValidation(type='list', formula1='"yes,no,unsure"', allow_blank=True); ws.add_data_validation(dv); dv.add(f'AC2:AC{ws.max_row + 1}'); dv.add(f'AE2:AE{ws.max_row + 1}')
+    dv2 = DataValidation(type='list', formula1='"primary,secondary,tertiary,not an EVD"', allow_blank=True); ws.add_data_validation(dv2); dv2.add(f'AD2:AD{ws.max_row + 1}'); ws.auto_filter.ref = ws.dimensions
     wsc = tab('Quote checks (EVD spans)', ['Paper', 'Finding', 'Span', 'Quoted span (verbatim)', 'Page cited', 'Found in PDF text', 'Pages where found', 'Word boxes', 'Highlighted page (image)', 'JP: quote correct? (yes/no)', 'JP: notes'], crow, [30, 8, 6, 60, 9, 10, 14, 9, 40, 14, 30], jp_from=10, img=(9,))
     for i, (ck_, fid_, k_) in enumerate(ckeys, 2):
         h_ = sorted((d / ck_ / 'highlights').glob(f'{fid_}_s{k_}_p*.png')); put_image(wsc, d, i, 9, h_[0] if h_ else None, 300, thumbs)
@@ -167,7 +208,7 @@ def main():
             sc = x['scores']; so = sc.get('sonnet'); pe = sc.get('perplexity'); li = sc.get('liquid'); old = x.get('liquid_d1_ultra'); im = sc.get('liquid_image'); imu = x.get('liquid_image_untested'); imv = im if im is not None else imu
             rows_.append([x['paper'], x['ntype'] + (' quote' if x['nid'].endswith(' quote') else ''), x['nid'], x['what'], x['text'], '', so if so is not None else '', x['reasons'].get('sonnet', ''), pe if pe is not None else '', li if li is not None else '', x['majority'], x['mean'] if x['mean'] is not None else '', x['agree'],
                           ('' if so is None or so == 0.5 else int(so >= 0.75)), ('' if pe is None else int(pe >= 0.5)), ('' if li is None else int(li >= 0.5)), {'pass': 1, 'fail': 0}.get(x['majority'], ''), ('' if x['mean'] is None else int(x['mean'] >= 0.5)), '', '', '',
-                          imv if imv is not None else '', ('yes' if im is not None else ('no, untested' if imu is not None else '')), old if old is not None else '', ('' if old is None else int(old >= 0.5)), ('' if imv is None else int(imv >= 0.5)), x.get('passage', ''), x.get('queue', ''), x.get('novel_share', ''), *[(x.get('scores_before_rerun') or {}).get(k, '') if (x.get('scores_before_rerun') or {}).get(k) is not None else '' for k in ('sonnet', 'perplexity', 'liquid')]])
+                          imv if imv is not None else '', ('yes' if im is not None else ('no: quotes without digits are read by Sonnet 5.5' if imu is not None and (x['ntype'] == 'QUOTE' or x['nid'].endswith(' quote')) else ('no, untested' if imu is not None else ''))), old if old is not None else '', ('' if old is None else int(old >= 0.5)), ('' if imv is None else int(imv >= 0.5)), x.get('passage', ''), x.get('queue', ''), x.get('novel_share', ''), *[(x.get('scores_before_rerun') or {}).get(k, '') if (x.get('scores_before_rerun') or {}).get(k) is not None else '' for k in ('sonnet', 'perplexity', 'liquid')]])
             crops_.append(x.get('crop') if not (x['ntype'] == 'PICOST' and not x['nid'].endswith('Population')) else None)   # the six slot rows of a finding share one screenshot: shown on the first row only
         for i, r_ in enumerate(rows_, 2): r_[20] = f'=IF(S{i}="yes",1,IF(S{i}="no",0,""))'
         wv = tab('Verification (all nodes)', hdr, rows_, [30, 10, 16, 30, 60, 50, 10, 40, 12, 12, 10, 9, 10, 9, 9, 9, 9, 9, 16, 30, 12, 16, 16, 14, 12, 12, 60, 22, 18, 14, 14, 14], jp_from=19, img=(6,))
