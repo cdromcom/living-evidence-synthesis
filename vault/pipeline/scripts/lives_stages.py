@@ -8,7 +8,7 @@
            of Sol and Sonnet that did not write it; EVDs also get a decision-model check.
   qs       quality signals rated blind by Neon (High) and Opus 5.5; GPT-6.2 Sol decides only the signals where they disagree. Everything is saved for the sheets.
 Nothing here writes to the vault. Outputs go to pipeline/runs/<run>/<paper>/ and the review sheet."""
-import concurrent.futures as cf, hashlib, json, os, random, re, sys, time
+import collections, concurrent.futures as cf, hashlib, json, os, random, re, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import call_logger as cl, llm_batch as L, pdf_pages as pp, decision_models as dm, config as C
@@ -224,6 +224,56 @@ def make_crop(M, ck, f):
 
 
 QS = {}   # the paper's own questions, by paper, for the relevancy check
+
+
+def stage_quote_check(M, mode):
+    """JP, 2026-11-26: every extracted quote (span) is shown to Claude Sonnet 5.5 as a screenshot with the quote highlighted, together with the model's quote (A) and the PDF text layer's text (B). Sonnet transcribes what is printed and says whether each text equals the print and whether A's differences change the meaning. A quote whose differences change the meaning flags its finding (`quote_differs_from_print`), so Sol re-reads it. Decision models cannot do this check: they are text-only and cannot read the page image. Scope: all spans (config limits.quote_check_scope: 'all' or 'differing')."""
+    st = M.m['stage_log'].setdefault('quote_check', {})
+    if st.get('status') == 'done': return
+    scope = C.PIPE['limits'].get('quote_check_scope', 'all'); sysq = prompt('quote-check-v1.md'); reqs = []; meta = {}; st['prompt'] = 'pipeline/prompts/quote-check-v1.md'
+    for ck, p in M.m['papers'].items():
+        f_ = M.dir / ck / 'picost.json'
+        if p.get('failed') or not f_.exists(): continue
+        ps = json.loads(f_.read_text(encoding='utf-8')); pdf = ex(p['pdf']); out = M.dir / ck / 'quote_crops'; out.mkdir(exist_ok=True)
+        for f in ps.get('findings', []):
+            for k, s in enumerate(f.get('spans', []), 1):
+                if s.get('from_supplement') or s.get('match') not in ('exact', 'letters_digits', 'repaired') or (scope == 'differing' and s.get('match') == 'exact'): continue
+                doc = fitz.open(pdf); w = s['text'].split(); tb = pp.text_between(doc, ' '.join(w[:8]), ' '.join(w[-8:]), s.get('pdf_page')); raw = tb['raw'] if tb else s['text']
+                res = pp.crop_quote(doc, raw, str(out / f"{f['id']}_s{k}.png"), dpi=170, pad=26, tight_x=True); doc.close()
+                if not res.get('ok'): continue
+                rid = f"{ck}__qc__{f['id']}__{k}"; meta[rid] = (ck, f['id'], k)
+                reqs.append(L.Req(rid, R['quote_check'], f"TEXT A (model):\n{s['text']}\n\nTEXT B (PDF text layer):\n{raw}", sysq, None, 'low', 1500, images=[res['out']]))
+        for kind, tag in (('questions', 'Q'), ('claims', 'C'), ('caveats', 'V')):   # the quotes behind questions, claims and caveats are checked the same way
+            for it in ps.get(kind, []):
+                text = it.get('original_wording') if kind == 'questions' else (it.get('span') or {}).get('text', '')
+                if not text or it.get('match') not in ('exact', 'letters_digits', 'repaired'): continue
+                doc = fitz.open(pdf); w = text.split(); tb = pp.text_between(doc, ' '.join(w[:8]), ' '.join(w[-8:]), it.get('pdf_page') or (it.get('span') or {}).get('pdf_page')); raw = tb['raw'] if tb else text
+                res = pp.crop_quote(doc, raw, str(out / f"{it['id']}_{kind[0]}.png"), dpi=170, pad=26, tight_x=True); doc.close()
+                if not res.get('ok'): continue
+                rid = f"{ck}__qc__{kind}__{it['id']}"; meta[rid] = (ck, kind, it['id'])
+                reqs.append(L.Req(rid, R['quote_check'], f"TEXT A (model):\n{text}\n\nTEXT B (PDF text layer):\n{raw}", sysq, None, 'low', 1500, images=[res['out']]))
+    res_ = dispatch(M, 'quote_check', reqs, mode); changed = []; seen = collections.Counter()
+    by = {}
+    for rid, (ck, fid, k) in meta.items():
+        x = res_.get(rid); j = safe_json(x) if x else None
+        if j: by.setdefault(ck, {})[(fid, k)] = j
+    for ck, items in by.items():
+        f_ = M.dir / ck / 'picost.json'; ps = json.loads(f_.read_text(encoding='utf-8')); p = M.m['papers'][ck]; fl = set(p.get('flagged', []))
+        for kind in ('questions', 'claims', 'caveats'):
+            for it in ps.get(kind, []):
+                j = items.get((kind, it['id']))
+                if j: it['vision'] = {'printed': j.get('printed', ''), 'a_equals_print': j.get('a_equals_print'), 'a_differences': j.get('a_differences', []), 'a_changes_meaning': bool(j.get('a_changes_meaning')), 'b_equals_print': j.get('b_equals_print'), 'b_differences': j.get('b_differences', []), 'model': R['quote_check']}
+        for f in ps.get('findings', []):
+            for k, s in enumerate(f.get('spans', []), 1):
+                j = items.get((f['id'], k))
+                if not j: continue
+                s['vision'] = {'printed': j.get('printed', ''), 'a_equals_print': j.get('a_equals_print'), 'a_differences': j.get('a_differences', []), 'a_changes_meaning': bool(j.get('a_changes_meaning')), 'b_equals_print': j.get('b_equals_print'), 'b_differences': j.get('b_differences', []), 'model': R['quote_check']}
+                seen['checked'] += 1; seen['equals print'] += bool(j.get('a_equals_print'))
+                if j.get('a_changes_meaning'):
+                    seen['meaning changed'] += 1; changed.append((ck.split('-')[0], f['id'], k, '; '.join(j.get('a_differences', []))[:160]))
+                    f['flags'] = sorted(set(f.get('flags', [])) | {'quote_differs_from_print'}); fl.add(f['id'])
+        p['flagged'] = sorted(fl); f_.write_text(json.dumps(ps, indent=1, ensure_ascii=False), encoding='utf-8')
+    st['status'] = 'done'; st['summary'] = dict(seen); st['meaning_changed'] = changed; M.save(); M.event(f"quote check: {dict(seen)}; quotes whose differences change the meaning: {changed[:6]}")
 
 
 def stage_checks(M, mode):

@@ -1,5 +1,7 @@
 # Extraction quotes that differ from the PDF text layer: model quote, PDF text layer and printed page compared
 
+**CORRECTION (2026-11-26, later):** the row for Bougie E-F10, quote 3 (PDF p. 13) was reported as a wrong-number error. It is not. The model's quote (GAR> (♥) 0.58±0.05 0.53±0.04 0.65±0.06 0.59±0.04 0.61±0.06 0.64±0.06) is the printed second row of Table 5. The first vision check was misled because the screenshot's highlight was drawn behind the text and disappeared under the shaded table row, so it looked as if the row above (0.55, 0.52, …) was highlighted. The highlight is now drawn over the text at 35% opacity and a rerun reads the row correctly.
+
 **What these are:** quotes from the *extraction step* (the `spans` of each PICOST finding) in run `2026-11-26_batch05` (Sarol, Bougie, Tyser). Each finding becomes one **EVD node** (finding `F4` becomes `E-F4`), so every row here is a quote that supports an EVD. They are not quality-signal ratings, questions (QUE), claims (CLM) or caveats (CVT). 42 of 158 extraction quotes have the same letters and digits as the PDF text layer but a different symbol or punctuation mark; this file lists them.
 
 **How each was checked:** (1) *Model quote*: what the extraction model wrote. (2) *PDF text layer*: the hidden text of the PDF between the first 8 and last 8 words of the quote (the anchor method). (3) *Printed*: what Claude Sonnet 5.5 read from a highlighted screenshot of the page (batch API, $0.09 for 41 quotes). Sonnet then said whether the model quote and the text layer each equal the print.

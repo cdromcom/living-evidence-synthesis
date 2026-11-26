@@ -18,8 +18,8 @@ def put_image(ws, d, row, col, path, width, thumbs):
     """Place a (downsized) PNG in a cell of the sheet and grow the row to fit it. Google Sheets keeps these as pictures sitting in the cell."""
     if not path or not Path(path).exists(): return 0
     thumbs.mkdir(exist_ok=True); out = thumbs / (Path(path).parent.parent.name[:12] + '_' + Path(path).stem + '.jpg')   # JPEG keeps the workbook under the 10 MB upload limit
-    im = PILImage.open(path).convert('RGB'); width = min(width, int(520 * im.width / im.height))   # never taller than the tallest row Sheets allows (about 400 pt), or it spills into the next row
-    im = im.resize((width, max(1, int(im.height * width / im.width))), PILImage.LANCZOS); im.save(out, quality=72, optimize=True)
+    im = PILImage.open(path).convert('RGB'); width = min(int(width * 0.8), int(520 * im.width / im.height))   # 80% of the nominal width: the Drive connector refuses uploads over about 7 MB   # never taller than the tallest row Sheets allows (about 400 pt), or it spills into the next row
+    im = im.resize((width, max(1, int(im.height * width / im.width))), PILImage.LANCZOS); im.save(out, quality=62, optimize=True)
     x = XlImage(str(out)); x.anchor = f'{get_column_letter(col)}{row}'; ws.add_image(x)
     ws.column_dimensions[get_column_letter(col)].width = width / 7 + 1
     h = im.height * 0.75 + 4
@@ -144,6 +144,31 @@ def main():
             if w.get('links_to_question') is False: why.append('primary EVD links to no question')
             wrrows.append([ck, nid, n.get('type', ''), n.get('tier', ''), n.get('statement') or n.get('title') or n.get('limitation') or '', '; '.join(why), w.get('chars', ''), w.get('fk_grade', ''), ', '.join(w.get('numbers_not_on_card', [])), '', ''])
     if wrrows: tab('Writing-rules fails (all nodes)', ['Paper', 'Node', 'Type', 'Tier', 'Text as drafted', 'Which rule failed', 'Characters', 'Reading grade', 'Numbers not on the card', 'JP: suggested change', 'JP: notes'], wrrows, [30, 8, 6, 10, 80, 40, 10, 10, 20, 30, 30], jp_from=10)
+    # ---- verification of every extracted item by Sonnet 5.5 and the two decision models, with majority vote, mean and JP's open columns
+    vf = d / 'verification.json'
+    if vf.exists():
+        V = json.load(open(vf)); hdr = ['Paper', 'Node type', 'Node id', 'What was checked', 'Item (as extracted)', 'Screenshot (image)', 'Sonnet 5.5 score', 'Sonnet 5.5 reason', 'Perplexity Decider 1.3 (probability)', 'Liquid d1-ultra (probability)', 'Majority vote', 'Mean score', 'Models agreeing with the majority',
+               'Sonnet pass (1 or 0)', 'Perplexity pass (1 or 0)', 'Liquid pass (1 or 0)', 'Majority pass (1 or 0)', 'Mean pass (1 or 0)', 'JP: is the extraction correct? (yes/no/unsure)', 'JP: notes', 'Truth used for scoring (formula)']
+        rows_ = []; crops_ = []
+        for x in V:
+            sc = x['scores']; so = sc.get('sonnet'); pe = sc.get('perplexity'); li = sc.get('liquid')
+            rows_.append([x['paper'], x['ntype'], x['nid'], x['what'], x['text'], '', so if so is not None else '', x['reasons'].get('sonnet', ''), pe if pe is not None else '', li if li is not None else '', x['majority'], x['mean'] if x['mean'] is not None else '', x['agree'],
+                          ('' if so is None or so == 0.5 else int(so >= 0.75)), ('' if pe is None else int(pe >= 0.5)), ('' if li is None else int(li >= 0.5)), {'pass': 1, 'fail': 0}.get(x['majority'], ''), ('' if x['mean'] is None else int(x['mean'] >= 0.5)), '', '', ''])
+            crops_.append(x.get('crop') if not (x['ntype'] == 'PICOST' and not x['nid'].endswith('Population')) else None)   # the six slot rows of a finding share one screenshot: shown on the first row only
+        for i, r_ in enumerate(rows_, 2): r_[20] = f'=IF(S{i}="yes",1,IF(S{i}="no",0,""))'
+        wv = tab('Verification (all nodes)', hdr, rows_, [30, 10, 16, 30, 60, 50, 10, 40, 12, 12, 10, 9, 10, 9, 9, 9, 9, 9, 16, 30, 12], jp_from=19, img=(6,))
+        for i, cp in enumerate(crops_, 2): put_image(wv, d, i, 6, cp, 360, thumbs)
+        n = len(rows_) + 1; sn = "'Verification (all nodes)'!"
+        def rng(c): return f"{sn}{c}2:{c}{n}"
+        summ = []
+        for label, pc, sc_c in (('Sonnet 5.5 (foundation model)', 'N', 'G'), ('Perplexity Decider 1.3 (decision model)', 'O', 'I'), ('Liquid d1-ultra (decision model)', 'P', 'J'), ('Majority vote of the three', 'Q', None), ('Mean score of the three (pass at 0.5 or more)', 'R', 'L')):
+            P, T = rng(pc), rng('U')
+            summ.append([label, f'=COUNT({P})', f'=IFERROR(AVERAGE({P}),"")', (f'=IFERROR(AVERAGE({rng(sc_c)}),"")' if sc_c else ''), f'=IFERROR(SUMPRODUCT(--({P}={rng("Q")}),--ISNUMBER({P}),--ISNUMBER({rng("Q")}))/SUMPRODUCT(--ISNUMBER({P}),--ISNUMBER({rng("Q")})),"")',
+                         f'=COUNT({T})', f'=IFERROR(SUMPRODUCT(--ISNUMBER({T}),--ISNUMBER({P}),--({P}={T}))/SUMPRODUCT(--ISNUMBER({T}),--ISNUMBER({P})),"")', f'=IFERROR(COUNTIFS({P},1,{T},1)/COUNTIFS({P},1,{T},">=0"),"")', f'=IFERROR(COUNTIFS({P},1,{T},1)/COUNTIFS({T},1,{P},">=0"),"")', f'=IFERROR(COUNTIFS({P},0,{T},0)/COUNTIFS({T},0,{P},">=0"),"")'])
+        tab('Verification summary', ['Verifier', 'Items scored (not abstained)', 'Share judged correct', 'Mean score', 'Agreement with the majority vote', 'Items with JP ground truth', 'Accuracy vs JP', 'Precision vs JP (of items it passed, how many JP calls correct)', 'Recall vs JP (of items JP calls correct, how many it passed)', 'Specificity vs JP (of items JP calls wrong, how many it failed)'], summ, [44, 14, 12, 10, 16, 14, 12, 22, 22, 22])
+        types = sorted({x['ntype'] for x in V}); tt = []
+        for t_ in types: tt.append([t_, f'=COUNTIF({rng("B")},"{t_}")', f'=IFERROR(COUNTIFS({rng("B")},"{t_}",{rng("Q")},1)/COUNTIFS({rng("B")},"{t_}",{rng("Q")},">=0"),"")', f'=COUNTIFS({rng("B")},"{t_}",{rng("K")},"split")', f'=COUNTIFS({rng("B")},"{t_}",{rng("U")},">=0")'])
+        tab('Verification by node type', ['Node type', 'Items', 'Share the majority judged correct', 'Split votes', 'Items with JP ground truth'], tt, [20, 10, 18, 12, 18])
     if qr_rows:
         wq = tab('Quality signals (raw ratings)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF', 'Quote highlighted and boxed in the PDF (image)'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10, 60], img=(9,))
         for i, cp in enumerate(qr_crops, 2): put_image(wq, d, i, 9, cp, 420, thumbs)

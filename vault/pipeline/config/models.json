@@ -199,7 +199,8 @@
       "model": "gpt-6.2-sol",
       "effort": "medium"
     },
-    "evd_rework": "claude-opus-5-5"
+    "evd_rework": "claude-opus-5-5",
+    "quote_check": "claude-sonnet-5-5"
   },
   "embedding_models": {
     "_about": "Local open-weight models for screening (scripts/screen_all.py reads its list from here in a later step; the paths are folders under ~/.cache/lives-bench/models).",

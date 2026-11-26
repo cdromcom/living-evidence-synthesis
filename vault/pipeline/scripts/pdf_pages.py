@@ -209,9 +209,9 @@ def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind:
     if not rects: return {'ok': False, 'reason': 'found in text but no word coordinates (scanned or odd encoding)'}
     box = fitz.Rect(rects[0])
     for r in rects[1:]: box |= r
-    lines = {}   # one band per text line, drawn behind the text, so the color is exactly the pastel (annotation highlights blend to tan)
+    lines = {}   # one band per text line, drawn over the text at 35% opacity so it shows on shaded table rows too
     for r in rects: lines.setdefault(round(r.y0 / 3), fitz.Rect(r)).include_rect(r)
-    for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), overlay=False)
+    for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), fill_opacity=0.35, overlay=True)   # drawn over the page, see-through: a band behind the text vanished under shaded table rows (Bougie Table 5), which made the wrong row look highlighted
     if box_outline: page.draw_rect(fitz.Rect(box.x0 - 3, box.y0 - 2, box.x1 + 3, box.y1 + 2), color=(0.1, 0.3, 0.75), fill=None, width=1.3, overlay=True)
     x0, x1 = page.rect.x0, page.rect.x1
     if tight_x:   # only the width of the quote's own column or table, so the text stays large enough to read in a spreadsheet cell
@@ -235,7 +235,7 @@ def merge_regions(pdf, regions, out, dpi: int = 200, pad: float = 6, gap_px: int
         if not rs: return {'ok': False, 'reason': f'no rectangles for page {pg}'}
         lines = {}
         for r in rs: lines.setdefault(round(r.y0 / 3), fitz.Rect(r)).include_rect(r)
-        for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), overlay=False)
+        for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), fill_opacity=0.35, overlay=True)   # drawn over the page, see-through: a band behind the text vanished under shaded table rows (Bougie Table 5), which made the wrong row look highlighted
         box = fitz.Rect(rs[0]);
         for r in rs[1:]: box |= r
         allw = [fitz.Rect(w[:4]) for w in page.get_text('words')]   # snap the band to the gap between text lines, so no sliver of the neighbouring line shows at the join
