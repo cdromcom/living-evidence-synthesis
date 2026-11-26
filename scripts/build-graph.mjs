@@ -514,3 +514,101 @@ if (fs.existsSync(LABELS_SRC)) {
   fs.writeFileSync(path.join(process.cwd(), "lib", "quality-labels.generated.json"), fs.readFileSync(LABELS_SRC, "utf8"));
   console.log("Copied quality-signal-labels.json to lib/quality-labels.generated.json");
 }
+
+// Quality signal detail (the side panel behind each row of the Quality signals
+// table). The vault JSON is produced by the provenance pipeline; the app only
+// needs a subset of it, plus the screenshots it points at. When the JSON or a
+// screenshot is missing the build still succeeds and the panel shows no detail.
+{
+  const PROV_DIR = path.join(VAULT, "pipeline", "provenance");
+  const DETAIL_SRC = path.join(PROV_DIR, "provenance-quality-signals.json");
+  const DETAIL_OUT = path.join(process.cwd(), "lib", "quality-signal-detail.generated.json");
+  const SHOT_SRC = path.join(PROV_DIR, "quality-signal-screenshots");
+  const SHOT_OUT = path.join(process.cwd(), "public", "quality-signals");
+  const SAFE = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+  const str = (v) => (typeof v === "string" ? v : "");
+
+  let source = null;
+  if (fs.existsSync(DETAIL_SRC)) {
+    try {
+      source = JSON.parse(fs.readFileSync(DETAIL_SRC, "utf8"));
+    } catch (err) {
+      console.warn(`WARNING: could not read ${DETAIL_SRC} (${err.message}); quality signal detail left empty.`);
+    }
+  }
+
+  const papers = {};
+  let shotsCopied = 0;
+  let shotsMissing = 0;
+  for (const [key, p] of Object.entries(source?.papers ?? {})) {
+    if (!SAFE.test(key) || !p || typeof p !== "object") continue;
+    const signals = {};
+    for (const [sid, s] of Object.entries(p.signals ?? {})) {
+      if (!s || typeof s !== "object") continue;
+      signals[sid] = {
+        id: sid,
+        label: str(s.label),
+        final: str(s.final),
+        agreement: str(s.agreement),
+        summary: str(s.summary),
+        ratings: (s.ratings ?? []).map((r) => {
+          let screenshot = null;
+          const rel = str(r.screenshot);
+          const [dir, file, ...extra] = rel.split("/");
+          if (rel && !extra.length && dir === key && SAFE.test(file ?? "")) {
+            const from = path.join(SHOT_SRC, dir, file);
+            if (fs.existsSync(from)) {
+              fs.mkdirSync(path.join(SHOT_OUT, dir), { recursive: true });
+              fs.copyFileSync(from, path.join(SHOT_OUT, dir, file));
+              screenshot = rel;
+              shotsCopied++;
+            } else {
+              shotsMissing++;
+            }
+          }
+          return {
+            rater: str(r.rater),
+            rating: str(r.rating),
+            quote: str(r.quote),
+            locator: str(r.locator),
+            pdf_page: r.pdf_page ?? null,
+            printed_page: r.printed_page == null ? null : String(r.printed_page),
+            screenshot,
+          };
+        }),
+        checks: (s.checks ?? []).map((c) => ({
+          verifier: str(c.verifier),
+          score: typeof c.score === "number" ? c.score : null,
+          note: str(c.note),
+        })),
+        tool_checks: (s.tool_checks ?? []).filter((t) => typeof t === "string"),
+      };
+    }
+    papers[key] = {
+      citekey: key,
+      checked_utc: str(p.checked_utc),
+      provenance: (p.provenance ?? []).map((t) => ({
+        id: str(t.id),
+        label: str(t.label),
+        tool: str(t.tool),
+        status: str(t.status),
+        result: str(t.result),
+        detail: str(t.detail),
+        url: /^https?:\/\//.test(str(t.url)) ? t.url : "",
+        checked_utc: str(t.checked_utc),
+      })),
+      signals,
+    };
+  }
+
+  // Without the vault JSON, keep whatever lib file is already there (it is
+  // committed, like graph-data.generated.json) and only create an empty one
+  // when none exists, so the import in lib/qualitySignalDetail.ts always resolves.
+  if (source || !fs.existsSync(DETAIL_OUT)) {
+    fs.writeFileSync(DETAIL_OUT, JSON.stringify({ schema: 1, papers }, null, 1) + "\n");
+    console.log(
+      `Wrote lib/quality-signal-detail.generated.json (${Object.keys(papers).length} paper(s), ` +
+        `${shotsCopied} screenshot(s) copied to public/quality-signals, ${shotsMissing} missing)`
+    );
+  }
+}
