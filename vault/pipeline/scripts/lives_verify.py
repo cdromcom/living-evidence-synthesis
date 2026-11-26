@@ -81,22 +81,32 @@ def stage_verify(M, mode):
     st = M.m['stage_log'].setdefault('verify', {})
     if st.get('status') == 'done': return
     items, groups = build_items(M); sysv = S.prompt('verify-item-v1.md'); st['prompt'] = 'pipeline/prompts/verify-item-v1.md'; reqs = []
-    for g in groups: reqs.append(L.Req('g::' + g['gid'], R['quote_check'], f"INSTRUCTION: {g['instruction']}\n\nITEM:\n{g['item']}\n\nPASSAGE:\n{g['passage']}", sysv, None, 'low', 900, images=[g['crop']] if g.get('crop') else []))
-    for i, it in enumerate(items):
-        it['id'] = f'v{i:04d}'
-        if it['kind'] == 'text':
-            body = f"INSTRUCTION: {it['instruction']}\n\nITEM:\n{it['item']}\n\nPASSAGE:\n{it['passage']}"
-            reqs.append(L.Req(it['id'], R['quote_check'], body, sysv, None, 'low', 600, images=[it['crop']] if it.get('crop') else []))
-    res = S.dispatch(M, 'verify_sonnet', reqs, mode)
+    for i, it in enumerate(items): it['id'] = f'v{i:04d}'
     def run(it):
         state = it['item'] if it['kind'] == 'precomputed' else f"PASSAGE:\n{it['passage']}\n\nITEM:\n{it['item']}"
         return S.run_dm(state, it['dm_q'])
-    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, items))
+    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, items))   # first pass: Liquid d1.2-ultra and Perplexity Decider 1.3 (JP, 2026-11-26)
+    def dm_low(r, pv):
+        a = [x for k, x in (r.get(pv) or {}).items() if not k.startswith('_') and isinstance(x, (int, float))]
+        return min(a) if a else None
+    def disagree(r):   # Sonnet 5.5 is called only when the two decision models differ (or one gave no answer)
+        p, l = dm_low(r, 'perplexity'), dm_low(r, 'liquid')
+        return p is None or l is None or ((p >= 0.5) != (l >= 0.5))
+    call_ids = {it['id'] for it, r in zip(items, dres) if it['kind'] == 'text' and disagree(r)}; call_gids = {it['gid'] for it, r in zip(items, dres) if it['kind'] == 'slot' and disagree(r)}
+    for g in groups:
+        if g['gid'] in call_gids: reqs.append(L.Req('g::' + g['gid'], R['quote_check'], f"INSTRUCTION: {g['instruction']}\n\nITEM:\n{g['item']}\n\nPASSAGE:\n{g['passage']}", sysv, None, 'low', 900, images=[g['crop']] if g.get('crop') else []))
+    for it in items:
+        if it['kind'] == 'text' and it['id'] in call_ids:
+            body = f"INSTRUCTION: {it['instruction']}\n\nITEM:\n{it['item']}\n\nPASSAGE:\n{it['passage']}"
+            reqs.append(L.Req(it['id'], R['quote_check'], body, sysv, None, 'low', 600, images=[it['crop']] if it.get('crop') else []))
+    res = S.dispatch(M, 'verify_sonnet', reqs, mode); st['sonnet_called_for'] = {'text items': len(call_ids), 'PICOST findings': len(call_gids), 'of text items': sum(1 for it in items if it['kind'] == 'text'), 'of PICOST findings': len({it['gid'] for it in items if it['kind'] == 'slot'})}
     for it, r in zip(items, dres):
         it['scores'] = {}; it['reasons'] = {}
-        if it['kind'] == 'precomputed': it['scores']['sonnet'] = it['sonnet_score']; it['reasons']['sonnet'] = it['sonnet_reason']
+        if it['kind'] == 'precomputed': it['scores']['sonnet'] = it['sonnet_score']; it['reasons']['sonnet'] = it['sonnet_reason']; it['sonnet_called'] = True   # quote_check stage: Sonnet reads every quote screenshot
         else:
-            if it['kind'] == 'slot':
+            called = (it['gid'] in call_gids) if it['kind'] == 'slot' else (it['id'] in call_ids); it['sonnet_called'] = called
+            if not called: it['scores']['sonnet'] = None; it['reasons']['sonnet'] = 'not called: Perplexity and d1.2-ultra agree'
+            elif it['kind'] == 'slot':
                 j = S.safe_json(res.get('g::' + it['gid']) or L.Res('', False)) or {}; sl = j.get('slots') or {}
                 it['scores']['sonnet'] = to_score(sl.get(it['slot'])) if it['slot'] in sl else None; it['reasons']['sonnet'] = j.get('reason', '')
             else:
@@ -276,20 +286,23 @@ def rescore_quality(M, mode='standard'):
     f_ = M.dir / 'verification.json'; items = json.loads(f_.read_text(encoding='utf-8')) if f_.exists() else []
     fresh, _ = build_items(M); new = [a for a in fresh if a['ntype'] == 'QUALITY']
     sysv = S.prompt('verify-item-v1.md'); reqs = []
-    for i, a in enumerate(new):
-        a['id'] = f'q{i:04d}'; reqs.append(L.Req(a['id'], R['quote_check'], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, 'low', 600, images=[a['crop']] if a.get('crop') else []))
-    res = S.dispatch(M, 'verify_quality', reqs, mode)
+    for i, a in enumerate(new): a['id'] = f'q{i:04d}'
     def run(a):
         state = f"PASSAGE:\n{a['passage']}\n\nITEM:\n{a['item']}"; out = {}
         for pv in R['decision_models']:
             r, e = dm.decide(pv, state, a['dm_q']); ans = [y.get('noul') for y in ((r or {}).get('answers') or {}).values() if isinstance(y, dict) and y.get('noul') is not None]; out[pv] = min(ans) if ans else None
         return out
-    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, new))
+    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, new))   # first pass: d1.2-ultra and Perplexity; Sonnet 5.5 only where they differ
+    def split(d_): return d_.get('perplexity') is None or d_.get('liquid') is None or ((d_['perplexity'] >= 0.5) != (d_['liquid'] >= 0.5))
+    called = {a['id'] for a, d_ in zip(new, dres) if split(d_)}
+    for a in new:
+        if a['id'] in called: reqs.append(L.Req(a['id'], R['quote_check'], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, 'low', 600, images=[a['crop']] if a.get('crop') else []))
+    res = S.dispatch(M, 'verify_quality', reqs, mode)
     kept = [x for x in items if x['ntype'] != 'QUALITY']; added = []
     for a, d_ in zip(new, dres):
-        j = S.safe_json(res.get(a['id']) or L.Res('', False)) or {}
+        j = (S.safe_json(res.get(a['id']) or L.Res('', False)) or {}) if a['id'] in called else {}
         it = {k: a[k] for k in ('paper', 'ntype', 'nid', 'what', 'text', 'crop')}; it['passage'] = short(a.get('passage') or a['item'], 600)
-        it['scores'] = {'sonnet': to_score(j['verdict']) if 'verdict' in j else None, 'perplexity': d_.get('perplexity'), 'liquid': d_.get('liquid')}; it['reasons'] = {'sonnet': j.get('reason', '')}
+        it['scores'] = {'sonnet': to_score(j['verdict']) if 'verdict' in j else None, 'perplexity': d_.get('perplexity'), 'liquid': d_.get('liquid')}; it['reasons'] = {'sonnet': j.get('reason', '') if a['id'] in called else 'not called: Perplexity and d1.2-ultra agree'}; it['sonnet_called'] = a['id'] in called
         revote(it); added.append(it)
     f_.write_text(json.dumps(kept + added, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     M.m['stage_log'].setdefault('verify_quality', {}).update(status='done', items=len(added)); M.save()

@@ -45,4 +45,5 @@ Dependencies: `fitz` (PyMuPDF), `pdftoppm` (poppler-utils, optional).
 - `numbers_on_pages.py`: statement numbers against the text of the cited pages; numbers missing from the text are looked up on the screenshots by Liquid d1.2-ultra (with a changed-digit control).
 - `focused_extract.py`: Sonnet 5.5 focused extraction from a paper's supplement; `quote_vision_check.py`: stand-alone Sonnet 5.5 screenshot check of quotes.
 - `run_to_gsheet.py`: the ABOUT tab now lists every model, package and tool; new tabs Verification (all nodes), Verification summary, Numbers check, Failure analysis.
+- Table-parser test (exploratory, 2026-11-26): scripts and results in `pipeline/misc/evd-validation/table-parsers/` (Marker and MinerU against PyMuPDF find_tables, table cells only).
 

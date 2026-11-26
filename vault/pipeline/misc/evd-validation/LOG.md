@@ -341,3 +341,9 @@ These are the findings and design decisions from today's pipeline work, written 
 - MinerU and Marker: see `skills/Tools-and-Models.md`.
 - Fixed while doing this: the two manifests (batch05, batch07) had mode "standard", so earlier reruns, including the Woelfle EVD redraft, ran in standard mode; both are set to batch.
 
+## 2026-11-26 (late night 5): cascade, writing rules, table parsers, macro
+- Verification now runs d1.2-ultra and Perplexity first and calls Sonnet 5.5 only when they disagree (JP's rule). Measured on the existing data: Sonnet would be called for 104 of 671 items (15%); PICOST slots 13%, QUE 29%, CLM 20%, CVT 4%, quality ratings 23%. Quotes are still read by Sonnet on screenshots. Earlier runs called Sonnet for every item.
+- The reading-grade limit (Flesch-Kincaid 14) is removed from the writing-rules check; the Reading grade columns were deleted from the Drafts and Writing-rules tabs of both live sheets.
+- Marker and MinerU are being tested for table cells only on the 27 seed papers (`misc/evd-validation/table-parsers/`).
+- The LIVES style menu disappears whenever a sheet is regenerated: an Apps Script belongs to one spreadsheet, and an uploaded workbook becomes a new spreadsheet. Paste `apps-script/LivesStyle.gs` into the sheet you work in; the ABOUT tab says how. Regenerating a labeled sheet also replaces JP's labels, so a sheet JP has started to label should not be regenerated.
+

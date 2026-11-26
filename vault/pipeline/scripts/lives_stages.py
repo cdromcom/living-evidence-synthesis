@@ -144,21 +144,12 @@ def card_text(M, ck, part='all'):
 
 
 # ---------------------------------------------------------------- writing-rules check
-def syllables(w):
-    w = re.sub(r'[^a-z]', '', w.lower()); n = len(re.findall(r'[aeiouy]+', w)); n -= 1 if w.endswith('e') and n > 1 else 0; return max(n, 1)
-def fk_grade(t):
-    s = [x for x in re.split(r'[.!?]+', t) if x.strip()]; w = re.findall(r"[A-Za-z][A-Za-z'-]*", t)
-    if not s or not w: return 0.0
-    return round(0.39 * len(w) / len(s) + 11.8 * sum(syllables(x) for x in w) / len(w) - 15.59, 1)
-
-
 def writing_rules(node, card_nums):
-    """The writing-rules check (called lint until 2026-11-26): free and deterministic. EVD at most 247 characters, every number in the statement is on the card, readability grade; QUE ends with a question mark; the others have a quote."""
+    """The writing-rules check (called lint until 2026-11-26): free and deterministic. EVD at most 247 characters, every number in the statement is on the card, parentheses, capitals; no reading-grade limit since JP's decision on 2026-11-26; QUE ends with a question mark; the others have a quote."""
     out = {}; t = node.get('type'); txt = node.get('statement') or node.get('title') or node.get('limitation') or ''
-    out['chars'] = len(txt); out['fk_grade'] = fk_grade(txt)
+    out['chars'] = len(txt)
     if t == 'EVD':
         out['length_ok'] = len(txt) <= 247; nums = {norm_num(x) for x in re.findall(r'-?\d*\.?\d+', txt.replace(',', ''))}; out['numbers_not_on_card'] = sorted(n for n in nums if n not in card_nums)
-        out['readability_ok'] = out['fk_grade'] <= 14
         out['parentheses_ok'] = txt.count('(') <= 2 and txt.count(')') == txt.count('(') and '[' not in txt and ']' not in txt   # JP, 2026-11-26: one or two sets of parentheses in an EVD, no brackets
         allowed = set(C.PIPE.get('writing', {}).get('caps_allowed', []))
         out['caps_words'] = sorted({w for w in re.findall(r'\b[A-Z][A-Z_]{3,}\b', txt) if w not in allowed}); out['caps_ok'] = not out['caps_words']   # JP, 2026-11-26: no all-caps words (ACCURATE); tool, model and metric names are allowed
@@ -166,7 +157,7 @@ def writing_rules(node, card_nums):
     if t in ('CLM', 'CVT', 'EVD'): out['has_quote'] = bool((node.get('quote') or '').strip())
     if t == 'EVD' and node.get('tier') == 'primary': out['links_to_question'] = bool(node.get('answers_QUE'))
     out['no_emdash'] = '\u2014' not in ' '.join(str(v) for v in node.values() if isinstance(v, str))   # JP's writing rule: no em dashes in written text
-    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('parentheses_ok', True), out.get('caps_ok', True), out.get('question_ok', True), out.get('has_quote', True), out.get('links_to_question', True)]); return out
+    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('parentheses_ok', True), out.get('caps_ok', True), out.get('question_ok', True), out.get('has_quote', True), out.get('links_to_question', True)]); return out
 
 
 def card_numbers(M, ck):

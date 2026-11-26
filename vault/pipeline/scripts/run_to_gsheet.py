@@ -67,6 +67,8 @@ def about_models_and_tools(M):
                     except Exception: inst = 'not installed here'
                     pk.append(f"{mm.group(1)} {mm.group(2)} (installed: {inst})")
     rows.append(('Python packages', f"Python {platform.python_version()}; " + '; '.join(dict.fromkeys(pk))))
+    rows.append(('Table parsers (exploratory, tables only)', 'Marker (marker-pdf) and MinerU are being tested for reading table cells only, on the 27 seed papers, against PyMuPDF find_tables (results: pipeline/misc/evd-validation/table-parsers/RESULTS.md). They are installed in a separate virtual environment, run without any LLM mode, and are not part of the pipeline. PyMuPDF stays the tool for quote text, word boxes and page crops.'))
+    rows.append(('LIVES style menu (Apps Script)', 'A menu called "LIVES style" is added to a sheet only after the script is pasted into that sheet (Extensions > Apps Script > paste pipeline/apps-script/LivesStyle.gs > Save > reload the sheet > allow once). A script belongs to one spreadsheet, so every newly uploaded review sheet needs it pasted again.'))
     rows.append(('Other tools', 'PyMuPDF (reads PDF text, locates quotes, draws highlights, crops screenshots); Pillow (images); openpyxl (builds this workbook); requests (decision-model APIs); Google Drive and Google Sheets connectors (upload); Apps Script macros (pipeline/apps-script/LivesStyle.gs); git and the GitHub CLI (cdromcom/living-evidence-synthesis); Obsidian with the discourse-graph plugin (the vault); the LIVES web app on Vercel.'))
     return rows
 
@@ -89,7 +91,7 @@ def main():
              ('Step 3', 'GPT-6.2 Sol re-reads flagged findings blind, and Claude Opus 5.5 decides when Sol and Neon disagree.'),
              ('Step 4', 'Claude Sonnet 5.5 reads a screenshot of every quote and compares it with the quote text (quote_check stage). Two decision models, Perplexity Decider 1.3 (pplx-decider-v1.3, text only) and Liquid d1.2-ultra (d1.2-ultra, reads text and images), score every finding on relevancy, fidelity, numbers found in the source and table cell matches. GPT-6.2 Sol looks at a crop of every finding: pass, not matched or cannot verify (cannot verify goes to you).'),
              ('Step 5', 'Drafting: three models debate each primary EVD; Sonnet 5.5 drafts everything else once. Quality signals: Neon (High) and Opus rate, Sol decides disagreements.'),
-             ('Step 6', 'Verification: Claude Sonnet 5.5, Perplexity Decider 1.3 and Liquid d1.2-ultra each judge every PICOST slot (with page 1 and the Methods pages), quote, question rewording (QUE), claim (CLM), caveat (CVT) and quality rating; Liquid d1.2-ultra also looks for the digits of each quote and for statement numbers missing from the PDF text on the screenshots. Quotes without digits are checked by Sonnet 5.5. The tabs Verification, Numbers check and Failure analysis show the results.'),
+             ('Step 6', 'Verification: Liquid d1.2-ultra and Perplexity Decider 1.3 first judge every PICOST slot (with page 1 and the Methods pages), question rewording (QUE), claim (CLM), caveat (CVT) and quality rating; Claude Sonnet 5.5 judges an item only when those two disagree, and always reads the screenshot of every quote; Liquid d1.2-ultra also looks for the digits of each quote and for statement numbers missing from the PDF text on the screenshots. Quotes without digits are checked by Sonnet 5.5. The tabs Verification, Numbers check and Failure analysis show the results.'),
              ('Step 7', 'You review this sheet. Your labels become the ground truth for the accuracy numbers.'),
              ('How to review', 'Start with the Findings tab. Sort by Flags and Tier. Yellow columns are yours: say whether the tier, statement and numbers are right, add findings that were missed, and note why.'),
              ('Flags', 'low_confidence: Neon says it is unsure. multi_page: the evidence is on more than one page. span_not_found and span_on_other_page: the quote is not where it should be. number_not_in_pdf_text: fewer than half of its numbers are in the PDF text. number_not_in_numbers_list: a number in the statement has no entry in the Numbers list. numbers_list_entry_without_location: a listed number has no table, figure or page. no_text_layer: scanned PDF.'),
@@ -145,7 +147,7 @@ def main():
             for nid, f in dd.get('finals', {}).items():
                 n = f['node']; alts = [txt_of(dd['authors'].get(a_, {}).get('r0', {}).get(nid, {})) for a_ in ('sonnet', 'sol', 'neon')]
                 cc = f.get('detail_check') or f.get('claim_check') or {}; lt = f.get('writing_rules') or f['lint']
-                dr_rows.append([ck, nid, n.get('type', ''), n.get('tier', ''), f['author'], f['how'], txt_of(n), lt.get('chars', ''), lt.get('fk_grade', ''), 'yes' if lt.get('pass') else 'no', ', '.join(lt.get('numbers_not_on_card', [])), cc.get('overall', ''), cc.get('fix', ''), cc.get('checker', ''), (f.get('dm') or {}).get('score', ''), f.get('status', ''), alts[0], alts[1], alts[2], '', '', '', ''])
+                dr_rows.append([ck, nid, n.get('type', ''), n.get('tier', ''), f['author'], f['how'], txt_of(n), lt.get('chars', ''), 'yes' if lt.get('pass') else 'no', ', '.join(lt.get('numbers_not_on_card', [])), cc.get('overall', ''), cc.get('fix', ''), cc.get('checker', ''), (f.get('dm') or {}).get('score', ''), f.get('status', ''), alts[0], alts[1], alts[2], '', '', '', ''])
         if (d / ck / 'quality_signals.json').exists():
             q = json.load(open(d / ck / 'quality_signals.json'))
             for x in q['raw']: qr_rows.append([ck, x['signal'], x['rater'], 'yes' if x['counted'] else 'benchmark only', x['rating'], x['quote'][:400], x['locator'], '' if x['quote_found'] is None else (('yes, taken from the PDF' + (' (' + x['quote_source'].split('(')[1] if '(' in x.get('quote_source', '') else '') if str(x.get('quote_source', '')).startswith('anchors') else 'yes') if x['quote_found'] else 'NO: anchors not found' if str(x.get('quote_source', '')).startswith('anchors') else 'NO'), ''])
@@ -154,7 +156,7 @@ def main():
     if ck_rows:
         ws2 = tab('Decision-model checks (EVD)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes', 'Liquid d1-ultra OLD: lowest question score', 'Liquid d1.2-ultra: lowest question score', 'Perplexity Decider 1.3: lowest question score'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30, 14, 14, 14], jp_from=18, img=(17,))
         for i, cp in enumerate(ck_crops, 2): put_image(ws2, d, i, 17, cp, 440, thumbs)
-    if dr_rows: tab('Drafts (EVD, QUE, CLM, CVT)', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
+    if dr_rows: tab('Drafts (EVD, QUE, CLM, CVT)', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=19)
     # ---- EVDs whose decision-model score is below the threshold: what the models saw and what they scored, for JP to suggest changes
     import re as _re
     lowrows = []
@@ -190,15 +192,14 @@ def main():
             if w.get('pass', True): continue
             n = f['node']; why = []
             if w.get('length_ok') is False: why.append(f"longer than 247 characters ({w.get('chars')})")
-            if w.get('readability_ok') is False: why.append(f"reading grade {w.get('fk_grade')} (limit 14)")
             if w.get('numbers_not_on_card'): why.append('numbers not on the card: ' + ', '.join(w['numbers_not_on_card']))
             if w.get('parentheses_ok') is False: why.append('more than one set of parentheses (or brackets)')
             if w.get('no_emdash') is False: why.append('contains an em dash')
             if w.get('question_ok') is False: why.append('question does not end with a question mark')
             if w.get('has_quote') is False: why.append('no quote')
             if w.get('links_to_question') is False: why.append('primary EVD links to no question')
-            wrrows.append([ck, nid, n.get('type', ''), n.get('tier', ''), n.get('statement') or n.get('title') or n.get('limitation') or '', '; '.join(why), w.get('chars', ''), w.get('fk_grade', ''), ', '.join(w.get('numbers_not_on_card', [])), '', ''])
-    if wrrows: tab('Writing-rules fails (all nodes)', ['Paper', 'Node', 'Type', 'Tier', 'Text as drafted', 'Which rule failed', 'Characters', 'Reading grade', 'Numbers not on the card', 'JP: suggested change', 'JP: notes'], wrrows, [30, 8, 6, 10, 80, 40, 10, 10, 20, 30, 30], jp_from=10)
+            wrrows.append([ck, nid, n.get('type', ''), n.get('tier', ''), n.get('statement') or n.get('title') or n.get('limitation') or '', '; '.join(why), w.get('chars', ''), ', '.join(w.get('numbers_not_on_card', [])), '', ''])
+    if wrrows: tab('Writing-rules fails (all nodes)', ['Paper', 'Node', 'Type', 'Tier', 'Text as drafted', 'Which rule failed', 'Characters', 'Numbers not on the card', 'JP: suggested change', 'JP: notes'], wrrows, [30, 8, 6, 10, 80, 40, 10, 20, 30, 30], jp_from=9)
     # ---- verification of every extracted item by Sonnet 5.5 and the two decision models, with majority vote, mean and JP's open columns
     vf = d / 'verification.json'
     if vf.exists():
