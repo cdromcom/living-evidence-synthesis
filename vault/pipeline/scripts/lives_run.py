@@ -226,12 +226,36 @@ def numbers_list_gaps(f):
     return {'missing': sorted(set(missing)), 'no_location': sorted(set(noloc))}
 
 
+def repair_and_fix_pages(f, doc, pmap):
+    """JP, 2026-11-26: errors the model keeps making are corrected by code, not flagged. (1) A quote that is not in the PDF text is replaced by the PDF's own words when at least 90% of its letters and digits match one stretch of one page ('repaired'; the model's wording is kept in text_model). (2) Every span gets the page where its words were found, and every page gets its printed number from the page map, so the model's page numbers are never trusted. (3) A number whose value is not on its cited page moves to the one page that has it (the finding's own pages first). Each span records how exactly it matches: exact, letters_digits, repaired or not_found."""
+    pnorm = pp._norms(doc)[0]; mapping = {e['pdf']: e['printed'] for e in pmap}; span_pages = set()
+    for s in f.get('spans', []):
+        txt = s.get('text', ''); r = pp.find_quote(doc, txt); s['match'] = 'not_found'
+        if not r['found']:
+            rep = pp.repair_quote(doc, txt, s.get('pdf_page'))
+            if rep and pp.find_quote(doc, rep['text'])['found']: s['text_model'] = txt; s['text'] = rep['text']; r = pp.find_quote(doc, rep['text']); s['match'] = 'repaired'
+        if r['found']:
+            if s['match'] != 'repaired': s['match'] = pp.match_level(doc, s['text'], r['pages'][:1])
+            if s.get('pdf_page') and s['pdf_page'] not in r['pages']: s['model_pdf_page'] = s['pdf_page']; s['page_corrected'] = True
+            s['pdf_page'] = r['pages'][0]; s['printed_page'] = mapping.get(s['pdf_page']); span_pages.add(s['pdf_page'])
+    for n in f.get('numbers', []):
+        toks = [t for t in re.findall(r'\d+(?:[.,]\d+)?', str(n.get('value', ''))) if len(re.sub(r'\D', '', t)) >= 2]; pg = n.get('pdf_page')
+        if toks and pnorm:
+            k = pp.norm(toks[0]); has = [i + 1 for i, t in enumerate(pnorm) if k and k in t]
+            if has and (not pg or pg not in has):
+                cand = [x for x in has if x in span_pages] or has
+                if len(cand) == 1: n['model_pdf_page'] = pg; n['pdf_page'] = cand[0]; n['page_corrected'] = True
+        if n.get('pdf_page'): n['printed_page'] = mapping.get(n['pdf_page'], n.get('printed_page'))
+
+
 def stage_spans(M, run):
     P = M.m['papers']
     for ck, p in P.items():
         if p.get('failed') or 'picost' not in p.get('stages', {}): continue
         out = run / ck; hl = out / 'highlights'; hl.mkdir(parents=True, exist_ok=True); ps = json.loads((out / 'picost.json').read_text()); doc = fitz.open(ex(p['pdf'])); flagged = {}; total = miss = 0; ptxt = ' '.join(pp.norm(pp.page_text(doc[i])) for i in range(len(doc)))
+        pmap = p['preflight']['page_map']
         for f in ps.get('findings', []):
+            repair_and_fix_pages(f, doc, pmap)
             why = []; regs = {}
             if f.get('confidence', 'high') == 'low': why.append('low_confidence')
             if M.m.get('flag_medium') and f.get('confidence') == 'medium': why.append('medium_confidence')
@@ -243,7 +267,6 @@ def stage_spans(M, run):
                 total += 1; r = pp.find_quote(doc, s.get('text', ''))
                 s['found'] = r['found']; s['pages_found'] = r['pages']
                 if not r['found']: miss += 1; why.append('span_not_found'); continue
-                if s.get('pdf_page') and s['pdf_page'] not in r['pages']: why.append('span_on_other_page')
                 page = doc[r['pages'][0] - 1]; rects = pp.locate_rects(page, s['text']); s['bbox'] = [[round(x, 1) for x in (q.x0, q.y0, q.x1, q.y1)] for q in rects]
                 if rects: regs.setdefault(r['pages'][0], []).extend(s['bbox'])
                 if rects:
@@ -264,7 +287,15 @@ def stage_spans(M, run):
         for kind, key_ in (('questions', 'original_wording'), ('claims', None), ('caveats', None)):   # the quotes behind the questions, claims and caveats must be in the PDF too
             for it in ps.get(kind, []):
                 qt = it.get(key_) if key_ else (it.get('span') or {}).get('text', '')
-                it['found'] = bool(qt) and pp.find_quote(doc, qt)['found']; qmiss += 0 if it['found'] else 1
+                r_ = pp.find_quote(doc, qt) if qt else {'found': False, 'pages': []}; it['match'] = 'not_found'
+                if qt and not r_['found']:
+                    rep = pp.repair_quote(doc, qt, it.get('pdf_page') or (it.get('span') or {}).get('pdf_page'))
+                    if rep and pp.find_quote(doc, rep['text'])['found']:
+                        r_ = pp.find_quote(doc, rep['text']); it['match'] = 'repaired'; it['text_model'] = qt
+                        if key_: it[key_] = rep['text']
+                        else: (it.get('span') or {})['text'] = rep['text']
+                if r_['found'] and it['match'] != 'repaired': it['match'] = pp.match_level(doc, it.get(key_) if key_ else it['span']['text'], r_['pages'][:1])
+                it['found'] = bool(r_['found']); qmiss += 0 if it['found'] else 1
         p['quotes_not_found_other'] = qmiss
         doc.close(); (out / 'picost.json').write_text(json.dumps(ps, indent=1, ensure_ascii=False), encoding='utf-8')
         p['flagged'] = sorted(flagged); p['span_miss_rate'] = round(miss / max(total, 1), 3); p['stages']['spans'] = {'status': 'done', 'spans': total, 'not_found': miss, 'flagged': len(flagged)}

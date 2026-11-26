@@ -16,7 +16,7 @@ fitz.TOOLS.mupdf_display_errors(False)   # silence harmless MuPDF colour-space w
 
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])
 PDF_DIR = VAULT / 'sysrev' / 'dgraph' / 'source' / 'pdfs'
-_FIX = {'−': '-', '‐': '-', '‑': '-', '‒': '-', '–': '-', '—': '-', 'ﬁ': 'fi', 'ﬂ': 'fl', 'ﬀ': 'ff', 'ﬃ': 'ffi', 'ﬄ': 'ffl'}
+_FIX = {'¼': '=', '−': '-', '‐': '-', '‑': '-', '‒': '-', '–': '-', '—': '-', 'ﬁ': 'fi', 'ﬂ': 'fl', 'ﬀ': 'ff', 'ﬃ': 'ffi', 'ﬄ': 'ffl'}
 
 
 _SUP_SUB = dict.fromkeys(map(ord, '\u00b9\u00b2\u00b3\u2070\u2074\u2075\u2076\u2077\u2078\u2079\u207a\u207b\u207c\u207d\u207e\u2080\u2081\u2082\u2083\u2084\u2085\u2086\u2087\u2088\u2089\u208a\u208b\u208c\u208d\u208e\u2020\u2021'), None)
@@ -107,6 +107,45 @@ def find_quote(doc, quote: str, min_frag: int = 18) -> dict:
         res.append({'text': f[:80], 'pages': pages, 'ok': bool(pages)})
     allp = sorted({p for r in res for p in r['pages']})
     return {'found': all(r['ok'] for r in res), 'fragments': res, 'pages': allp}
+
+
+def repair_quote(doc, quote: str, hint_page: int = None, min_cov: float = 0.9):
+    """A quote that is not verbatim in the PDF text (a dropped word, a changed symbol, a different hyphenation) is replaced by the PDF's own words when at
+    least min_cov of its letters and digits (compared with norm) match one stretch of one page. Looks at the cited page first, then every page. Returns
+    {'text', 'page', 'coverage'} or None. Never changes a quote that is found; never invents words (the replacement is copied from the page)."""
+    import difflib
+    qn = norm(quote)
+    if len(qn) < 40: return None
+    order = ([hint_page] if hint_page and 1 <= hint_page <= len(doc) else []) + [i for i in range(1, len(doc) + 1) if i != hint_page]; best = None
+    for pg in order:
+        words = page_text(doc[pg - 1]).split(); parts = [norm(w) for w in words]
+        if not any(parts): continue
+        txt = ''.join(parts); owner = [wi for wi, part in enumerate(parts) for _ in part]
+        sm = difflib.SequenceMatcher(None, txt, qn, autojunk=False); blocks = [b for b in sm.get_matching_blocks() if b.size >= 5]
+        for i, b in enumerate(blocks):   # a run of blocks that fits inside one quote-length stretch of the page
+            j = i; matched = b.size; end_a = b.a + b.size; end_b = b.b + b.size
+            while j + 1 < len(blocks) and blocks[j + 1].a + blocks[j + 1].size - b.a <= len(qn) + 20 and blocks[j + 1].b >= end_b - 3: j += 1; matched += blocks[j].size; end_a = blocks[j].a + blocks[j].size; end_b = blocks[j].b + blocks[j].size
+            cov = matched / len(qn)
+            if cov >= min_cov and (best is None or cov > best['coverage']):
+                a0 = max(0, b.a - b.b); a1 = min(len(txt), end_a + (len(qn) - end_b))
+                best = {'text': ' '.join(words[owner[a0]:owner[a1 - 1] + 1]), 'page': pg, 'coverage': round(cov, 3)}
+        if best and best['coverage'] >= 0.97: break   # a near-perfect match on the cited page is enough
+    return best
+
+
+def _light(s: str) -> str:
+    """Gentle normalization for judging whether a quote is character-for-character the PDF's text: ligatures, curly quotes and dashes, line-break hyphens and spacing only."""
+    s = re.sub(r'-\s*\n\s*', '', s); s = unicodedata.normalize('NFKC', s)
+    for a_, b_ in (('\u2018', "'"), ('\u2019', "'"), ('\u201c', '"'), ('\u201d', '"'), ('\u2013', '-'), ('\u2014', '-'), ('\u2212', '-'), ('\u00ad', '')): s = s.replace(a_, b_)
+    return re.sub(r'\s+', ' ', s).strip().lower()
+
+
+def match_level(doc, quote: str, pages) -> str:
+    """'exact' when the quote is the PDF's text apart from spacing, line-break hyphens, ligatures and curly quotes or dashes; otherwise 'letters_digits' (the same letters and digits, but a symbol or punctuation differs, for example an equals sign or an en dash). Call it for a quote that find_quote found."""
+    q = _light(quote)
+    for pg in pages or []:
+        if q and q in _light(page_text(doc[pg - 1])): return 'exact'
+    return 'letters_digits'
 
 
 def locate_rects(page, quote: str):
