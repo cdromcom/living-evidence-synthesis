@@ -139,20 +139,6 @@
       "pdf_input": false,
       "price_source": "list price 2026-11-23",
       "verified": null
-    },
-    "jev-1.14.0": {
-      "display": "Jev 1.14.0",
-      "provider": "decision",
-      "developer": "Typesafe",
-      "country": "US",
-      "weights": "closed",
-      "runs": "api",
-      "price_in": 0.042,
-      "price_out": 0,
-      "batch_discount": 1.0,
-      "pdf_input": false,
-      "price_source": "list price 2026-11-23",
-      "verified": null
     }
   },
   "roles": {
@@ -206,8 +192,7 @@
     ],
     "decision_models": [
       "perplexity",
-      "liquid",
-      "jev"
+      "liquid"
     ],
     "qs_adjudicator": {
       "key": "sol",

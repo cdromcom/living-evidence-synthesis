@@ -273,3 +273,9 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - All sheet builders now share `sheet_style.py` (Lato, Butterick and Few rules; see Review-sheets-spec.md). The three review sheets and both screening sheets were rebuilt and re-uploaded (none had JP labels yet).
 - Drive: private folder `SysRev LLMApp (LIVES)` with subfolders 01 to 04 and 99; every LIVES sheet except JP's two AAA Benchmarking sheets was moved in and renamed to `LIVES - <Area> - <date> - <what>`. New screening sheet ids are in TODO.md.
 - The old whole-library screening sheet was moved to 99 Archive instead of trashed (the trash call was blocked); trash it when ready.
+
+## 2026-11-26 (later): JP's decisions
+- Jev dropped everywhere in the live pipeline (code, config, docs, signals sheet); old benchmark folders keep it as history. The decision models are Perplexity Decider 1.3 and Liquid d1-ultra.
+- Pilot cap is $6 per batch. Standard mode is fine for piloting; JP is asked standard or batch every time papers are given (`--mode` is now required for a new run).
+- Claim check: `claim-check-v2` (pass, minor, fail); questions are no longer claim-checked. Reran on batch02 to batch04 in standard mode ($0.81, $0.79, $0.38).
+- Sheets use Spectral for column names and Google Sans for data; row heights are estimated because Google Sheets does not grow imported rows.

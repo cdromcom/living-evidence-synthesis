@@ -321,7 +321,7 @@ def halt(M, reason):
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter); ap.add_argument('pdfs', nargs='*'); ap.add_argument('--mode', choices=['standard', 'batch'], default='standard')
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter); ap.add_argument('pdfs', nargs='*'); ap.add_argument('--mode', choices=['standard', 'batch'], help='REQUIRED for a new run. Ask JP each time papers are given: standard (answers now, full price) or batch (about half price, slower, can stall)')
     ap.add_argument('--cap', type=float, default=CAP); ap.add_argument('--question', default=C.PIPE.get('project_question', ''), help='the overarching project question (default: project_question in pipeline.json); every question found in a paper is taken to fit under it. Pass "" to leave it out'); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--resume'); ap.add_argument('--new-batch', action='store_true', help='with --resume: start a new batch of the same run with a fresh cap (the earlier spend is kept in spent_previous_batches)'); ap.add_argument('--run-id')
     ap.add_argument('--fast', action='store_true', help='standard mode for every stage, and drafting and quality signals at the same time: about 25 minutes for four papers, at about twice the cost'); ap.add_argument('--skip', nargs='*', default=[], choices=['checks', 'draft', 'qs'], help='leave out the later stages'); ap.add_argument('--allow-repeat', action='store_true'); ap.add_argument('--flag-medium', action='store_true', help='also send medium-confidence findings to the independent recheck (more cost, fewer misses)'); a = ap.parse_args()
     cl.load_env()
@@ -341,6 +341,7 @@ def main():
             if not p.exists() or p.suffix.lower() != '.pdf': sys.exit(f'Not a PDF: {p}')
         if len({str(p) for p in pdfs}) != len(pdfs): sys.exit('The same PDF is listed twice.')
         papers = {}; seen = seen_hashes(); day = datetime.now().strftime('%Y-%m-%d'); n = 1 + len(list(RUNS.glob(f'{day}_batch*'))); run_id = a.run_id or f'{day}_batch{n:02d}'; mode = 'standard' if a.fast else a.mode
+        if not (a.fast or a.mode): sys.exit('Refused: choose a mode. Ask JP each time papers are given: --mode standard (answers now, full price, no queue) or --mode batch (about half price, slower, can stall) or --fast. See Skill-controls.md, "Standard or batch: always ask".')
         for p in pdfs:
             h = sha(p.read_bytes()); ck = slug(p)
             if h in seen and not a.allow_repeat: sys.exit(f'Refused: {p.name} was already processed in an earlier run (same SHA-256). Use --allow-repeat to run it again.')

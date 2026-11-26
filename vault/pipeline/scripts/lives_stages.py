@@ -281,7 +281,7 @@ def nodes_of(j): return {n['id']: n for n in (j or {}).get('nodes', []) if isins
 def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v2.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('claim-check-v1.md')
+    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v2.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('claim-check-v2.md')
     cards = {ck: card_text(M, ck, 'primary') for ck in papers}; rest = {ck: card_text(M, ck, 'rest') for ck in papers}; full = {ck: card_text(M, ck, 'all') for ck in papers};   # the claim check reads the whole extraction, not just the primary part
     cn = {ck: card_numbers(M, ck) for ck in papers}; cn_all = cn; data = {ck: {'authors': {}} for ck in papers}
     # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
@@ -341,9 +341,9 @@ def stage_draft(M, mode):
     reqs = []
     for ck in papers:
         for chk, m, e in VOTERS:
-            mine = [f['node'] for f in data[ck]['finals'].values() if f['author'] != chk and next((v[0] for v in VOTERS if v[0] != f['author']), None) == chk]
+            mine = [f['node'] for f in data[ck]['finals'].values() if f['node'].get('type') != 'QUE' and f['author'] != chk and next((v[0] for v in VOTERS if v[0] != f['author']), None) == chk]
             if mine: reqs.append(L.Req(f'{ck}__check-{chk}', m, f'Extraction:\n{full[ck]}\n\nNodes to check:\n{json.dumps(mine, ensure_ascii=False)}\n\nCheck now.', sys3, None, e, min(32000, 2000 + 450 * len(mine))))   # budget grows with the number of nodes to check
-    st['prompt'] = 'pipeline/prompts/claim-check-v1.md'; rc = dispatch(M, 'draft_check', reqs, mode)
+    st['prompt'] = 'pipeline/prompts/claim-check-v2.md'; rc = dispatch(M, 'draft_check', reqs, mode)
     # decision-model check of each final EVD (fidelity of the written text) and the Inkling benchmark drafts' lint
     evd = [(ck, nid, f) for ck in papers for nid, f in data[ck]['finals'].items() if f['node'].get('type') == 'EVD']
     def dm_evd(t):
@@ -358,7 +358,8 @@ def stage_draft(M, mode):
                 if c.get('node') in data[ck]['finals']: data[ck]['finals'][c['node']]['claim_check'] = {'checker': chk, **c}
         for nid, f in data[ck]['finals'].items():
             cc = (f.get('claim_check') or {}).get('overall'); dmv = (f.get('dm') or {}).get('score')
-            f['status'] = 'pass' if f['lint']['pass'] and cc == 'pass' and (dmv is None or dmv >= DM_LOW) else 'escalate to Opus and JP'
+            ok = f['lint']['pass'] and (cc in ('pass', 'minor') or f['node'].get('type') == 'QUE') and (dmv is None or dmv >= DM_LOW)
+            f['status'] = ('pass with notes' if cc == 'minor' else 'pass') if ok else 'escalate to Opus and JP'
         (M.dir / ck / 'drafts.json').write_text(json.dumps(data[ck], indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     st['status'] = 'done'; st['summary'] = {ck: {'nodes': len(data[ck]['finals']), 'pass': sum(1 for f in data[ck]['finals'].values() if f['status'] == 'pass')} for ck in papers}; M.save(); M.event(f"draft: {st['summary']}")
 

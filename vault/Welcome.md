@@ -263,7 +263,7 @@ flowchart TB
     subgraph EX["2. Extract (PICOST first)"]
         F["PICOST record per finding, saved as JSON<br/>every number has page, table, row, column<br/>Not reported if the paper is silent<br/>Results give EVDs, Discussion gives CVTs and CLMs,<br/>Introduction gives QUEs"]
         G["Spotlight: Neon returns the exact quote,<br/>PyMuPDF finds it, boxes it and highlights the page<br/>a quote not found is a flag"]
-        H["Checks: decision models (d1-ultra, Decider, Jev)<br/>relevancy, fidelity, quote and table grounding<br/>every finding: Sol looks at the crop (pass, fail or cannot verify)<br/>Opus 5.5 only on rare disputes"]
+        H["Checks: decision models (d1-ultra, Decider)<br/>relevancy, fidelity, quote and table grounding<br/>every finding: Sol looks at the crop (pass, fail or cannot verify)<br/>Opus 5.5 only on rare disputes"]
         I["JP spot check A<br/>3 PICOST cards per paper<br/>an error stops the batch"]
     end
 

@@ -2,7 +2,7 @@
 """One place for how every LIVES spreadsheet looks (JP, 2026-11-26): Butterick's Practical Typography for the text, Stephen Few's Show Me the Numbers (chapter 8, tables) for the table.
 
 What it does to a sheet that already has its header row and data rows:
-- Font: Lato 10 everywhere (not a default font). Normal weight for data, bold for column headers; no italics, underlines or capitals for emphasis.
+- Fonts (JP, 2026-11-26): Spectral 10 bold for column names and ABOUT headings, Google Sans 10 for the data (neither is a default font). No italics, underlines or capitals for emphasis.
 - Table: gridlines off, no fills except a faint grey zebra stripe and the yellow JP input columns; one dark rule under the header, nothing else.
 - Alignment: numbers and brief words or phrases are centered; longer text is left aligned and wraps. Each header is aligned like its data, so titles line up with what is under them.
 - Width: every column is sized to its data (not one width for all); wrapped text columns stop at a comfortable line length (about 45 to 75 characters).
@@ -14,7 +14,7 @@ import re
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
-FONT = 'Lato'; SIZE = 10
+FONT_HEAD = 'Spectral'; FONT = FONT_BODY = 'Google Sans'; SIZE = 10   # Spectral (a serif) for column names and headings, Google Sans for the data (JP, 2026-11-26)
 INK = '222222'; RULE = '222222'; STRIPE = 'F4F4F4'; JP_FILL = 'FFF6D6'
 NUM = re.compile(r'^[-+]?\$?\d[\d,]*(\.\d+)?%?$')
 BRIEF = 22          # at most this many characters: brief word or phrase, centered
@@ -48,10 +48,10 @@ def width_for(kind, header, values):
     return max(8, min(30, max(top, longest_word) + 3))
 
 
-def polish(ws, header_row=1, jp_from=None, image_cols=(), keep_widths=(), header_height=30):
+def polish(ws, header_row=1, jp_from=None, image_cols=(), keep_widths=(), header_height=30, max_lines=8):
     """Apply the house style. jp_from: first column (1-based) of JP's input columns. image_cols: columns holding pictures (width and height are left to the picture code). keep_widths: columns whose width is left alone."""
     ws.sheet_view.showGridLines = False
-    body = Font(name=FONT, size=SIZE, color=INK); bold = Font(name=FONT, size=SIZE, color=INK, bold=True)
+    body = Font(name=FONT_BODY, size=SIZE, color=INK); bold = Font(name=FONT_HEAD, size=SIZE, color=INK, bold=True)
     top, bottom = header_row + 1, ws.max_row; ncol = ws.max_column
     thin = Side(style='medium', color=RULE); stripe = PatternFill('solid', fgColor=STRIPE); jpf = PatternFill('solid', fgColor=JP_FILL)
     for col in range(1, ncol + 1):
@@ -74,6 +74,17 @@ def polish(ws, header_row=1, jp_from=None, image_cols=(), keep_widths=(), header
                 if is_jp: c.fill = jpf
                 elif (r - top) % 2 == 1: c.fill = stripe
     ws.row_dimensions[header_row].height = header_height
+    # row heights: Google Sheets does not grow imported rows to fit wrapped text, so estimate them (about 13 points per line), at most max_lines lines
+    import math
+    widths = {c: (ws.column_dimensions[get_column_letter(c)].width or 10) for c in range(1, ncol + 1)}
+    for r in range(top, bottom + 1):
+        if ws.row_dimensions[r].height: continue
+        lines = 1
+        for c in range(1, ncol + 1):
+            v = ws.cell(r, c).value
+            if c in image_cols or not isinstance(v, str) or not ws.cell(r, c).alignment.wrap_text: continue
+            lines = max(lines, sum(max(1, math.ceil(len(par) / max(widths[c] * 1.05, 5))) for par in v.split('\n')))
+        if lines > 1: ws.row_dimensions[r].height = min(lines, max_lines) * 13 + 6
     return ws
 
 
@@ -84,9 +95,13 @@ def polish_about(ws, key_width=24, text_width=86):
         for c in row:
             if c.value is None: continue
             first = c.column == 1
-            c.font = Font(name=FONT, size=SIZE, color=INK, bold=first); c.alignment = Alignment(horizontal='left', vertical='top', wrap_text=True, indent=1)
+            c.font = Font(name=FONT_HEAD if first else FONT_BODY, size=SIZE, color=INK, bold=first); c.alignment = Alignment(horizontal='left', vertical='top', wrap_text=True, indent=1)
     ws.column_dimensions['A'].width = key_width; ws.column_dimensions['B'].width = text_width
     if ws.max_column >= 3: ws.column_dimensions['C'].width = 40
+    import math
+    for r in range(1, ws.max_row + 1):
+        v = ws.cell(r, 2).value
+        if isinstance(v, str): ws.row_dimensions[r].height = max(1, sum(max(1, math.ceil(len(par) / (text_width * 1.05))) for par in v.split('\n'))) * 13 + 6
 
 
 def layout_of(ws, header_row=1):
@@ -105,7 +120,7 @@ def sheets_requests(sheet_id, n_rows, layout, header_rows=1, zebra=True):
     n_cols = len(layout); rng = lambda r0, r1, c0, c1: {'sheetId': sheet_id, 'startRowIndex': r0, 'endRowIndex': r1, 'startColumnIndex': c0, 'endColumnIndex': c1}
     reqs = [{'repeatCell': {'range': rng(0, n_rows, 0, n_cols), 'cell': {'userEnteredFormat': {'textFormat': {'fontFamily': FONT, 'fontSize': SIZE, 'foregroundColor': rgb(INK), 'bold': False, 'italic': False}, 'verticalAlignment': 'TOP'}}, 'fields': 'userEnteredFormat(textFormat,verticalAlignment)'}},
             {'updateSheetProperties': {'properties': {'sheetId': sheet_id, 'gridProperties': {'hideGridlines': True}}, 'fields': 'gridProperties.hideGridlines'}},
-            {'repeatCell': {'range': rng(0, header_rows, 0, n_cols), 'cell': {'userEnteredFormat': {'textFormat': {'bold': True, 'fontFamily': FONT, 'fontSize': SIZE, 'foregroundColor': rgb(INK)}, 'backgroundColor': {'red': 1, 'green': 1, 'blue': 1}, 'wrapStrategy': 'WRAP', 'verticalAlignment': 'BOTTOM'}}, 'fields': 'userEnteredFormat(textFormat,backgroundColor,wrapStrategy,verticalAlignment)'}},
+            {'repeatCell': {'range': rng(0, header_rows, 0, n_cols), 'cell': {'userEnteredFormat': {'textFormat': {'bold': True, 'fontFamily': FONT_HEAD, 'fontSize': SIZE, 'foregroundColor': rgb(INK)}, 'backgroundColor': {'red': 1, 'green': 1, 'blue': 1}, 'wrapStrategy': 'WRAP', 'verticalAlignment': 'BOTTOM'}}, 'fields': 'userEnteredFormat(textFormat,backgroundColor,wrapStrategy,verticalAlignment)'}},
             {'updateBorders': {'range': rng(header_rows - 1, header_rows, 0, n_cols), 'bottom': {'style': 'SOLID_MEDIUM', 'color': rgb(RULE)}}},
             {'updateDimensionProperties': {'range': {'sheetId': sheet_id, 'dimension': 'ROWS', 'startIndex': 0, 'endIndex': header_rows}, 'properties': {'pixelSize': 40}, 'fields': 'pixelSize'}}]
     for col, (k, w, jp) in enumerate(layout):

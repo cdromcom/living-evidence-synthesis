@@ -19,6 +19,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   Where: LIVES-EVD-Benchmarking, G79:H82  
   The provenance check (2026-11-17) found these are probably your original ratings, restored to Claude's column on your statement. Recommended: have Claude judge EVD 74-77 blind (without seeing G or I) and replace G79:H82. Also decide whether G47:H48 (continuation placeholders, author unknown) should be re-stamped by Claude.  
   *Source: prompt 41; [[2026-11-17-claude-column-provenance-check]]*
+- [ ] **REMINDER (JP, 2026-11-26): when all the other open issues below are fixed, remind JP to do the question grouping** (review the Question groups tabs, tune the 0.92 threshold, verify groups and nesting). Open issues now: decision-model scores below 0.60 cause 74 of 92 draft escalations (calibrate or make advisory); about half of the cannot-verify findings have no crop because the span was not located; Opus adjudication verdicts and the 18 percent of findings Sol and Neon read differently need JP's labels; PR #37 is unmerged; reset or keep the $6 cap.
 - [ ] **1. Fill your relevancy judgments for every row Claude rated and you haven't**  
   Where: LIVES-EVD-Benchmarking, columns I-J  
   Benchmark Summary Table 6 shows the live count. Includes EVD 49 and 50 (rows 54-55): your notes are in J, but I has no rating.  

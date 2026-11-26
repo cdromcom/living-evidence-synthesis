@@ -36,12 +36,12 @@ def main():
         for g in s['groups']: by[sid(g)].append(s['title'])
     oa = json.load(open(W / 'oa.json')) if (W / 'oa.json').exists() else {}; get_oa = lambda d: oa.get((d or '').lower().replace('https://doi.org/', ''), {})
     kw = keywords(by, list(txt.values()) + [s['title'] for s in R['seeds']])
-    wb = Workbook(); wb.remove(wb.active); hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(name=SS.FONT, size=SS.SIZE, color='0B5CAD')   # blue, no underline (Butterick)
+    wb = Workbook(); wb.remove(wb.active); hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(name=SS.FONT_BODY, size=SS.SIZE, color='0B5CAD')   # blue, no underline (Butterick)
     def tab(title, header, rows, widths):
         ws = wb.create_sheet(title); ws.append(header)
         for r in rows: ws.append([ILLEGAL_CHARACTERS_RE.sub('', x) if isinstance(x, str) else x for x in r])   # text taken from PDFs can hold control characters that spreadsheets refuse
         jp = next((i + 1 for i, h in enumerate(header) if str(h).startswith('JP')), None)
-        SS.polish(ws, jp_from=jp); ws.freeze_panes = 'B2'; return ws
+        SS.polish(ws, jp_from=jp, max_lines=4 if title == 'Papers' else 8); ws.freeze_panes = 'B2'; return ws
     rows = []; GREEN = []; SORTV = []; tau = rep['relevance_threshold']; dna = next((n for n in names if n.startswith('DNA')), names[-1])   # DNA-VL-STEER-2B did best on the seed test, so it also ranks the screening list
     for p in P:
         pid, pname, ptask = info(p); v = p['votes']; hints = []

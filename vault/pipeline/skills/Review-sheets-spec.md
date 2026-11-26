@@ -51,7 +51,7 @@ Goal: a human can follow every step of a run, see each model's work, and add gro
 **File names** follow one pattern: `LIVES - <Area> - <YYYY-MM-DD> - <what it is>`. Areas: Screening, Pipeline review (add the batch id), Quality signals, AI rater, Vault review, Archive (replaces the area for superseded sheets and says what superseded it).
 
 **Look** (`pipeline/scripts/sheet_style.py`, used by every sheet builder; Butterick's Practical Typography for the text and Stephen Few's Show Me the Numbers, chapter 8, for the table):
-1. Lato 10, never a default font; bold only for column headers; no italics, underlines or capitals for emphasis.
+1. Spectral 10 bold for column names and headings, Google Sans 10 for the data (JP, 2026-11-26); never a default font; no italics, underlines or capitals for emphasis.
 2. No gridlines. One dark rule under the header. Fills are limited to a faint grey zebra stripe, the yellow JP input columns and the light green screening rows.
 3. Numbers and brief words or phrases (up to 22 characters) are centered. Longer text is left aligned and wraps with a small indent. Each header is aligned like its data.
 4. Every column is sized to its data; wrapped text stops at a comfortable line length (about 45 to 75 characters).

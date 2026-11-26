@@ -1,13 +1,13 @@
-"""Minimal client for the three decision models (Perplexity Decider 1.3, Liquid d1-ultra, Jev), text only. Keys come from
-~/.config/lives-ai-raters/.env (PERPLEXITY_API_KEY, LIQUID_API_KEY, TYPESAFE_API_KEY); never print or commit them.
+"""Minimal client for the two decision models (Perplexity Decider 1.3, Liquid d1-ultra; Jev was dropped on 2026-11-26), text only. Keys come from
+~/.config/lives-ai-raters/.env (PERPLEXITY_API_KEY, LIQUID_API_KEY); never print or commit them.
 Same request shapes as benchmarking-validation/run_raters.py. A question is noul(...) (returns a probability) or choice(...)."""
 import os, time
 from pathlib import Path
 import requests
 
-MODELS = {'perplexity': 'pplx-decider-v1.3', 'liquid': 'd1-ultra', 'jev': 'jev-1.14.0'}
-KEY_ENV = {'perplexity': 'PERPLEXITY_API_KEY', 'liquid': 'LIQUID_API_KEY', 'jev': 'TYPESAFE_API_KEY'}
-PRICE_PER_M = {'perplexity': 0.02, 'liquid': 0.042, 'jev': 0.042}   # USD per million input tokens, list prices (2026-11-23)
+MODELS = {'perplexity': 'pplx-decider-v1.3', 'liquid': 'd1-ultra'}
+KEY_ENV = {'perplexity': 'PERPLEXITY_API_KEY', 'liquid': 'LIQUID_API_KEY'}
+PRICE_PER_M = {'perplexity': 0.02, 'liquid': 0.042}   # USD per million input tokens, list prices (2026-11-23)
 
 
 def load_env(path=None):
@@ -29,9 +29,6 @@ def request_for(provider, state: str, questions: dict):
                 {'model': m, 'state': [state], 'questions': questions})
     if provider == 'liquid':
         return ('https://api.liquid.ai/decisions/v1/systemone', {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'},
-                {'model': m, 'state': state, 'questions': questions})
-    if provider == 'jev':
-        return ('https://api.typesafe.ai/v1/systemone', {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'},
                 {'model': m, 'state': state, 'questions': questions})
     raise ValueError(provider)
 

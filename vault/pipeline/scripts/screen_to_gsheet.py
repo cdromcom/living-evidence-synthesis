@@ -79,11 +79,11 @@ def main():
     rows.sort(key=lambda x: (x[1][0], -x[0])); rows = [r for _, r in rows]
     # ----- workbook
     wb = Workbook(); ab = wb.active; ab.title = 'ABOUT'
-    hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(name='Lato', size=10, color='0B5CAD')   # blue, no underline (Butterick)
+    hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(name='Google Sans', size=10, color='0B5CAD')   # blue, no underline (Butterick)
     def sheet(title, header, data, widths=None, freeze='A2'):
         ws = wb.create_sheet(title); ws.append(header)
         for r in data: ws.append(r)
-        SS.polish(ws, jp_from=next((i + 1 for i, h in enumerate(header) if str(h).startswith('JP')), None)); ws.freeze_panes = freeze
+        SS.polish(ws, jp_from=next((i + 1 for i, h in enumerate(header) if str(h).startswith('JP')), None), max_lines=4 if title == 'Papers' else 8); ws.freeze_panes = freeze
         return ws
     cols = ['Proposed category', 'Task type', 'Category id', 'Models agreeing', 'Title', 'Authors', 'Year', 'Venue', 'DOI', 'URL', 'Zotero key', 'PDF file', 'Copies in Zotero', 'Matches seed (file)', a.other_label, 'Screening hints']
     for n in names: s = clean(n).split(' (')[0]; cols += [f'{s}: category', f'{s}: similarity', f'{s}: best seed group', f'{s}: 2nd similarity']

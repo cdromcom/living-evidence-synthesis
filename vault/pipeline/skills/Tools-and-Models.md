@@ -60,12 +60,12 @@ Model names such as GPT-4 or o3-mini that appear in these files are models studi
 | Bulk extraction, question splitting and restyling, alt text, link repair | **GPT-6.2 Sol** (High for extraction; Medium for restyling, alt text, link repair) | Max only if a pilot shows it removes errors High leaves (5 papers at Medium, High and Max, scored on the 147 audit corrections); no independent extraction benchmark found |
 | Alt text from screenshots | GPT-6.2 Sol vision (Medium) | reads each image; replaces Gemini 4 Argon |
 | Writing nodes (EVD, QUE, CLM, CVT) by debate | **Claude Sonnet 5.5**, **GPT-6.2 Sol** and **Gemini 4 Neon (Medium thinking)** draft, critique and revise; **Sol and Sonnet vote**, Neon breaks ties; **Inkling 2 Small** votes for benchmarking only; **Claude Opus 5.5** ($4 and $20; batch $2 and $10) on escalation (JP, 2026-11-25) | Sonnet $2 and $10; Sol $2 and $10 (unverified); Neon $3 and $15 | fallbacks to compare: Opus 5.5 as sole author. Fable 5.2 is not used (JP, 2026-11-24: too costly) |
-| QA of PICOST extractions | decision models (Liquid d1-ultra, Perplexity Decider 1.3, Jev): relevancy, fidelity, quote grounding, table and figure grounding | shadow mode until calibrated (JP, 2026-11-24); low-confidence and multi-page items go to GPT-6.2 Sol and Opus 5.5; Opus 5.5 also checks parser disagreements plus a 10% sample |
+| QA of PICOST extractions | decision models (Liquid d1-ultra, Perplexity Decider 1.3): relevancy, fidelity, quote grounding, table and figure grounding | shadow mode until calibrated (JP, 2026-11-24); low-confidence and multi-page items go to GPT-6.2 Sol and Opus 5.5; Opus 5.5 also checks parser disagreements plus a 10% sample |
 | Unattended runs | **Batch APIs** (Anthropic, OpenAI) | about half price; cached Skill instructions; standard API only for pilots |
 | EVD candidate voting | GPT-6.2 Sol and Claude Sonnet 5.5 vote (Neon breaks ties) | JP dropped Inkling 2 Small on 2026-11-25 (not useful in the pilot) | |
 | Embeddings, deduplication, linking | tabled | not needed at 77 EVDs from 27 papers |
 
-Open: Anthropic and OpenAI API keys are not set (Google dropped: no key available) in `~/.config/lives-ai-raters/.env` (only Perplexity, Liquid and Jev are).
+Open: Anthropic and OpenAI API keys are not set (Google dropped: no key available) in `~/.config/lives-ai-raters/.env` (only Perplexity and Liquid are).
 
 ## Planned toolchain (decided by JP, 2026-11-20)
 
@@ -305,14 +305,14 @@ Measured on the 27 seed PDFs (`pdf_pages.py` text, the Claude and Gemini token c
 | Draft vote | Sol and Sonnet 5.5 decide (Neon breaks ties) | card, three drafts, span about 3,500 | 2,000 each; Inkling 3,000 (includes its reasoning) | |
 | Claim-by-claim check | Claude Opus 5.5 | draft, span, crop about 4,000 | 4,000 | |
 | Crop QA | GPT-6.2 Sol (vision) | one image, checklist | 1,500 | |
-| Decision models | d1-ultra, Decider 1.3, Jev | page image or passage | not applicable | priced per call |
+| Decision models | d1-ultra, Decider 1.3 | page image or passage | not applicable | priced per call |
 
 Two changes follow from the measurements. (1) The extraction prompt now sorts findings into three tiers (`picost-v3.md`: primary answers the research question, secondary is meta or contextual about a primary finding, tertiary is other context) with first-guess caps of 6, 4 and 2 (the seed maximum of 6 EVDs is the primary cap) and an `omitted` note per tier; v1 returned 29 findings for a 10-page paper and cost $0.60 for extraction alone. (2) Sol and Opus read only the cited pages, not the whole PDF (the 60-page seed papers are 165,000 Claude tokens). Real cost of the same 10-page paper through the paper processor: $1.24 before these changes, $0.52 after (Neon $0.46, Sol $0.06, Opus not needed).
 
 ### Stages added on 2026-11-25 (`lives_stages.py`): budgets and cost
 | Stage | Models | Max tokens per request | Notes |
 |---|---|---|---|
-| Checks, decision models | Perplexity Decider 1.3, Liquid d1-ultra, Jev | not applicable | three calls per finding; cents per paper |
+| Checks, decision models | Perplexity Decider 1.3, Liquid d1-ultra | not applicable | two calls per finding; cents per paper |
 | Checks, vision | GPT-6.2 Sol (images) | 1,500 | every finding (pass, fail or cannot verify) |
 | Checks, disputes | Claude Opus 5.5 (image) | 3,000 | only where Sol and the checks disagree |
 | Draft, round 0 | Sonnet 5.5, Sol, Neon (Medium) | 9,000 | all nodes of a paper in one request per model |
