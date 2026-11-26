@@ -20,9 +20,9 @@ cssclasses:
 >
 > **Effect size** is the magnitude of the headline contrast, in the paper's own metric (pp = percentage points; F1 / κ / r as raw deltas). A green value means the leading paradigm beats the reference; red means it falls short; gray means parity or qualitative.
 >
-> **Evidence Strength** combines: number of papers contributing the question, number of triangulating cross-paper [[ESS|EvidencePatterns]], and number of supporting claims. **Strong** = ≥3 papers + ≥3 EPs · **Moderate** = 2 papers OR strong evidence from one paper · **Limited** = single-paper finding.
+> **Evidence Strength** combines: number of papers contributing the question, number of triangulating cross-paper [[ESS|EvidencePatterns]], and number of supporting claims. **Strong** = ≥3 papers + ≥3 EPs · **Moderate** = 2 papers OR strong evidence from one paper · **Limited** = single-paper finding. *Note (2026-11-25): EvidencePatterns were archived (`pipeline/misc/archive/evd-patterns-2026-11-25/`). The ratings in the table were computed while they existed and have not been recomputed; cross-paper claims (CLMs that list two or more papers) take their place in future ratings.*
 
-**Coverage:** 27 subtasks · 27 source papers · 21 cross-paper [[ESS|EvidencePatterns]] · all rows traced to specific [[CLM|claim]] and [[EVD|evidence]] nodes.
+**Coverage:** 27 subtasks · 27 source papers · all rows traced to specific [[CLM|claim]] and [[EVD|evidence]] nodes.
 
 ![[Live database]]
 

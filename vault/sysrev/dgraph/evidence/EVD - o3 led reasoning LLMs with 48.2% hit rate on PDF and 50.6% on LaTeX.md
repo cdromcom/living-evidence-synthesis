@@ -125,10 +125,3 @@ Grounding table (Table 3, p. 6): hit rate and average precision by individual ju
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
 - [[sysrev/dgraph/claims/CLM - Reasoning LLMs substantially outperform non-reasoning LLMs at finding paper errors|CLM - Reasoning LLMs substantially outperform non-reasoning models at identifying critical scientific errors in papers and are viable as manuscript quality checkers]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception|EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception]]
-- [[sysrev/dgraph/evd-patterns/EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks|EP - Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks]]

@@ -1244,3 +1244,15 @@ Goal: validate the new SKILL Step 3b across varied papers before doing all 28. P
 
 ### Recall (no file changes)
 - Reported counts of last week's batch (April 17–18 vault scaffolding + bulk extraction). Initial counts were wrong (claimed 14 EVD and 13 CVT); corrected to 10 CLM, 12 EVD, 12 CVT after re-counting.
+
+## 2026-11-25 (later)
+- SRC pages: skimmable lists and node-link-first rule added to the Skill. Gemini 4 Neon replaces Claude Opus 5.5 as the writing and judging model in the plan (JP's decision); Opus 5.5 is kept as a comparison. See `misc/evd-validation/LOG.md`.
+- Gemini 4 Neon swap reverted at JP's request; Claude Opus 5.5 and Sonnet 5.5 (by task demand), GPT-6.2 Sol for checks, and the decision models are back as the documented roles. See `misc/evd-validation/LOG.md`.
+- Gemini 4 Neon is again the primary PDF reader and extractor, with a supporting cast (GPT-6.2 Sol, Opus 5.5, Sonnet 5.5, decision models); `skills/TIPS.md` added. See `misc/evd-validation/LOG.md`.
+- Batch runner built (`lives_run.py`, `llm_batch.py`, three prompts): four papers at most, $5.55 cap per batch, stop rules, run manifest, standard or batch mode per provider; local extraction stack dropped. See `misc/evd-validation/LOG.md`.
+- Whole-library Zotero screening finished (17,544 distinct papers, 3 local models, sheet and repo folder); runner cost test on a real paper ($1.24) and two over-flagging fixes. See `misc/evd-validation/LOG.md`.
+- Evidence tiers (primary, secondary, tertiary), drafting by debate across Sonnet 5.5, Sol and Neon, quality-signal majority voting with a benchmark sheet, and review-sheet specs added; `picost-v3.md` and `run_to_gsheet.py` built. See `misc/evd-validation/LOG.md`.
+- Welcome, Vault-structure, Skill-references, Quality-signals-spec, model-history, the ingest budget note and the TODO updated for the runner, tiers, debate drafting and quality-signal voting. See `misc/evd-validation/LOG.md`.
+- Gemini File API router, checks, drafting by debate (EVD, QUE, CLM, CVT), quality-signal rating (Inkling-only benchmark) built; EP retired from the pipeline; documents updated. See `misc/evd-validation/LOG.md`.
+- Pipeline reflection and hardening (model registry, limits file, self-test, pinned requirements, policy in code); writing rules in Skill.md; screening sheet gets a stable id and an append-only refresh path. See `misc/evd-validation/LOG.md`.
+- EvidencePatterns archived and removed from the pipeline, scripts, MkDocs and the web app; the extraction now finds each paper's own questions; cap raised to $8 for the pilot; pilot run 1 started. See `misc/evd-validation/LOG.md`.

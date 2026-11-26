@@ -69,9 +69,3 @@ title: "Can LLMs detect quotation errors in scientific papers without fine-tunin
     - [[sysrev/dgraph/evidence/EVD - GPT-4 RR-MCQ macro accuracy was 0.276|EVD - GPT-4 RR-MCQ macro accuracy was 0.276 and micro accuracy 0.710 on 196 review-revision multiple choice questions]]
     - [[sysrev/dgraph/evidence/EVD - Human weakness diversity 7.69 vs only 5.95 for best LLM GPT-4o on AAAR|EVD - Human review weakness diversity ITF-IDF was 7.69 while best LLM GPT-4o scored only 5.95 on AAAR PaperWeakness task]]
     - [[sysrev/dgraph/evidence/EVD - o3-mini led AAAR EqInfer at 47.98% F1 barely above 40% baseline|EVD - o3-mini achieved best F1 of 47.98% on AAAR EqInfer barely above the 40% all-positive baseline]]
-
-### Cross-paper patterns
-
-> [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
-
-- [[sysrev/dgraph/evd-patterns/EP - Adding more input context can degrade rather than improve LLM performance on structured tasks|EP - Adding more input context can degrade rather than improve LLM performance on structured tasks]]

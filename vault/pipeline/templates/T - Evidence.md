@@ -2,6 +2,10 @@
 NodeFormality: draft
 human_reviewed: no
 aliases:
+evd_tier: # primary | secondary | tertiary (see T - EVD tiers)
+evd_tier_reason:
+answers_QUE:
+supports_EVD: # for secondary and tertiary EVDs
 created:
 updated:
 nodeID:

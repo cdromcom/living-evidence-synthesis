@@ -95,9 +95,3 @@ title: "Inter-annotator agreement on citation accuracy labels was only kappa 0.1
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
 - [[sysrev/dgraph/claims/CLM - Quotation errors are subtle and currently hard for NLP models to catch|CLM - Citation quotation errors are subtle and currently challenging for NLP models to identify automatically]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs|EP - Inter-rater agreement on subjective scientific-judgment tasks is low for both humans and LLMs]]

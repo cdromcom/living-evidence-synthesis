@@ -16,10 +16,9 @@ from pathlib import Path
 
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])
 RUNS = VAULT / 'pipeline' / 'runs'
-DISPLAY = {'claude-opus-5-5': 'Claude Opus 5.5', 'claude-sonnet-5-5': 'Claude Sonnet 5.5', 'claude-fable-5-2': 'Claude Fable 5.2', 'claude-haiku-5-5': 'Claude Haiku 5.5',
-           'gpt-6.2-sol': 'GPT-6.2 Sol', 'pplx-decider-v1.3': 'Perplexity Decider 1.3', 'd1-ultra': 'Liquid d1-ultra', 'jev-1.14.0': 'Jev 1.14.0', 'thinkingmachines/Inkling-2-Small': 'Inkling 2 Small'}
-PRICE = {'claude-opus-5-5': (4, 20), 'claude-sonnet-5-5': (2, 10), 'claude-fable-5-2': (8, 40), 'claude-haiku-5-5': (0.10, 0.50),   # USD per million tokens, list prices 2026-11
-         'pplx-decider-v1.3': (0.02, 0), 'd1-ultra': (0.042, 0), 'jev-1.14.0': (0.042, 0), 'thinkingmachines/Inkling-2-Small': (0.30, 1.00)}   # Inkling 2 Small on Tinker: prefill 0.30, sample 1.00 (from a model-extracted summary of the pricing page; verify)
+import config as C
+DISPLAY = {k: v['display'] for k, v in C.MODELS.items()}   # from pipeline/config/models.json
+PRICE = {k: (v['price_in'], v['price_out']) for k, v in C.MODELS.items()}   # USD per million tokens (see price_source in the registry)
 #   # gpt-6.2-sol: price not confirmed, left blank on purpose
 
 
@@ -99,6 +98,19 @@ def logged_tinker(run_id, step, model, prompt_file, user_text, effort='low', max
     req = urllib.request.Request(TINKER_URL, body, {'Authorization': 'Bearer ' + os.environ['TINKER_API_KEY'], 'Content-Type': 'application/json', 'User-Agent': 'LIVES-provenance/1.0'})
     r = json.load(urllib.request.urlopen(req, timeout=180)); text = r['choices'][0]['message'].get('content') or ''; u = r.get('usage', {})
     rec = record(run_id, step, model, prompt_file, 'tinker', effort=effort, tokens_in=u.get('prompt_tokens'), tokens_out=u.get('completion_tokens'),
+                 latency_s=round(time.time() - t0, 1), output_text=text, notes=meta.pop('notes', None), **meta)
+    return text, rec
+
+
+def logged_gemini(run_id, step, model, prompt_file, user_text, effort='high', max_tokens=16000, pdf_path=None, **meta):
+    """Gemini models (default gemini-4-neon) through the Gemini API (key GEMINI_API_KEY). effort = thinking level (low, medium, high); thinking tokens are billed as output, so
+    they are added to tokens_out. pdf_path sends one PDF inline (base64, under about 20 MB). Use the Batch API for unattended runs (Skill-controls.md, The batch runner)."""
+    import base64, urllib.request; load_env(); t0 = time.time(); parts = [{'text': user_text}]
+    if pdf_path: parts.insert(0, {'inline_data': {'mime_type': 'application/pdf', 'data': base64.b64encode(Path(pdf_path).read_bytes()).decode()}})
+    body = json.dumps({'contents': [{'parts': parts}], 'generationConfig': {'maxOutputTokens': max_tokens, 'thinkingConfig': {'thinkingLevel': effort}}}).encode()
+    req = urllib.request.Request(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent', body, {'Content-Type': 'application/json', 'x-goog-api-key': os.environ['GEMINI_API_KEY']})
+    r = json.load(urllib.request.urlopen(req, timeout=300)); cand = r['candidates'][0]['content']['parts']; text = ''.join(x.get('text', '') for x in cand if not x.get('thought')); u = r.get('usageMetadata', {})
+    rec = record(run_id, step, model, prompt_file, 'google', effort=effort, tokens_in=u.get('promptTokenCount'), tokens_out=(u.get('candidatesTokenCount') or 0) + (u.get('thoughtsTokenCount') or 0),
                  latency_s=round(time.time() - t0, 1), output_text=text, notes=meta.pop('notes', None), **meta)
     return text, rec
 

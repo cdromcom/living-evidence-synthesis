@@ -7,6 +7,9 @@ human_verified: no
 
 # Ingest budget and five-paper batches (2026-11-24)
 
+> [!warning] Superseded in part (2026-11-25)
+> This note is the plan of 2026-11-24. Since then: batches are **four papers at most**, with a **$5.55 cap per batch** and stop rules built into `pipeline/scripts/lives_run.py`; **Gemini 4 Neon** reads and extracts (not GPT-6.2 Sol); extraction is tiered (primary, secondary, tertiary); and the real cost of one 10-page paper through extraction, recheck and adjudication was $0.52 in standard mode. Current numbers: `pipeline/skills/Tools-and-Models.md` (Token budgets) and `Skill.md` (Step 1, item 11a). The figures below are kept for history.
+
 JP topped up OpenAI and Anthropic with USD 100 each (USD 200 in all). Work proceeds five papers at a time with human spot checks, so every batch can be corrected before more money is spent.
 
 ## Estimated cost per paper (my estimates; replace with measured numbers after the pilot)

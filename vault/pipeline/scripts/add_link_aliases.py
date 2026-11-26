@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Give path-qualified node links an alias so they read as the node's name instead of a folder path (JP, 2026-11-25).
-  [[sysrev/dgraph/evd-patterns/EP - x]]   ->   [[sysrev/dgraph/evd-patterns/EP - x|EP - x title]]
+  [[sysrev/dgraph/evidence/EVD - x]]   ->   [[sysrev/dgraph/evidence/EVD - x|EVD - x title]]
 The web app already shows the node name for alias-less links (scripts/build-graph.mjs); this fixes the same thing in Obsidian.
 Leaves alone: links that already have an alias or a heading, links to source papers ([[.../@citekey]], which the tools parse as written), links to images and attachments, and anything outside sysrev/dgraph.
   python3 add_link_aliases.py [--apply]      (default is a dry run)"""
 import os, re, sys
 from pathlib import Path
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2]); D = VAULT / 'sysrev' / 'dgraph'
-LINK = re.compile(r'\[\[(sysrev/dgraph/(?:questions|claims|evidence|caveats|evd-patterns)/[^\]|#]+?)\]\]')
+LINK = re.compile(r'\[\[(sysrev/dgraph/(?:questions|claims|evidence|caveats)/[^\]|#]+?)\]\]')
 def alias_for(target):
     f = VAULT / (target + '.md')
     if not f.exists(): return None

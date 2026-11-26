@@ -103,9 +103,3 @@ title: "Fine-tuned Llama 2 improved from F1=0.63 (64% accuracy) to F1=0.84 (83% 
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
 - [[sysrev/dgraph/claims/CLM - LLMs can assess trial reporting adherence with accuracy approaching 90%|CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks|EP - Task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks]]

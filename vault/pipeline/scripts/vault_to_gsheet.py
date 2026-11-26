@@ -3,7 +3,7 @@
 
 The markdown vault stays the source of truth. This script reads the parsed graph
 (nodes and edges) plus the per-EVD PICOST JSON files and writes one workbook with
-the tabs README, SRC, QUE, CLM, EP, EVD, CVT, PICOST and SCREENING. Each tab has
+the tabs README, SRC, QUE, CLM, EVD, CVT, PICOST and SCREENING. Each tab has
 a "JP accuracy judgment" column group on the right (dropdowns with pastel colours
 and a Notes column). Screenshots are real =IMAGE("<url>",1) formulas that point at
 the live site, so the workbook needs no embedded pictures.
@@ -380,17 +380,6 @@ def main():
                c["extras"].get("truthValue"), c["curationStatus"]])
     t.finish()
 
-    # EP
-    t = Tab(wb, "EP", [("ID", 9), ("Title", 46), ("Pattern statement", 70), ("Supporting EVDs", 70),
-                       ("Strength", 12), ("Status", 14)],
-            [("Pattern accurate?", 14, YNF), ("Notes", 40, None)], tab_color="BF9000")
-    for p in by_type["EP"]:
-        st = strip_md(re.sub(r"^\s*\d+\s*$", "", section(p["bodyMarkdown"], "Pattern statement"), flags=re.M))
-        st = re.sub(r"\n{2,}", "\n", st).strip()
-        t.add([p["id"], p["title"], short(st, 1200), lines(in_edges(p["id"], "instantiates", "EVD")),
-               tag_value(p, "ep/strength/"), p["curationStatus"]])
-    t.finish()
-
     # EVD
     t = Tab(wb, "EVD", [("ID", 9), ("Headline statement", 44), ("Benchmark #", 9), ("Source", 28),
                         ("Description quote with citation", 56), ("Quote screenshot", 40),
@@ -477,14 +466,14 @@ def main():
                     "orange 'JP accuracy judgment' columns on the right of every tab."),
         ("Built", "%s by scripts/vault_to_gsheet.py" % a.build_date),
         ("Source commit", "%s (graph file: %s)" % (commit, os.path.basename(a.graph))),
-        ("Row counts", "SRC %d, QUE %d, CLM %d, EP %d, EVD %d, CVT %d, PICOST %d, SCREENING %d" % (
-            n_src, len(by_type["QUE"]), len(by_type["CLM"]), len(by_type["EP"]), n_evd, len(by_type["CVT"]),
+        ("Row counts", "SRC %d, QUE %d, CLM %d, EVD %d, CVT %d, PICOST %d, SCREENING %d" % (
+            n_src, len(by_type["QUE"]), len(by_type["CLM"]), n_evd, len(by_type["CVT"]),
             n_picost, n_src)),
         ("How to judge", "1. Start on EVD. For each row read the headline statement, the quote and the screenshots, "
                          "then set Relevancy, Fidelity, Quote grounding, Table/Fig grounding and Numbers verified. "
                          "2. On PICOST, check P, I, C, O, S, T against the paper and set 'PICOST accurate?'. "
                          "3. On QUE set 'Wording OK?' and, for Edit or Split, type your wording. "
-                         "4. On SRC, CLM, EP and CVT set the accuracy dropdown. 5. Use Notes for anything else. "
+                         "4. On SRC, CLM and CVT set the accuracy dropdown. 5. Use Notes for anything else. "
                          "Rows stay in id order; use the filter arrows on row 2 to sort or filter."),
         ("Images", "Screenshots are =IMAGE() formulas that load from https://living-evidence-synthesis.vercel.app. "
                    "If a cell shows an error or an 'Allow access' prompt, click the cell and choose Allow access. "
@@ -494,7 +483,7 @@ def main():
         ("Legend: Grounding", "Correct (green), Partially Correct (yellow), Incorrect (red), Missing (grey), NA (grey). "
                               "Does the screenshot show the quote (Quote grounding) or the table/figure (Table/Fig grounding)?"),
         ("Legend: Yes / Needs fix / No", "Yes (green), Needs fix (yellow), No (red). Used for Numbers verified, PICOST accurate?, "
-                                         "and the accuracy column on SRC, CLM, EP and CVT."),
+                                         "and the accuracy column on SRC, CLM and CVT."),
         ("Legend: Wording OK?", "OK (green), Edit (yellow), Split (blue), Drop (red). Question wording on QUE."),
         ("Legend: JP label", "Include (green), Exclude (red). Screening decision for a paper."),
         ("PICOST", "Legacy values imported from the 2026-11-17 PICOST tab. No page, table, row or column locators were "
@@ -512,8 +501,8 @@ def main():
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     wb.save(a.out)
     print("wrote %s" % a.out)
-    print("rows: SRC %d QUE %d CLM %d EP %d EVD %d CVT %d PICOST %d SCREENING %d" % (
-        n_src, len(by_type["QUE"]), len(by_type["CLM"]), len(by_type["EP"]), n_evd, len(by_type["CVT"]),
+    print("rows: SRC %d QUE %d CLM %d EVD %d CVT %d PICOST %d SCREENING %d" % (
+        n_src, len(by_type["QUE"]), len(by_type["CLM"]), n_evd, len(by_type["CVT"]),
         n_picost, n_src))
 
 

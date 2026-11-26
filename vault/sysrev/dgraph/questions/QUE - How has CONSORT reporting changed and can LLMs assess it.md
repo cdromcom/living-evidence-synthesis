@@ -46,9 +46,3 @@ title: "How has CONSORT reporting quality changed over time across medical disci
     - [[sysrev/dgraph/evidence/EVD - GPT-4o-mini reached F1 0.85 on CONSORT-TM beating prior SOTA by over 40%|EVD - GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming prior state-of-the-art by over 40 percent]]
     - [[sysrev/dgraph/evidence/EVD - CONSORT compliance rose from 27.3% to 56.1% over decades|EVD - Overall CONSORT compliance rose from 27.3 percent in 1966-1990 to 56.1 percent in 2010-2024 across 21041 RCTs]]
     - [[sysrev/dgraph/evidence/EVD - Only 9.7% of RCTs reported sequence generation and 15.25% allocation concealment|EVD - Randomization sequence generation reported in only 9.7 percent and allocation concealment in 15.25 percent of RCTs]]
-
-### Cross-paper patterns
-
-> [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
-
-- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification|EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]

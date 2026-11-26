@@ -47,6 +47,20 @@ def main():
         if why: union(i, j); reason[(i, j)] = why
     groups = {}
     for i in range(len(R)): groups.setdefault(find(i), []).append(i)
+    # within each folder (library copy) on its own: JP, 2026-11-25
+    fparent = list(range(len(R)))
+    def ffind(x):
+        while fparent[x] != x: fparent[x] = fparent[fparent[x]]; x = fparent[x]
+        return x
+    for (i, j) in reason:
+        if R[i]['source'] == R[j]['source']: fparent[ffind(i)] = ffind(j)
+    fgroups = {}
+    for i in range(len(R)): fgroups.setdefault((R[i]['source'], ffind(i)), []).append(i)
+    for (src, _), g in fgroups.items():
+        best = max(g, key=lambda i: rank(R[i]))
+        for i in g:
+            R[i]['folder_group'] = f"{'P' if src == 'personal library' else 'G'}{min(g) + 1:03d}" if len(g) > 1 else ''
+            R[i]['folder_role'] = '' if len(g) == 1 else ('keep (preferred in this folder)' if i == best else 'duplicate within this folder')
     S = seeds(); sd = {s['doi']: s for s in S if s['doi']}; st = {norm(s['title']): s for s in S}
     for r in R:
         s = (sd.get(r['doi']) if r['doi'] else None) or st.get(r['nt'])
@@ -71,5 +85,8 @@ def main():
     out = Path(a.out or (Path(a.lib1).parent / 'dedup.json')); out.write_text(json.dumps(R, indent=1, ensure_ascii=False), encoding='utf-8')
     multi = [g for g in groups.values() if len(g) > 1]
     if a.pool: print(f"already in the older pool: {sum(1 for g in groups.values() if any(R[i].get('in_older_pool') for i in g))} of {len(groups)} unique papers")
+    for src in sorted({r['source'] for r in R}):
+        recs = [r for r in R if r['source'] == src]; dups = sum(1 for r in recs if r['folder_role'] == 'duplicate within this folder')
+        print(f"folder '{src}': {len(recs)} records = {len(recs) - dups} distinct papers ({dups} duplicate records within this folder)")
     print(f"records {len(R)} (personal {n1}, group copy {len(R) - n1}); duplicate groups {len(multi)} covering {sum(len(g) for g in multi)} records; to drop {sum(len(g) - 1 for g in multi)}; unique papers {len(groups)}; already in seed set {sum(1 for r in R if r['seed_match'] and r['dup_role'] != 'duplicate or older version')}")
 if __name__ == '__main__': main()

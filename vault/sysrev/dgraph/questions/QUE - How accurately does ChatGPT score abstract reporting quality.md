@@ -32,10 +32,3 @@ title: "How accurately does ChatGPT score medical literature abstracts compared 
 
 - [[sysrev/dgraph/claims/CLM - LLM use in systematic reviews needs a structured protocol|CLM - A structured protocol for integrating LLMs into systematic reviews must specify rationale, model selection, prompt engineering, human verification procedures, and reporting standards]]
     - [[sysrev/dgraph/evidence/EVD - GPT-4 agreed 61% with Cochrane reviewers on ROBINS-I|EVD - GPT-4 achieved 61% raw percent agreement with Cochrane reviewers on ROBINS-I overall risk of bias with Kendall coefficient of 0.35]]
-
-### Cross-paper patterns
-
-> [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
-
-- [[sysrev/dgraph/evd-patterns/EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation|EP - Aggregate-level LLM-human agreement masks near-zero per-paper correlation]]
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]

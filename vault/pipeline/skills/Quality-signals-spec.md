@@ -8,7 +8,7 @@ human_verified: no
 
 # Quality signals: the tags the web app reads
 
-The LIVES web app shows Quality Signals tables on node pages and on `/quality`. Each signal is a frontmatter tag like `rigor/confidence-intervals/not-addressed`. A missing tag shows as an empty cell. This list is what the vault uses today (surveyed 2026-11-24); a new paper must get the same tags. Check with `python3 pipeline/scripts/check_quality_signals.py`. How they are produced is in `Skill.md` Module Q.
+The LIVES web app shows Quality Signals tables on node pages and on `/quality`. Each signal is a frontmatter tag like `rigor/confidence-intervals/not-addressed`. A missing tag shows as an empty cell. This list is what the vault uses today (surveyed 2026-11-24); a new paper must get the same tags. Check with `python3 pipeline/scripts/check_quality_signals.py`. How they are produced is in `Skill-controls.md` Module Q.
 
 Legend: **S** = on the source (SRC) page; **E** = on each EVD page. Values are the ones in use; `-` means the tag takes a number or is free-form.
 
@@ -47,5 +47,6 @@ Legend: **S** = on the source (SRC) page; **E** = on each EVD page. Values are t
 - Author, journal and citation fields (`authorTrackRecord`, `pubType`, `selfCitationRate`, `doajListed`, `predatoryPublisherFlag`, `pubpeerCommentCount`, `nameConsistency`, `peerReviewStatus`, `citationCount`) are read by the graph build; no script in the repo produces them yet (to build: OpenAlex, DOAJ, PubPeer).
 - Which model rated what: `pipeline/provenance/model-history.md` (the 27 existing sources: Claude Sonnet 5 re-curated the quotes and quality tables on 2026-08-25; the first drafts of 2026-04-28 have no recorded model). howfairis and FAIR-Checker now have scripts in `pipeline/scripts/provenance/`.
 - **Row names come from one registry**, `pipeline/templates/quality-signal-labels.json` (rename there, then `quality_labels.py apply`). Current notable names: **Statistical Accuracy** and **Hype/spin**.
-- **Statistical Accuracy** is scored with `stat_checks.py` (eighteen scripted checks on the paper's own numbers; see `Skill.md` Module Q 3a and `Tools-and-Models.md`). Statuses: a finding is a clue for a person, no finding means nothing flagged, not verified.
+- **Statistical Accuracy** is scored with `stat_checks.py` (eighteen scripted checks on the paper's own numbers; see `Skill-controls.md` Module Q 3a and `Tools-and-Models.md`). Statuses: a finding is a clue for a person, no finding means nothing flagged, not verified.
 - **Page rule:** when the PDF prints no page numbers (or a page prints none), the PDF page number is correct and is written `PDF p. N`.
+- **Who rates and how ratings are combined (JP, 2026-11-25).** For new papers, every judged row is rated independently and blind by Claude Opus 5.5, GPT-6.2 Sol and Gemini 4 Neon (Medium); the majority of three is the tag, and a 1-1-1 split shows as "no majority" for JP. Scripts check each quote and crop, and a decision model checks that the quote supports the rating. Every individual rating and the aggregate are logged to the Quality Signals benchmark sheet (`pipeline/skills/Review-sheets-spec.md`, section 3), which scores each model against JP's labels. Built 2026-11-25 as the `qs` stage of `lives_run.py` (25 signals; TRIPOD-LLM rows not yet); the cross-paper benchmark sheet is still to build.

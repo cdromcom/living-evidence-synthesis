@@ -93,10 +93,3 @@ title: "GPT-4 Vision identified CONSORT flow diagrams with 100% accuracy but det
 > [!info] Claims this evidence may support (auto-derived from paper-level overlap; verify before citing)
 
 - [[sysrev/dgraph/claims/CLM - LLMs can assess trial reporting adherence with accuracy approaching 90%|CLM - LLMs can assess clinical trial reporting guideline adherence with acceptable accuracy approaching 90%]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - Per-item LLM-human agreement varies sharply by item type|EP - Per-item LLM-human agreement varies sharply by item type]]
-- [[sysrev/dgraph/evd-patterns/EP - Text-only LLMs underperform on tasks where figures or tables carry primary information|EP - Text-only LLMs underperform on tasks where figures or tables carry primary information]]

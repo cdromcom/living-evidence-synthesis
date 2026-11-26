@@ -143,7 +143,6 @@ def _node_type(folders: tuple) -> str:
         "claims": "CLM",
         "evidence": "EVD",
         "caveats": "CVT",
-        "evd-patterns": "EP",
         "source": "Source",
     }.get(folder, "—")
 

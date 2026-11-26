@@ -73,9 +73,3 @@ title: "Can AI platforms emulate IRB member decision-making and draft standard o
     - [[sysrev/dgraph/evidence/EVD - OpenReviewer averaged 5.4 like humans vs 7.7 for GPT-4o|EVD - OpenReviewer average recommendation was 5.4 matching human reviewers while GPT-4o averaged 7.7 on 400 NeurIPS and ICLR papers]]
     - [[sysrev/dgraph/evidence/EVD - OpenReviewer matched a human reviewer on 55.5% of papers vs 23.8% for GPT-4o|EVD - OpenReviewer matched at least one human reviewer recommendation in 55.5% of 400 test papers vs 23.8% for GPT-4o]]
     - [[sysrev/dgraph/evidence/EVD - OpenReviewer beat GPT-4o in 60% and Llama-3.1-70B in 76% of judge comparisons|EVD - OpenReviewer won against GPT-4o in 60% and against Llama-3.1-70B in 76% of LLM-as-judge preference evaluations]]
-
-### Cross-paper patterns
-
-> [!info] EvidencePatterns whose supporting EVDs include evidence cited under this question. Each pattern aggregates findings across multiple papers.
-
-- [[sysrev/dgraph/evd-patterns/EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks|EP - LLMs satisfy protocol structure but miss substantive content in clinical-ethics tasks]]
