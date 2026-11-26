@@ -9,7 +9,7 @@ Part 1 is `Skill.md` (the step-by-step procedure for one paper). This file holds
 
 | Section | Use it when |
 |---|---|
-| The paper processor | you run `lives_run.py` on one to four PDFs |
+| The paper processor | you run `lives_run.py` on one to three PDFs |
 | Run records and reasoning traces | you log model calls |
 | Cost controls | you plan or cap spending |
 | Drafting by debate | you write EVD, QUE, CLM and CVT nodes |
@@ -21,7 +21,7 @@ Part 1 is `Skill.md` (the step-by-step procedure for one paper). This file holds
 
 ## The paper processor (`pipeline/scripts/lives_run.py`)
 
-One command takes one to four PDFs through staged model calls with a spending cap, stop rules and a run manifest. Models, prices, roles, limits and thresholds live in `pipeline/config/models.json` and `pipeline/config/pipeline.json`, not in the code. Run `pipeline/scripts/selftest.py` after any change (offline, free).
+One command takes one to three PDFs through staged model calls with a spending cap, stop rules and a run manifest. Models, prices, roles, limits and thresholds live in `pipeline/config/models.json` and `pipeline/config/pipeline.json`, not in the code. Run `pipeline/scripts/selftest.py` after any change (offline, free).
 
 ### Command
 ```
@@ -70,6 +70,30 @@ The pilot took over 75 minutes. Most of it was waiting, not working. What helps,
 6. Cut steps that add little: one critique round only, full debate only for primary EVDs, quality signals only when JP asks (Module Q is optional), and no benchmark side runs.
 A rough standard-mode timeline for four papers: extraction 5 minutes, spans and checks 4, recheck and adjudication 5, drafting and ratings 10 at the same time, so about 25 minutes.
 
+### Batches of three papers with JP's review in between (JP, 2026-11-26)
+JP wants small batches with a lot of human sensemaking and verification. The rules, enforced by `lives_run.py`:
+1. At most three papers per batch.
+2. A new batch is refused while an earlier batch is not marked reviewed. Each manifest has `jp_review`: `pending` (default), `done` or `superseded`.
+3. JP reviews a batch in its review sheet: spot check A (findings, flags, crops), spot check B (drafted nodes, the node-detail check and writing-rules failures), the EVD rework tab, the Low decision-model scores tab, the Question groups tab, and the JP columns (yellow).
+4. When JP says the review is done, record it with `lives_run.py --mark-reviewed RUN [RUN ...]` (add `--review-status superseded` for a batch that a later run replaced). Do this only when JP says so.
+5. `--waive-review "reason"` starts a batch anyway and records the reason in the manifest. Use it only when JP says so.
+Batches `2026-11-25_batch02`, `batch03` and `batch04` are pending; `batch01` is superseded.
+
+### Quote and page repair (JP, 2026-11-26)
+The spans stage corrects the model's most common extraction errors with code instead of flagging them. Measured on the three pilot runs (297 spans): 12 quotes were not found in the PDF text, 82 of 778 numbers sat on a page that did not hold them, and 126 of 891 printed page numbers disagreed with the page map. What the stage now does:
+1. **Equals sign glyph:** some fonts store "=" as the glyph for one quarter ("P ¼ .0085"); the text matcher maps it back to "=". This fixed 2 of the 12.
+2. **Quote repair:** a quote that is not in the PDF text is replaced by the PDF's own words when at least 90% of its letters and digits match one stretch of one page (`pdf_pages.repair_quote`). The model's wording is kept in `text_model`. 5 of the remaining 10 were repaired; 5 stay not found (a table row the model rewrote, a quote cited on the wrong page, text the layer does not hold).
+3. **Pages from code:** every span gets the page where its words were found, every page gets its printed number from the page map (the model's pages are not trusted), and a number whose value is not on its cited page moves to the one page that has it (15 of 891 moved).
+4. **Match level on every quote** (spans, questions, claims, caveats): `exact` (the PDF's text apart from spacing, line-break hyphens, ligatures, curly quotes and dashes), `letters_digits` (the same letters and digits, but a symbol or punctuation differs, such as an equals sign or an en dash), `repaired`, or `not_found`. On the pilot spans: 202 exact, 85 letters_digits, 5 repaired, 5 not found. So "found in the PDF" has meant "same letters and digits", and 29% of the quotes differ from the PDF text in a symbol or punctuation mark.
+5. **Prompt:** `picost-v7.md` asks for short quotes (a single sentence or table row, about 250 characters at most) copied exactly, and tells the model to skip printed page numbers.
+Highlighted pages, bounding boxes and crops already exist for every extracted finding; they are the evidence a person reads, and the text quote is what the checks match against.
+
+### Numbers-list check (JP, 2026-11-26)
+Every number written in a finding's statement must have its own entry in that finding's Numbers list, and the entry must say where the number sits (table or figure, or a page). The spans stage flags a finding with `number_not_in_numbers_list` or `numbers_list_entry_without_location`, which sends it to the Sol recheck like any other flag. The check skips years, digits inside names (GPT-4, PRECIS-2, o3-mini, 5-shot) and label numbers (Human Rater 1, Table 2), and treats 89% and 0.89 as the same number. `picost-v7.md` tells the extraction model to write a Numbers-list entry for every number in a statement. On the three pilot runs (extracted with v6), 60 of 141 findings had a number in the statement with no list entry (24 of 51, 26 of 70, 10 of 20); `lives_run.py --recheck-numbers-list RUN` applies the check to a finished run without any model call.
+
+### Reading grade (plain explanation)
+The writing-rules check reports a Flesch-Kincaid grade: the US school grade a reader needs to follow the text, calculated from the average words per sentence and the average syllables per word. A grade of 12 means a high-school senior can read it; 20 means a postgraduate. The rule: at most 14 passes, and the drafting prompts ask for about 12 or lower. Long sentences packed with model names and statistics raise it quickly, so most failures of this rule come from EVD statements that carry many numbers.
+
 ### Standard or batch: always ask (JP, 2026-11-26)
 Every time JP gives papers or PDFs to run, ask which mode to use before starting, and give the trade-offs. The processor refuses to start a new run without `--mode`. Say:
 - **Standard (answers now, full price).** Pros: no queue, a four-paper run can finish in about 25 to 40 minutes (`--fast` runs drafting and ratings at the same time), no stalled batch jobs, large extractions work (Gemini batch refuses more than 65,536 output tokens, and the longest paper needed standard mode). Cons: about twice the cost. Uncertain: standard calls can time out on very long generations, and rate limits at the providers were not tested at four papers in parallel.
@@ -95,7 +119,7 @@ The same question can appear in different words, within a paper and across paper
 - No cap per tier (JP, 2026-11-25): any number of findings per paper, as long as each has a locator and a verbatim span. The old first-guess caps of 6, 4 and 2 are gone.
 
 ### Rails (limits are in `pipeline.json`)
-1. At most 4 papers per batch; a cap per batch that `--cap` can only lower; a PDF already processed (same SHA-256) is refused unless `--allow-repeat`.
+1. At most 3 papers per batch (JP, 2026-11-26), and no new batch until JP has marked the earlier ones reviewed; a cap per batch that `--cap` can only lower; a PDF already processed (same SHA-256) is refused unless `--allow-repeat`.
 2. Before each stage the worst-case cost is added to the spend so far, and the run stops before submitting if that would pass the cap.
 3. **Stop-the-batch rules:** spend over the cap; a stage costing over 1.5 times its expected cost; two or more papers failing; over 25% of a paper's spans not found in its PDF; a `STOP` file in the run folder (`touch pipeline/runs/<run>/STOP`). A stop cancels any batch job still running.
 4. The cap covers calls made by the paper processor. Set a monthly limit on each provider project as a second fence.
@@ -117,7 +141,7 @@ Save a complete record of every model call, so the work is reproducible and, lat
 
 Follow these every run so JP does not have to remember them. Budget, per-batch caps and the ledger are in `pipeline/misc/evd-validation/2026-11-24-ingest-budget-and-batches.md`.
 
-1. **Work four papers at a time at most (JP, 2026-11-25)** with the human spot checks A and B in that file. `lives_run.py` enforces it, together with a **$6 cap per batch** and the stop-the-batch rules (see "Batch runner" under Step 1, item 11a).
+1. **Work three papers at a time at most (JP, 2026-11-26; four before)** with the human spot checks A and B in that file. `lives_run.py` enforces it, together with a **$6 cap per batch** and the stop-the-batch rules (see "Batch runner" under Step 1, item 11a).
 2. **Standard API for the first three papers, then iterate on the prompts; switch to the Batch APIs only after an external reviewer has given feedback** (JP, 2026-11-24). Batch is about half price and suits runs nobody is waiting on (reading, extraction, writing, verification).
 3. **Cache the Skill:** put the Skill and instructions first and unchanged in every request.
 4. **Send only what is needed:** Methods and Results with their tables first; skip references, appendices and acknowledgements; fall back to other sections only when a field is missing.
@@ -134,6 +158,8 @@ Follow these every run so JP does not have to remember them. Budget, per-batch c
 Little things matter (a number, a comparator, 247 characters, a sentence a reader can follow), so three models draft, critique each other, revise and vote. Nothing here has been piloted: the first batch with JP decides what stays (`TODO.md`).
 
 **Node-detail check (renamed from "claim check" on 2026-11-26, because claim means CLM).** A second model splits each EVD, CLM and CVT into its small details (each number, model, comparator, direction and qualifier) and marks each `supported`, `partly` or `unsupported` against the extraction. ELI5: it is a proofreader who checks every word of the summary against the paper. The first version failed a node for any `partly`, so 30 to 40% of nodes failed, yet almost none were wrong (one `unsupported` claim in three runs). `node-detail-check-v1` gives three outcomes: `pass`; `minor` (meaning right, wording could be tighter: acceptable, with a suggested fix); `fail` (a number, model, comparator or direction that is not in the extraction, or a claim stronger than the evidence). Questions (QUE) are not checked here: each one is tied to its grounding quote and screenshot, so a person can see where it came from. EVDs matter most for this check. In the three pilot runs it now fails about 1% of nodes, and the failures were real overclaims (for example "were trained on" for a fine-tuned model, and a "confirmed omission" that the paper only calls possible), so the check stays.
+
+**EVD rework (JP, 2026-11-26).** An EVD statement whose decision-model score is below 0.60 goes to a separate frontier model, Claude Opus 5.5 (none of the three authors), stage `draft_rework`, always standard mode, prompt `evd-rework-v1.md`. It receives the statement, the finding (PICOST, Numbers list, source spans), the two scores and a screenshot of the source. It does three things: (1) lists where each number in the statement was found (span, Numbers list, screenshot or nowhere); (2) checks the models, prompting, comparator, direction and scope; (3) returns a verdict: `ok` (keep the statement), `rewrite` (a new statement) or `extraction_problem` (the extracted numbers or spans look wrong, and it says what a person should check). A rewrite replaces the statement only if it passes the writing-rules check and its decision-model score is then at least 0.60; otherwise the original stays and the proposal is shown beside it. Every case is listed in the tab "EVD rework (Opus 5.5)" with before and after scores. First results on three pilot runs: 30 EVDs reworked, 22 rewrites (9 accepted), 8 extraction problems, 0 kept as they were; 21 of the 30 had a number that was in the finding's statement but nowhere in its spans or Numbers list. That points at the extraction step, which should record a Numbers-list entry for every number it writes in a finding statement.
 
 **Scope (JP, 2026-11-25): the debate covers only the primary EVDs.** Everything else (secondary and tertiary EVDs, QUE, CLM, CVT) is drafted once by Sonnet 5.5, goes through the same lint and claim check, and is marked "single draft (not debated)". The vote and tie-break apply only to the debated EVDs.
 
