@@ -12,7 +12,6 @@ const TYPE_OPTIONS: { value: NodeType; label: string; hint: string }[] = [
   { value: "EVD", label: "Evidence", hint: "one observation from one source" },
   { value: "CVT", label: "Caveat", hint: "a limitation qualifying evidence" },
   { value: "SRC", label: "Source", hint: "a paper this corpus cites" },
-  { value: "EP", label: "Evidence Pattern", hint: "a finding recurring across papers" },
 ];
 
 const MIN_WORDS = 50;
@@ -37,8 +36,6 @@ export default function ContributeForm() {
   const [supports, setSupports] = useState<string[]>([]);
   const [derivedFrom, setDerivedFrom] = useState<string[]>([]);
   const [qualifies, setQualifies] = useState<string[]>([]);
-  const [instantiates, setInstantiates] = useState<string[]>([]);
-  const [relatesTo, setRelatesTo] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ compareUrl: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -64,8 +61,6 @@ export default function ContributeForm() {
     setSupports([]);
     setDerivedFrom([]);
     setQualifies([]);
-    setInstantiates([]);
-    setRelatesTo([]);
   }
 
   function quoteOk() {
@@ -76,7 +71,6 @@ export default function ContributeForm() {
     if (type === "CLM") return addresses.length > 0;
     if (type === "EVD") return derivedFrom.length > 0 && quoteOk();
     if (type === "CVT") return qualifies.length > 0 && quoteOk();
-    if (type === "EP") return instantiates.length > 0;
     return true;
   }
 
@@ -94,7 +88,7 @@ export default function ContributeForm() {
           body,
           citekey: type === "SRC" ? citekey : undefined,
           ...(type === "EVD" || type === "CVT" ? { quote, citation, page, figureRef, screenshot } : {}),
-          edges: { addresses, supports, derivedFrom, qualifies, instantiates, relatesTo },
+          edges: { addresses, supports, derivedFrom, qualifies },
         }),
       });
       const data = await res.json();
@@ -380,13 +374,6 @@ export default function ContributeForm() {
               value={supports}
               onChange={setSupports}
             />
-            <NodePicker
-              label="Instantiates pattern (optional)"
-              hint="An Evidence Pattern this observation is an instance of."
-              targetType="EP"
-              value={instantiates}
-              onChange={setInstantiates}
-            />
           </>
         )}
         {type === "CVT" && (
@@ -397,24 +384,6 @@ export default function ContributeForm() {
             value={qualifies}
             onChange={setQualifies}
           />
-        )}
-        {type === "EP" && (
-          <>
-            <NodePicker
-              label="Instantiating evidence (required)"
-              hint="Evidence nodes from independent papers that instantiate this pattern."
-              targetType="EVD"
-              value={instantiates}
-              onChange={setInstantiates}
-            />
-            <NodePicker
-              label="Related claims (optional)"
-              hint="Claims this pattern generalizes or connects to."
-              targetType="CLM"
-              value={relatesTo}
-              onChange={setRelatesTo}
-            />
-          </>
         )}
       </div>
 

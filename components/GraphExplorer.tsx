@@ -154,7 +154,6 @@ const SUMMARY_SECTION_BY_TYPE: Partial<Record<NodeType, RegExp>> = {
   SRC: /TL;?DR/i,
   EVD: /^##\s*Description/im,
   CVT: /^###?\s*Limitation/im,
-  EP: /^##\s*Pattern statement/im,
   QUE: /Quote/i,
   CLM: /Quote/i,
 };

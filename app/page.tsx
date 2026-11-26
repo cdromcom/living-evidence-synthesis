@@ -12,7 +12,6 @@ export default function HomePage() {
     { type: "EVD", description: "Single-source observations" },
     { type: "CVT", description: "Caveats qualifying evidence" },
     { type: "SRC", description: "Source papers reviewed" },
-    { type: "EP", description: "Cross-paper evidence patterns" },
   ];
 
   return (

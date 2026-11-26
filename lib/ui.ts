@@ -6,7 +6,6 @@ export const NODE_TYPE_COLOR_VAR: Record<NodeType, string> = {
   EVD: "var(--color-node-evidence)",
   CVT: "var(--color-node-caveat)",
   SRC: "var(--color-node-source)",
-  EP: "var(--color-node-ep)",
 };
 
 export const NODE_TYPE_BG_CLASS: Record<NodeType, string> = {
@@ -15,7 +14,6 @@ export const NODE_TYPE_BG_CLASS: Record<NodeType, string> = {
   EVD: "bg-node-evidence",
   CVT: "bg-node-caveat",
   SRC: "bg-node-source",
-  EP: "bg-node-ep",
 };
 
 export const NODE_TYPE_TEXT_CLASS: Record<NodeType, string> = {
@@ -24,7 +22,6 @@ export const NODE_TYPE_TEXT_CLASS: Record<NodeType, string> = {
   EVD: "text-node-evidence",
   CVT: "text-node-caveat",
   SRC: "text-node-source",
-  EP: "text-node-ep",
 };
 
 export const NODE_TYPE_BORDER_CLASS: Record<NodeType, string> = {
@@ -33,7 +30,6 @@ export const NODE_TYPE_BORDER_CLASS: Record<NodeType, string> = {
   EVD: "border-node-evidence",
   CVT: "border-node-caveat",
   SRC: "border-node-source",
-  EP: "border-node-ep",
 };
 
 /**

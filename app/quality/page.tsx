@@ -1,4 +1,4 @@
-import { getNodesByType, getParentSource, getEvidencePatternsForEvd } from "@/lib/data";
+import { getNodesByType, getParentSource } from "@/lib/data";
 import { QUALITY_COLUMNS } from "@/lib/qualityColumns";
 import EvidenceQualityTable, { type QualityRow } from "@/components/EvidenceQualityTable";
 
@@ -17,8 +17,7 @@ export default function EvidenceQualityPage() {
     const values = Object.fromEntries(
       QUALITY_COLUMNS.map((c) => [c.id, c.value(evd, signalSource)])
     );
-    const eps = getEvidencePatternsForEvd(evd.id).map((ep) => ({ id: ep.id, title: ep.title }));
-    return { evdId: evd.id, evdTitle: evd.title, srcId: src?.id ?? null, eps, values };
+    return { evdId: evd.id, evdTitle: evd.title, srcId: src?.id ?? null, values };
   });
 
   return (

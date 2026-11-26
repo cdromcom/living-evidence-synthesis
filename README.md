@@ -26,7 +26,7 @@ flowchart TB
     end
 
     subgraph vault["Vault — source of truth, committed to git"]
-        md["vault/**/*.md\nfrontmatter + markdown body\n232 nodes: QUE · CLM · EVD · CVT · SRC · EP"]
+        md["vault/**/*.md\nfrontmatter + markdown body\n211 nodes: QUE · CLM · EVD · CVT · SRC"]
     end
 
     maintainer -->|"writes trust-signal\nfrontmatter fields"| md
@@ -103,14 +103,13 @@ extend the discourse graph directly:
 
 1. Clone the repo: `git clone https://github.com/cdromcom/living-evidence-synthesis.git`
 2. In Obsidian, choose **Open folder as vault** and select the `vault/` folder.
-3. Node templates are in `vault/pipeline/templates/`; the `.base` files (`vault/sysrev/indexes/ESS.base`,
-   `vault/sysrev/indexes/EvidencePattern Nodes.base`) are saved table views of the nodes.
+3. Node templates are in `vault/pipeline/templates/`; the `.base` file (`vault/sysrev/indexes/ESS.base`) is a saved table view of the nodes.
 4. Every node carries a `human_reviewed` field (`yes`/`no`) in its frontmatter,
    so you can tell AI-drafted nodes from human-checked ones.
 
 The vault has two parent folders: `vault/sysrev/` holds the systematic-review content
 (the discourse-graph nodes under `dgraph/`: questions, claims, evidence and its `Attachments/`,
-caveats, evd-patterns, source; plus indexes, picost, reference) and `vault/pipeline/` holds the meta content about how the review is built and
+caveats, source; plus indexes, picost, reference) and `vault/pipeline/` holds the meta content about how the review is built and
 published (skills, templates, scripts, logs, legal, misc). Only `vault/Welcome.md` sits at
 the vault root.
 
