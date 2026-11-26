@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import QualitySignalDrawer from "@/components/QualitySignalDrawer";
+import type { RowDetail } from "@/lib/qualitySignalDetail";
 import ScaleTooltip from "@/components/ScaleTooltip";
 import { TONE_BG, type Scale, type Tone } from "@/lib/scales";
 
@@ -14,18 +19,33 @@ export type SignalRow = {
   current?: string;
   /** One-line description shown above the scale on hover. */
   description?: string;
+  /** Quality signal ids (lib/quality-labels.generated.json) this row shows. */
+  signalIds?: string[];
+  /** Detail behind the row; when absent the row stays a plain link. */
+  detail?: RowDetail;
 };
+
+type Opened = { row: SignalRow; trigger: HTMLElement };
 
 /** A band of rows under a category, e.g. Rigor › Validity. */
 export type SignalSection = { subgroup?: string; rows: SignalRow[] };
 
 export type SignalGroup = { name: string; sections: SignalSection[] };
 
-function Rows({ rows }: { rows: SignalRow[] }) {
+function Rows({ rows, onOpen }: { rows: SignalRow[]; onOpen: (o: Opened) => void }) {
   return (
     <>
       {rows.map((row) => {
-        const name = row.href ? (
+        const name = row.detail ? (
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            onClick={(e) => onOpen({ row, trigger: e.currentTarget })}
+            className="cursor-pointer rounded-sm text-left underline decoration-dotted underline-offset-2 transition-colors hover:text-forest focus-visible:outline focus-visible:outline-2 focus-visible:outline-forest"
+          >
+            {row.label}
+          </button>
+        ) : row.href ? (
           <a href={row.href} className="transition-colors hover:text-forest hover:underline">
             {row.label}
           </a>
@@ -79,6 +99,7 @@ function Rows({ rows }: { rows: SignalRow[] }) {
  * never the only signal — every dot is followed by its status in words.
  */
 export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] }) {
+  const [opened, setOpened] = useState<Opened | null>(null);
   const live = groups
     .map((g) => ({ ...g, sections: g.sections.filter((s) => s.rows.length > 0) }))
     .filter((g) => g.sections.length > 0);
@@ -119,7 +140,7 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
                     )}
                     <table className="w-full table-fixed border-collapse">
                       <tbody>
-                        <Rows rows={section.rows} />
+                        <Rows rows={section.rows} onOpen={setOpened} />
                       </tbody>
                     </table>
                   </div>
@@ -129,6 +150,15 @@ export default function QualitySignalsTable({ groups }: { groups: SignalGroup[] 
           </div>
         ))}
       </div>
+      {opened?.row.detail && (
+        <QualitySignalDrawer
+          title={opened.row.label}
+          href={opened.row.href}
+          detail={opened.row.detail}
+          returnFocusTo={opened.trigger}
+          onClose={() => setOpened(null)}
+        />
+      )}
     </section>
   );
 }

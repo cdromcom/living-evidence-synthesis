@@ -3,6 +3,7 @@ import { labelFor } from "@/lib/qualityLabels";
 import CollapsibleSignalBlock from "@/components/CollapsibleSignalBlock";
 import ScaleTooltip from "@/components/ScaleTooltip";
 import QualitySignalsTable, { type SignalGroup, type SignalRow } from "@/components/QualitySignalsTable";
+import { getRowDetail } from "@/lib/qualitySignalDetail";
 import {
   TONE_BG,
   TONE_RING,
@@ -867,6 +868,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
           href: RIGOR_CHECK_HREF[kind] ? `${linkBase}${RIGOR_CHECK_HREF[kind]}` : undefined,
           scale,
           current: risk,
+          signalIds: [kind],
         }]
       : [];
 
@@ -950,6 +952,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
       href: `${linkBase}${checkHref}`,
       scale: checkScale,
       current: noArtifact ? "not-addressed" : (check as string),
+      signalIds: [name === "Dataset" ? "repository-check" : "code-check", ...(name === "Dataset" ? ["data-repo-check"] : [])],
     };
 
     const fairness: SignalRow =
@@ -961,6 +964,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             href: `${linkBase}${fairHref}`,
             scale: fairScale,
             current: band(score),
+            signalIds: [name === "Dataset" ? "data-quality-fair" : "code-quality-fair"],
           }
         : {
             label: `${name} FAIRness`,
@@ -970,6 +974,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             description: noArtifact
               ? `${name} FAIRness: the authors claim no ${name.toLowerCase()}, so there is nothing to score.`
               : `${name} FAIRness: the ${name.toLowerCase()} link resolves, but no FAIR score has been recorded for it yet.`,
+            signalIds: [name === "Dataset" ? "data-quality-fair" : "code-quality-fair"],
           };
 
     return [availability, fairness];
@@ -987,6 +992,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
               href: `${linkBase}#tripod-llm-reporting`,
               scale: REPORTING_COMPLIANCE_SCALE,
               current: compliance.level,
+              signalIds: ["transparency"],
             }]
           : [],
       }],
@@ -1002,6 +1008,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             href: TOP_STANDARD_HREF[sig.standard] ? `${linkBase}${TOP_STANDARD_HREF[sig.standard]}` : undefined,
             scale: TOP_LEVEL_SCALE,
             current: sig.level,
+            signalIds: [sig.standard === "study-registration" ? "registration" : "protocol"],
           })),
           ...artifactRows("Dataset", repositoryCheck, dataQualityFair, 24, dataQualityBand,
             DATA_QUALITY_SCALE, DATASET_CHECK_SCALE, "#qa-data-quality-fair", "#tripod-14e"),
@@ -1022,6 +1029,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             href: `${linkBase}#qa-${v.domain}`,
             scale: VALIDITY_SCALE,
             current: v.risk,
+            signalIds: [v.domain],
           })),
         },
         {
@@ -1035,6 +1043,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                   href: `${linkBase}#qa-data-leakage`,
                   scale: DATA_LEAKAGE_SCALE,
                   current: dataLeakage,
+                  signalIds: ["data-leakage"],
                 }]
               : []),
             ...rigorRow("baseline-adequacy", baselineAdequacy),
@@ -1058,6 +1067,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                   href: `${linkBase}#qa-statistical-power`,
                   scale: STATISTICAL_POWER_SCALE,
                   current: statisticalPower,
+                  signalIds: ["statistical-power"],
                 }]
               : []),
             ...(statisticalConsistency
@@ -1072,6 +1082,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                   href: `${linkBase}#qa-statistic-accuracy`,
                   scale: STATISTICAL_CONSISTENCY_SCALE,
                   current: statisticalConsistency,
+                  signalIds: ["statistic-accuracy", "statcheck"],
                 }]
               : []),
           ],
@@ -1090,6 +1101,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
             href: INTEGRITY_HREF[sig.kind] ? `${linkBase}${INTEGRITY_HREF[sig.kind]}` : undefined,
             scale: DISCLOSURE_SCALE,
             current: sig.level,
+            signalIds: [sig.kind],
           })),
           ...(aiWritingCheck
             ? [{
@@ -1099,12 +1111,23 @@ export default function TopBadges({ node }: { node: GraphNode }) {
                 href: `${linkBase}#qa-ai-writing-check`,
                 scale: AI_WRITING_CHECK_SCALE,
                 current: aiWritingCheck,
+                signalIds: ["ai-writing-check"],
               }]
             : []),
         ],
       }],
     },
   ];
+
+  // The paper whose signals these are: the SRC itself, or an EVD's parent SRC.
+  // The pipeline file is named by citekey, which is the SRC page name without "@".
+  const citekey =
+    signalSource.type === "SRC" ? signalSource.filename.replace(/^@/, "").replace(/\.md$/, "") : null;
+  for (const group of signalGroups) {
+    for (const section of group.sections) {
+      section.rows = section.rows.map((row) => ({ ...row, detail: getRowDetail(citekey, row.signalIds) }));
+    }
+  }
 
   const summary = [
     hasTransparency && "Transparency",
