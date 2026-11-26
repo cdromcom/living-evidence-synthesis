@@ -83,6 +83,8 @@ check('every signal the models rate has a tag on the source page and a label', a
 check('the required-tag list comes from the signal registry (power analysis is optional)', 'rigor/statistical-power' not in SRG.REQUIRED and 'top/study-registration' in SRG.REQUIRED)
 check('a run folder name resolves to its vault citekey', SRG.resolve_citekey('Sarol-et-al-2024-Assessing-citation-integrity') == 'sarolAssessingCitationIntegrity2024')
 check('the summary sentence names who agrees and who does not', QXP.summary_sentence('addressed', [{'rater': 'neon', 'rating': 'addressed'}, {'rater': 'opus', 'rating': 'partial'}, {'rater': 'sol', 'rating': 'addressed'}], {}, []) == 'Neon and Sol rate this addressed; Opus rated it partial.' and QXP.summary_sentence('no majority', [{'rater': 'neon', 'rating': 'a'}, {'rater': 'opus', 'rating': 'b'}], {}, []).endswith('needs your judgment.'))
+import column_notes as CNT
+check('every column header the sheet builder writes has a hover note for outsiders', all(CNT.note_for('Verification (all nodes)', h) for h in ('Sonnet 5.5 score', 'Majority vote', 'Labeling queue (tonight)', 'JP: notes', 'JP: is the extraction correct? (yes/no/unsure)')) and CNT.note_for('QS Sarol 2024', 'Result').startswith('The final rating') and all(CNT.note_for('Papers', h) for h in ('Primary findings', 'Cost USD')))
 print('packages')
 for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
     try: print(f'  {pkg} {md.version(pkg)}'); ok += 1

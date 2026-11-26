@@ -9,6 +9,8 @@ from openpyxl.drawing.image import Image as XlImage
 from pathlib import Path
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.comments import Comment
+import column_notes as CN
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 sys.path.insert(0, str(Path(__file__).resolve().parent)); import call_logger as cl, sheet_style as SS, config as C
@@ -80,6 +82,9 @@ def main():
         return round(min(a), 3) if a else ''
     def tab(title, header, rows, widths, jp_from=None, img=()):
         ws = wb.create_sheet(title); ws.append(header)
+        for ci_, h_ in enumerate(header, 1):   # hover note on every column header, written for readers outside the project (column_notes.py)
+            n_ = CN.note_for(title, h_)
+            if n_: c_ = Comment(n_, 'LIVES pipeline'); c_.width = 340; c_.height = 40 + 18 * (len(n_) // 48 + 1); ws.cell(1, ci_).comment = c_
         for r in rows: ws.append([_CTRL.sub('', x) if isinstance(x, str) else x for x in r])   # control characters in a quote would make openpyxl refuse the cell
         SS.polish(ws, jp_from=jp_from, image_cols=img); ws.freeze_panes = 'C2'; return ws
     ab = wb.create_sheet('ABOUT'); ab.column_dimensions['A'].width = 26; ab.column_dimensions['B'].width = 120
