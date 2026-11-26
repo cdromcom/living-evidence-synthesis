@@ -113,6 +113,17 @@ def main():
             m = dmv['means']; low_q = min(m, key=m.get) if m else ''
             lowrows.append([ck, nid, n.get('tier', ''), st_, m.get('fidelity', ''), (m.get('numbers_in_source', m.get('quote_grounding', ''))), dmv['score'], low_q, (f.get('detail_check') or f.get('claim_check') or {}).get('overall', 'not checked'), ', '.join(missing), len(spans), spans, nums(fnd), '', ''])
     if lowrows: tab('Low decision-model scores', ['Paper', 'Node', 'Tier', 'Drafted EVD statement', 'Fidelity', 'Numbers found in source', 'Score (lowest)', 'Lowest question', 'Node-detail check', 'Numbers in the statement that are not in the source span', 'Source span length (characters)', 'Source span(s) the models saw', 'Numbers with locators the models saw', 'JP: suggested change', 'JP: notes'], lowrows, [30, 8, 10, 70, 9, 9, 9, 14, 12, 24, 10, 70, 50, 30, 30], jp_from=14)
+    # ---- EVDs reworked by the separate frontier model (evd_rework role) after a low decision-model score
+    rwrows = []
+    for ck, p in M['papers'].items():
+        if not (d / ck / 'drafts.json').exists(): continue
+        dd = json.load(open(d / ck / 'drafts.json'))
+        for nid, f in dd.get('finals', {}).items():
+            rw = f.get('rework')
+            if not rw: continue
+            nf = [x['number'] for x in rw.get('numbers', []) if x.get('found_in') == 'nowhere']
+            rwrows.append([ck, nid, rw['original'], rw['dm_before']['score'], '; '.join(f"{x['number']} ({x['found_in']})" for x in rw.get('numbers', [])), ', '.join(nf), '; '.join(rw.get('fidelity_problems', [])), rw['verdict'], rw.get('proposal', ''), (rw.get('dm_after') or {}).get('score', ''), ('yes' if rw.get('writing_rules_after', {}).get('pass') else 'no') if rw.get('writing_rules_after') else '', 'yes' if rw.get('accepted') else 'no', rw.get('note', ''), f['status'], '', ''])
+    if rwrows: tab('EVD rework (Opus 5.5)', ['Paper', 'Node', 'Original EVD statement', 'Decision-model score before', 'Where Opus found each number', 'Numbers found nowhere', 'Fidelity problems', 'Verdict', 'Proposed rewrite', 'Decision-model score after', 'Writing rules pass', 'Rewrite accepted', 'Note for the reviewer', 'Final status', 'JP: right call? (yes/no)', 'JP: notes'], rwrows, [30, 8, 60, 10, 50, 14, 50, 14, 60, 10, 10, 10, 50, 26, 14, 30], jp_from=15)
     if qr_rows: tab('Quality signals (raw)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10])
     if qa_rows: tab('Quality signals (vote)', ['Paper', 'Signal', 'Votes', 'Majority', 'Agreement', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 40, 16, 10, 10, 16, 30], jp_from=7)
     qg = d / 'question_groups.tsv'
@@ -165,6 +176,17 @@ def main():
         mrow('Drafting', 'Nodes written', ', '.join(f'{k}: {v}' for k, v in nodes.most_common())); mrow('Drafting', 'How the winning text was chosen', ', '.join(f'{k}: {v}' for k, v in how.most_common()), 'only primary EVDs are debated; everything else is one draft by Sonnet 5.5')
         mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Writing-rules check pass (length, numbers on the card, plain-language grade, no em dash)', f'{lintp[0]} of {lintp[1]} ({100 * lintp[0] / max(lintp[1], 1):.0f}%)'); mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Node-detail check overall', ', '.join(f'{k}: {v}' for k, v in ccp.most_common())); mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Status', ', '.join(f'{k}: {v}' for k, v in st_.most_common()))
     if qsd[0]: mrow('Quality signals', 'Signals rated', qsd[0]); mrow('Quality signals', 'Neon (High) and Opus agree', f'{qsd[1]} of {qsd[0]} ({100 * qsd[1] / qsd[0]:.0f}%)'); mrow('Quality signals', 'Sol adjudicated', qsd[2]); mrow('Quality signals', 'Still no majority', qsd[3]); mrow('Quality signals', 'Quotes not found in the PDF', f'{qnf[0]} of {qnf[1]}')
+    rwn = collections.Counter(); rwacc = 0; before = []; after = []
+    for ck in M['papers']:
+        if (d / ck / 'drafts.json').exists():
+            for f in json.load(open(d / ck / 'drafts.json')).get('finals', {}).values():
+                rw = f.get('rework')
+                if rw:
+                    rwn[rw['verdict']] += 1; rwacc += 1 if rw.get('accepted') else 0; before.append(rw['dm_before']['score'])
+                    if rw.get('dm_after'): after.append(rw['dm_after']['score'])
+    if rwn:
+        mrow('EVD rework (Opus 5.5)', 'EVDs with a decision-model score below 0.60 that were checked', sum(rwn.values())); mrow('EVD rework (Opus 5.5)', 'Verdicts', ', '.join(f'{k}: {v}' for k, v in rwn.most_common()), 'ok = the statement stays; rewrite = a new statement was proposed; extraction_problem = a person checks the extraction')
+        mrow('EVD rework (Opus 5.5)', 'Rewrites accepted (writing rules pass and decision-model score at least 0.60)', rwacc); mrow('EVD rework (Opus 5.5)', 'Mean decision-model score, before and after the rewrites', f"{sum(before) / len(before):.2f} before; {sum(after) / len(after):.2f} after" if after else f"{sum(before) / len(before):.2f} before")
     mrow('About these numbers', 'Accuracy here means agreement between automatic checkers', '', 'It is not accuracy against a person. Fill in the yellow JP columns on the other tabs and these metrics can be recomputed against your labels.')
     tab('Metrics', ['Area', 'Metric', 'Value', 'Note'], mrows, [38, 70, 40, 70])
     crows = []

@@ -39,7 +39,7 @@ def now(): return time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime())
 def est_tokens(r):
     per = {'google': 1400, 'openai': 1400, 'anthropic': 2800}.get(L.provider_of(r.model), 1400)
     pages = fitz.open(r.pdf).page_count if r.pdf else 0
-    return (len(r.system) + len(r.text)) / 3.5 + per * pages + 1500 * len(r.images)
+    return (len(r.system) + len(r.text)) / 3.5 + per * pages + 1500 * len(r.images or [])
 
 
 STANDARD_STAGES = set(C.PIPE['limits'].get('standard_stages', []))   # small stages that run in standard mode even in a batch run (a batch's slowest request would hold the run up)
@@ -277,6 +277,28 @@ def shuffle_labels(rng, authors): idx = list(range(len(authors))); rng.shuffle(i
 def nodes_of(j): return {n['id']: n for n in (j or {}).get('nodes', []) if isinstance(n, dict) and n.get('id')}
 
 
+def rework_low_scores(M, data, evd, dm_evd, cn, mode):
+    """EVD statements with a decision-model score below DM_LOW go to a separate frontier model (role evd_rework, Opus 5.5: none of the three drafting authors). It lists where each number was found, judges fidelity, and either keeps the statement, rewrites it, or says the extraction needs a person. A rewrite replaces the statement only if it passes the writing-rules check and its decision-model score is at least DM_LOW; otherwise the original stays and the proposal is shown beside it."""
+    low = [(ck, nid, f) for ck, nid, f in evd if (f.get('dm') or {}).get('score', 1) < DM_LOW]
+    if not low: return
+    sysr = prompt('evd-rework-v1.md'); reqs = []; items = {}
+    for ck, nid, f in low:
+        fnd = next((x for x in final_findings(M, ck)[0] if x['id'] == f['node'].get('source_id')), {}); crop = make_crop(M, ck, fnd) if fnd else None; items[f'{ck}__rework__{nid}'] = (ck, nid, f)
+        body = {'evd_statement': f['node'].get('statement', ''), 'quote': f['node'].get('quote', ''), 'tier': f['node'].get('tier'), 'finding': {k: fnd.get(k) for k in ('id', 'statement', 'P', 'I', 'C', 'O', 'S', 'T', 'numbers', 'spans')}, 'decision_model_scores': {**f['dm']['means'], 'lowest_question': min(f['dm']['means'], key=f['dm']['means'].get) if f['dm']['means'] else ''}}
+        reqs.append(L.Req(f'{ck}__rework__{nid}', R['evd_rework'], 'Check and, if needed, rewrite this EVD statement:\n' + json.dumps(body, ensure_ascii=False), sysr, None, 'medium', 4000, images=[crop] if crop else []))
+    M.m['stage_log'].setdefault('draft_rework', {})['prompt'] = 'pipeline/prompts/evd-rework-v1.md'
+    res = dispatch(M, 'draft_rework', reqs, mode)
+    for rid, (ck, nid, f) in items.items():
+        j = safe_json(res.get(rid) or L.Res('', False)) or {}; verdict = j.get('verdict', 'no answer'); rev = (j.get('revised_statement') or '').strip()
+        rw = {'model': R['evd_rework'], 'original': f['node'].get('statement', ''), 'dm_before': f['dm'], 'numbers': j.get('numbers', []), 'fidelity_problems': j.get('fidelity_problems', []), 'verdict': verdict, 'proposal': rev, 'note': j.get('note', ''), 'accepted': False}
+        if verdict == 'rewrite' and rev:
+            trial = {**f['node'], 'statement': rev}; wr = writing_rules(trial, cn[ck]); rw['writing_rules_after'] = wr
+            r2 = dm_evd((ck, nid, {**f, 'node': trial})); rw['dm_after'] = dm_summary(r2)
+            if wr['pass'] and rw['dm_after']['score'] >= DM_LOW:
+                f['node'] = trial; f['writing_rules'] = wr; f['dm'] = rw['dm_after']; rw['accepted'] = True
+        f['rework'] = rw
+
+
 def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
@@ -350,6 +372,7 @@ def stage_draft(M, mode):
         return run_dm(dm_state(M, {**fnd, 'statement': f['node'].get('statement', '')}, final_findings(M, ck)[1].get('questions', [])), {'fidelity': dm_questions(M, 'EVD statement')['fidelity'], 'numbers_in_source': dm_questions(M)['numbers_in_source']})
     with cf.ThreadPoolExecutor(6) as ex_: dres = list(ex_.map(dm_evd, evd))
     for (ck, nid, f), r in zip(evd, dres): f['dm'] = dm_summary(r)
+    rework_low_scores(M, data, evd, dm_evd, cn, mode)
     for ck in papers:
         for chk in [v[0] for v in VOTERS]:
             j = safe_json(rc.get(f'{ck}__check-{chk}') or L.Res('', False))
@@ -358,7 +381,11 @@ def stage_draft(M, mode):
         for nid, f in data[ck]['finals'].items():
             cc = (f.get('detail_check') or {}).get('overall'); dmv = (f.get('dm') or {}).get('score')
             ok = f['writing_rules']['pass'] and (cc in ('pass', 'minor') or f['node'].get('type') == 'QUE') and (dmv is None or dmv >= DM_LOW)
-            f['status'] = ('pass with notes' if cc == 'minor' else 'pass') if ok else 'escalate to Opus and JP'
+            f['status'] = ('pass with notes' if cc == 'minor' else 'pass') if ok else 'needs JP review'
+            if ok and (f.get('rework') or {}).get('accepted'): f['status'] = 'pass (reworked by ' + f['rework']['model'] + ')'
+            rwv = (f.get('rework') or {}).get('verdict')
+            if rwv == 'ok' and f['writing_rules']['pass'] and (cc in ('pass', 'minor') or f['node'].get('type') == 'QUE'): f['status'] = 'pass (' + f['rework']['model'] + ' kept it despite the low decision-model score)'
+            if (f.get('rework') or {}).get('verdict') == 'extraction_problem': f['status'] = 'needs JP review: extraction problem'
         (M.dir / ck / 'drafts.json').write_text(json.dumps(data[ck], indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     st['status'] = 'done'; st['summary'] = {ck: {'nodes': len(data[ck]['finals']), 'pass': sum(1 for f in data[ck]['finals'].values() if f['status'] == 'pass')} for ck in papers}; M.save(); M.event(f"draft: {st['summary']}")
 

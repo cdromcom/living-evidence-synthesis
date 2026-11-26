@@ -29,6 +29,7 @@ import lives_run as R, lives_stages as S
 for st, pth in R.STAGE_PROMPT.items(): check(f'prompt {pth}', (V / pth).exists())
 check('picost prompt has no leftover cap placeholders (no caps on questions or findings)', '{MAX_' not in (V / R.STAGE_PROMPT['picost']).read_text())
 check('vision-check-v3 allows cannot_verify', 'cannot_verify' in (V / 'pipeline/prompts/vision-check-v3.md').read_text())
+check('EVD rework: a separate frontier model (not one of the three authors) and its prompt', C.ROLES['evd_rework'] not in [m for _, m, _ in S.AUTHORS] and (V / 'pipeline/prompts/evd-rework-v1.md').exists() and 'draft_rework' in C.PIPE['limits']['standard_stages'])
 check('quality signals: two raters and a third-model adjudicator', len(S.RATERS) == 2 and S.QS_ADJ['model'] not in [m for _, m, _ in S.RATERS] and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
 for n in ('draft-nodes-v2', 'critique-revise-v3', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
