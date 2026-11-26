@@ -129,9 +129,3 @@ title: "RAG augmentation improved GPT-4o limitation identification coarse accura
 - [[sysrev/dgraph/claims/CLM - Multi-agent LLMs give more specific and helpful feedback than single agents|CLM - Multi-agent LLM systems produce more specific and helpful scientific paper feedback than single-agent approaches]]
 
 - [[sysrev/dgraph/claims/CLM - RAG improves LLM limitation identification by grounding in relevant literature|CLM - RAG augmentation improves LLM limitation identification by grounding generation in domain-relevant literature]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap|EP - RAG and few-shot prompting improve LLM performance but rarely close the human gap]]

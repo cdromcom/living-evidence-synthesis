@@ -37,19 +37,19 @@ export default function NarrativesPage() {
         <p>
           Not on their own, but they get closer than a skeptic might expect;
           closer on some dimensions than others. On raw prediction, LLM
-          systems can hit near-human accuracy: <N id="EP-010">LLM peer-review systems can predict paper acceptance and preference at near-human accuracy</N>{" "}
+          systems can hit near-human accuracy: LLM peer-review systems can predict paper acceptance and preference at near-human accuracy{" "}
           is instantiated by a Generative Adversarial Reviewer that reached an{" "}
           <N id="EVD-022">F1 of 0.66 on ICLR&apos;23 acceptance prediction against a 0.49 human baseline</N>,
           and by a fine-tuned OpenReviewer model that{" "}
           <N id="EVD-069">won 60% of head-to-head preference evaluations against GPT-4o and 76% against Llama-3.1-70B</N>. Users
           also report the feedback itself is genuinely useful, not boilerplate:{" "}
-          <N id="EP-021">users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers</N>, with{" "}
+          users find LLM-generated peer-review feedback substantively helpful at rates comparable to human reviewers, with{" "}
           <N id="EVD-002">57.4% of 308 researchers finding GPT-4 feedback helpful, and 82.4% finding it more beneficial than at least some human reviewers</N>{" "}
           they had received.
         </p>
         <p>
           But there is a systematic bias underneath those numbers: general-purpose
-          models are lenient graders. <N id="EP-005">General-purpose LLMs systematically over-rate papers compared to human reviewers</N>.
+          models are lenient graders. General-purpose LLMs systematically over-rate papers compared to human reviewers.
           On the same 400 NeurIPS/ICLR papers,{" "}
           <N id="EVD-067">GPT-4o averaged a recommendation of 7.7 versus a human average of 5.4</N>, and{" "}
           <N id="EVD-068">a fine-tuned reviewer matched at least one human recommendation on 55.5% of papers versus 23.8% for GPT-4o</N>. This
@@ -67,7 +67,7 @@ export default function NarrativesPage() {
         </h2>
         <p>
           The failures cluster in a specific, worrying place: not average performance,
-          but performance on the rare class that actually matters for deployment. <N id="EP-014">LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable</N>.
+          but performance on the rare class that actually matters for deployment. LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable.
           The sharpest example is citation-integrity checking, where{" "}
           <N id="EVD-029">GPT-4 reached F1 = 0.80 for correctly flagging accurate citations but only F1 = 0.09 for flagging inaccurate ones</N>, the
           class any real fact-checking deployment cares about. A similar pattern shows
@@ -75,18 +75,18 @@ export default function NarrativesPage() {
           <N id="EVD-014">Claude 3.7 Sonnet found no problem in 64.9% of test papers and hit only an 11.0% detection rate</N>.
           A model that mostly says everything is fine will look calibrated on
           aggregate accuracy while missing almost everything worth catching. That
-          connects to a second pattern, poor confidence calibration: <N id="EP-008">LLM confidence calibration on scientific-error tasks is poor with extreme distributions</N>, where{" "}
+          connects to a second pattern, poor confidence calibration: LLM confidence calibration on scientific-error tasks is poor with extreme distributions, where{" "}
           <N id="EVD-049">LLM confidence approached zero across 498 model-instance evaluations, with only two full-confidence cases</N>.
         </p>
         <p>
           Aggregate agreement statistics can also be misleading in a second way: they can
-          look fine while hiding zero real signal. <N id="EP-003">Aggregate-level LLM-human agreement masks near-zero per-paper correlation</N>.
+          look fine while hiding zero real signal. Aggregate-level LLM-human agreement masks near-zero per-paper correlation.
           GPT-4&apos;s feedback overlap with human reviewers was 30.85% until the
           papers were shuffled, at which point{" "}
           <N id="EVD-072">the overlap dropped to 0.43%, confirming the original agreement was paper-specific and not coincidental</N>{" "}
           (reassuring in that direction, but a reminder that overlap statistics need
           this kind of control to mean anything). Finally, modality is a hard
-          constraint: <N id="EP-020">text-only LLMs underperform on tasks where figures or tables carry primary information</N>, since{" "}
+          constraint: text-only LLMs underperform on tasks where figures or tables carry primary information, since{" "}
           <N id="EVD-062">a reasoning model scored 62.6% on equation-proof errors extractable from LaTeX source but near 0% on figure-duplication errors</N>. Text-only
           pipelines are structurally blind to an entire category of scientific error.
         </p>
@@ -98,7 +98,7 @@ export default function NarrativesPage() {
         </h2>
         <p>
           Across the corpus, the strongest and most consistent result is not
-          &quot;LLM alone&quot; or &quot;human alone&quot; but the combination: <N id="EP-006">human-AI collaboration outperforms either alone on structured appraisal tasks</N>. On
+          &quot;LLM alone&quot; or &quot;human alone&quot; but the combination: human-AI collaboration outperforms either alone on structured appraisal tasks. On
           checklist-style evidence appraisal,{" "}
           <N id="EVD-045">human-AI collaboration reached up to 96% accuracy on PRISMA and 95% on AMSTAR, surpassing individual human raters</N>{" "}
           working alone. On novelty prediction, folding human reviewer knowledge into
@@ -110,7 +110,7 @@ export default function NarrativesPage() {
         </p>
         <p>
           This is the same underlying mechanism as the fine-tuning result above,
-          generalized: <N id="EP-019">task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks</N>.
+          generalized: task-specific fine-tuning substantially closes the LLM-human gap on structured evaluation tasks.
           Whether the &quot;task-specific&quot; signal comes from fine-tuning on domain
           data or from a human collaborator in the loop, injecting structure the
           base model doesn&apos;t have on its own is what moves accuracy. The

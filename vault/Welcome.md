@@ -36,8 +36,7 @@ Instead of one long literature-review document, the vault decomposes findings in
 | :--: | -------------------- | ------ | ------------------------------------------ |
 |  ❓   | **Question**         | `QUE`  | Research questions the field is asking     |
 |  💡  | **Claim**            | `CLM`  | Generalizations that papers argue for      |
-|  🔬  | **Evidence**         | `EVD`  | Atomic empirical observations from a paper |
-| 🕸️  | **Evidence Pattern** | `EP`   | Empirical regularities across papers       |
+|  🔬  | **Evidence**         | `EVD`  | Atomic empirical observations from a paper, in three tiers: primary (answers the research question), secondary (meta or contextual), tertiary |
 |  ⚠️  | **Caveat**           | `CVT`  | Methodological limitations on evidence     |
 |  📄  | **Source**           | `SRC`  | One paper: its summary, quality appraisal and reporting checks |
 
@@ -48,12 +47,9 @@ Instead of one long literature-review document, the vault decomposes findings in
 >     ↳ 💡 CLM: Reasoning LLMs outperform non-reasoning models at error detection.
 >         ↳ 🔬 EVD: OpenAI o3 achieved 48.2% hit rate on PDF inputs.
 >             ↳ ⚠️ CVT: Only closed-source reasoning LLMs were evaluated.
->
-> 🕸️ EP: Reasoning LLMs lead other models at scientific-error and quality-checker benchmarks.
->     ↳ bundles 🔬 EVDs from Zhang Reviewing, Son SPOT, Lou AAAR, …
 > ```
 >
-> EPs are the *cross-paper* layer: a single EP wires together ≥2 EVDs from independent papers that converge on the same regularity, even if no single paper makes the EP-level claim itself. EPs live in `evd-patterns/` and currently number 21.
+> Claims can be *cross-paper*: a CLM lists every paper that makes it under "Key Papers Making This Claim". (EvidencePatterns were archived on 2026-11-25; see `pipeline/misc/archive/evd-patterns-2026-11-25/`.)
 
 ---
 
@@ -69,7 +65,7 @@ Instead of one long literature-review document, the vault decomposes findings in
 >
 > 🟨 **Paper-first.** Browse `sysrev/dgraph/source/pdfs/` (the original papers, on your computer only) or `sysrev/dgraph/source/@<citekey>.md` (the bibliographic stub). EVDs from a paper are filename-tagged with `@<citekey>` so a folder grep finds them. The [[DGRAPH-TABLE]] shows a paper × node-type matrix for skimming.
 >
-> 🕸️ **Pattern-first.** Browse `evd-patterns/` — the 21 cross-paper EvidencePatterns (EPs). Each EP names a regularity that ≥2 papers' EVDs jointly support, with a `## Supporting Evidence` block listing the constituent EVDs and a `## Connected discourse-graph nodes` block tying the pattern to the within-paper CLMs it generalizes. Best when you want the *thesis-level* takeaways across the corpus rather than per-paper findings.
+> 🕸️ **Claim-first.** Browse `claims/`. A claim that several papers make lists all of them, with the supporting EVDs and the questions it answers.
 >
 > 🏆 **Leaderboard view.** Open [[Review-Arena]] — a head-to-head leaderboard of who wins at each subtask: AI alone, Human alone, or Human + AI. Each Subtask cell links back to its QUE for the full evidence base.
 
@@ -86,17 +82,17 @@ living-synthesis/
 │   │   ├── claims/                ← CLM notes
 │   │   ├── evidence/              ← EVD notes + Attachments/ (all PNGs)
 │   │   ├── caveats/               ← CVT notes
-│   │   ├── evd-patterns/          ← EP notes (cross-paper regularities, ≥2 papers each)
 │   │   └── source/                ← one SRC note per paper + pdfs/ (the PDFs stay on your computer, not on GitHub)
 │   ├── indexes/                   ← 🗺️ dgraph.md (start here), DGRAPH-TABLE.md, Review-Arena.md, ESS views
 │   ├── picost/                    ← per-finding extraction records (JSON)
 │   └── reference/
 └── pipeline/                      ← how the evidence is made
-    ├── skills/                    ← 🛠️ Skill.md (the pipeline), Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md
+    ├── skills/                    ← 🛠️ Skill.md (the steps), Skill-controls.md (run controls, drafting, checks), Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md, Review-sheets-spec.md, TIPS.md
     ├── scripts/                   ← reproducible scripts (see scripts/README.md)
-    ├── templates/                 ← node templates and the quality-signal row names
+    ├── templates/                 ← node templates (including the EVD tiers spec) and the quality-signal row names
+    ├── screening/                 ← screening runs: which Zotero papers to ingest (reports and metadata-only data)
     ├── prompts/                   ← the prompts the pipeline sends to models (versioned files)
-    ├── runs/                      ← one folder per run: call log and each model's unedited response
+    ├── runs/                      ← one folder per run: call log, each model's unedited response, and for batch runs the manifest (stays local except design runs)
     ├── provenance/                ← AI-disclosure.md (GAMER checklist answers) and model-history.md
     ├── design/                    ← LIVES-design-spec.md (for the models that build the website)
     ├── logs/                      ← 📜 History.md (every change) and the early session log
@@ -155,7 +151,7 @@ CLMs, CVTs, and QUEs follow analogous structures with their own reverse-link sec
 > [!info] On every node
 >
 > - `NodeFormality: ReadyForInternal` — structurally complete; ready for human review and use.
-> - `NodeFormality: draft` — not yet trusted: flagged by the verbatim audit, or waiting for human review. Today 45 of 232 nodes are drafts (all 21 EPs, 14 EVDs, 6 CLMs, 4 CVTs). `pipeline/misc/evd-validation/paraphrase_report.tsv` lists the quotes that diverge from their paper.
+> - `NodeFormality: draft` — not yet trusted: flagged by the verbatim audit, or waiting for human review. Today 24 of 211 nodes are drafts (14 EVDs, 6 CLMs, 4 CVTs). `pipeline/misc/evd-validation/paraphrase_report.tsv` lists the quotes that diverge from their paper.
 > - **AI-use footer.** Every page written by the new pipeline ends with a collapsed footer that says which model and version made it, when, from which prompt (a link) and whether a person has checked it, following the GAMER checklist for reporting AI use. Older pages get a footer that says what is known and what is not. The project-wide answers are in `pipeline/provenance/AI-disclosure.md`; who wrote what, by date, is in `pipeline/provenance/model-history.md`.
 > - **Quality signal rows** (on each source page: validity, rigor, openness, reporting, and so on) use the names in `pipeline/templates/quality-signal-labels.json`, which is the one place a row is renamed. Two recent names: **Statistical Accuracy** (scripted checks on the paper's own numbers: percentages, GRIM and GRIMMER, sample sizes, confidence intervals, F1 and kappa, effect sizes and more) and **Hype/spin** (formerly Non-Significant Result Spin). Quality signals are produced by the optional Module Q, run only on request.
 
@@ -239,7 +235,7 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 >
 > - **Auto-derived links are paper-level overlaps, not statement-level entailments.** When `dgraph.md` or a node's reverse-link section says "EVDs from the cited papers", that is a paper-citekey match, not a guarantee that the EVD supports the claim.
 > - **Not every quote is word-for-word.** A script compares quotes with the PDFs (`pipeline/misc/evd-validation/2026-11-24-signal-quote-audit.csv` for the quality tables; `paraphrase_report.tsv` for node quotes). On 2026-11-25, of 1,042 quoted quality-table rows, 579 matched a PDF with the right printed page, 221 matched with a PDF page number (fine when a paper prints none), 106 cited the wrong page, 72 were not found and 64 cited a PDF position on a PDF that prints page numbers, or no page; the audit flags roughly 110 EVD, CLM and CVT quotes as not verbatim.
-> - **45 of 232 nodes are still `NodeFormality: draft`** (all 21 EPs, 14 EVDs, 6 CLMs, 4 CVTs). Do not rely on them without checking the source PDF.
+> - **24 of 211 nodes are still `NodeFormality: draft`** (14 EVDs, 6 CLMs, 4 CVTs). Do not rely on them without checking the source PDF.
 > - **Most pages predate the AI-use footer.** Pages from April to August 2026 were written mostly by Claude Sonnet 4.6, with some quote and quality-table re-curation by Claude Sonnet 5 on 2026-08-25. The model of some early batch agents was not recorded (see `pipeline/provenance/model-history.md`).
 > - **Quality signals are AI-drafted and not yet human-verified.** The tables on the source pages have not been checked by a person row by row.
 > - **Similar nodes are kept separate on purpose.** Caveats and questions that look alike often differ in a number, a model or a dataset; merging is only done after two models and a person agree (see the Skill).
@@ -251,14 +247,14 @@ Every EVD's frontmatter carries 8 inherited **paper-level rigor tags**. They sum
 ## 🛠️ The data pipeline: from PDFs to the LIVES web app
 
 > [!info] Updated 2026-11-25 (pipeline v2)
-> Papers go through the steps below in **batches of four (at most)**, with human checks along the way. The rules are in `pipeline/skills/Skill.md`; models, prices and tools are in `pipeline/skills/Tools-and-Models.md`. Quality signals are a separate, optional stage (Module Q) that runs only when asked.
+> Papers go through the steps below in **batches of four (at most)**, with human checks along the way. The steps are in `pipeline/skills/Skill.md` and the run controls, drafting, checks and optional modules in `pipeline/skills/Skill-controls.md`; models, prices and tools are in `pipeline/skills/Tools-and-Models.md`. Quality signals are a separate, optional stage (Module Q) that runs only when asked.
 
 ```mermaid
 flowchart TB
     subgraph IN["1. Ingest and read"]
         A["Choose up to 4 papers<br/>PDFs, most recent version<br/>older versions go to the Archive folder"]
         B["Preflight check (PyMuPDF)<br/>born-digital or scanned? columns?<br/>tables as images? page labels"]
-        C1["Read 1: Gemini 4 Neon, High thinking<br/>page-by-page markdown, HTML tables,<br/>printed page numbers"]
+        C1["Read 1: Gemini 4 Neon, High thinking<br/>PICOST findings in three tiers (primary, secondary, tertiary)<br/>with printed page numbers and verbatim spans"]
         C2["Read 2: PDF text layer<br/>PyMuPDF"]
         D{"Do the two reads<br/>agree?"}
         E["Page image decides:<br/>Gemini 4 Neon first, then Sol and Opus 5.5<br/>if still unsure"]
@@ -267,12 +263,12 @@ flowchart TB
     subgraph EX["2. Extract (PICOST first)"]
         F["PICOST record per finding, saved as JSON<br/>every number has page, table, row, column<br/>Not reported if the paper is silent<br/>Results give EVDs, Discussion gives CVTs and CLMs,<br/>Introduction gives QUEs"]
         G["Spotlight: Neon returns the exact quote,<br/>PyMuPDF finds it, boxes it and highlights the page<br/>a quote not found is a flag"]
-        H["Gates: decision models (d1-ultra, Decider, Jev)<br/>relevancy, fidelity, quote and table grounding<br/>low-confidence and multi-page: Sol re-reads, Opus 5.5 adjudicates"]
+        H["Checks: decision models (d1-ultra, Decider, Jev)<br/>relevancy, fidelity, quote and table grounding<br/>flagged, low-confidence and 10% sample: Sol looks at the crop<br/>Opus 5.5 only on rare disputes"]
         I["JP spot check A<br/>3 PICOST cards per paper<br/>an error stops the batch"]
     end
 
     subgraph WR["3. Write and crop"]
-        J["Write the nodes from PICOST<br/>EVD pilot: Neon and Sonnet 5.5 draft, Sol and Inkling 2 Small pick,<br/>Opus 5.5 checks and edits<br/>other nodes: Neon, Opus 5.5 checks"]
+        J["Write the nodes from PICOST<br/>EVD pilot: Sonnet 5.5, Sol and Neon draft, critique and revise (2 rounds at most),<br/>Sol and Sonnet vote, Neon breaks ties, Inkling writes and picks as a benchmark only,<br/>cheaper checker verifies claims, Opus 5.5 on escalation<br/>nodes: EVD, QUE, CLM, CVT"]
         K["Crop screenshots<br/>PyMuPDF + pdftoppm<br/>whole quote, table or figure with caption<br/>pastel highlight by node type"]
         L{"Crop QA<br/>Sol checks every crop<br/>Opus 5.5 checks multi-page crops"}
         M["Automatic audits<br/>quotes verbatim, numbers on the PICOST card,<br/>printed page map, links"]
@@ -348,14 +344,14 @@ flowchart TB
 | Read | Gemini 4 Neon (High) + PDF text layer | page-by-page text and tables | Sol and Opus 5.5 on disagreements |
 | Extract | Gemini 4 Neon (High); Sol re-reads low-confidence and multi-page items | PICOST JSON with locators, bounding boxes and highlighted spans | spot check A |
 | Check | decision models (relevancy, fidelity, quote and table grounding); Sol and Opus 5.5 on flagged records | pass or flag per record | threshold set in the pilot |
-| Write | Neon and Sonnet 5.5 draft, Sol and Inkling 2 Small pick, Opus 5.5 checks (EVD pilot); Neon for the other nodes, Opus 5.5 checks | vault markdown nodes | none until review |
+| Write | Sonnet 5.5, Sol and Neon (Medium) draft and debate; Sol and Sonnet vote; Neon tie-break; Inkling benchmark only; Opus 5.5 on escalation (EVD, QUE, CLM, CVT) | vault markdown nodes | none until review |
 | Crop | PyMuPDF, `pdftoppm`; Sol and Opus 5.5 QA | verified screenshots | spot check B |
 | Audit | scripts (`verbatim_audit.py`, `check_links.py`, `pdf_pages.py`) | verbatim, numbers, page and link checks | none |
 | Fit into the graph | EmbeddingGemma 2, Inkling 2 Small, Sonnet 5.5 | proposed links, merges and splits with reasons, all logged | a person verifies every merge or split |
 | Footer | `call_logger.py` | AI-use footer from the call log | none |
 | Review | `vault_to_gsheet.py` | the mirror Google Sheet | JP judges accuracy there |
 | Publish | GitHub PR, `build-graph.mjs`, Vercel | the live LIVES web app | JP approves merges |
-| Quality signals (optional) | Opus 5.5 and Sol rate; decision models and scripts check | TRIPOD-LLM and appraisal tables, Statistical Accuracy findings | JP reviews the sheet |
+| Quality signals (optional) | Opus 5.5, Sol and Neon rate, majority vote; decision models and scripts check; all ratings logged to a benchmark sheet | TRIPOD-LLM and appraisal tables, Statistical Accuracy findings | JP reviews the sheet |
 
 ---
 
@@ -364,13 +360,13 @@ flowchart TB
 > [!warning] For vault maintainers, not readers
 > This section is for someone *extending* the vault, not for someone *browsing* it. If you are here to read evidence, jump back to **[How to navigate](#how-to-navigate)**.
 
-1. **Put the PDF in** `sysrev/dgraph/source/pdfs/` (the PDFs stay on your computer; they are not on GitHub). Use the most recent version of a paper; move older versions to the Archive folder.
-2. **Run the pipeline in `pipeline/skills/Skill.md`** (Setup, Inputs, Steps 1 to 10): read the paper, extract PICOST records, check them, write the nodes, crop the screenshots, run the audits. Work in batches of five papers.
+1. **Put the PDF in** `sysrev/dgraph/source/pdfs/` (the PDFs stay on your computer; they are not on GitHub). Use the most recent version of a paper; move older versions to the Archive folder. Put its supplementary materials and appendices there too, named `<paper file name> - supplement 1.pdf`; the Skill asks whether they are present and searches for missing ones if you say no.
+2. **Run the pipeline in `pipeline/skills/Skill.md`** (Setup, Inputs, Steps 1 to 10). For one to four PDFs at a time (the limit is built in) run `python3 pipeline/scripts/lives_run.py <pdfs> --question "<research question>" --mode standard|batch`: Gemini 4 Neon extracts findings in three tiers (primary answers the question, secondary is meta or contextual, tertiary is other context), PyMuPDF checks every quote, GPT-6.2 Sol and Claude Opus 5.5 recheck flagged findings, and the batch stops under a $5.55 cap with a run manifest. Then build the review sheet with `run_to_gsheet.py` and review it. Nodes are then written by debate (Sonnet 5.5, Sol and Neon draft and critique; Sol and Sonnet vote), crops are checked, and the audits run.
 3. **Fit the new nodes into the graph** (Skill section "Matching, linking, merging and splitting"): EmbeddingGemma 2 proposes, Inkling 2 Small and Claude Sonnet 5.5 judge, a person verifies every merge or split. Then run `python3 pipeline/scripts/check_links.py` and `python3 pipeline/scripts/reverse_links.py`.
 4. **Add the AI-use footer** to every page written or changed (Skill Step 4c); log every model call with `pipeline/scripts/call_logger.py`, and commit each prompt in `pipeline/prompts/` before using it.
-5. **Quality signals are optional:** only if JP asks, run Module Q (the TRIPOD-LLM and appraisal tables, `stat_checks.py` for Statistical Accuracy, the provenance scripts). Row names come from `pipeline/templates/quality-signal-labels.json`.
+5. **Quality signals are optional:** only if JP asks, run Module Q (the TRIPOD-LLM and appraisal tables rated by Opus 5.5, Sol and Neon with majority voting and logged to a benchmark sheet, `stat_checks.py` for Statistical Accuracy, the provenance scripts). Row names come from `pipeline/templates/quality-signal-labels.json`.
 6. **Record what you did:** add an entry at the top of `pipeline/logs/History.md` and, for a working session, a section in `pipeline/misc/evd-validation/LOG.md`; save the prompts to `pipeline/misc/prompts/`.
-7. **Cross-paper synthesis** (EvidencePatterns, Review-Arena, MkDocs render, ESS Bases) follows in `pipeline/skills/Skill-synthesis.md`, after a batch. Do **not** auto-fill Review-Arena cells: cell-level synthesis is reserved for humans (governance decision of 2026-05-04, in `History.md`).
+7. **Cross-paper synthesis** (Review-Arena, MkDocs render, ESS Bases; EvidencePatterns are retired) follows in `pipeline/skills/Skill-synthesis.md`, after a batch. Do **not** auto-fill Review-Arena cells: cell-level synthesis is reserved for humans (governance decision of 2026-05-04, in `History.md`).
 8. **Publish:** run `python3 pipeline/scripts/check_repo_sync.py` against a checkout of the GitHub repository, copy the vault into the repository's `vault/` folder, open a pull request, and merge it after review. The website rebuilds from `vault/`.
 
 ---
@@ -380,7 +376,11 @@ flowchart TB
 - **[[dgraph]]** — the comprehensive nested index.
 - **[[History]]** — every change made to the vault, newest first.
 - **[[Skill]]** — the skill for extracting nodes from new papers.
-- **[[Tools-and-Models]]** — the PDF tools and AI models, prices, and the statistical-check and embedding tools (for maintainers).
+- **[[Tools-and-Models]]** — the PDF tools and AI models, token budgets, prices, and the statistical-check and embedding tools (for maintainers).
+- **[[Pipeline-design-and-longevity]]** — how the pipeline is built to last, and how to swap models or customize it for another review.
+- **[[TIPS]]** — short practical lessons (Google Cloud billing, Zotero).
+- **[[Review-sheets-spec]]** — the step-by-step review sheets and the quality-signals benchmark sheet.
+- **[[T - EVD tiers]]** — primary, secondary and tertiary evidence.
 - **[[AI-disclosure]]** and **[[model-history]]** — how AI was used here (GAMER checklist) and which model wrote what, by date.
 - **[[LOG]]** — the working log of the benchmarking and pipeline-v2 sessions, with the prompt log beside it.
 - **[[LIVES-design-spec]]** — the design and development spec for the website.

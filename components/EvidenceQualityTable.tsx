@@ -8,7 +8,6 @@ export type QualityRow = {
   evdId: string;
   evdTitle: string;
   srcId: string | null;
-  eps: { id: string; title: string }[];
   values: Record<string, Cell>;
 };
 
@@ -46,7 +45,7 @@ function csvEscape(value: string): string {
   return value;
 }
 
-type SortKey = "ep" | "evidence" | "source" | string;
+type SortKey = "evidence" | "source" | string;
 type SortState = { key: SortKey; direction: "asc" | "desc" } | null;
 
 export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
@@ -85,7 +84,6 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
       const haystack = [
         row.evdTitle,
         row.srcId ?? "",
-        ...row.eps.flatMap((ep) => [ep.id, ep.title]),
       ]
         .join(" ")
         .toLowerCase();
@@ -98,11 +96,6 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
     const list = [...filtered];
     const dir = sort.direction === "asc" ? 1 : -1;
     list.sort((a, b) => {
-      if (sort.key === "ep") {
-        const aKey = a.eps[0]?.id ?? "";
-        const bKey = b.eps[0]?.id ?? "";
-        return aKey.localeCompare(bKey) * dir;
-      }
       if (sort.key === "evidence") return a.evdTitle.localeCompare(b.evdTitle) * dir;
       if (sort.key === "source") return (a.srcId ?? "").localeCompare(b.srcId ?? "") * dir;
       const aCell = a.values[sort.key];
@@ -116,7 +109,6 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
 
   function buildRows(): string[][] {
     return sorted.map((row) => [
-      row.eps.map((ep) => ep.id).join(", "),
       row.evdTitle,
       ...(showSource ? [row.srcId ?? ""] : []),
       ...columns.map((c) => cellText(row.values[c.id])),
@@ -124,7 +116,7 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
   }
 
   function headerLabels(): string[] {
-    return ["EP", "Evidence", ...(showSource ? ["Source"] : []), ...columns.map((c) => c.label)];
+    return ["Evidence", ...(showSource ? ["Source"] : []), ...columns.map((c) => c.label)];
   }
 
   function exportMarkdown() {
@@ -161,7 +153,7 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Filter by evidence, source, or EP…"
+          placeholder="Filter by evidence or source…"
           className="w-64 rounded-full border border-border bg-card px-3 py-1.5 text-xs text-ink placeholder:text-muted-ink focus:border-forest/50 focus:outline-none"
         />
         <button
@@ -254,12 +246,6 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
           <thead>
             <tr className="border-b border-border text-left text-[0.6875rem] uppercase tracking-wide text-muted-ink">
               <th scope="col" className="py-2 pr-4">
-                <button type="button" onClick={() => toggleSort("ep")} className="inline-flex items-center hover:text-ink">
-                  EP
-                  <SortIndicator active={sort?.key === "ep"} direction={sort?.direction} />
-                </button>
-              </th>
-              <th scope="col" className="py-2 pr-4">
                 <button
                   type="button"
                   onClick={() => toggleSort("evidence")}
@@ -298,24 +284,6 @@ export default function EvidenceQualityTable({ rows }: { rows: QualityRow[] }) {
           <tbody>
             {sorted.map((row) => (
               <tr key={row.evdId} className="border-b border-border align-top">
-                <td className="py-2 pr-4">
-                  {row.eps.length > 0 ? (
-                    <div className="flex flex-col gap-0.5">
-                      {row.eps.map((ep) => (
-                        <Link
-                          key={ep.id}
-                          href={`/nodes/${ep.id}`}
-                          title={ep.title}
-                          className="text-forest hover:underline"
-                        >
-                          {ep.id}
-                        </Link>
-                      ))}
-                    </div>
-                  ) : (
-                    <span className="text-muted-ink">—</span>
-                  )}
-                </td>
                 <td className="max-w-[28ch] py-2 pr-4">
                   <Link href={`/nodes/${row.evdId}`} className="text-forest hover:underline">
                     {row.evdTitle}

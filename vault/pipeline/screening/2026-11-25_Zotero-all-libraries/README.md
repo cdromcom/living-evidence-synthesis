@@ -6,6 +6,8 @@ Every item in all Zotero libraries screened against the 27 seed papers and the E
 TRIPOD+LLM (Gallifant et al.), applied as far as it fits. The models only embed text, so items about generation, prompting and fine-tuning are not applicable.
 - [TRIPOD+LLM statement](https://www.tripod-statement.org/tripod-llm/)
 
+The review sheet: `https://docs.google.com/spreadsheets/d/1R70T7JJD3-RDM5kPc6-rI1ZZ2qCb82TVE19OjzyuyrA/edit` (private; ask JP for access).
+
 ## 1. Purpose
 Support the Stage 2 ingest: find every paper in JP's Zotero libraries that is close to the seed set and the Elicit papers, sort the ingest folders (Metascience, SysRev-LLMApp, the Elicit sets, Include-CA-Rep) into categories, and mark which have an open-access copy or a PDF on disk. JP reviews every row; the output is a proposal.
 

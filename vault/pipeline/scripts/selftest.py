@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""Offline self-test for the pipeline (JP, 2026-11-25): no API calls, no cost. Run it after changing a model, a package, a prompt, a template or a limit.
+  python3 selftest.py
+Checks: the config files and the origin policy; every role's model has a price and a route; prompts exist with their placeholders; the quality-signal ids match the registry of row names;
+lint and readability; the runner's guards (paper limit, cap, research question, repeat PDFs); supplement merging; PDF slicing and merged screenshots; package versions."""
+import importlib.metadata as md, json, subprocess, sys, tempfile
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import config as C
+fails = []; ok = 0
+def check(name, cond, detail=''):
+    global ok
+    if cond: ok += 1; print(f'  ok    {name}')
+    else: fails.append(name); print(f'  FAIL  {name} {detail}')
+V = C.VAULT; here = Path(__file__).resolve().parent
+print('config and policy')
+roles = [C.ROLES[k] for k in ('extract', 'recheck', 'adjudicate', 'vision_check', 'vision_dispute', 'tiebreak')] + [x['model'] for k in ('authors', 'voters', 'raters') for x in C.ROLES[k]] + [C.ROLES['benchmark_open']['model']]
+check('every role model is in models.json with a price', all(m in C.MODELS and C.MODELS[m]['price_in'] >= 0 for m in roles), str([m for m in roles if m not in C.MODELS]))
+check('every role model passes the origin policy', all(C.assert_allowed(m) for m in roles))
+check('every role model has a provider route', all(C.provider_of(m) in ('anthropic', 'openai', 'google', 'tinker') for m in roles), str([m for m in roles if C.provider_of(m) not in ('anthropic', 'openai', 'google', 'tinker')]))
+check('limits are sane', 1 <= C.PIPE['limits']['max_papers'] <= 10 and 0 < C.PIPE['limits']['cap_usd'] < 100 and C.PIPE['limits']['overrun_factor'] >= 1)
+check('decision models named in roles exist in decision_models.py', all(k in __import__('decision_models').MODELS for k in C.ROLES['decision_models']))
+try: C.POLICY['hosted_api_allowed_countries'] = ['XX']; bad = False; C.assert_allowed('gemini-4-neon')
+except ValueError: bad = True
+finally: C.POLICY['hosted_api_allowed_countries'] = ['US']
+check('the origin policy blocks a disallowed country', bad)
+print('prompts and registries')
+import lives_run as R, lives_stages as S
+for st, pth in R.STAGE_PROMPT.items(): check(f'prompt {pth}', (V / pth).exists())
+check('picost prompt has the tier placeholders', all(x in (V / R.STAGE_PROMPT['picost']).read_text() for x in ('{MAX_PRIMARY}', '{MAX_SECONDARY}', '{MAX_TERTIARY}')))
+for n in ('draft-nodes-v2', 'critique-revise-v2', 'vote-v1', 'claim-check-v1', 'rate-signals-v1', 'vision-check-v1'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
+check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
+ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}
+check('quality signals rated by the models are valid row ids', set(S.SIGNALS) <= ids, str(sorted(set(S.SIGNALS) - ids)))
+print('lint and parsing')
+good = {'type': 'EVD', 'statement': 'GPT 3.5-turbo scored 71.4% on 120 reviews (kappa = 0.5).', 'quote': 'x'}
+check('lint passes a good EVD', S.lint(good, {S.norm_num(x) for x in ('71.4', '120', '0.5', '3.5')})['pass'])
+check('lint fails an EVD over 247 characters', not S.lint({**good, 'statement': 'word ' * 60}, set())['pass'])
+check('lint flags a number not on the card', S.lint({**good, 'statement': 'Model scored 99.9%.'}, {'71.4'})['numbers_not_on_card'] == ['99.9'])
+check('lint fails an em dash', not S.lint({**good, 'statement': 'Model A \u2014 a model scored 71.4%.'}, {S.norm_num('71.4')})['pass'])
+check('parse_json tolerates a code fence', S.parse_json('```json\n{"a": 1}\n```') == {'a': 1})
+print('runner guards and PDF tools')
+import fitz
+with tempfile.TemporaryDirectory() as td:
+    td = Path(td); pdfs = []
+    for i in range(C.PIPE['limits']['max_papers'] + 1):
+        d = fitz.open(); pg = d.new_page(); pg.insert_text((72, 100), f'Paper {i}. Results: Model A scored {60 + i}.1% (n = 100).'); f = td / f'Paper {i}.pdf'; d.save(str(f)); pdfs.append(str(f))
+    run = lambda args: subprocess.run([sys.executable, str(here / 'lives_run.py')] + args, capture_output=True, text=True)
+    check('too many PDFs are refused', 'Refused' in run(pdfs + ['--question', 'q', '--dry-run', '--run-id', 'test-selftest']).stdout + run(pdfs + ['--question', 'q', '--dry-run', '--run-id', 'test-selftest']).stderr)
+    check('a cap above the limit is refused', 'cap per batch' in run([pdfs[0], '--question', 'q', '--cap', '99']).stdout + run([pdfs[0], '--question', 'q', '--cap', '99']).stderr)
+    check('a run without a question works (the model finds the paper\'s own questions)', 'Refused' not in run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stdout + run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stderr)
+    sup = td / 'Paper 0 - supplement 1.pdf'; d = fitz.open(); d.new_page().insert_text((72, 100), 'Supplementary Table S1'); d.save(str(sup)); d.close()
+    check('a supplement is found next to its paper', [x.name for x in R.find_supplements(pdfs[0])] == ['Paper 0 - supplement 1.pdf'])
+    comb = td / 'c.pdf'; sp = R.combine_pdfs(pdfs[0], [sup], str(comb)); check('supplement is combined after the paper', fitz.open(str(comb)).page_count == 2 and sp[0][1] == 1)
+    out, keep = R.slice_pdf(str(comb), [2], str(td / 's.pdf'), around=0, limit=1.0); check('slice_pdf keeps only the cited pages', keep == [2])
+    import pdf_pages as pp
+    r = pp.merge_regions(str(comb), [(1, [(72, 90, 200, 105)]), (2, [(72, 90, 200, 105)])], str(td / 'm.png'), dpi=60); check('merged screenshot over two pages', r.get('ok') and (td / 'm.png').exists())
+import shutil; shutil.rmtree(C.VAULT / 'pipeline/runs/test-selftest', ignore_errors=True)
+print('packages')
+for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
+    try: print(f'  {pkg} {md.version(pkg)}'); ok += 1
+    except Exception: fails.append(f'package {pkg}'); print(f'  FAIL  package {pkg} is not installed')
+print(f'\n{ok} passed, {len(fails)} failed'); sys.exit(1 if fails else 0)

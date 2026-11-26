@@ -101,9 +101,3 @@ title: "GPT-4o-mini achieved F1 0.85 precision 0.96 on CONSORT-TM outperforming 
 - [[sysrev/dgraph/claims/CLM - LLMs can achieve SOTA CONSORT compliance assessment zero-shot at scale|CLM - LLMs can achieve state-of-the-art CONSORT compliance assessment performance through zero-shot prompting at scale]]
 
 - [[sysrev/dgraph/claims/CLM - RCT reporting improved substantially over decades but critical gaps persist|CLM - RCT reporting quality has improved substantially over decades but critical methodological gaps persist across all disciplines]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - LLMs achieve high accuracy on structured presence-absence checklist verification|EP - LLMs achieve high accuracy on structured presence-absence checklist verification]]

@@ -17,7 +17,6 @@ living-synthesis/
 │   │   ├── EVD - ... .md           # EVD nodes (one .md per finding)
 │   │   └── Attachments/            # All PNGs (figure/table pages + quote crops)
 │   ├── caveats/                    # CVT nodes (one .md per limitation)
-│   ├── evd-patterns/               # EP nodes (cross-paper EvidencePatterns; ≥2 EVDs each)
 │   ├── source/
 │   │   ├── @<citekey>.md           # Bibliographic source notes (one per paper)
 │   │   └── pdfs/                   # Original PDFs (+ Archive - superseded versions)
@@ -26,10 +25,11 @@ living-synthesis/
 │   ├── reference/                  # BenchmarkLLM.md, Class-Imbalance-Text-Classification.md, paraphrase_audit_<date>.tsv (latest verbatim-audit report)
 │   └── Clippings/                  # Web clipper inbox (local vault only)
 ├── pipeline/                       # Meta content about how the review is built and published
-│   ├── skills/                     # Skill.md, Skill-references.md, Skill-synthesis.md, Skill-templates.md, Tools-and-Models.md
-│   ├── templates/                  # T - <NodeType>.md templates; quality-signal-labels.json (names of the Quality signal rows)
+│   ├── skills/                     # Skill.md, Skill-controls.md, Skill-references.md, Skill-synthesis.md, Skill-templates.md, Tools-and-Models.md, Quality-signals-spec.md, Review-sheets-spec.md, TIPS.md
+│   ├── templates/                  # T - <NodeType>.md templates; T - EVD tiers.md (primary, secondary, tertiary spec); quality-signal-labels.json (names of the Quality signal rows)
+│   ├── screening/                  # Screening runs (README, metadata-only data per run; shared/ seed papers and category names); abstracts and local paths stay out
 │   ├── prompts/                    # Versioned prompts the pipeline sends to models (committed before use)
-│   ├── runs/                       # One folder per model run: calls.jsonl and each unedited response
+│   ├── runs/                       # One folder per model run: calls.jsonl and each unedited response; batch runs of lives_run.py add manifest.json, per-paper picost.json, review.md, highlights and review.xlsx (local only; ledger.jsonl)
 │   ├── provenance/                 # AI-disclosure.md (GAMER answers), model-history.md
 │   ├── design/                     # LIVES-design-spec.md (design and development spec for the web app)
 │   ├── scripts/                    # Helper scripts (see pipeline/scripts/README.md)

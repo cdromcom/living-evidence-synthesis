@@ -79,10 +79,6 @@ nav:
   - "Review Arena 🧠-🤖": sysrev/indexes/Review-Arena.md
   - Source pages:
       - sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024.md
-  - Cross-paper patterns:
-      - sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable.md
-      - sysrev/dgraph/evd-patterns/EP - Closed-source LLMs outperform open-source on zero-shot scientific-evaluation benchmarks with fine-tuning as the exception.md
-      - sysrev/dgraph/evd-patterns/EP - LLM confidence calibration on scientific-error tasks is poor with extreme distributions.md
 
 hooks:
   # Order matters:

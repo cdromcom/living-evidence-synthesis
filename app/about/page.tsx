@@ -14,7 +14,6 @@ const TYPE_DESCRIPTIONS: Record<string, string> = {
   EVD: "One specific observation from one source, stated in the past tense and grounded in a verbatim span plus a locator (typically a page number). The atomic unit of the graph.",
   CVT: "A caveat that qualifies a specific piece of Evidence, not a Claim. Caveats are either author-stated (the source paper names the limitation itself) or inferred (a reviewer identified it).",
   SRC: "A source paper. Every Evidence node derives from exactly one Source; Source pages aggregate structured abstracts and critical appraisals across their own Evidence/Claims/Caveats.",
-  EP: "Evidence Pattern: an extension beyond the original five-type schema, added for this corpus. A cross-paper aggregation that names which independent papers instantiate a recurring finding and states a mechanism, distinct from a Claim in that it explicitly enumerates its instantiating Evidence.",
 };
 
 export default function AboutPage() {

@@ -100,10 +100,3 @@ title: "GPT-4 correctly detected errors in 7 of 13 constructed short CS papers"
 - [[sysrev/dgraph/claims/CLM - LLMs show promise for review subtasks but are not yet standalone peer reviewers|CLM - LLMs show promise for targeted reviewing subtasks but are not yet capable of functioning as standalone peer reviewers]]
 
 - [[sysrev/dgraph/claims/CLM - Targeted questions elicit substantially better LLM performance than open-ended review|CLM - Targeted question prompting elicits substantially better LLM performance than open-ended review generation]]
-
-## Instantiates Pattern(s)
-
-> [!info] Cross-paper EvidencePattern(s) this evidence contributes to
-
-- [[sysrev/dgraph/evd-patterns/EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing|EP - LLM performance varies substantially with prompt design making prompt engineering load-bearing]]
-- [[sysrev/dgraph/evd-patterns/EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable|EP - LLMs collapse on the rare deployment-critical class even when aggregate metrics look reasonable]]

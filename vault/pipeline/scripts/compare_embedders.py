@@ -12,7 +12,7 @@ import numpy as np
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path.home() / 'Documents/living-synthesis'); D = VAULT / 'sysrev/dgraph'; M = Path.home() / '.cache/lives-bench/models'
 MODELS = {'gemma': ('EmbeddingGemma 2 (740M)', M / 'embeddinggemma-2', None, True), 'harrier': ('harrier-oss-v1-0.6b (596M)', M / 'harrier-oss-v1-0.6b', 'sts_query', False),
           'dna': ('DNA-VL-STEER-2B (2.1B)', M / 'DNA-VL-STEER-2B', None, True)}   # last field: can the model embed images? (a text-only model must not be handed file paths: it embeds the path as text and scores at chance)
-TYPES = {'QUE': 'questions', 'CLM': 'claims', 'CVT': 'caveats', 'EP': 'evd-patterns', 'EVD': 'evidence'}
+TYPES = {'QUE': 'questions', 'CLM': 'claims', 'CVT': 'caveats', 'EVD': 'evidence'}
 def title(p):
     t = p.read_text(encoding='utf-8'); m = re.search(r'^title:\s*"?(.+?)"?\s*$', t, re.M); return m.group(1) if m else p.stem
 def merge_pair():
