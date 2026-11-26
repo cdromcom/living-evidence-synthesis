@@ -7,6 +7,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import fitz, lives_stages as S, llm_batch as L, pdf_pages as pp, decision_models as dm, config as C
 
+INS_QUE = 'The question was restyled on purpose. Does the reframed question still ask about what the original wording is about (same topic, methods and outcomes), allowing different phrasing, order and question form?'
+INS_CLM = 'Does the claim keep the meaning of the passage? Different wording is fine. Answer no only if the claim states a fact, number, comparison or degree of certainty that the passage does not support.'
+INS_CVT = 'Does the passage state this limitation or caveat? Different wording is fine. Answer no only if the caveat adds a fact, number or cause that the passage does not support.'
 R = S.R; SLOTS = {'P': 'Population', 'I': 'Intervention', 'C': 'Comparator', 'O': 'Outcome', 'S': 'Study design', 'T': 'Timeframe'}
 SAME = 'Do TEXT A and TEXT P say exactly the same thing, with the same numbers, names, signs and symbols (ignore spacing, hyphenation and subscript formatting)?'
 
@@ -18,6 +21,17 @@ def pages_text(doc, pages, cap=3500):
     return '\n\n'.join(f'[PDF page {p}]\n' + pp.page_text(doc[p - 1])[:cap] for p in pages if 1 <= p <= len(doc))
 
 
+METHODS_HEAD = re.compile(r'^\s*(?:\d+(?:\.\d+)*\.?\s+)?(?:materials and methods|methods?|methodology|study design|experimental setup|experiments?|experimental design|data collection|datasets?|approach|setup)\s*$', re.I | re.M)
+WITH_METHODS = True   # JP, 2026-11-26: the verifier also sees page 1 and the Methods pages, because population, design and timeframe are usually defined there
+
+
+def methods_pages(doc, exclude=(), n_methods=2):
+    """Page 1 (abstract) and the first pages that carry a Methods-type heading, as 1-based page numbers, skipping pages already shown."""
+    out = [1]; start = next((i + 1 for i in range(len(doc)) if METHODS_HEAD.search(pp.page_text(doc[i]))), None)
+    if start: out += list(range(start, min(start + n_methods, len(doc) + 1)))
+    return [p for p in dict.fromkeys(out) if p not in exclude]
+
+
 def build_items(M):
     items = []; groups = []; sig = S.SIGNALS
     for ck, p in M.m['papers'].items():
@@ -27,7 +41,7 @@ def build_items(M):
         def crop_of(fid, k): c = qdir / f'{fid}_s{k}.png'; return str(c) if c.exists() else None
         for f in ps.get('findings', []):
             pgs = sorted({s.get('pdf_page') for s in f.get('spans', []) if s.get('pdf_page')} | {n.get('pdf_page') for n in f.get('numbers', []) if n.get('pdf_page')})[:2]
-            rec = '\n'.join(f"{SLOTS[k]}: {f.get(k) or 'Not reported'}" for k in SLOTS); passage = pages_text(doc, pgs) or '(no cited page)'; gid = f"{ck}|{f['id']}"
+            rec = '\n'.join(f"{SLOTS[k]}: {f.get(k) or 'Not reported'}" for k in SLOTS); passage = pages_text(doc, pgs) or '(no cited page)'; passage += ('\n\n[CONTEXT: page 1 and Methods pages, for population, design and timeframe]\n' + pages_text(doc, methods_pages(doc, exclude=pgs), cap=3000)) if WITH_METHODS else ''; gid = f"{ck}|{f['id']}"
             groups.append({'gid': gid, 'instruction': 'PICOST: for each slot, is the value supported by the passage?', 'item': rec, 'passage': passage, 'crop': crop_of(f['id'], 1)})
             for k in SLOTS:   # one row per slot, so each slot can be judged and benchmarked on its own
                 items.append({'paper': ck, 'ntype': 'PICOST', 'nid': f"{f['id']}: {SLOTS[k]}", 'what': f'{SLOTS[k]} slot supported by the cited pages', 'text': short(f.get(k) or 'Not reported', 400), 'kind': 'slot', 'gid': gid, 'slot': k, 'item': rec, 'passage': passage, 'crop': crop_of(f['id'], 1),
@@ -40,10 +54,10 @@ def build_items(M):
                 text = it.get('original_wording') if kind == 'questions' else (it.get('span') or {}).get('text', ''); v = it.get('vision')
                 if v: items.append(quote_item(ck, tag, f"{it['id']} quote", text, v, None))
                 if kind == 'questions':
-                    items.append({'paper': ck, 'ntype': 'QUE', 'nid': it['id'], 'what': 'reframed question asks the same as the original wording', 'text': short(f"Original: {it.get('original_wording')}\nReframed: {it.get('reframed')}", 500), 'kind': 'text', 'instruction': 'Does the reframed question ask the same thing as the original wording, without adding or dropping anything?', 'item': f"Original wording: {it.get('original_wording')}\nReframed question: {it.get('reframed')}", 'passage': it.get('original_wording', ''), 'crop': None, 'dm_q': {'same': dm.noul('Does the reframed question ask the same thing as the original wording, without adding or dropping anything?')}})
+                    items.append({'paper': ck, 'ntype': 'QUE', 'nid': it['id'], 'what': INS_QUE, 'text': short(f"Original: {it.get('original_wording')}\nReframed: {it.get('reframed')}", 500), 'kind': 'text', 'instruction': INS_QUE, 'item': f"Original wording: {it.get('original_wording')}\nReframed question: {it.get('reframed')}", 'passage': it.get('original_wording', ''), 'crop': None, 'dm_q': {'same': dm.noul(INS_QUE)}})
                 else:
-                    ins = 'Is the claim fully supported by the passage, with no stronger wording and no wider scope?' if tag == 'CLM' else 'Does the passage state this limitation or caveat, without adding anything?'
-                    items.append({'paper': ck, 'ntype': tag, 'nid': it['id'], 'what': 'claim supported by its passage' if tag == 'CLM' else 'caveat stated in its passage', 'text': short(it.get('text'), 500), 'kind': 'text', 'instruction': ins, 'item': it.get('text', ''), 'passage': (it.get('vision') or {}).get('printed') or (it.get('span') or {}).get('text', ''), 'crop': None, 'dm_q': {'ok': dm.noul(ins)}})
+                    ins = INS_CLM if tag == 'CLM' else INS_CVT
+                    items.append({'paper': ck, 'ntype': tag, 'nid': it['id'], 'what': ins, 'text': short(it.get('text'), 500), 'kind': 'text', 'instruction': ins, 'item': it.get('text', ''), 'passage': (it.get('vision') or {}).get('printed') or (it.get('span') or {}).get('text', ''), 'crop': None, 'dm_q': {'ok': dm.noul(ins)}})
         qf = M.dir / ck / 'quality_signals.json'
         if qf.exists():
             for x in json.loads(qf.read_text(encoding='utf-8')).get('raw', []):
@@ -117,7 +131,7 @@ def image_question(x, text):
     if x['ntype'] == 'QUALITY':
         sig, rest = a.split(' = ', 1); rating, quote = rest.split('): ', 1); rating = rating.split(' (')[0]
         return 'TEXT A:\n' + quote, INTRO + f"Does the highlighted passage support the rating '{rating}' for the quality signal '{sig.split(' (')[0]}'?"
-    return 'TEXT A:\n' + a, INTRO + ('Is the claim fully supported by the highlighted passage, with no stronger wording and no wider scope?' if x['ntype'] == 'CLM' else 'Does the highlighted passage state this limitation or caveat?')
+    return 'TEXT A:\n' + a, INTRO + (INS_CLM.replace('the passage', 'the highlighted passage') if x['ntype'] == 'CLM' else INS_CVT.replace('the passage', 'the highlighted passage'))
 
 
 def add_image_scores(M):
@@ -222,3 +236,36 @@ def add_novel_share(M):
             b['novel_share'] = novel_share(item, a.get('passage') or '')
     f_.write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     return items
+
+
+def rerun_with_new_questions(M, mode='standard'):
+    """Rerun the verifiers (Sonnet 5.5, Perplexity, Liquid d1.2-ultra) on PICOST slots (now with page 1 and the Methods pages) and on CLM, CVT and QUE judgments (now with meaning-based questions: rewording and restyling are fine). The earlier scores are kept in `scores_before_rerun` for comparison."""
+    f_ = M.dir / 'verification.json'; items = json.loads(f_.read_text(encoding='utf-8')); fresh, groups = build_items(M)
+    assert len(fresh) == len(items)
+    idx = [i for i, (a, b) in enumerate(zip(fresh, items)) if a['ntype'] == 'PICOST' or (a['ntype'] in ('CLM', 'CVT', 'QUE') and not a['nid'].endswith(' quote'))]
+    for i in idx: assert (fresh[i]['paper'], fresh[i]['ntype'], fresh[i]['nid']) == (items[i]['paper'], items[i]['ntype'], items[i]['nid'])
+    sysv = S.prompt('verify-item-v1.md'); reqs = []
+    for g in groups: reqs.append(L.Req('g::' + g['gid'], R['quote_check'], f"INSTRUCTION: {g['instruction']}\n\nITEM:\n{g['item']}\n\nPASSAGE:\n{g['passage']}", sysv, None, 'low', 900, images=[g['crop']] if g.get('crop') else []))
+    for i in idx:
+        a = fresh[i]
+        if a['kind'] == 'text': reqs.append(L.Req(f'v{i:04d}', R['quote_check'], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, 'low', 600, images=[a['crop']] if a.get('crop') else []))
+    res = S.dispatch(M, 'verify_methods', reqs, mode)
+    def run_dms(i):
+        a = fresh[i]; state = f"PASSAGE:\n{a['passage']}\n\nITEM:\n{a['item']}"; out = {}
+        for pv in R['decision_models']:
+            r, e = dm.decide(pv, state, a['dm_q']); ans = [x.get('noul') for x in ((r or {}).get('answers') or {}).values() if isinstance(x, dict) and x.get('noul') is not None]
+            out[pv] = min(ans) if ans else None
+        return out
+    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run_dms, idx))
+    for i, d_ in zip(idx, dres):
+        a, b = fresh[i], items[i]
+        if 'scores_before_rerun' not in b: b['scores_before_rerun'] = {k: b['scores'].get(k) for k in ('sonnet', 'perplexity', 'liquid')}; b['what_before_rerun'] = b['what']
+        if a['kind'] == 'slot':
+            j = S.safe_json(res.get('g::' + a['gid']) or L.Res('', False)) or {}; sl = j.get('slots') or {}; b['scores']['sonnet'] = to_score(sl.get(a['slot'])) if a['slot'] in sl else None; b['reasons']['sonnet'] = j.get('reason', '')
+        else:
+            j = S.safe_json(res.get(f'v{i:04d}') or L.Res('', False)) or {}; b['scores']['sonnet'] = to_score(j['verdict']) if 'verdict' in j else None; b['reasons']['sonnet'] = j.get('reason', '')
+        b['scores']['perplexity'] = d_.get('perplexity'); b['scores']['liquid'] = d_.get('liquid'); b['what'] = a['what']
+        if a['ntype'] != 'PICOST': b['passage'] = short(a.get('passage') or a['item'], 600)
+        revote(b)
+    f_.write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
+    M.m['stage_log'].setdefault('verify_rerun_methods', {}).update(status='done', items=len(idx)); M.save(); return items

@@ -2,6 +2,9 @@
 
 Status: plan by Claude on JP's instruction (2026-11-24). It follows JP's v2 toolchain in `vault/pipeline/skills/Tools-and-Models.md` (hosted APIs, US developers only) and does not add new model decisions; rows marked "to confirm" need JP. Benchmark numbers come from `benchmarking-validation/` and were tuned on the same 66 to 68 rows, so they are encouraging, not a clean test.
 
+## Update 2026-11-26: the models the paper processor uses now
+This page was a plan written on 2026-11-24. The batch runner (`vault/pipeline/scripts/lives_run.py`) now uses: Gemini 4 Neon for extraction; GPT-6.2 Sol for second reading and the quality-signal adjudication; Claude Opus 5.5 for adjudication, EVD rework and failure analysis; Claude Sonnet 5.5 for drafting, quote and verification screenshots and question grouping; Perplexity Decider 1.3 and Liquid d1.2-ultra (replaced d1-ultra on 2026-11-26; reads text and images) as decision models; EmbeddingGemma 2 for clustering questions; PyMuPDF for locating quotes. Every extracted item is verified by Sonnet 5.5 and both decision models with a majority vote. Quotes without digits are checked by Sonnet 5.5, digits on screenshots also by d1.2-ultra. The full list with prices, countries and packages is in the ABOUT tab of each review sheet and in `vault/pipeline/skills/Tools-and-Models.md`; results and reasons are in `vault/pipeline/misc/evd-validation/LOG.md`. The tables below are the 2026-11-24 plan and are kept for the record; where they name Liquid d1-ultra or Jev, read "Liquid d1.2-ultra" and "dropped".
+
 ## Rules for every phase
 
 1. **Best available model for the job**, chosen from the model registry, not from memory or a leaderboard.
@@ -15,7 +18,7 @@ Status: plan by Claude on JP's instruction (2026-11-24). It follows JP's v2 tool
 |---|---|---|---|---|
 | 0 | Intake: pick the paper version, DOI, licence | scripts (Crossref, Unpaywall) | Opus 5.5 only on ambiguous versions | JP |
 | 1 | Parse the PDF to page markdown and tables | GPT-6.2 Sol (PDF input, High) | PyMuPDF text layer as second vote; where they disagree the page image decides; scanned pages get the two-OCR agreement rule (Chandra OCR 2 + OXR-1.0, to confirm) | none unless images decide |
-| 2 | PICOST extraction (paper level) | GPT-6.2 Sol (High) | Opus 5.5 on parser disagreements plus a 10% sample; Liquid d1-ultra check is on hold (JP) | JP spot check |
+| 2 | PICOST extraction (paper level) | GPT-6.2 Sol (High) | Opus 5.5 on parser disagreements plus a 10% sample; decision models (Perplexity Decider 1.3 and Liquid d1.2-ultra) verify every slot since 2026-11-26 | JP spot check |
 | 3 | Find and write nodes (QUE, EVD, CLM, CVT) | Sonnet drafts; GPT-6.2 Sol (Medium) and Inkling 2 Small vote; Opus 5.5 checks and edits | three different families already in the loop | JP reviews EVDs |
 | 4 | Quotes, screenshots, page numbers | PyMuPDF word coordinates and `pdftoppm` (deterministic) | verbatim audit script; decision-model grounding check in shadow mode: the average of Perplexity, Liquid and Jev reached 97% on 66 quote rows | JP on disagreements |
 | 5 | Number and page checks | audit scripts | a second model family reads the page image | JP |
@@ -39,5 +42,5 @@ From the ingest budget note (`vault/pipeline/misc/evd-validation/2026-11-24-inge
 ## Open items for JP
 
 - Confirm Chandra OCR 2, OXR-1.0, Ripple-65B Preview and Inkling 2 Small origins and licences (the base-model check).
-- Decide when to switch Liquid d1-ultra back on for PICOST QA.
+- Done 2026-11-26: Liquid d1.2-ultra is on for PICOST and every other extracted item (with Perplexity Decider 1.3 and Sonnet 5.5); JP's labels will show which verifier to keep.
 - Start phase 1 of the web rebuild on Opus 5.5 (about $11) and log real cost.

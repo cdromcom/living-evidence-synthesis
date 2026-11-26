@@ -16,7 +16,7 @@ Each page footer is a collapsed callout. The title line is the short form (`AI u
 | 4 | New or fine-tuned tool: base model | n/a | No model was trained or fine-tuned for LIVES. |
 | 5 | Role in each phase | Footer `Role` | Reading PDFs, extracting claims/evidence, drafting nodes, rating quality signals, checking quotes against the PDF, advising on design. |
 | 6 | Sections and paragraphs contributed | Footer `Sections` | Whole node unless stated. |
-| 7 | How output was verified and modified | Footer `Checked by`; `human_verified` in frontmatter | Scripts check that quotes are verbatim and pages exist (`audit_signal_quotes.py`, `verbatim_audit.py`, `check_links.py`). Decision models (Perplexity Decider, Liquid d1-ultra, Jev) second-rate. A person signs off (`human_verified: yes`, with date). |
+| 7 | How output was verified and modified | Footer `Checked by`; `human_verified` in frontmatter | Scripts check that quotes are verbatim and pages exist (`audit_signal_quotes.py`, `verbatim_audit.py`, `check_links.py`). Decision models (Perplexity Decider 1.3 and Liquid d1.2-ultra; Liquid d1-ultra and Jev earlier) second-rate, and Claude Sonnet 5.5 reads a screenshot of every quote and judges every extracted item. A person signs off (`human_verified: yes`, with date). |
 | 8 | Data privacy and confidentiality | This page | Inputs are published papers. No personal or participant data is sent. API providers: Anthropic, OpenAI, Perplexity, Liquid, TypeSafe. Keys stay in a local `.env`. |
 | 9 | Influence on interpretation | This page | AI wrote the first reading and the ratings; people decide what to keep. Where models disagree the page says so. Known limit: some quotes are not verbatim in the PDF (audited, counted per run). |
 

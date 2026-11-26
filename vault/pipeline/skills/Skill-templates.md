@@ -46,6 +46,7 @@ Every EVD title and its Description summary line is written in the style of the 
 - **Pattern:** [named model(s)] [prompting, only if the paper states it] [verb] [N + field + "research reports"] [task or instrument], [result against a comparator] ([metric = value, ...]). **One finding per EVD**; pick the finding that matters.
 - **Name every model** ("GPT 3.5-turbo", not "ChatGPT"); call custom systems "bespoke"; give N, the field and the data source; name the instrument's type ("the reporting guideline STROBE", "the risk-of-bias tool QUADAS-2").
 - **Always give a comparator** (humans, other models, prior state of the art, a baseline), including the row that contradicts the headline.
+- **Parentheses (JP, 2026-11-26): one or two sets, one is better, no brackets [ ]; no all-caps words (accurate, not ACCURATE; only tool, model and metric names such as PRISMA and F1 keep capitals); when the paper reports F1 scores, give F1 overall and per class and leave out precision, recall, macro-F1 and micro-F1.**
 - **Statistics in parentheses** with spelled-out metric names ("Cohen's kappa", "F1 score", "Fisher's exact test p > 0.05"); prefer kappa and F1 variants to accuracy, and use percentages only when nothing else is reported; keep significance framing when the paper stresses it; round sensibly.
 - **Length:** hard limit 247 characters (count with code); right length, more detail and structure than the April headlines.
 - **Every number must be on the PICOST record** (with its locator) and in the paper's table; the statement is generated from the PICOST cells.

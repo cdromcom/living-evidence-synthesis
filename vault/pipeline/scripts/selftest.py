@@ -35,7 +35,7 @@ check('numbers-list check: a number in the statement with no list entry is found
 check('numbers-list check: 89% in the statement matches 0.89 in the list', R.numbers_list_gaps({'statement': 'Agreement was 89%.', 'numbers': [{'value': '0.89', 'table_or_figure': 'Table 1'}]}) == {'missing': [], 'no_location': []})
 check('the paper limit is 3 (4 on days JP sets it aside) and the review gate lists unreviewed batches', R.MAX_PAPERS in (3, 4) and isinstance(R.unreviewed_batches(), list))
 check('quality signals: two raters and a third-model adjudicator', len(S.RATERS) == 2 and S.QS_ADJ['model'] not in [m for _, m, _ in S.RATERS] and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
-for n in ('draft-nodes-v3', 'critique-revise-v3', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
+for n in ('draft-nodes-v4', 'critique-revise-v4', 'evd-rework-v3', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
 ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}
 check('quality signals rated by the models are valid row ids', set(S.SIGNALS) <= ids, str(sorted(set(S.SIGNALS) - ids)))
@@ -44,7 +44,7 @@ good = {'type': 'EVD', 'statement': 'GPT 3.5-turbo scored 71.4% on 120 reviews (
 check('writing-rules check passes a good EVD', S.writing_rules(good, {S.norm_num(x) for x in ('71.4', '120', '0.5', '3.5')})['pass'])
 check('writing-rules check fails an EVD over 247 characters', not S.writing_rules({**good, 'statement': 'word ' * 60}, set())['pass'])
 check('writing-rules check flags a number not on the card', S.writing_rules({**good, 'statement': 'Model scored 99.9%.'}, {'71.4'})['numbers_not_on_card'] == ['99.9'])
-check('writing-rules check fails an EVD with two sets of parentheses', not S.writing_rules({**good, 'statement': 'Model A (zero-shot) scored 71.4% (kappa = 0.5).'}, {S.norm_num(x) for x in ('71.4', '0.5')})['pass'])
+check('writing-rules check accepts two sets of parentheses and rejects three, brackets and all-caps words', S.writing_rules({**good, 'statement': 'Model A (zero-shot) scored 71.4% (kappa = 0.5).'}, {S.norm_num(x) for x in ('71.4', '0.5')})['parentheses_ok'] and not S.writing_rules({**good, 'statement': 'A (a) scored 71.4% (b) vs (kappa = 0.5).'}, {S.norm_num(x) for x in ('71.4', '0.5')})['parentheses_ok'] and not S.writing_rules({**good, 'statement': 'A scored 71.4% [kappa = 0.5].'}, {S.norm_num(x) for x in ('71.4', '0.5')})['parentheses_ok'] and not S.writing_rules({**good, 'statement': 'A labeled ACCURATE items, 71.4% (kappa = 0.5).'}, {S.norm_num(x) for x in ('71.4', '0.5')})['caps_ok'] and S.writing_rules({**good, 'statement': 'A appraised PRISMA items, 71.4% (kappa = 0.5).'}, {S.norm_num(x) for x in ('71.4', '0.5')})['caps_ok'])
 check('writing-rules check fails an em dash', not S.writing_rules({**good, 'statement': 'Model A \u2014 a model scored 71.4%.'}, {S.norm_num('71.4')})['pass'])
 import pdf_pages as _pp
 check('an en dash that the PDF text layer stores as e still matches', _pp.norm('Human Rater 1 0.81 (0.78\u20130.83) 87%\u201390%') == _pp.norm('Human Rater 1 0.81 (0.78e0.83) 87%e90%'))
@@ -74,6 +74,10 @@ _o = VV.queue_order(_v)
 check('labeling queue holds claims, caveats and rewordings but not the quote-versus-print rows', [x['queue'] for x in _o if x['queue']] == ['1 CLM', '2 CVT', '4 QUE reframing'] and all(x['queue'] == '' for x in _o if x['nid'].endswith(' quote')))
 check('word-overlap similarity is 0 when every word is in the passage and 1 when none is', VV.novel_share('citation errors detected', 'detected citation errors here') == 0 and VV.novel_share('citation errors detected', 'completely unrelated text') == 1)
 check('a quote with digits is compared by digits on the screenshot', 'digit' in VV.image_question({'ntype': 'QUOTE', 'nid': 'F1 quote 1'}, 'A (model): GAR 0.58')[1])
+import numbers_on_pages as NP
+check('a statement number written as 1,000 or .58 matches the page text', NP.variants('0.58') >= {'0.58', '.58'} and '1000' in NP.variants('1,000'))
+check('a number that is not on the screenshot goes to JP, a short one is not checked by image', NP.classify('0.78', 0.02, 0.01) == 'not found: JP check' and NP.classify('4', 0.9, 0.9) == 'too short to check by image' and NP.classify('0.56', 0.97, 0.0) == 'seen on screenshot')
+check('the claim, caveat and question wording allows rewording', 'Different wording is fine' in VV.INS_CLM and 'restyled on purpose' in VV.INS_QUE)
 print('packages')
 for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
     try: print(f'  {pkg} {md.version(pkg)}'); ok += 1

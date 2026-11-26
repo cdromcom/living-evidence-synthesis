@@ -7,7 +7,7 @@ import lives_run as LR, lives_stages as S, lives_verify as V, llm_batch as L, de
 dm.load_env(); R = S.R
 
 
-def main(run, per_type=10):
+def main(run, per_type=10, stage=None):
     M = LR.Manifest(run); items = json.loads((M.dir / 'verification.json').read_text(encoding='utf-8')); fresh, _ = V.build_items(M)
     for a, b in zip(fresh, items): b['_passage'] = (a.get('passage') or a['item'])[:6000]; b['_item'] = a['item']
     ordered = V.queue_order(items); row = {id(x): i + 2 for i, x in enumerate(ordered)}
@@ -24,7 +24,9 @@ def main(run, per_type=10):
         sc = {k: (round(v, 2) if v is not None else None) for k, v in x['scores'].items() if k in ('sonnet', 'perplexity', 'liquid')}
         body = f"ITEM TYPE: {x['ntype']}\nWHAT WAS CHECKED: {x['what']}\n\nITEM:\n{x['_item'][:2500]}\n\nPASSAGE:\n{x['_passage']}\n\nVERIFIER SCORES: {json.dumps(sc)}\nSonnet 5.5 reason: {x['reasons'].get('sonnet', '')}"
         reqs.append(L.Req(f'fa{i:03d}', R['adjudicate'], body, sysv, None, 'medium', 900))
-    res = S.dispatch(M, 'failure_analysis', reqs, 'standard'); out = []
+    import time
+    # a new stage name each time: saved answers of an earlier sample must not be reused
+    res = S.dispatch(M, stage or f'failure_analysis_{int(time.time())}', reqs, 'standard'); out = []; out = []
     for i, x in enumerate(sample):
         j = S.safe_json(res.get(f'fa{i:03d}') or L.Res('', False)) or {}
         out.append({'paper': x['paper'], 'ntype': x['ntype'], 'nid': x['nid'], 'row': row[id(x)], 'item': x['text'][:500], 'passage': x.get('passage', '')[:400], 'scores': x['scores'], 'sonnet_reason': x['reasons'].get('sonnet', ''), 'who_is_right': j.get('who_is_right', ''), 'failure_type': j.get('failure_type', ''), 'reason': j.get('reason', ''), 'fix': j.get('fix', '')})

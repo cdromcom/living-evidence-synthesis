@@ -493,7 +493,7 @@ def main():
         else:
             if 'draft' not in a.skip: S.stage_draft(M, mode)
             if 'qs' not in a.skip: S.stage_qs(M, mode)
-        if 'verify' not in a.skip: import lives_verify as V; V.stage_verify(M, mode); V.add_image_scores(M)   # Sonnet 5.5 and the two decision models verify every extracted item
+        if 'verify' not in a.skip: import lives_verify as V; V.stage_verify(M, mode); V.add_image_scores(M); import numbers_on_pages as NP; NP.run_numbers_check(M)   # Sonnet 5.5 and the two decision models verify every extracted item
         cleanup_files(M); finish(M)
     except Halt as e: halt(M, str(e))
     except KeyboardInterrupt:
