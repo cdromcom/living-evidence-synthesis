@@ -47,3 +47,60 @@ if __name__ == '__main__':
     for r in allr[:200]:
         if r['old_flag'] and not r['not_on_cited_pages']: print(' OLD-ONLY', r['paper'][:7], r['id'], 'old gaps', r['old_gaps'])
     pass   # results are printed; nothing is saved
+
+
+# ---- numbers that are not in the PDF text layer: ask Liquid d1.2-ultra to look for them on the screenshots (JP, 2026-11-26)
+import decision_models as dm, random as _rnd
+
+
+def images_for(M, ck, f):
+    d = M.dir / ck; out = []
+    for c in (d / 'crops' / f"{f['id']}.png",):
+        if c.exists(): out.append(str(c))
+    mg = f.get('merged_screenshot'); hl = sorted((d / 'highlights').glob(f"{f['id']}_s*_p*.png"))
+    if mg and (d / 'highlights' / mg).exists(): out.append(str(d / 'highlights' / mg))
+    else: out += [str(x) for x in hl[:2]]
+    return out[:3]
+
+
+def ask_numbers(imgs, tokens, alter=False):
+    qs = {}
+    for i, t in enumerate(tokens):
+        shown = t
+        if alter:
+            ds = [m for m in re.finditer(r'\d', t)]
+            if ds: m = _rnd.choice(ds); shown = t[:m.start()] + str((int(m.group()) + 3) % 10) + t[m.end():]
+        qs[f'n{i}'] = dm.noul(f'Does the number {shown} appear, exactly as written, in the table, figure or text shown in the images?')
+    r, e = dm.decide('liquid', 'Page images of a research paper; a table or figure may hold the numbers.', qs, images=imgs)
+    return [((r or {}).get('answers') or {}).get(f'n{i}', {}).get('noul') for i in range(len(tokens))]
+
+
+def screenshot_check(M, results):
+    """For findings whose statement numbers are not in the cited pages' text, look for each number on the screenshots; also run each flagged number with one digit changed as a control (should score low)."""
+    out = []
+    byck = {ck: json.loads((M.dir / ck / 'picost.json').read_text(encoding='utf-8')) for ck, p in M.m['papers'].items() if (M.dir / ck / 'picost.json').exists() and not p.get('failed')}
+    for r in results:
+        if not r['not_on_cited_pages']: continue
+        f = next(x for x in byck[r['paper']]['findings'] if x['id'] == r['id']); imgs = images_for(M, r['paper'], f); toks = list(dict.fromkeys(r['not_on_cited_pages']))
+        if not imgs: out.append({**r, 'tokens': toks, 'found': [None] * len(toks), 'control': [None] * len(toks), 'images': []}); continue
+        out.append({**r, 'tokens': toks, 'found': ask_numbers(imgs, toks), 'control': ask_numbers(imgs, toks, alter=True), 'images': imgs})
+    return out
+
+
+def classify(tok, found, control):
+    if found is None: return 'no screenshot'
+    if len(re.sub(r'\D', '', tok)) < 2: return 'too short to check by image'
+    if found >= 0.5 and (control or 0) < 0.5: return 'seen on screenshot'
+    if found >= 0.5: return 'unclear (a changed number also scored high)'
+    return 'not found: JP check'
+
+
+def run_numbers_check(M):
+    """Pipeline step (after verification): statement numbers that are not in the text of the cited pages are looked up on the screenshots by Liquid d1.2-ultra; the rest go to JP. Writes numbers_check.json in the run folder."""
+    res = []
+    for ck, p in M.m['papers'].items(): res += check(M, ck, p)
+    out = screenshot_check(M, res)
+    for x in out: x['result'] = [classify(t, f, c) for t, f, c in zip(x['tokens'], x['found'], x['control'])]
+    (M.dir / 'numbers_check.json').write_text(json.dumps({'checked_findings': len(res), 'flagged': out}, indent=1, ensure_ascii=False), encoding='utf-8')
+    st = M.m['stage_log'].setdefault('numbers_check', {}); st.update(status='done', findings=len(res), flagged=len(out), numbers_for_jp=sum(r == 'not found: JP check' for x in out for r in x['result'])); M.save()
+    return out
