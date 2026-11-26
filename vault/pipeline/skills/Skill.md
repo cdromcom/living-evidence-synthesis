@@ -21,7 +21,7 @@ For one paper, in order (details in Step 1 and the steps below):
 7. **Mirror to the review sheet** and **JP spot check B**; merge through a pull request and regenerate the graph data.
 8. **Provenance footer** on every page written or changed (Step 4c): model and version, date accessed, prompt link, run id, human-check status, from the call log.
 
-**Not in this run:** quality signals (TRIPOD-LLM and quality appraisal tables, provenance fields, tool checks) are the separate optional **Module Q**, run only on JP's command, so extraction and publishing never spend credits on signals.
+**Quality signals** (quality appraisal signals, provenance fields, tool checks) are **Module Q**, which the runner now runs automatically after every batch (JP, 2026-11-26; TRIPOD-LLM rows and Pangram are not part of it), so extraction and publishing never spend credits on signals.
 
 Work in **batches of three papers at most** (hard limit in `pipeline/scripts/lives_run.py`; JP 2026-11-26, down from four), and process no further papers until JP has reviewed the previous batch (`lives_run.py` refuses a new batch until JP marks the earlier ones reviewed) with the human checks, the cost controls and the ledger below. Cross-paper synthesis (Review-Arena; EvidencePatterns are retired), the public MkDocs render and the ESS Bases are in `Skill-synthesis.md` (Steps 11 to 14), run after a batch, not per paper.
 
@@ -220,7 +220,7 @@ Per paper (`Skill-templates.md`): Step 7 readability formatting (`pipeline/scrip
 
 ## Module Q: Quality signals (OPTIONAL) → see `Skill-controls.md`
 
-A separate run, only on JP's command, never part of a batch run. Neon (High) and Opus 5.5 rate blind and Sol adjudicates only disagreements; scripts check quotes. The full module (rows, rules, cost, Pangram) is in part 2, "Module Q".
+Runs automatically after every batch of at most four papers (JP, 2026-11-26; Pangram only on JP's command). Neon (High) and Opus 5.5 rate blind and Sol adjudicates only disagreements; scripts check quotes. The full module (rows, rules, cost, Pangram) is in part 2, "Module Q".
 
 ## Reference docs
 

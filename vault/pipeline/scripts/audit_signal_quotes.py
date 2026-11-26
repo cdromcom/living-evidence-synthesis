@@ -34,9 +34,8 @@ for path in sorted(sc.SRC_DIR.glob('@*.md')):
                 cp = int(r['page']) if r['page'].isdigit() else None
                 inv = {v['printed']: k for k, v in pm.items() if v['printed']}; ppg = int(inv.get(r['page'], cp or 0)) if cp else 0
                 pages = [p for p in (ppg - 1, ppg, ppg + 1) if 1 <= p <= len(doc)] or list(range(1, min(len(doc), 40) + 1))
-                tgt = pp.norm(r['quote']); text = ''.join(pp.norm(doc[p - 1].get_text()) for p in pages)
-                m = difflib.SequenceMatcher(None, tgt, text, autojunk=False).find_longest_match(0, len(tgt), 0, len(text)) if tgt and text else None
-                ratio = round(m.size / len(tgt), 2) if m and tgt else 0
+                rep = pp.repair_quote(doc, r['quote'], cp, min_cov=0.5)   # the same matcher the paper processor uses (replaces a separate difflib comparison)
+                ratio = round(rep['coverage'], 2) if rep else 0
                 cause = ('URL: not found in text or links' if urls else 'near match (typographic: hyphen, symbol, ligature, footnote mark)' if ratio >= 0.9 else
                          'trimmed or lightly edited quote' if ratio >= 0.5 else 'not in the text layer (table or figure, other version, or paraphrase)')
             else:

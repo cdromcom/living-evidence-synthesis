@@ -17,7 +17,7 @@ Part 1 is `Skill.md` (the step-by-step procedure for one paper). This file holds
 | Matching, linking, merging and splitting | a new node may duplicate or relate to an existing one |
 | Who checks crops and quotes | you check screenshots and quotes |
 | Step 6e: Decision-model check | you check extractions with the decision models |
-| Module Q: Quality signals | JP asks for quality signals (never in a batch run) |
+| Module Q: Quality signals | automatic after every batch (JP, 2026-11-26); Pangram only on JP's command |
 
 ## The paper processor (`pipeline/scripts/lives_run.py`)
 
@@ -67,7 +67,7 @@ The pilot took over 75 minutes. Most of it was waiting, not working. What helps,
 3. Size the token budgets from data so no stage fails and reruns (each rerun costs a full round trip).
 4. Flag fewer findings, so fewer go to the recheck, the adjudication and the vision look.
 5. Cancel stragglers (done) instead of waiting for the slowest request.
-6. Cut steps that add little: one critique round only, full debate only for primary EVDs, quality signals only when JP asks (Module Q is optional), and no benchmark side runs.
+6. Cut steps that add little: one critique round only, full debate only for primary EVDs, and no benchmark side runs. Quality signals now run after every batch (Module Q); the cost cuts for them are listed in `misc/evd-validation/2026-11-26-quality-signals-gap-analysis.md`.
 A rough standard-mode timeline for four papers: extraction 5 minutes, spans and checks 4, recheck and adjudication 5, drafting and ratings 10 at the same time, so about 25 minutes.
 
 ### Batches of three papers with JP's review in between (JP, 2026-11-26)
@@ -266,7 +266,12 @@ After the nodes and crops are extracted, the **decision models** (Liquid d1-ultr
 
 **Pilot (JP, 2026-11-24): shadow mode.** Run d1-ultra on every extraction of the pilot papers but do not let it decide yet; compare its answers with the audited vault content and with Opus to set the threshold (recall near 100% for errors). Switch it on once the numbers support it.
 
-## Module Q: Quality signals (OPTIONAL, a separate run, only on JP's command; v2, 2026-11-24)
+## Module Q: Quality signals (automatic after every batch; JP, 2026-11-26)
+
+**Since 2026-11-26 Module Q runs automatically at the end of every batch (at most four papers).** The runner does, in order: the `qs` stage (Neon High and Opus 5.5 rate 27 signals, Sol adjudicates disagreements); the verification of every rating against its quote; the code-only checks for each paper (`qs_export.py` calls `provenance/run_provenance.py` for retraction status, links, code and data repositories, FAIR sub-scores, registration, funding and affiliations, plus `stat_checks.py`); then the export to `pipeline/provenance/provenance-quality-signals.json` and `quality-signal-screenshots/` (read by the web app's side panel) and to the review sheet (one tab "QS <paper>" per paper and the tab "Quality signals run summary"). Pangram stays optional and runs only on JP's command. TRIPOD-LLM rows are not rated by the runner yet.
+**Watch cost, accuracy and time on every batch.** The summary tab shows, per paper: rating cost by model, rating time (the batch wait is included), code-only check time, quotes not found in the PDF, how many ratings agree with the live-site tag, and the code-only checks that are ok, flagged or unavailable. Look at it before starting the next batch: stop and tell JP if a batch costs more than $1 per paper for quality signals, if rating takes longer than 90 minutes, if more than 20% of quotes are not found, or if more than 30% of ratings differ from the live-site tag without a reason.
+
+(Earlier text of this module, kept for the rules: written when Module Q was optional.)
 
 The web app's Quality Signals tables and `/quality` page read about 35 tags from each source page (and the EVD appraisal tags). They are written by `Step 4b` (TRIPOD-LLM table) and `Step 6.c` in `Skill-templates.md` (the `## Quality appraisal` table). This module is **not part of the core run** (read, extract, write nodes, push to the web app), so API credits spent on extraction are never spent on signals by accident. Run it only when JP says so, one paper batch at a time. Until then the web app shows blank signal cells. the tag list and locator standard are in `Quality-signals-spec.md`.
 
@@ -279,12 +284,12 @@ The web app's Quality Signals tables and `/quality` page read about 35 tags from
 4. **Tags come from the tables:** do not hand-write tags; regenerate them from the two body tables (the headings `## Quality appraisal` and `## TRIPOD-LLM reporting` must stay exactly as written or the app loses its anchors).
 5. **Check before build:** list every source page that lacks a tag in `Quality-signals-spec.md`; fix before running the graph build.
 6. **Traceability (required for every row of both tables):** a verbatim quote plus a locator in the exact form in `Quality-signals-spec.md` (section, printed journal page, and Table or Figure number when the evidence is in one). Check with `python3 pipeline/scripts/audit_signal_quotes.py --only @citekey`: every quote must be found in the PDF and every cited page must match the PDF's printed page; fix every other status before moving on. Baseline on the 27 existing sources (2026-11-24): of 999 quoted rows, 91% verbatim, 63% with the right page.
-7. **Human review sheet (in parallel, not afterwards):** `python3 pipeline/scripts/signals_decision_models.py --only @citekey` asks Perplexity Decider 1.3 and Liquid d1-ultra whether each quote supports its rating; then `python3 pipeline/scripts/signals_to_gsheet.py --only @citekey --audit <audit csv> --models <jsonl>` builds the workbook (quote, locator, PDF check, judgment dropdown, the three models' verdicts, JP judgment and notes) to upload as a Google Sheet. JP reviews that sheet, not the markdown.
+7. **Human review sheet (in parallel, not afterwards):** `python3 pipeline/scripts/signals_decision_models.py --only @citekey` asks Perplexity Decider 1.3 and Liquid d1.2-ultra whether each quote supports its rating; then `python3 pipeline/scripts/signals_to_gsheet.py --only @citekey --audit <audit csv> --models <jsonl>` builds the workbook (quote, locator, PDF check, judgment dropdown, the three models' verdicts, JP judgment and notes) to upload as a Google Sheet. JP reviews that sheet, not the markdown.
 8. **Provenance fields and tool signals** come from scripts, not from a model: `python3 pipeline/scripts/provenance/run_provenance.py --doi <doi> [--code <github url>] [--data <dataset url>]` (OpenAlex, DOAJ, OpenCitations, PubPeer, howfairis, FAIR-Checker). A retraction match is reported as "needs human check" because author ids clash.
 
 **Quotes without typos:** preferred method: the model returns, per row, the printed page and the first and last words of the span; `pdf_pages.py` then extracts the exact text between them from the PDF, so no quote is ever typed by a model. Rows judged from a URL, a table or a figure cite it by locator. (To build; until then run `audit_signal_quotes.py` and fix every non-verbatim row.) **Punctuation does not have to match** (JP, 2026-11-25): the audit ignores dashes, curly quotes, hyphenation at line ends, ligatures and superscript footnote marks, and compares letters and digits only. The exception is decimal points between digits (0.79 is not 079). Only wording and numbers must match.
 **Cost (my estimate, per paper, standard prices; half by batch):** Gemini 4 Neon extraction (not yet measured; $3 and $15 per million tokens plus billed thinking tokens), Opus 5.5 rating pass about $0.7, GPT-6.2 Sol blind re-rating about $0.3 to $0.5, the three decision models under $0.01, provenance scripts free. **Pangram (AI-writing check) only on JP's explicit command** (planned Dec/Jan); never as part of a batch.
-**Trigger:** JP names the papers and says "run Module Q". Each paper gets its own provenance footer rows (step `quality-signals`).
+**Trigger:** automatic after every batch. Each paper gets its own provenance footer rows (step `quality-signals`).
 
 ### Quotes without digits are checked by Sonnet 5.5 (JP, 2026-11-26)
 Liquid d1.2-ultra reads digits on screenshots reliably (pairwise AUC 1.0) but not words (it scored 18 of 55 correct no-digit quotes below 0.5). So: quotes that contain digits are checked by Sonnet 5.5 (`quote_check` stage) and by d1.2-ultra's digit comparison; quotes without digits are checked by Sonnet 5.5 only. d1.2-ultra's screenshot score for no-digit quotes, claims, caveats and quality ratings is shown in the sheet (column W says "no") but does not vote.
