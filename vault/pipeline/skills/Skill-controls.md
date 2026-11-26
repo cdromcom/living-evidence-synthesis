@@ -88,13 +88,25 @@ The spans stage corrects the model's most common extraction errors with code ins
 5. **Prompt:** `picost-v7.md` asks for short quotes (a single sentence or table row, about 250 characters at most) copied exactly, and tells the model to skip printed page numbers.
 Highlighted pages, bounding boxes and crops already exist for every extracted finding; they are the evidence a person reads, and the text quote is what the checks match against.
 
+### Quote screenshots: highlight only, no box (JP, 2026-11-26)
+Quote screenshots show the highlighted quote and nothing drawn around it, so no outline covers neighboring text. `pdf_pages.crop_quote` keeps `box_outline=False` by default; do not turn it on. For a reader's cell the crop is cut to the quote's own column (`tight_x=True`) so the text stays large enough to read.
+
+### Anchors for quality-signal quotes (JP, 2026-11-26)
+Raters (`rate-signals-v2.md`, `adjudicate-signals-v2.md`) no longer copy a whole quote. They return the PDF page, `quote_start` (the first 6 to 10 words of the passage) and `quote_end` (the last 6 to 10 words). `pdf_pages.text_between` takes the PDF's own text from the start anchor to the end anchor, so the quote is the PDF's words by construction. If the end anchor has a wrong word, it tries the last 5, 4 and 3 words of it, then falls back to the end of the sentence that holds the start (recorded as `anchors (end repaired)` or `anchors (start only: sentence end)`). `clean_text` then undoes certain text-layer artifacts (ligatures, soft hyphens, hyphen plus space at line ends, the glyph for one quarter used as an equals sign) for display; the raw text is kept as `quote_raw`, and the highlighted screenshot is made from it. The sheet's "Quote found in PDF" column says "yes, taken from the PDF". First test (Sarol, Opus and Sol, 40 quotes): 37 found and all 37 exactly the PDF's text; 3 end anchors had a wrong word, which the new fallback now resolves. Extraction spans (`picost`) still use whole quotes with repair; anchors for them are the next step if this holds up.
+
+### Straggler rule applies to stages of 8 or more requests
+The 5-minute straggler cancel only applies when a stage has at least 8 requests (`STRAGGLER_MIN_REQUESTS` in `lives_stages.py`). The anchors test lost Neon's 25 ratings when a stage of 2 requests cancelled the slower one.
+
 ### Numbers-list check (JP, 2026-11-26)
 Every number written in a finding's statement must have its own entry in that finding's Numbers list, and the entry must say where the number sits (table or figure, or a page). The spans stage flags a finding with `number_not_in_numbers_list` or `numbers_list_entry_without_location`, which sends it to the Sol recheck like any other flag. The check skips years, digits inside names (GPT-4, PRECIS-2, o3-mini, 5-shot) and label numbers (Human Rater 1, Table 2), and treats 89% and 0.89 as the same number. `picost-v7.md` tells the extraction model to write a Numbers-list entry for every number in a statement. On the three pilot runs (extracted with v6), 60 of 141 findings had a number in the statement with no list entry (24 of 51, 26 of 70, 10 of 20); `lives_run.py --recheck-numbers-list RUN` applies the check to a finished run without any model call.
 
 ### Reading grade (plain explanation)
 The writing-rules check reports a Flesch-Kincaid grade: the US school grade a reader needs to follow the text, calculated from the average words per sentence and the average syllables per word. A grade of 12 means a high-school senior can read it; 20 means a postgraduate. The rule: at most 14 passes, and the drafting prompts ask for about 12 or lower. Long sentences packed with model names and statistics raise it quickly, so most failures of this rule come from EVD statements that carry many numbers.
 
-### Standard or batch: always ask (JP, 2026-11-26)
+### Standard or batch: batch by default (JP, 2026-11-26)
+JP decided that standard mode is too expensive (four pilot papers cost $19.66 in standard mode) and accepts the delays, so `--mode batch` is the default and nobody needs to ask. The comparison below stays for reference. For a long, table-heavy paper whose extraction exceeds Gemini's 65,536-token batch limit, add `--extract-effort medium`.
+
+(Earlier text, kept for the comparison:) Every time JP gives papers or PDFs to run, ask which mode to use before starting, and give the trade-offs. The processor refuses to start a new run without `--mode`. Say:
 Every time JP gives papers or PDFs to run, ask which mode to use before starting, and give the trade-offs. The processor refuses to start a new run without `--mode`. Say:
 - **Standard (answers now, full price).** Pros: no queue, a four-paper run can finish in about 25 to 40 minutes (`--fast` runs drafting and ratings at the same time), no stalled batch jobs, large extractions work (Gemini batch refuses more than 65,536 output tokens, and the longest paper needed standard mode). Cons: about twice the cost. Uncertain: standard calls can time out on very long generations, and rate limits at the providers were not tested at four papers in parallel.
 - **Batch (about half price, slower).** Pros: about half the cost. Cons: waits of 5 to 40 minutes per stage (about 100 minutes for four papers in the pilot), single slow requests stall a stage until the 5-minute straggler rule cancels them, and the 65,536-token limit applies to Gemini. Uncertain: how long a provider's queue will take on a given day.
@@ -172,7 +184,7 @@ Little things matter (a number, a comparator, 247 characters, a sentence a reade
 4. **Round 2, only if needed.** If the revised drafts still differ on a number, a comparator or a claim, or the writing-rules check fails, one more critique and revision round. Never more than two rounds.
 5. **Vote.** Sol and Sonnet each pick the best revised draft (anonymous), with reasons. If they agree it wins; if not, Neon breaks the tie.
 6. **Check.** The cheaper of Sol and Sonnet that did not write the winner checks each claim against the span or crop (supported, partly supported, unsupported, with the supporting words); a decision model gives an independent fidelity answer. Any unsupported claim, or a disagreement between the two, goes to Opus 5.5, then to JP.
-7. **Record.** Every draft, critique, revision, vote, writing-rules result, check and cost is stored in the run folder and shown in the review sheet (tab "Drafts and debate"); the final text goes into the PICOST JSON (`evd_checks`) and JP judges it in the mirror sheet as usual.
+7. **Record.** Every draft, critique, revision, vote, writing-rules result, check and cost is stored in the run folder and shown in the review sheet (tab "Drafts (EVD, QUE, CLM, CVT)"); the final text goes into the PICOST JSON (`evd_checks`) and JP judges it in the mirror sheet as usual.
 
 **By tier.** Primary and secondary EVDs get the full loop. Tertiary EVDs get one draft, the writing-rules check and the node-detail check (cheaper) until the pilot shows otherwise.
 

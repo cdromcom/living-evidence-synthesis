@@ -58,7 +58,7 @@ with tempfile.TemporaryDirectory() as td:
     check('too many PDFs are refused', 'Refused' in run(pdfs + ['--question', 'q', '--dry-run', '--run-id', 'test-selftest']).stdout + run(pdfs + ['--question', 'q', '--dry-run', '--run-id', 'test-selftest']).stderr)
     check('a cap above the limit is refused', 'cap per batch' in run([pdfs[0], '--question', 'q', '--cap', '99']).stdout + run([pdfs[0], '--question', 'q', '--cap', '99']).stderr)
     check('a run without a question works (the model finds the paper\'s own questions)', 'Refused' not in run([pdfs[0], '--mode', 'standard', '--dry-run', '--run-id', 'test-selftest']).stdout + run([pdfs[0], '--mode', 'standard', '--dry-run', '--run-id', 'test-selftest']).stderr)
-    check('a new run without a chosen mode is refused (JP is asked standard or batch every time)', 'choose a mode' in run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stdout + run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stderr)
+    check('the default mode is batch (JP, 2026-11-26)', 'default=\'batch\'' in (here / 'lives_run.py').read_text())
     sup = td / 'Paper 0 - supplement 1.pdf'; d = fitz.open(); d.new_page().insert_text((72, 100), 'Supplementary Table S1'); d.save(str(sup)); d.close()
     check('a supplement is found next to its paper', [x.name for x in R.find_supplements(pdfs[0])] == ['Paper 0 - supplement 1.pdf'])
     comb = td / 'c.pdf'; sp = R.combine_pdfs(pdfs[0], [sup], str(comb)); check('supplement is combined after the paper', fitz.open(str(comb)).page_count == 2 and sp[0][1] == 1)

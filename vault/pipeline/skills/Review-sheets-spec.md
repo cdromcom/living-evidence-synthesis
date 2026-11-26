@@ -60,3 +60,5 @@ Goal: a human can follow every step of a run, see each model's work, and add gro
 A new builder calls `polish(ws, jp_from=..., image_cols=...)` after the rows are in; an existing Google Sheet can be styled in place with `sheets_requests`, which leaves labels alone.
 
 **Macros for any Google Sheet:** `pipeline/apps-script/LivesStyle.gs` applies the same look inside Google Sheets (Extensions > Apps Script, paste, save, reload; a LIVES style menu appears, and Extensions > Macros > Import macro makes them macros). Functions: `applyLivesStyle` (everything on the active sheet), `applyLivesStyleAllSheets`, `styleFontsAndHeader`, `alignByContent`, `fitColumnWidths`, `fitRowHeights`, `addZebraStripes`, `markJpColumns`. Not yet run inside Google Sheets (written without a way to execute it), so test it on a copy first.
+
+**Quote screenshots:** highlight only, no outline box (JP, 2026-11-26); crops are cut to the quote's column. In the quality-signal tab the quote comes from the PDF itself (anchors), and its screenshot is column I of "Quality signals (raw ratings)".

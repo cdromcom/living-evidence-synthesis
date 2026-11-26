@@ -148,6 +148,38 @@ def match_level(doc, quote: str, pages) -> str:
     return 'letters_digits'
 
 
+def clean_text(raw: str) -> str:
+    """The PDF text with its extraction artifacts undone where that is certain: ligatures (NFKC), soft hyphens, a hyphen plus space inside a word broken at a line end ('previ- ous'), and the glyph for one quarter used as an equals sign ('P ¼ .0085')."""
+    s = unicodedata.normalize('NFKC', raw).replace('\u00ad', '')
+    s = re.sub(r'(?<=[a-z])-\s+(?=[a-z])', '', s)
+    s = re.sub(r'\s¼\s', ' = ', s)
+    return re.sub(r'\s+', ' ', s).strip()
+
+
+def text_between(doc, start: str, end: str, hint_page: int = None, max_chars: int = 1200):
+    """JP, 2026-11-26: the exact PDF text from where `start` begins to where `end` ends (both are a few words a model copied from the page). The quote is taken from the PDF itself, so it is the PDF's own words by construction. Looks on the hinted page first, then all pages. Returns {'raw', 'text', 'page'} (raw = the text layer as is, text = clean_text of it) or None."""
+    sn, en = norm(start), norm(end)
+    if len(sn) < 10 or len(en) < 10: return None
+    order = ([hint_page] if hint_page and 1 <= hint_page <= len(doc) else []) + [i for i in range(1, len(doc) + 1) if i != hint_page]
+    for pg in order:
+        words = page_text(doc[pg - 1]).split(); parts = [norm(w) for w in words]; txt = ''.join(parts)
+        i = txt.find(sn)
+        if i < 0: continue
+        owner = [wi for wi, part in enumerate(parts) for _ in part]; j = txt.find(en, i); endlen = len(en); how = 'anchors'
+        if j < 0:   # the end anchor has a wrong word: try its last 5, 4 and 3 words, then fall back to the end of the sentence that holds the start
+            ew = end.split()
+            for k in (5, 4, 3):
+                tail = norm(' '.join(ew[-k:]))
+                if len(tail) >= 10 and txt.find(tail, i) >= 0: j = txt.find(tail, i); endlen = len(tail); how = 'anchors (end repaired)'; break
+        if j < 0:
+            w0 = owner[i]; wi = w0
+            while wi < len(words) - 1 and not (re.search(r'[.?!]$', words[wi]) and wi - w0 >= 3 and (wi + 1 >= len(words) or words[wi + 1][:1].isupper())): wi += 1
+            raw = ' '.join(words[w0:wi + 1]); how = 'anchors (start only: sentence end)'
+        else: raw = ' '.join(words[owner[i]:owner[j + endlen - 1] + 1])
+        if len(raw) <= max_chars: return {'raw': raw, 'text': clean_text(raw), 'page': pg, 'how': how}
+    return None
+
+
 def locate_rects(page, quote: str):
     """Exact word rectangles of a quote on one page: match the quote's normalized text inside the page's normalized word stream
     (robust to hyphenated line breaks and ligatures), then return the boxes of the covered words."""
