@@ -3,7 +3,7 @@
   python3 run_to_gsheet.py RUN_ID [--out FILE]          writes pipeline/runs/<run>/review.xlsx (local; upload it to Google Sheets with the Drive connector)
 Tabs: ABOUT (how to read it), Papers, Findings (one row per extracted finding, with every check and JP's label columns), Checks (one row per quoted span), Rechecks
 (Neon vs Sol vs Opus for the flagged findings), Checks (decision models, Sol vision, Opus), Drafts and debate, Quality signals (raw and vote), Calls and cost; see Review-sheets-spec.md."""
-import argparse, json, sys
+import argparse, json, re, sys
 from PIL import Image as PILImage
 from openpyxl.drawing.image import Image as XlImage
 from pathlib import Path
@@ -31,6 +31,9 @@ def first(globs):
     for g_ in globs:
         for p_ in sorted(g_[0].glob(g_[1])): return p_
     return None
+
+
+_CTRL = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f]')
 
 
 def about_models_and_tools(M):
@@ -75,7 +78,7 @@ def main():
         return round(min(a), 3) if a else ''
     def tab(title, header, rows, widths, jp_from=None, img=()):
         ws = wb.create_sheet(title); ws.append(header)
-        for r in rows: ws.append(r)
+        for r in rows: ws.append([_CTRL.sub('', x) if isinstance(x, str) else x for x in r])   # control characters in a quote would make openpyxl refuse the cell
         SS.polish(ws, jp_from=jp_from, image_cols=img); ws.freeze_panes = 'C2'; return ws
     ab = wb.create_sheet('ABOUT'); ab.column_dimensions['A'].width = 26; ab.column_dimensions['B'].width = 120
     pq = C.PIPE.get('project_question', '')
@@ -224,6 +227,44 @@ def main():
         types = sorted({x['ntype'] + (' quote' if x['nid'].endswith(' quote') else '') for x in V}); tt = []
         for t_ in types: tt.append([t_, f'=COUNTIF({rng("B")},"{t_}")', f'=IFERROR(COUNTIFS({rng("B")},"{t_}",{rng("Q")},1)/COUNTIFS({rng("B")},"{t_}",{rng("Q")},">=0"),"")', f'=COUNTIFS({rng("B")},"{t_}",{rng("K")},"split")', f'=COUNTIFS({rng("B")},"{t_}",{rng("U")},">=0")'])
         tab('Verification by node type', ['Node type', 'Items', 'Share the majority judged correct', 'Split votes', 'Items with JP ground truth'], tt, [20, 10, 18, 12, 18])
+    # ---- quality signals: one tab per paper (code-only checks and model ratings side by side) and a run summary with cost, time and agreement
+    import qs_export as QE, signal_registry as SRG
+    if QE.STORE.exists():
+        store = json.load(open(QE.STORE)); qs_sum = []; calls = []
+        cf_ = d / 'calls.jsonl'
+        if cf_.exists():
+            for l_ in open(cf_):
+                try: calls.append(json.loads(l_))
+                except Exception: pass
+        for ck, p in M['papers'].items():
+            pj_ = d / ck / 'picost.json'
+            if p.get('failed') or not pj_.exists() or not (d / ck / 'quality_signals.json').exists(): continue
+            meta = json.load(open(pj_)).get('paper', {}); key = SRG.resolve_citekey(ck, meta.get('title', ''), meta.get('year', '')) or ck; E_ = store['papers'].get(key)
+            if not E_: continue
+            hdr = ['Kind', 'Signal or check', 'Result', 'Agreement or status', 'Summary', 'Neon rating', 'Neon quote and locator', 'Neon screenshot (image)', 'Opus rating', 'Opus quote and locator', 'Opus screenshot (image)', 'Sol rating (adjudicates disagreements)', 'Quote verifiers (mean score: Sonnet 5.5, Liquid d1.2-ultra, Perplexity)', 'Live-site tag (Aug 2026)', 'Matches live-site tag?', 'Code-only checks that apply', 'Source and date', 'JP: right? (yes/no/unsure)', 'JP: notes']
+            rows_ = []; shots_ = []
+            def rater(sig, nm):
+                return next((r for r in sig.get('ratings', []) if r['rater'] == nm), None)
+            for it in E_.get('provenance', []):
+                if it['id'].startswith('link-') and it['status'] != 'flag': continue   # the 'links' row sums up the others; only links with a problem get their own row
+                rows_.append(['Code-only check', it['label'], it['result'], it['status'], it.get('detail', ''), '', '', '', '', '', '', '', '', '', '', it['tool'], (it.get('url', '') + ' ' + str(it.get('checked_utc', ''))[:10]).strip(), '', '']); shots_.append((None, None))
+            for sid, sig in E_.get('signals', {}).items():
+                n_ = rater(sig, 'Gemini 4 Neon'); o_ = rater(sig, 'Claude Opus 5.5'); s_ = rater(sig, 'GPT-6.2 Sol'); ck_ = {c['verifier']: c['score'] for c in sig.get('checks', [])}
+                ver_ = ', '.join(str(ck_.get(v, '')) for v in ('Claude Sonnet 5.5', 'Liquid d1.2-ultra', 'Perplexity Decider 1.3')) if ck_ else ''
+                tools_ = ', '.join(next((i['label'] for i in E_.get('provenance', []) if i['id'] == t_), t_) for t_ in sig.get('tool_checks', []))
+                rows_.append(['Signal', sig['label'], sig['final'], sig['agreement'], sig['summary'], n_['rating'] if n_ else '', (n_['quote'] + ('  [' + n_['locator'] + ']' if n_['locator'] else '')) if n_ else '', '', o_['rating'] if o_ else '', (o_['quote'] + ('  [' + o_['locator'] + ']' if o_['locator'] else '')) if o_ else '', '', s_['rating'] if s_ else '', ver_,
+                              sig.get('vault_value') or '', {True: 'yes', False: 'no', None: ''}[sig.get('matches_vault')], tools_, '', '', ''])
+                shots_.append(((QE.SHOTS / n_['screenshot']) if n_ and n_.get('screenshot') else None, (QE.SHOTS / o_['screenshot']) if o_ and o_.get('screenshot') else None))
+            wq_ = tab(f"QS {ck.split('-')[0]} {meta.get('year', '')}", hdr, rows_, [14, 26, 24, 14, 50, 12, 50, 40, 12, 50, 40, 14, 22, 16, 12, 30, 40, 16, 30], jp_from=18, img=(8, 11))
+            for i_, (a_, b_) in enumerate(shots_, 2): put_image(wq_, d, i_, 8, a_, 300, thumbs); put_image(wq_, d, i_, 11, b_, 300, thumbs)
+            sigs_ = [x for x in E_.get('signals', {}).values() if x['ratings']]; st_ = M.get('stage_log', {}); t0_ = (st_.get('qs') or {}).get('started_utc', '')
+            cost_ = {}; ends_ = []
+            for c_ in calls:
+                if c_.get('citekey') == ck and str(c_.get('step', '')).startswith('qs') and str(c_.get('ts_utc', '')) >= t0_: (cost_.__setitem__(c_.get('model'), cost_.get(c_.get('model'), 0) + float((re.search(r'cost_usd=([0-9.]+)', str(c_.get('notes', ''))) or [0, c_.get('cost_usd_est') or 0])[1])), ends_.append(str(c_.get('ts_utc', ''))))   # billed cost from the call note (batch mode is half the list price in cost_usd_est)
+            prov_ = E_.get('provenance', []); mv_ = [x for x in sigs_ if x.get('matches_vault') is not None]
+            qs_sum.append([meta.get('title', ck)[:60], key, len(sigs_), sum(1 for x in sigs_ if x['agreement'] == 'agree'), sum(1 for x in sigs_ if x['final'] == 'no majority'), sum(1 for x in sigs_ for r_ in x['ratings'] if r_.get('quote_found') is False), f"{sum(1 for x in mv_ if x['matches_vault'])} of {len(mv_)}",
+                           sum(1 for i in prov_ if i['status'] == 'ok'), sum(1 for i in prov_ if i['status'] == 'flag'), sum(1 for i in prov_ if i['status'] == 'unavailable'), round(sum(cost_.values()), 3), '; '.join(f"{k}: ${v:.2f}" for k, v in cost_.items()), ((st_.get('qs') or {}).get('elapsed_s') or (round((__import__('datetime').datetime.fromisoformat(max(ends_)) - __import__('datetime').datetime.fromisoformat(t0_)).total_seconds()) if ends_ and t0_ else '')), (st_.get('qs_code_checks') or {}).get('papers', {}).get(ck, {}).get('elapsed_s', '')])
+        if qs_sum: tab('Quality signals run summary', ['Paper', 'Vault citekey', 'Signals rated by models', 'Both raters agree', 'No majority', 'Quotes not found in PDF', 'Matches live-site tag', 'Code-only checks ok', 'Code-only checks flagged', 'Code-only checks unavailable', 'Rating cost USD', 'Cost by model', 'Rating time (s, batch wait included)', 'Code-only check time (s)'], qs_sum, [50, 38, 12, 12, 10, 12, 14, 12, 12, 12, 10, 46, 14, 14])
     nc_f = d / 'numbers_check.json'
     if nc_f.exists():
         NC = json.load(open(nc_f)); nr = []

@@ -78,6 +78,11 @@ import numbers_on_pages as NP
 check('a statement number written as 1,000 or .58 matches the page text', NP.variants('0.58') >= {'0.58', '.58'} and '1000' in NP.variants('1,000'))
 check('a number that is not on the screenshot goes to JP, a short one is not checked by image', NP.classify('0.78', 0.02, 0.01) == 'not found: JP check' and NP.classify('4', 0.9, 0.9) == 'too short to check by image' and NP.classify('0.56', 0.97, 0.0) == 'seen on screenshot')
 check('the claim, caveat and question wording allows rewording', 'Different wording is fine' in VV.INS_CLM and 'restyled on purpose' in VV.INS_QUE)
+import signal_registry as SRG, qs_export as QXP
+check('every signal the models rate has a tag on the source page and a label', all(sg in SRG.SIGNAL_TAGS for sg in S.SIGNALS) and len(S.SIGNALS) == 27 and SRG.label_for('study-type') == 'Study Type')
+check('the required-tag list comes from the signal registry (power analysis is optional)', 'rigor/statistical-power' not in SRG.REQUIRED and 'top/study-registration' in SRG.REQUIRED)
+check('a run folder name resolves to its vault citekey', SRG.resolve_citekey('Sarol-et-al-2024-Assessing-citation-integrity') == 'sarolAssessingCitationIntegrity2024')
+check('the summary sentence names who agrees and who does not', QXP.summary_sentence('addressed', [{'rater': 'neon', 'rating': 'addressed'}, {'rater': 'opus', 'rating': 'partial'}, {'rater': 'sol', 'rating': 'addressed'}], {}, []) == 'Neon and Sol rate this addressed; Opus rated it partial.' and QXP.summary_sentence('no majority', [{'rater': 'neon', 'rating': 'a'}, {'rater': 'opus', 'rating': 'b'}], {}, []).endswith('needs your judgment.'))
 print('packages')
 for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
     try: print(f'  {pkg} {md.version(pkg)}'); ok += 1

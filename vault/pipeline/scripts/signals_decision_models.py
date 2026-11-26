@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Ask the decision models whether each TRIPOD-LLM / Quality appraisal row is supported by its own quote.
 For every row with a quote: (1) does the quote support the rating given, (2) which rating does the quote itself support, (3) is the quote about this item.
-Writes JSON lines (one per row and model) to --out. Resumable. Costs cents: the text per call is about 300 tokens.
+The models are the ones named in decision_models.py (Perplexity Decider 1.3 and Liquid d1.2-ultra since 2026-11-26). Writes JSON lines (one per row and model) to --out. Resumable. Costs cents: the text per call is about 300 tokens.
 
   python3 signals_decision_models.py --only @citekey [--providers perplexity,liquid] [--limit N] [--out FILE]"""
 import argparse, json, os

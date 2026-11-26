@@ -4,12 +4,8 @@ Read-only. Usage: python3 pipeline/scripts/check_quality_signals.py"""
 import os, re
 from pathlib import Path
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path(__file__).resolve().parents[2])
-REQUIRED = ['appraisal/construct-validity', 'appraisal/internal-validity', 'appraisal/external-validity', 'appraisal/statistical-rigor',
-            'trust/reproducibility', 'rigor/baseline-adequacy', 'rigor/human-baseline', 'rigor/train-dev-test', 'rigor/ablation-experiments',
-            'rigor/prompt-engineering', 'rigor/confidence-intervals', 'rigor/chance-corrected-metrics', 'rigor/multiple-comparisons',
-            'rigor/data-leakage', 'top/study-registration', 'top/study-protocol', 'top/code-transparency', 'top/data-transparency',
-            'top/code-check', 'top/repository-check', 'transparency/effect-size', 'transparency/exact-p-values',
-            'integrity/ethical-approval', 'integrity/funding-disclosure', 'integrity/coi-disclosure', 'integrity/spin']
+import signal_registry
+REQUIRED = signal_registry.REQUIRED   # one list for every script (signal_registry.py); was a hard-coded copy that missed later signals
 def tags(p):
     t = p.read_text(encoding='utf-8'); m = re.match(r'---\n(.*?)\n---', t, re.S)
     if not m: return None

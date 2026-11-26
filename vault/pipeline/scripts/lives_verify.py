@@ -269,3 +269,28 @@ def rerun_with_new_questions(M, mode='standard'):
         revote(b)
     f_.write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     M.m['stage_log'].setdefault('verify_rerun_methods', {}).update(status='done', items=len(idx)); M.save(); return items
+
+
+def rescore_quality(M, mode='standard'):
+    """After the quality-signal ratings are rerun: score the new QUALITY items (rating against its quote) with Sonnet 5.5, Perplexity and Liquid d1.2-ultra, replace the old QUALITY items in verification.json, then read their screenshots with d1.2-ultra (digits)."""
+    f_ = M.dir / 'verification.json'; items = json.loads(f_.read_text(encoding='utf-8')) if f_.exists() else []
+    fresh, _ = build_items(M); new = [a for a in fresh if a['ntype'] == 'QUALITY']
+    sysv = S.prompt('verify-item-v1.md'); reqs = []
+    for i, a in enumerate(new):
+        a['id'] = f'q{i:04d}'; reqs.append(L.Req(a['id'], R['quote_check'], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, 'low', 600, images=[a['crop']] if a.get('crop') else []))
+    res = S.dispatch(M, 'verify_quality', reqs, mode)
+    def run(a):
+        state = f"PASSAGE:\n{a['passage']}\n\nITEM:\n{a['item']}"; out = {}
+        for pv in R['decision_models']:
+            r, e = dm.decide(pv, state, a['dm_q']); ans = [y.get('noul') for y in ((r or {}).get('answers') or {}).values() if isinstance(y, dict) and y.get('noul') is not None]; out[pv] = min(ans) if ans else None
+        return out
+    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, new))
+    kept = [x for x in items if x['ntype'] != 'QUALITY']; added = []
+    for a, d_ in zip(new, dres):
+        j = S.safe_json(res.get(a['id']) or L.Res('', False)) or {}
+        it = {k: a[k] for k in ('paper', 'ntype', 'nid', 'what', 'text', 'crop')}; it['passage'] = short(a.get('passage') or a['item'], 600)
+        it['scores'] = {'sonnet': to_score(j['verdict']) if 'verdict' in j else None, 'perplexity': d_.get('perplexity'), 'liquid': d_.get('liquid')}; it['reasons'] = {'sonnet': j.get('reason', '')}
+        revote(it); added.append(it)
+    f_.write_text(json.dumps(kept + added, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
+    M.m['stage_log'].setdefault('verify_quality', {}).update(status='done', items=len(added)); M.save()
+    add_image_scores(M); return added

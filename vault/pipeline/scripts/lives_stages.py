@@ -467,6 +467,8 @@ SIGNALS = {  # signal id: (what it asks, allowed values)
     'effect-size': ('Are effect sizes reported?', 'addressed | partial | not-addressed'),
     'exact-p-values': ('Are exact p-values reported?', 'addressed | partial | not-addressed'),
     'spin': ('Do the abstract and conclusions claim more than the results support?', 'addressed | partial | not-addressed'),
+    'sample-size-estimation': ('Was the sample size estimated or justified before the study (a stated calculation or rule)?', 'done | not-done'),
+    'study-type': ('Is the study exploratory (no pre-stated hypotheses or analysis plan) or confirmatory (pre-stated hypotheses tested)?', 'exploratory | confirmatory'),
     'registration': ('Was the study preregistered?', 'not-applicable | not-disclosed | disclosed'),
     'protocol': ('Is a study protocol available?', 'not-applicable | not-disclosed | disclosed'),
     'ethical-approval': ('Is ethical approval or exemption stated?', 'disclosed | partial | not-disclosed | not-applicable'),
@@ -480,6 +482,7 @@ SIGNALS = {  # signal id: (what it asks, allowed values)
 def stage_qs(M, mode):
     key = 'qs'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
+    t0 = time.time(); st.setdefault('started_utc', time.strftime('%Y-%m-%dT%H:%M:%S+00:00', time.gmtime()))
     sigs = '\n'.join(f'- `{k}`: {v[0]} Allowed values: {v[1]}.' for k, v in SIGNALS.items()); system = prompt('rate-signals-v2.md').replace('{SIGNALS}', sigs); st['prompt'] = 'pipeline/prompts/rate-signals-v2.md'; reqs = []
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
@@ -536,6 +539,7 @@ def stage_qs(M, mode):
                 crops[qt] = res_['out'] if res_.get('ok') else None
             x['crop'] = crops[qt]
         out[ck] = {'raw': raw, 'aggregate': agg}; (M.dir / ck / 'quality_signals.json').write_text(json.dumps(out[ck], indent=1, ensure_ascii=False), encoding='utf-8')
+    st['elapsed_s'] = round(time.time() - t0)
     st['status'] = 'done'; st['summary'] = {ck: {'signals': len(v['aggregate']), 'disagreed': len(disputes[ck]), 'no_majority': sum(1 for a in v['aggregate'] if a['majority'] == 'no majority')} for ck, v in out.items()}; M.save(); M.event(f"quality signals: {st['summary']}")
 
 
