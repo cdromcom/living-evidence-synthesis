@@ -285,3 +285,27 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - Default sheet text size is 11. Macros for Google Sheets: `pipeline/apps-script/LivesStyle.gs` (not yet run inside Google Sheets).
 - New tab "Low decision-model scores" in the review sheets: the 74 EVDs below 0.60 with what the models saw. All 74 passed or got only notes from the node-detail check.
 - AAA Benchmarking (HAI) moved to `05 AAA Benchmarking`; AAA Benchmarking Results could not be moved with the connector's permissions (move it by hand).
+
+## 2026-11-26 (late): four pilot papers re-extracted with picost-v7
+- Runs: `2026-11-26_batch05` (Sarol, Bougie, Tyser; standard mode; three caps used: $5.77, $5.80, $3.08), `batch06` (Woelfle, failed: finishReason CONTINUATION), `batch07` (Woelfle with `--extract-effort medium`, $1.27 + $2.68). Three-papers-per-batch rule and review gate set aside for today by JP (max_papers 4, `--waive-review`); revert max_papers to 3.
+- PDF page only in the extraction, recheck and adjudication prompts; printed pages from the page map in code. Quote repair and match levels in the spans stage. Quality-signal quotes get a boxed, highlighted screenshot in the raw tab.
+- Results, 3 papers: 0 of 158 spans not found (was 12 of 297); 42 of 158 differ from the PDF in a symbol or punctuation mark; 16 of 60 findings still have a statement number missing from the Numbers list (was 60 of 141). Woelfle: 14 exact, 48 letters_digits, 2 repaired, 1 not found of 65 spans; 3 of 16 findings with a gap.
+
+## 2026-11-26 (night): vision check, anchors, supplement correction
+- `quote_vision_check.py` (Claude Sonnet 5.5, batch): of 41 extraction quotes that differ from the PDF text layer, the model's quote equals the printed page in 36; the text layer equals the print in only 13. (Corrected later the same day: the supposed wrong-number error in Bougie EVD E-F10, quote 3, was a false alarm: the screenshot highlight was hidden under a shaded table row. Highlights are now drawn over the text at 35% opacity.) Policy (JP): spacing, hyphenation and similar small differences are fine; the meaning must not change.
+- Anchors: raters return page plus first and last words; code copies the exact PDF text. Not extended to extraction spans, because the text layer loses meaning-bearing symbols (superscript > in GAR>).
+- `focused_extract.py`: corrects findings from supplementary Word files. Woelfle (batch07) supplement in `sysrev/dgraph/source/pdfs/Woelfle et al. 2024 - Supplementary` (mmc1 to mmc4 are figures, mmc5 holds the methods and Supplementary Tables 1 to 3). 8 findings corrected: 10 numbers and 13 quotes added; 6 EVDs now pass after rework; E-F1, E-F13, E-F15 still need JP review.
+- Sol 6.2 price: OpenAI's page shows $2 in / $10 out standard and $1 / $5 batch (no increase); registry set to those values.
+- Sheet tabs now carry the node type in their titles (EVD, QUE, CLM, CVT).
+
+## 2026-11-26 (late night): verification layer, quote check stage
+- `quote_check` stage (Sonnet 5.5 reads a screenshot of every quote, including questions, claims and caveats; standard mode, about $0.004 per quote): batch05 157 quotes checked, 151 equal the print, 2 flagged for a meaning change; batch07 63 checked, 58 equal.
+- Highlight bug found and fixed: the quote highlight was drawn behind the page text and vanished under shaded table cells (Bougie Table 5), which made a screenshot point at the wrong row.
+- `lives_verify.py` (verify stage): Sonnet 5.5 and the two decision models (Perplexity, Liquid) verify every PICOST slot (one row per slot), quote, QUE reframing, CLM, CVT and quality rating; majority vote and mean per item; JP's columns are open. Sheet tabs: "Verification (all nodes)", "Verification summary", "Verification by node type". 948 items across batch05 and batch07: Sonnet judged 89% correct, Perplexity 75%, Liquid 76%, majority vote 78%. No JP ground truth yet.
+
+## 2026-11-26 (night): d1.2-ultra, screenshots, failure analysis
+- Liquid decision model switched from d1-ultra to d1.2-ultra; the old scores were kept next to the new ones (verification tab columns X-Y, checks tab column T).
+- d1.2-ultra reads screenshots. Digit comparison on quotes works (60 quotes, pairwise AUC 1.0), word comparison does not (5 of 8 correct quotes failed), so only digit comparisons on quotes vote.
+- Corrected denominators: earlier totals for CLM, CVT and QUE mixed in the quote-versus-print rows. Judgment rows only: CLM 9 of 15 not passed, CVT 16 of 28, QUE reframing 18 of 21.
+- Opus 5.5 classified 48 (batch05) and 22 (batch07) sampled failures; PICOST failures were all "value outside the shown passage" in the sample (the verifier saw only the cited pages).
+- Anchors rerun (`test-anchors`, Sarol, quality signals): quotes found are the same as in the non-anchor run (Neon 20, Opus 18, Sol 2) and all now carry the exact PDF text.

@@ -148,6 +148,38 @@ def match_level(doc, quote: str, pages) -> str:
     return 'letters_digits'
 
 
+def clean_text(raw: str) -> str:
+    """The PDF text with its extraction artifacts undone where that is certain: ligatures (NFKC), soft hyphens, a hyphen plus space inside a word broken at a line end ('previ- ous'), and the glyph for one quarter used as an equals sign ('P ¼ .0085')."""
+    s = unicodedata.normalize('NFKC', raw).replace('\u00ad', '')
+    s = re.sub(r'(?<=[a-z])-\s+(?=[a-z])', '', s)
+    s = re.sub(r'\s¼\s', ' = ', s)
+    return re.sub(r'\s+', ' ', s).strip()
+
+
+def text_between(doc, start: str, end: str, hint_page: int = None, max_chars: int = 1200):
+    """JP, 2026-11-26: the exact PDF text from where `start` begins to where `end` ends (both are a few words a model copied from the page). The quote is taken from the PDF itself, so it is the PDF's own words by construction. Looks on the hinted page first, then all pages. Returns {'raw', 'text', 'page'} (raw = the text layer as is, text = clean_text of it) or None."""
+    sn, en = norm(start), norm(end)
+    if len(sn) < 10 or len(en) < 10: return None
+    order = ([hint_page] if hint_page and 1 <= hint_page <= len(doc) else []) + [i for i in range(1, len(doc) + 1) if i != hint_page]
+    for pg in order:
+        words = page_text(doc[pg - 1]).split(); parts = [norm(w) for w in words]; txt = ''.join(parts)
+        i = txt.find(sn)
+        if i < 0: continue
+        owner = [wi for wi, part in enumerate(parts) for _ in part]; j = txt.find(en, i); endlen = len(en); how = 'anchors'
+        if j < 0:   # the end anchor has a wrong word: try its last 5, 4 and 3 words, then fall back to the end of the sentence that holds the start
+            ew = end.split()
+            for k in (5, 4, 3):
+                tail = norm(' '.join(ew[-k:]))
+                if len(tail) >= 10 and txt.find(tail, i) >= 0: j = txt.find(tail, i); endlen = len(tail); how = 'anchors (end repaired)'; break
+        if j < 0:
+            w0 = owner[i]; wi = w0
+            while wi < len(words) - 1 and not (re.search(r'[.?!]$', words[wi]) and wi - w0 >= 3 and (wi + 1 >= len(words) or words[wi + 1][:1].isupper())): wi += 1
+            raw = ' '.join(words[w0:wi + 1]); how = 'anchors (start only: sentence end)'
+        else: raw = ' '.join(words[owner[i]:owner[j + endlen - 1] + 1])
+        if len(raw) <= max_chars: return {'raw': raw, 'text': clean_text(raw), 'page': pg, 'how': how}
+    return None
+
+
 def locate_rects(page, quote: str):
     """Exact word rectangles of a quote on one page: match the quote's normalized text inside the page's normalized word stream
     (robust to hyphenated line breaks and ligatures), then return the boxes of the covered words."""
@@ -169,7 +201,7 @@ HIGHLIGHT = {'QUE': (1.0, 0.86, 0.68),   # light orange
              'CVT': (0.86, 0.86, 0.87)}  # soft gray
 
 
-def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind: str = 'EVD') -> dict:
+def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind: str = 'EVD', box_outline: bool = False, tight_x: bool = False) -> dict:   # box_outline draws a thin blue rectangle around the whole quote (JP, 2026-11-26)
     hit = find_quote(doc, quote)
     if not hit['pages']: return {'ok': False, 'reason': 'quote not found'}
     page = doc[hit['pages'][0] - 1]
@@ -177,10 +209,15 @@ def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind:
     if not rects: return {'ok': False, 'reason': 'found in text but no word coordinates (scanned or odd encoding)'}
     box = fitz.Rect(rects[0])
     for r in rects[1:]: box |= r
-    lines = {}   # one band per text line, drawn behind the text, so the color is exactly the pastel (annotation highlights blend to tan)
+    lines = {}   # one band per text line, drawn over the text at 35% opacity so it shows on shaded table rows too
     for r in rects: lines.setdefault(round(r.y0 / 3), fitz.Rect(r)).include_rect(r)
-    for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), overlay=False)
-    clip = fitz.Rect(page.rect.x0, max(page.rect.y0, box.y0 - pad), page.rect.x1, min(page.rect.y1, box.y1 + pad))
+    for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), fill_opacity=0.35, overlay=True)   # drawn over the page, see-through: a band behind the text vanished under shaded table rows (Bougie Table 5), which made the wrong row look highlighted
+    if box_outline: page.draw_rect(fitz.Rect(box.x0 - 3, box.y0 - 2, box.x1 + 3, box.y1 + 2), color=(0.1, 0.3, 0.75), fill=None, width=1.3, overlay=True)
+    x0, x1 = page.rect.x0, page.rect.x1
+    if tight_x:   # only the width of the quote's own column or table, so the text stays large enough to read in a spreadsheet cell
+        x0 = max(page.rect.x0, box.x0 - 24); x1 = min(page.rect.x1, box.x1 + 24)
+        if x1 - x0 < 260: mid = (x0 + x1) / 2; x0 = max(page.rect.x0, mid - 130); x1 = min(page.rect.x1, mid + 130)
+    clip = fitz.Rect(x0, max(page.rect.y0, box.y0 - pad), x1, min(page.rect.y1, box.y1 + pad))
     page.get_pixmap(dpi=dpi, clip=clip).save(out)
     return {'ok': True, 'pdf_page': hit['pages'][0], 'out': out, 'size_px': Path(out).stat().st_size}
 
@@ -198,7 +235,7 @@ def merge_regions(pdf, regions, out, dpi: int = 200, pad: float = 6, gap_px: int
         if not rs: return {'ok': False, 'reason': f'no rectangles for page {pg}'}
         lines = {}
         for r in rs: lines.setdefault(round(r.y0 / 3), fitz.Rect(r)).include_rect(r)
-        for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), overlay=False)
+        for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), fill_opacity=0.35, overlay=True)   # drawn over the page, see-through: a band behind the text vanished under shaded table rows (Bougie Table 5), which made the wrong row look highlighted
         box = fitz.Rect(rs[0]);
         for r in rs[1:]: box |= r
         allw = [fitz.Rect(w[:4]) for w in page.get_text('words')]   # snap the band to the gap between text lines, so no sliver of the neighbouring line shows at the join

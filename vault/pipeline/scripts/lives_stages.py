@@ -8,7 +8,7 @@
            of Sol and Sonnet that did not write it; EVDs also get a decision-model check.
   qs       quality signals rated blind by Neon (High) and Opus 5.5; GPT-6.2 Sol decides only the signals where they disagree. Everything is saved for the sheets.
 Nothing here writes to the vault. Outputs go to pipeline/runs/<run>/<paper>/ and the review sheet."""
-import concurrent.futures as cf, hashlib, json, os, random, re, sys, time
+import collections, concurrent.futures as cf, hashlib, json, os, random, re, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import call_logger as cl, llm_batch as L, pdf_pages as pp, decision_models as dm, config as C
@@ -45,6 +45,9 @@ def est_tokens(r):
 STANDARD_STAGES = set(C.PIPE['limits'].get('standard_stages', []))   # small stages that run in standard mode even in a batch run (a batch's slowest request would hold the run up)
 
 
+STRAGGLER_MIN_REQUESTS = 8   # the 5-minute straggler rule applies only to stages of 8 or more requests (JP, 2026-11-26: the test lost Neon's ratings when it cancelled 1 of 2)
+
+
 def wait_jobs(M, jobs):
     """Wait for batch jobs. Once all but about 10% of their requests are finished, the rest get STRAGGLER_MIN more minutes; then the jobs are cancelled, what finished is kept and the missing requests go to human review. Returns True if stragglers were cancelled."""
     grace = L.STRAGGLER_MIN * 60; t90 = None
@@ -56,7 +59,7 @@ def wait_jobs(M, jobs):
         prog = [x for x in (L.batch_progress(j) for j in jobs if j['provider'] != 'tinker') if x]
         if prog:
             done = sum(x[0] for x in prog); tot = sum(x[1] for x in prog)
-            if tot and 0 < done < tot and done >= tot - L._tail_count(tot) and t90 is None:   # needs at least one finished, so a lone slow request is not cut off
+            if tot >= STRAGGLER_MIN_REQUESTS and 0 < done < tot and done >= tot - L._tail_count(tot) and t90 is None:   # with fewer requests than this, a slow one is waited for: cancelling it would lose a whole rater   # needs at least one finished, so a lone slow request is not cut off
                  t90 = time.time(); M.event(f'{done} of {tot} requests finished; the rest get {L.STRAGGLER_MIN} more minutes')
         if t90 and time.time() - t90 >= grace:
             M.event(f'stragglers after {L.STRAGGLER_MIN} minutes: cancelling the batch; finished results are kept and the rest go to human review')
@@ -96,7 +99,7 @@ def dispatch(M, key, reqs, mode, cap_frac=1.0):
     res = {k: L.Res(**v) for k, v in json.loads(f.read_text()).items()}; actual = 0.0
     for r in reqs:
         x = res.get(r.id) or L.Res(r.id, False, err='missing'); c = L.cost(r.model, x.tin, x.tout, batch); actual += c
-        cl.record(M.m['run_id'], key, r.model, st.get('prompt', 'pipeline/prompts/draft-nodes-v2.md'), provider=L.provider_of(r.model), citekey=r.id.split('__')[0], effort=r.effort, tokens_in=x.tin, tokens_out=x.tout, output_text=x.text or None, notes=f'mode={mode}; cost_usd={c:.4f}; finish={x.finish}; err={x.err}')
+        cl.record(M.m['run_id'], key, r.model, st.get('prompt', 'pipeline/prompts/draft-nodes-v3.md'), provider=L.provider_of(r.model), citekey=r.id.split('__')[0], effort=r.effort, tokens_in=x.tin, tokens_out=x.tout, output_text=x.text or None, notes=f'mode={mode}; cost_usd={c:.4f}; finish={x.finish}; err={x.err}')
     with M.lock: M.m['spent_usd'] = round(M.m['spent_usd'] + actual, 4); st.update(status='done', actual_usd=round(actual, 4), ended=now()); M.save()
     M.event(f"stage {key}: done, actual ${actual:.3f} (worst case ${worst:.2f}); total spent ${M.m['spent_usd']:.2f} of ${M.m['cap_usd']:.2f}")
     if M.m['spent_usd'] > M.m['cap_usd']: raise Halt('spend passed the cap')
@@ -156,11 +159,12 @@ def writing_rules(node, card_nums):
     if t == 'EVD':
         out['length_ok'] = len(txt) <= 247; nums = {norm_num(x) for x in re.findall(r'-?\d*\.?\d+', txt.replace(',', ''))}; out['numbers_not_on_card'] = sorted(n for n in nums if n not in card_nums)
         out['readability_ok'] = out['fk_grade'] <= 14
+        out['parentheses_ok'] = txt.count('(') <= 1 and txt.count(')') == txt.count('(') and '[' not in txt   # JP, 2026-11-26: at most one set of parentheses in an EVD
     if t == 'QUE': out['question_ok'] = txt.strip().endswith('?')
     if t in ('CLM', 'CVT', 'EVD'): out['has_quote'] = bool((node.get('quote') or '').strip())
     if t == 'EVD' and node.get('tier') == 'primary': out['links_to_question'] = bool(node.get('answers_QUE'))
     out['no_emdash'] = '\u2014' not in ' '.join(str(v) for v in node.values() if isinstance(v, str))   # JP's writing rule: no em dashes in written text
-    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('question_ok', True), out.get('has_quote', True), out.get('links_to_question', True)]); return out
+    out['pass'] = all([out['no_emdash'], out.get('length_ok', True), not out.get('numbers_not_on_card'), out.get('readability_ok', True), out.get('parentheses_ok', True), out.get('question_ok', True), out.get('has_quote', True), out.get('links_to_question', True)]); return out
 
 
 def card_numbers(M, ck):
@@ -222,6 +226,56 @@ def make_crop(M, ck, f):
 QS = {}   # the paper's own questions, by paper, for the relevancy check
 
 
+def stage_quote_check(M, mode):
+    """JP, 2026-11-26: every extracted quote (span) is shown to Claude Sonnet 5.5 as a screenshot with the quote highlighted, together with the model's quote (A) and the PDF text layer's text (B). Sonnet transcribes what is printed and says whether each text equals the print and whether A's differences change the meaning. A quote whose differences change the meaning flags its finding (`quote_differs_from_print`), so Sol re-reads it. Decision models cannot do this check: they are text-only and cannot read the page image. Scope: all spans (config limits.quote_check_scope: 'all' or 'differing')."""
+    st = M.m['stage_log'].setdefault('quote_check', {})
+    if st.get('status') == 'done': return
+    scope = C.PIPE['limits'].get('quote_check_scope', 'all'); sysq = prompt('quote-check-v1.md'); reqs = []; meta = {}; st['prompt'] = 'pipeline/prompts/quote-check-v1.md'
+    for ck, p in M.m['papers'].items():
+        f_ = M.dir / ck / 'picost.json'
+        if p.get('failed') or not f_.exists(): continue
+        ps = json.loads(f_.read_text(encoding='utf-8')); pdf = ex(p['pdf']); out = M.dir / ck / 'quote_crops'; out.mkdir(exist_ok=True)
+        for f in ps.get('findings', []):
+            for k, s in enumerate(f.get('spans', []), 1):
+                if s.get('from_supplement') or s.get('match') not in ('exact', 'letters_digits', 'repaired') or (scope == 'differing' and s.get('match') == 'exact'): continue
+                doc = fitz.open(pdf); w = s['text'].split(); tb = pp.text_between(doc, ' '.join(w[:8]), ' '.join(w[-8:]), s.get('pdf_page')); raw = tb['raw'] if tb else s['text']
+                res = pp.crop_quote(doc, raw, str(out / f"{f['id']}_s{k}.png"), dpi=170, pad=26, tight_x=True); doc.close()
+                if not res.get('ok'): continue
+                rid = f"{ck}__qc__{f['id']}__{k}"; meta[rid] = (ck, f['id'], k)
+                reqs.append(L.Req(rid, R['quote_check'], f"TEXT A (model):\n{s['text']}\n\nTEXT B (PDF text layer):\n{raw}", sysq, None, 'low', 1500, images=[res['out']]))
+        for kind, tag in (('questions', 'Q'), ('claims', 'C'), ('caveats', 'V')):   # the quotes behind questions, claims and caveats are checked the same way
+            for it in ps.get(kind, []):
+                text = it.get('original_wording') if kind == 'questions' else (it.get('span') or {}).get('text', '')
+                if not text or it.get('match') not in ('exact', 'letters_digits', 'repaired'): continue
+                doc = fitz.open(pdf); w = text.split(); tb = pp.text_between(doc, ' '.join(w[:8]), ' '.join(w[-8:]), it.get('pdf_page') or (it.get('span') or {}).get('pdf_page')); raw = tb['raw'] if tb else text
+                res = pp.crop_quote(doc, raw, str(out / f"{it['id']}_{kind[0]}.png"), dpi=170, pad=26, tight_x=True); doc.close()
+                if not res.get('ok'): continue
+                rid = f"{ck}__qc__{kind}__{it['id']}"; meta[rid] = (ck, kind, it['id'])
+                reqs.append(L.Req(rid, R['quote_check'], f"TEXT A (model):\n{text}\n\nTEXT B (PDF text layer):\n{raw}", sysq, None, 'low', 1500, images=[res['out']]))
+    res_ = dispatch(M, 'quote_check', reqs, mode); changed = []; seen = collections.Counter()
+    by = {}
+    for rid, (ck, fid, k) in meta.items():
+        x = res_.get(rid); j = safe_json(x) if x else None
+        if j: by.setdefault(ck, {})[(fid, k)] = j
+    for ck, items in by.items():
+        f_ = M.dir / ck / 'picost.json'; ps = json.loads(f_.read_text(encoding='utf-8')); p = M.m['papers'][ck]; fl = set(p.get('flagged', []))
+        for kind in ('questions', 'claims', 'caveats'):
+            for it in ps.get(kind, []):
+                j = items.get((kind, it['id']))
+                if j: it['vision'] = {'printed': j.get('printed', ''), 'a_equals_print': j.get('a_equals_print'), 'a_differences': j.get('a_differences', []), 'a_changes_meaning': bool(j.get('a_changes_meaning')), 'b_equals_print': j.get('b_equals_print'), 'b_differences': j.get('b_differences', []), 'model': R['quote_check']}
+        for f in ps.get('findings', []):
+            for k, s in enumerate(f.get('spans', []), 1):
+                j = items.get((f['id'], k))
+                if not j: continue
+                s['vision'] = {'printed': j.get('printed', ''), 'a_equals_print': j.get('a_equals_print'), 'a_differences': j.get('a_differences', []), 'a_changes_meaning': bool(j.get('a_changes_meaning')), 'b_equals_print': j.get('b_equals_print'), 'b_differences': j.get('b_differences', []), 'model': R['quote_check']}
+                seen['checked'] += 1; seen['equals print'] += bool(j.get('a_equals_print'))
+                if j.get('a_changes_meaning'):
+                    seen['meaning changed'] += 1; changed.append((ck.split('-')[0], f['id'], k, '; '.join(j.get('a_differences', []))[:160]))
+                    f['flags'] = sorted(set(f.get('flags', [])) | {'quote_differs_from_print'}); fl.add(f['id'])
+        p['flagged'] = sorted(fl); f_.write_text(json.dumps(ps, indent=1, ensure_ascii=False), encoding='utf-8')
+    st['status'] = 'done'; st['summary'] = dict(seen); st['meaning_changed'] = changed; M.save(); M.event(f"quote check: {dict(seen)}; quotes whose differences change the meaning: {changed[:6]}")
+
+
 def stage_checks(M, mode):
     key = 'checks'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
@@ -279,14 +333,15 @@ def nodes_of(j): return {n['id']: n for n in (j or {}).get('nodes', []) if isins
 
 def rework_low_scores(M, data, evd, dm_evd, cn, mode):
     """EVD statements with a decision-model score below DM_LOW go to a separate frontier model (role evd_rework, Opus 5.5: none of the three drafting authors). It lists where each number was found, judges fidelity, and either keeps the statement, rewrites it, or says the extraction needs a person. A rewrite replaces the statement only if it passes the writing-rules check and its decision-model score is at least DM_LOW; otherwise the original stays and the proposal is shown beside it."""
-    low = [(ck, nid, f) for ck, nid, f in evd if (f.get('dm') or {}).get('score', 1) < DM_LOW]
+    corrected = {(ck, x['id']) for ck in {t[0] for t in evd} for x in final_findings(M, ck)[0] if x.get('corrected_from_supplement')}   # findings corrected from supplementary material are always reworked: their numbers changed
+    low = [(ck, nid, f) for ck, nid, f in evd if (f.get('dm') or {}).get('score', 1) < DM_LOW or (ck, f['node'].get('source_id')) in corrected]
     if not low: return
-    sysr = prompt('evd-rework-v1.md'); reqs = []; items = {}
+    sysr = prompt('evd-rework-v2.md'); reqs = []; items = {}
     for ck, nid, f in low:
         fnd = next((x for x in final_findings(M, ck)[0] if x['id'] == f['node'].get('source_id')), {}); crop = make_crop(M, ck, fnd) if fnd else None; items[f'{ck}__rework__{nid}'] = (ck, nid, f)
         body = {'evd_statement': f['node'].get('statement', ''), 'quote': f['node'].get('quote', ''), 'tier': f['node'].get('tier'), 'finding': {k: fnd.get(k) for k in ('id', 'statement', 'P', 'I', 'C', 'O', 'S', 'T', 'numbers', 'spans')}, 'decision_model_scores': {**f['dm']['means'], 'lowest_question': min(f['dm']['means'], key=f['dm']['means'].get) if f['dm']['means'] else ''}}
         reqs.append(L.Req(f'{ck}__rework__{nid}', R['evd_rework'], 'Check and, if needed, rewrite this EVD statement:\n' + json.dumps(body, ensure_ascii=False), sysr, None, 'medium', 4000, images=[crop] if crop else []))
-    M.m['stage_log'].setdefault('draft_rework', {})['prompt'] = 'pipeline/prompts/evd-rework-v1.md'
+    M.m['stage_log'].setdefault('draft_rework', {})['prompt'] = 'pipeline/prompts/evd-rework-v2.md'
     res = dispatch(M, 'draft_rework', reqs, mode)
     for rid, (ck, nid, f) in items.items():
         j = safe_json(res.get(rid) or L.Res('', False)) or {}; verdict = j.get('verdict', 'no answer'); rev = (j.get('revised_statement') or '').strip()
@@ -302,13 +357,13 @@ def rework_low_scores(M, data, evd, dm_evd, cn, mode):
 def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v3.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('node-detail-check-v1.md')
+    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v3.md'); sys1 = prompt('critique-revise-v3.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('node-detail-check-v1.md')
     cards = {ck: card_text(M, ck, 'primary') for ck in papers}; rest = {ck: card_text(M, ck, 'rest') for ck in papers}; full = {ck: card_text(M, ck, 'all') for ck in papers};   # the claim check reads the whole extraction, not just the primary part
     cn = {ck: card_numbers(M, ck) for ck in papers}; cn_all = cn; data = {ck: {'authors': {}} for ck in papers}
     # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
     reqs = [L.Req(f'{ck}__r0-{a}', m, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, e, 9000) for ck in papers for a, m, e in AUTHORS]
     reqs += [L.Req(f'{ck}__single', AUTHORS[0][1], f'Extraction:\n{rest[ck]}\n\nWrite the nodes now. Write nodes only for the findings, questions, claims and caveats given here (the primary findings are drafted elsewhere; link to them by their ids, "E-" plus the source id).', sys0, None, AUTHORS[0][2], 20000) for ck in papers]   # everything except the primary EVDs: one model, one draft (JP, 2026-11-25)
-    st['prompt'] = 'pipeline/prompts/draft-nodes-v2.md'; r0 = dispatch(M, 'draft_r0', reqs, mode)
+    st['prompt'] = 'pipeline/prompts/draft-nodes-v3.md'; r0 = dispatch(M, 'draft_r0', reqs, mode)
     for ck in papers:
         for a, _, _ in AUTHORS:
             j = safe_json(r0.get(f'{ck}__r0-{a}') or L.Res('', False)); nodes = nodes_of(j); data[ck]['authors'][a] = {'r0': nodes, 'r0_writing_rules': {i: writing_rules(n, cn[ck]) for i, n in nodes.items()}}
@@ -423,7 +478,7 @@ SIGNALS = {  # signal id: (what it asks, allowed values)
 def stage_qs(M, mode):
     key = 'qs'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    sigs = '\n'.join(f'- `{k}`: {v[0]} Allowed values: {v[1]}.' for k, v in SIGNALS.items()); system = prompt('rate-signals-v1.md').replace('{SIGNALS}', sigs); st['prompt'] = 'pipeline/prompts/rate-signals-v1.md'; reqs = []
+    sigs = '\n'.join(f'- `{k}`: {v[0]} Allowed values: {v[1]}.' for k, v in SIGNALS.items()); system = prompt('rate-signals-v2.md').replace('{SIGNALS}', sigs); st['prompt'] = 'pipeline/prompts/rate-signals-v2.md'; reqs = []
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
         for r, m, e in RATERS: reqs.append(L.Req(f'{ck}__qs-{r}', m, 'Rate the paper now.', system, ex(p['pdf']), e, 40000 if e == 'high' else 9000))   # High thinking uses most of a small budget and returns nothing (all 25 ratings were lost in the first rerun)
@@ -432,8 +487,19 @@ def stage_qs(M, mode):
         j = safe_json(res_.get(f'{ck}__qs-{rater}') or L.Res('', False)); got = {x.get('signal'): x for x in (j or {}).get('ratings', []) if isinstance(x, dict)}; rows = []
         for sg in SIGNALS:
             if only and sg not in only: continue
-            x = got.get(sg); q = (x or {}).get('quote', ''); found = None if not x or q in ('', 'none') else bool(pp.find_quote(doc, q)['found']); rating = (x or {}).get('rating')
-            rows.append({'paper': ck, 'signal': sg, 'rater': rater, 'counted': True, 'rating': rating if rating in allowed[sg] else ('invalid: ' + str(rating) if x else 'no answer'), 'quote': q, 'locator': (x or {}).get('locator', ''), 'quote_found': found, 'reason': (x or {}).get('reason', '')})
+            x = got.get(sg); qstart = ((x or {}).get('quote_start') or '').strip(); qend = ((x or {}).get('quote_end') or '').strip(); raw_q = ''; src = 'quote'; pg_ = (x or {}).get('page')
+            if qstart:   # anchors (rate-signals-v2): the quote is the PDF's own text between the two anchors
+                if qstart.lower() == 'none': q = 'none'; found = None; src = 'anchors'
+                else:
+                    tb = pp.text_between(doc, qstart, qend or qstart, pg_); src = 'anchors'
+                    if tb: q = tb['text']; raw_q = tb['raw']; found = True; pg_ = tb['page']; src = tb.get('how', 'anchors')
+                    else: q = qstart + ' ... ' + qend; found = False
+            else:
+                q = (x or {}).get('quote', ''); found = None if not x or q in ('', 'none') else bool(pp.find_quote(doc, q)['found']); raw_q = q
+            rating = (x or {}).get('rating'); loc = (x or {}).get('locator', '')
+            pm_ = {e['pdf']: e['printed'] for e in M.m['papers'][ck]['preflight']['page_map']}
+            if pg_ and found: loc = (loc + '; ' if loc else '') + f"PDF p. {pg_}" + (f" (printed p. {pm_.get(pg_)})" if pm_.get(pg_) and str(pm_.get(pg_)) != str(pg_) else '')
+            rows.append({'paper': ck, 'signal': sg, 'rater': rater, 'counted': True, 'rating': rating if rating in allowed[sg] else ('invalid: ' + str(rating) if x else 'no answer'), 'quote': q, 'quote_raw': raw_q, 'quote_source': src, 'pdf_page': pg_ if found else None, 'locator': loc, 'quote_found': found, 'reason': (x or {}).get('reason', '')})
         return rows
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
@@ -441,7 +507,7 @@ def stage_qs(M, mode):
         for r in [x[0] for x in RATERS]: raw += read(ck, p, res, r, doc)
         doc.close(); raws[ck] = raw
         disputes[ck] = [sg for sg in SIGNALS if len({x['rating'] for x in raw if x['signal'] == sg}) > 1 or any(x['rating'] not in allowed[sg] for x in raw if x['signal'] == sg)]   # the two raters differ (or one gave no valid rating)
-    reqs = []; sysa = prompt('adjudicate-signals-v1.md'); st['adjudicator_prompt'] = 'pipeline/prompts/adjudicate-signals-v1.md'
+    reqs = []; sysa = prompt('adjudicate-signals-v2.md'); st['adjudicator_prompt'] = 'pipeline/prompts/adjudicate-signals-v2.md'
     for ck, sgs in disputes.items():
         if not sgs: continue
         sig = '\n'.join(f'- `{k}`: {SIGNALS[k][0]} Allowed values: {SIGNALS[k][1]}.' for k in sgs); rng_ = random.Random(M.m['run_id'] + ck); names = [x[0] for x in RATERS]; rng_.shuffle(names)
@@ -459,6 +525,14 @@ def stage_qs(M, mode):
             for v in votes: cnt[v] = cnt.get(v, 0) + 1
             top = sorted(cnt.items(), key=lambda kv: -kv[1]); maj = top[0][0] if top and (len(top) == 1 or top[0][1] > top[1][1]) and (top[0][1] >= 2) else 'no majority'
             agg.append({'paper': ck, 'signal': sg, 'votes': cnt, 'majority': maj, 'agreement': 'both raters agree' if sg not in disputes[ck] else ('Sol sided with one rater' if maj != 'no majority' else 'three different ratings'), 'adjudicated': sg in disputes[ck], 'quotes_not_found': sum(1 for x in raw if x['signal'] == sg and x['counted'] and x['quote_found'] is False)})
+        crops = {}; qd = M.dir / ck / 'qs_crops'; qd.mkdir(exist_ok=True)   # JP, 2026-11-26: every quote gets a highlighted, boxed screenshot of where it sits in the PDF
+        for x in raw:
+            qt = (x.get('quote_raw') or x.get('quote') or '').strip()   # the PDF's own characters, so the crop finds it
+            if not qt or qt.lower() == 'none' or not x.get('quote_found'): continue
+            if qt not in crops:
+                d2 = fitz.open(ex(M.m['papers'][ck]['pdf'])); res_ = pp.crop_quote(d2, qt, str(qd / f"{x['signal']}__{x['rater']}.png"), dpi=150, pad=30, kind='EVD', tight_x=True)   # no outline box (JP, 2026-11-26): the highlight alone marks the quote and nothing else on the page is touched; d2.close()
+                crops[qt] = res_['out'] if res_.get('ok') else None
+            x['crop'] = crops[qt]
         out[ck] = {'raw': raw, 'aggregate': agg}; (M.dir / ck / 'quality_signals.json').write_text(json.dumps(out[ck], indent=1, ensure_ascii=False), encoding='utf-8')
     st['status'] = 'done'; st['summary'] = {ck: {'signals': len(v['aggregate']), 'disagreed': len(disputes[ck]), 'no_majority': sum(1 for a in v['aggregate'] if a['majority'] == 'no majority')} for ck, v in out.items()}; M.save(); M.event(f"quality signals: {st['summary']}")
 

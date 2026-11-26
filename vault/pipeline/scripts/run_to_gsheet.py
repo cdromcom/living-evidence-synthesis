@@ -18,8 +18,8 @@ def put_image(ws, d, row, col, path, width, thumbs):
     """Place a (downsized) PNG in a cell of the sheet and grow the row to fit it. Google Sheets keeps these as pictures sitting in the cell."""
     if not path or not Path(path).exists(): return 0
     thumbs.mkdir(exist_ok=True); out = thumbs / (Path(path).parent.parent.name[:12] + '_' + Path(path).stem + '.jpg')   # JPEG keeps the workbook under the 10 MB upload limit
-    im = PILImage.open(path).convert('RGB'); width = min(width, int(520 * im.width / im.height))   # never taller than the tallest row Sheets allows (about 400 pt), or it spills into the next row
-    im = im.resize((width, max(1, int(im.height * width / im.width))), PILImage.LANCZOS); im.save(out, quality=72, optimize=True)
+    im = PILImage.open(path).convert('RGB'); width = min(int(width * 0.8), int(520 * im.width / im.height))   # 80% of the nominal width: the Drive connector refuses uploads over about 7 MB   # never taller than the tallest row Sheets allows (about 400 pt), or it spills into the next row
+    im = im.resize((width, max(1, int(im.height * width / im.width))), PILImage.LANCZOS); im.save(out, quality=62, optimize=True)
     x = XlImage(str(out)); x.anchor = f'{get_column_letter(col)}{row}'; ws.add_image(x)
     ws.column_dimensions[get_column_letter(col)].width = width / 7 + 1
     h = im.height * 0.75 + 4
@@ -35,6 +35,9 @@ def first(globs):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--out'); a = ap.parse_args(); d = cl.RUNS / a.run; M = json.load(open(d / 'manifest.json')); wb = Workbook(); wb.remove(wb.active); thumbs = d / '_thumbs'
+    def lowq(d):
+        a = [x for k, x in (d or {}).items() if not str(k).startswith('_') and isinstance(x, (int, float))]
+        return round(min(a), 3) if a else ''
     def tab(title, header, rows, widths, jp_from=None, img=()):
         ws = wb.create_sheet(title); ws.append(header)
         for r in rows: ws.append(r)
@@ -67,23 +70,23 @@ def main():
             if f['id'] in rc: rrow.append([ck, f['id'], '; '.join(str(n.get('value')) for n in f.get('numbers', [])), '; '.join(str(n.get('value')) for n in rc[f['id']].get('numbers', [])), ('different' if f['id'] in p.get('disagreements', []) else 'agrees'), (adj.get(f['id']) or {}).get('verdict', ''), (adj.get(f['id']) or {}).get('reason', ''), '', ''])
     frow = [r[:19] + ['', ''] + r[19:] for r in frow]; crow = [r[:8] + [''] + r[8:] for r in crow]
     tab('Papers', ['Paper', 'File', 'Pages', 'Status', 'Findings primary / secondary / tertiary', 'Flagged', 'Disagreements', 'Cost USD'], prow, [40, 50, 7, 12, 22, 9, 12, 10])
-    ws = tab('Findings', ['Paper', 'Id', 'Tier', 'Why this tier', 'Supports', 'Statement (Neon)', 'Population', 'Intervention', 'Comparator', 'Outcome', 'Study design', 'Timeframe', 'Numbers with locators', 'Confidence', 'Flags', 'Sent to recheck', 'Sol vs Neon', 'Opus verdict', 'Merged screenshot', 'Evidence crop (image)', 'Highlighted page (image)', 'Answers question(s)',
+    ws = tab('Findings (EVD candidates)', ['Paper', 'Id', 'Tier', 'Why this tier', 'Supports', 'Statement (Neon)', 'Population', 'Intervention', 'Comparator', 'Outcome', 'Study design', 'Timeframe', 'Numbers with locators', 'Confidence', 'Flags', 'Sent to recheck', 'Sol vs Neon', 'Opus verdict', 'Merged screenshot', 'Evidence crop (image)', 'Highlighted page (image)', 'Answers question(s)',
                       'JP: tier right? (yes/no)', 'JP: correct tier', 'JP: statement and numbers right? (yes/no)', 'JP: missed finding (describe)', 'JP: notes'], frow, [30, 6, 10, 30, 10, 60, 22, 22, 22, 22, 18, 14, 50, 10, 24, 9, 10, 10, 22, 60, 50, 14, 12, 12, 14, 30, 30], jp_from=23, img=(20, 21))
     for i, (ck_, f_) in enumerate(fkeys, 2):
         pd = d / ck_; hl = sorted((pd / 'highlights').glob(f"{f_['id']}_s*_p*.png")); mg = (pd / 'highlights' / f_['merged_screenshot']) if f_.get('merged_screenshot') else None
         put_image(ws, d, i, 20, pd / 'crops' / f"{f_['id']}.png", 420, thumbs); put_image(ws, d, i, 21, mg if (mg and mg.exists()) else (hl[0] if hl else None), 340, thumbs)
     dv = DataValidation(type='list', formula1='"yes,no,unsure"', allow_blank=True); ws.add_data_validation(dv); dv.add(f'W2:W{ws.max_row + 1}'); dv.add(f'Y2:Y{ws.max_row + 1}')
     dv2 = DataValidation(type='list', formula1='"primary,secondary,tertiary,not an EVD"', allow_blank=True); ws.add_data_validation(dv2); dv2.add(f'X2:X{ws.max_row + 1}'); ws.auto_filter.ref = ws.dimensions
-    wsc = tab('Checks', ['Paper', 'Finding', 'Span', 'Quoted span (verbatim)', 'Page cited', 'Found in PDF text', 'Pages where found', 'Word boxes', 'Highlighted page (image)', 'JP: quote correct? (yes/no)', 'JP: notes'], crow, [30, 8, 6, 60, 9, 10, 14, 9, 40, 14, 30], jp_from=10, img=(9,))
+    wsc = tab('Quote checks (EVD spans)', ['Paper', 'Finding', 'Span', 'Quoted span (verbatim)', 'Page cited', 'Found in PDF text', 'Pages where found', 'Word boxes', 'Highlighted page (image)', 'JP: quote correct? (yes/no)', 'JP: notes'], crow, [30, 8, 6, 60, 9, 10, 14, 9, 40, 14, 30], jp_from=10, img=(9,))
     for i, (ck_, fid_, k_) in enumerate(ckeys, 2):
         h_ = sorted((d / ck_ / 'highlights').glob(f'{fid_}_s{k_}_p*.png')); put_image(wsc, d, i, 9, h_[0] if h_ else None, 300, thumbs)
-    tab('Rechecks', ['Paper', 'Finding', 'Neon numbers', 'Sol numbers', 'Compare', 'Opus verdict (A = Neon, B = Sol)', 'Opus reason', 'JP: who is right? (Neon, Sol, neither)', 'JP: notes'], rrow, [30, 8, 40, 40, 10, 14, 60, 16, 30], jp_from=8)
-    ck_rows = []; ck_crops = []; dr_rows = []; qr_rows = []; qa_rows = []
+    tab('Rechecks (EVD findings)', ['Paper', 'Finding', 'Neon numbers', 'Sol numbers', 'Compare', 'Opus verdict (A = Neon, B = Sol)', 'Opus reason', 'JP: who is right? (Neon, Sol, neither)', 'JP: notes'], rrow, [30, 8, 40, 40, 10, 14, 60, 16, 30], jp_from=8)
+    ck_rows = []; ck_crops = []; dr_rows = []; qr_rows = []; qa_rows = []; qr_crops = []
     for ck, p in M['papers'].items():
         if (d / ck / 'checks.json').exists():
             for v in json.load(open(d / ck / 'checks.json')):
                 m = v['summary']['means']; ck_crops.append(v.get('crop')); ck_rows.append([ck, v['id'], v.get('tier', ''), v.get('statement', '')[:300], m.get('relevancy', ''), m.get('fidelity', ''), (m.get('numbers_in_source', m.get('quote_grounding', ''))), (m.get('table_cell_matches', m.get('table_figure_grounding', ''))), v['summary']['score'], v['summary']['spread'], '; '.join(v.get('why_vision', [])),
-                                                         (v.get('sol') or {}).get('overall', ''), (v.get('sol') or {}).get('reason', ''), (v.get('opus') or {}).get('overall', ''), (v.get('opus') or {}).get('reason', ''), v.get('final', ''), '', '', ''])
+                                                         (v.get('sol') or {}).get('overall', ''), (v.get('sol') or {}).get('reason', ''), (v.get('opus') or {}).get('overall', ''), (v.get('opus') or {}).get('reason', ''), v.get('final', ''), '', '', '', lowq(v.get('dm_liquid_d1_ultra')), lowq(v.get('dm_liquid_d12')), lowq((v.get('dm') or {}).get('perplexity'))])
         if (d / ck / 'drafts.json').exists():
             dd = json.load(open(d / ck / 'drafts.json'))
             def txt_of(x): return x.get('statement') or x.get('title') or x.get('limitation') or ''
@@ -93,12 +96,13 @@ def main():
                 dr_rows.append([ck, nid, n.get('type', ''), n.get('tier', ''), f['author'], f['how'], txt_of(n), lt.get('chars', ''), lt.get('fk_grade', ''), 'yes' if lt.get('pass') else 'no', ', '.join(lt.get('numbers_not_on_card', [])), cc.get('overall', ''), cc.get('fix', ''), cc.get('checker', ''), (f.get('dm') or {}).get('score', ''), f.get('status', ''), alts[0], alts[1], alts[2], '', '', '', ''])
         if (d / ck / 'quality_signals.json').exists():
             q = json.load(open(d / ck / 'quality_signals.json'))
-            for x in q['raw']: qr_rows.append([ck, x['signal'], x['rater'], 'yes' if x['counted'] else 'benchmark only', x['rating'], x['quote'][:400], x['locator'], '' if x['quote_found'] is None else ('yes' if x['quote_found'] else 'NO')])
+            for x in q['raw']: qr_rows.append([ck, x['signal'], x['rater'], 'yes' if x['counted'] else 'benchmark only', x['rating'], x['quote'][:400], x['locator'], '' if x['quote_found'] is None else (('yes, taken from the PDF' + (' (' + x['quote_source'].split('(')[1] if '(' in x.get('quote_source', '') else '') if str(x.get('quote_source', '')).startswith('anchors') else 'yes') if x['quote_found'] else 'NO: anchors not found' if str(x.get('quote_source', '')).startswith('anchors') else 'NO'), ''])
+            qr_crops += [x.get('crop') for x in q['raw']]
             for x in q['aggregate']: qa_rows.append([ck, x['signal'], ', '.join(f'{k}: {v}' for k, v in x['votes'].items()), x['majority'], x['agreement'], x['quotes_not_found'], '', ''])
     if ck_rows:
-        ws2 = tab('Checks (decision models)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30], jp_from=18, img=(17,))
+        ws2 = tab('Decision-model checks (EVD)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes', 'Liquid d1-ultra OLD: lowest question score', 'Liquid d1.2-ultra: lowest question score', 'Perplexity Decider 1.3: lowest question score'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30, 14, 14, 14], jp_from=18, img=(17,))
         for i, cp in enumerate(ck_crops, 2): put_image(ws2, d, i, 17, cp, 440, thumbs)
-    if dr_rows: tab('Drafts and debate', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
+    if dr_rows: tab('Drafts (EVD, QUE, CLM, CVT)', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
     # ---- EVDs whose decision-model score is below the threshold: what the models saw and what they scored, for JP to suggest changes
     import re as _re
     lowrows = []
@@ -112,7 +116,7 @@ def main():
             missing = sorted({t for t in _re.findall(r'\d+(?:\.\d+)?', st_) if len(t.replace('.', '')) >= 2 and t not in spans})
             m = dmv['means']; low_q = min(m, key=m.get) if m else ''
             lowrows.append([ck, nid, n.get('tier', ''), st_, m.get('fidelity', ''), (m.get('numbers_in_source', m.get('quote_grounding', ''))), dmv['score'], low_q, (f.get('detail_check') or f.get('claim_check') or {}).get('overall', 'not checked'), ', '.join(missing), len(spans), spans, nums(fnd), '', ''])
-    if lowrows: tab('Low decision-model scores', ['Paper', 'Node', 'Tier', 'Drafted EVD statement', 'Fidelity', 'Numbers found in source', 'Score (lowest)', 'Lowest question', 'Node-detail check', 'Numbers in the statement that are not in the source span', 'Source span length (characters)', 'Source span(s) the models saw', 'Numbers with locators the models saw', 'JP: suggested change', 'JP: notes'], lowrows, [30, 8, 10, 70, 9, 9, 9, 14, 12, 24, 10, 70, 50, 30, 30], jp_from=14)
+    if lowrows: tab('Low decision-model scores (EVD)', ['Paper', 'Node', 'Tier', 'Drafted EVD statement', 'Fidelity', 'Numbers found in source', 'Score (lowest)', 'Lowest question', 'Node-detail check', 'Numbers in the statement that are not in the source span', 'Source span length (characters)', 'Source span(s) the models saw', 'Numbers with locators the models saw', 'JP: suggested change', 'JP: notes'], lowrows, [30, 8, 10, 70, 9, 9, 9, 14, 12, 24, 10, 70, 50, 30, 30], jp_from=14)
     # ---- EVDs reworked by the separate frontier model (evd_rework role) after a low decision-model score
     rwrows = []
     for ck, p in M['papers'].items():
@@ -136,19 +140,56 @@ def main():
             if w.get('length_ok') is False: why.append(f"longer than 247 characters ({w.get('chars')})")
             if w.get('readability_ok') is False: why.append(f"reading grade {w.get('fk_grade')} (limit 14)")
             if w.get('numbers_not_on_card'): why.append('numbers not on the card: ' + ', '.join(w['numbers_not_on_card']))
+            if w.get('parentheses_ok') is False: why.append('more than one set of parentheses (or brackets)')
             if w.get('no_emdash') is False: why.append('contains an em dash')
             if w.get('question_ok') is False: why.append('question does not end with a question mark')
             if w.get('has_quote') is False: why.append('no quote')
             if w.get('links_to_question') is False: why.append('primary EVD links to no question')
             wrrows.append([ck, nid, n.get('type', ''), n.get('tier', ''), n.get('statement') or n.get('title') or n.get('limitation') or '', '; '.join(why), w.get('chars', ''), w.get('fk_grade', ''), ', '.join(w.get('numbers_not_on_card', [])), '', ''])
-    if wrrows: tab('Writing-rules failures', ['Paper', 'Node', 'Type', 'Tier', 'Text as drafted', 'Which rule failed', 'Characters', 'Reading grade', 'Numbers not on the card', 'JP: suggested change', 'JP: notes'], wrrows, [30, 8, 6, 10, 80, 40, 10, 10, 20, 30, 30], jp_from=10)
-    if qr_rows: tab('Quality signals (raw)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10])
-    if qa_rows: tab('Quality signals (vote)', ['Paper', 'Signal', 'Votes', 'Majority', 'Agreement', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 40, 16, 10, 10, 16, 30], jp_from=7)
+    if wrrows: tab('Writing-rules fails (all nodes)', ['Paper', 'Node', 'Type', 'Tier', 'Text as drafted', 'Which rule failed', 'Characters', 'Reading grade', 'Numbers not on the card', 'JP: suggested change', 'JP: notes'], wrrows, [30, 8, 6, 10, 80, 40, 10, 10, 20, 30, 30], jp_from=10)
+    # ---- verification of every extracted item by Sonnet 5.5 and the two decision models, with majority vote, mean and JP's open columns
+    vf = d / 'verification.json'
+    if vf.exists():
+        import lives_verify as VV
+        V = VV.queue_order(json.load(open(vf))); hdr = ['Paper', 'Node type', 'Node id', 'What was checked', 'Item (as extracted)', 'Screenshot (image)', 'Sonnet 5.5 score', 'Sonnet 5.5 reason', 'Perplexity Decider 1.3 (probability)', 'Liquid d1.2-ultra, text (probability)', 'Majority vote', 'Mean score', 'Models agreeing with the majority',
+               'Sonnet pass (1 or 0)', 'Perplexity pass (1 or 0)', 'Liquid d1.2-ultra text pass (1 or 0)', 'Majority pass (1 or 0)', 'Mean pass (1 or 0)', 'JP: is the extraction correct? (yes/no/unsure)', 'JP: notes', 'Truth used for scoring (formula)',
+               'Liquid d1.2-ultra reading the screenshot (probability)', 'Liquid screenshot score counts as a vote? (digit comparisons on quotes only)', 'Liquid d1-ultra OLD, text (probability)', 'Liquid d1-ultra OLD pass (1 or 0)', 'Liquid d1.2-ultra screenshot pass (1 or 0)', 'Passage or quote it was checked against', 'Labeling queue (tonight)', 'Share of item words not found in the passage (CLM, CVT, QUE; 0 = every word is in the passage)']
+        rows_ = []; crops_ = []
+        for x in V:
+            sc = x['scores']; so = sc.get('sonnet'); pe = sc.get('perplexity'); li = sc.get('liquid'); old = x.get('liquid_d1_ultra'); im = sc.get('liquid_image'); imu = x.get('liquid_image_untested'); imv = im if im is not None else imu
+            rows_.append([x['paper'], x['ntype'] + (' quote' if x['nid'].endswith(' quote') else ''), x['nid'], x['what'], x['text'], '', so if so is not None else '', x['reasons'].get('sonnet', ''), pe if pe is not None else '', li if li is not None else '', x['majority'], x['mean'] if x['mean'] is not None else '', x['agree'],
+                          ('' if so is None or so == 0.5 else int(so >= 0.75)), ('' if pe is None else int(pe >= 0.5)), ('' if li is None else int(li >= 0.5)), {'pass': 1, 'fail': 0}.get(x['majority'], ''), ('' if x['mean'] is None else int(x['mean'] >= 0.5)), '', '', '',
+                          imv if imv is not None else '', ('yes' if im is not None else ('no, untested' if imu is not None else '')), old if old is not None else '', ('' if old is None else int(old >= 0.5)), ('' if imv is None else int(imv >= 0.5)), x.get('passage', ''), x.get('queue', ''), x.get('novel_share', '')])
+            crops_.append(x.get('crop') if not (x['ntype'] == 'PICOST' and not x['nid'].endswith('Population')) else None)   # the six slot rows of a finding share one screenshot: shown on the first row only
+        for i, r_ in enumerate(rows_, 2): r_[20] = f'=IF(S{i}="yes",1,IF(S{i}="no",0,""))'
+        wv = tab('Verification (all nodes)', hdr, rows_, [30, 10, 16, 30, 60, 50, 10, 40, 12, 12, 10, 9, 10, 9, 9, 9, 9, 9, 16, 30, 12, 16, 16, 14, 12, 12, 60, 22, 18], jp_from=19, img=(6,))
+        for i, cp in enumerate(crops_, 2): put_image(wv, d, i, 6, cp, 360, thumbs)
+        n = len(rows_) + 1; sn = "'Verification (all nodes)'!"
+        def rng(c): return f"{sn}{c}2:{c}{n}"
+        summ = []
+        for label, pc, sc_c in (('Sonnet 5.5 (foundation model)', 'N', 'G'), ('Perplexity Decider 1.3 (decision model)', 'O', 'I'), ('Liquid d1.2-ultra, text (decision model)', 'P', 'J'), ('Liquid d1-ultra OLD, text (decision model, replaced)', 'Y', 'X'), ('Liquid d1.2-ultra, reading screenshots (digit and other screenshot checks)', 'Z', 'V'), ('Majority vote of the voting models', 'Q', None), ('Mean score of the voting models (pass at 0.5 or more)', 'R', 'L')):
+            P, T = rng(pc), rng('U')
+            summ.append([label, f'=COUNT({P})', f'=IFERROR(AVERAGE({P}),"")', (f'=IFERROR(AVERAGE({rng(sc_c)}),"")' if sc_c else ''), f'=IFERROR(SUMPRODUCT(--({P}={rng("Q")}),--ISNUMBER({P}),--ISNUMBER({rng("Q")}))/SUMPRODUCT(--ISNUMBER({P}),--ISNUMBER({rng("Q")})),"")',
+                         f'=COUNT({T})', f'=IFERROR(SUMPRODUCT(--ISNUMBER({T}),--ISNUMBER({P}),--({P}={T}))/SUMPRODUCT(--ISNUMBER({T}),--ISNUMBER({P})),"")', f'=IFERROR(COUNTIFS({P},1,{T},1)/COUNTIFS({P},1,{T},">=0"),"")', f'=IFERROR(COUNTIFS({P},1,{T},1)/COUNTIFS({T},1,{P},">=0"),"")', f'=IFERROR(COUNTIFS({P},0,{T},0)/COUNTIFS({T},0,{P},">=0"),"")'])
+        tab('Verification summary', ['Verifier', 'Items scored (not abstained)', 'Share judged correct', 'Mean score', 'Agreement with the majority vote', 'Items with JP ground truth', 'Accuracy vs JP', 'Precision vs JP (of items it passed, how many JP calls correct)', 'Recall vs JP (of items JP calls correct, how many it passed)', 'Specificity vs JP (of items JP calls wrong, how many it failed)'], summ, [52, 14, 12, 10, 16, 14, 12, 22, 22, 22])
+        types = sorted({x['ntype'] + (' quote' if x['nid'].endswith(' quote') else '') for x in V}); tt = []
+        for t_ in types: tt.append([t_, f'=COUNTIF({rng("B")},"{t_}")', f'=IFERROR(COUNTIFS({rng("B")},"{t_}",{rng("Q")},1)/COUNTIFS({rng("B")},"{t_}",{rng("Q")},">=0"),"")', f'=COUNTIFS({rng("B")},"{t_}",{rng("K")},"split")', f'=COUNTIFS({rng("B")},"{t_}",{rng("U")},">=0")'])
+        tab('Verification by node type', ['Node type', 'Items', 'Share the majority judged correct', 'Split votes', 'Items with JP ground truth'], tt, [20, 10, 18, 12, 18])
+    fa_f = d / 'failure_analysis.json'
+    if fa_f.exists():
+        FA = json.load(open(fa_f)); fr = [[x['paper'], x['ntype'], x['nid'], f"'Verification (all nodes)' row {x['row']} (cells A{x['row']}:AB{x['row']})", x['item'], x['passage'], x['sonnet_reason'], x['who_is_right'], x['failure_type'], x['reason'], x['fix'], '', ''] for x in sorted(FA, key=lambda x: (x['ntype'], x['row']))]
+        tab('Failure analysis (sampled)', ['Paper', 'Node type', 'Node id', 'Where the item is', 'Item (as extracted)', 'Passage it was checked against', 'Sonnet 5.5 reason', 'Opus 5.5: who is right', 'Opus 5.5: failure type', 'Opus 5.5: reason', 'Opus 5.5: cheapest fix', 'JP: is Opus right? (yes/no)', 'JP: notes'], fr, [30, 10, 14, 34, 60, 60, 40, 16, 22, 50, 40, 16, 30], jp_from=12)
+        ft = sorted({x['failure_type'] for x in FA if x['failure_type']}); nt = sorted({x['ntype'] for x in FA}); nF = len(fr) + 1; fs = "'Failure analysis (sampled)'!"
+        tab('Failure types (sampled)', ['Node type'] + ft + ['Sampled items'], [[t_] + [f'=COUNTIFS({fs}B2:B{nF},"{t_}",{fs}I2:I{nF},"{f_}")' for f_ in ft] + [f'=COUNTIF({fs}B2:B{nF},"{t_}")'] for t_ in nt], [14] + [18] * (len(ft) + 1))
+    if qr_rows:
+        wq = tab('Quality signals (raw ratings)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF', 'Quote highlighted and boxed in the PDF (image)'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10, 60], img=(9,))
+        for i, cp in enumerate(qr_crops, 2): put_image(wq, d, i, 9, cp, 420, thumbs)
+    if qa_rows: tab('Quality signals (votes)', ['Paper', 'Signal', 'Votes', 'Majority', 'Agreement', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 40, 16, 10, 10, 16, 30], jp_from=7)
     qg = d / 'question_groups.tsv'
     if qg.exists():   # from consolidate_questions.py: unified, nested questions proposed for JP to verify
         import csv
         rows_ = list(csv.reader(open(qg, encoding='utf-8'), delimiter='\t'))
-        if len(rows_) > 1: tab('Question groups', rows_[0], rows_[1:], [8, 10, 10, 60, 34, 8, 60, 14, 60, 14, 30], jp_from=10)
+        if len(rows_) > 1: tab('Question groups (QUE)', rows_[0], rows_[1:], [8, 10, 10, 60, 34, 8, 60, 14, 60, 14, 30], jp_from=10)
     # ---- Metrics: time, cost and accuracy according to the automatic checkers (JP's labels are added later in the yellow columns)
     import datetime as dt, collections
     def iso(x): return dt.datetime.fromisoformat(x.replace('Z', '+00:00')) if x else None

@@ -64,7 +64,7 @@
       "price_out": 10,
       "batch_discount": 0.5,
       "pdf_input": true,
-      "price_source": "third-party pages; unverified",
+      "price_source": "OpenAI pricing page https://developers.openai.com/api/docs/pricing, read 2026-11-26: gpt-6.2-sol standard $2.00 in / $10.00 out, batch $1.00 in / $5.00 out per million tokens (short context, up to 272K); the page shows no increase, so the 25% rise JP mentioned earlier today is not visible there",
       "verified": null
     },
     "thinkingmachines/Inkling-2-Small": {
@@ -139,6 +139,20 @@
       "pdf_input": false,
       "price_source": "list price 2026-11-23",
       "verified": null
+    },
+    "d1.2-ultra": {
+      "display": "Liquid d1.2-ultra",
+      "provider": "decision",
+      "developer": "Liquid AI",
+      "country": "US",
+      "weights": "closed",
+      "runs": "api",
+      "price_in": 0.042,
+      "price_out": 0,
+      "batch_discount": 1.0,
+      "pdf_input": false,
+      "price_source": "Liquid blog d1.2, 2026-11-16 ($0.042 per million input tokens)",
+      "verified": null
     }
   },
   "roles": {
@@ -199,7 +213,8 @@
       "model": "gpt-6.2-sol",
       "effort": "medium"
     },
-    "evd_rework": "claude-opus-5-5"
+    "evd_rework": "claude-opus-5-5",
+    "quote_check": "claude-sonnet-5-5"
   },
   "embedding_models": {
     "_about": "Local open-weight models for screening (scripts/screen_all.py reads its list from here in a later step; the paths are folders under ~/.cache/lives-bench/models).",
