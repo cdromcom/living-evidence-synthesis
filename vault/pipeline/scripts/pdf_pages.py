@@ -169,7 +169,7 @@ HIGHLIGHT = {'QUE': (1.0, 0.86, 0.68),   # light orange
              'CVT': (0.86, 0.86, 0.87)}  # soft gray
 
 
-def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind: str = 'EVD') -> dict:
+def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind: str = 'EVD', box_outline: bool = False, tight_x: bool = False) -> dict:   # box_outline draws a thin blue rectangle around the whole quote (JP, 2026-11-26)
     hit = find_quote(doc, quote)
     if not hit['pages']: return {'ok': False, 'reason': 'quote not found'}
     page = doc[hit['pages'][0] - 1]
@@ -180,7 +180,12 @@ def crop_quote(doc, quote: str, out: str, dpi: int = 250, pad: float = 14, kind:
     lines = {}   # one band per text line, drawn behind the text, so the color is exactly the pastel (annotation highlights blend to tan)
     for r in rects: lines.setdefault(round(r.y0 / 3), fitz.Rect(r)).include_rect(r)
     for r in lines.values(): page.draw_rect(fitz.Rect(r.x0 - 1, r.y0 - 0.5, r.x1 + 1, r.y1 + 0.5), color=None, fill=HIGHLIGHT.get(kind, HIGHLIGHT['EVD']), overlay=False)
-    clip = fitz.Rect(page.rect.x0, max(page.rect.y0, box.y0 - pad), page.rect.x1, min(page.rect.y1, box.y1 + pad))
+    if box_outline: page.draw_rect(fitz.Rect(box.x0 - 3, box.y0 - 2, box.x1 + 3, box.y1 + 2), color=(0.1, 0.3, 0.75), fill=None, width=1.3, overlay=True)
+    x0, x1 = page.rect.x0, page.rect.x1
+    if tight_x:   # only the width of the quote's own column or table, so the text stays large enough to read in a spreadsheet cell
+        x0 = max(page.rect.x0, box.x0 - 24); x1 = min(page.rect.x1, box.x1 + 24)
+        if x1 - x0 < 260: mid = (x0 + x1) / 2; x0 = max(page.rect.x0, mid - 130); x1 = min(page.rect.x1, mid + 130)
+    clip = fitz.Rect(x0, max(page.rect.y0, box.y0 - pad), x1, min(page.rect.y1, box.y1 + pad))
     page.get_pixmap(dpi=dpi, clip=clip).save(out)
     return {'ok': True, 'pdf_page': hit['pages'][0], 'out': out, 'size_px': Path(out).stat().st_size}
 

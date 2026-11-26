@@ -459,6 +459,14 @@ def stage_qs(M, mode):
             for v in votes: cnt[v] = cnt.get(v, 0) + 1
             top = sorted(cnt.items(), key=lambda kv: -kv[1]); maj = top[0][0] if top and (len(top) == 1 or top[0][1] > top[1][1]) and (top[0][1] >= 2) else 'no majority'
             agg.append({'paper': ck, 'signal': sg, 'votes': cnt, 'majority': maj, 'agreement': 'both raters agree' if sg not in disputes[ck] else ('Sol sided with one rater' if maj != 'no majority' else 'three different ratings'), 'adjudicated': sg in disputes[ck], 'quotes_not_found': sum(1 for x in raw if x['signal'] == sg and x['counted'] and x['quote_found'] is False)})
+        crops = {}; qd = M.dir / ck / 'qs_crops'; qd.mkdir(exist_ok=True)   # JP, 2026-11-26: every quote gets a highlighted, boxed screenshot of where it sits in the PDF
+        for x in raw:
+            qt = (x.get('quote') or '').strip()
+            if not qt or qt.lower() == 'none' or not x.get('quote_found'): continue
+            if qt not in crops:
+                d2 = fitz.open(ex(M.m['papers'][ck]['pdf'])); res_ = pp.crop_quote(d2, qt, str(qd / f"{x['signal']}__{x['rater']}.png"), dpi=150, pad=30, kind='EVD', box_outline=True, tight_x=True); d2.close()
+                crops[qt] = res_['out'] if res_.get('ok') else None
+            x['crop'] = crops[qt]
         out[ck] = {'raw': raw, 'aggregate': agg}; (M.dir / ck / 'quality_signals.json').write_text(json.dumps(out[ck], indent=1, ensure_ascii=False), encoding='utf-8')
     st['status'] = 'done'; st['summary'] = {ck: {'signals': len(v['aggregate']), 'disagreed': len(disputes[ck]), 'no_majority': sum(1 for a in v['aggregate'] if a['majority'] == 'no majority')} for ck, v in out.items()}; M.save(); M.event(f"quality signals: {st['summary']}")
 

@@ -1,3 +1,4 @@
+- [ ] **REVERT after 2026-11-26:** `max_papers` in `pipeline/config/pipeline.json` is 4 for today only (JP waived the three-papers-per-batch rule); set it back to 3.
 ---
 page_type: todo
 created: 2026-11-17

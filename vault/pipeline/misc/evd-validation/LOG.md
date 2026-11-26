@@ -285,3 +285,8 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - Default sheet text size is 11. Macros for Google Sheets: `pipeline/apps-script/LivesStyle.gs` (not yet run inside Google Sheets).
 - New tab "Low decision-model scores" in the review sheets: the 74 EVDs below 0.60 with what the models saw. All 74 passed or got only notes from the node-detail check.
 - AAA Benchmarking (HAI) moved to `05 AAA Benchmarking`; AAA Benchmarking Results could not be moved with the connector's permissions (move it by hand).
+
+## 2026-11-26 (late): four pilot papers re-extracted with picost-v7
+- Runs: `2026-11-26_batch05` (Sarol, Bougie, Tyser; standard mode; three caps used: $5.77, $5.80, $3.08), `batch06` (Woelfle, failed: finishReason CONTINUATION), `batch07` (Woelfle with `--extract-effort medium`, $1.27 + $2.68). Three-papers-per-batch rule and review gate set aside for today by JP (max_papers 4, `--waive-review`); revert max_papers to 3.
+- PDF page only in the extraction, recheck and adjudication prompts; printed pages from the page map in code. Quote repair and match levels in the spans stage. Quality-signal quotes get a boxed, highlighted screenshot in the raw tab.
+- Results, 3 papers: 0 of 158 spans not found (was 12 of 297); 42 of 158 differ from the PDF in a symbol or punctuation mark; 16 of 60 findings still have a statement number missing from the Numbers list (was 60 of 141). Woelfle: 14 exact, 48 letters_digits, 2 repaired, 1 not found of 65 spans; 3 of 16 findings with a gap.
