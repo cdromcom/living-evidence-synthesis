@@ -70,6 +70,10 @@ The pilot took over 75 minutes. Most of it was waiting, not working. What helps,
 6. Cut steps that add little: one critique round only, full debate only for primary EVDs, quality signals only when JP asks (Module Q is optional), and no benchmark side runs.
 A rough standard-mode timeline for four papers: extraction 5 minutes, spans and checks 4, recheck and adjudication 5, drafting and ratings 10 at the same time, so about 25 minutes.
 
+### Overarching question and images in sheets (JP, 2026-11-25)
+- Every question found in any PDF is taken to fit under one project question: the Elicit question, stored as `project_question` in `pipeline.json` and used as the default for `--question`. No per-paper check that a paper fits it; screening decides what gets processed.
+- In every review sheet, PNGs (evidence crops, highlighted pages, the crop Sol looked at) are embedded as pictures in the cells, downsized, by `run_to_gsheet.py`. The workbook is uploaded as .xlsx and converted by Google Sheets, which keeps the pictures in place; the full-size PNGs stay in the run folder.
+
 ### Question consolidation (planned)
 The same question can appear in different words, within a paper and across papers. Records keep every wording. A later step groups them: EmbeddingGemma 2 (and DNA-VL-STEER-2B) proposes clusters of similar questions, a model proposes one unified wording, and a person verifies each group. Unified questions can nest (a broad question with narrower sub-questions) and carry tiers. The unified question is what becomes the QUE node and what the LIVES app shows; each paper's own wording stays as a quote.
 
