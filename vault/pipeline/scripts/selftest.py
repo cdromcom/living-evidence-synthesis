@@ -14,7 +14,7 @@ def check(name, cond, detail=''):
     else: fails.append(name); print(f'  FAIL  {name} {detail}')
 V = C.VAULT; here = Path(__file__).resolve().parent
 print('config and policy')
-roles = [C.ROLES[k] for k in ('extract', 'recheck', 'adjudicate', 'vision_check', 'vision_dispute', 'tiebreak')] + [x['model'] for k in ('authors', 'voters', 'raters') for x in C.ROLES[k]] + [C.ROLES['benchmark_open']['model']]
+roles = [C.ROLES[k] for k in ('extract', 'recheck', 'adjudicate', 'vision_check', 'vision_dispute', 'tiebreak')] + [x['model'] for k in ('authors', 'voters', 'raters') for x in C.ROLES[k]]
 check('every role model is in models.json with a price', all(m in C.MODELS and C.MODELS[m]['price_in'] >= 0 for m in roles), str([m for m in roles if m not in C.MODELS]))
 check('every role model passes the origin policy', all(C.assert_allowed(m) for m in roles))
 check('every role model has a provider route', all(C.provider_of(m) in ('anthropic', 'openai', 'google', 'tinker') for m in roles), str([m for m in roles if C.provider_of(m) not in ('anthropic', 'openai', 'google', 'tinker')]))
@@ -27,8 +27,10 @@ check('the origin policy blocks a disallowed country', bad)
 print('prompts and registries')
 import lives_run as R, lives_stages as S
 for st, pth in R.STAGE_PROMPT.items(): check(f'prompt {pth}', (V / pth).exists())
-check('picost prompt has the tier placeholders', all(x in (V / R.STAGE_PROMPT['picost']).read_text() for x in ('{MAX_PRIMARY}', '{MAX_SECONDARY}', '{MAX_TERTIARY}')))
-for n in ('draft-nodes-v2', 'critique-revise-v2', 'vote-v1', 'claim-check-v1', 'rate-signals-v1', 'vision-check-v1'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
+check('picost prompt has no leftover cap placeholders (no caps on questions or findings)', '{MAX_' not in (V / R.STAGE_PROMPT['picost']).read_text())
+check('vision-check-v3 allows cannot_verify', 'cannot_verify' in (V / 'pipeline/prompts/vision-check-v3.md').read_text())
+check('quality signals: two raters and a third-model adjudicator', len(S.RATERS) == 2 and S.QS_ADJ['model'] not in [m for _, m, _ in S.RATERS] and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
+for n in ('draft-nodes-v2', 'critique-revise-v2', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
 ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}
 check('quality signals rated by the models are valid row ids', set(S.SIGNALS) <= ids, str(sorted(set(S.SIGNALS) - ids)))
@@ -38,6 +40,8 @@ check('lint passes a good EVD', S.lint(good, {S.norm_num(x) for x in ('71.4', '1
 check('lint fails an EVD over 247 characters', not S.lint({**good, 'statement': 'word ' * 60}, set())['pass'])
 check('lint flags a number not on the card', S.lint({**good, 'statement': 'Model scored 99.9%.'}, {'71.4'})['numbers_not_on_card'] == ['99.9'])
 check('lint fails an em dash', not S.lint({**good, 'statement': 'Model A \u2014 a model scored 71.4%.'}, {S.norm_num('71.4')})['pass'])
+import pdf_pages as _pp
+check('an en dash that the PDF text layer stores as e still matches', _pp.norm('Human Rater 1 0.81 (0.78\u20130.83) 87%\u201390%') == _pp.norm('Human Rater 1 0.81 (0.78e0.83) 87%e90%'))
 check('parse_json tolerates a code fence', S.parse_json('```json\n{"a": 1}\n```') == {'a': 1})
 print('runner guards and PDF tools')
 import fitz
@@ -48,7 +52,8 @@ with tempfile.TemporaryDirectory() as td:
     run = lambda args: subprocess.run([sys.executable, str(here / 'lives_run.py')] + args, capture_output=True, text=True)
     check('too many PDFs are refused', 'Refused' in run(pdfs + ['--question', 'q', '--dry-run', '--run-id', 'test-selftest']).stdout + run(pdfs + ['--question', 'q', '--dry-run', '--run-id', 'test-selftest']).stderr)
     check('a cap above the limit is refused', 'cap per batch' in run([pdfs[0], '--question', 'q', '--cap', '99']).stdout + run([pdfs[0], '--question', 'q', '--cap', '99']).stderr)
-    check('a run without a question works (the model finds the paper\'s own questions)', 'Refused' not in run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stdout + run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stderr)
+    check('a run without a question works (the model finds the paper\'s own questions)', 'Refused' not in run([pdfs[0], '--mode', 'standard', '--dry-run', '--run-id', 'test-selftest']).stdout + run([pdfs[0], '--mode', 'standard', '--dry-run', '--run-id', 'test-selftest']).stderr)
+    check('a new run without a chosen mode is refused (JP is asked standard or batch every time)', 'choose a mode' in run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stdout + run([pdfs[0], '--dry-run', '--run-id', 'test-selftest']).stderr)
     sup = td / 'Paper 0 - supplement 1.pdf'; d = fitz.open(); d.new_page().insert_text((72, 100), 'Supplementary Table S1'); d.save(str(sup)); d.close()
     check('a supplement is found next to its paper', [x.name for x in R.find_supplements(pdfs[0])] == ['Paper 0 - supplement 1.pdf'])
     comb = td / 'c.pdf'; sp = R.combine_pdfs(pdfs[0], [sup], str(comb)); check('supplement is combined after the paper', fitz.open(str(comb)).page_count == 2 and sp[0][1] == 1)

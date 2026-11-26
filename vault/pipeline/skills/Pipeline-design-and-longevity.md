@@ -60,7 +60,7 @@ Each layer changes at its own speed. Keep them separate and let changes flow dow
 ### Manage the graph in Obsidian
 - The node type ids in the templates (`nodeTypeId`) tie the vault to the discourse-graph plugin. Never change them.
 - Edit nodes in Obsidian or by script, then run `check_links.py` and regenerate `DGRAPH.md`.
-- Write new nodes into the vault only after JP's spot check. The runner keeps drafts in `pipeline/runs/`.
+- Write new nodes into the vault only after JP's spot check. The paper processor keeps drafts in `pipeline/runs/`.
 - Export the plugin list and versions into a note when you upgrade Obsidian (the `.obsidian` folder is not in the repository).
 
 ## 4. Robustness over time
@@ -76,7 +76,7 @@ Each layer changes at its own speed. Keep them separate and let changes flow dow
 1. Every batch has a hard cap, a worst-case check before each stage, stop rules and a ledger (`pipeline.json`).
 2. Batch mode costs about half; use it once prompts are stable.
 3. Replace estimates with measurements after every pilot and put them in `pipeline.json`.
-4. Set a monthly limit at each provider as a second fence. The runner's cap covers only its own calls.
+4. Set a monthly limit at each provider as a second fence. The paper processor's cap covers only its own calls.
 5. Cheap checks come first (scripts, decision models). Expensive models see only what the cheap ones could not settle.
 
 ## 6. Ethical constraints

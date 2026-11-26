@@ -6,7 +6,7 @@ import re, argparse, hashlib, os, subprocess
 from pathlib import Path
 ap = argparse.ArgumentParser(); ap.add_argument('--vault', default=os.environ.get('LIVES_VAULT') or str(Path.home() / 'Documents/living-synthesis'), help='the working vault (not the checkout)'); ap.add_argument('--repo', default=str(Path.home() / '.cache/lives-bench/wt-align')); ap.add_argument('--ref', default='HEAD'); a = ap.parse_args(); VAULT = Path(a.vault).expanduser().resolve()
 SKIP_DIRS = {'pdfs', 'skill-backups', '__pycache__', '.obsidian', '.claude', '.venv', 'misc'}   # pdfs and backups are deliberately not published; .venv is a local Python environment; top-level misc = stray scratch
-SKIP_FILES = {'.DS_Store', '.Rhistory'}
+SKIP_FILES = {'.DS_Store', '.Rhistory'}   # also skipped below: the Zotero screening table with abstracts, which stays out of the public repo
 def local():
     d = {}
     for root, dirs, files in os.walk(VAULT):
@@ -14,7 +14,7 @@ def local():
         dirs[:] = [x for x in dirs if x not in SKIP_DIRS or (x == 'misc' and rel.parts[:1] == ('pipeline',)) or (x == 'public' and False)]
         if rel.parts[:2] == ('pipeline', 'runs'): dirs[:] = [x for x in dirs if not re.match(r'^(\d{4}-\d\d-\d\d_batch\d+|test-.*)$', x)]   # batch-runner outputs (extracted paper content, local paths) stay local
         for f in files:
-            if (f == '.gitignore' and not rel.parts) or f in SKIP_FILES or f.endswith('.pdf') or (rel.parts[:2] == ('pipeline', 'runs') and len(rel.parts) == 2 and f in ('ledger.jsonl', '_batch_input.jsonl')): continue   # zip files are compared too
+            if (f == '.gitignore' and not rel.parts) or f in SKIP_FILES or f.endswith('.pdf') or (f == 'papers_categories-and-model-votes.tsv' and 'Zotero-all-libraries' in str(rel)) or (rel.parts[:2] == ('pipeline', 'runs') and len(rel.parts) == 2 and (f in ('ledger.jsonl', '_batch_input.jsonl') or f.startswith('_batch_input'))): continue   # zip files are compared too
             p = Path(root) / f; b = p.read_bytes(); d[str((rel / f))] = hashlib.sha1(b'blob %d\0' % len(b) + b).hexdigest()
     return d
 out = subprocess.run(['git', 'ls-tree', '-r', '-z', a.ref, '--', 'vault'], cwd=a.repo, capture_output=True, text=True).stdout.split('\0')

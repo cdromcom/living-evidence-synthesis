@@ -9,6 +9,7 @@ from pathlib import Path
 import numpy as np
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
+import sheet_style as SS
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path.home() / 'Documents/living-synthesis')
@@ -78,15 +79,11 @@ def main():
     rows.sort(key=lambda x: (x[1][0], -x[0])); rows = [r for _, r in rows]
     # ----- workbook
     wb = Workbook(); ab = wb.active; ab.title = 'ABOUT'
-    hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(color='0B5CAD', underline='single')
+    hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(name='Google Sans', size=11, color='0B5CAD')   # blue, no underline (Butterick)
     def sheet(title, header, data, widths=None, freeze='A2'):
         ws = wb.create_sheet(title); ws.append(header)
-        for c in ws[1]: c.font = hdr; c.fill = fill; c.alignment = wrap
         for r in data: ws.append(r)
-        for row in ws.iter_rows(min_row=2):
-            for c in row: c.alignment = wrap
-        ws.freeze_panes = freeze
-        for i, w in enumerate(widths or [], 1): ws.column_dimensions[get_column_letter(i)].width = w
+        SS.polish(ws, jp_from=next((i + 1 for i, h in enumerate(header) if str(h).startswith('JP')), None), max_lines=4 if title == 'Papers' else 8); ws.freeze_panes = freeze
         return ws
     cols = ['Proposed category', 'Task type', 'Category id', 'Models agreeing', 'Title', 'Authors', 'Year', 'Venue', 'DOI', 'URL', 'Zotero key', 'PDF file', 'Copies in Zotero', 'Matches seed (file)', a.other_label, 'Screening hints']
     for n in names: s = clean(n).split(' (')[0]; cols += [f'{s}: category', f'{s}: similarity', f'{s}: best seed group', f'{s}: 2nd similarity']
@@ -118,7 +115,7 @@ def main():
                 [[r['source'], r.get('folder_role', ''), r.get('folder_group', ''), r['key'], r['title'], r['year'], r['doi'], 'yes' if r['pdfs'] else 'no', r['dup_why'], r['dup_group'], r['dup_role']] for r in drows], [24, 30, 12, 11, 70, 6, 28, 8, 24, 12, 26])
     for i, r in enumerate(drows, 2):   # a duplicate record within its own folder is struck through
         if r.get('folder_role') == 'duplicate within this folder':
-            for c in dws[i]: c.font = Font(strike=True, color='888888')
+            for c in dws[i]: c.font = Font(strike=True)
     fsum = []
     for src in sorted({r['source'] for r in D}):
         recs = [r for r in D if r['source'] == src]; dups = sum(1 for r in recs if r.get('folder_role') == 'duplicate within this folder')
@@ -151,14 +148,17 @@ def main():
      ('15. AI-use disclosure (GAMER)', f'The scripts, the category names and this report were written by Claude Sonnet 5.5 (Claude Code) on {date.today()}; the embedding models are the three named above. A person has not yet reviewed them.', [('AI disclosure', gh_file('pipeline/provenance/AI-disclosure.md'))]),
      ('How to review', 'Use the Papers tab: filter by Proposed category or Screening hints, then fill JP: decision and JP: category (dropdown from the Lists tab).', []),
      ('Built', str(date.today()), [])]
-    ab.append(['Item', 'What was done', 'Links (GitHub, main branch)']); [setattr(c, 'font', hdr) or setattr(c, 'fill', fill) for c in ab[1]]
+    ab.append(['Item', 'What was done', 'Links (GitHub, main branch)']); 
     for item, text, links in items:
-        ab.append([item, text, '']); r = ab.max_row; ab.cell(r, 1).font = Font(bold=True); [setattr(ab.cell(r, k), 'alignment', wrap) for k in (1, 2, 3)]
+        ab.append([item, text, '']); r = ab.max_row; 
         if links:
             ab.cell(r, 3).value = links[0][0]; ab.cell(r, 3).hyperlink = links[0][1]; ab.cell(r, 3).font = link
             for lt, lu in links[1:]:
                 ab.append(['', '', lt]); rr = ab.max_row; ab.cell(rr, 3).hyperlink = lu; ab.cell(rr, 3).font = link
-    ab.column_dimensions['A'].width = 28; ab.column_dimensions['B'].width = 130; ab.column_dimensions['C'].width = 44; ab.freeze_panes = 'A2'
+    SS.polish_about(ab, text_width=86)
+    for row in ab.iter_rows(min_row=2):
+        if row[2].hyperlink: row[2].font = link
+    ab.freeze_panes = 'A2'
     out = Path(a.out or Path(a.result).parent / 'screening-review.xlsx'); wb.save(out); print('wrote', out, '| papers', n)
     # ----- tidy GitHub folder: metadata only
     def tsv(name, header, data):

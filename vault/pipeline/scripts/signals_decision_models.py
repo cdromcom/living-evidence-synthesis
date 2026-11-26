@@ -3,14 +3,14 @@
 For every row with a quote: (1) does the quote support the rating given, (2) which rating does the quote itself support, (3) is the quote about this item.
 Writes JSON lines (one per row and model) to --out. Resumable. Costs cents: the text per call is about 300 tokens.
 
-  python3 signals_decision_models.py --only @citekey [--providers perplexity,liquid,jev] [--limit N] [--out FILE]"""
+  python3 signals_decision_models.py --only @citekey [--providers perplexity,liquid] [--limit N] [--out FILE]"""
 import argparse, json, os
 from datetime import datetime, timezone
 from pathlib import Path
 import decision_models as dm, signals_common as sc
 
 ap = argparse.ArgumentParser()
-ap.add_argument('--only'); ap.add_argument('--providers', default='perplexity,liquid,jev'); ap.add_argument('--limit', type=int, default=0)
+ap.add_argument('--only'); ap.add_argument('--providers', default='perplexity,liquid'); ap.add_argument('--limit', type=int, default=0)
 ap.add_argument('--out', default=str(sc.VAULT / 'pipeline/misc/evd-validation/signal-runs/decision-models.jsonl')); ap.add_argument('--run-id', default='sig1'); ap.add_argument('--workers', type=int, default=6)
 a = ap.parse_args(); dm.load_env()
 RATINGS = {'Addressed': 'The paper fully reports the item (reporting items) or shows no meaningful threat (risk-of-bias domains and checklist items).',

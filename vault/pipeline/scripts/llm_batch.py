@@ -109,7 +109,7 @@ def _gemini_res(rid, resp):
 
 def _gemini_call(path, body=None, method='POST'):
     _env(); req = urllib.request.Request(f'{GEMINI}/{path}', json.dumps(body).encode() if body is not None else None, {'Content-Type': 'application/json', 'x-goog-api-key': os.environ['GEMINI_API_KEY']}, method=method)
-    try: return json.load(urllib.request.urlopen(req, timeout=300))
+    try: return json.load(urllib.request.urlopen(req, timeout=1500))   # large extractions with High thinking can run for many minutes
     except urllib.error.HTTPError as e: raise RuntimeError(f'Gemini HTTP {e.code}: {e.read().decode()[:300]}')
 
 
@@ -173,9 +173,29 @@ def _one(r):
     return Res(r.id, False, err=f'unknown provider for {r.model}')
 
 
+STRAGGLER_MIN = C.PIPE['limits'].get('straggler_minutes', 5)
+STRAGGLER_MSG = 'straggler: no answer {} minutes after most requests finished (cancelled); needs human review'
+
+
+def _tail_count(n):
+    """How many requests may still be missing before the grace period starts: all but about one in ten, at least one."""
+    return max(1, round(0.1 * n))
+
+
 def run_standard(reqs, workers=4):
+    """Parallel standard calls. Once all but about 10% of the requests have answered, the rest get STRAGGLER_MIN more minutes; a request that is still out then is dropped and marked for human review."""
     for m in {r.model for r in reqs}: C.assert_allowed(m)   # origin policy
-    with cf.ThreadPoolExecutor(workers) as ex: return {x.id: x for x in ex.map(_one, reqs)}
+    ex = cf.ThreadPoolExecutor(workers); futs = {r.id: ex.submit(_one, r) for r in reqs}; out = {}; t90 = None
+    while len(out) < len(futs):
+        for rid, f in futs.items():
+            if rid not in out and f.done(): out[rid] = f.result()
+        if 0 < len(out) < len(futs) and len(out) >= len(futs) - _tail_count(len(futs)) and t90 is None: t90 = time.time()
+        if t90 and time.time() - t90 >= STRAGGLER_MIN * 60:
+            for rid in futs:
+                if rid not in out: out[rid] = Res(rid, False, err=STRAGGLER_MSG.format(STRAGGLER_MIN))
+            break
+        if len(out) < len(futs): time.sleep(0.5)
+    ex.shutdown(wait=False, cancel_futures=True); return {r.id: out[r.id] for r in reqs}
 
 
 # ------------------------------------------------------------------ batch mode
@@ -184,12 +204,14 @@ def submit_batch(reqs):
     _env(); models = {r.model for r in reqs}; assert len(models) == 1, 'one model per batch'; model = reqs[0].model; C.assert_allowed(model); pv = provider_of(model); ids = {r.id: _safe_id(r.id) for r in reqs}
     if len({*ids.values()}) != len(ids): raise ValueError('request ids collide after cleaning')
     job = {'provider': pv, 'model': model, 'ids': ids, 'submitted': time.time(), 'n': len(reqs)}
+    if pv == 'google':   # Gemini batch refuses more than 65536 output tokens; larger budgets need standard mode
+        for r in reqs: r.max_tokens = min(r.max_tokens, 65000)
     if pv == 'anthropic':
         import anthropic
         b = anthropic.Anthropic().messages.batches.create(requests=[{'custom_id': ids[r.id], 'params': _anthropic_params(r)} for r in reqs]); job['id'] = b.id
     elif pv == 'openai':
         from openai import OpenAI
-        c = OpenAI(); tmp = cl.RUNS / '_batch_input.jsonl'; tmp.parent.mkdir(parents=True, exist_ok=True)
+        c = OpenAI(); tmp = cl.RUNS / f'_batch_input_{os.getpid()}_{int(time.time() * 1000)}.jsonl'   # one file per submission: runs in parallel must not share a name; tmp.parent.mkdir(parents=True, exist_ok=True)
         tmp.write_text('\n'.join(json.dumps({'custom_id': ids[r.id], 'method': 'POST', 'url': '/v1/responses', 'body': _openai_body(r)}) for r in reqs), encoding='utf-8')
         f = c.files.create(file=open(tmp, 'rb'), purpose='batch'); tmp.unlink(); b = c.batches.create(input_file_id=f.id, endpoint='/v1/responses', completion_window='24h'); job['id'] = b.id; job['input_file'] = f.id
     elif pv == 'google':
@@ -208,13 +230,27 @@ def poll_batch(job):
     if pv == 'tinker': return 'done'
     if pv == 'anthropic':
         import anthropic
-        s = anthropic.Anthropic().messages.batches.retrieve(job['id']).processing_status; return 'done' if s == 'ended' else 'running'
+        s = anthropic.Anthropic().messages.batches.retrieve(job['id']).processing_status; return 'done' if s == 'ended' else 'running'   # a cancelled batch also ends
     if pv == 'openai':
         from openai import OpenAI
-        s = OpenAI().batches.retrieve(job['id']).status; return 'done' if s == 'completed' else 'failed' if s in ('failed', 'expired', 'cancelled') else 'running'
+        s = OpenAI().batches.retrieve(job['id']).status; return 'done' if (s == 'completed' or (s == 'cancelled' and job.get('straggler'))) else 'failed' if s in ('failed', 'expired', 'cancelled') else 'running'
     if pv == 'google':
         j = _gemini_call(job['id'], method='GET'); st = (j.get('metadata') or {}).get('state', '')
-        return 'done' if j.get('done') and 'SUCCEEDED' in st else 'failed' if st in ('JOB_STATE_FAILED', 'BATCH_STATE_FAILED', 'JOB_STATE_CANCELLED', 'BATCH_STATE_CANCELLED', 'BATCH_STATE_EXPIRED', 'JOB_STATE_EXPIRED') or (j.get('done') and 'error' in j) else 'running'
+        return 'done' if (j.get('done') and 'SUCCEEDED' in st) or (job.get('straggler') and j.get('done')) else 'failed' if st in ('JOB_STATE_FAILED', 'BATCH_STATE_FAILED', 'JOB_STATE_CANCELLED', 'BATCH_STATE_CANCELLED', 'BATCH_STATE_EXPIRED', 'JOB_STATE_EXPIRED') or (j.get('done') and 'error' in j) else 'running'
+
+
+def batch_progress(job):
+    """(finished, total) requests of a running batch job, or None when the provider does not say."""
+    _env(); pv = job['provider']
+    try:
+        if pv == 'openai':
+            from openai import OpenAI; rc = OpenAI().batches.retrieve(job['id']).request_counts; return rc.completed + rc.failed, rc.total
+        if pv == 'anthropic':
+            import anthropic; rc = anthropic.Anthropic().messages.batches.retrieve(job['id']).request_counts; tot = rc.processing + rc.succeeded + rc.errored + rc.canceled + rc.expired; return tot - rc.processing, tot
+        if pv == 'google':
+            bs = (_gemini_call(job['id'], method='GET').get('metadata') or {}).get('batchStats') or {}; tot = int(bs.get('requestCount', 0)); return (tot - int(bs.get('pendingRequestCount', tot)), tot) if tot else None
+    except Exception: return None
+    return None
 
 
 def fetch_batch(job):
@@ -237,7 +273,7 @@ def fetch_batch(job):
         j = _gemini_call(job['id'], method='GET'); items = ((j.get('response') or {}).get('inlinedResponses') or {}).get('inlinedResponses') or (j.get('response') or {}).get('inlinedResponses') or []
         for it in items:
             k = back[(it.get('metadata') or {}).get('key')]; out[k] = _gemini_res(k, it.get('response') or {'error': it.get('error', 'no response')})
-    for k in job['ids']: out.setdefault(k, Res(k, False, err='no result returned'))
+    for k in job['ids']: out.setdefault(k, Res(k, False, err=STRAGGLER_MSG.format(STRAGGLER_MIN) if job.get('straggler') else 'no result returned'))
     return out
 
 

@@ -1,6 +1,6 @@
 # Screening run 2026-11-25_SysRev-Elicit-2026-11-24
 
-Collection: SysRev - Elicit 2026-11-24. Built 2026-11-25. Reported following TRIPOD+LLM as far as it fits (embedding models, no generation). The Google Sheet has the same content with the full per-paper tables.
+Collection: SysRev - Elicit 2026-11-24. Built 2026-11-26. Reported following TRIPOD+LLM as far as it fits (embedding models, no generation). The Google Sheet has the same content with the full per-paper tables.
 
 ## Reporting guideline
 TRIPOD+LLM (Gallifant et al.), applied as far as it fits: the models here only embed text (no text is generated, no prompts or fine-tuning), so items about generation and prompting are marked not applicable.
@@ -14,12 +14,12 @@ Screening papers in the Zotero collection "SysRev - Elicit 2026-11-24" into task
 Assign each distinct paper to one of the seed task types, or to a new candidate task type; flag duplicates and papers already seen. Nothing in Zotero was changed.
 
 ## 3. Data source and population
-Zotero collection "SysRev - Elicit 2026-11-24": personal library (164 records) and the OASIS Lab group copy (172 records), exported from a copy of zotero.sqlite on 2026-11-25. After de-duplication: 82 distinct papers. The collection is the output of an Elicit search imported on 2026-11-24 (not a sample). Seed set: 27 papers already in the vault, grouped into 6 task types by the Review-Arena sections.
+Zotero collection "SysRev - Elicit 2026-11-24": personal library (164 records) and the OASIS Lab group copy (172 records), exported from a copy of zotero.sqlite on 2026-11-26. After de-duplication: 82 distinct papers. The collection is the output of an Elicit search imported on 2026-11-24 (not a sample). Seed set: 27 papers already in the vault, grouped into 6 task types by the Review-Arena sections.
 - [Seed papers and task groups](https://github.com/cdromcom/living-evidence-synthesis/blob/main/vault/pipeline/screening/shared/seed-papers_task-groups.json)
 - [Export script](https://github.com/cdromcom/living-evidence-synthesis/blob/main/vault/pipeline/scripts/zotero_collection.py)
 
 ## 4. De-duplication
-Records match when they share a DOI or arXiv id, have the same normalized title, or have a title similarity of at least 0.90 (a preprint and its journal version). Done inside each folder on its own, across the two library copies, against the seed papers and against the older pool (added). Duplicate records within a folder: OASIS Lab group copy: 90; personal library: 82. The preferred record is the published, newest one; nothing is deleted. See the Duplicates tab (struck through = duplicate within its folder) and the Folder dedup tab.
+Records match when they share a DOI or arXiv id, have the same normalized title, or have a title similarity of at least 0.90 (a preprint and its journal version). Done inside each folder on its own, across the two library copies, against the seed papers and against the other set (added). Duplicate records within a folder: OASIS Lab group copy: 90; personal library: 82. The preferred record is the published, newest one; nothing is deleted. See the Duplicates tab (struck through = duplicate within its folder) and the Folder dedup tab.
 - [Script](https://github.com/cdromcom/living-evidence-synthesis/blob/main/vault/pipeline/scripts/screen_dedup.py)
 - [Data](https://github.com/cdromcom/living-evidence-synthesis/tree/main/vault/pipeline/screening/2026-11-25_SysRev-Elicit-2026-11-24/data/duplicates_all-zotero-records.tsv)
 
@@ -65,14 +65,14 @@ All code and metadata-only data are on GitHub in the folders linked here; the wo
 - [Run folder README](https://github.com/cdromcom/living-evidence-synthesis/tree/main/vault/pipeline/screening/2026-11-25_SysRev-Elicit-2026-11-24/README.md)
 
 ## 15. AI-use disclosure (GAMER)
-The scripts, the category names and this report were written by Claude Sonnet 5.5 (Claude Code) on 2026-11-25; the embedding models are the three named above. A person has not yet reviewed them.
+The scripts, the category names and this report were written by Claude Sonnet 5.5 (Claude Code) on 2026-11-26; the embedding models are the three named above. A person has not yet reviewed them.
 - [AI disclosure](https://github.com/cdromcom/living-evidence-synthesis/blob/main/vault/pipeline/provenance/AI-disclosure.md)
 
 ## How to review
 Use the Papers tab: filter by Proposed category or Screening hints, then fill JP: decision and JP: category (dropdown from the Lists tab).
 
 ## Built
-2026-11-25
+2026-11-26
 
 ## Files in `data/`
 - `papers_categories-and-model-votes.tsv`: one row per distinct paper, category, task type, each model's pick and similarity, hints (no abstracts, no local paths).

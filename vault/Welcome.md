@@ -263,12 +263,12 @@ flowchart TB
     subgraph EX["2. Extract (PICOST first)"]
         F["PICOST record per finding, saved as JSON<br/>every number has page, table, row, column<br/>Not reported if the paper is silent<br/>Results give EVDs, Discussion gives CVTs and CLMs,<br/>Introduction gives QUEs"]
         G["Spotlight: Neon returns the exact quote,<br/>PyMuPDF finds it, boxes it and highlights the page<br/>a quote not found is a flag"]
-        H["Checks: decision models (d1-ultra, Decider, Jev)<br/>relevancy, fidelity, quote and table grounding<br/>flagged, low-confidence and 10% sample: Sol looks at the crop<br/>Opus 5.5 only on rare disputes"]
+        H["Checks: decision models (d1-ultra, Decider)<br/>relevancy, fidelity, quote and table grounding<br/>every finding: Sol looks at the crop (pass, fail or cannot verify)<br/>Opus 5.5 only on rare disputes"]
         I["JP spot check A<br/>3 PICOST cards per paper<br/>an error stops the batch"]
     end
 
     subgraph WR["3. Write and crop"]
-        J["Write the nodes from PICOST<br/>EVD pilot: Sonnet 5.5, Sol and Neon draft, critique and revise (2 rounds at most),<br/>Sol and Sonnet vote, Neon breaks ties, Inkling writes and picks as a benchmark only,<br/>cheaper checker verifies claims, Opus 5.5 on escalation<br/>nodes: EVD, QUE, CLM, CVT"]
+        J["Write the nodes from PICOST<br/>EVD pilot: Sonnet 5.5, Sol and Neon draft, critique and revise (2 rounds at most),<br/>Sol and Sonnet vote, Neon breaks ties,<br/>cheaper checker verifies claims, Opus 5.5 on escalation<br/>nodes: EVD, QUE, CLM, CVT"]
         K["Crop screenshots<br/>PyMuPDF + pdftoppm<br/>whole quote, table or figure with caption<br/>pastel highlight by node type"]
         L{"Crop QA<br/>Sol checks every crop<br/>Opus 5.5 checks multi-page crops"}
         M["Automatic audits<br/>quotes verbatim, numbers on the PICOST card,<br/>printed page map, links"]
@@ -276,7 +276,7 @@ flowchart TB
 
     subgraph FT["4. Fit into the graph"]
         N1["EmbeddingGemma 2 (local)<br/>proposes matches to existing questions and claims<br/>and near-duplicates, same type only"]
-        N2["Inkling 2 Small and Claude Sonnet 5.5<br/>judge each pair separately"]
+        N2["GPT-6.2 Sol and Claude Sonnet 5.5<br/>judge each pair separately"]
         N3["A person verifies every merge or split<br/>subtle differences: do not merge"]
         N4["AI-use footer on every page<br/>model, version, time, prompt link, response<br/>GAMER checklist"]
     end
@@ -336,7 +336,7 @@ flowchart TB
     class F,R,S,MQ out;
 ```
 
-**Legend.** Blue boxes are model steps (Gemini 4 Neon, GPT-6.2 Sol, Claude Opus 5.5 and Sonnet 5.5, Inkling 2 Small, the decision models). Green boxes are tools and scripts (PyMuPDF, `pdftoppm`, EmbeddingGemma 2, the audit and build scripts). Yellow boxes are human or approval steps. Pink boxes are outputs and the optional quality stage. Dotted arrows are loops or optional paths.
+**Legend.** Blue boxes are model steps (Gemini 4 Neon, GPT-6.2 Sol, Claude Opus 5.5 and Sonnet 5.5, the decision models). Green boxes are tools and scripts (PyMuPDF, `pdftoppm`, EmbeddingGemma 2, the audit and build scripts). Yellow boxes are human or approval steps. Pink boxes are outputs and the optional quality stage. Dotted arrows are loops or optional paths.
 
 | Step | Model or tool | Output | Human check |
 |---|---|---|---|
@@ -344,14 +344,14 @@ flowchart TB
 | Read | Gemini 4 Neon (High) + PDF text layer | page-by-page text and tables | Sol and Opus 5.5 on disagreements |
 | Extract | Gemini 4 Neon (High); Sol re-reads low-confidence and multi-page items | PICOST JSON with locators, bounding boxes and highlighted spans | spot check A |
 | Check | decision models (relevancy, fidelity, quote and table grounding); Sol and Opus 5.5 on flagged records | pass or flag per record | threshold set in the pilot |
-| Write | Sonnet 5.5, Sol and Neon (Medium) draft and debate; Sol and Sonnet vote; Neon tie-break; Inkling benchmark only; Opus 5.5 on escalation (EVD, QUE, CLM, CVT) | vault markdown nodes | none until review |
+| Write | Sonnet 5.5, Sol and Neon (Medium) debate the primary EVDs (Sol and Sonnet vote, Neon breaks ties); Sonnet 5.5 alone drafts everything else (secondary and tertiary EVDs, QUE, CLM, CVT); Opus 5.5 on escalation | vault markdown nodes | none until review |
 | Crop | PyMuPDF, `pdftoppm`; Sol and Opus 5.5 QA | verified screenshots | spot check B |
 | Audit | scripts (`verbatim_audit.py`, `check_links.py`, `pdf_pages.py`) | verbatim, numbers, page and link checks | none |
-| Fit into the graph | EmbeddingGemma 2, Inkling 2 Small, Sonnet 5.5 | proposed links, merges and splits with reasons, all logged | a person verifies every merge or split |
+| Fit into the graph | EmbeddingGemma 2, GPT-6.2 Sol, Sonnet 5.5 | proposed links, merges and splits with reasons, all logged | a person verifies every merge or split |
 | Footer | `call_logger.py` | AI-use footer from the call log | none |
 | Review | `vault_to_gsheet.py` | the mirror Google Sheet | JP judges accuracy there |
 | Publish | GitHub PR, `build-graph.mjs`, Vercel | the live LIVES web app | JP approves merges |
-| Quality signals (optional) | Opus 5.5, Sol and Neon rate, majority vote; decision models and scripts check; all ratings logged to a benchmark sheet | TRIPOD-LLM and appraisal tables, Statistical Accuracy findings | JP reviews the sheet |
+| Quality signals (optional) | Neon (High) and Opus 5.5 rate, Sol adjudicates disagreements; decision models and scripts check; all ratings logged to a benchmark sheet | TRIPOD-LLM and appraisal tables, Statistical Accuracy findings | JP reviews the sheet |
 
 ---
 
@@ -362,9 +362,9 @@ flowchart TB
 
 1. **Put the PDF in** `sysrev/dgraph/source/pdfs/` (the PDFs stay on your computer; they are not on GitHub). Use the most recent version of a paper; move older versions to the Archive folder. Put its supplementary materials and appendices there too, named `<paper file name> - supplement 1.pdf`; the Skill asks whether they are present and searches for missing ones if you say no.
 2. **Run the pipeline in `pipeline/skills/Skill.md`** (Setup, Inputs, Steps 1 to 10). For one to four PDFs at a time (the limit is built in) run `python3 pipeline/scripts/lives_run.py <pdfs> --question "<research question>" --mode standard|batch`: Gemini 4 Neon extracts findings in three tiers (primary answers the question, secondary is meta or contextual, tertiary is other context), PyMuPDF checks every quote, GPT-6.2 Sol and Claude Opus 5.5 recheck flagged findings, and the batch stops under a $5.55 cap with a run manifest. Then build the review sheet with `run_to_gsheet.py` and review it. Nodes are then written by debate (Sonnet 5.5, Sol and Neon draft and critique; Sol and Sonnet vote), crops are checked, and the audits run.
-3. **Fit the new nodes into the graph** (Skill section "Matching, linking, merging and splitting"): EmbeddingGemma 2 proposes, Inkling 2 Small and Claude Sonnet 5.5 judge, a person verifies every merge or split. Then run `python3 pipeline/scripts/check_links.py` and `python3 pipeline/scripts/reverse_links.py`.
+3. **Fit the new nodes into the graph** (Skill section "Matching, linking, merging and splitting"): EmbeddingGemma 2 proposes, GPT-6.2 Sol and Claude Sonnet 5.5 judge, a person verifies every merge or split. Then run `python3 pipeline/scripts/check_links.py` and `python3 pipeline/scripts/reverse_links.py`.
 4. **Add the AI-use footer** to every page written or changed (Skill Step 4c); log every model call with `pipeline/scripts/call_logger.py`, and commit each prompt in `pipeline/prompts/` before using it.
-5. **Quality signals are optional:** only if JP asks, run Module Q (the TRIPOD-LLM and appraisal tables rated by Opus 5.5, Sol and Neon with majority voting and logged to a benchmark sheet, `stat_checks.py` for Statistical Accuracy, the provenance scripts). Row names come from `pipeline/templates/quality-signal-labels.json`.
+5. **Quality signals are optional:** only if JP asks, run Module Q (the TRIPOD-LLM and appraisal tables rated by Neon (High) and Opus 5.5, with Sol adjudicating disagreements and logged to a benchmark sheet, `stat_checks.py` for Statistical Accuracy, the provenance scripts). Row names come from `pipeline/templates/quality-signal-labels.json`.
 6. **Record what you did:** add an entry at the top of `pipeline/logs/History.md` and, for a working session, a section in `pipeline/misc/evd-validation/LOG.md`; save the prompts to `pipeline/misc/prompts/`.
 7. **Cross-paper synthesis** (Review-Arena, MkDocs render, ESS Bases; EvidencePatterns are retired) follows in `pipeline/skills/Skill-synthesis.md`, after a batch. Do **not** auto-fill Review-Arena cells: cell-level synthesis is reserved for humans (governance decision of 2026-05-04, in `History.md`).
 8. **Publish:** run `python3 pipeline/scripts/check_repo_sync.py` against a checkout of the GitHub repository, copy the vault into the repository's `vault/` folder, open a pull request, and merge it after review. The website rebuilds from `vault/`.

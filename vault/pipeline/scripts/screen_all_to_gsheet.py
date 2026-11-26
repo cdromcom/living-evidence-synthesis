@@ -9,6 +9,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
+import sheet_style as SS
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 sys.path.insert(0, str(Path(__file__).resolve().parent)); from screen_to_gsheet import keywords
 VAULT = Path(os.environ.get('LIVES_VAULT') or Path.home() / 'Documents/living-synthesis'); RUN = '2026-11-25_Zotero-all-libraries'; GH = 'https://github.com/cdromcom/living-evidence-synthesis'
@@ -35,13 +36,12 @@ def main():
         for g in s['groups']: by[sid(g)].append(s['title'])
     oa = json.load(open(W / 'oa.json')) if (W / 'oa.json').exists() else {}; get_oa = lambda d: oa.get((d or '').lower().replace('https://doi.org/', ''), {})
     kw = keywords(by, list(txt.values()) + [s['title'] for s in R['seeds']])
-    wb = Workbook(); wb.remove(wb.active); hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(color='0B5CAD', underline='single')
+    wb = Workbook(); wb.remove(wb.active); hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(name=SS.FONT_BODY, size=SS.SIZE, color='0B5CAD')   # blue, no underline (Butterick)
     def tab(title, header, rows, widths):
         ws = wb.create_sheet(title); ws.append(header)
-        for c in ws[1]: c.font = hdr; c.fill = fill; c.alignment = wrap
         for r in rows: ws.append([ILLEGAL_CHARACTERS_RE.sub('', x) if isinstance(x, str) else x for x in r])   # text taken from PDFs can hold control characters that spreadsheets refuse
-        for i, w in enumerate(widths, 1): ws.column_dimensions[get_column_letter(i)].width = w
-        ws.freeze_panes = 'B2'; return ws
+        jp = next((i + 1 for i, h in enumerate(header) if str(h).startswith('JP')), None)
+        SS.polish(ws, jp_from=jp, max_lines=4 if title == 'Papers' else 8); ws.freeze_panes = 'B2'; return ws
     rows = []; GREEN = []; SORTV = []; tau = rep['relevance_threshold']; dna = next((n for n in names if n.startswith('DNA')), names[-1])   # DNA-VL-STEER-2B did best on the seed test, so it also ranks the screening list
     for p in P:
         pid, pname, ptask = info(p); v = p['votes']; hints = []
@@ -64,9 +64,7 @@ def main():
     ws.auto_filter.ref = ws.dimensions; lightgreen = PatternFill('solid', fgColor='E2F0D9'); ci = {h: i + 1 for i, h in enumerate(header)}   # light green marks the rows JP should screen for include or exclude
     for r in range(2, ws.max_row + 1):
         green = GREEN[r - 2]
-        ws.cell(r, ci['Title']).alignment = wrap
         if green:
-            ws.cell(r, ci['Abstract (or the text used)']).alignment = wrap
             for c in range(1, len(header) + 1): ws.cell(r, c).fill = lightgreen
         u = ws.cell(r, ci['URL'])
         if u.value and str(u.value).startswith('http'): u.font = link; u.hyperlink = u.value
@@ -86,7 +84,7 @@ def main():
     mc = [[n, rep['category_loo_by_model'][n]['accuracy'], rep['category_loo_by_model'][n]['n'], rep['novel_threshold'][n], rep['relevance_threshold'][n]] for n in names]
     mc.append(['Majority of the models', rep['category_loo_majority']['accuracy'], rep['category_loo_majority']['n'], '', ''])
     tab('Model check', ['Model', 'Category leave-one-out accuracy on seeds', 'Seeds tested', 'New-category threshold (15th percentile of seed nearest similarity)', 'Relevance threshold (10th percentile of reference papers)'], mc, [30, 18, 10, 30, 30])
-    ab = wb.create_sheet('ABOUT', 0); ab.column_dimensions['A'].width = 28; ab.column_dimensions['B'].width = 110; ab.column_dimensions['C'].width = 60; ab.append(['Item', 'What was done', 'Links']); [setattr(c, 'font', hdr) or setattr(c, 'fill', fill) for c in ab[1]]
+    ab = wb.create_sheet('ABOUT', 0); ab.append(['Item', 'What was done', 'Links'])
     rp = rep.get('relevance_proxy', {}); cc = R['counts']
     abt = [('Title', 'LIVES Stage 2 ingest: screening of every item in all Zotero libraries against the 27-paper seed set and the Elicit 2026-11-24 papers (reported in the style of TRIPOD+LLM; generation items are not applicable because the models only embed text)', gh(f'pipeline/screening/{RUN}/README.md')),
            ('Data source', f"Read-only copy of the Zotero database: {prep['items']:,} regular items and standalone PDFs in {len(prep['by_library'])} libraries; {prep['distinct']:,} distinct papers after merging duplicates (same DOI, arXiv id or near-identical title). Ingest sets: " + '; '.join(f'{k} {v}' for k, v in cc['ingest_sets'].items()) + '.', gh('pipeline/scripts/zotero_inventory.py')),
@@ -101,9 +99,11 @@ def main():
            ('Limits', 'Embedding similarity is not a judgment of relevance; title-only papers are weakly placed; abstracts can be wrong in Zotero. Every row needs your decision (JP columns). Nothing was deleted or merged in Zotero.', ''),
            ('Code and data on GitHub', f'Metadata-only data files and the README are in pipeline/screening/{RUN}/ (abstracts and local file paths are left out of the public repo). Links work once the pull request is merged.', gh(f'pipeline/screening/{RUN}', True))]
     for it, tx, ln in abt:
-        ab.append([it, tx, ln]); r = ab.max_row; ab.cell(r, 1).font = Font(bold=True)
-        for k in (1, 2, 3): ab.cell(r, k).alignment = wrap
-        if ln: ab.cell(r, 3).hyperlink = ln; ab.cell(r, 3).font = link
+        ab.append([it, tx, ln]); r = ab.max_row
+        if ln: ab.cell(r, 3).hyperlink = ln
+    SS.polish_about(ab)
+    for r in range(2, ab.max_row + 1):
+        if ab.cell(r, 3).hyperlink: ab.cell(r, 3).font = link
     wb.save(a.out); print('saved', a.out, '| papers rows', len(rows), '| categories', len(pr))
     if known is not None: print('only-new mode: the repo data files were not touched'); return
     # metadata-only files for the repo

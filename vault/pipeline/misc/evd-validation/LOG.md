@@ -247,3 +247,41 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 ## 2026-11-25 (later): Skill split in two; vault version control
 - `Skill.md` (64 KB) is now two files: part 1 `Skill.md` (35 KB, the step-by-step procedure for one paper, with a short pointer wherever a section moved) and part 2 `Skill-controls.md` (34 KB: the batch runner rewritten as a structured section and brought up to date, run records, cost controls, drafting by debate, Step 4c footer, matching and merging, who checks crops and quotes, Step 6e, Module Q). A line-by-line check against the backup (`pipeline/misc/skill-backups/2026-11-25-pre-split/Skill.md`) found only the three batch items (11, 11a, 11b) and three lifted headings changed; every other line is verbatim in one of the two files. Cross-references in Welcome, Vault-structure, Skill-templates, Quality-signals-spec, Tools-and-Models and `call_logger.py` were updated.
 - Vault version control: JP installs Obsidian Git. Added a vault `.gitignore` (PDFs, local run outputs, backups, volatile Obsidian state) and a TIPS entry; `check_repo_sync.py` does not mirror the vault's `.gitignore`.
+
+## 2026-11-25 (later): changes after pilot run 1, at JP's request
+- Dropped Inkling and the open-model shadow benchmark everywhere (code, config role, sheets, docs); spec archived. Second merge judge is now GPT-6.2 Sol (`merge_judge.py --second`).
+- Questions: `picost-v5.md` takes at most 3 per paper, only from the Abstract and Introduction (v4 gave 19 for 4 papers).
+- Number flag loosened (flag only if under half of a finding's numbers, ignoring single digits, are in the PDF text).
+- `checks_vision` and `checks_opus` run in standard mode; stragglers are cancelled 5 minutes after all but about 10% of requests finish and go to human review; `--fast` runs everything in standard mode with drafting and ratings at the same time.
+- "Runner" renamed "paper processor" in the docs. Skill-controls.md has a plain explanation of flagging, the 30-minute plan and the planned question consolidation.
+- Test on the synthetic paper in fast mode: finished in 2 min 8 s, $0.56, 1 question found.
+
+## 2026-11-25 (late): JP's design decisions after the pilot
+- No caps on questions, findings, EVDs, CLMs or CVTs (`picost-v6.md`); repeated questions within a paper are kept.
+- Drafting: only primary EVDs go through the three-author debate; everything else is one Sonnet 5.5 draft.
+- Quality signals: two raters, Neon (High) and Opus 5.5; Sol adjudicates only disagreements (`adjudicate-signals-v1.md`).
+- Checks: Sol vision looks at the crop of every finding and may answer cannot_verify (`vision-check-v2.md`); cannot verify goes to a person.
+- Built `consolidate_questions.py` (unified, nested questions); review sheet gets Metrics and Question groups tabs; sheets embed pictures in cells.
+- Reruns started: `2026-11-25_batch02` (the four pilot papers again) and `2026-11-25_batch03` (random sample of four other seed papers, seed 20261125; list in `runs/sample_2026-11-25.json`).
+
+## 2026-11-25 (night): results of the reruns and bugs found
+- Runs: `2026-11-25_batch02` (Bougie, Sarol, Tyser), `2026-11-25_batch03` (random seed sample: Idahl and Ahmadi, Shahid, Hasan, Liu and Shah), `2026-11-25_batch04` (Woelfle alone, standard mode: 12 minutes for the whole pipeline, $4.60).
+- Bugs fixed: Neon (High) quality-signal budget too small (all ratings lost); claim check read only the primary part of the card (mass false fails); two batches submitting at once shared one temp file; the straggler timer started at once for a one-request stage; `vision-check-v2` returned cannot_verify for 80% of findings (now `vision-check-v3`); findings with no crop were shown as "needs JP" (now "cannot verify"); Gemini batch refuses more than 65,536 output tokens, so large extractions (Woelfle) need standard mode and a 25-minute timeout.
+- Open: about half of the "cannot verify" results have no crop because the quoted span was not found in the PDF text; claim-check fails are 30% of nodes and have not been reviewed; the Jev decision model returned an unknown-model error in earlier runs.
+
+## 2026-11-26: sheets restyled and filed
+- All sheet builders now share `sheet_style.py` (Lato, Butterick and Few rules; see Review-sheets-spec.md). The three review sheets and both screening sheets were rebuilt and re-uploaded (none had JP labels yet).
+- Drive: private folder `SysRev LLMApp (LIVES)` with subfolders 01 to 04 and 99; every LIVES sheet except JP's two AAA Benchmarking sheets was moved in and renamed to `LIVES - <Area> - <date> - <what>`. New screening sheet ids are in TODO.md.
+- The old whole-library screening sheet was moved to 99 Archive instead of trashed (the trash call was blocked); trash it when ready.
+
+## 2026-11-26 (later): JP's decisions
+- Jev dropped everywhere in the live pipeline (code, config, docs, signals sheet); old benchmark folders keep it as history. The decision models are Perplexity Decider 1.3 and Liquid d1-ultra.
+- Pilot cap is $6 per batch. Standard mode is fine for piloting; JP is asked standard or batch every time papers are given (`--mode` is now required for a new run).
+- Claim check: `claim-check-v2` (pass, minor, fail); questions are no longer claim-checked. Reran on batch02 to batch04 in standard mode ($0.81, $0.79, $0.38).
+- Sheets use Spectral for column names and Google Sans for data; row heights are estimated because Google Sheets does not grow imported rows.
+
+## 2026-11-26 (night): more decisions
+- "Claim check" renamed node-detail check (`node-detail-check-v1.md`), because claim means CLM. Questions stay unchecked there (they have grounding quotes and screenshots); EVDs matter most.
+- Default sheet text size is 11. Macros for Google Sheets: `pipeline/apps-script/LivesStyle.gs` (not yet run inside Google Sheets).
+- New tab "Low decision-model scores" in the review sheets: the 74 EVDs below 0.60 with what the models saw. All 74 passed or got only notes from the node-detail check.
+- AAA Benchmarking (HAI) moved to `05 AAA Benchmarking`; AAA Benchmarking Results could not be moved with the connector's permissions (move it by hand).

@@ -28,6 +28,7 @@ def norm(s: str) -> str:
     s = re.sub(r'-\s*\n\s*', '', s)
     s = ''.join(_FIX.get(c, c) for c in s).translate(_SUP_SUB)   # superscript and subscript marks (footnote numbers, daggers) are dropped, not turned into digits
     s = unicodedata.normalize('NFKD', s)
+    s = re.sub(r'(?<=[\d%)])e(?=\d)', '', s)   # some PDFs map an en dash between numbers to the letter e in the text layer ("0.78e0.83"); dropping it on both sides keeps a visible "0.78\u20130.83" matching
     s = re.sub(r'(?<=\d)\.(?=\d)', 'dot', s)
     return re.sub(r'[^a-z0-9]', '', s.lower())
 

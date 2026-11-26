@@ -6,7 +6,7 @@ allowed-tools: Read, Write, Bash, Glob, Grep
 ---
 You are extracting a complete set of discourse graph nodes from scientific papers given to you as PDFs. The node types together map the paper's argumentative structure: what was asked (QUE), what was found (EVD), what it means (CLM), and where to be cautious (CVT). (EvidencePatterns, EP, are retired from the pipeline: JP, 2026-11-25; CLMs and human-generated syntheses suffice.)
 
-**Two files.** This file is part 1: the step-by-step procedure for one paper. **Part 2, `Skill-controls.md`, holds the run controls (the batch runner, run records, cost caps), drafting nodes by debate, provenance footers, matching and merging, crop, quote and decision-model checks, and the optional quality-signals module. Read it before running a batch, writing nodes or running Module Q.**
+**Two files.** This file is part 1: the step-by-step procedure for one paper. **Part 2, `Skill-controls.md`, holds the run controls (the paper processor, run records, cost caps), drafting nodes by debate, provenance footers, matching and merging, crop, quote and decision-model checks, and the optional quality-signals module. Read it before running a batch, writing nodes or running Module Q.**
 
 ## Workflow at a glance (v2)
 
@@ -54,7 +54,7 @@ The vault has two parent folders: `sysrev/` (the systematic-review content) and 
 
 - **Vault location:** scripts use the folder two levels above `pipeline/scripts/`; set `LIVES_VAULT=/path/to/vault` to override.
 - **Model origin (JP, 2026-11-25):** hosted APIs only from US developers (never send data to a foreign provider's API or hosted endpoint); open-weight models from any country may run **locally** if they are state of the art or close to it for the task. Record developer, country, base model, licence and the date checked (see `Tools-and-Models.md`, "Model-origin policy").
-- **API keys** go in `~/.config/lives-ai-raters/.env` (never in chat or the repo): `OPENAI_API_KEY` (PDF reading with GPT-6.2 Sol), `GEMINI_API_KEY` (Gemini 4 Neon, Project ENIGMA; spending limit set to the $100 loaded), `ANTHROPIC_API_KEY` (Claude Opus 5.5 and Sonnet 5.5), `PERPLEXITY_API_KEY`, `LIQUID_API_KEY`, `TYPESAFE_API_KEY` (Jev), `TINKER_API_KEY` (Inkling 2 Small), and `PANGRAM_API_KEY` (AI-writing check; use only on JP's command, planned December or January). All of these except the Pangram key were present in `.env` on 2026-11-25; JP added the Pangram key afterwards (confirm before use).
+- **API keys** go in `~/.config/lives-ai-raters/.env` (never in chat or the repo): `OPENAI_API_KEY` (PDF reading with GPT-6.2 Sol), `GEMINI_API_KEY` (Gemini 4 Neon, Project ENIGMA; spending limit set to the $100 loaded), `ANTHROPIC_API_KEY` (Claude Opus 5.5 and Sonnet 5.5), `PERPLEXITY_API_KEY`, `LIQUID_API_KEY` and `PANGRAM_API_KEY` (AI-writing check; use only on JP's command, planned December or January). All of these except the Pangram key were present in `.env` on 2026-11-25; JP added the Pangram key afterwards (confirm before use).
 - **Scripts:** the one canonical folder is `pipeline/scripts/`. The older copies are in `pipeline/misc/scripts-superseded/` and use the old folder layout; do not run them.
 
 ## Inputs
@@ -85,19 +85,19 @@ The drafting prompts carry these rules and the lint flags an em dash in drafted 
 > [!info] Why
 > The 2026-11-17 audit of the 77 EVD pages found 147 suspected errors (wrong numbers 49, claims not in the paper 33, paper contradicting itself 19, wrong page 18, wrong model or rater 17, missing comparator 8, row or column shift 3). Every one of them passed the quote check. The steps below add the controls that were missing. Tool and model choices are in `Tools-and-Models.md` (v2 section).
 
-1. **Parse with two independent reads.** (a) **Gemini 4 Neon** (`gemini-4-neon`, PDF input; thinking level High) reads the PDF directly (PDF input; reasoning effort High) and returns the PICOST records of item 4 directly, with the printed and PDF page of every number and verbatim spans (the runner does not ask for a full page-by-page transcript, which costs many output tokens; the page map comes from PyMuPDF, and a full transcript with HTML tables is requested only for scanned pages). (b) The PDF's own text layer with PyMuPDF for born-digital PDFs. Accept text, numbers and table cells only where the two agree. Where they disagree, or a page has no text layer, decide from the **rendered page image** (`pdftoppm -r 150 -f N -l N -png`), by GPT-6.2 Sol and Opus 5.5 or a human; never from either extraction alone. Do not use `pdftotext -layout` for tables. (2026-11-25: Gemini 4 Neon is the primary reader again, now that JP has a paid Google key in Project ENIGMA and a test call worked; GPT-6.2 Sol is the independent second reader for low-confidence and multi-page items. Keep LlamaParse as the fallback if both misread tables in the pilot.)
+1. **Parse with two independent reads.** (a) **Gemini 4 Neon** (`gemini-4-neon`, PDF input; thinking level High) reads the PDF directly (PDF input; reasoning effort High) and returns the PICOST records of item 4 directly, with the printed and PDF page of every number and verbatim spans (the paper processor does not ask for a full page-by-page transcript, which costs many output tokens; the page map comes from PyMuPDF, and a full transcript with HTML tables is requested only for scanned pages). (b) The PDF's own text layer with PyMuPDF for born-digital PDFs. Accept text, numbers and table cells only where the two agree. Where they disagree, or a page has no text layer, decide from the **rendered page image** (`pdftoppm -r 150 -f N -l N -png`), by GPT-6.2 Sol and Opus 5.5 or a human; never from either extraction alone. Do not use `pdftotext -layout` for tables. (2026-11-25: Gemini 4 Neon is the primary reader again, now that JP has a paid Google key in Project ENIGMA and a test call worked; GPT-6.2 Sol is the independent second reader for low-confidence and multi-page items. Keep LlamaParse as the fallback if both misread tables in the pilot.)
 2. **Page map, built once per paper.** Record for every page both the PDF page position and the **printed journal page** (PyMuPDF page labels first, otherwise the number printed in the header or footer; mark preprints without printed numbers "PDF position only"). Every citation uses the printed page.
 3. **Send Methods and Results first** (with their tables), and other sections only when a field is missing.
 4. **PICOST first.** For each candidate finding write one record as JSON: Population, Intervention, Comparator, Outcome, Study design, Timeframe, the finding in one sentence, and every number. **Every number and every PICOST value carries a locator**: journal page, table or figure, row label, column label. Anything the paper does not state is `Not reported`; never fill a slot with plausible standard detail. The bulk extraction model is **Gemini 4 Neon** at thinking level High (Medium or Low for simple steps such as restyling, alt text and link repair; its thinking tokens are billed as output, so set the level per step). **Low-confidence and multi-page extractions** (a confidence flag from Neon or a decision model, a parser disagreement, or a table, figure or finding that spans pages) are re-extracted independently by **GPT-6.2 Sol** and adjudicated by **Opus 5.5**; unresolved ones go to JP. Neon's quality on our papers is unmeasured, so the pilot compares it with Sol and Opus (TODO).
 5. **Reconcile prose against tables.** When the text and the paper's own table disagree, use the table and record the disagreement in a note (`- PDF check <date>: ...`); never edit the quote.
 6. **Check the whole table before "best".** Before any EVD says best, beat, matched or highest, read every row of the table and list every comparator that could change the claim (other models, human baselines, combined methods).
-7. **Checks before any node is written (Step 6e).** Every PICOST record passes four checks: (1) PyMuPDF finds each verbatim span and returns its bounding box; (2) the decision models answer the relevancy, fidelity, quote-grounding and table or figure grounding questions (Step 6e); (3) a record that is low-confidence or multi-page gets the Sol re-extraction and the Opus adjudication; (4) a human spot check. Until the decision-model thresholds are calibrated (shadow mode, JP 2026-11-24), the checks in (3) also run on every record flagged by a parser disagreement plus a 10% random sample.
+7. **Checks before any node is written (Step 6e).** Every PICOST record passes four checks: (1) PyMuPDF finds each verbatim span and returns its bounding box; (2) the decision models answer the relevancy, fidelity, quote-grounding and table or figure grounding questions (Step 6e); (3) a record that is low-confidence or multi-page gets the Sol re-extraction and the Opus adjudication; (4) a human spot check. Sol vision looks at the crop of every finding and may answer `cannot_verify`, which goes to a person (JP, 2026-11-25).
 8. **Write the EVD from the PICOST cells.** The EVD statement may contain only numbers that appear in its PICOST record, so the statement, the PICOST row and the screenshot agree.
 8a. **Where to look first (JP, 2026-11-24).** EVD content from the **Results** section before any other section; CVTs (caveats) and CLMs (claims) from the **Discussion** (and Limitations) before other sections; QUEs from the **Introduction** (and stated objectives). Fall back to other sections (Abstract, Methods, Conclusion, supplements) only when the preferred section does not give the item, and say in the PICOST record which section each value came from (`section`).
 8b. **Spotlight the passages (accuracy aid).** For each finding Gemini 4 Neon returns the verbatim span(s) that support it (text and printed page), not coordinates. PyMuPDF then searches for each span in the PDF (exact match after normalising hyphenation and quote marks), which returns the span's **bounding box**, draws a highlight and a box on the rendered page and saves it as a PNG under `work/<citekey>/highlights/`; the box is also what the crop step uses and is stored with the locator (page, x0, y0, x1, y1). A span PyMuPDF cannot find is a flag (the model paraphrased or misread), and the finding goes back for a fix before anyone writes from it. Humans and Opus 5.5 look at the highlighted page, not the raw PDF.
 9. **Work from the most recent report (JP, 2026-11-24).** Prefer the published journal or proceedings version over a preprint, and the latest preprint version over earlier ones; keep the older PDF as `Archive - ...` in `sysrev/dgraph/source/pdfs/Archive - superseded versions/`, and cite the printed page of the version used. Do not silently move an existing page to a newer version: list it for JP (TODO 0d).
 10. **Fix page-number errors when you find them (JP, 2026-11-24).** Whenever any step turns up a wrong page citation (printed versus PDF page, a quote that is not on the cited page), correct the citation in both the local vault and the repository copy, add the old and new value to the page's `PDF check` note, and log it; do not wait for a separate audit. Cite the version of the paper the page was built from (a version question goes to TODO 0d).
-11. **Run in batches with the batch runner (`lives_run.py`).** One to four PDFs at a time, batch mode once prompts are stable, a spending cap and stop rules, and a run manifest. The command, stages, rails and pilot plan are in `Skill-controls.md`, "The batch runner".
+11. **Run in batches with the paper processor (`lives_run.py`).** One to four PDFs at a time, batch mode once prompts are stable, a spending cap and stop rules, and a run manifest. The command, stages, rails and pilot plan are in `Skill-controls.md`, "The paper processor".
 
 Question rules for the QUEs you propose here are in Step 2 and in `Skill-templates.md` (QUE title phrasing rule, rules 1 to 12; keep each QUE's original wording as a quote).
 
@@ -108,9 +108,9 @@ JP reads and judges accuracy in a Google Sheet, not in markdown; Obsidian markdo
 2. Rebuild the review mirror with `pipeline/scripts/vault_to_gsheet.py` and upload it as the Google Sheet "LIVES vault mirror (JP review)" (tabs SRC, QUE, CLM, EVD, CVT, PICOST, SCREENING, each with JP accuracy-judgment dropdowns and a Notes column; screenshots as image formulas). JP judges there; apply his judgments back to the markdown only with his approval.
 3. Paper screening (Include or Exclude) is recorded on the SCREENING tab; decision-model screening uses JP's labelled sets and keeps recall near 100%.
 
-### Run records, cost controls and the batch runner → see `Skill-controls.md`
+### Run records, cost controls and the paper processor → see `Skill-controls.md`
 
-Log every model call (`call_logger.py`: model, effort, tokens, cost, prompt hash, unedited response), stay inside the ledger and the per-batch cap, and run one to four papers at a time with `lives_run.py`. The rules are in part 2: "The batch runner", "Run records and reasoning traces", "Cost controls".
+Log every model call (`call_logger.py`: model, effort, tokens, cost, prompt hash, unedited response), stay inside the ledger and the per-batch cap, and run one to four papers at a time with `lives_run.py`. The rules are in part 2: "The paper processor", "Run records and reasoning traces", "Cost controls".
 
 ## Step 2: Identify All Nodes
 
@@ -178,7 +178,7 @@ Two kinds of screenshots ground a node: **figure/table images** for EVDs, and **
 
 ### Drafting by debate → see `Skill-controls.md`
 
-EVD, QUE, CLM and CVT are drafted by Sonnet 5.5, GPT-6.2 Sol and Gemini 4 Neon (Medium), who critique and revise; Sol and Sonnet vote and Neon breaks ties; a checker that did not write the winner verifies every claim; Inkling 2 Small drafts and votes as a benchmark only. Lint first: 247 characters, numbers on the card, no em dash. Part 2, "Drafting by debate".
+EVD, QUE, CLM and CVT are drafted by Sonnet 5.5, GPT-6.2 Sol and Gemini 4 Neon (Medium), who critique and revise; Sol and Sonnet vote and Neon breaks ties; a checker that did not write the winner checks every detail. Lint first: 247 characters, numbers on the card, no em dash. Part 2, "Drafting by debate".
 
 ## Step 4c: Provenance footer on every node page → see `Skill-controls.md`
 
@@ -186,7 +186,7 @@ Every page written or changed ends with a collapsed AI-use footer generated from
 
 ## Matching, linking, merging and splitting → see `Skill-controls.md`
 
-EmbeddingGemma 2 proposes candidate pairs; Inkling 2 Small and Claude Sonnet 5.5 must agree; a person verifies every merge or split (subtle differences mean do not merge). Part 2, "Matching, linking, merging and splitting".
+EmbeddingGemma 2 proposes candidate pairs; GPT-6.2 Sol and Claude Sonnet 5.5 must agree; a person verifies every merge or split (subtle differences mean do not merge). Part 2, "Matching, linking, merging and splitting".
 
 ## Step 5: Build Reverse Links → see `Skill-templates.md`
 
@@ -207,11 +207,11 @@ The 2026-11-17 audit found 147 errors that all passed the quote check (record: `
 
 ## Who checks crops and quotes → see `Skill-controls.md`
 
-Scripts first, then the decision-model checks (mean probability and spread guide what happens next), then GPT-6.2 Sol vision on flagged, low-confidence and 10% sampled crops, and Claude Opus 5.5 only on rare disputes. Part 2.
+Scripts first, then the decision-model checks (mean probability and spread guide what happens next), then GPT-6.2 Sol vision on the crop of every finding (pass, fail or cannot verify), and Claude Opus 5.5 only on rare disputes. Part 2.
 
 ## Step 6e: Decision-model check of extractions → see `Skill-controls.md`
 
-Decider 1.3, d1-ultra and Jev run four checks (relevancy, fidelity, quote grounding, table or figure grounding) before any node is written. Part 2, "Step 6e".
+Decider 1.3 and d1-ultra run four checks (relevancy, fidelity, quote grounding, table or figure grounding) before any node is written. Part 2, "Step 6e".
 
 ## Steps 7 to 14 → see `Skill-templates.md` and `Skill-synthesis.md`
 
@@ -219,7 +219,7 @@ Per paper (`Skill-templates.md`): Step 7 readability formatting (`pipeline/scrip
 
 ## Module Q: Quality signals (OPTIONAL) → see `Skill-controls.md`
 
-A separate run, only on JP's command, never part of a batch run. Opus 5.5, Sol and Neon rate blind and the majority decides; scripts check quotes. The full module (rows, rules, cost, Pangram) is in part 2, "Module Q".
+A separate run, only on JP's command, never part of a batch run. Neon (High) and Opus 5.5 rate blind and Sol adjudicates only disagreements; scripts check quotes. The full module (rows, rules, cost, Pangram) is in part 2, "Module Q".
 
 ## Reference docs
 

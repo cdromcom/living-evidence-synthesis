@@ -60,12 +60,12 @@ Model names such as GPT-4 or o3-mini that appear in these files are models studi
 | Bulk extraction, question splitting and restyling, alt text, link repair | **GPT-6.2 Sol** (High for extraction; Medium for restyling, alt text, link repair) | Max only if a pilot shows it removes errors High leaves (5 papers at Medium, High and Max, scored on the 147 audit corrections); no independent extraction benchmark found |
 | Alt text from screenshots | GPT-6.2 Sol vision (Medium) | reads each image; replaces Gemini 4 Argon |
 | Writing nodes (EVD, QUE, CLM, CVT) by debate | **Claude Sonnet 5.5**, **GPT-6.2 Sol** and **Gemini 4 Neon (Medium thinking)** draft, critique and revise; **Sol and Sonnet vote**, Neon breaks ties; **Inkling 2 Small** votes for benchmarking only; **Claude Opus 5.5** ($4 and $20; batch $2 and $10) on escalation (JP, 2026-11-25) | Sonnet $2 and $10; Sol $2 and $10 (unverified); Neon $3 and $15 | fallbacks to compare: Opus 5.5 as sole author. Fable 5.2 is not used (JP, 2026-11-24: too costly) |
-| QA of PICOST extractions | decision models (Liquid d1-ultra, Perplexity Decider 1.3, Jev): relevancy, fidelity, quote grounding, table and figure grounding | shadow mode until calibrated (JP, 2026-11-24); low-confidence and multi-page items go to GPT-6.2 Sol and Opus 5.5; Opus 5.5 also checks parser disagreements plus a 10% sample |
+| QA of PICOST extractions | decision models (Liquid d1-ultra, Perplexity Decider 1.3): relevancy, fidelity, quote grounding, table and figure grounding | shadow mode until calibrated (JP, 2026-11-24); low-confidence and multi-page items go to GPT-6.2 Sol and Opus 5.5; Opus 5.5 also checks parser disagreements plus a 10% sample |
 | Unattended runs | **Batch APIs** (Anthropic, OpenAI) | about half price; cached Skill instructions; standard API only for pilots |
-| EVD candidate voting | GPT-6.2 Sol (Medium) + Inkling 2 Small on Tinker | JP loaded USD 50 on Tinker (2026-11-24); Inkling 2 Small is JP's Inkling model of choice; listed at about USD 0.30 in and 1.00 out per million tokens on third-party sites (confirm on Tinker's pricing page); the Tinker key is in `.env` |
+| EVD candidate voting | GPT-6.2 Sol and Claude Sonnet 5.5 vote (Neon breaks ties) | JP dropped Inkling 2 Small on 2026-11-25 (not useful in the pilot) | |
 | Embeddings, deduplication, linking | tabled | not needed at 77 EVDs from 27 papers |
 
-Open: Anthropic and OpenAI API keys are not set (Google dropped: no key available) in `~/.config/lives-ai-raters/.env` (only Perplexity, Liquid and Jev are).
+Open: Anthropic and OpenAI API keys are not set (Google dropped: no key available) in `~/.config/lives-ai-raters/.env` (only Perplexity and Liquid are).
 
 ## Planned toolchain (decided by JP, 2026-11-20)
 
@@ -78,7 +78,7 @@ Open: Anthropic and OpenAI API keys are not set (Google dropped: no key availabl
    - Dropped on 2026-11-20 under the earlier US-only policy: GLM-OCR (Zhipu), PaddleOCR-VL-1.6 (Baidu), LightOnOCR-3-4B (LightOn, France). **Since 2026-11-25 these are eligible again** if they are near the state of the art for OCR and run locally; they are not back in the plan until tested. olmOCR 2 is no longer in the plan.
 2. **Fallbacks.** If those tools fail on a paper, use other tools.
 3. **Highlights and screenshots.** Once the OCR models agree on the text and tables, use **PyMuPDF** and **`pdftoppm`** to locate the agreed quotes, highlight them and take the screenshots. The screenshot pipeline needs exact word coordinates, which these two provide for born-digital PDFs.
-4. **Writing the nodes.** Sonnet 5.5, Sol and Neon (Medium) draft from the checked extractions and the Skill files, critique one another and revise (two rounds at most); Sol and Sonnet vote, Neon breaks ties; the cheaper of Sol and Sonnet checks the claims; Opus 5.5 only on escalation. Same loop for EVD, QUE, CLM and CVT (`Skill-controls.md`, "Drafting by debate").
+4. **Writing the nodes.** Sonnet 5.5, Sol and Neon (Medium) draft the primary EVDs from the checked extractions (Sonnet 5.5 alone drafts everything else) and the Skill files, critique one another and revise (two rounds at most); Sol and Sonnet vote, Neon breaks ties; the cheaper of Sol and Sonnet checks the claims; Opus 5.5 only on escalation. Same loop for EVD, QUE, CLM and CVT (`Skill-controls.md`, "Drafting by debate").
 5. **Quality signals (optional, later).** JP may run **Pangram 4.1** to detect AI-generated text and images and plagiarism, alone or with Claude's help. It could become part of a later-stage Quality Signals check pipeline. The existing `pipeline/scripts/pangram_check.py` calls `pangram-4` and checks text only; it would need updating for 4.1 and images.
 
 ### Model ensembles: 2-3 open models for each closed model (JP, 2026-11-20)
@@ -109,7 +109,7 @@ Every step that uses a closed model also runs open models, and their outputs are
 > | Role | Model | Open or closed | Runs |
 > |---|---|---|---|
 > | Reading, extracting, drafting | **Gemini 4 Neon** (Google) | Closed | API |
-> | Adjudicating, demanding judgments, EVD claim check | **Claude Opus 5.5** (Anthropic) | Closed | API |
+> | Adjudicating, demanding judgments, EVD node-detail check | **Claude Opus 5.5** (Anthropic) | Closed | API |
 > | First extraction pass | **Inkling 2 Mini** (Thinking Machines Lab) and **Gemma 4** (Google) | Open | Locally on JP's Framework PC |
 > | Extraction backups (only if needed later, for speed or quality) | **Ripple-65B Preview** (Ricursive Intelligence) and **Reflection Beam** (Reflection AI) | Open | Called through hosted APIs (Beam is too large to run locally; JP, 2026-11-20) |
 > | OCR | **Chandra OCR 2** (Datalab) and **OXR-1.0**, plus the PDF text layer | Open | Locally |
@@ -233,6 +233,8 @@ Pushing these to the GitHub repository needs JP's approval.
 > Use EmbeddingGemma 2 to **find candidates** (fast, free, scores every pair) and, since JP's 2026-11-25 decision, **Inkling 2 Small plus Claude Sonnet 5.5, which must agree**, to decide on each candidate (Claude Opus 5.5 only if they disagree and JP asks) (whether two EVDs are really the same finding, and which relation applies: supports, opposes, consistent with). A human confirms merges and links. The April redundancy audit (`pipeline/misc/redundancy_audit_2026-04-27.md`) can serve as a first test set for comparing the two.
 
 
+> Dropped 2026-11-25 (JP): Inkling is no longer used anywhere in the pipeline. The next section is kept as a record.
+
 ## Inkling on Tinker: prices and model card (read 2026-11-25; partly unverified)
 - **Source:** Tinker's models and pricing page (tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/). The page was truncated for the reader, so the Inkling rows below came from a model-extracted summary and are **not verified**; confirm on the page before spending.
 - **Inkling 2 Small** (64K context): prefill $0.30, cached prefill $0.03, sample $1.00, **train $1.50** per million tokens; the 256K row trains at $3.00.
@@ -279,8 +281,8 @@ Pushing these to the GitHub repository needs JP's approval.
 - Seed task groups come from the Review-Arena sections (`pipeline/screening/shared/seed-papers_task-groups.json`): peer review reports (7 seeds), reporting-guideline compliance (10), error and quality-issue detection (6), novelty (2), ethics (2), causal inference (1); one seed has two groups.
 - Leave-one-out on the seeds: EmbeddingGemma 2 73%, harrier-oss-v1-0.6b 73%, DNA-VL-STEER-2B 77% (26 seeds testable; one task group has a single seed).
 
-## Open models as a benchmark (JP, 2026-11-25)
-Inkling 2 Small (and other cheap open models) run the same tasks as a **benchmark only**, to see how far behind the frontier ensemble the best open American model is and to repeat the comparison as open models improve. They never write to the vault. Extraction is wired up (`lives_run.py --shadow`); the rest is specified in `pipeline/skills/Open-model-benchmark-spec.md` (ladder, candidate models, metrics, the frozen Stage II snapshot).
+## Open models as a benchmark (dropped 2026-11-25)
+JP dropped the open-model benchmark and Inkling after the pilot (it found 22 to 68% of Neon's primary numbers and none of its quotes on the longest paper). The spec is in `pipeline/misc/archive/open-model-benchmark-2026-11-25/`.
 
 ## Token budgets per model and stage (JP, 2026-11-25)
 
@@ -300,24 +302,24 @@ Measured on the 27 seed PDFs (`pdf_pages.py` text, the Claude and Gemini token c
 | Independent recheck | GPT-6.2 Sol | only the cited pages plus one on each side (usually 3 to 9 pages) | 3,000 + 1,000 per flagged finding, at most 16,000 | measured about 670 per finding |
 | Adjudication | Claude Opus 5.5 | the same excerpt plus both readings | 1,000 + 450 per disputed finding, at most 8,000 | measured about 226 per finding |
 | EVD draft, critique and revision (three authors, up to two rounds) | Claude Sonnet 5.5, GPT-6.2 Sol, Gemini 4 Neon (Medium) | card about 3,000 (a critique round adds the three drafts, about 5,000) | draft 3,000; critique plus revision 4,000 | about 0.5k visible plus thinking |
-| Draft vote | Sol and Sonnet 5.5 decide (Neon breaks ties); Inkling 2 Small votes in parallel for benchmarking only | card, three drafts, span about 3,500 | 2,000 each; Inkling 3,000 (includes its reasoning) | |
-| Claim-by-claim check | Claude Opus 5.5 | draft, span, crop about 4,000 | 4,000 | |
+| Draft vote | Sol and Sonnet 5.5 decide (Neon breaks ties) | card, three drafts, span about 3,500 | 2,000 each; Inkling 3,000 (includes its reasoning) | |
+| Node-detail check | Claude Opus 5.5 | draft, span, crop about 4,000 | 4,000 | |
 | Crop QA | GPT-6.2 Sol (vision) | one image, checklist | 1,500 | |
-| Decision models | d1-ultra, Decider 1.3, Jev | page image or passage | not applicable | priced per call |
+| Decision models | d1-ultra, Decider 1.3 | page image or passage | not applicable | priced per call |
 
-Two changes follow from the measurements. (1) The extraction prompt now sorts findings into three tiers (`picost-v3.md`: primary answers the research question, secondary is meta or contextual about a primary finding, tertiary is other context) with first-guess caps of 6, 4 and 2 (the seed maximum of 6 EVDs is the primary cap) and an `omitted` note per tier; v1 returned 29 findings for a 10-page paper and cost $0.60 for extraction alone. (2) Sol and Opus read only the cited pages, not the whole PDF (the 60-page seed papers are 165,000 Claude tokens). Real cost of the same 10-page paper through the runner: $1.24 before these changes, $0.52 after (Neon $0.46, Sol $0.06, Opus not needed).
+Two changes follow from the measurements. (1) The extraction prompt now sorts findings into three tiers (`picost-v3.md`: primary answers the research question, secondary is meta or contextual about a primary finding, tertiary is other context) with first-guess caps of 6, 4 and 2 (the seed maximum of 6 EVDs is the primary cap) and an `omitted` note per tier; v1 returned 29 findings for a 10-page paper and cost $0.60 for extraction alone. (2) Sol and Opus read only the cited pages, not the whole PDF (the 60-page seed papers are 165,000 Claude tokens). Real cost of the same 10-page paper through the paper processor: $1.24 before these changes, $0.52 after (Neon $0.46, Sol $0.06, Opus not needed).
 
 ### Stages added on 2026-11-25 (`lives_stages.py`): budgets and cost
 | Stage | Models | Max tokens per request | Notes |
 |---|---|---|---|
-| Checks, decision models | Perplexity Decider 1.3, Liquid d1-ultra, Jev | not applicable | three calls per finding; cents per paper |
-| Checks, vision | GPT-6.2 Sol (images) | 1,500 | flagged, low-confidence (mean below 0.60), split (spread above 0.35) and 10% sampled findings |
+| Checks, decision models | Perplexity Decider 1.3, Liquid d1-ultra | not applicable | two calls per finding; cents per paper |
+| Checks, vision | GPT-6.2 Sol (images) | 1,500 | every finding (pass, fail or cannot verify) |
 | Checks, disputes | Claude Opus 5.5 (image) | 3,000 | only where Sol and the checks disagree |
-| Draft, round 0 | Sonnet 5.5, Sol, Neon (Medium) and Inkling (benchmark) | 9,000 | all nodes of a paper in one request per model |
+| Draft, round 0 | Sonnet 5.5, Sol, Neon (Medium) | 9,000 | all nodes of a paper in one request per model |
 | Draft, critique and revision | Sonnet 5.5, Sol, Neon (Medium) | 14,000 | each sees all three first drafts, anonymous and shuffled |
-| Draft, vote | Sol and Sonnet (counted), Inkling (benchmark) | 5,000 | Neon tie-break 3,000, only for split nodes |
-| Draft, claim check | the cheaper of Sol and Sonnet that did not write the winner | 6,000 | one request per checker per paper |
-| Quality signals | Opus 5.5, Sol, Neon (Medium), Inkling (benchmark) | 9,000 | 25 signals per paper, one request per rater |
+| Draft, vote | Sol and Sonnet | 5,000 | Neon tie-break 3,000, only for split nodes |
+| Draft, node-detail check | the cheaper of Sol and Sonnet that did not write the winner | 6,000 | one request per checker per paper |
+| Quality signals | Opus 5.5, Sol, Neon (Medium) | 9,000 | 25 signals per paper, one request per rater |
 
 Cost so far (measured only on a one-page synthetic paper, standard mode): $0.61 for extraction, checks, drafting of 4 nodes and 25 quality signals. Rough planning figures per paper in standard mode: checks about $0.15, drafting about $1.9 (it grows with the number of nodes), quality signals about $0.25 plus $0.015 per page; batch mode is half. For the four-paper seed pilot the full pipeline is therefore about $6.7 in batch mode and $13 in standard mode, above the $5.55 cap. The pilot replaces these guesses with measurements.
 
