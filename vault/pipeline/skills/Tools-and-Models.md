@@ -78,7 +78,7 @@ Open: Anthropic and OpenAI API keys are not set (Google dropped: no key availabl
    - Dropped on 2026-11-20 under the earlier US-only policy: GLM-OCR (Zhipu), PaddleOCR-VL-1.6 (Baidu), LightOnOCR-3-4B (LightOn, France). **Since 2026-11-25 these are eligible again** if they are near the state of the art for OCR and run locally; they are not back in the plan until tested. olmOCR 2 is no longer in the plan.
 2. **Fallbacks.** If those tools fail on a paper, use other tools.
 3. **Highlights and screenshots.** Once the OCR models agree on the text and tables, use **PyMuPDF** and **`pdftoppm`** to locate the agreed quotes, highlight them and take the screenshots. The screenshot pipeline needs exact word coordinates, which these two provide for born-digital PDFs.
-4. **Writing the nodes.** Sonnet 5.5, Sol and Neon (Medium) draft from the checked extractions and the Skill files, critique one another and revise (two rounds at most); Sol and Sonnet vote, Neon breaks ties; the cheaper of Sol and Sonnet checks the claims; Opus 5.5 only on escalation. Same loop for EVD, QUE, CLM and CVT (`Skill-controls.md`, "Drafting by debate").
+4. **Writing the nodes.** Sonnet 5.5, Sol and Neon (Medium) draft the primary EVDs from the checked extractions (Sonnet 5.5 alone drafts everything else) and the Skill files, critique one another and revise (two rounds at most); Sol and Sonnet vote, Neon breaks ties; the cheaper of Sol and Sonnet checks the claims; Opus 5.5 only on escalation. Same loop for EVD, QUE, CLM and CVT (`Skill-controls.md`, "Drafting by debate").
 5. **Quality signals (optional, later).** JP may run **Pangram 4.1** to detect AI-generated text and images and plagiarism, alone or with Claude's help. It could become part of a later-stage Quality Signals check pipeline. The existing `pipeline/scripts/pangram_check.py` calls `pangram-4` and checks text only; it would need updating for 4.1 and images.
 
 ### Model ensembles: 2-3 open models for each closed model (JP, 2026-11-20)
@@ -313,7 +313,7 @@ Two changes follow from the measurements. (1) The extraction prompt now sorts fi
 | Stage | Models | Max tokens per request | Notes |
 |---|---|---|---|
 | Checks, decision models | Perplexity Decider 1.3, Liquid d1-ultra, Jev | not applicable | three calls per finding; cents per paper |
-| Checks, vision | GPT-6.2 Sol (images) | 1,500 | flagged, low-confidence (mean below 0.60), split (spread above 0.35) and 10% sampled findings |
+| Checks, vision | GPT-6.2 Sol (images) | 1,500 | every finding (pass, fail or cannot verify) |
 | Checks, disputes | Claude Opus 5.5 (image) | 3,000 | only where Sol and the checks disagree |
 | Draft, round 0 | Sonnet 5.5, Sol, Neon (Medium) | 9,000 | all nodes of a paper in one request per model |
 | Draft, critique and revision | Sonnet 5.5, Sol, Neon (Medium) | 14,000 | each sees all three first drafts, anonymous and shuffled |

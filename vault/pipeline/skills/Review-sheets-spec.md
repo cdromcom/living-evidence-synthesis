@@ -24,13 +24,15 @@ Goal: a human can follow every step of a run, see each model's work, and add gro
 |---|---|---|
 | Checks (decision models) | per finding: mean probability for relevancy, fidelity, quote grounding and table or figure grounding, the score (lowest mean), the spread between the three models, why Sol looked, Sol's vision verdict and reason, Opus on disputes, result | is the finding right?, notes |
 | Drafts and debate | per node (EVD, QUE, CLM, CVT): winner and how it was decided (Sol and Sonnet agree, or Neon tie-break), text, characters, reading grade, lint, claim check and suggested fix, decision-model score, status, the three first drafts | best text or your own, fidelity, style, notes |
-| Quality signals (raw) | one row per paper, signal and rater: rating, verbatim quote, locator, quote found in the PDF; Opus, Sol and Neon all count | none |
+| Quality signals (raw) | one row per paper, signal and rater: rating, verbatim quote, locator, quote found in the PDF; Neon (High) and Opus rate; Sol adds a third rating only where they disagreed | none |
+| Metrics | time, cost, accuracy according to the checkers, per stage and overall (a plain list, no labels) | none |
+| Question groups | unified, nested questions proposed from the papers' own questions (`consolidate_questions.py`) | group right, better wording |
 | Quality signals (vote) | per paper and signal: votes, majority, agreement, quotes not found | correct rating, notes |
 
 ## 3. Quality Signals benchmark sheet (specified; raw and vote tabs exist per run, the cross-paper benchmark is to build)
 | Tab | Content |
 |---|---|
-| Raw ratings | the raw tab above, stacked over all runs. Raters: Opus 5.5, Sol and Neon |
+| Raw ratings | the raw tab above, stacked over all runs. Raters: Neon (High) and Opus 5.5, with Sol only for disagreements |
 | Aggregate | the vote tab stacked over all runs |
 | Benchmark | per model and for the majority: accuracy against JP's labels, Cohen's kappa, false-positive and false-negative rate, cost per correct rating, time; updated as soon as JP fills the label column |
 | JP labels | JP's ground-truth rating per paper and signal, with a note |

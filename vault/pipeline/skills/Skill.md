@@ -91,7 +91,7 @@ The drafting prompts carry these rules and the lint flags an em dash in drafted 
 4. **PICOST first.** For each candidate finding write one record as JSON: Population, Intervention, Comparator, Outcome, Study design, Timeframe, the finding in one sentence, and every number. **Every number and every PICOST value carries a locator**: journal page, table or figure, row label, column label. Anything the paper does not state is `Not reported`; never fill a slot with plausible standard detail. The bulk extraction model is **Gemini 4 Neon** at thinking level High (Medium or Low for simple steps such as restyling, alt text and link repair; its thinking tokens are billed as output, so set the level per step). **Low-confidence and multi-page extractions** (a confidence flag from Neon or a decision model, a parser disagreement, or a table, figure or finding that spans pages) are re-extracted independently by **GPT-6.2 Sol** and adjudicated by **Opus 5.5**; unresolved ones go to JP. Neon's quality on our papers is unmeasured, so the pilot compares it with Sol and Opus (TODO).
 5. **Reconcile prose against tables.** When the text and the paper's own table disagree, use the table and record the disagreement in a note (`- PDF check <date>: ...`); never edit the quote.
 6. **Check the whole table before "best".** Before any EVD says best, beat, matched or highest, read every row of the table and list every comparator that could change the claim (other models, human baselines, combined methods).
-7. **Checks before any node is written (Step 6e).** Every PICOST record passes four checks: (1) PyMuPDF finds each verbatim span and returns its bounding box; (2) the decision models answer the relevancy, fidelity, quote-grounding and table or figure grounding questions (Step 6e); (3) a record that is low-confidence or multi-page gets the Sol re-extraction and the Opus adjudication; (4) a human spot check. Until the decision-model thresholds are calibrated (shadow mode, JP 2026-11-24), the checks in (3) also run on every record flagged by a parser disagreement plus a 10% random sample.
+7. **Checks before any node is written (Step 6e).** Every PICOST record passes four checks: (1) PyMuPDF finds each verbatim span and returns its bounding box; (2) the decision models answer the relevancy, fidelity, quote-grounding and table or figure grounding questions (Step 6e); (3) a record that is low-confidence or multi-page gets the Sol re-extraction and the Opus adjudication; (4) a human spot check. Sol vision looks at the crop of every finding and may answer `cannot_verify`, which goes to a person (JP, 2026-11-25).
 8. **Write the EVD from the PICOST cells.** The EVD statement may contain only numbers that appear in its PICOST record, so the statement, the PICOST row and the screenshot agree.
 8a. **Where to look first (JP, 2026-11-24).** EVD content from the **Results** section before any other section; CVTs (caveats) and CLMs (claims) from the **Discussion** (and Limitations) before other sections; QUEs from the **Introduction** (and stated objectives). Fall back to other sections (Abstract, Methods, Conclusion, supplements) only when the preferred section does not give the item, and say in the PICOST record which section each value came from (`section`).
 8b. **Spotlight the passages (accuracy aid).** For each finding Gemini 4 Neon returns the verbatim span(s) that support it (text and printed page), not coordinates. PyMuPDF then searches for each span in the PDF (exact match after normalising hyphenation and quote marks), which returns the span's **bounding box**, draws a highlight and a box on the rendered page and saves it as a PNG under `work/<citekey>/highlights/`; the box is also what the crop step uses and is stored with the locator (page, x0, y0, x1, y1). A span PyMuPDF cannot find is a flag (the model paraphrased or misread), and the finding goes back for a fix before anyone writes from it. Humans and Opus 5.5 look at the highlighted page, not the raw PDF.
@@ -207,7 +207,7 @@ The 2026-11-17 audit found 147 errors that all passed the quote check (record: `
 
 ## Who checks crops and quotes → see `Skill-controls.md`
 
-Scripts first, then the decision-model checks (mean probability and spread guide what happens next), then GPT-6.2 Sol vision on flagged, low-confidence and 10% sampled crops, and Claude Opus 5.5 only on rare disputes. Part 2.
+Scripts first, then the decision-model checks (mean probability and spread guide what happens next), then GPT-6.2 Sol vision on the crop of every finding (pass, fail or cannot verify), and Claude Opus 5.5 only on rare disputes. Part 2.
 
 ## Step 6e: Decision-model check of extractions → see `Skill-controls.md`
 
@@ -219,7 +219,7 @@ Per paper (`Skill-templates.md`): Step 7 readability formatting (`pipeline/scrip
 
 ## Module Q: Quality signals (OPTIONAL) → see `Skill-controls.md`
 
-A separate run, only on JP's command, never part of a batch run. Opus 5.5, Sol and Neon rate blind and the majority decides; scripts check quotes. The full module (rows, rules, cost, Pangram) is in part 2, "Module Q".
+A separate run, only on JP's command, never part of a batch run. Neon (High) and Opus 5.5 rate blind and Sol adjudicates only disagreements; scripts check quotes. The full module (rows, rules, cost, Pangram) is in part 2, "Module Q".
 
 ## Reference docs
 

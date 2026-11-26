@@ -255,3 +255,11 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - `checks_vision` and `checks_opus` run in standard mode; stragglers are cancelled 5 minutes after all but about 10% of requests finish and go to human review; `--fast` runs everything in standard mode with drafting and ratings at the same time.
 - "Runner" renamed "paper processor" in the docs. Skill-controls.md has a plain explanation of flagging, the 30-minute plan and the planned question consolidation.
 - Test on the synthetic paper in fast mode: finished in 2 min 8 s, $0.56, 1 question found.
+
+## 2026-11-25 (late): JP's design decisions after the pilot
+- No caps on questions, findings, EVDs, CLMs or CVTs (`picost-v6.md`); repeated questions within a paper are kept.
+- Drafting: only primary EVDs go through the three-author debate; everything else is one Sonnet 5.5 draft.
+- Quality signals: two raters, Neon (High) and Opus 5.5; Sol adjudicates only disagreements (`adjudicate-signals-v1.md`).
+- Checks: Sol vision looks at the crop of every finding and may answer cannot_verify (`vision-check-v2.md`); cannot verify goes to a person.
+- Built `consolidate_questions.py` (unified, nested questions); review sheet gets Metrics and Question groups tabs; sheets embed pictures in cells.
+- Reruns started: `2026-11-25_batch02` (the four pilot papers again) and `2026-11-25_batch03` (random sample of four other seed papers, seed 20261125; list in `runs/sample_2026-11-25.json`).

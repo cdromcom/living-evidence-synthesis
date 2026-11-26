@@ -27,7 +27,9 @@ check('the origin policy blocks a disallowed country', bad)
 print('prompts and registries')
 import lives_run as R, lives_stages as S
 for st, pth in R.STAGE_PROMPT.items(): check(f'prompt {pth}', (V / pth).exists())
-check('picost prompt has the tier placeholders', all(x in (V / R.STAGE_PROMPT['picost']).read_text() for x in ('{MAX_PRIMARY}', '{MAX_SECONDARY}', '{MAX_TERTIARY}')))
+check('picost prompt has no leftover cap placeholders (no caps on questions or findings)', '{MAX_' not in (V / R.STAGE_PROMPT['picost']).read_text())
+check('vision-check-v2 allows cannot_verify', 'cannot_verify' in (V / 'pipeline/prompts/vision-check-v2.md').read_text())
+check('quality signals: two raters and a third-model adjudicator', len(S.RATERS) == 2 and S.QS_ADJ['model'] not in [m for _, m, _ in S.RATERS] and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
 for n in ('draft-nodes-v2', 'critique-revise-v2', 'vote-v1', 'claim-check-v1', 'rate-signals-v1', 'vision-check-v1'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
 ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}

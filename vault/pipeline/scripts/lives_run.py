@@ -5,7 +5,7 @@
   python3 lives_run.py --resume RUN_ID              continue a stopped or interrupted run (a submitted batch job is picked up again, not paid twice)
 
 Stages (one request per paper, or per paper with flagged findings, per stage; the whole stage goes out as ONE batch or one parallel standard run):
-  1 picost      Gemini 4 Neon reads each PDF and returns PICOST records with locators and verbatim spans (prompts/picost-v5.md)
+  1 picost      Gemini 4 Neon reads each PDF and returns PICOST records with locators and verbatim spans (prompts/picost-v6.md)
   2 spans       local, free: PyMuPDF finds every span, returns bounding boxes, saves highlighted pages, checks that each number is on the page; flags low-confidence,
                 multi-page, scanned and not-found items
   3 recheck     GPT-6.2 Sol re-extracts the flagged findings independently, without seeing Neon's values (prompts/recheck-v1.md)
@@ -36,10 +36,9 @@ import config as C
 LIM = C.PIPE['limits']; TOK = C.PIPE['tokens']
 MAX_PAPERS = LIM['max_papers']; CAP = LIM['cap_usd']; OVERRUN = LIM['overrun_factor']; MAX_SPAN_MISS = LIM['max_span_miss']   # all from pipeline/config/pipeline.json
 TOK_PER_PAGE = TOK['per_page_input']   # input tokens per PDF page (measured on the 27 seed PDFs and billed calls)
-MAX_TIER = C.PIPE['tiers']             # findings per tier: primary is the seed maximum (6 EVDs); secondary and tertiary are first guesses for the pilot
-MAX_FINDINGS = sum(MAX_TIER.values())
+MAX_FINDINGS = LIM['worst_case_findings_per_paper']   # planning number for output budgets only; there is no cap on findings (JP, 2026-11-25)
 STAGE_MODEL = {'picost': C.ROLES['extract'], 'recheck': C.ROLES['recheck'], 'adjudicate': C.ROLES['adjudicate']}   # roles in pipeline/config/models.json
-STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v5.md', 'recheck': 'pipeline/prompts/recheck-v1.md', 'adjudicate': 'pipeline/prompts/adjudicate-v1.md'}
+STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v6.md', 'recheck': 'pipeline/prompts/recheck-v1.md', 'adjudicate': 'pipeline/prompts/adjudicate-v1.md'}
 def max_out(stage, n=0):   # n = pages for picost, flagged or disputed findings for recheck and adjudicate
     """Output plus thinking budget (max tokens) per request, from pipeline/config/pipeline.json. Measured on real runs: Neon 27,317 tokens for 10 pages and 12 findings (about 11,000 visible,
     16,000 thinking); Sol about 670 per flagged finding; Opus about 226 per dispute plus a thinking floor (it ran out at 1,450 on one dispute). Beyond 10 pages the picost growth is an extrapolation."""
@@ -173,7 +172,7 @@ def build(stage, M, run):
         if p.get('failed'): continue
         if stage == 'picost':
             if 'picost' in p.get('stages', {}): continue   # already extracted (a resume re-runs only the papers that failed)
-            reqs.append(L.Req(f'{ck}__picost', STAGE_MODEL[stage], f"{q}Page map: {pagemap_text(p['preflight']['page_map'])}{supp_note(p)}\nExtract the findings now.", system.replace('{MAX_PRIMARY}', str(MAX_TIER['primary'])).replace('{MAX_SECONDARY}', str(MAX_TIER['secondary'])).replace('{MAX_TERTIARY}', str(MAX_TIER['tertiary'])).replace('{MAX_QUESTIONS}', str(LIM['max_questions'])), ex(p['pdf']), 'high', max_out('picost', p['preflight']['pages'])))
+            reqs.append(L.Req(f'{ck}__picost', STAGE_MODEL[stage], f"{q}Page map: {pagemap_text(p['preflight']['page_map'])}{supp_note(p)}\nExtract the findings now.", system, ex(p['pdf']), 'high', max_out('picost', p['preflight']['pages'])))
         elif stage == 'recheck':
             fl = [f for f in p.get('flagged', [])]
             if not fl or p.get('stages', {}).get('recheck', {}).get('status') == 'done': continue   # a finished recheck is not paid for twice on resume

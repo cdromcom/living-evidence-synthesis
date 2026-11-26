@@ -1,0 +1,24 @@
+{
+ "pilot": [
+  "@bougieGenerativeAdversarialReviews2024a",
+  "@sarolAssessingCitationIntegrity2024",
+  "@tyserAIDrivenReviewSystems2024",
+  "@woelfleBenchmarkingHumanAICollaboration2024"
+ ],
+ "sample": [
+  "@idahlOpenReviewerSpecializedLarge2025",
+  "@shahidLiteratureGroundedNoveltyAssessment2025",
+  "@hasanIntegratingLargeLanguage2024",
+  "@liuReviewerGPTExploratoryStudy2023"
+ ],
+ "pdfs": {
+  "@bougieGenerativeAdversarialReviews2024a": "Bougie et al. - 2024 - Generative Adversarial Reviews.pdf",
+  "@sarolAssessingCitationIntegrity2024": "Sarol et al. - 2024 - Assessing citation integrity.pdf",
+  "@tyserAIDrivenReviewSystems2024": "Tyser et al. - 2024 - AI-Driven Review Systems Evaluating LLMs in Scalable and Bias-Aware Academic Reviews.pdf",
+  "@woelfleBenchmarkingHumanAICollaboration2024": "Woelfle et al. - 2024 - Benchmarking Human\u2013AI collaboration for common evidence appraisal tools.pdf",
+  "@idahlOpenReviewerSpecializedLarge2025": "Idahl and Ahmadi - 2025 - OpenReviewer A Specialized LLM.pdf",
+  "@shahidLiteratureGroundedNoveltyAssessment2025": "Shahid et al. - 2025 - Literature-Grounded Novelty Assessment of Scientific Ideas.pdf",
+  "@hasanIntegratingLargeLanguage2024": "Hasan et al_2024_Integrating large language models in systematic reviews.pdf",
+  "@liuReviewerGPTExploratoryStudy2023": "Liu and Shah - 2023 - ReviewerGPT An Exploratory Study on Using Large Language Models for Paper Reviewing.pdf"
+ }
+}

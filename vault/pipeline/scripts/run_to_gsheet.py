@@ -99,6 +99,58 @@ def main():
     if dr_rows: tab('Drafts and debate', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Lint pass', 'Numbers not on the card', 'Claim check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
     if qr_rows: tab('Quality signals (raw)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Quote', 'Locator', 'Quote found in PDF'], qr_rows, [30, 22, 8, 12, 16, 70, 24, 10])
     if qa_rows: tab('Quality signals (vote)', ['Paper', 'Signal', 'Votes', 'Majority', 'Agreement', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 40, 16, 10, 10, 16, 30], jp_from=7)
+    qg = d / 'question_groups.tsv'
+    if qg.exists():   # from consolidate_questions.py: unified, nested questions proposed for JP to verify
+        import csv
+        rows_ = list(csv.reader(open(qg, encoding='utf-8'), delimiter='\t'))
+        if len(rows_) > 1: tab('Question groups', rows_[0], rows_[1:], [8, 10, 10, 60, 34, 8, 60, 14, 60, 14, 30], jp_from=10)
+    # ---- Metrics: time, cost and accuracy according to the automatic checkers (JP's labels are added later in the yellow columns)
+    import datetime as dt, collections
+    def iso(x): return dt.datetime.fromisoformat(x.replace('Z', '+00:00')) if x else None
+    mrows = []
+    def mrow(area, metric, value, note=''): mrows.append([area, metric, value, note])
+    sl = M['stage_log']; ts_ = [iso(r.get('started')) for r in sl.values() if isinstance(r, dict) and r.get('started')] + [iso(json.loads(l).get('ts_utc')) for l in (d / 'calls.jsonl').read_text().splitlines()[:1]] if (d / 'calls.jsonl').exists() else []
+    calls = [json.loads(l) for l in (d / 'calls.jsonl').read_text().splitlines()] if (d / 'calls.jsonl').exists() else []
+    if calls:
+        t0 = min(iso(c_['ts_utc']) for c_ in calls); t1 = max(iso(c_['ts_utc']) for c_ in calls); mrow('Time and cost', 'First to last model call (wall clock, includes waiting for batches and any pause)', f'{(t1 - t0).total_seconds() / 60:.0f} minutes')
+    mrow('Time and cost', 'Total spent this batch (list prices; batch mode is half)', f"${M['spent_usd']:.2f} of the ${M['cap_usd']} cap" + (f" (earlier batches of this run: {', '.join('$%.2f' % b['spent_usd'] for b in M.get('spent_previous_batches', []))})" if M.get('spent_previous_batches') else ''))
+    mrow('Time and cost', 'Papers', len(M['papers']))
+    for k, r in sl.items():
+        if isinstance(r, dict) and r.get('started') and r.get('ended'): mrow('Time per stage', k, f"{(iso(r['ended']) - iso(r['started'])).total_seconds() / 60:.1f} min, {r.get('mode', '')}, ${r.get('actual_usd', 0):.2f}, {r.get('requests', '')} requests" + (f", {len(r['failed'])} failed" if r.get('failed') else ''))
+    allf = []; allq = 0; spans = [0, 0]; flagged = 0; dis = 0; verd = collections.Counter(); finals = collections.Counter(); dmscore = []; nodes = collections.Counter(); how = collections.Counter(); lintp = [0, 0]; ccp = collections.Counter(); st_ = collections.Counter(); qsd = [0, 0, 0, 0, 0]; qnf = [0, 0]; tierc = collections.Counter(); flagc = collections.Counter()
+    for ck, p in M['papers'].items():
+        if (d / ck / 'picost.json').exists():
+            ps = json.load(open(d / ck / 'picost.json')); allq += len(ps.get('questions', []))
+            for f in ps.get('findings', []):
+                tierc[f.get('tier')] += 1
+                for fl in f.get('flags', []): flagc[fl] += 1
+                for sp in f.get('spans', []): spans[1] += 1; spans[0] += 1 if sp.get('found') else 0
+            allf += ps.get('findings', [])
+        flagged += len(p.get('flagged', [])); dis += len(p.get('disagreements', [])); verd.update(a.get('verdict') for a in (p.get('adjudication') or {}).get('adjudications', []))
+        if (d / ck / 'checks.json').exists():
+            for v in json.load(open(d / ck / 'checks.json')): finals[v.get('final')] += 1; dmscore.append(v['summary']['score'])
+        if (d / ck / 'drafts.json').exists():
+            dd = json.load(open(d / ck / 'drafts.json'))
+            for f in dd.get('finals', {}).values():
+                nodes[f['node'].get('type')] += 1; how[f['how']] += 1; lintp[1] += 1; lintp[0] += 1 if f['lint'].get('pass') else 0; st_[f.get('status')] += 1; ccp[(f.get('claim_check') or {}).get('overall', 'not checked')] += 1
+        if (d / ck / 'quality_signals.json').exists():
+            q = json.load(open(d / ck / 'quality_signals.json'))
+            for x in q['aggregate']: qsd[0] += 1; qsd[1] += 0 if x.get('adjudicated') else 1; qsd[2] += 1 if x.get('adjudicated') else 0; qsd[3] += 1 if x['majority'] == 'no majority' else 0
+            for x in q['raw']:
+                if x['quote_found'] is not None: qnf[1] += 1; qnf[0] += 0 if x['quote_found'] else 1
+    mrow('Extraction', 'Questions found (all papers, repeats kept)', allq, 'from the Abstract and Introduction; no cap')
+    mrow('Extraction', 'Findings (primary / secondary / tertiary)', f"{len(allf)} ({tierc['primary']} / {tierc['secondary']} / {tierc['tertiary']})", 'no cap')
+    mrow('Extraction accuracy (PyMuPDF)', 'Quoted spans found in the PDF text', f"{spans[0]} of {spans[1]} ({100 * spans[0] / max(spans[1], 1):.0f}%)")
+    mrow('Extraction accuracy (PyMuPDF)', 'Findings flagged for a second look', f"{flagged} of {len(allf)} ({100 * flagged / max(len(allf), 1):.0f}%)", ', '.join(f'{k}: {v}' for k, v in flagc.most_common()))
+    mrow('Extraction accuracy (Sol, Opus)', 'Sol and Neon read a different number', f"{dis} of {flagged} rechecked")
+    mrow('Extraction accuracy (Sol, Opus)', 'Opus verdicts (A = Neon right, B = Sol right)', ', '.join(f'{k}: {v}' for k, v in verd.most_common()) or 'none')
+    if finals: mrow('Checks (decision models, Sol vision on every crop)', 'Outcomes', ', '.join(f'{k}: {v}' for k, v in finals.most_common()), 'cannot verify = the crop does not show enough; a person looks'); mrow('Checks (decision models, Sol vision on every crop)', 'Mean decision-model score', f'{sum(dmscore) / len(dmscore):.2f}')
+    if nodes:
+        mrow('Drafting', 'Nodes written', ', '.join(f'{k}: {v}' for k, v in nodes.most_common())); mrow('Drafting', 'How the winning text was chosen', ', '.join(f'{k}: {v}' for k, v in how.most_common()), 'only primary EVDs are debated; everything else is one draft by Sonnet 5.5')
+        mrow('Drafting accuracy (lint and claim check)', 'Lint pass (length, numbers on the card, reading grade, no em dash)', f'{lintp[0]} of {lintp[1]} ({100 * lintp[0] / max(lintp[1], 1):.0f}%)'); mrow('Drafting accuracy (lint and claim check)', 'Claim check overall', ', '.join(f'{k}: {v}' for k, v in ccp.most_common())); mrow('Drafting accuracy (lint and claim check)', 'Status', ', '.join(f'{k}: {v}' for k, v in st_.most_common()))
+    if qsd[0]: mrow('Quality signals', 'Signals rated', qsd[0]); mrow('Quality signals', 'Neon (High) and Opus agree', f'{qsd[1]} of {qsd[0]} ({100 * qsd[1] / qsd[0]:.0f}%)'); mrow('Quality signals', 'Sol adjudicated', qsd[2]); mrow('Quality signals', 'Still no majority', qsd[3]); mrow('Quality signals', 'Quotes not found in the PDF', f'{qnf[0]} of {qnf[1]}')
+    mrow('About these numbers', 'Accuracy here means agreement between automatic checkers', '', 'It is not accuracy against a person. Fill in the yellow JP columns on the other tabs and these metrics can be recomputed against your labels.')
+    tab('Metrics', ['Area', 'Metric', 'Value', 'Note'], mrows, [38, 70, 40, 70])
     crows = []
     f = d / 'calls.jsonl'
     for l in (f.read_text().splitlines() if f.exists() else []):
