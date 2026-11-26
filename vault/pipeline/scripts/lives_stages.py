@@ -57,7 +57,8 @@ def wait_jobs(M, jobs):
         prog = [x for x in (L.batch_progress(j) for j in jobs if j['provider'] != 'tinker') if x]
         if prog:
             done = sum(x[0] for x in prog); tot = sum(x[1] for x in prog)
-            if tot and done < tot and done >= tot - L._tail_count(tot) and t90 is None: t90 = time.time(); M.event(f'{done} of {tot} requests finished; the rest get {L.STRAGGLER_MIN} more minutes')
+            if tot and 0 < done < tot and done >= tot - L._tail_count(tot) and t90 is None:   # needs at least one finished, so a lone slow request is not cut off
+                 t90 = time.time(); M.event(f'{done} of {tot} requests finished; the rest get {L.STRAGGLER_MIN} more minutes')
         if t90 and time.time() - t90 >= grace:
             M.event(f'stragglers after {L.STRAGGLER_MIN} minutes: cancelling the batch; finished results are kept and the rest go to human review')
             for j in jobs:
@@ -225,7 +226,7 @@ QS = {}   # the paper's own questions, by paper, for the relevancy check
 def stage_checks(M, mode):
     key = 'checks'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    rng = random.Random(M.m['run_id']); items = []; sys_v = prompt('vision-check-v2.md'); st['prompt'] = 'pipeline/prompts/vision-check-v2.md'
+    rng = random.Random(M.m['run_id']); items = []; sys_v = prompt('vision-check-v3.md'); st['prompt'] = 'pipeline/prompts/vision-check-v3.md'
     for ck, p in M.m['papers'].items():
         if p.get('failed') or 'picost' not in p.get('stages', {}): continue
         fs, ps_ = final_findings(M, ck); QS[ck] = ps_.get('questions', [])
@@ -247,11 +248,11 @@ def stage_checks(M, mode):
     for v in vis:
         f = findings[(v['ck'], v['id'])]; crop = make_crop(M, v['ck'], f)
         v['crop'] = crop
-        if crop: reqs.append(L.Req(f"{v['ck']}__vis__{v['id']}", R['vision_check'], f"Finding {v['id']}: {f.get('statement', '')}\nQuoted span(s): {' | '.join(x.get('text', '') for x in f.get('spans', []))}\nNumbers: {json.dumps(f.get('numbers', []), ensure_ascii=False)[:1500]}", sys_v, None, 'medium', 1500, images=[crop]))
+        if crop: reqs.append(L.Req(f"{v['ck']}__vis__{v['id']}", R['vision_check'], f"Finding {v['id']}: {f.get('statement', '')}\nQuoted span(s): {' | '.join(x.get('text', '') for x in f.get('spans', []))}\nNumbers: {json.dumps(f.get('numbers', []), ensure_ascii=False)[:1500]}", sys_v, None, 'medium', 5000, images=[crop]))
     res = dispatch(M, 'checks_vision', reqs, mode); opus = []
     for v in vis:
         x = res.get(f"{v['ck']}__vis__{v['id']}"); j = safe_json(x) if x else None; c0 = (j or {}).get('checks', [{}])[0] if j else {}
-        v['sol'] = c0 or {'overall': 'no answer'}; sol_pass = c0.get('overall') == 'pass'; dm_pass = v['summary']['score'] >= DM_LOW and v['summary']['spread'] <= DM_SPREAD
+        v['sol'] = c0 or ({'overall': 'no answer'} if v.get('crop') else {'overall': 'cannot_verify', 'reason': 'no crop could be made: the quoted span was not located in the PDF text, so there is nothing to look at'}); sol_pass = c0.get('overall') == 'pass'; dm_pass = v['summary']['score'] >= DM_LOW and v['summary']['spread'] <= DM_SPREAD
         v['dispute'] = c0.get('overall') in ('pass', 'fail') and (sol_pass != dm_pass)   # cannot_verify is not a dispute: it goes to a person   # the checks and Sol disagree: the rare dispute, for Opus
         if v['dispute'] and v.get('crop'):
             f = findings[(v['ck'], v['id'])]; opus.append(L.Req(f"{v['ck']}__opusvis__{v['id']}", R['vision_dispute'], f"Finding {v['id']}: {f.get('statement', '')}\nQuoted span(s): {' | '.join(x_.get('text', '') for x_ in f.get('spans', []))}\nThe automatic checks scored this {v['summary']['score']:.2f} (spread {v['summary']['spread']:.2f}); GPT-6.2 Sol said {c0.get('overall')}: {c0.get('reason', '')}. Decide.", sys_v, None, 'medium', 3000, images=[v['crop']]))
@@ -281,7 +282,8 @@ def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
     papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v2.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('claim-check-v1.md')
-    cards = {ck: card_text(M, ck, 'primary') for ck in papers}; rest = {ck: card_text(M, ck, 'rest') for ck in papers}; cn = {ck: card_numbers(M, ck) for ck in papers}; cn_all = cn; data = {ck: {'authors': {}} for ck in papers}
+    cards = {ck: card_text(M, ck, 'primary') for ck in papers}; rest = {ck: card_text(M, ck, 'rest') for ck in papers}; full = {ck: card_text(M, ck, 'all') for ck in papers};   # the claim check reads the whole extraction, not just the primary part
+    cn = {ck: card_numbers(M, ck) for ck in papers}; cn_all = cn; data = {ck: {'authors': {}} for ck in papers}
     # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
     reqs = [L.Req(f'{ck}__r0-{a}', m, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, e, 9000) for ck in papers for a, m, e in AUTHORS]
     reqs += [L.Req(f'{ck}__single', AUTHORS[0][1], f'Extraction:\n{rest[ck]}\n\nWrite the nodes now. Write nodes only for the findings, questions, claims and caveats given here (the primary findings are drafted elsewhere; link to them by their ids, "E-" plus the source id).', sys0, None, AUTHORS[0][2], 20000) for ck in papers]   # everything except the primary EVDs: one model, one draft (JP, 2026-11-25)
@@ -340,7 +342,7 @@ def stage_draft(M, mode):
     for ck in papers:
         for chk, m, e in VOTERS:
             mine = [f['node'] for f in data[ck]['finals'].values() if f['author'] != chk and next((v[0] for v in VOTERS if v[0] != f['author']), None) == chk]
-            if mine: reqs.append(L.Req(f'{ck}__check-{chk}', m, f'Extraction:\n{cards[ck]}\n\nNodes to check:\n{json.dumps(mine, ensure_ascii=False)}\n\nCheck now.', sys3, None, e, min(32000, 2000 + 450 * len(mine))))   # budget grows with the number of nodes to check
+            if mine: reqs.append(L.Req(f'{ck}__check-{chk}', m, f'Extraction:\n{full[ck]}\n\nNodes to check:\n{json.dumps(mine, ensure_ascii=False)}\n\nCheck now.', sys3, None, e, min(32000, 2000 + 450 * len(mine))))   # budget grows with the number of nodes to check
     st['prompt'] = 'pipeline/prompts/claim-check-v1.md'; rc = dispatch(M, 'draft_check', reqs, mode)
     # decision-model check of each final EVD (fidelity of the written text) and the Inkling benchmark drafts' lint
     evd = [(ck, nid, f) for ck in papers for nid, f in data[ck]['finals'].items() if f['node'].get('type') == 'EVD']
@@ -397,7 +399,7 @@ def stage_qs(M, mode):
     sigs = '\n'.join(f'- `{k}`: {v[0]} Allowed values: {v[1]}.' for k, v in SIGNALS.items()); system = prompt('rate-signals-v1.md').replace('{SIGNALS}', sigs); st['prompt'] = 'pipeline/prompts/rate-signals-v1.md'; reqs = []
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
-        for r, m, e in RATERS: reqs.append(L.Req(f'{ck}__qs-{r}', m, 'Rate the paper now.', system, ex(p['pdf']), e, 9000))
+        for r, m, e in RATERS: reqs.append(L.Req(f'{ck}__qs-{r}', m, 'Rate the paper now.', system, ex(p['pdf']), e, 40000 if e == 'high' else 9000))   # High thinking uses most of a small budget and returns nothing (all 25 ratings were lost in the first rerun)
     res = dispatch(M, 'qs', reqs, mode); allowed = {k: [x.strip() for x in v[1].split('|')] for k, v in SIGNALS.items()}; out = {}; raws = {}; disputes = {}
     def read(ck, p, res_, rater, doc, only=None):
         j = safe_json(res_.get(f'{ck}__qs-{rater}') or L.Res('', False)); got = {x.get('signal'): x for x in (j or {}).get('ratings', []) if isinstance(x, dict)}; rows = []

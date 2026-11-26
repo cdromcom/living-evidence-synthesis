@@ -109,7 +109,7 @@ def _gemini_res(rid, resp):
 
 def _gemini_call(path, body=None, method='POST'):
     _env(); req = urllib.request.Request(f'{GEMINI}/{path}', json.dumps(body).encode() if body is not None else None, {'Content-Type': 'application/json', 'x-goog-api-key': os.environ['GEMINI_API_KEY']}, method=method)
-    try: return json.load(urllib.request.urlopen(req, timeout=300))
+    try: return json.load(urllib.request.urlopen(req, timeout=1500))   # large extractions with High thinking can run for many minutes
     except urllib.error.HTTPError as e: raise RuntimeError(f'Gemini HTTP {e.code}: {e.read().decode()[:300]}')
 
 
@@ -189,7 +189,7 @@ def run_standard(reqs, workers=4):
     while len(out) < len(futs):
         for rid, f in futs.items():
             if rid not in out and f.done(): out[rid] = f.result()
-        if len(out) >= len(futs) - _tail_count(len(futs)) and t90 is None and len(out) < len(futs): t90 = time.time()
+        if 0 < len(out) < len(futs) and len(out) >= len(futs) - _tail_count(len(futs)) and t90 is None: t90 = time.time()
         if t90 and time.time() - t90 >= STRAGGLER_MIN * 60:
             for rid in futs:
                 if rid not in out: out[rid] = Res(rid, False, err=STRAGGLER_MSG.format(STRAGGLER_MIN))
@@ -204,12 +204,14 @@ def submit_batch(reqs):
     _env(); models = {r.model for r in reqs}; assert len(models) == 1, 'one model per batch'; model = reqs[0].model; C.assert_allowed(model); pv = provider_of(model); ids = {r.id: _safe_id(r.id) for r in reqs}
     if len({*ids.values()}) != len(ids): raise ValueError('request ids collide after cleaning')
     job = {'provider': pv, 'model': model, 'ids': ids, 'submitted': time.time(), 'n': len(reqs)}
+    if pv == 'google':   # Gemini batch refuses more than 65536 output tokens; larger budgets need standard mode
+        for r in reqs: r.max_tokens = min(r.max_tokens, 65000)
     if pv == 'anthropic':
         import anthropic
         b = anthropic.Anthropic().messages.batches.create(requests=[{'custom_id': ids[r.id], 'params': _anthropic_params(r)} for r in reqs]); job['id'] = b.id
     elif pv == 'openai':
         from openai import OpenAI
-        c = OpenAI(); tmp = cl.RUNS / '_batch_input.jsonl'; tmp.parent.mkdir(parents=True, exist_ok=True)
+        c = OpenAI(); tmp = cl.RUNS / f'_batch_input_{os.getpid()}_{int(time.time() * 1000)}.jsonl'   # one file per submission: runs in parallel must not share a name; tmp.parent.mkdir(parents=True, exist_ok=True)
         tmp.write_text('\n'.join(json.dumps({'custom_id': ids[r.id], 'method': 'POST', 'url': '/v1/responses', 'body': _openai_body(r)}) for r in reqs), encoding='utf-8')
         f = c.files.create(file=open(tmp, 'rb'), purpose='batch'); tmp.unlink(); b = c.batches.create(input_file_id=f.id, endpoint='/v1/responses', completion_window='24h'); job['id'] = b.id; job['input_file'] = f.id
     elif pv == 'google':

@@ -263,3 +263,8 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - Checks: Sol vision looks at the crop of every finding and may answer cannot_verify (`vision-check-v2.md`); cannot verify goes to a person.
 - Built `consolidate_questions.py` (unified, nested questions); review sheet gets Metrics and Question groups tabs; sheets embed pictures in cells.
 - Reruns started: `2026-11-25_batch02` (the four pilot papers again) and `2026-11-25_batch03` (random sample of four other seed papers, seed 20261125; list in `runs/sample_2026-11-25.json`).
+
+## 2026-11-25 (night): results of the reruns and bugs found
+- Runs: `2026-11-25_batch02` (Bougie, Sarol, Tyser), `2026-11-25_batch03` (random seed sample: Idahl and Ahmadi, Shahid, Hasan, Liu and Shah), `2026-11-25_batch04` (Woelfle alone, standard mode: 12 minutes for the whole pipeline, $4.60).
+- Bugs fixed: Neon (High) quality-signal budget too small (all ratings lost); claim check read only the primary part of the card (mass false fails); two batches submitting at once shared one temp file; the straggler timer started at once for a one-request stage; `vision-check-v2` returned cannot_verify for 80% of findings (now `vision-check-v3`); findings with no crop were shown as "needs JP" (now "cannot verify"); Gemini batch refuses more than 65,536 output tokens, so large extractions (Woelfle) need standard mode and a 25-minute timeout.
+- Open: about half of the "cannot verify" results have no crop because the quoted span was not found in the PDF text; claim-check fails are 30% of nodes and have not been reviewed; the Jev decision model returned an unknown-model error in earlier runs.

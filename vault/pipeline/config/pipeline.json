@@ -1,5 +1,5 @@
 {
-  "_about": "Limits, budgets, thresholds and ethics switches of the batch runner (JP, 2026-11-25). The values were set by JP; change them here with a note in LOG.md. Run scripts/selftest.py after an edit. Cap raised from 5.55 to 8.00 per batch on 2026-11-25 for the four-paper pilot (JP), batch mode only; the pilot runs in two batches (extraction and checks, then drafting and ratings) with a fresh cap each. Revert to 5.55 after the pilot unless JP says otherwise. Recheck and adjudicate budgets raised on 2026-11-25 after pilot run 1: Sol hit max_output_tokens on 3 of 4 papers (its reasoning counts against the budget). Picost budget raised to 40,000 + 1,000 per page after Woelfle (11 pages) ran out at 35,000 in pilot run 1. 2026-11-25 (JP): small check stages run in standard mode; a request or batch still out 5 minutes after all but about 10% finished is cancelled and marked for human review; at most 3 questions per paper, taken from the Abstract and Introduction; target of 30 minutes of work for four papers. project_question (JP, 2026-11-25): the overarching Elicit question; every question extracted from any PDF is taken to fit under it. 2026-11-25 (JP, later): no caps on questions, findings, EVDs, CLMs or CVTs; worst_case_findings_per_paper is only a planning number for output budgets.",
+  "_about": "Limits, budgets, thresholds and ethics switches of the batch runner (JP, 2026-11-25). The values were set by JP; change them here with a note in LOG.md. Run scripts/selftest.py after an edit. Cap raised from 5.55 to 8.00 per batch on 2026-11-25 for the four-paper pilot (JP), batch mode only; the pilot runs in two batches (extraction and checks, then drafting and ratings) with a fresh cap each. Revert to 5.55 after the pilot unless JP says otherwise. Recheck and adjudicate budgets raised on 2026-11-25 after pilot run 1: Sol hit max_output_tokens on 3 of 4 papers (its reasoning counts against the budget). Picost budget raised to 40,000 + 1,000 per page after Woelfle (11 pages) ran out at 35,000 in pilot run 1. 2026-11-25 (JP): small check stages run in standard mode; a request or batch still out 5 minutes after all but about 10% finished is cancelled and marked for human review; at most 3 questions per paper, taken from the Abstract and Introduction; target of 30 minutes of work for four papers. project_question (JP, 2026-11-25): the overarching Elicit question; every question extracted from any PDF is taken to fit under it. 2026-11-25 (JP, later): no caps on questions, findings, EVDs, CLMs or CVTs; worst_case_findings_per_paper is only a planning number for output budgets. 2026-11-25: picost output budget raised (base 56000, max 80000) after Woelfle hit MAX_TOKENS twice with no cap on findings. Gemini batch refuses more than 65536 output tokens, so picost max is 65000 (larger papers need standard mode). picost max 120000 for standard mode; Gemini batch requests are clamped to 65000 in llm_batch.",
   "limits": {
     "max_papers": 4,
     "cap_usd": 8.0,
@@ -26,9 +26,9 @@
       "anthropic": 2800
     },
     "picost": {
-      "base": 40000,
+      "base": 56000,
       "per_page": 1000,
-      "max": 64000
+      "max": 120000
     },
     "recheck": {
       "base": 8000,

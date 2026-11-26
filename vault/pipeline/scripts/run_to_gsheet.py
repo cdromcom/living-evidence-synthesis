@@ -116,7 +116,7 @@ def main():
     mrow('Time and cost', 'Total spent this batch (list prices; batch mode is half)', f"${M['spent_usd']:.2f} of the ${M['cap_usd']} cap" + (f" (earlier batches of this run: {', '.join('$%.2f' % b['spent_usd'] for b in M.get('spent_previous_batches', []))})" if M.get('spent_previous_batches') else ''))
     mrow('Time and cost', 'Papers', len(M['papers']))
     for k, r in sl.items():
-        if isinstance(r, dict) and r.get('started') and r.get('ended'): mrow('Time per stage', k, f"{(iso(r['ended']) - iso(r['started'])).total_seconds() / 60:.1f} min, {r.get('mode', '')}, ${r.get('actual_usd', 0):.2f}, {r.get('requests', '')} requests" + (f", {len(r['failed'])} failed" if r.get('failed') else ''))
+        if isinstance(r, dict) and r.get('started') and r.get('ended'): mrow('Time per stage', k, f"{(iso(r['ended']) - iso(r['started'])).total_seconds() / 60:.1f} min, {r.get('mode', '')}, ${r.get('actual_usd', 0):.2f}, {r.get('requests', '')} requests" + (f", {r['failed'] if isinstance(r['failed'], int) else len(r['failed'])} failed" if r.get('failed') else ''))
     allf = []; allq = 0; spans = [0, 0]; flagged = 0; dis = 0; verd = collections.Counter(); finals = collections.Counter(); dmscore = []; nodes = collections.Counter(); how = collections.Counter(); lintp = [0, 0]; ccp = collections.Counter(); st_ = collections.Counter(); qsd = [0, 0, 0, 0, 0]; qnf = [0, 0]; tierc = collections.Counter(); flagc = collections.Counter()
     for ck, p in M['papers'].items():
         if (d / ck / 'picost.json').exists():
