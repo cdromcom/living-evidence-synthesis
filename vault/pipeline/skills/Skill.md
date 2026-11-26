@@ -178,7 +178,7 @@ Two kinds of screenshots ground a node: **figure/table images** for EVDs, and **
 
 ### Drafting by debate → see `Skill-controls.md`
 
-EVD, QUE, CLM and CVT are drafted by Sonnet 5.5, GPT-6.2 Sol and Gemini 4 Neon (Medium), who critique and revise; Sol and Sonnet vote and Neon breaks ties; a checker that did not write the winner verifies every claim. Lint first: 247 characters, numbers on the card, no em dash. Part 2, "Drafting by debate".
+EVD, QUE, CLM and CVT are drafted by Sonnet 5.5, GPT-6.2 Sol and Gemini 4 Neon (Medium), who critique and revise; Sol and Sonnet vote and Neon breaks ties; a checker that did not write the winner checks every detail. Lint first: 247 characters, numbers on the card, no em dash. Part 2, "Drafting by debate".
 
 ## Step 4c: Provenance footer on every node page → see `Skill-controls.md`
 

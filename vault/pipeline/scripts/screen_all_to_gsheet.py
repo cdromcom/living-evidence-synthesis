@@ -84,7 +84,7 @@ def main():
     mc = [[n, rep['category_loo_by_model'][n]['accuracy'], rep['category_loo_by_model'][n]['n'], rep['novel_threshold'][n], rep['relevance_threshold'][n]] for n in names]
     mc.append(['Majority of the models', rep['category_loo_majority']['accuracy'], rep['category_loo_majority']['n'], '', ''])
     tab('Model check', ['Model', 'Category leave-one-out accuracy on seeds', 'Seeds tested', 'New-category threshold (15th percentile of seed nearest similarity)', 'Relevance threshold (10th percentile of reference papers)'], mc, [30, 18, 10, 30, 30])
-    ab = wb.create_sheet('ABOUT', 0); ab.append(['Item', 'What was done', 'Links']); [setattr(c, 'font', hdr) or setattr(c, 'fill', fill) for c in ab[1]]
+    ab = wb.create_sheet('ABOUT', 0); ab.append(['Item', 'What was done', 'Links'])
     rp = rep.get('relevance_proxy', {}); cc = R['counts']
     abt = [('Title', 'LIVES Stage 2 ingest: screening of every item in all Zotero libraries against the 27-paper seed set and the Elicit 2026-11-24 papers (reported in the style of TRIPOD+LLM; generation items are not applicable because the models only embed text)', gh(f'pipeline/screening/{RUN}/README.md')),
            ('Data source', f"Read-only copy of the Zotero database: {prep['items']:,} regular items and standalone PDFs in {len(prep['by_library'])} libraries; {prep['distinct']:,} distinct papers after merging duplicates (same DOI, arXiv id or near-identical title). Ingest sets: " + '; '.join(f'{k} {v}' for k, v in cc['ingest_sets'].items()) + '.', gh('pipeline/scripts/zotero_inventory.py')),

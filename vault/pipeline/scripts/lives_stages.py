@@ -135,7 +135,7 @@ def final_findings(M, ck):
 def card_text(M, ck, part='all'):
     """The extraction card for drafting. part='primary': only the primary findings (these get the three-author debate). part='rest': everything else (secondary and tertiary findings, questions, claims, caveats), drafted once by one model. No caps on any of them (JP, 2026-11-25)."""
     fs, ps = final_findings(M, ck); keep = [f for f in fs if (f.get('tier') == 'primary') == (part == 'primary')] if part != 'all' else fs
-    card = {'review_level_question': M.m.get('question', ''), 'paper': ps.get('paper'), 'findings': [{k: f.get(k) for k in ('id', 'tier', 'answers_QUE', 'supports', 'section', 'statement', 'P', 'I', 'C', 'O', 'S', 'T', 'numbers', 'spans', 'notes')} for f in keep]}
+    card = {'project_question_for_context_only_never_write_a_node_for_it': M.m.get('question', ''), 'paper': ps.get('paper'), 'findings': [{k: f.get(k) for k in ('id', 'tier', 'answers_QUE', 'supports', 'section', 'statement', 'P', 'I', 'C', 'O', 'S', 'T', 'numbers', 'spans', 'notes')} for f in keep]}
     if part != 'primary': card.update({'caveats': ps.get('caveats', []), 'claims': ps.get('claims', []), 'questions': ps.get('questions', [])})
     if part == 'rest': card['primary_finding_ids_already_drafted_elsewhere'] = [f['id'] for f in fs if f.get('tier') == 'primary']
     return json.dumps(card, ensure_ascii=False)
@@ -281,7 +281,7 @@ def nodes_of(j): return {n['id']: n for n in (j or {}).get('nodes', []) if isins
 def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v2.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('claim-check-v2.md')
+    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v2.md'); sys1 = prompt('critique-revise-v2.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('node-detail-check-v1.md')
     cards = {ck: card_text(M, ck, 'primary') for ck in papers}; rest = {ck: card_text(M, ck, 'rest') for ck in papers}; full = {ck: card_text(M, ck, 'all') for ck in papers};   # the claim check reads the whole extraction, not just the primary part
     cn = {ck: card_numbers(M, ck) for ck in papers}; cn_all = cn; data = {ck: {'authors': {}} for ck in papers}
     # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
@@ -337,13 +337,13 @@ def stage_draft(M, mode):
             if node: finals[nid] = {'node': node, 'author': win, 'how': how, 'lint': lint(node, cn[ck])}
         for nid, node in data[ck]['single']['nodes'].items(): finals[nid] = {'node': node, 'author': AUTHORS[0][0], 'how': 'single draft (not debated)', 'lint': lint(node, cn[ck])}
         data[ck]['finals'] = finals
-    # claim-by-claim check: the first voter (the cheaper deciders, in registry order) that did not write the winner
+    # node-detail check (was "claim check"; claim now means CLM only): the first voter (the cheaper deciders, in registry order) that did not write the winner
     reqs = []
     for ck in papers:
         for chk, m, e in VOTERS:
             mine = [f['node'] for f in data[ck]['finals'].values() if f['node'].get('type') != 'QUE' and f['author'] != chk and next((v[0] for v in VOTERS if v[0] != f['author']), None) == chk]
             if mine: reqs.append(L.Req(f'{ck}__check-{chk}', m, f'Extraction:\n{full[ck]}\n\nNodes to check:\n{json.dumps(mine, ensure_ascii=False)}\n\nCheck now.', sys3, None, e, min(32000, 2000 + 450 * len(mine))))   # budget grows with the number of nodes to check
-    st['prompt'] = 'pipeline/prompts/claim-check-v2.md'; rc = dispatch(M, 'draft_check', reqs, mode)
+    st['prompt'] = 'pipeline/prompts/node-detail-check-v1.md'; rc = dispatch(M, 'draft_check', reqs, mode)
     # decision-model check of each final EVD (fidelity of the written text) and the Inkling benchmark drafts' lint
     evd = [(ck, nid, f) for ck in papers for nid, f in data[ck]['finals'].items() if f['node'].get('type') == 'EVD']
     def dm_evd(t):
@@ -355,9 +355,9 @@ def stage_draft(M, mode):
         for chk in [v[0] for v in VOTERS]:
             j = safe_json(rc.get(f'{ck}__check-{chk}') or L.Res('', False))
             for c in (j or {}).get('checks', []):
-                if c.get('node') in data[ck]['finals']: data[ck]['finals'][c['node']]['claim_check'] = {'checker': chk, **c}
+                if c.get('node') in data[ck]['finals']: data[ck]['finals'][c['node']]['detail_check'] = {'checker': chk, **c}
         for nid, f in data[ck]['finals'].items():
-            cc = (f.get('claim_check') or {}).get('overall'); dmv = (f.get('dm') or {}).get('score')
+            cc = (f.get('detail_check') or {}).get('overall'); dmv = (f.get('dm') or {}).get('score')
             ok = f['lint']['pass'] and (cc in ('pass', 'minor') or f['node'].get('type') == 'QUE') and (dmv is None or dmv >= DM_LOW)
             f['status'] = ('pass with notes' if cc == 'minor' else 'pass') if ok else 'escalate to Opus and JP'
         (M.dir / ck / 'drafts.json').write_text(json.dumps(data[ck], indent=1, ensure_ascii=False, default=str), encoding='utf-8')

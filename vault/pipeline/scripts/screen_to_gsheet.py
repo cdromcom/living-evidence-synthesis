@@ -79,7 +79,7 @@ def main():
     rows.sort(key=lambda x: (x[1][0], -x[0])); rows = [r for _, r in rows]
     # ----- workbook
     wb = Workbook(); ab = wb.active; ab.title = 'ABOUT'
-    hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(name='Google Sans', size=10, color='0B5CAD')   # blue, no underline (Butterick)
+    hdr = Font(bold=True, color='FFFFFF'); fill = PatternFill('solid', fgColor='2F5D3A'); wrap = Alignment(wrap_text=True, vertical='top'); link = Font(name='Google Sans', size=11, color='0B5CAD')   # blue, no underline (Butterick)
     def sheet(title, header, data, widths=None, freeze='A2'):
         ws = wb.create_sheet(title); ws.append(header)
         for r in data: ws.append(r)

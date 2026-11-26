@@ -109,7 +109,7 @@ Every step that uses a closed model also runs open models, and their outputs are
 > | Role | Model | Open or closed | Runs |
 > |---|---|---|---|
 > | Reading, extracting, drafting | **Gemini 4 Neon** (Google) | Closed | API |
-> | Adjudicating, demanding judgments, EVD claim check | **Claude Opus 5.5** (Anthropic) | Closed | API |
+> | Adjudicating, demanding judgments, EVD node-detail check | **Claude Opus 5.5** (Anthropic) | Closed | API |
 > | First extraction pass | **Inkling 2 Mini** (Thinking Machines Lab) and **Gemma 4** (Google) | Open | Locally on JP's Framework PC |
 > | Extraction backups (only if needed later, for speed or quality) | **Ripple-65B Preview** (Ricursive Intelligence) and **Reflection Beam** (Reflection AI) | Open | Called through hosted APIs (Beam is too large to run locally; JP, 2026-11-20) |
 > | OCR | **Chandra OCR 2** (Datalab) and **OXR-1.0**, plus the PDF text layer | Open | Locally |
@@ -303,7 +303,7 @@ Measured on the 27 seed PDFs (`pdf_pages.py` text, the Claude and Gemini token c
 | Adjudication | Claude Opus 5.5 | the same excerpt plus both readings | 1,000 + 450 per disputed finding, at most 8,000 | measured about 226 per finding |
 | EVD draft, critique and revision (three authors, up to two rounds) | Claude Sonnet 5.5, GPT-6.2 Sol, Gemini 4 Neon (Medium) | card about 3,000 (a critique round adds the three drafts, about 5,000) | draft 3,000; critique plus revision 4,000 | about 0.5k visible plus thinking |
 | Draft vote | Sol and Sonnet 5.5 decide (Neon breaks ties) | card, three drafts, span about 3,500 | 2,000 each; Inkling 3,000 (includes its reasoning) | |
-| Claim-by-claim check | Claude Opus 5.5 | draft, span, crop about 4,000 | 4,000 | |
+| Node-detail check | Claude Opus 5.5 | draft, span, crop about 4,000 | 4,000 | |
 | Crop QA | GPT-6.2 Sol (vision) | one image, checklist | 1,500 | |
 | Decision models | d1-ultra, Decider 1.3 | page image or passage | not applicable | priced per call |
 
@@ -318,7 +318,7 @@ Two changes follow from the measurements. (1) The extraction prompt now sorts fi
 | Draft, round 0 | Sonnet 5.5, Sol, Neon (Medium) | 9,000 | all nodes of a paper in one request per model |
 | Draft, critique and revision | Sonnet 5.5, Sol, Neon (Medium) | 14,000 | each sees all three first drafts, anonymous and shuffled |
 | Draft, vote | Sol and Sonnet | 5,000 | Neon tie-break 3,000, only for split nodes |
-| Draft, claim check | the cheaper of Sol and Sonnet that did not write the winner | 6,000 | one request per checker per paper |
+| Draft, node-detail check | the cheaper of Sol and Sonnet that did not write the winner | 6,000 | one request per checker per paper |
 | Quality signals | Opus 5.5, Sol, Neon (Medium) | 9,000 | 25 signals per paper, one request per rater |
 
 Cost so far (measured only on a one-page synthetic paper, standard mode): $0.61 for extraction, checks, drafting of 4 nodes and 25 quality signals. Rough planning figures per paper in standard mode: checks about $0.15, drafting about $1.9 (it grows with the number of nodes), quality signals about $0.25 plus $0.015 per page; batch mode is half. For the four-paper seed pilot the full pipeline is therefore about $6.7 in batch mode and $13 in standard mode, above the $5.55 cap. The pilot replaces these guesses with measurements.

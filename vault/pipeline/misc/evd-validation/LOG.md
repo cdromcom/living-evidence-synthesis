@@ -279,3 +279,9 @@ Prompts (verbatim, timestamped, with one-line results): [[2026-11-24-session-pro
 - Pilot cap is $6 per batch. Standard mode is fine for piloting; JP is asked standard or batch every time papers are given (`--mode` is now required for a new run).
 - Claim check: `claim-check-v2` (pass, minor, fail); questions are no longer claim-checked. Reran on batch02 to batch04 in standard mode ($0.81, $0.79, $0.38).
 - Sheets use Spectral for column names and Google Sans for data; row heights are estimated because Google Sheets does not grow imported rows.
+
+## 2026-11-26 (night): more decisions
+- "Claim check" renamed node-detail check (`node-detail-check-v1.md`), because claim means CLM. Questions stay unchecked there (they have grounding quotes and screenshots); EVDs matter most.
+- Default sheet text size is 11. Macros for Google Sheets: `pipeline/apps-script/LivesStyle.gs` (not yet run inside Google Sheets).
+- New tab "Low decision-model scores" in the review sheets: the 74 EVDs below 0.60 with what the models saw. All 74 passed or got only notes from the node-detail check.
+- AAA Benchmarking (HAI) moved to `05 AAA Benchmarking`; AAA Benchmarking Results could not be moved with the connector's permissions (move it by hand).
