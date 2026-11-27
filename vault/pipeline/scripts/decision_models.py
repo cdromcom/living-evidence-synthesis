@@ -10,12 +10,31 @@ KEY_ENV = {'perplexity': 'PERPLEXITY_API_KEY', 'liquid': 'LIQUID_API_KEY', 'base
 PRICE_PER_M = {'perplexity': 0.02, 'liquid': 0.042, 'baseten': 0.10}   # USD per million input tokens, list prices (2026-11-23; baseten bison-1 added 2026-11-27)
 
 
+PREFERRED = {'liquid': ['d1.3-ultra', 'd1.2-ultra']}   # JP, 2026-11-27: use the newest Liquid model the API accepts; d1.3-ultra was announced 2026-11-27 and returned "model does not exist" at 12:00, so d1.2-ultra stays until it answers
+_PAIR = {'same': {'type': 'noul', 'instructions': 'Do TEXT A and TEXT P say exactly the same thing?'}}
+
+
+def resolve_preferred():
+    """Probe each preferred model id with one trivial question and keep the first that answers (cached for the process). Returns {provider: model id used}."""
+    for prov, cands in PREFERRED.items():
+        if os.environ.get(KEY_ENV.get(prov, ''), '') == '': continue
+        for mid in cands:
+            if mid == MODELS.get(prov) and prov in _RESOLVED: break
+            old = MODELS[prov]; MODELS[prov] = mid
+            r, e = decide(prov, 'TEXT A: 0.58\nTEXT P: 0.58', _PAIR, retries=1)
+            if r: _RESOLVED[prov] = mid; break
+            MODELS[prov] = old
+    return dict(_RESOLVED)
+
+
+_RESOLVED = {}
 def load_env(path=None):
     p = Path(path or Path.home() / '.config' / 'lives-ai-raters' / '.env')
     if p.exists():
         for line in p.read_text().splitlines():
             if '=' in line and not line.lstrip().startswith('#'):
                 k, v = line.split('=', 1); os.environ.setdefault(k.strip(), v.strip().strip('"\''))
+    if not _RESOLVED and not os.environ.get('LIVES_NO_PROBE'): resolve_preferred()
 
 
 def noul(q): return {'type': 'noul', 'instructions': q}

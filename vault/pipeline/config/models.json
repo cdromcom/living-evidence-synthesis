@@ -167,6 +167,20 @@
       "pdf_input": false,
       "price_source": "Hugging Face model card baselabs/bison-1, read 2026-11-27 ($0.10 per million tokens on Baseten Model APIs); weights are 65 GB, run locally later on another device",
       "verified": null
+    },
+    "d1.3-ultra": {
+      "display": "Liquid d1.3-ultra",
+      "provider": "decision",
+      "developer": "Liquid AI",
+      "country": "US",
+      "weights": "closed",
+      "runs": "api",
+      "price_in": 0.042,
+      "price_out": 0,
+      "batch_discount": 1.0,
+      "pdf_input": false,
+      "price_source": "press coverage 2026-11-27 ($0.042 per million input tokens, not confirmed on Liquid pages; the API returned \"model does not exist\" for id d1.3-ultra on 2026-11-27 12:00)",
+      "verified": null
     }
   },
   "roles": {

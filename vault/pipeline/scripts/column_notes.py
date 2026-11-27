@@ -135,6 +135,7 @@ N = {
  'Share of item words not found in the passage (CLM, CVT, QUE; 0 = every word is in the passage)': 'A simple similarity measure: the share of the item\'s content words that do not appear in its passage. Higher means the item goes further beyond its quote.',
  'Before the rerun (cited pages only, or the stricter question): Sonnet 5.5 score': 'Sonnet\'s score before the rerun that added the Methods pages or loosened the wording check.',
  'Before the rerun: Perplexity (probability)': 'Perplexity\'s probability before the rerun.', 'Before the rerun: Liquid d1.2-ultra text (probability)': 'd1.2-ultra\'s probability before the rerun.',
+ 'Baseten bison-1, text (probability; shadow verifier, not in any vote)': 'Probability (0 to 1) from the 31B decision model Baseten bison-1 that the item is supported by its passage. Shown for comparison; it does not count in the majority until the human reviewer\'s labels show how it performs.',
  # verification summary
  'Verifier': 'The model or combination being scored.', 'Items scored (not abstained)': 'Number of items on which the verifier gave a judgment.', 'Share judged correct': 'Share of scored items the verifier judged supported.',
  'Agreement with the majority vote': 'How often the verifier agrees with the majority verdict.', 'Items with JP ground truth': 'Number of items the human reviewer has labeled.',

@@ -68,7 +68,7 @@ with tempfile.TemporaryDirectory() as td:
     r = pp.merge_regions(str(comb), [(1, [(72, 90, 200, 105)]), (2, [(72, 90, 200, 105)])], str(td / 'm.png'), dpi=60); check('merged screenshot over two pages', r.get('ok') and (td / 'm.png').exists())
 import shutil; shutil.rmtree(C.VAULT / 'pipeline/runs/test-selftest', ignore_errors=True)
 import lives_verify as VV, decision_models as dm
-check('the decision-model client uses Liquid d1.2-ultra and the registry knows it', dm.MODELS['liquid'] == 'd1.2-ultra' and 'd1.2-ultra' in C.MODELS)
+check('the decision-model client uses Liquid d1.2-ultra and the registry knows it', dm.MODELS['liquid'] in ('d1.3-ultra', 'd1.2-ultra') and 'd1.2-ultra' in C.MODELS and 'd1.3-ultra' in C.MODELS)
 _v = [{'paper': 'p', 'ntype': t, 'nid': n, 'majority': m, 'mean': 0.5} for t, n, m in (('CLM', 'C1', 'fail'), ('CLM', 'C1 quote', 'pass'), ('CVT', 'V1', 'pass'), ('QUE', 'Q1', 'fail'), ('QUE', 'Q1 quote', 'pass'), ('PICOST', 'F1: Population', 'pass'))]
 _o = VV.queue_order(_v)
 check('labeling queue holds claims, caveats and rewordings but not the quote-versus-print rows', [x['queue'] for x in _o if x['queue']] == ['1 CLM', '2 CVT', '4 QUE reframing'] and all(x['queue'] == '' for x in _o if x['nid'].endswith(' quote')))

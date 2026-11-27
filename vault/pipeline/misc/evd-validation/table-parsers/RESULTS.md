@@ -217,7 +217,76 @@ check('repair: plain cell unchanged', r('2.95 \u00b1 1.19') == '2.95 \u00b1 1.19
 - scan_rotated.py, rotated_scan.json; rotation_build.py, run_rotation.sh, score_rotation.py, rotation_results.json (copies in scratch/rot)
 - run_supp.py, run_supp.sh, score_supp.py, supp_results.json, results_supp/
 - analyze_missed.py, build_missed_report.py, missed_values.json, missed-values.md, missed-values.html, missed-values-images/ (local only); tablelib_tests.py, repair_audit.py, repair_audit.json, vault_repair_block.py, apply_vault_repair.py, symbol_report_before_extension.json
+- derotate.py, derotate_build.py, derotate_log.json, rotation2_build.py, run_rotation2.sh, run_rotation3.sh, run_rotation4.sh, score_rotation2.py, rotation2_results.json
+- tablenumbers.py, vault_table_numbers_block.py, score_modes.py, scoring_modes.json, tablenumbers_tests.py; docx_test.py, docx_results.json, vault_docx_tables_block.py
 - build_review.py, build_review_extra.py, review_index.tsv, review.html, review/ (PNG at 110 dpi and text grids per parser)
+
+## MinerU and rotation: a derotation step
+
+Code: derotate.py (functions derotate_page and choose_orientation), derotate_build.py, derotate_log.json, run_rotation2.sh, run_rotation3.sh, run_rotation4.sh, score_rotation2.py, rotation2_results.json; offline tests in tablenumbers_tests.py.
+
+Step (a), pages with a text layer: derotate_page(page) returns an upright copy and an info dict. Rule: read the direction vector of every text line (get_text('dict'), line dir, in unrotated page space), round its angle to a multiple of 90 degrees, take the angle that holds the most characters (at least 20 characters, otherwise the page counts as having no text layer). The copy gets rotation 0: a page that only carried a /Rotate value is reset; a page whose content is turned (90, 180, 270) is placed on a new page of swapped size with show_pdf_page(rotate=angle), which keeps the text layer. My first version only called set_rotation; MinerU read such /Rotate copies badly (367 of 463 values), so the final version flattens the content. The rule picked the correct angle on all 144 page copies of the six text-layer variants (rot90, rot180, rot270 and the content-turned cont90, cont180, cont270, 24 pages each).
+
+MinerU, values found of 463 (row found in brackets), text-layer pages, 24 pages:
+
+| Orientation | Before | After derotation |
+|---|---|---|
+| 0 | 431 (425) | not needed |
+| 90, page set with /Rotate | 380 (375) | 431 (426) |
+| 90, content turned inside an upright page | 341 (325) | 431 (426) |
+| 180, upside down (/Rotate) | 430 (425), 34 s per page against 4.7 s upright | not run: the copy is the upright page (the step picked angle 0 on all 24 pages) |
+| 270, page set with /Rotate | 397 (389) | not run: same reason (the step picked rotation 0 on all 24 pages) |
+
+PyMuPDF on the same copies, for comparison: 424 values upright; 0 at 90, 270 and on content-turned 90; 424 at 180 (but only 381 rows); after derotation 424 (419) on both the 90 variants. So the step also removes the PyMuPDF problem.
+
+Step (d), 0 and 180: MinerU reads an upside-down text-layer page almost as well as an upright one (430 against 431) but is about 7 times slower per page (34 s against 4.7 s, measured while the machine had a load average of 10 to 57, so the absolute times are inflated). Upside-down image-only pages are the worst case: 65 of 463 values and 61 s per page. The derotation step avoids both.
+
+Step (b), image-only pages (no text layer, so the step above cannot decide): I rendered the four orientations of each page and ran MinerU on each. Run on 14 of the 24 pages (Sarol, Bougie and Woelfle; the Tyser pages were left out because MinerU needed 30 to 60 s per page while the machine was busy), which hold 419 of the 463 values. Values found on those pages:
+
+| Image-only copy turned by | 0 | 90 | 180 | 270 |
+|---|---|---|---|---|
+| MinerU, as given | 312 | 230 | 59 | 297 |
+
+Choosing among the four orientations per page: by the number of numeric cells 216 of 419 (a bad score, because sideways OCR noise produces many numeric cells); by the share of table words found in the macOS word list /usr/share/dict/words (offline, no model) 368 of 419, whichever way the page started. The word-list rule chose the upright orientation for 9 of 14 pages and another orientation for the other 5, where the other reading found more values; the choice is therefore a better reader of the page, not a proof of orientation. Cost: four MinerU runs per page (the 180 degree run is the slowest).
+
+Step (c), local orientation detectors: Tesseract is not installed (which tesseract finds nothing, so PyMuPDF OCR and Tesseract OSD are unavailable); I installed nothing with brew. MinerU and Marker (surya) have no page-orientation function I could call; MinerU has an internal angle classifier for single OCR text lines only. The word-list rule above is the only orientation test I found that needs no installation.
+
+Recommendation: before MinerU, run derotate_page on every page that has a text layer (about 0.2 s per page, no model); for image-only pages try the four orientations with the word-share score only when the page is known or suspected to be sideways, because it costs four runs. Marker needs no step (it returned the same cells at every angle), and PyMuPDF needs the step (0 values at 90 and 270 degrees); the vault function table_cells already resets page.rotation to 0.
+
+Limits: 24 synthetic copies made from upright pages; derotated copies for 180, 270 and the other content-turned angles were not read by MinerU (the pages are identical to the upright pages the step builds, and MinerU needed 15 to 60 s per page while the machine was busy); the image-only test used 14 pages; Marker was not run on rot180 or the content-turned copies.
+
+## Scoring modes: caption, footnote and any-cell matches
+
+The owner approved a second scoring mode (score_modes.py, scoring_modes.json, vault_table_numbers_block.py). The strict mode is unchanged. The any mode counts a verified value as found when its number appears (a) inside any cell of the parser's tables, including mixed text cells ("$ 1.15 (0.65-1.98) ~2 mins") and label cells ("Top 5 sentences"), or (b) in the caption or footnote text of the tables on the page (caption_footnote_text: blocks that start with "Table N." or "Table N:", Note, Source, Abbreviations, or that lie directly below a table and start with a footnote symbol, a lowercase letter marker or are set in smaller type).
+
+| Mode (463 values; PyMuPDF and Marker with the extended repair, MinerU as read) | PyMuPDF | Marker | MinerU |
+|---|---|---|---|
+| strict: number-like cell only | 431 (93.1%) | 431 (93.1%) | 431 (93.1%) |
+| any cell (labels and mixed text cells count, no caption text) | 451 (97.4%) | 451 (97.4%) | 451 (97.4%) |
+| any cell or caption and footnote text | 463 (100%) | 463 (100%) | 463 (100%) |
+
+All three parsers give the same numbers because they return the same numeric content on these pages; the caption and footnote text is read from the page text layer and does not depend on the parser. Per paper in the third row: Sarol 96 of 96, Bougie 205 of 205, Tyser 44 of 44, Woelfle 118 of 118.
+
+The 451 of the any-cell mode contains 5 accidental matches: Sarol page 6, two "Footnote" values 5 (the footnote says "top five sentences", written as a word; the 5 is credited by the "Recall@5" header cell), and Woelfle page 7, three "Caption" values 9 (credited by "9" in other cells; the caption text itself also holds a 9). In the third mode the Woelfle three are matched in the caption text, so 2 accidental matches remain (the Sarol footnotes); no parser matches the word "five" as a number.
+
+The 12 values not found in any cell by any parser (the any-cell mode) are the caption values of Bougie pages 12 and 17 (the number 1,000 in the captions of Tables 3, 4 and 9, 6 values) and of Tyser page 14 (the scale 0-5 in the Table 5 caption, values 0 and 5, 6 values). The caption and footnote text mode finds all 12.
+
+table_numbers(page) (code in vault_table_numbers_block.py, tested with tablenumbers.py on the 124 pages): 100 of the 124 pages have caption or footnote text; mean 33 numbers per page; 3.2 s per page while the machine was busy (it calls find_tables twice; the result of table_cells could be reused). 5 text blocks were longer than 700 characters; four are the multi-line captions of the Srinivasan Tables S3 and S4 and one is a table header that starts with the word Source (Xu page 5), which the Source rule takes as a footnote. A match is a hint that the value is on the page in a table or its caption, not that it is in the right cell. Offline tests: tablenumbers_tests.py.
+
+## Word files: direct read, PDF conversion, MinerU
+
+Tested on the 9 docx files in the vault pdf folder (docx_test.py, docx_results.json; supplement results also in the supplementary files section).
+
+| Route | Result on Woelfle mmc5 (10 hand-corrected values) | Other docx files | Speed |
+|---|---|---|---|
+| python-docx read through the XML (docx_tables, vault_docx_tables_block.py) | 3 tables, 368 cells, 10 of 10 values, 10 of 10 rows, 10 of 10 row and column | 0 tables in 7 files, 1 table of 8 cells (no numbers) in sj-docx-4; no nested tables, no text boxes in any file | 0.02 to 0.16 s per file |
+| python-docx row.cells (no XML handling) | same 3 tables, identical grids except for footnote letters | same | 0.1 s |
+| MinerU, flash tier | 3 tables, 10 of 10 | same counts | 1.5 to 3.4 s per file |
+| PyMuPDF opening the docx (it renders the pages itself) | 0 tables on 37 pages, 0 of 10 | 0 tables | 4 to 23 s |
+| LibreOffice soffice to PDF, then PyMuPDF | not run: /opt/homebrew/bin/soffice exists but the LibreOffice application it starts is missing, so it does not run; nothing was installed | not run | not run |
+| macOS textutil docx to html, then grid | 3 tables, 10 of 10 values, 9 of 10 with row and column | not run | 0.3 s |
+
+Merged cells: mmc5 has 8 horizontal merges (gridSpan) and 2 vertical merges (vMerge). docx_tables repeats the merged text in every covered position; the grids equal MinerU's cell for cell except 17 cells where the Word footnote letter (a superscript run) is removed by repair_cell_text and MinerU keeps it. The three tables are 6x6, 23x7 and 19x9. Old .doc files: no .doc file exists in the vault folder; soffice cannot be used here, and textutil writes a .doc that holds no tables (so my round trip is not a valid test). I could not test a real Word 97 file. Recommendation: do not convert Word files to PDF; read .docx with docx_tables (exact cells, merged spans, 0.02 to 0.16 s, 10 of 10 values), keep MinerU only as a cross-check, and for .doc ask the owner to save as .docx (or convert with soffice where a working LibreOffice is installed). python-docx is installed for the system python3 (3.14) as well as in the venv (version 1.2.0 in the venv); I did not check the system version number.
 
 ## Rerun
 
@@ -245,5 +314,10 @@ $PY build_review.py; $PY build_review_extra.py
 $PY tablelib_tests.py
 $PY repair_audit.py; $PY symbol_report.py
 $PY analyze_missed.py; $PY build_missed_report.py
+$PY tablenumbers_tests.py       # table_numbers, docx_tables, derotate_page tests
+$PY score_modes.py              # strict, any-cell and caption/footnote scoring
+python3 docx_test.py            # Word files (system python3 has python-docx)
+$PY rotation2_build.py; $PY derotate_build.py; nohup ./run_rotation2.sh > scratch/rotation2.log 2>&1 &   # long: 30 to 60 min on a busy machine
+$PY score_rotation2.py
 python3 apply_vault_repair.py    # puts the repair block into pipeline/scripts/pdf_pages.py (not yet applied)
 ```

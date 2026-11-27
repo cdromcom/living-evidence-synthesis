@@ -65,3 +65,6 @@ A new builder calls `polish(ws, jp_from=..., image_cols=...)` after the rows are
 
 **Header notes (JP, 2026-11-26).** Every column header of every table tab carries a hover note that explains the column in plain sentences for a reader outside the project. The notes are written in `pipeline/scripts/column_notes.py` (one place; `note_for(tab, header)`); `run_to_gsheet.py` writes them as cell comments (they appear as notes in Google Sheets) and `apply_notes_requests()` builds the Sheets API requests that add them to an existing sheet without regenerating it. A new column needs a note there.
 
+## Update 2026-11-27 (lean model plan, local aim, tables, verification)
+
+Drive layout (checked 2026-11-27): folder `SysRev LLMApp (LIVES)` has 01 Screening, 02 Pipeline review sheets, 03, 04 Vault review, 05 AAA Benchmarking, 99 Archive. Name new sheets 'LIVES - <Area> - <date> - <what>'. The verification tab has a last column for the bison-1 shadow score (not in any vote). Regenerated sheets lose the LIVES style menu; paste `apps-script/LivesStyle.gs` into the new sheet.
