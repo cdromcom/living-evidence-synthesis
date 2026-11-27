@@ -1,0 +1,169 @@
+{
+ "pymupdf": {
+  "cells": 8038,
+  "cells_changed_by_repair": 203,
+  "rule_counts": {
+   "x03_for_times": 6,
+   "five_for_equals": 6,
+   "e_for_en_dash": 148,
+   "soft_hyphen": 27,
+   "private_use_digits": 16,
+   "thorn_for_plus": 2,
+   "x04_for_minus": 4
+  },
+  "examples": [
+   [
+    "@woelfleBenchmarkingHumanA",
+    "PRISMA (27 items \u0003 112 publications 5 up to 3024",
+    "PRISMA (27 items × 112 publications = up to 3024"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "0.77 (0.72e0.81)",
+    "0.77 (0.72–0.81)"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "679/776 (88%, 85%e90%)",
+    "679/776 (88%, 85%–90%)"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "2248/3024 (74%, 72%e77%)",
+    "2248/3024 (74%, 72%–77%)"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "0.76 (0.72e0.79)",
+    "0.76 (0.72–0.79)"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "1216/1416 (86%, 84%e88%)",
+    "1216/1416 (86%, 84%–88%)"
+   ]
+  ],
+  "present_not_repaired": {
+   "plus_minus_sign": 251,
+   "footnote_letter_glued_to_number": 127,
+   "en_dash_U+2013": 17,
+   "soft_hyphen": 27,
+   "unicode_minus_U+2212": 10
+  },
+  "not_repaired_examples": {
+   "plus_minus_sign": "2.95 ± 1.19",
+   "footnote_letter_glued_to_number": "0.90 (0.88e0.93)a",
+   "en_dash_U+2013": "Case study 1: Efficacy of ► Randomised controlle",
+   "soft_hyphen": "Case study 1: Efficacy of ► Randomised controlle",
+   "unicode_minus_U+2212": "-0.37 0.51 -0.31 0.45 0.55 0.36 0.86 0.06 5.42 1"
+  }
+ },
+ "marker": {
+  "cells": 11090,
+  "cells_changed_by_repair": 182,
+  "rule_counts": {
+   "x03_for_times": 27,
+   "five_for_equals": 27,
+   "e_for_en_dash": 148,
+   "thorn_for_plus": 3,
+   "x04_for_minus": 4
+  },
+  "examples": [
+   [
+    "@woelfleBenchmarkingHumanA",
+    "PRISMA (27 items \u0003 112 publications 5 up to 3024",
+    "PRISMA (27 items × 112 publications = up to 3024"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "PRISMA (27 items \u0003 112 publications 5 up to 3024",
+    "PRISMA (27 items × 112 publications = up to 3024"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "PRISMA (27 items \u0003 112 publications 5 up to 3024",
+    "PRISMA (27 items × 112 publications = up to 3024"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "PRISMA (27 items \u0003 112 publications 5 up to 3024",
+    "PRISMA (27 items × 112 publications = up to 3024"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "0.77 (0.72e0.81)",
+    "0.77 (0.72–0.81)"
+   ],
+   [
+    "@woelfleBenchmarkingHumanA",
+    "679/776 (88%, 85%e90%)",
+    "679/776 (88%, 85%–90%)"
+   ]
+  ],
+  "present_not_repaired": {
+   "plus_minus_sign": 287,
+   "footnote_letter_glued_to_number": 148,
+   "en_dash_U+2013": 20,
+   "khmer_or_other_script_garbage": 2,
+   "unicode_minus_U+2212": 13
+  },
+  "not_repaired_examples": {
+   "plus_minus_sign": "2.95 ± 1.19",
+   "footnote_letter_glued_to_number": "0.90 (0.88e0.93)a",
+   "en_dash_U+2013": "► Randomised controlled trial in allergic rhinit",
+   "khmer_or_other_script_garbage": "ដកុត្ត 2/3 313 36",
+   "unicode_minus_U+2212": "10−3"
+  }
+ },
+ "mineru": {
+  "cells": 9737,
+  "cells_changed_by_repair": 16,
+  "rule_counts": {
+   "private_use_digits": 16
+  },
+  "examples": [
+   [
+    "@huntington-kleinLLMsActRe",
+    ".%",
+    "59.9%"
+   ],
+   [
+    "@huntington-kleinLLMsActRe",
+    ".%",
+    "71.9%"
+   ],
+   [
+    "@huntington-kleinLLMsActRe",
+    ".%",
+    "58.7%"
+   ],
+   [
+    "@huntington-kleinLLMsActRe",
+    ".%",
+    "89.5%"
+   ],
+   [
+    "@huntington-kleinLLMsActRe",
+    ".%",
+    "81.9%"
+   ],
+   [
+    "@huntington-kleinLLMsActRe",
+    ".%",
+    "93.6%"
+   ]
+  ],
+  "present_not_repaired": {
+   "plus_minus_sign": 293,
+   "en_dash_U+2013": 113,
+   "footnote_letter_glued_to_number": 132,
+   "unicode_superscript": 3
+  },
+  "not_repaired_examples": {
+   "plus_minus_sign": "2.95 ± 1.19",
+   "en_dash_U+2013": "0.77 (0.72–0.81) 0.76 (0.72–0.79) 0.71 (0.68–0.7",
+   "footnote_letter_glued_to_number": "0.90 (0.88–0.93)a",
+   "unicode_superscript": "1196/2997 (40%, 37%–44%)²"
+  }
+ }
+}

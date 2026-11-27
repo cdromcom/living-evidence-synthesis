@@ -9,6 +9,8 @@ from openpyxl.drawing.image import Image as XlImage
 from pathlib import Path
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.comments import Comment
+import column_notes as CN
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 sys.path.insert(0, str(Path(__file__).resolve().parent)); import call_logger as cl, sheet_style as SS, config as C
@@ -67,17 +69,22 @@ def about_models_and_tools(M):
                     except Exception: inst = 'not installed here'
                     pk.append(f"{mm.group(1)} {mm.group(2)} (installed: {inst})")
     rows.append(('Python packages', f"Python {platform.python_version()}; " + '; '.join(dict.fromkeys(pk))))
+    rows.append(('Table parsers (exploratory, tables only)', 'Marker (marker-pdf) and MinerU are being tested for reading table cells only, on the 27 seed papers, against PyMuPDF find_tables (results: pipeline/misc/evd-validation/table-parsers/RESULTS.md). They are installed in a separate virtual environment, run without any LLM mode, and are not part of the pipeline. PyMuPDF stays the tool for quote text, word boxes and page crops.'))
+    rows.append(('LIVES style menu (Apps Script)', 'A menu called "LIVES style" is added to a sheet only after the script is pasted into that sheet (Extensions > Apps Script > paste pipeline/apps-script/LivesStyle.gs > Save > reload the sheet > allow once). A script belongs to one spreadsheet, so every newly uploaded review sheet needs it pasted again.'))
     rows.append(('Other tools', 'PyMuPDF (reads PDF text, locates quotes, draws highlights, crops screenshots); Pillow (images); openpyxl (builds this workbook); requests (decision-model APIs); Google Drive and Google Sheets connectors (upload); Apps Script macros (pipeline/apps-script/LivesStyle.gs); git and the GitHub CLI (cdromcom/living-evidence-synthesis); Obsidian with the discourse-graph plugin (the vault); the LIVES web app on Vercel.'))
     return rows
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--out'); a = ap.parse_args(); d = cl.RUNS / a.run; M = json.load(open(d / 'manifest.json')); wb = Workbook(); wb.remove(wb.active); thumbs = d / '_thumbs'
+    ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--out'); ap.add_argument('--tripod-only', action='store_true', help='write a workbook with the TRIPOD-LLM tabs only (a new file, so labels in an existing sheet are not touched)'); a = ap.parse_args(); d = cl.RUNS / a.run; M = json.load(open(d / 'manifest.json')); wb = Workbook(); wb.remove(wb.active); thumbs = d / '_thumbs'
     def lowq(d):
         a = [x for k, x in (d or {}).items() if not str(k).startswith('_') and isinstance(x, (int, float))]
         return round(min(a), 3) if a else ''
     def tab(title, header, rows, widths, jp_from=None, img=()):
         ws = wb.create_sheet(title); ws.append(header)
+        for ci_, h_ in enumerate(header, 1):   # hover note on every column header, written for readers outside the project (column_notes.py)
+            n_ = CN.note_for(title, h_)
+            if n_: c_ = Comment(n_, 'LIVES pipeline'); c_.width = 340; c_.height = 40 + 18 * (len(n_) // 48 + 1); ws.cell(1, ci_).comment = c_
         for r in rows: ws.append([_CTRL.sub('', x) if isinstance(x, str) else x for x in r])   # control characters in a quote would make openpyxl refuse the cell
         SS.polish(ws, jp_from=jp_from, image_cols=img); ws.freeze_panes = 'C2'; return ws
     ab = wb.create_sheet('ABOUT'); ab.column_dimensions['A'].width = 26; ab.column_dimensions['B'].width = 120
@@ -89,7 +96,7 @@ def main():
              ('Step 3', 'GPT-6.2 Sol re-reads flagged findings blind, and Claude Opus 5.5 decides when Sol and Neon disagree.'),
              ('Step 4', 'Claude Sonnet 5.5 reads a screenshot of every quote and compares it with the quote text (quote_check stage). Two decision models, Perplexity Decider 1.3 (pplx-decider-v1.3, text only) and Liquid d1.2-ultra (d1.2-ultra, reads text and images), score every finding on relevancy, fidelity, numbers found in the source and table cell matches. GPT-6.2 Sol looks at a crop of every finding: pass, not matched or cannot verify (cannot verify goes to you).'),
              ('Step 5', 'Drafting: three models debate each primary EVD; Sonnet 5.5 drafts everything else once. Quality signals: Neon (High) and Opus rate, Sol decides disagreements.'),
-             ('Step 6', 'Verification: Claude Sonnet 5.5, Perplexity Decider 1.3 and Liquid d1.2-ultra each judge every PICOST slot (with page 1 and the Methods pages), quote, question rewording (QUE), claim (CLM), caveat (CVT) and quality rating; Liquid d1.2-ultra also looks for the digits of each quote and for statement numbers missing from the PDF text on the screenshots. Quotes without digits are checked by Sonnet 5.5. The tabs Verification, Numbers check and Failure analysis show the results.'),
+             ('Step 6', 'Verification: Liquid d1.2-ultra and Perplexity Decider 1.3 first judge every PICOST slot (with page 1 and the Methods pages), question rewording (QUE), claim (CLM), caveat (CVT) and quality rating; Claude Sonnet 5.5 judges an item only when those two disagree, and always reads the screenshot of every quote; Liquid d1.2-ultra also looks for the digits of each quote and for statement numbers missing from the PDF text on the screenshots. Quotes without digits are checked by Sonnet 5.5. The tabs Verification, Numbers check and Failure analysis show the results.'),
              ('Step 7', 'You review this sheet. Your labels become the ground truth for the accuracy numbers.'),
              ('How to review', 'Start with the Findings tab. Sort by Flags and Tier. Yellow columns are yours: say whether the tier, statement and numbers are right, add findings that were missed, and note why.'),
              ('Flags', 'low_confidence: Neon says it is unsure. multi_page: the evidence is on more than one page. span_not_found and span_on_other_page: the quote is not where it should be. number_not_in_pdf_text: fewer than half of its numbers are in the PDF text. number_not_in_numbers_list: a number in the statement has no entry in the Numbers list. numbers_list_entry_without_location: a listed number has no table, figure or page. no_text_layer: scanned PDF.'),
@@ -145,7 +152,7 @@ def main():
             for nid, f in dd.get('finals', {}).items():
                 n = f['node']; alts = [txt_of(dd['authors'].get(a_, {}).get('r0', {}).get(nid, {})) for a_ in ('sonnet', 'sol', 'neon')]
                 cc = f.get('detail_check') or f.get('claim_check') or {}; lt = f.get('writing_rules') or f['lint']
-                dr_rows.append([ck, nid, n.get('type', ''), n.get('tier', ''), f['author'], f['how'], txt_of(n), lt.get('chars', ''), lt.get('fk_grade', ''), 'yes' if lt.get('pass') else 'no', ', '.join(lt.get('numbers_not_on_card', [])), cc.get('overall', ''), cc.get('fix', ''), cc.get('checker', ''), (f.get('dm') or {}).get('score', ''), f.get('status', ''), alts[0], alts[1], alts[2], '', '', '', ''])
+                dr_rows.append([ck, nid, n.get('type', ''), n.get('tier', ''), f['author'], f['how'], txt_of(n), lt.get('chars', ''), 'yes' if lt.get('pass') else 'no', ', '.join(lt.get('numbers_not_on_card', [])), cc.get('overall', ''), cc.get('fix', ''), cc.get('checker', ''), (f.get('dm') or {}).get('score', ''), f.get('status', ''), alts[0], alts[1], alts[2], '', '', '', ''])
         if (d / ck / 'quality_signals.json').exists():
             q = json.load(open(d / ck / 'quality_signals.json'))
             for x in q['raw']: qr_rows.append([ck, x['signal'], x['rater'], 'yes' if x['counted'] else 'benchmark only', x['rating'], x['quote'][:400], x['locator'], '' if x['quote_found'] is None else (('yes, taken from the PDF' + (' (' + x['quote_source'].split('(')[1] if '(' in x.get('quote_source', '') else '') if str(x.get('quote_source', '')).startswith('anchors') else 'yes') if x['quote_found'] else 'NO: anchors not found' if str(x.get('quote_source', '')).startswith('anchors') else 'NO'), ''])
@@ -154,7 +161,7 @@ def main():
     if ck_rows:
         ws2 = tab('Decision-model checks (EVD)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', 'Opus (disputes only)', 'Opus reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes', 'Liquid d1-ultra OLD: lowest question score', 'Liquid d1.2-ultra: lowest question score', 'Perplexity Decider 1.3: lowest question score'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30, 14, 14, 14], jp_from=18, img=(17,))
         for i, cp in enumerate(ck_crops, 2): put_image(ws2, d, i, 17, cp, 440, thumbs)
-    if dr_rows: tab('Drafts (EVD, QUE, CLM, CVT)', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Reading grade', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 8, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=20)
+    if dr_rows: tab('Drafts (EVD, QUE, CLM, CVT)', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=19)
     # ---- EVDs whose decision-model score is below the threshold: what the models saw and what they scored, for JP to suggest changes
     import re as _re
     lowrows = []
@@ -190,15 +197,14 @@ def main():
             if w.get('pass', True): continue
             n = f['node']; why = []
             if w.get('length_ok') is False: why.append(f"longer than 247 characters ({w.get('chars')})")
-            if w.get('readability_ok') is False: why.append(f"reading grade {w.get('fk_grade')} (limit 14)")
             if w.get('numbers_not_on_card'): why.append('numbers not on the card: ' + ', '.join(w['numbers_not_on_card']))
             if w.get('parentheses_ok') is False: why.append('more than one set of parentheses (or brackets)')
             if w.get('no_emdash') is False: why.append('contains an em dash')
             if w.get('question_ok') is False: why.append('question does not end with a question mark')
             if w.get('has_quote') is False: why.append('no quote')
             if w.get('links_to_question') is False: why.append('primary EVD links to no question')
-            wrrows.append([ck, nid, n.get('type', ''), n.get('tier', ''), n.get('statement') or n.get('title') or n.get('limitation') or '', '; '.join(why), w.get('chars', ''), w.get('fk_grade', ''), ', '.join(w.get('numbers_not_on_card', [])), '', ''])
-    if wrrows: tab('Writing-rules fails (all nodes)', ['Paper', 'Node', 'Type', 'Tier', 'Text as drafted', 'Which rule failed', 'Characters', 'Reading grade', 'Numbers not on the card', 'JP: suggested change', 'JP: notes'], wrrows, [30, 8, 6, 10, 80, 40, 10, 10, 20, 30, 30], jp_from=10)
+            wrrows.append([ck, nid, n.get('type', ''), n.get('tier', ''), n.get('statement') or n.get('title') or n.get('limitation') or '', '; '.join(why), w.get('chars', ''), ', '.join(w.get('numbers_not_on_card', [])), '', ''])
+    if wrrows: tab('Writing-rules fails (all nodes)', ['Paper', 'Node', 'Type', 'Tier', 'Text as drafted', 'Which rule failed', 'Characters', 'Numbers not on the card', 'JP: suggested change', 'JP: notes'], wrrows, [30, 8, 6, 10, 80, 40, 10, 20, 30, 30], jp_from=9)
     # ---- verification of every extracted item by Sonnet 5.5 and the two decision models, with majority vote, mean and JP's open columns
     vf = d / 'verification.json'
     if vf.exists():
@@ -230,7 +236,7 @@ def main():
     # ---- quality signals: one tab per paper (code-only checks and model ratings side by side) and a run summary with cost, time and agreement
     import qs_export as QE, signal_registry as SRG
     if QE.STORE.exists():
-        store = json.load(open(QE.STORE)); qs_sum = []; calls = []
+        store = json.load(open(QE.STORE)); qs_sum = []; calls = []; tri_sum = []
         cf_ = d / 'calls.jsonl'
         if cf_.exists():
             for l_ in open(cf_):
@@ -242,7 +248,7 @@ def main():
             meta = json.load(open(pj_)).get('paper', {}); key = SRG.resolve_citekey(ck, meta.get('title', ''), meta.get('year', '')) or ck; E_ = store['papers'].get(key)
             if not E_: continue
             hdr = ['Kind', 'Signal or check', 'Result', 'Agreement or status', 'Summary', 'Neon rating', 'Neon quote and locator', 'Neon screenshot (image)', 'Opus rating', 'Opus quote and locator', 'Opus screenshot (image)', 'Sol rating (adjudicates disagreements)', 'Quote verifiers (mean score: Sonnet 5.5, Liquid d1.2-ultra, Perplexity)', 'Live-site tag (Aug 2026)', 'Matches live-site tag?', 'Code-only checks that apply', 'Source and date', 'JP: right? (yes/no/unsure)', 'JP: notes']
-            rows_ = []; shots_ = []
+            rows_ = []; shots_ = []; rows_t = []; shots_t = []
             def rater(sig, nm):
                 return next((r for r in sig.get('ratings', []) if r['rater'] == nm), None)
             for it in E_.get('provenance', []):
@@ -252,11 +258,17 @@ def main():
                 n_ = rater(sig, 'Gemini 4 Neon'); o_ = rater(sig, 'Claude Opus 5.5'); s_ = rater(sig, 'GPT-6.2 Sol'); ck_ = {c['verifier']: c['score'] for c in sig.get('checks', [])}
                 ver_ = ', '.join(str(ck_.get(v, '')) for v in ('Claude Sonnet 5.5', 'Liquid d1.2-ultra', 'Perplexity Decider 1.3')) if ck_ else ''
                 tools_ = ', '.join(next((i['label'] for i in E_.get('provenance', []) if i['id'] == t_), t_) for t_ in sig.get('tool_checks', []))
-                rows_.append(['Signal', sig['label'], sig['final'], sig['agreement'], sig['summary'], n_['rating'] if n_ else '', (n_['quote'] + ('  [' + n_['locator'] + ']' if n_['locator'] else '')) if n_ else '', '', o_['rating'] if o_ else '', (o_['quote'] + ('  [' + o_['locator'] + ']' if o_['locator'] else '')) if o_ else '', '', s_['rating'] if s_ else '', ver_,
+                (rows_t if sid.startswith('tripod-') else rows_).append(['Signal', sig['label'], sig['final'], sig['agreement'], sig['summary'], n_['rating'] if n_ else '', (n_['quote'] + ('  [' + n_['locator'] + ']' if n_['locator'] else '')) if n_ else '', '', o_['rating'] if o_ else '', (o_['quote'] + ('  [' + o_['locator'] + ']' if o_['locator'] else '')) if o_ else '', '', s_['rating'] if s_ else '', ver_,
                               sig.get('vault_value') or '', {True: 'yes', False: 'no', None: ''}[sig.get('matches_vault')], tools_, '', '', ''])
-                shots_.append(((QE.SHOTS / n_['screenshot']) if n_ and n_.get('screenshot') else None, (QE.SHOTS / o_['screenshot']) if o_ and o_.get('screenshot') else None))
+                (shots_t if sid.startswith('tripod-') else shots_).append(((QE.SHOTS / n_['screenshot']) if n_ and n_.get('screenshot') else None, (QE.SHOTS / o_['screenshot']) if o_ and o_.get('screenshot') else None))
             wq_ = tab(f"QS {ck.split('-')[0]} {meta.get('year', '')}", hdr, rows_, [14, 26, 24, 14, 50, 12, 50, 40, 12, 50, 40, 14, 22, 16, 12, 30, 40, 16, 30], jp_from=18, img=(8, 11))
             for i_, (a_, b_) in enumerate(shots_, 2): put_image(wq_, d, i_, 8, a_, 300, thumbs); put_image(wq_, d, i_, 11, b_, 300, thumbs)
+            if rows_t:   # TRIPOD-LLM reporting items: their own tab, same columns
+                wt_ = tab(f"TRIPOD {ck.split('-')[0]} {meta.get('year', '')}", ['Kind', 'TRIPOD-LLM item'] + hdr[2:], rows_t, [14, 30, 24, 14, 50, 12, 50, 40, 12, 50, 40, 14, 22, 16, 12, 30, 40, 16, 30], jp_from=18, img=(8, 11))
+                for i_, (a_, b_) in enumerate(shots_t, 2): put_image(wt_, d, i_, 8, a_, 300, thumbs); put_image(wt_, d, i_, 11, b_, 300, thumbs)
+            import tripod_items as TI
+            fin_ = {s_: x_['final'] for s_, x_ in E_.get('signals', {}).items() if s_.startswith('tripod-')}; old_ = SRG.vault_tripod(key); new_s = TI.summary(fin_); old_s = TI.summary(old_)
+            same_ = [s_ for s_ in fin_ if s_ in old_]; tri_sum.append([meta.get('title', ck)[:60], key, new_s['fully'], new_s['partial'], new_s['not-reported'], new_s['not-applicable'], (str(new_s['pct']) + '% ' + str(new_s['level'])) if new_s['pct'] is not None else '', old_s['fully'], old_s['partial'], old_s['not-reported'], old_s['not-applicable'], (str(old_s['pct']) + '% ' + str(old_s['level'])) if old_s['pct'] is not None else '', f"{sum(1 for s_ in same_ if fin_[s_] == old_[s_])} of {len(same_)}"])
             sigs_ = [x for x in E_.get('signals', {}).values() if x['ratings']]; st_ = M.get('stage_log', {}); t0_ = (st_.get('qs') or {}).get('started_utc', '')
             cost_ = {}; ends_ = []
             for c_ in calls:
@@ -264,6 +276,7 @@ def main():
             prov_ = E_.get('provenance', []); mv_ = [x for x in sigs_ if x.get('matches_vault') is not None]
             qs_sum.append([meta.get('title', ck)[:60], key, len(sigs_), sum(1 for x in sigs_ if x['agreement'] == 'agree'), sum(1 for x in sigs_ if x['final'] == 'no majority'), sum(1 for x in sigs_ for r_ in x['ratings'] if r_.get('quote_found') is False), f"{sum(1 for x in mv_ if x['matches_vault'])} of {len(mv_)}",
                            sum(1 for i in prov_ if i['status'] == 'ok'), sum(1 for i in prov_ if i['status'] == 'flag'), sum(1 for i in prov_ if i['status'] == 'unavailable'), round(sum(cost_.values()), 3), '; '.join(f"{k}: ${v:.2f}" for k, v in cost_.items()), ((st_.get('qs') or {}).get('elapsed_s') or (round((__import__('datetime').datetime.fromisoformat(max(ends_)) - __import__('datetime').datetime.fromisoformat(t0_)).total_seconds()) if ends_ and t0_ else '')), (st_.get('qs_code_checks') or {}).get('papers', {}).get(ck, {}).get('elapsed_s', '')])
+        if tri_sum: tab('TRIPOD-LLM summary', ['Paper', 'Vault citekey', 'New: fully reported', 'New: partial', 'New: not reported', 'New: not applicable', 'New: share reported (partial counts half) and level', 'Old table: fully reported', 'Old: partial', 'Old: not reported', 'Old: not applicable', 'Old table: share and level', 'New rating equals old curated rating'], tri_sum, [50, 38, 10, 10, 10, 10, 22, 10, 10, 10, 10, 22, 18])
         if qs_sum: tab('Quality signals run summary', ['Paper', 'Vault citekey', 'Signals rated by models', 'Both raters agree', 'No majority', 'Quotes not found in PDF', 'Matches live-site tag', 'Code-only checks ok', 'Code-only checks flagged', 'Code-only checks unavailable', 'Rating cost USD', 'Cost by model', 'Rating time (s, batch wait included)', 'Code-only check time (s)'], qs_sum, [50, 38, 12, 12, 10, 12, 14, 12, 12, 12, 10, 46, 14, 14])
     nc_f = d / 'numbers_check.json'
     if nc_f.exists():
@@ -350,5 +363,8 @@ def main():
         r = json.loads(l); crows.append([r.get('ts_utc', '')[:19], r.get('citekey', ''), r.get('step', ''), r.get('model', ''), r.get('effort', ''), r.get('tokens_in'), r.get('tokens_out'), r.get('cost_usd_est'), (r.get('notes') or '')[:80]])
     tab('Calls and cost', ['Time (UTC)', 'Paper', 'Step', 'Model', 'Effort', 'Tokens in', 'Tokens out (incl. thinking)', 'Cost USD (list price; batch is half)', 'Notes'], crows, [20, 30, 12, 20, 8, 10, 14, 14, 50])
     SS.polish_about(ab)
-    out = a.out or str(d / 'review.xlsx'); wb.save(out); print('saved', out, '| findings', len(frow), '| spans', len(crow))
+    if a.tripod_only:
+        for ws_ in list(wb.worksheets):
+            if not (ws_.title.startswith('TRIPOD') or ws_.title == 'ABOUT'): wb.remove(ws_)
+    out = a.out or str(d / ('review_tripod.xlsx' if a.tripod_only else 'review.xlsx')); wb.save(out); print('saved', out, '| findings', len(frow), '| spans', len(crow))
 if __name__ == '__main__': main()

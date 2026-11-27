@@ -90,7 +90,7 @@ def export_paper(M, ck, log=print):
     if vf.exists():
         for x in json.loads(vf.read_text(encoding='utf-8')):
             if x['ntype'] == 'QUALITY' and x['paper'] == ck: ver[x['nid']] = x
-    store = load_store(); entry = store['papers'].setdefault(key, {'citekey': key}); vtags = SR.vault_tags(key); signals = {}
+    store = load_store(); entry = store['papers'].setdefault(key, {'citekey': key}); vtags = SR.vault_tags(key); vtrip = SR.vault_tripod(key); signals = {}
     for sg in S.SIGNALS:
         rows = [r for r in raws if r['signal'] == sg]
         if not rows: continue
@@ -108,6 +108,7 @@ def export_paper(M, ck, log=print):
         a = aggs.get(sg, {}); final = a.get('majority', 'no majority')
         checks = [{'verifier': VERIFIERS[k], 'score': round(sum(s for s, _ in v) / len(v), 2), 'note': next((n for s, n in v if n and s < 0.75), '')} for k, v in verdicts.items() if v]
         tag = SR.SIGNAL_TAGS.get(sg); vv = vtags.get(tag) if tag else None
+        if sg.startswith('tripod-'): vv = vtrip.get(sg)   # the old curated TRIPOD-LLM table on the source page
         signals[sg] = {'id': sg, 'label': SR.label_for(sg), 'final': final, 'agreement': 'agree' if a.get('agreement') == 'both raters agree' else ('no-majority' if final == 'no majority' else 'majority'),
                        'summary': summary_sentence(final, rows, a, checks), 'ratings': ratings, 'checks': checks, 'tool_checks': SR.TOOL_CHECKS.get(sg, []), 'vault_value': vv, 'matches_vault': (None if vv is None else vv == final)}
     prov = {i['id']: i for i in entry.get('provenance', [])}
@@ -116,8 +117,9 @@ def export_paper(M, ck, log=print):
         if not items: continue
         worst = 'flag' if any(i['status'] == 'flag' for i in items) else ('unavailable' if all(i['status'] == 'unavailable' for i in items) else 'ok')
         signals[sg] = {'id': sg, 'label': SR.label_for(sg), 'final': ' '.join(i['result'] for i in items[:1]), 'agreement': 'agree', 'summary': items[0]['result'], 'ratings': [], 'checks': [], 'tool_checks': ids, 'vault_value': vtags.get(tag), 'matches_vault': None, 'status': worst}
-    sl = M.m['stage_log']; entry['signals'] = signals
-    entry['qs_run'] = {'run_id': M.m['run_id'], 'exported_utc': now(), 'raters': ['Gemini 4 Neon (High)', 'Claude Opus 5.5', 'GPT-6.2 Sol (adjudicates disagreements)'], 'prompt': sl.get('qs', {}).get('prompt'), 'elapsed_s': sl.get('qs', {}).get('elapsed_s'), 'signals_rated': len(S.SIGNALS)}
+    import tripod_items as TI
+    sl = M.m['stage_log']; entry['signals'] = signals; entry['tripod'] = TI.summary({s_: x_['final'] for s_, x_ in signals.items() if s_.startswith('tripod-')}); entry['tripod_old_table'] = TI.summary(vtrip)
+    entry['qs_run'] = {'run_id': M.m['run_id'], 'exported_utc': now(), 'raters': ['Gemini 4 Neon (High)', 'Claude Opus 5.5', 'GPT-6.2 Sol (adjudicates disagreements)'], 'prompt': sl.get('qs', {}).get('prompt'), 'elapsed_s': sl.get('qs', {}).get('elapsed_s'), 'signals_rated': len(S.SIGNALS), 'tripod_items_rated': len(TI.ITEMS)}
     save_store(store); log(f"{ck[:24]}: {len(signals)} signals exported for {key}"); return key
 
 

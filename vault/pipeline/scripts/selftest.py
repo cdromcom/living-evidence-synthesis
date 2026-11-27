@@ -2,7 +2,7 @@
 """Offline self-test for the pipeline (JP, 2026-11-25): no API calls, no cost. Run it after changing a model, a package, a prompt, a template or a limit.
   python3 selftest.py
 Checks: the config files and the origin policy; every role's model has a price and a route; prompts exist with their placeholders; the quality-signal ids match the registry of row names;
-writing-rules check and readability; the runner's guards (paper limit, cap, research question, repeat PDFs); supplement merging; PDF slicing and merged screenshots; package versions."""
+writing-rules check; the runner's guards (paper limit, cap, research question, repeat PDFs); supplement merging; PDF slicing and merged screenshots; package versions."""
 import importlib.metadata as md, json, subprocess, sys, tempfile
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -38,7 +38,7 @@ check('quality signals: two raters and a third-model adjudicator', len(S.RATERS)
 for n in ('draft-nodes-v4', 'critique-revise-v4', 'evd-rework-v3', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
 ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}
-check('quality signals rated by the models are valid row ids', set(S.SIGNALS) <= ids, str(sorted(set(S.SIGNALS) - ids)))
+check('quality signals rated by the models are valid row ids (TRIPOD-LLM rows have their own list)', {x for x in S.SIGNALS if not x.startswith('tripod-')} <= ids, str(sorted({x for x in S.SIGNALS if not x.startswith('tripod-')} - ids)))
 print('writing-rules check and parsing')
 good = {'type': 'EVD', 'statement': 'GPT 3.5-turbo scored 71.4% on 120 reviews (kappa = 0.5).', 'quote': 'x'}
 check('writing-rules check passes a good EVD', S.writing_rules(good, {S.norm_num(x) for x in ('71.4', '120', '0.5', '3.5')})['pass'])
@@ -79,10 +79,16 @@ check('a statement number written as 1,000 or .58 matches the page text', NP.var
 check('a number that is not on the screenshot goes to JP, a short one is not checked by image', NP.classify('0.78', 0.02, 0.01) == 'not found: JP check' and NP.classify('4', 0.9, 0.9) == 'too short to check by image' and NP.classify('0.56', 0.97, 0.0) == 'seen on screenshot')
 check('the claim, caveat and question wording allows rewording', 'Different wording is fine' in VV.INS_CLM and 'restyled on purpose' in VV.INS_QUE)
 import signal_registry as SRG, qs_export as QXP
-check('every signal the models rate has a tag on the source page and a label', all(sg in SRG.SIGNAL_TAGS for sg in S.SIGNALS) and len(S.SIGNALS) == 27 and SRG.label_for('study-type') == 'Study Type')
+check('every signal the models rate has a tag on the source page and a label', all(sg in SRG.SIGNAL_TAGS or sg.startswith('tripod-') for sg in S.SIGNALS) and len(S.SIGNALS) == 67 and sum(1 for sg in S.SIGNALS if sg.startswith('tripod-')) == 40 and SRG.label_for('study-type') == 'Study Type')
 check('the required-tag list comes from the signal registry (power analysis is optional)', 'rigor/statistical-power' not in SRG.REQUIRED and 'top/study-registration' in SRG.REQUIRED)
 check('a run folder name resolves to its vault citekey', SRG.resolve_citekey('Sarol-et-al-2024-Assessing-citation-integrity') == 'sarolAssessingCitationIntegrity2024')
 check('the summary sentence names who agrees and who does not', QXP.summary_sentence('addressed', [{'rater': 'neon', 'rating': 'addressed'}, {'rater': 'opus', 'rating': 'partial'}, {'rater': 'sol', 'rating': 'addressed'}], {}, []) == 'Neon and Sol rate this addressed; Opus rated it partial.' and QXP.summary_sentence('no majority', [{'rater': 'neon', 'rating': 'a'}, {'rater': 'opus', 'rating': 'b'}], {}, []).endswith('needs your judgment.'))
+import column_notes as CNT
+check('every column header the sheet builder writes has a hover note for outsiders', all(CNT.note_for('Verification (all nodes)', h) for h in ('Sonnet 5.5 score', 'Majority vote', 'Labeling queue (tonight)', 'JP: notes', 'JP: is the extraction correct? (yes/no/unsure)')) and CNT.note_for('QS Sarol 2024', 'Result').startswith('The final rating') and all(CNT.note_for('Papers', h) for h in ('Primary findings', 'Cost USD')))
+import tripod_items as TRI
+check('TRIPOD-LLM summary counts partial as half and ignores not-applicable items', TRI.summary({'tripod-1': 'fully', 'tripod-3a': 'partial', 'tripod-4': 'not-applicable', 'tripod-5a': 'not-reported'})['pct'] == 50 and TRI.summary({'tripod-1': 'fully'})['level'] == 'high' and TRI.label('tripod-5c') == 'TRIPOD-LLM 5c: Date range of data')
+import pdf_pages as _pp2
+check('the text-layer symbol repair fixes an interval written with the letter e and leaves scientific notation alone', _pp2.repair_cell_text('0.37e0.44') == '0.37\u20130.44' and _pp2.repair_cell_text('1e-5') == '1e-5' and _pp2.repair_cell_text('a\u00feb') == 'a+b')
 print('packages')
 for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
     try: print(f'  {pkg} {md.version(pkg)}'); ok += 1
