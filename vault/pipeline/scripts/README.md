@@ -47,3 +47,8 @@ Dependencies: `fitz` (PyMuPDF), `pdftoppm` (poppler-utils, optional).
 - `run_to_gsheet.py`: the ABOUT tab now lists every model, package and tool; new tabs Verification (all nodes), Verification summary, Numbers check, Failure analysis.
 - Table-parser test (exploratory, 2026-11-26): scripts and results in `pipeline/misc/evd-validation/table-parsers/` (Marker and MinerU against PyMuPDF find_tables, table cells only).
 
+## Update 2026-11-27 (lean model plan, local aim, tables, verification)
+
+**Verification and decision models (2026-11-27).** `decision_models.resolve_preferred()` tries `d1.3-ultra` first and keeps `d1.2-ultra` while the API returns 404 (it did on 2026-11-27). Baseten bison-1 (31B, $0.10 per million tokens) runs as a text-only shadow verifier and is not in any vote: on 226 Woelfle items it agrees with d1.2-ultra 79%, Perplexity 81%, Sonnet 86%, passes PICOST slots almost always (1% below 0.5), and its image test was unreliable. Each stage now records elapsed seconds and request count in `stage_log`.
+
+**Table cells and Word files (2026-11-27).** `pdf_pages.table_numbers(page)` matches a verified value against numbers in any table cell plus table captions and footnotes: 463 of 463 values found (strict cell match 431, any cell 451). Five any-cell matches are accidental (for example the 5 in a 'Recall@5' header). `derotate.derotate_page(page)` turns a rotated page upright before MinerU reads it (MinerU 380 to 431 at /Rotate 90). `pdf_pages.docx_tables(path)` reads .docx tables through python-docx with merged cells repeated (10 of 10 supplement values; the four `sj-docx-*` files return 0, 0, 0 and 1 table). Do not convert Word files to PDF; save an old .doc as .docx first.

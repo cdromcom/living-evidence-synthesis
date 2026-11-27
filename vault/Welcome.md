@@ -390,3 +390,11 @@ flowchart TB
 > [!info] Generated metadata
 >
 > The properties at the top of this file (`author`, `page_type`, `created`, `updated`, `generated_by`, `prompt_source`) follow the convention from SKILL.md Step 10. Every generated document carries provenance back to the prompt that asked for it.
+
+## 2026-11-27: what changed
+
+**Lean model plan (JP, 2026-11-27; pending validation, not built).** Target at most $2.49 per paper for extraction, quality signals, TRIPOD-LLM and the quality appraisal table. Quality signals and TRIPOD-LLM rows: Gemini 4 Neon (high) rates every row; low-confidence rows go to GPT-6.2 Sol (high); if Sol is also unsure the row goes to JP; Opus 5.5 is not used. Verification: when the two decision models disagree, Neon (medium) judges instead of Sonnet 5.5. Quote reading from screenshots: Neon replaces Sonnet. Drafting: first drafts by GPT-6.2 Sol only, critique by Neon only, tiebreaker Sonnet 5.5. EVD rework below 0.60: Sol (medium). Classifying sampled problems: a small local model to try (Neon low as the hosted fallback). Grouping questions, claims, evidence and caveats: EmbeddingGemma 2 (local) finds candidates, Neon (medium) decides. The estimate from pilot logs is about $3.0 to $3.5, above the target (see `misc/evd-validation/TODO.md`). Until JP validates it, the three-rater maximum-accuracy setting remains the default in `config/models.json`.
+
+**Long-term aim (JP, 2026-11-27): a fully local and open LIVES-DP** within 6 to 12 months, for user control, fine-tuning, privacy, security and reliability, and so that a review of 100 or more papers does not cost hundreds of dollars. Needed: one multimodal (text and image, English) model that is fairly capable and runs in 24 to 128 GB of RAM. Candidates to benchmark on the pilot papers (from a web search on 2026-11-27, not tested here): Qwen3-VL in the 8B to 32B sizes (quantized) and InternVL3 (MIT license); Gemma 3 is the older option. Steps already local: PyMuPDF, python-docx, MinerU, Marker, EmbeddingGemma 2.
+
+**LIVES-DP Explorer (2026-11-27).** An interactive page (30 steps in 7 phases; tool type, cost per paper, time and the evidence behind each accuracy figure) is at https://claude.ai/artifact/L5EBs2wZX1fiRkXUJH7WnA (private; source `pipeline/docs/lives-dp-explorer.html`). No step is scored against JP's labels yet.

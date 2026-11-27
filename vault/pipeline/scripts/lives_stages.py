@@ -73,6 +73,14 @@ def wait_jobs(M, jobs):
 
 
 def dispatch(M, key, reqs, mode, cap_frac=1.0):
+    """Times the stage (JP, 2026-11-27: time on task per step): stage_log[key]['elapsed_s'] is the wall-clock seconds, batch queue wait included, and 'requests' the number of requests."""
+    t0 = time.time(); res = _dispatch(M, key, reqs, mode, cap_frac)
+    st = M.m['stage_log'].setdefault(key, {})
+    if reqs and 'elapsed_s' not in st: st['elapsed_s'] = round(time.time() - t0, 1); st['requests'] = len(reqs); st['mode_used'] = 'standard' if key in STANDARD_STAGES else mode
+    return res
+
+
+def _dispatch(M, key, reqs, mode, cap_frac=1.0):
     """Run requests (any mix of models) as one stage. Returns {request id: Res}. Resumable: results are saved to <run>/stage_<key>.json."""
     f = M.dir / f'stage_{key}.json'; st = M.m['stage_log'].setdefault(key, {})
     if f.exists(): return {k: L.Res(**v) for k, v in json.loads(f.read_text()).items()}

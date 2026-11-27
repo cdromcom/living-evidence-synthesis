@@ -493,7 +493,7 @@ def main():
         else:
             if 'draft' not in a.skip: S.stage_draft(M, mode)
             if 'qs' not in a.skip: S.stage_qs(M, mode)
-        if 'verify' not in a.skip: import lives_verify as V; V.stage_verify(M, mode); V.add_image_scores(M); import numbers_on_pages as NP; NP.run_numbers_check(M)   # Sonnet 5.5 and the two decision models verify every extracted item
+        if 'verify' not in a.skip: import lives_verify as V; V.stage_verify(M, mode); V.add_image_scores(M); V.add_bison_shadow(M); import numbers_on_pages as NP; NP.run_numbers_check(M)   # Sonnet 5.5 and the two decision models verify every extracted item
         if 'qs' not in a.skip and 'qs_export' not in a.skip:   # JP, 2026-11-26: quality signals after every batch: provenance, links and statistics (code only), then export for the sheet and the web app
             import qs_export as QX; QX.run(M)
         cleanup_files(M); finish(M)

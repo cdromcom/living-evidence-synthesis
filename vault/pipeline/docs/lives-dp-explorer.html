@@ -1,0 +1,265 @@
+<title>LIVES-DP Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout concept: a workbench. Left: the pipeline as seven phase columns of step cards you can filter and click. Right: a detail sheet for the chosen step. Below: cost chart, evidence table, models table. */
+:root{
+  --bg:#f6f7f6; --panel:#ffffff; --ink:#1b2321; --ink2:#55615e; --line:#dfe4e2; --accent:#0f6e5f; --accent-soft:#dcefeb;
+  --c-script:#4b6b8a; --c-frontier:#b0502d; --c-decision:#0f6e5f; --c-embed:#7a5a9b; --c-human:#8a7a1f; --c-service:#6d7673;
+  --ok:#2f7d4f; --mid:#b27a12; --none:#8b9491; --shadow:0 1px 2px rgba(20,30,28,.08),0 6px 18px rgba(20,30,28,.06);
+  --font-head:'Space Grotesk',system-ui,sans-serif; --font-body:'Inter',system-ui,sans-serif; --font-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1514; --panel:#171f1d; --ink:#e8eeec; --ink2:#a2b0ac; --line:#2a3633; --accent:#5fcdb8; --accent-soft:#1c3a35;
+  --c-script:#8fb2d3; --c-frontier:#ee9a77; --c-decision:#5fcdb8; --c-embed:#bc9ddb; --c-human:#d6c75f; --c-service:#9aa6a2;
+  --ok:#6fcf93; --mid:#e0b04f; --none:#7f8c88; --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1514; --panel:#171f1d; --ink:#e8eeec; --ink2:#a2b0ac; --line:#2a3633; --accent:#5fcdb8; --accent-soft:#1c3a35;
+  --c-script:#8fb2d3; --c-frontier:#ee9a77; --c-decision:#5fcdb8; --c-embed:#bc9ddb; --c-human:#d6c75f; --c-service:#9aa6a2;
+  --ok:#6fcf93; --mid:#e0b04f; --none:#7f8c88; --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1280px;margin:0 auto}
+h1{font-family:var(--font-head);font-size:30px;line-height:1.15;margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance}
+h2{font-family:var(--font-head);font-size:19px;margin:34px 0 4px;letter-spacing:-.005em}
+.lede{color:var(--ink2);max-width:72ch;margin:0 0 14px}
+.sub{color:var(--ink2);max-width:72ch;margin:0 0 12px;font-size:13px}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0 14px}
+.grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
+.grp>b{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink2);margin-right:2px;font-weight:600}
+.chip{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:4px 10px;font:inherit;font-size:12.5px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.chip:focus-visible,.card:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=search]{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:5px 9px;font:inherit;font-size:13px;min-width:0;width:190px;max-width:100%}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
+@media (max-width:980px){.main{grid-template-columns:minmax(0,1fr)}.sheet{position:static!important}}
+.mapscroll{overflow-x:auto;padding-bottom:8px}
+.map{display:grid;grid-template-columns:repeat(7,minmax(172px,1fr));gap:10px;min-width:1250px}
+.ph{min-width:0}
+.phh{font-family:var(--font-head);font-size:13px;font-weight:600;border-bottom:2px solid var(--ink);padding:0 0 5px;margin-bottom:8px;display:flex;justify-content:space-between;gap:6px}
+.phh span{color:var(--ink2);font-weight:500;font-size:11.5px;font-family:var(--font-body)}
+.card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--cc,var(--none));border-radius:8px;padding:7px 8px 8px;margin-bottom:8px;cursor:pointer;text-align:left;width:100%;font:inherit;color:inherit;display:block;box-shadow:var(--shadow);transition:opacity .15s}
+.card[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:1px}
+.card.dim{opacity:.22}
+.card .t{font-weight:600;font-size:12.5px;line-height:1.25;display:block}
+.card .m{color:var(--ink2);font-size:11.5px;display:block;margin:2px 0 5px;overflow-wrap:anywhere}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar>s{display:block;height:100%;background:var(--cc,var(--none));text-decoration:none}
+.bar.ev>s{background:var(--evc)}
+.val{font-size:11.5px;color:var(--ink);font-variant-numeric:tabular-nums;display:block;margin-top:3px}
+.val em{font-style:normal;color:var(--ink2)}
+.sheet{position:sticky;top:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 16px;box-shadow:var(--shadow);max-height:calc(100vh - 24px);overflow:auto}
+.sheet h3{font-family:var(--font-head);font-size:17px;margin:0 0 2px;line-height:1.25}
+.tag{display:inline-block;font-size:11px;border-radius:999px;padding:1px 8px;border:1px solid var(--line);margin:2px 4px 2px 0}
+.kv{display:grid;grid-template-columns:104px minmax(0,1fr);gap:4px 10px;margin:10px 0 0;font-size:13px}
+.kv dt{color:var(--ink2);font-size:12px}
+.kv dd{margin:0;overflow-wrap:anywhere}
+.note{font-size:12px;color:var(--ink2);border-top:1px dashed var(--line);margin-top:10px;padding-top:8px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink2);margin:6px 0 0}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 12px 8px;box-shadow:var(--shadow)}
+svg{display:block;max-width:100%}
+svg text{fill:var(--ink2);font-family:var(--font-body);font-size:11px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:760px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);font-weight:600;cursor:pointer;white-space:nowrap}
+td.n{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+#tip{position:fixed;pointer-events:none;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:8px;padding:6px 9px;font-size:12px;max-width:260px;z-index:20;display:none}
+.kpis{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 4px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-width:150px;flex:1 1 150px}
+.kpi b{font-family:var(--font-head);font-size:22px;display:block;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--ink2)}
+details{margin-top:18px;color:var(--ink2);font-size:12.5px;max-width:90ch}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+
+<div class="wrap">
+<h1>LIVES-DP Explorer</h1>
+<p class="lede" id="lede">Loading the pipeline.</p>
+<div class="kpis" id="kpis"></div>
+
+<div class="controls" role="group" aria-label="Filters">
+  <div class="grp" id="gMetric"><b>Show</b></div>
+  <div class="grp" id="gClass"><b>Tool type</b></div>
+  <div class="grp" id="gPhase"><b>Phase</b></div>
+  <div class="grp"><input type="search" id="q" placeholder="Search steps, models, tools" aria-label="Search steps, models and tools"><button class="chip" id="reset">Reset</button></div>
+</div>
+
+<div class="main">
+  <div>
+    <div class="mapscroll"><div class="map" id="map"></div></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <aside class="sheet" id="sheet" aria-live="polite"></aside>
+</div>
+
+<h2>Cost per paper, step by step</h2>
+<p class="sub">Bars follow pipeline order. Only steps with a measured or estimated cost are drawn. Hover a bar for the figure; click to open the step.</p>
+<div class="panel"><div id="costChart"></div></div>
+
+<h2>How much of the cost is a frontier model?</h2>
+<p class="sub" id="classSub"></p>
+<div class="panel"><div id="classChart"></div></div>
+
+<h2>What each number rests on</h2>
+<p class="sub">No step has been scored against JP's labels yet. The column "Evidence" says what the accuracy figure compares: values checked in the paper (463 table numbers), agreement between models, or nothing measured.</p>
+<div class="panel tbl"><table id="evTable"></table></div>
+
+<h2>Models and tools</h2>
+<p class="sub">Prices are list prices from the model registry (per million tokens unless stated). Click a column to sort.</p>
+<div class="panel tbl"><table id="modTable"></table></div>
+
+<details><summary>How the figures were gathered</summary>
+<p>Costs come from the billed amounts in the call logs of the pilot runs (four papers, batch mode, 26 to 27 Nov 2026), the most recent call per step and paper. Quality-signal rating cost is the measured figure with two raters plus an adjudicator; the three-rater cost is an estimate. Times are wall-clock seconds from runs or timed tests; most stages were not timed before 27 Nov 2026 and now record their own time. The "could an open or cheaper model do this" lines are assessments, not tests.</p>
+</details>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const CLASSES={script:{n:'Python script or package',c:'var(--c-script)'},frontier:{n:'Frontier LLM',c:'var(--c-frontier)'},decision:{n:'Decision model',c:'var(--c-decision)'},embed:{n:'Embedding model',c:'var(--c-embed)'},human:{n:'Human review',c:'var(--c-human)'},service:{n:'Free web service',c:'var(--c-service)'}};
+const EV={verified:{n:'Checked against verified values',c:'var(--ok)',w:100},agree:{n:'Agreement between models',c:'var(--mid)',w:60},none:{n:'Not measured',c:'var(--none)',w:14}};
+const PHASES=['Intake','Extraction','Checks on findings','Drafting nodes','Quality signals and TRIPOD-LLM','Verification layer','Grouping and review'];
+/* cost: USD per paper (m = measured, e = estimate), time: seconds per paper or null, ev: evidence level */
+const S=[
+{id:'s01',ph:0,name:'Preflight and page map',cls:'script',tools:['PyMuPDF'],what:'Reads the PDF, hashes it, maps printed page numbers to PDF pages and slices the pages a step needs.',cost:0,cb:'m',time:null,tb:'not timed',ev:'none',metric:'No accuracy figure for the page map.',src:'scripts/pdf_pages.py, lives_run.py',alt:'Already code; nothing to replace.'},
+{id:'s02',ph:1,name:'Extract findings (PICOST)',cls:'frontier',tools:['Gemini 4 Neon (High; medium for long papers)'],what:'Reads the whole PDF and writes questions, findings in three tiers, six PICOST slots, numbers with table locators, claims and caveats, each with a verbatim quote.',cost:0.76,cb:'m',cr:'$0.61 to $0.95 per paper, 4 papers, batch',time:null,tb:'batch queue wait, not recorded before 27 Nov',ev:'agree',metric:'223 quotes; 1 not found in the PDF text (0.4%). 48 of 76 findings (63%) flagged for a second reading.',src:'Papers tab; manifest stage log',alt:'Needs a long-context reader that handles tables and returns structured JSON. An open-weight model is a candidate for a benchmark; untested here.'},
+{id:'s03',ph:1,name:'Locate and repair quotes',cls:'script',tools:['PyMuPDF'],what:'Finds each quote in the PDF text, repairs symbol and hyphen differences and marks how well it matched (exact, letters and digits, repaired).',cost:0,cb:'m',time:null,tb:'not timed',ev:'verified',metric:'222 of 223 quotes located (the PDF text is the check).',src:'Quote checks tab',alt:'Already code.'},
+{id:'s04',ph:1,name:'Read each quote from a screenshot',cls:'frontier',tools:['Claude Sonnet 5.5 (vision)'],what:'Looks at a highlighted page image of every quote and writes what is printed, to compare with the model quote.',cost:0.33,cb:'m',cr:'$0.33 for Woelfle (63 quotes), about $0.005 per quote',time:null,tb:'standard mode, minutes',ev:'agree',metric:'Printed text equals the model quote for 151 of 157 quotes (96%) in batch05 and 58 of 63 (92%) in batch07.',src:'Verification tab, quote rows',alt:'Digits: Liquid d1.2-ultra reads them reliably (60 quotes). Words: it did not (18 of 55 correct quotes scored low), so Sonnet stays for words.'},
+{id:'s05',ph:1,name:'Statement numbers on the cited pages',cls:'script',tools:['PyMuPDF with symbol repair','Liquid d1.2-ultra (screenshots)'],what:'Looks for every number of a statement in the cited pages; numbers missing from the text layer are searched on the screenshots.',cost:0,cb:'m',time:null,tb:'seconds',ev:'verified',metric:'12 of 76 findings had numbers not in the page text; 34 of 48 such numbers were seen on screenshots (6 of 48 changed numbers also scored high).',src:'Numbers check tab',alt:'Already code plus a decision model that costs cents.'},
+{id:'s06',ph:1,name:'Second reading of flagged findings',cls:'frontier',tools:['GPT-6.2 Sol'],what:'Rereads each flagged finding without seeing the first reader’s numbers.',cost:0.23,cb:'m',cr:'$0.94 for 4 papers',time:null,tb:'batch queue wait',ev:'agree',metric:'Sol and Neon disagree on 32 of 48 flagged findings (67%).',src:'Rechecks tab',alt:'Any strong reader from another developer; the value is independence, not size. Open-weight candidate untested.'},
+{id:'s07',ph:1,name:'Settle disagreements',cls:'frontier',tools:['Claude Opus 5.5'],what:'Decides, from a slice of the PDF, which reader had the right numbers.',cost:0.47,cb:'m',cr:'$1.87 for 4 papers',time:null,tb:'batch queue wait',ev:'agree',metric:'5 of 32 disputes stayed unsure and went to JP.',src:'Rechecks tab',alt:'Needs the most capable reader; candidate for a model comparison.'},
+{id:'s08',ph:2,name:'Score each finding',cls:'decision',tools:['Liquid d1.2-ultra','Perplexity Decider 1.3'],what:'Four questions per finding: relevancy, fidelity, numbers in the source, table cell match. Returns probabilities.',cost:0.005,cb:'m',time:null,tb:'seconds',ev:'agree',metric:'13 of 76 findings scored below 0.5 on relevancy by d1.2-ultra; none on the other questions.',src:'Decision-model checks tab',alt:'Already a cheap model.'},
+{id:'s09',ph:2,name:'Screenshot check of every finding',cls:'frontier',tools:['GPT-6.2 Sol (vision)'],what:'Looks at the crop of each finding and says pass, not matched or cannot verify.',cost:0.005,cb:'m',time:null,tb:'standard mode, minutes',ev:'agree',metric:'22 of 60 checks ended in cannot verify (batch05, earlier audit).',src:'Decision-model checks tab',alt:'Quote reading by Sonnet now covers most of this; a comparison of the two is a TODO.'},
+{id:'s10',ph:2,name:'Settle disputes with the screenshot',cls:'frontier',tools:['Claude Opus 5.5 (vision)'],what:'Asked only when the decision models and Sol disagree.',cost:0.02,cb:'m',time:null,tb:'minutes',ev:'none',metric:'No accuracy figure.',src:'Decision-model checks tab',alt:'Rare; keep.'},
+{id:'s11',ph:3,name:'First drafts',cls:'frontier',tools:['Claude Sonnet 5.5','GPT-6.2 Sol','Gemini 4 Neon'],what:'Three models each draft EVD, QUE, CLM and CVT nodes from the extraction card.',cost:0.46,cb:'m',time:null,tb:'batch queue wait',ev:'none',metric:'Not scored against labels; JP reviews the chosen texts.',src:'Drafts tab',alt:'Wording quality is the task; frontier models are the likely floor. Test a smaller model on style with JP’s labels.'},
+{id:'s12',ph:3,name:'Critique and revise',cls:'frontier',tools:['Claude Sonnet 5.5','GPT-6.2 Sol','Gemini 4 Neon'],what:'Each model sees all drafts and the writing-rules results, lists problems and revises.',cost:0.61,cb:'m',time:null,tb:'batch queue wait',ev:'none',metric:'Not scored against labels.',src:'Drafts tab',alt:'Could be cut to one critique round; untested effect on accuracy.'},
+{id:'s13',ph:3,name:'Vote and break ties',cls:'frontier',tools:['GPT-6.2 Sol','Claude Sonnet 5.5','Gemini 4 Neon (ties)'],what:'Sol and Sonnet vote for the best version; Neon breaks ties.',cost:0.32,cb:'m',time:null,tb:'batch queue wait',ev:'none',metric:'Not scored against labels.',src:'Drafts tab',alt:'A cheap judge could rank drafts; untested.'},
+{id:'s14',ph:3,name:'Writing-rules check',cls:'script',tools:['Python (lives_stages.py)'],what:'At most 247 characters, numbers on the card, one or two parenthesis sets, no brackets, no all-caps words, no em dash, a quote present.',cost:0,cb:'m',time:null,tb:'milliseconds',ev:'verified',metric:'Deterministic; 18 of 31 Woelfle nodes passed on first check after the redraft.',src:'Writing-rules tab',alt:'Already code.'},
+{id:'s15',ph:3,name:'Node-detail check',cls:'frontier',tools:['Claude Sonnet 5.5','GPT-6.2 Sol'],what:'Checks that each drafted node says only what its quote supports.',cost:0.32,cb:'m',time:null,tb:'batch queue wait',ev:'agree',metric:'Pass, minor or fail per node; no label comparison yet.',src:'Drafts tab',alt:'Decision models already cover part of this question.'},
+{id:'s16',ph:3,name:'Rework low-scoring EVDs',cls:'frontier',tools:['Claude Opus 5.5'],what:'Rewrites an EVD whose decision-model score is below 0.60, or says the extraction looks wrong.',cost:0.06,cb:'m',time:null,tb:'minutes',ev:'agree',metric:'5 of 16 Woelfle EVDs were reworked; 5 stayed marked for JP.',src:'EVD rework tab',alt:'Keep a different family from the drafters.'},
+{id:'s17',ph:4,name:'Rate 67 rows (27 signals and 40 TRIPOD-LLM items)',cls:'frontier',tools:['Gemini 4 Neon (High)','Claude Opus 5.5 (High)','GPT-6.2 Sol (High)'],what:'Three raters from three developers rate every row blind; two of three decide; each cites a quote copied from the PDF between two anchors.',cost:1.1,cb:'m',cr:'Measured $1.0 to $1.2 with two raters and an adjudicator. Estimate with three raters at high effort: $1.5 to $1.8.',time:660,tb:'about 9 to 14 minutes, batch wait included',ev:'agree',metric:'Raters agreed on 24 to 25 of 27 signals (two raters). New ratings match the live-site tags on 14 to 17 of 26 signals and the old TRIPOD table on 24 to 27 of 40 items.',src:'QS and TRIPOD tabs',alt:'This is the accuracy-first step; keep three frontier raters until labels show otherwise.'},
+{id:'s18',ph:4,name:'Copy quotes from the PDF between anchors',cls:'script',tools:['PyMuPDF (text_between)'],what:'Raters give a page and the first and last words; the code copies the exact text between them.',cost:0,cb:'m',time:null,tb:'seconds',ev:'verified',metric:'4 quotes not found across 4 papers (all Woelfle).',src:'QS tabs',alt:'Already code.'},
+{id:'s19',ph:4,name:'Provenance, links and repositories',cls:'service',tools:['OpenAlex','Crossref','DOAJ','OpenCitations','GitHub API','Software Heritage','Zenodo','DataCite'],what:'Retraction status with ORCID matching, links alive, code and data repositories, FAIR parts, registration, funders and affiliations.',cost:0,cb:'m',time:20,tb:'4 to 35 seconds per paper',ev:'none',metric:'Hand checks of 2 items per paper found 8 problems; all fixed.',src:'QS tabs, Code-only check rows',alt:'Free web services; no model needed.'},
+{id:'s20',ph:4,name:'Statistics checks (18 scripted)',cls:'script',tools:['stat_checks.py'],what:'Percent sums, GRIM, interval containment, F1 from precision and recall, p from t and df, and others, on the paper’s own numbers.',cost:0,cb:'m',time:null,tb:'seconds',ev:'verified',metric:'26 to 148 passages examined per paper; 0 clues in the four pilot papers.',src:'QS tabs',alt:'Already code.'},
+{id:'s21',ph:4,name:'Table cells',cls:'script',tools:['PyMuPDF find_tables with symbol repair','Marker and MinerU (benchmark only)'],what:'Reads table cells from the text layer, turns rotated pages upright, repairs symbol problems; MinerU and Marker run beside it for comparison.',cost:0,cb:'m',time:1.3,tb:'0.28 s per page PyMuPDF; 0.32 Marker; 1.78 MinerU',ev:'verified',metric:'431 of 463 verified table values found (93.1%) after repair; MinerU 431. The approved scoring rule (captions, footnotes and any cell) is expected to give about 97%.',src:'table-parsers/RESULTS.md',alt:'Already code; MinerU is a fallback.'},
+{id:'s22',ph:5,name:'First pass on every item',cls:'decision',tools:['Liquid d1.2-ultra (d1.3-ultra when the API accepts it)','Perplexity Decider 1.3'],what:'Judges each PICOST slot, question rewording, claim, caveat and quality rating against its passage.',cost:0.005,cb:'m',time:null,tb:'seconds',ev:'agree',metric:'Agreement between the two: PICOST 88%, quote text 100%, quality ratings 83%.',src:'Verification tab',alt:'Already cheap.'},
+{id:'s23',ph:5,name:'Judge only where they disagree',cls:'frontier',tools:['Claude Sonnet 5.5'],what:'Called only when the two decision models differ (quality ratings: always, in the accuracy-first setting).',cost:0.08,cb:'e',cr:'Measured $0.5 per paper when Sonnet judged every item; the cascade would call it for 15% of items (estimate).',time:null,tb:'minutes',ev:'agree',metric:'Sonnet agrees with d1.2-ultra on 92% of PICOST slots.',src:'Verification tab',alt:'Candidate: bison-1 as a third cheap judge (shadow test running).'},
+{id:'s24',ph:5,name:'Digits on screenshots',cls:'decision',tools:['Liquid d1.2-ultra (image input)'],what:'Compares every digit of a quote with the highlighted screenshot.',cost:0.005,cb:'m',time:null,tb:'seconds',ev:'verified',metric:'Separated correct quotes from quotes with one digit changed (60 quotes, area under the curve 1.0); agrees with Sonnet on 98% of 228 quotes with digits.',src:'Verification tab',alt:'Already a cheap model.'},
+{id:'s25',ph:5,name:'Shadow judge',cls:'decision',tools:['Baseten bison-1 (31B, text)'],what:'Scores every text item next to the voters; not counted in any vote until labels exist.',cost:0.003,cb:'e',cr:'$0.10 per million tokens',time:null,tb:'seconds',ev:'agree',metric:'On 226 Woelfle items it agrees with d1.2-ultra 79%, Perplexity 81%, Sonnet 86%; it passes PICOST slots almost always (1% below 0.5).',src:'Verification tab, last column',alt:'Candidate third voter after labels.'},
+{id:'s26',ph:5,name:'Classify sampled problems',cls:'frontier',tools:['Claude Opus 5.5'],what:'Samples items scored below 0.5 and classifies the kind of problem so a person can check types and counts.',cost:0.3,cb:'e',cr:'$1.22 for a 70-item sample in two runs; not a per-paper step',time:null,tb:'minutes',ev:'none',metric:'Types such as value outside the shown passage, scope added, claim stronger than quote.',src:'Failure analysis tab',alt:'A smaller model could classify; untested.'},
+{id:'s27',ph:6,name:'Group research questions',cls:'embed',tools:['EmbeddingGemma 2 (local)','Claude Sonnet 5.5 (grouping)'],what:'Clusters similar questions across papers and proposes a nested set.',cost:0.02,cb:'e',time:null,tb:'seconds to minutes',ev:'none',metric:'Threshold 0.92 not validated; JP reviews the groups.',src:'Question groups tab',alt:'Harrier-OSS (already local) is a candidate to compare on clustering.'},
+{id:'s28',ph:6,name:'Build review sheets',cls:'script',tools:['openpyxl','Pillow','Google Drive and Sheets connectors'],what:'Writes one workbook per run with images, hover notes and JP columns, then uploads it.',cost:0,cb:'m',time:null,tb:'about 5 minutes per run',ev:'none',metric:'No accuracy figure.',src:'scripts/run_to_gsheet.py',alt:'Already code.'},
+{id:'s29',ph:6,name:'JP validates in the sheet',cls:'human',tools:['JP'],what:'Labels the queue (claims, caveats, quality ratings, rewordings) and judges the extractions.',cost:null,cb:'m',time:null,tb:'JP’s time; not recorded',ev:'verified',metric:'Becomes the ground truth that every agreement figure here lacks.',src:'Verification tab, columns S and T',alt:'Not replaceable.'},
+{id:'s30',ph:6,name:'Vault, repository and web app',cls:'script',tools:['git and GitHub CLI','Next.js app'],what:'Validated output enters the vault, the repository and the LIVES site.',cost:0,cb:'m',time:null,tb:'minutes',ev:'none',metric:'Only after JP’s validation.',src:'Welcome.md',alt:'Already code.'}
+];
+const MODELS=[
+['Gemini 4 Neon','frontier','Google','US','$3 in, $15 out','s02, s11 to s13, s17'],
+['Claude Opus 5.5','frontier','Anthropic','US','$4 in, $20 out','s07, s10, s16, s17, s26'],
+['GPT-6.2 Sol','frontier','OpenAI','US','$2 in, $10 out ($1, $5 batch)','s06, s09, s11 to s13, s15, s17'],
+['Claude Sonnet 5.5','frontier','Anthropic','US','$2 in, $10 out','s04, s11 to s13, s15, s23, s27'],
+['Liquid d1.2-ultra','decision','Liquid AI','US','$0.042 in','s05, s08, s22, s24'],
+['Perplexity Decider 1.3','decision','Perplexity','US','$0.02 in','s08, s22'],
+['Baseten bison-1','decision','Baseten (Base Labs)','US','$0.10 per million tokens','s25'],
+['EmbeddingGemma 2','embed','Google','local','free, runs on this machine','s27'],
+['PyMuPDF','script','Artifex','local','free (AGPL)','s01, s03, s05, s18, s21'],
+['Marker, MinerU','script','open source','local','free; 0.32 and 1.78 s per page','s21 (benchmark)'],
+['OpenAlex, Crossref, GitHub API and others','service','various','web','free','s19']
+];
+const $=(s,e=document)=>e.querySelector(s), $$=(s,e=document)=>[...e.querySelectorAll(s)];
+const st={metric:'cost',cls:new Set(Object.keys(CLASSES)),ph:new Set(PHASES.map((_,i)=>i)),q:'',sel:null};
+const maxCost=Math.max(...S.map(s=>s.cost||0));
+const money=v=>v==null?'JP’s time':v===0?'$0':v<0.01?'under $0.01':'$'+v.toFixed(2);
+const timeTxt=s=>s.time==null?'not recorded':s.time>=120?(s.time/60).toFixed(0)+' min':s.time<10?s.time.toFixed(1)+' s':Math.round(s.time)+' s';
+function mk(tag,attrs={},kids=[]){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='text')e.textContent=v;else if(k==='style')e.style.cssText=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else e.setAttribute(k,v)}for(const c of [].concat(kids))if(c)e.append(c);return e}
+function matches(s){if(!st.cls.has(s.cls)||!st.ph.has(s.ph))return false;if(!st.q)return true;const t=(s.name+' '+s.tools.join(' ')+' '+s.what+' '+CLASSES[s.cls].n).toLowerCase();return st.q.toLowerCase().split(/\s+/).every(w=>t.includes(w))}
+function controls(){
+  const gm=$('#gMetric');[['cost','Cost'],['time','Time'],['ev','Accuracy evidence']].forEach(([k,l])=>gm.append(mk('button',{class:'chip','aria-pressed':String(st.metric===k),'data-k':k,onclick:()=>{st.metric=k;controlsState();render()},text:l})));
+  const gc=$('#gClass');Object.entries(CLASSES).forEach(([k,v])=>gc.append(mk('button',{class:'chip','aria-pressed':'true','data-c':k,onclick:()=>{st.cls.has(k)?st.cls.delete(k):st.cls.add(k);if(!st.cls.size)Object.keys(CLASSES).forEach(x=>st.cls.add(x));controlsState();render()}},[mk('i',{style:'background:'+v.c}),v.n])));
+  const gp=$('#gPhase');PHASES.forEach((p,i)=>gp.append(mk('button',{class:'chip','aria-pressed':'true','data-p':i,onclick:()=>{st.ph.has(i)?st.ph.delete(i):st.ph.add(i);if(!st.ph.size)PHASES.forEach((_,j)=>st.ph.add(j));controlsState();render()},text:(i+1)+' '+p.split(' and ')[0]})));
+  $('#q').addEventListener('input',e=>{st.q=e.target.value.trim();render()});
+  $('#reset').addEventListener('click',()=>{st.metric='cost';st.cls=new Set(Object.keys(CLASSES));st.ph=new Set(PHASES.map((_,i)=>i));st.q='';$('#q').value='';controlsState();render()});
+}
+function controlsState(){$$('#gMetric .chip').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===st.metric)));$$('#gClass .chip').forEach(b=>b.setAttribute('aria-pressed',String(st.cls.has(b.dataset.c))));$$('#gPhase .chip').forEach(b=>b.setAttribute('aria-pressed',String(st.ph.has(+b.dataset.p))))}
+function tip(html,ev){const t=$('#tip');t.innerHTML=html;t.style.display='block';const r=t.getBoundingClientRect();let x=ev.clientX+14,y=ev.clientY+14;if(x+r.width>innerWidth-8)x=ev.clientX-r.width-14;if(y+r.height>innerHeight-8)y=ev.clientY-r.height-14;t.style.left=Math.max(8,x)+'px';t.style.top=Math.max(8,y)+'px'}
+function untip(){$('#tip').style.display='none'}
+function stepTip(s){return `<b>${esc(s.name)}</b><br>${esc(CLASSES[s.cls].n)}<br>Cost: ${money(s.cost)} per paper${s.cb==='e'?' (estimate)':''}<br>Time: ${esc(timeTxt(s))}<br>Evidence: ${esc(EV[s.ev].n)}`}
+function esc(x){return String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renderMap(){
+  const map=$('#map');map.replaceChildren();
+  PHASES.forEach((p,i)=>{
+    const steps=S.filter(s=>s.ph===i);const col=mk('div',{class:'ph'});
+    col.append(mk('div',{class:'phh'},[mk('div',{text:(i+1)+'. '+p}),mk('span',{text:steps.filter(matches).length+'/'+steps.length})]));
+    steps.forEach(s=>{
+      const on=matches(s);const cc=CLASSES[s.cls].c;
+      let barW,valTxt;
+      if(st.metric==='cost'){barW=s.cost==null?0:Math.max(s.cost>0?4:0,Math.sqrt(s.cost/maxCost)*100);valTxt=[money(s.cost),s.cb==='e'?' estimate':' per paper']}
+      else if(st.metric==='time'){barW=s.time==null?0:Math.max(4,Math.log10(s.time+1)/Math.log10(700)*100);valTxt=[timeTxt(s),s.time==null?'':' per paper']}
+      else{barW=EV[s.ev].w;valTxt=[EV[s.ev].n,'']}
+      const bar=mk('div',{class:'bar'+(st.metric==='ev'?' ev':''),style:`--evc:${EV[s.ev].c}`},[mk('s',{style:`width:${barW}%`})]);
+      const card=mk('button',{class:'card'+(on?'':' dim'),style:'--cc:'+cc,'aria-pressed':String(st.sel===s.id),'aria-label':s.name+', '+CLASSES[s.cls].n,onclick:()=>{st.sel=s.id;render();document.getElementById('sheet').scrollIntoView({block:'nearest',behavior:'smooth'})},onmousemove:e=>tip(stepTip(s),e),onmouseleave:untip,onfocus:e=>{},onblur:untip},[mk('span',{class:'t',text:s.name}),mk('span',{class:'m',text:s.tools.join(', ')}),bar,mk('span',{class:'val'},[valTxt[0],mk('em',{text:valTxt[1]})])]);
+      col.append(card)});
+    map.append(col)});
+  const lg=$('#legend');lg.replaceChildren();Object.values(CLASSES).forEach(v=>lg.append(mk('span',{},[mk('i',{style:'background:'+v.c}),v.n])));
+  if(st.metric==='ev')Object.values(EV).forEach(v=>lg.append(mk('span',{},[mk('i',{style:'background:'+v.c}),v.n])));
+}
+function renderSheet(){
+  const el=$('#sheet');el.replaceChildren();const s=S.find(x=>x.id===st.sel);
+  if(!s){el.append(mk('h3',{text:'Choose a step'}),mk('p',{class:'sub',text:'Click any step card to see what it does, which model or tool runs it, what it costs, how long it takes and what its accuracy figure rests on.'}),
+    mk('p',{class:'sub',text:'Filter by tool type to see where frontier models are used and where scripts, decision models or embedding models already do the work.'}));return}
+  const cc=CLASSES[s.cls];
+  el.append(mk('h3',{text:s.name}),mk('div',{},[mk('span',{class:'tag',style:`border-color:${cc.c};color:${cc.c}`,text:cc.n}),mk('span',{class:'tag',text:'Phase '+(s.ph+1)+': '+PHASES[s.ph]})]),mk('p',{style:'margin:8px 0 0',text:s.what}));
+  const dl=mk('dl',{class:'kv'});const add=(k,v)=>{dl.append(mk('dt',{text:k}),mk('dd',{},[].concat(v)))};
+  add('Runs on',s.tools.join('; '));
+  add('Cost per paper',money(s.cost)+(s.cb==='e'?' (estimate)':s.cost==null?'':' (measured)')+(s.cr?'. '+s.cr:''));
+  add('Time',timeTxt(s)+(s.tb?'. '+s.tb:''));
+  add('Evidence',[mk('span',{class:'dot',style:'background:'+EV[s.ev].c}),EV[s.ev].n]);
+  add('Result',s.metric);
+  add('Where to look',s.src);
+  el.append(dl,mk('div',{class:'note'},[mk('b',{text:'Could an open or cheaper model do this? '}),s.alt,mk('br'),mk('em',{text:'Assessment, not a test.'})]));
+}
+function costChart(){
+  const data=S.filter(s=>s.cost!=null&&s.cost>0&&matches(s));const host=$('#costChart');host.replaceChildren();
+  if(!data.length){host.append(mk('p',{class:'sub',text:'No step with a cost matches the filters.'}));return}
+  const W=Math.max(320,host.clientWidth||900),ml=W<560?150:240,mr=70,rh=20,h=data.length*rh+30;const mx=Math.max(...data.map(d=>d.cost))*1.08;
+  const ns='http://www.w3.org/2000/svg';const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox',`0 0 ${W} ${h}`);svg.setAttribute('width','100%');svg.setAttribute('role','img');svg.setAttribute('aria-label','Cost per paper by pipeline step');
+  const x=v=>ml+(W-ml-mr)*v/mx;
+  [0,.25,.5,.75,1].forEach(f=>{const v=mx*f;const l=document.createElementNS(ns,'line');l.setAttribute('x1',x(v));l.setAttribute('x2',x(v));l.setAttribute('y1',4);l.setAttribute('y2',h-22);l.setAttribute('stroke','var(--line)');svg.append(l);const t=document.createElementNS(ns,'text');t.setAttribute('x',x(v));t.setAttribute('y',h-6);t.setAttribute('text-anchor','middle');t.textContent='$'+v.toFixed(2);svg.append(t)});
+  data.forEach((d,i)=>{const y=6+i*rh;const g=document.createElementNS(ns,'g');g.style.cursor='pointer';
+    const lab=document.createElementNS(ns,'text');lab.setAttribute('x',ml-8);lab.setAttribute('y',y+13);lab.setAttribute('text-anchor','end');let nm=d.name;const maxc=Math.floor((ml-14)/5.6);if(nm.length>maxc)nm=nm.slice(0,maxc-1)+'…';lab.textContent=nm;g.append(lab);
+    const r=document.createElementNS(ns,'rect');r.setAttribute('x',ml);r.setAttribute('y',y+2);r.setAttribute('height',rh-6);r.setAttribute('width',Math.max(2,x(d.cost)-ml));r.setAttribute('rx',2);r.style.fill=CLASSES[d.cls].c;r.style.opacity=d.cb==='e'?.55:1;g.append(r);
+    const vt=document.createElementNS(ns,'text');vt.setAttribute('x',x(d.cost)+5);vt.setAttribute('y',y+13);vt.textContent='$'+d.cost.toFixed(2)+(d.cb==='e'?' est.':'');g.append(vt);
+    g.addEventListener('mousemove',e=>tip(stepTip(d),e));g.addEventListener('mouseleave',untip);g.addEventListener('click',()=>{st.sel=d.id;render()});svg.append(g)});
+  host.append(svg);
+}
+function classChart(){
+  const tot={};S.forEach(s=>{if(s.cost)tot[s.cls]=(tot[s.cls]||0)+s.cost});const sum=Object.values(tot).reduce((a,b)=>a+b,0);
+  const host=$('#classChart');host.replaceChildren();
+  const fr=(tot.frontier||0)/sum;$('#classSub').textContent=`Frontier models account for $${(tot.frontier||0).toFixed(2)} of $${sum.toFixed(2)} per paper (${Math.round(fr*100)}%) across the steps with a cost. Decision models, embedding models and scripts together are under $${(sum-(tot.frontier||0)).toFixed(2)}. Estimates are included where marked.`;
+  const bar=mk('div',{style:'display:flex;height:34px;border-radius:6px;overflow:hidden;margin:4px 0 10px;border:1px solid var(--line)',role:'img','aria-label':'Share of cost by tool type'});
+  Object.entries(tot).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>bar.append(mk('div',{style:`width:${v/sum*100}%;background:${CLASSES[k].c};min-width:2px`,onmousemove:e=>tip(`<b>${esc(CLASSES[k].n)}</b><br>$${v.toFixed(2)} per paper, ${(v/sum*100).toFixed(1)}%`,e),onmouseleave:untip})));
+  host.append(bar);
+  const lg=mk('div',{class:'legend',style:'margin-bottom:6px'});Object.entries(tot).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>lg.append(mk('span',{},[mk('i',{style:'background:'+CLASSES[k].c}),`${CLASSES[k].n}: $${v.toFixed(2)}`])));host.append(lg);
+  const fm={};S.filter(s=>s.cls==='frontier'&&s.cost).forEach(s=>{const n=s.tools.length;s.tools.forEach(t=>{const k=t.replace(/ \(.*\)/,'');fm[k]=(fm[k]||0)+s.cost/n})});
+  host.append(mk('p',{class:'sub',style:'margin-top:10px',text:'Frontier cost split evenly across the models named in each step (an approximation; the call logs give exact amounts per call):'}));
+  const l2=mk('div',{class:'legend'});Object.entries(fm).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>l2.append(mk('span',{},[`${k}: $${v.toFixed(2)}`])));host.append(l2);
+}
+function tables(){
+  const t=$('#evTable');t.replaceChildren();const hd=mk('tr',{},['Step','Tool type','Evidence','What the figure says'].map(h=>mk('th',{text:h})));t.append(mk('thead',{},[hd]));
+  const tb=mk('tbody');S.filter(matches).forEach(s=>tb.append(mk('tr',{style:'cursor:pointer',onclick:()=>{st.sel=s.id;render();scrollTo({top:0,behavior:'smooth'})}},[mk('td',{text:s.name}),mk('td',{},[mk('span',{class:'dot',style:'background:'+CLASSES[s.cls].c}),CLASSES[s.cls].n]),mk('td',{},[mk('span',{class:'dot',style:'background:'+EV[s.ev].c}),EV[s.ev].n]),mk('td',{text:s.metric})])));t.append(tb);
+  const m=$('#modTable');m.replaceChildren();m.append(mk('thead',{},[mk('tr',{},['Model or tool','Type','Developer','Country','Price','Steps'].map((h,i)=>mk('th',{text:h,onclick:()=>{MODELS.sort((a,b)=>String(a[i]).localeCompare(String(b[i])));tables()}})))]));
+  const mb=mk('tbody');MODELS.forEach(r=>mb.append(mk('tr',{},[mk('td',{text:r[0]}),mk('td',{},[mk('span',{class:'dot',style:'background:'+CLASSES[r[1]].c}),CLASSES[r[1]].n]),mk('td',{text:r[2]}),mk('td',{text:r[3]}),mk('td',{text:r[4]}),mk('td',{text:r[5]})])));m.append(mb);
+}
+function kpis(){
+  const k=$('#kpis');k.replaceChildren();const costed=S.filter(s=>s.cost);const total=costed.reduce((a,s)=>a+s.cost,0);const fr=costed.filter(s=>s.cls==='frontier').reduce((a,s)=>a+s.cost,0);
+  const meas=S.filter(s=>s.ev!=='none').length;
+  [[`${S.length}`,'steps in 7 phases'],[`$${total.toFixed(2)}`,'per paper, measured plus marked estimates'],[`${Math.round(fr/total*100)}%`,'of that cost is frontier models'],[`${S.filter(s=>s.cls==='frontier').length} of ${S.length}`,'steps run on a frontier model'],[`0 of ${S.length}`,'steps scored against JP’s labels yet']].forEach(([a,b])=>k.append(mk('div',{class:'kpi'},[mk('b',{text:a}),mk('span',{text:b})])));
+  $('#lede').textContent=`The pipeline reads a research paper, extracts and checks its evidence, drafts nodes, rates quality signals and the TRIPOD-LLM table, and waits for JP to validate in the review sheets. Seven of the ${S.length} steps use a frontier model for the work that decides accuracy; scripts, free web services, decision models and an embedding model do the rest.`;
+}
+function render(){renderMap();renderSheet();costChart();classChart();tables()}
+controls();kpis();render();
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(costChart,120)});
+</script>

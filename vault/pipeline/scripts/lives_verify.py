@@ -308,3 +308,22 @@ def rescore_quality(M, mode='standard'):
     f_.write_text(json.dumps(kept + added, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     M.m['stage_log'].setdefault('verify_quality', {}).update(status='done', items=len(added)); M.save()
     add_image_scores(M); return added
+
+
+def add_bison_shadow(M):
+    """Baseten bison-1 (a 31B decision model) scores every text item as a shadow verifier: shown in the sheet, not counted in any vote until JP's labels show how it compares (JP, 2026-11-27).
+    Text only: in a test, its screenshot reading of digits was not reliable (0.03 for a correct quote), so no screenshots are sent to it."""
+    import os
+    if not os.environ.get(dm.KEY_ENV['baseten'], ''): return 0
+    f_ = M.dir / 'verification.json'; items = json.loads(f_.read_text(encoding='utf-8')); fresh, _ = build_items(M)
+    if len(fresh) != len(items): return 0
+    def run(a):
+        state = a['item'] if a['kind'] == 'precomputed' else f"PASSAGE:\n{a['passage']}\n\nITEM:\n{a['item']}"
+        r, e = dm.decide('baseten', state, a['dm_q'], retries=2); ans = [y.get('noul') for y in ((r or {}).get('answers') or {}).values() if isinstance(y, dict) and y.get('noul') is not None]
+        return min(ans) if ans else None
+    with cf.ThreadPoolExecutor(8) as ex_: res = list(ex_.map(run, fresh))
+    n = 0
+    for a, b, sc in zip(fresh, items, res):
+        if (a['paper'], a['ntype'], a['nid']) == (b['paper'], b['ntype'], b['nid']): b['shadow_bison'] = sc; n += sc is not None
+    f_.write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
+    M.m['stage_log'].setdefault('bison_shadow', {}).update(status='done', items=n, model=dm.MODELS['baseten']); M.save(); return n
