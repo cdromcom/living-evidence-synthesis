@@ -1,0 +1,13 @@
+n	citekey	pdf_page	table_numbers	why_chosen	pymupdf_tables	marker_tables	mineru_tables	pymupdf_numcells	marker_numcells	mineru_numcells	jac_pymupdf_marker	jac_pymupdf_mineru	jac_marker_mineru
+1	@darcyMARGMultiAgentReview2024	15	5	parsers disagree most	1	1	1	0	12	12	0.0	0.0	1.0
+2	@hasanIntegratingLargeLanguage2024	2	1	parsers disagree most	1	1	1	0	25	0	0.0		0.0
+3	@huntington-kleinLLMsActRepositories2024	8	1	parsers disagree most	1	1	1	0	16	0	0.0		0.0
+4	@robertsComparativeStudyChatGPT2023	3	1	parsers disagree most	1	1	1	0	43	0	0.0		0.0
+5	@woelfleBenchmarkingHumanAICollaboration2024	3	1	parsers disagree most	1	2	1	0	23	0	0.0		0.0
+6	@zhouLLMReliableReviewer2024	8	7,8	parsers agree	2	2	2	18	98	92	1.0	1.0	1.0
+7	@zhouLLMReliableReviewer2024	3	1,2,3	parsers agree	3	5	3	20	218	223	1.0	1.0	1.0
+8	@zhangDetectingReferenceErrors2024	2	1,2	parsers agree	1	1	2	13	13	13	1.0	1.0	1.0
+9	@alharbiAutomatedAssessmentReporting2024	4	1	merged header cells	1	1	1	21	21	21	1.0	1.0	1.0
+10	@alharbiAutomatedAssessmentReporting2024	5	1	merged header cells	1	1	1	69	69	68	1.0	1.0	1.0
+11	@hasanIntegratingLargeLanguage2024	4	3	one parser found no table	0	1	1	0	0	0			
+12	@sonWhenAICoScientists2025	37	13,14,15,16	partial agreement	4	4	4	135	163	126	0.975	0.695	0.716

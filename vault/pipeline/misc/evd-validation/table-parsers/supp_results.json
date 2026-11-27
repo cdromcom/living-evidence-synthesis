@@ -1,0 +1,367 @@
+{
+ "files": [
+  {
+   "file": "1-s2.0-S0895435624002890-mmc1.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.09,
+    "error": ""
+   },
+   "pages": 2,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.21,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.24,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/Woelfle et "
+   },
+   "mineru": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 1.44,
+    "error": ""
+   }
+  },
+  {
+   "file": "1-s2.0-S0895435624002890-mmc2.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.01,
+    "error": ""
+   },
+   "pages": 4,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.44,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.03,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/Woelfle et "
+   },
+   "mineru": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 1.5,
+    "error": ""
+   }
+  },
+  {
+   "file": "1-s2.0-S0895435624002890-mmc3.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.01,
+    "error": ""
+   },
+   "pages": 4,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.46,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.04,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/Woelfle et "
+   },
+   "mineru": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 1.31,
+    "error": ""
+   }
+  },
+  {
+   "file": "1-s2.0-S0895435624002890-mmc4.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.01,
+    "error": ""
+   },
+   "pages": 4,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.38,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.04,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/Woelfle et "
+   },
+   "mineru": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 1.75,
+    "error": ""
+   }
+  },
+  {
+   "file": "1-s2.0-S0895435624002890-mmc5.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 3,
+    "cells": 359,
+    "numeric_cells": 253,
+    "seconds": 0.02,
+    "error": ""
+   },
+   "pages": 37,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 4.33,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.04,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/Woelfle et "
+   },
+   "mineru": {
+    "tables": 3,
+    "cells": 359,
+    "numeric_cells": 253,
+    "seconds": 1.8,
+    "error": ""
+   }
+  },
+  {
+   "file": "Supp Mat - Wrightson et al 2025.pdf",
+   "type": "pdf",
+   "reader": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.0,
+    "error": "reader only handles docx and xlsx"
+   },
+   "pages": 7,
+   "pymupdf": {
+    "tables": 5,
+    "cells": 157,
+    "numeric_cells": 86,
+    "seconds": 2.07,
+    "error": ""
+   },
+   "marker": {
+    "tables": 7,
+    "cells": 183,
+    "numeric_cells": 103,
+    "seconds": 3.79,
+    "error": ""
+   },
+   "mineru": {
+    "tables": 5,
+    "cells": 163,
+    "numeric_cells": 90,
+    "seconds": 48.62,
+    "error": ""
+   }
+  },
+  {
+   "file": "sj-docx-1-jre-10.1177_15562646241263200.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.0,
+    "error": ""
+   },
+   "pages": 7,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.83,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.06,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/sj-docx-1-j"
+   },
+   "mineru": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.15,
+    "error": ""
+   }
+  },
+  {
+   "file": "sj-docx-2-jre-10.1177_15562646241263200.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.0,
+    "error": ""
+   },
+   "pages": 4,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.62,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.32,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/sj-docx-2-j"
+   },
+   "mineru": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.15,
+    "error": ""
+   }
+  },
+  {
+   "file": "sj-docx-3-jre-10.1177_15562646241263200.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.0,
+    "error": ""
+   },
+   "pages": 55,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 7.42,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.03,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/sj-docx-3-j"
+   },
+   "mineru": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 1.06,
+    "error": ""
+   }
+  },
+  {
+   "file": "sj-docx-4-jre-10.1177_15562646241263200.docx",
+   "type": "docx",
+   "reader": {
+    "tables": 1,
+    "cells": 8,
+    "numeric_cells": 0,
+    "seconds": 0.01,
+    "error": ""
+   },
+   "pages": 160,
+   "pymupdf": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 22.98,
+    "error": ""
+   },
+   "marker": {
+    "tables": 0,
+    "cells": 0,
+    "numeric_cells": 0,
+    "seconds": 0.03,
+    "error": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/sj-docx-4-j"
+   },
+   "mineru": {
+    "tables": 1,
+    "cells": 8,
+    "numeric_cells": 0,
+    "seconds": 3.43,
+    "error": ""
+   }
+  }
+ ],
+ "wrightson_supp_jaccard": {
+  "pymupdf_marker": 0.9107142857142857,
+  "pymupdf_mineru": 1.0,
+  "marker_mineru": 0.9107142857142857
+ },
+ "woelfle_supp_truth": {
+  "reader": {
+   "n": 10,
+   "value": 10,
+   "row": 10,
+   "row_and_column": 10
+  },
+  "pymupdf": {
+   "n": 10,
+   "value": 0,
+   "row": 0,
+   "row_and_column": 0,
+   "note": "parser ran, no tables found"
+  },
+  "marker": {
+   "n": 10,
+   "value": 0,
+   "row": 0,
+   "row_and_column": 0,
+   "note": "RuntimeError(\"Failed to convert /Users/ppatel/Documents/living-synthesis/sysrev/dgraph/source/pdfs/Woelfle et al. 2024 - Supplementary/1-s2.0-S0895435624002890-mmc5.docx to PDF: cannot load library 'libgobject-2.0-0': dlopen(libgobject-2.0-0, 0x0002): tried: 'libgobject-2.0-0' (no such file), '/Syst"
+  },
+  "mineru": {
+   "n": 10,
+   "value": 10,
+   "row": 10,
+   "row_and_column": 10
+  }
+ }
+}

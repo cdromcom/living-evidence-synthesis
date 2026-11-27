@@ -21,7 +21,7 @@ For one paper, in order (details in Step 1 and the steps below):
 7. **Mirror to the review sheet** and **JP spot check B**; merge through a pull request and regenerate the graph data.
 8. **Provenance footer** on every page written or changed (Step 4c): model and version, date accessed, prompt link, run id, human-check status, from the call log.
 
-**Quality signals** (quality appraisal signals, provenance fields, tool checks) are **Module Q**, which the runner now runs automatically after every batch (JP, 2026-11-26; TRIPOD-LLM rows and Pangram are not part of it), so extraction and publishing never spend credits on signals.
+**Quality signals** (quality appraisal signals, provenance fields, tool checks) are **Module Q**, which the runner now runs automatically after every batch (JP, 2026-11-26; the 40 TRIPOD-LLM rows are rated in the same run; Pangram is not part of it), so extraction and publishing never spend credits on signals.
 
 Work in **batches of three papers at most** (hard limit in `pipeline/scripts/lives_run.py`; JP 2026-11-26, down from four), and process no further papers until JP has reviewed the previous batch (`lives_run.py` refuses a new batch until JP marks the earlier ones reviewed) with the human checks, the cost controls and the ledger below. Cross-paper synthesis (Review-Arena; EvidencePatterns are retired), the public MkDocs render and the ESS Bases are in `Skill-synthesis.md` (Steps 11 to 14), run after a batch, not per paper.
 

@@ -153,6 +153,20 @@
       "pdf_input": false,
       "price_source": "Liquid blog d1.2, 2026-11-16 ($0.042 per million input tokens)",
       "verified": null
+    },
+    "decision-models/baseten-bison-latest": {
+      "display": "Baseten bison-1",
+      "provider": "decision",
+      "developer": "Baseten (Base Labs)",
+      "country": "US",
+      "weights": "open",
+      "runs": "api",
+      "price_in": 0.10,
+      "price_out": 0,
+      "batch_discount": 1.0,
+      "pdf_input": false,
+      "price_source": "Hugging Face model card baselabs/bison-1, read 2026-11-27 ($0.10 per million tokens on Baseten Model APIs); weights are 65 GB, run locally later on another device",
+      "verified": null
     }
   },
   "roles": {

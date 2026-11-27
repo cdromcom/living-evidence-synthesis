@@ -5,9 +5,9 @@ import os, time
 from pathlib import Path
 import requests
 
-MODELS = {'perplexity': 'pplx-decider-v1.3', 'liquid': 'd1.2-ultra'}
-KEY_ENV = {'perplexity': 'PERPLEXITY_API_KEY', 'liquid': 'LIQUID_API_KEY'}
-PRICE_PER_M = {'perplexity': 0.02, 'liquid': 0.042}   # USD per million input tokens, list prices (2026-11-23)
+MODELS = {'perplexity': 'pplx-decider-v1.3', 'liquid': 'd1.2-ultra', 'baseten': 'decision-models/baseten-bison-latest'}
+KEY_ENV = {'perplexity': 'PERPLEXITY_API_KEY', 'liquid': 'LIQUID_API_KEY', 'baseten': 'BASETEN_API_KEY'}
+PRICE_PER_M = {'perplexity': 0.02, 'liquid': 0.042, 'baseten': 0.10}   # USD per million input tokens, list prices (2026-11-23; baseten bison-1 added 2026-11-27)
 
 
 def load_env(path=None):
@@ -38,6 +38,10 @@ def request_for(provider, state: str, questions: dict, images=None):
     if provider == 'liquid':
         return ('https://api.liquid.ai/decisions/v1/systemone', {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'},
                 {'model': m, 'state': state, 'questions': questions, **({'images': [image_data_url(p) for p in images]} if images else {})})   # Perplexity Decider is text only: images are sent to Liquid only
+    if provider == 'baseten':   # bison-1 on Baseten Model APIs; images go inside state.messages (at most 16 per request)
+        content = [{'type': 'text', 'text': state}] + [{'type': 'image_url', 'image_url': {'url': image_data_url(p)}} for p in (images or [])]
+        return ('https://inference.baseten.co/v1/systemone', {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'},
+                {'model': m, 'state': {'messages': [{'role': 'user', 'content': content}]}, 'questions': questions})
     raise ValueError(provider)
 
 

@@ -468,19 +468,26 @@ SIGNALS = {  # signal id: (what it asks, allowed values)
     'code-check': ('Is analysis code shared and checked?', 'addressed | partial | not-addressed'),
     'data-repo-check': ('Are the data in a repository?', 'addressed | partial | not-addressed'),
 }
+import tripod_items as _TRIPOD
+SIGNALS.update(_TRIPOD.signals())   # JP, 2026-11-26: the 40 TRIPOD-LLM reporting rows are rated in the same run
 
 
 def stage_qs(M, mode):
     key = 'qs'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
     t0 = time.time(); st.setdefault('started_utc', time.strftime('%Y-%m-%dT%H:%M:%S+00:00', time.gmtime()))
-    sigs = '\n'.join(f'- `{k}`: {v[0]} Allowed values: {v[1]}.' for k, v in SIGNALS.items()); system = prompt('rate-signals-v2.md').replace('{SIGNALS}', sigs); st['prompt'] = 'pipeline/prompts/rate-signals-v2.md'; reqs = []
+    GROUPS = {'q': [k for k in SIGNALS if not k.startswith('tripod-')], 't': [k for k in SIGNALS if k.startswith('tripod-')]}   # two requests per rater: one thinking budget for the 27 quality signals and one for the 40 TRIPOD-LLM rows (a single request ran out of tokens on a long paper)
+    sysg = {g: prompt('rate-signals-v2.md').replace('{SIGNALS}', '\n'.join(f'- `{k}`: {SIGNALS[k][0]} Allowed values: {SIGNALS[k][1]}.' for k in ks)) for g, ks in GROUPS.items()}; st['prompt'] = 'pipeline/prompts/rate-signals-v2.md'; reqs = []
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
-        for r, m, e in RATERS: reqs.append(L.Req(f'{ck}__qs-{r}', m, 'Rate the paper now.', system, ex(p['pdf']), e, 40000 if e == 'high' else 9000))   # High thinking uses most of a small budget and returns nothing (all 25 ratings were lost in the first rerun)
+        for r, m, e in RATERS:
+            for g in GROUPS: reqs.append(L.Req(f'{ck}__qs-{r}-{g}', m, 'Rate the paper now.', sysg[g], ex(p['pdf']), e, 40000 if e == 'high' else 24000))   # High thinking uses most of a small budget and returns nothing (all 25 ratings were lost in the first rerun)
     res = dispatch(M, 'qs', reqs, mode); allowed = {k: [x.strip() for x in v[1].split('|')] for k, v in SIGNALS.items()}; out = {}; raws = {}; disputes = {}
     def read(ck, p, res_, rater, doc, only=None):
-        j = safe_json(res_.get(f'{ck}__qs-{rater}') or L.Res('', False)); got = {x.get('signal'): x for x in (j or {}).get('ratings', []) if isinstance(x, dict)}; rows = []
+        got = {}
+        for kk in ([f'{ck}__qs-{rater}'] if rater == QS_ADJ['key'] else [f'{ck}__qs-{rater}-{g}' for g in GROUPS]):
+            j = safe_json(res_.get(kk) or L.Res('', False)); got.update({x.get('signal'): x for x in (j or {}).get('ratings', []) if isinstance(x, dict)})
+        rows = []
         for sg in SIGNALS:
             if only and sg not in only: continue
             x = got.get(sg); qstart = ((x or {}).get('quote_start') or '').strip(); qend = ((x or {}).get('quote_end') or '').strip(); raw_q = ''; src = 'quote'; pg_ = (x or {}).get('page')
@@ -508,7 +515,7 @@ def stage_qs(M, mode):
         if not sgs: continue
         sig = '\n'.join(f'- `{k}`: {SIGNALS[k][0]} Allowed values: {SIGNALS[k][1]}.' for k in sgs); rng_ = random.Random(M.m['run_id'] + ck); names = [x[0] for x in RATERS]; rng_.shuffle(names)
         shown = {f'Rater {i + 1}': [{k: x[k] for k in ('signal', 'rating', 'quote', 'locator')} for x in raws[ck] if x['rater'] == nm and x['signal'] in sgs] for i, nm in enumerate(names)}
-        reqs.append(L.Req(f'{ck}__qs-{QS_ADJ["key"]}', QS_ADJ['model'], 'The two raters\' answers for the signals in dispute:\n' + json.dumps(shown, ensure_ascii=False) + '\n\nDecide now.', sysa.replace('{SIGNALS}', sig), ex(M.m['papers'][ck]['pdf']), QS_ADJ['effort'], 6000))
+        reqs.append(L.Req(f'{ck}__qs-{QS_ADJ["key"]}', QS_ADJ['model'], 'The two raters\' answers for the signals in dispute:\n' + json.dumps(shown, ensure_ascii=False) + '\n\nDecide now.', sysa.replace('{SIGNALS}', sig), ex(M.m['papers'][ck]['pdf']), QS_ADJ['effort'], 16000))
     res3 = dispatch(M, 'qs_adjudicate', reqs, mode) if reqs else {}
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue

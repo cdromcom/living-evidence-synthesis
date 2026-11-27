@@ -76,7 +76,7 @@ def about_models_and_tools(M):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--out'); a = ap.parse_args(); d = cl.RUNS / a.run; M = json.load(open(d / 'manifest.json')); wb = Workbook(); wb.remove(wb.active); thumbs = d / '_thumbs'
+    ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--out'); ap.add_argument('--tripod-only', action='store_true', help='write a workbook with the TRIPOD-LLM tabs only (a new file, so labels in an existing sheet are not touched)'); a = ap.parse_args(); d = cl.RUNS / a.run; M = json.load(open(d / 'manifest.json')); wb = Workbook(); wb.remove(wb.active); thumbs = d / '_thumbs'
     def lowq(d):
         a = [x for k, x in (d or {}).items() if not str(k).startswith('_') and isinstance(x, (int, float))]
         return round(min(a), 3) if a else ''
@@ -236,7 +236,7 @@ def main():
     # ---- quality signals: one tab per paper (code-only checks and model ratings side by side) and a run summary with cost, time and agreement
     import qs_export as QE, signal_registry as SRG
     if QE.STORE.exists():
-        store = json.load(open(QE.STORE)); qs_sum = []; calls = []
+        store = json.load(open(QE.STORE)); qs_sum = []; calls = []; tri_sum = []
         cf_ = d / 'calls.jsonl'
         if cf_.exists():
             for l_ in open(cf_):
@@ -248,7 +248,7 @@ def main():
             meta = json.load(open(pj_)).get('paper', {}); key = SRG.resolve_citekey(ck, meta.get('title', ''), meta.get('year', '')) or ck; E_ = store['papers'].get(key)
             if not E_: continue
             hdr = ['Kind', 'Signal or check', 'Result', 'Agreement or status', 'Summary', 'Neon rating', 'Neon quote and locator', 'Neon screenshot (image)', 'Opus rating', 'Opus quote and locator', 'Opus screenshot (image)', 'Sol rating (adjudicates disagreements)', 'Quote verifiers (mean score: Sonnet 5.5, Liquid d1.2-ultra, Perplexity)', 'Live-site tag (Aug 2026)', 'Matches live-site tag?', 'Code-only checks that apply', 'Source and date', 'JP: right? (yes/no/unsure)', 'JP: notes']
-            rows_ = []; shots_ = []
+            rows_ = []; shots_ = []; rows_t = []; shots_t = []
             def rater(sig, nm):
                 return next((r for r in sig.get('ratings', []) if r['rater'] == nm), None)
             for it in E_.get('provenance', []):
@@ -258,11 +258,17 @@ def main():
                 n_ = rater(sig, 'Gemini 4 Neon'); o_ = rater(sig, 'Claude Opus 5.5'); s_ = rater(sig, 'GPT-6.2 Sol'); ck_ = {c['verifier']: c['score'] for c in sig.get('checks', [])}
                 ver_ = ', '.join(str(ck_.get(v, '')) for v in ('Claude Sonnet 5.5', 'Liquid d1.2-ultra', 'Perplexity Decider 1.3')) if ck_ else ''
                 tools_ = ', '.join(next((i['label'] for i in E_.get('provenance', []) if i['id'] == t_), t_) for t_ in sig.get('tool_checks', []))
-                rows_.append(['Signal', sig['label'], sig['final'], sig['agreement'], sig['summary'], n_['rating'] if n_ else '', (n_['quote'] + ('  [' + n_['locator'] + ']' if n_['locator'] else '')) if n_ else '', '', o_['rating'] if o_ else '', (o_['quote'] + ('  [' + o_['locator'] + ']' if o_['locator'] else '')) if o_ else '', '', s_['rating'] if s_ else '', ver_,
+                (rows_t if sid.startswith('tripod-') else rows_).append(['Signal', sig['label'], sig['final'], sig['agreement'], sig['summary'], n_['rating'] if n_ else '', (n_['quote'] + ('  [' + n_['locator'] + ']' if n_['locator'] else '')) if n_ else '', '', o_['rating'] if o_ else '', (o_['quote'] + ('  [' + o_['locator'] + ']' if o_['locator'] else '')) if o_ else '', '', s_['rating'] if s_ else '', ver_,
                               sig.get('vault_value') or '', {True: 'yes', False: 'no', None: ''}[sig.get('matches_vault')], tools_, '', '', ''])
-                shots_.append(((QE.SHOTS / n_['screenshot']) if n_ and n_.get('screenshot') else None, (QE.SHOTS / o_['screenshot']) if o_ and o_.get('screenshot') else None))
+                (shots_t if sid.startswith('tripod-') else shots_).append(((QE.SHOTS / n_['screenshot']) if n_ and n_.get('screenshot') else None, (QE.SHOTS / o_['screenshot']) if o_ and o_.get('screenshot') else None))
             wq_ = tab(f"QS {ck.split('-')[0]} {meta.get('year', '')}", hdr, rows_, [14, 26, 24, 14, 50, 12, 50, 40, 12, 50, 40, 14, 22, 16, 12, 30, 40, 16, 30], jp_from=18, img=(8, 11))
             for i_, (a_, b_) in enumerate(shots_, 2): put_image(wq_, d, i_, 8, a_, 300, thumbs); put_image(wq_, d, i_, 11, b_, 300, thumbs)
+            if rows_t:   # TRIPOD-LLM reporting items: their own tab, same columns
+                wt_ = tab(f"TRIPOD {ck.split('-')[0]} {meta.get('year', '')}", ['Kind', 'TRIPOD-LLM item'] + hdr[2:], rows_t, [14, 30, 24, 14, 50, 12, 50, 40, 12, 50, 40, 14, 22, 16, 12, 30, 40, 16, 30], jp_from=18, img=(8, 11))
+                for i_, (a_, b_) in enumerate(shots_t, 2): put_image(wt_, d, i_, 8, a_, 300, thumbs); put_image(wt_, d, i_, 11, b_, 300, thumbs)
+            import tripod_items as TI
+            fin_ = {s_: x_['final'] for s_, x_ in E_.get('signals', {}).items() if s_.startswith('tripod-')}; old_ = SRG.vault_tripod(key); new_s = TI.summary(fin_); old_s = TI.summary(old_)
+            same_ = [s_ for s_ in fin_ if s_ in old_]; tri_sum.append([meta.get('title', ck)[:60], key, new_s['fully'], new_s['partial'], new_s['not-reported'], new_s['not-applicable'], (str(new_s['pct']) + '% ' + str(new_s['level'])) if new_s['pct'] is not None else '', old_s['fully'], old_s['partial'], old_s['not-reported'], old_s['not-applicable'], (str(old_s['pct']) + '% ' + str(old_s['level'])) if old_s['pct'] is not None else '', f"{sum(1 for s_ in same_ if fin_[s_] == old_[s_])} of {len(same_)}"])
             sigs_ = [x for x in E_.get('signals', {}).values() if x['ratings']]; st_ = M.get('stage_log', {}); t0_ = (st_.get('qs') or {}).get('started_utc', '')
             cost_ = {}; ends_ = []
             for c_ in calls:
@@ -270,6 +276,7 @@ def main():
             prov_ = E_.get('provenance', []); mv_ = [x for x in sigs_ if x.get('matches_vault') is not None]
             qs_sum.append([meta.get('title', ck)[:60], key, len(sigs_), sum(1 for x in sigs_ if x['agreement'] == 'agree'), sum(1 for x in sigs_ if x['final'] == 'no majority'), sum(1 for x in sigs_ for r_ in x['ratings'] if r_.get('quote_found') is False), f"{sum(1 for x in mv_ if x['matches_vault'])} of {len(mv_)}",
                            sum(1 for i in prov_ if i['status'] == 'ok'), sum(1 for i in prov_ if i['status'] == 'flag'), sum(1 for i in prov_ if i['status'] == 'unavailable'), round(sum(cost_.values()), 3), '; '.join(f"{k}: ${v:.2f}" for k, v in cost_.items()), ((st_.get('qs') or {}).get('elapsed_s') or (round((__import__('datetime').datetime.fromisoformat(max(ends_)) - __import__('datetime').datetime.fromisoformat(t0_)).total_seconds()) if ends_ and t0_ else '')), (st_.get('qs_code_checks') or {}).get('papers', {}).get(ck, {}).get('elapsed_s', '')])
+        if tri_sum: tab('TRIPOD-LLM summary', ['Paper', 'Vault citekey', 'New: fully reported', 'New: partial', 'New: not reported', 'New: not applicable', 'New: share reported (partial counts half) and level', 'Old table: fully reported', 'Old: partial', 'Old: not reported', 'Old: not applicable', 'Old table: share and level', 'New rating equals old curated rating'], tri_sum, [50, 38, 10, 10, 10, 10, 22, 10, 10, 10, 10, 22, 18])
         if qs_sum: tab('Quality signals run summary', ['Paper', 'Vault citekey', 'Signals rated by models', 'Both raters agree', 'No majority', 'Quotes not found in PDF', 'Matches live-site tag', 'Code-only checks ok', 'Code-only checks flagged', 'Code-only checks unavailable', 'Rating cost USD', 'Cost by model', 'Rating time (s, batch wait included)', 'Code-only check time (s)'], qs_sum, [50, 38, 12, 12, 10, 12, 14, 12, 12, 12, 10, 46, 14, 14])
     nc_f = d / 'numbers_check.json'
     if nc_f.exists():
@@ -356,5 +363,8 @@ def main():
         r = json.loads(l); crows.append([r.get('ts_utc', '')[:19], r.get('citekey', ''), r.get('step', ''), r.get('model', ''), r.get('effort', ''), r.get('tokens_in'), r.get('tokens_out'), r.get('cost_usd_est'), (r.get('notes') or '')[:80]])
     tab('Calls and cost', ['Time (UTC)', 'Paper', 'Step', 'Model', 'Effort', 'Tokens in', 'Tokens out (incl. thinking)', 'Cost USD (list price; batch is half)', 'Notes'], crows, [20, 30, 12, 20, 8, 10, 14, 14, 50])
     SS.polish_about(ab)
-    out = a.out or str(d / 'review.xlsx'); wb.save(out); print('saved', out, '| findings', len(frow), '| spans', len(crow))
+    if a.tripod_only:
+        for ws_ in list(wb.worksheets):
+            if not (ws_.title.startswith('TRIPOD') or ws_.title == 'ABOUT'): wb.remove(ws_)
+    out = a.out or str(d / ('review_tripod.xlsx' if a.tripod_only else 'review.xlsx')); wb.save(out); print('saved', out, '| findings', len(frow), '| spans', len(crow))
 if __name__ == '__main__': main()

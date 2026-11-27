@@ -12,9 +12,11 @@ def local():
     for root, dirs, files in os.walk(VAULT):
         rel = Path(root).relative_to(VAULT)
         dirs[:] = [x for x in dirs if x not in SKIP_DIRS or (x == 'misc' and rel.parts[:1] == ('pipeline',)) or (x == 'public' and False)]
+        if rel.parts[:4] == ('pipeline', 'misc', 'evd-validation', 'table-parsers'): dirs[:] = [x for x in dirs if x not in ('review', 'results', 'results_supp', 'scratch')]   # page renders and raw parser output stay local
         if rel.parts[:2] == ('pipeline', 'provenance'): dirs[:] = [x for x in dirs if x != 'cache']   # raw API responses of the provenance checks are not published
         if rel.parts[:2] == ('pipeline', 'runs'): dirs[:] = [x for x in dirs if not re.match(r'^(\d{4}-\d\d-\d\d_batch\d+|test-.*)$', x)]   # batch-runner outputs (extracted paper content, local paths) stay local
         for f in files:
+            if rel.parts[:4] == ('pipeline', 'misc', 'evd-validation', 'table-parsers') and (f in ('review.html', 'pages.json', 'rotated_scan.json', 'rotation_results.json', 'supp_results.json') or f.startswith('eval_A') or f.endswith('.sh')): continue
             if (f == '.gitignore' and not rel.parts) or f in SKIP_FILES or f.endswith('.pdf') or (rel.parts[:2] == ('pipeline', 'runs') and len(rel.parts) == 2 and (f in ('ledger.jsonl', '_batch_input.jsonl') or f.startswith('_batch_input'))): continue   # zip files are compared too
             p = Path(root) / f; b = p.read_bytes(); d[str((rel / f))] = hashlib.sha1(b'blob %d\0' % len(b) + b).hexdigest()
     return d

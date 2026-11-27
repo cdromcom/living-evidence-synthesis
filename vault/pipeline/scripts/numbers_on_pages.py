@@ -8,7 +8,7 @@ import fitz, lives_run as LR, lives_stages as S, pdf_pages as pp
 NUM = LR.NUM_IN_TEXT
 
 
-def norm(t): return re.sub(r'(?<=\d),(?=\d{3})', '', t.replace(' ', ' ').replace('−', '-').replace(' ', ' '))
+def norm(t): return re.sub(r'(?<=\d),(?=\d{3})', '', pp.repair_cell_text(t).replace('\u00a0', ' ').replace('\u2212', '-').replace('\u2009', ' '))   # repair: symbol problems of the text layer (en dash stored as e, private-use digits, and so on)
 
 
 def variants(tok):

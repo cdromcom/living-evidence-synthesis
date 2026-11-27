@@ -156,6 +156,11 @@ N = {
  'Matches live-site tag?': 'Whether the final rating equals the value on the LIVES website.',
  'Code-only checks that apply': 'Automatic checks that bear on this signal, such as link or repository checks.',
  'Source and date': 'Where the check looked (web address) and when.',
+ 'TRIPOD-LLM item': 'The reporting item from the TRIPOD-LLM guideline (for example 5a Data sources): does the paper report it?',
+ 'New: fully reported': 'Number of the 40 rated TRIPOD-LLM items the paper fully reports, by the current raters.', 'New: partial': 'Number of items reported in part.', 'New: not reported': 'Number of items the paper does not report.', 'New: not applicable': 'Number of items that do not apply to this paper.',
+ 'New: share reported (partial counts half) and level': 'Share of applicable items reported (fully = 1, partial = 0.5) and a level: high 75% or more, moderate 50% or more, otherwise low. The level thresholds are a proposal and not validated.',
+ 'Old table: fully reported': 'Same count from the table curated earlier on the website (older Claude models).', 'Old: partial': 'Old table: items reported in part.', 'Old: not reported': 'Old table: items not reported.', 'Old: not applicable': 'Old table: items not applicable.', 'Old table: share and level': 'Same share and level computed from the old table.',
+ 'New rating equals old curated rating': 'On how many items the current rating equals the old table\'s rating (items rated in both).',
  # run summary
  'Vault citekey': 'The paper\'s identifier in the project\'s knowledge base.', 'Signals rated by models': 'Number of quality signals the AI raters rated.', 'Both raters agree': 'Number of signals on which both raters gave the same rating.',
  'No majority': 'Number of signals with no majority rating.', 'Quotes not found in PDF': 'Number of rater quotes that could not be located in the PDF text.',

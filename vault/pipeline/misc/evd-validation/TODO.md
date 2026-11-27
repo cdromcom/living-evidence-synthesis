@@ -68,7 +68,7 @@ Everything still open for JP from the 2026-11-11 to 11-17 sessions. The same lis
   *Source: ABOUT TODO 11*
 - [ ] **11. Optional: test the checker with a few planted errors**  
   Where: Ask Claude  
-  Lets you report the checker's recall honestly in the write-up.  
+  Lets you report the checker's recall as measured in the write-up.  
   *Source: Prompt 33 task list*
 - [ ] **12. Set dropdown chip colours by hand if chips look gray**  
   Where: Data > Data validation  
@@ -338,4 +338,5 @@ A week of daily screening runs with JP spending no more than the agreed minutes;
 - [ ] **JP: confirm the Tyser author match.** OpenAlex matches three co-authors to the retracted preprint "Exploring the MIT Mathematics and EECS Curriculum Using Large Language Models" (2023); a person must confirm (tab "QS Tyser 2024", row "Author track record").
 - [ ] **JP: LIVES style menu.** Paste `pipeline/apps-script/LivesStyle.gs` into the sheet you label in (Extensions > Apps Script > paste > Save > reload > allow once); the menu "LIVES style" then appears. Do not regenerate a sheet after you start labeling it: a regenerated sheet is a new file without your labels or the menu. Idea: one macro that does everything.
 - [ ] **JP: review the table-parser test** (`pipeline/misc/evd-validation/table-parsers/RESULTS.md` and `review.html`) when it is finished.
+- [ ] **Small fix from the table test:** repair the e-for-en-dash in table cell values ("0.37e0.44" means 0.37 to 0.44) wherever numbers are read from PyMuPDF tables. Review pages: `pipeline/misc/evd-validation/table-parsers/review.html` (12 table pages, three parsers side by side; stays local, not in the repository).
 

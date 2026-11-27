@@ -161,7 +161,7 @@ Prevention: Skill.md Step 6b (numeric audit). Full record: `pipeline/misc/evd-va
 
 ### TRIPOD-LLM compliance icons
 
-- **Calibrate ⚠️ vs. ✅ honestly.** When in doubt, pick ⚠️. The icons are useful only when they reflect what's actually reported, not what we wish were reported.
+- **Calibrate ⚠️ vs. ✅ carefully.** When in doubt, pick ⚠️. The icons are useful only when they reflect what's actually reported, not what we wish were reported.
 - **Items that are typically `❌` for this corpus and should not be sandbagged to ⚠️:** 12 (compute), 14a–14c (funding, COI, protocol) for arXiv preprints lacking these statements, 5c (date range of data) for evaluation papers that don't disclose training-corpus dates.
 - **Items that are typically `➖` for non-clinical NLP papers:** 13 (ethical approval, no human subjects), 14d (registration, no clinical trial), 15 (patient/public involvement), 16a–c (patient/EHR flow). Mark explicitly — don't drop the rows.
 - **Item 17 (Performance) is per-EVD, not per-paper.** The source-file row reads `(per-EVD) — See each EVD's ## Other Notes`. Each EVD then carries the EVD-specific F1 / kappa / prevalence / etc. Do NOT duplicate item-17 numbers in the source file.
