@@ -992,7 +992,7 @@ export default function TopBadges({ node }: { node: GraphNode }) {
               href: `${linkBase}#tripod-llm-reporting`,
               scale: REPORTING_COMPLIANCE_SCALE,
               current: compliance.level,
-              signalIds: ["transparency"],
+              signalIds: ["tripod"],
             }]
           : [],
       }],
