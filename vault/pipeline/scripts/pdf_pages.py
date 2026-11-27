@@ -287,3 +287,33 @@ if __name__ == '__main__':
                          kind=sys.argv[sys.argv.index('--kind') + 1] if '--kind' in sys.argv else 'EVD'))
     elif cmd == 'links':
         for l in links(doc): print(l['pdf_page'], l['uri'])
+
+# ---------------------------------------------------------------- table cells and symbol repair (JP, 2026-11-26)
+def repair_cell_text(text):
+    """Repair symbol problems that some publisher fonts leave in the text layer (found in the table-parser test, 124 table pages; table-parsers/RESULTS.md):
+    en dash stored as the letter e inside an interval (0.37e0.44, 62%e66%) -> en dash; control character U+0004 for the minus sign -> U+2212; U+0003 for the times sign -> x;
+    thorn (U+00FE) for plus -> +; quarter sign (U+00BC) for equals -> =; private-use digits U+F130..U+F139 -> 0..9; soft hyphen removed; ff, fi, fl, ffi, ffl ligature code points expanded;
+    a lone 5 standing for equals in 'A x B 5 C' when A times B equals C -> =. Scientific notation (1e-5, 2.5e3 as a whole value) is left alone."""
+    t = text
+    if not re.match(r'^\s*[-+]?\d+(\.\d+)?e[-+]?\d+\s*$', t): t = re.sub(r'(?<=[\d%)\]])e(?=[\d.])', '\u2013', t) if re.search(r'(\d\.\d+|%|\))e[\d.]', t) else t
+    for ch, rep in (('\x04', '\u2212'), ('\x03', ' \u00d7 '), ('\u00fe', '+'), ('\u00bc', '='), ('\u00ad', '')): t = t.replace(ch, rep)
+    t = re.sub('[\uf130-\uf139]', lambda m: str(ord(m.group()) - 0xf130), t)
+    for lig, rep in (('\ufb00', 'ff'), ('\ufb01', 'fi'), ('\ufb02', 'fl'), ('\ufb03', 'ffi'), ('\ufb04', 'ffl')): t = t.replace(lig, rep)
+    m = re.search(r'(\d+)\D*\u00d7\s*(\d+)\D+?\s(5)\s(?:up to\s)?(\d+)', t)
+    if m and int(m.group(1)) * int(m.group(2)) == int(m.group(4)): t = t[:m.start(3)] + '=' + t[m.end(3):]
+    return re.sub(r'\s{2,}', ' ', t).strip() if t != text else t
+
+
+def table_cells(page):
+    """Tables of one page as lists of rows of repaired cell strings, from PyMuPDF find_tables() (no model, no network). PyMuPDF is the preferred reader (JP, 2026-11-26): on 463 verified table numbers it found 91.6% as read and 92.9% with the repair."""
+    out = []; rot = page.rotation
+    try:
+        if rot: page.set_rotation(0)   # find_tables found no table on pages with a rotation set (0 of 463 values at 90 and 270 degrees); the content is upright in unrotated page space
+        tabs = page.find_tables().tables
+    except Exception: return out
+    finally:
+        if rot: page.set_rotation(rot)
+    for tb in tabs:
+        rows = [[repair_cell_text((c or '').replace('\n', ' ')) for c in row] for row in tb.extract()]
+        if any(any(c for c in r) for r in rows): out.append(rows)
+    return out

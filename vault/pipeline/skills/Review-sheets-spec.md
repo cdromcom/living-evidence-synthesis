@@ -23,7 +23,7 @@ Goal: a human can follow every step of a run, see each model's work, and add gro
 | Tab | Content | JP columns |
 |---|---|---|
 | Checks (decision models) | per finding: mean probability for relevancy, fidelity, numbers-in-source and table-cell match, the score (lowest mean), the spread between the three models, why Sol looked, Sol's vision verdict and reason, Opus on disputes, result | is the finding right?, notes |
-| Drafts and debate | per node (EVD, QUE, CLM, CVT): winner and how it was decided (Sol and Sonnet agree, or Neon tie-break), text, characters, reading grade, writing-rules check, node-detail check and suggested fix, decision-model score, status, the three first drafts | best text or your own, fidelity, style, notes |
+| Drafts and debate | per node (EVD, QUE, CLM, CVT): winner and how it was decided (Sol and Sonnet agree, or Neon tie-break), text, characters, writing-rules check, node-detail check and suggested fix, decision-model score, status, the three first drafts | best text or your own, fidelity, style, notes |
 | Quality signals (raw) | one row per paper, signal and rater: rating, verbatim quote, locator, quote found in the PDF; Neon (High) and Opus rate; Sol adds a third rating only where they disagreed | none |
 | Metrics | time, cost, accuracy according to the checkers, per stage and overall (a plain list, no labels) | none |
 | Question groups | unified, nested questions proposed from the papers' own questions (`consolidate_questions.py`) | group right, better wording |
@@ -62,3 +62,6 @@ A new builder calls `polish(ws, jp_from=..., image_cols=...)` after the rows are
 **Macros for any Google Sheet:** `pipeline/apps-script/LivesStyle.gs` applies the same look inside Google Sheets (Extensions > Apps Script, paste, save, reload; a LIVES style menu appears, and Extensions > Macros > Import macro makes them macros). Functions: `applyLivesStyle` (everything on the active sheet), `applyLivesStyleAllSheets`, `styleFontsAndHeader`, `alignByContent`, `fitColumnWidths`, `fitRowHeights`, `addZebraStripes`, `markJpColumns`. Not yet run inside Google Sheets (written without a way to execute it), so test it on a copy first.
 
 **Quote screenshots:** highlight only, no outline box (JP, 2026-11-26); crops are cut to the quote's column. In the quality-signal tab the quote comes from the PDF itself (anchors), and its screenshot is column I of "Quality signals (raw ratings)".
+
+**Header notes (JP, 2026-11-26).** Every column header of every table tab carries a hover note that explains the column in plain sentences for a reader outside the project. The notes are written in `pipeline/scripts/column_notes.py` (one place; `note_for(tab, header)`); `run_to_gsheet.py` writes them as cell comments (they appear as notes in Google Sheets) and `apply_notes_requests()` builds the Sheets API requests that add them to an existing sheet without regenerating it. A new column needs a note there.
+

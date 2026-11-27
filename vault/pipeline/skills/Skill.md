@@ -15,13 +15,13 @@ For one paper, in order (details in Step 1 and the steps below):
 1. **Pick and parse:** most recent version of the paper; Gemini 4 Neon reads the PDF and the PDF text layer is the second read (Step 1).
 2. **PICOST first:** one record per finding, sorted into primary, secondary and tertiary tiers against the research question, with locators and spotlighted source spans; sources by section (Results for EVDs, Discussion for CVTs and CLMs, Introduction for QUEs).
 3. **Check the extractions before anything is written:** PyMuPDF finds every quoted span; the decision-model **checks** score relevancy, fidelity, numbers-in-source and table-cell match; low-confidence and multi-page extractions are re-read by GPT-6.2 Sol and adjudicated by Opus 5.5; JP spot check A (Steps 1 and 6e).
-4. **Identify nodes** with atomicity and the QUE rules (Step 2); **write the nodes by debate** (Sonnet 5.5, Sol and Neon draft, critique and revise; Sol and Sonnet vote; linted for length, readability and numbers) from the PICOST records (Step 4, `Skill-templates.md`).
+4. **Identify nodes** with atomicity and the QUE rules (Step 2); **write the nodes by debate** (Sonnet 5.5, Sol and Neon draft, critique and revise; Sol and Sonnet vote; checked by the writing-rules check for length, parentheses, capitals and numberss) from the PICOST records (Step 4, `Skill-templates.md`).
 5. **Highlight, box and crop** with PyMuPDF and `pdftoppm` (bounding boxes from the span search); GPT-6.2 Sol checks every crop, Opus 5.5 checks multi-page crops (Step 3).
 6. **Automatic audits** (verbatim quotes, numbers on the PICOST record, page map), reverse links, formatting, NodeFormality, DGRAPH regeneration, history log (Steps 5 to 10, `Skill-templates.md`).
 7. **Mirror to the review sheet** and **JP spot check B**; merge through a pull request and regenerate the graph data.
 8. **Provenance footer** on every page written or changed (Step 4c): model and version, date accessed, prompt link, run id, human-check status, from the call log.
 
-**Quality signals** (quality appraisal signals, provenance fields, tool checks) are **Module Q**, which the runner now runs automatically after every batch (JP, 2026-11-26; TRIPOD-LLM rows and Pangram are not part of it), so extraction and publishing never spend credits on signals.
+**Quality signals** (quality appraisal signals, provenance fields, tool checks) are **Module Q**, which the runner now runs automatically after every batch (JP, 2026-11-26; the 40 TRIPOD-LLM rows are rated in the same run; Pangram is not part of it), so extraction and publishing never spend credits on signals.
 
 Work in **batches of three papers at most** (hard limit in `pipeline/scripts/lives_run.py`; JP 2026-11-26, down from four), and process no further papers until JP has reviewed the previous batch (`lives_run.py` refuses a new batch until JP marks the earlier ones reviewed) with the human checks, the cost controls and the ledger below. Cross-paper synthesis (Review-Arena; EvidencePatterns are retired), the public MkDocs render and the ESS Bases are in `Skill-synthesis.md` (Steps 11 to 14), run after a batch, not per paper.
 
@@ -237,3 +237,5 @@ Runs automatically after every batch of at most four papers (JP, 2026-11-26; Pan
 - **`../design/LIVES-design-spec.md`** — the design and development spec for the web app; read it before building or changing the website (the web app is built from this vault by `scripts/build-graph.mjs`).
 
 Load each as needed. The full per-paper extraction loop spans Skill.md (this file) + Skill-templates.md + Skill-references.md. Cross-paper synthesis + public render adds Skill-synthesis.md.
+
+**Table parsers (exploratory):** Marker and MinerU are being tested for reading table cells only, on the 27 seed papers; they are not part of the run. See `Skill-controls.md`, "Table parsers", and `misc/evd-validation/table-parsers/RESULTS.md`.
