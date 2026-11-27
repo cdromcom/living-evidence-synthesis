@@ -58,23 +58,10 @@ function ToolCheckItem({ check }: { check: ToolCheck }) {
   );
 }
 
-function Section({ section, showHeading }: { section: SignalSection; showHeading: boolean }) {
-  const final = words(section.final);
+function RatingBlocks({ ratings }: { ratings: SignalSection["ratings"] }) {
   return (
-    <section className="mt-5 first:mt-0" aria-label={showHeading ? section.label : undefined}>
-      {showHeading ? (
-        <h3 className="border-b border-ink/30 pb-1 text-sm font-semibold">
-          {section.label}: <span className="font-normal">{final}</span>
-        </h3>
-      ) : (
-        <p className="text-sm font-semibold">Result: {final}</p>
-      )}
-      {section.summary && <p className="mt-2">{section.summary}</p>}
-      {section.ratings.length > 0 && (
-        <p className="mt-1 text-xs text-muted-ink">{AGREEMENT[section.agreement] ?? ""}</p>
-      )}
-
-      {section.ratings.map((r, i) => {
+    <>
+      {ratings.map((r, i) => {
         const where = [r.locator, r.pdf_page != null && `PDF page ${r.pdf_page}`, r.printed_page && `printed page ${r.printed_page}`]
           .filter(Boolean)
           .join(", ");
@@ -103,21 +90,45 @@ function Section({ section, showHeading }: { section: SignalSection; showHeading
           </div>
         );
       })}
+    </>
+  );
+}
 
-      {section.checks.length > 0 && (
-        <div className="mt-3">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-ink">Verifier checks</h4>
-          <ul className="mt-1">
-            {section.checks.map((c, i) => (
-              <li key={`${c.verifier}-${i}`} className="py-0.5">
-                {c.verifier.replace(/^Claude /, "")}: {reading(c.score)}
-                {c.score !== null && <small className="ml-1.5 text-xs text-muted-ink">{c.score.toFixed(2)}</small>}
-                {c.note && <span className="block text-muted-ink">{c.note}</span>}
-              </li>
-            ))}
-          </ul>
-        </div>
+function VerifierChecks({ checks }: { checks: SignalSection["checks"] }) {
+  if (checks.length === 0) return null;
+  return (
+    <div className="mt-3">
+      <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-ink">Verifier checks</h4>
+      <ul className="mt-1">
+        {checks.map((c, i) => (
+          <li key={`${c.verifier}-${i}`} className="py-0.5">
+            {c.verifier.replace(/^Claude /, "")}: {reading(c.score)}
+            {c.score !== null && <small className="ml-1.5 text-xs text-muted-ink">{c.score.toFixed(2)}</small>}
+            {c.note && <span className="block text-muted-ink">{c.note}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Section({ section, showHeading }: { section: SignalSection; showHeading: boolean }) {
+  const final = words(section.final);
+  return (
+    <section className="mt-5 first:mt-0" aria-label={showHeading ? section.label : undefined}>
+      {showHeading ? (
+        <h3 className="border-b border-ink/30 pb-1 text-sm font-semibold">
+          {section.label}: <span className="font-normal">{final}</span>
+        </h3>
+      ) : (
+        <p className="text-sm font-semibold">Result: {final}</p>
       )}
+      {section.summary && <p className="mt-2">{section.summary}</p>}
+      {section.ratings.length > 0 && (
+        <p className="mt-1 text-xs text-muted-ink">{AGREEMENT[section.agreement] ?? ""}</p>
+      )}
+      <RatingBlocks ratings={section.ratings} />
+      <VerifierChecks checks={section.checks} />
 
       {section.toolChecks.length > 0 && (
         <div className="mt-3">
@@ -130,6 +141,88 @@ function Section({ section, showHeading }: { section: SignalSection; showHeading
         </div>
       )}
     </section>
+  );
+}
+
+const TRIPOD_DOT: Record<string, string> = {
+  fully: "bg-green-600",
+  partial: "bg-amber-500",
+  "not-reported": "bg-red-600",
+  "not-applicable": "bg-muted-ink/50",
+};
+
+function TripodItem({ item }: { item: SignalSection }) {
+  const label = item.label.replace(/^TRIPOD-LLM /, "");
+  const head = (
+    <>
+      <span aria-hidden className={`mt-[0.35rem] h-[7px] w-[7px] shrink-0 rounded-full ${TRIPOD_DOT[item.final] ?? "bg-muted-ink/50"}`} />
+      <span className="min-w-0 flex-1">{label}</span>
+      <span className="shrink-0 text-muted-ink">{words(item.final)}</span>
+    </>
+  );
+  const differs = item.matchesVault === false && item.vaultValue;
+  const note = differs ? (
+    <p className="pb-1 pl-[15px] text-xs text-muted-ink">Earlier table on this site: {words(item.vaultValue as string)}</p>
+  ) : null;
+  const expandable = item.ratings.length > 0 || Boolean(item.summary);
+  return (
+    <li className="border-t border-border/70 first:border-t-0">
+      {expandable ? (
+        <details className="group">
+          <summary className="flex cursor-pointer items-baseline gap-2 py-1 marker:content-none [&::-webkit-details-marker]:hidden">
+            {head}
+          </summary>
+          {note}
+          <div className="pb-2 pl-[15px]">
+            {item.summary && <p className="mt-1">{item.summary}</p>}
+            <RatingBlocks ratings={item.ratings} />
+            <VerifierChecks checks={item.checks} />
+          </div>
+        </details>
+      ) : (
+        <>
+          <div className="flex items-baseline gap-2 py-1">{head}</div>
+          {note}
+        </>
+      )}
+    </li>
+  );
+}
+
+function TripodBody({ tripod }: { tripod: NonNullable<RowDetail["tripod"]> }) {
+  const { summary: s, items } = tripod;
+  const todo = items.filter((i) => i.final === "partial" || i.final === "not-reported");
+  const fully = items.filter((i) => i.final === "fully");
+  const na = items.filter((i) => i.final === "not-applicable");
+  return (
+    <>
+      <p className="text-sm font-semibold">
+        {s.fully} fully, {s.partial} partial, {s["not-reported"]} not reported, {s["not-applicable"]} not applicable.
+      </p>
+      <p className="mt-1 text-muted-ink">
+        {s.pct}% of the {s.applicable} applicable items reported (partial counts as half), {s.level}.
+      </p>
+      {todo.length > 0 && (
+        <>
+          <h3 className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-ink">Partial or not reported</h3>
+          <ul>{todo.map((i) => <TripodItem key={i.id} item={i} />)}</ul>
+        </>
+      )}
+      {fully.length > 0 && (
+        <>
+          <h3 className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-ink">Fully reported</h3>
+          <ul>{fully.map((i) => <TripodItem key={i.id} item={i} />)}</ul>
+        </>
+      )}
+      {na.length > 0 && (
+        <details className="mt-4">
+          <summary className="cursor-pointer text-xs font-semibold uppercase tracking-wide text-muted-ink">
+            Not applicable ({na.length})
+          </summary>
+          <ul>{na.map((i) => <TripodItem key={i.id} item={i} />)}</ul>
+        </details>
+      )}
+    </>
   );
 }
 
@@ -230,6 +323,7 @@ export default function QualitySignalDrawer({
         </div>
 
         <div className="px-4 py-4">
+          {detail.tripod && <TripodBody tripod={detail.tripod} />}
           {detail.sections.map((s) => (
             <Section key={s.id} section={s} showHeading={many} />
           ))}

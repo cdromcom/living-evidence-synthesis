@@ -582,6 +582,9 @@ if (fs.existsSync(LABELS_SRC)) {
           note: str(c.note),
         })),
         tool_checks: (s.tool_checks ?? []).filter((t) => typeof t === "string"),
+        // TRIPOD-LLM items only: how the earlier, hand-curated table rated the same item.
+        ...(typeof s.vault_value === "string" ? { vault_value: s.vault_value } : {}),
+        ...(typeof s.matches_vault === "boolean" ? { matches_vault: s.matches_vault } : {}),
       };
     }
     papers[key] = {
@@ -598,6 +601,19 @@ if (fs.existsSync(LABELS_SRC)) {
         checked_utc: str(t.checked_utc),
       })),
       signals,
+      ...(p.tripod && typeof p.tripod === "object"
+        ? {
+            tripod: {
+              fully: Number(p.tripod.fully) || 0,
+              partial: Number(p.tripod.partial) || 0,
+              "not-reported": Number(p.tripod["not-reported"]) || 0,
+              "not-applicable": Number(p.tripod["not-applicable"]) || 0,
+              applicable: Number(p.tripod.applicable) || 0,
+              pct: Number(p.tripod.pct) || 0,
+              level: str(p.tripod.level),
+            },
+          }
+        : {}),
     };
   }
 
