@@ -23,7 +23,7 @@ title: Most LLMs were text-only and blind to figures and image-rendered tables r
 
 ## Source
 
-[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
+[[source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Limitation
 

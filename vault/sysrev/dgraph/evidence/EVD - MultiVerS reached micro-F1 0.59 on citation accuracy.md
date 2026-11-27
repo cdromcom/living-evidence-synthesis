@@ -24,7 +24,7 @@ title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52
 
 ## Source
 
-[[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
+[[source/@sarolAssessingCitationIntegrity2024]]
 
 ## Description
 
@@ -76,7 +76,7 @@ title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52
 - Against the LLM baselines (Table 4, p. 6), MultiVerS top-20 is best on macro-F1 (0.52 vs. GPT-4 0.45, GPT-3.5 0.38) and on NOT_ACCURATE citations (F1 0.43 vs. GPT-4 0.09), but GPT-4 has the higher micro-F1 (0.65 vs. 0.59) because it does better on ACCURATE citations ("GPT-4 in-context learning performed better in identifying accurate citations, but it lagged for erroneous citations (0.65 micro-F1, 0.45 macro-F1)", Sarol et al., 2024, p. 1). So "best model" holds for macro-F1, not micro-F1. GPT rows added 2026-11-17 from the source PDF.
 - Oracle conditions show the ceiling: gold context + gold evidence reached 0.75/0.78 (micro/macro-F1), illustrating how much further evidence-retrieval improvements could plausibly push the supervised pipeline.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
 
 | Condition | Micro-F1 | Macro-F1 | ACC F1 | N_ACC F1 | IRR F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |

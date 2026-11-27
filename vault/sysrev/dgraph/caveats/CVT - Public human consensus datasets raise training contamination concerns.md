@@ -25,7 +25,7 @@ title: Human consensus datasets used as comparators were openly available online
 
 ## Source
 
-[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
+[[source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Limitation
 

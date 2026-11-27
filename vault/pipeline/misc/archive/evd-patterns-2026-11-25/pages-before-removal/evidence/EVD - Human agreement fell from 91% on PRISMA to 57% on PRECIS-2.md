@@ -26,7 +26,7 @@ title: "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 pe
 
 ## Source
 
-[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
+[[source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ## Description
 
@@ -70,7 +70,7 @@ title: "Human inter-rater reliability dropped from 91 percent on PRISMA to 57 pe
 - The kappa for PRECIS-2 (0.29, weighted) sits in the "fair" range, borderline reliability for an LLM benchmark target.
 - "nd" in the source is a typo for "and"; preserved here per the no-editorialize-quotes principle.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[source/@woelfleBenchmarkingHumanAICollaboration2024#TRIPOD-LLM reporting]].
 
 | Tool | Item-level agreement (95% CI) | Cohen's kappa (95% CI) | Ratings analyzed |
 | --- | --- | --- | --- |

@@ -36,49 +36,49 @@ tags:
   - rigor/chance-corrected-metrics/addressed
   - rigor/ablation-experiments/addressed
 doi: 10.1093/bioinformatics/btae420
-license: "https://creativecommons.org/licenses/by/4.0/"
+license: https://creativecommons.org/licenses/by/4.0/
 license_source: "Crossref (content-version: vor)"
-oa_status: "gold"
+oa_status: gold
 nameConsistency: consistent
 citationCount: 4
 citationCountSource: OpenCitations
 predatoryPublisherFlag: false
 critiqueStatus: none
 authors:
-  - "Maria Janina Sarol — Informatics Programs, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
-  - "Shufan Ming — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
-  - "Shruthan Radhakrishna — Department of Computer Science, University of Illinois Urbana-Champaign , Champaign, IL 61801, United States"
-  - "Jodi Schneider — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
-  - "Halil Kilicoglu — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States"
+  - Maria Janina Sarol — Informatics Programs, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States
+  - Shufan Ming — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States
+  - Shruthan Radhakrishna — Department of Computer Science, University of Illinois Urbana-Champaign , Champaign, IL 61801, United States
+  - Jodi Schneider — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States
+  - Halil Kilicoglu — School of Information Sciences, University of Illinois Urbana-Champaign , Champaign, IL 61820, United States
 authorTrackRecord: not-checked
 pubType: journal-article
 selfCitationRate: 0.061
-selfCitationChecked: "49 of 49 references had author metadata"
+selfCitationChecked: 49 of 49 references had author metadata
 doajListed: true
 pubpeerCommentCount: 0
 crossNodeChecked: 4
 crossNodeCorroborated: 4
 apaTitle: "Assessing citation integrity in biomedical publications: corpus annotation and NLP models"
-apaContainer: "Bioinformatics"
+apaContainer: Bioinformatics
 apaYear: 2024
 apaVolume: "40"
 apaIssue: "7"
-apaArticleNumber: "btae420"
-apaLandingUrl: "https://academic.oup.com/bioinformatics/advance-article-pdf/doi/10.1093/bioinformatics/btae420/58342072/btae420.pdf"
+apaArticleNumber: btae420
+apaLandingUrl: https://academic.oup.com/bioinformatics/advance-article-pdf/doi/10.1093/bioinformatics/btae420/58342072/btae420.pdf
 apaAuthors:
-  - given: "Maria Janina"
-    family: "Sarol"
-  - given: "Shufan"
-    family: "Ming"
-  - given: "Shruthan"
-    family: "Radhakrishna"
-  - given: "Jodi"
-    family: "Schneider"
-  - given: "Halil"
-    family: "Kilicoglu"
+  - given: Maria Janina
+    family: Sarol
+  - given: Shufan
+    family: Ming
+  - given: Shruthan
+    family: Radhakrishna
+  - given: Jodi
+    family: Schneider
+  - given: Halil
+    family: Kilicoglu
 peerReviewStatus: not-found
-peerReviewNote: "Checked Oxford Bioinformatics article page directly — no peer review link found"
-curatedWithModel: "Claude Sonnet 5"
+peerReviewNote: Checked Oxford Bioinformatics article page directly — no peer review link found
+curatedWithModel: Claude Sonnet 5
 curatedWithModelDate: 2026-08-25
 citekey: sarolAssessingCitationIntegrity2024
 nodeTypeId: node_WloBZlAOaEodMKQ82S_Dn

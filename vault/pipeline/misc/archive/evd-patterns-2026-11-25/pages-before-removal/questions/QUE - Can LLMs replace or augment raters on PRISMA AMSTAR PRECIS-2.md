@@ -14,7 +14,7 @@ title: "Can LLMs replace or augment human raters in evidence appraisal using PRI
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
+> [[source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Snippet: Quote(s) & Screenshots
 

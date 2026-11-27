@@ -23,7 +23,7 @@ title: The benchmark datasets did not record human time on task preventing quant
 
 ## Source
 
-[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
+[[source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Limitation
 

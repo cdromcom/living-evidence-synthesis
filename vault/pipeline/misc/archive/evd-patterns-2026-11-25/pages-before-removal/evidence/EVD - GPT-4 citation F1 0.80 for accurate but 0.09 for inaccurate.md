@@ -24,7 +24,7 @@ title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accu
 
 ## Source
 
-[[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
+[[source/@sarolAssessingCitationIntegrity2024]]
 
 ## Description
 
@@ -76,7 +76,7 @@ title: "GPT-4 achieved F1 0.80 for accurate citations but only 0.09 for not-accu
 - Authors note that "better prompting strategies, specifically focusing on NOT_ACCURATE, could yield better results"; only slight manual variations were tried.
 - GPT-3.5-turbo with 5-shot in-context learning achieved 0.89 F1 on the citation-context (binary) sub-task, no improvement over the trivial citance baseline (0.94).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
 
 | Model | Micro-F1 | Macro-F1 | ACC F1 (recall) | N_ACC F1 | IRR F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |

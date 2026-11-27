@@ -25,7 +25,7 @@ title: "39.18% of 3063 annotated biomedical citation instances contained accurac
 
 ## Source
 
-[[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
+[[source/@sarolAssessingCitationIntegrity2024]]
 
 ## Description
 
@@ -80,7 +80,7 @@ title: "39.18% of 3063 annotated biomedical citation instances contained accurac
 - Per paper: average of 0.37 errors per review article vs. 0.40 per original paper (Student's t-test, p=.095, n.s.). Average number of distinct error types per paper was 0.52 (review) and 0.54 (original), each ranging 0–4.
 - Difference in occurrence of minor vs. major errors per paper was statistically significant (Student's t-test, p=.0085).
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
 
 | Outcome | Value |
 | --- | --- |
