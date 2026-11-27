@@ -10,6 +10,7 @@ import fitz, lives_stages as S, llm_batch as L, pdf_pages as pp, decision_models
 INS_QUE = 'The question was restyled on purpose. Does the reframed question still ask about what the original wording is about (same topic, methods and outcomes), allowing different phrasing, order and question form?'
 INS_CLM = 'Does the claim keep the meaning of the passage? Different wording is fine. Answer no only if the claim states a fact, number, comparison or degree of certainty that the passage does not support.'
 INS_CVT = 'Does the passage state this limitation or caveat? Different wording is fine. Answer no only if the caveat adds a fact, number or cause that the passage does not support.'
+QS_MAX = S.QS_MAX   # maximum accuracy for quality ratings: all verifiers judge every rating (no cascade)
 R = S.R; SLOTS = {'P': 'Population', 'I': 'Intervention', 'C': 'Comparator', 'O': 'Outcome', 'S': 'Study design', 'T': 'Timeframe'}
 SAME = 'Do TEXT A and TEXT P say exactly the same thing, with the same numbers, names, signs and symbols (ignore spacing, hyphenation and subscript formatting)?'
 
@@ -293,7 +294,7 @@ def rescore_quality(M, mode='standard'):
             r, e = dm.decide(pv, state, a['dm_q']); ans = [y.get('noul') for y in ((r or {}).get('answers') or {}).values() if isinstance(y, dict) and y.get('noul') is not None]; out[pv] = min(ans) if ans else None
         return out
     with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, new))   # first pass: d1.2-ultra and Perplexity; Sonnet 5.5 only where they differ
-    def split(d_): return d_.get('perplexity') is None or d_.get('liquid') is None or ((d_['perplexity'] >= 0.5) != (d_['liquid'] >= 0.5))
+    def split(d_): return QS_MAX or d_.get('perplexity') is None or d_.get('liquid') is None or ((d_['perplexity'] >= 0.5) != (d_['liquid'] >= 0.5))
     called = {a['id'] for a, d_ in zip(new, dres) if split(d_)}
     for a in new:
         if a['id'] in called: reqs.append(L.Req(a['id'], R['quote_check'], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, 'low', 600, images=[a['crop']] if a.get('crop') else []))

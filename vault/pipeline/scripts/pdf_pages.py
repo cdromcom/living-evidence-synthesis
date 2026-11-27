@@ -289,19 +289,52 @@ if __name__ == '__main__':
         for l in links(doc): print(l['pdf_page'], l['uri'])
 
 # ---------------------------------------------------------------- table cells and symbol repair (JP, 2026-11-26)
-def repair_cell_text(text):
-    """Repair symbol problems that some publisher fonts leave in the text layer (found in the table-parser test, 124 table pages; table-parsers/RESULTS.md):
-    en dash stored as the letter e inside an interval (0.37e0.44, 62%e66%) -> en dash; control character U+0004 for the minus sign -> U+2212; U+0003 for the times sign -> x;
-    thorn (U+00FE) for plus -> +; quarter sign (U+00BC) for equals -> =; private-use digits U+F130..U+F139 -> 0..9; soft hyphen removed; ff, fi, fl, ffi, ffl ligature code points expanded;
-    a lone 5 standing for equals in 'A x B 5 C' when A times B equals C -> =. Scientific notation (1e-5, 2.5e3 as a whole value) is left alone."""
-    t = text
-    if not re.match(r'^\s*[-+]?\d+(\.\d+)?e[-+]?\d+\s*$', t): t = re.sub(r'(?<=[\d%)\]])e(?=[\d.])', '\u2013', t) if re.search(r'(\d\.\d+|%|\))e[\d.]', t) else t
+_NUMCH = r'[\d\s.,%\u00b1+\-\u2212\u2013()\[\]/:=<>\u2265\u2264\u00d7]'
+_NUMLIKE = re.compile(r'^' + _NUMCH + r'*(?:\bto\b' + _NUMCH + r'*)*$')   # an otherwise numeric cell: digits, signs, brackets, percent, 'to'
+_SUPCH = '\u00b9\u00b2\u00b3\u2070\u2074\u2075\u2076\u2077\u2078\u2079\u207a\u207b'
+_SUPMAP = str.maketrans(_SUPCH, '1230456789+-')
+
+
+def repair_cell_text_notes(text):
+    """Repair symbol problems that some publisher fonts leave in the text layer (table-parser test, 124 table pages; table-parsers/RESULTS.md). Returns (repaired text, notes); notes may hold
+    'footnotes' (footnote letters removed), 'superscripts' (superscript footnote markers removed) and 'unreadable' (True when unreadable script was marked). Rules:
+    1 en dash stored as the letter e between digits (0.37e0.44, 62%e66%) -> en dash; a whole-cell scientific number (1e-5) is left alone.
+    2 control character U+0004 for the minus sign -> U+2212; U+0003 for the times sign -> x; thorn (U+00FE) for plus -> +; quarter sign (U+00BC) for equals -> =; private-use digits
+      U+F130..U+F139 -> 0..9; soft hyphen removed; ff, fi, fl, ffi, ffl ligature code points expanded.
+    3 a lone 5 standing for equals in 'A x B 5 C' when A times B equals C -> =.
+    4 Khmer-script characters (OCR noise) -> '[unreadable]'; nothing is guessed.
+    5 a vertical bar standing for a tilde before a number ('(|24k)') -> '~'; a bar before letters is left alone.
+    6 power of ten with a superscript exponent ('x10' plus a superscript 2) -> 'x10^2'; a flattened negative power ('10' U+2212 '3', a token with no letters in the cell) -> '10^' U+2212 '3'.
+    7 footnote markers glued to numbers: a letter a to d or a Unicode superscript digit or sign after a number, only when the whole cell is otherwise numeric and the number is a bracket,
+      percent, interval or fraction (a to d) or a decimal (a to c). The marker is removed and returned in notes. Units and words are never touched ('3d', '2b', 'ChatGPT4o', 'cm2' stay)."""
+    t = text; notes = {}
+    if not re.match(r'^\s*[-+]?\d+(\.\d+)?e[-+]?\d+\s*$', t): t = re.sub(r'(?<=[\d%)\]])e(?=[\d.])', '\u2013', t)
     for ch, rep in (('\x04', '\u2212'), ('\x03', ' \u00d7 '), ('\u00fe', '+'), ('\u00bc', '='), ('\u00ad', '')): t = t.replace(ch, rep)
     t = re.sub('[\uf130-\uf139]', lambda m: str(ord(m.group()) - 0xf130), t)
     for lig, rep in (('\ufb00', 'ff'), ('\ufb01', 'fi'), ('\ufb02', 'fl'), ('\ufb03', 'ffi'), ('\ufb04', 'ffl')): t = t.replace(lig, rep)
     m = re.search(r'(\d+)\D*\u00d7\s*(\d+)\D+?\s(5)\s(?:up to\s)?(\d+)', t)
     if m and int(m.group(1)) * int(m.group(2)) == int(m.group(4)): t = t[:m.start(3)] + '=' + t[m.end(3):]
-    return re.sub(r'\s{2,}', ' ', t).strip() if t != text else t
+    if re.search('[\u1780-\u17ff]', t): notes['unreadable'] = True; t = re.sub(r'[\u1780-\u17ff]+(?:\s+[\u1780-\u17ff]+)*', '[unreadable]', t)
+    t = re.sub(r'(?<=[\s(])\|\s?(?=\d)', '~', t)
+    t = re.sub(r'(\u00d7\s?10|(?<![\w.,])10)([' + _SUPCH + r']+)(?![\w])', lambda m: m.group(1) + '^' + m.group(2).translate(_SUPMAP), t)
+    if not re.search('[A-Za-z]', t): t = re.sub(r'(?<![\w.,\^])10\u2212(\d{1,2})(?![\d\w])', '10^\u2212\\1', t)
+    out = []
+    for tok in t.split(' '):
+        m = re.match(r'^(.*[\d)%\]])([a-d\u00aa]|[' + _SUPCH + r'])$', tok)
+        if m and _NUMLIKE.match(m.group(1)) and (re.search(r'[)%\u00b1/]', m.group(1)) and m.group(2) not in 'e' or (re.search(r'\d\.\d', m.group(1)) and m.group(2) in 'abc\u00aa' + _SUPCH)): out.append((m.group(1), m.group(2)))
+        else: out.append((tok, ''))
+    stripped = ' '.join(a for a, _ in out)
+    if any(b for _, b in out) and _NUMLIKE.match(stripped.replace('^', '')):
+        fn = [('a' if b == '\u00aa' else b) for _, b in out if b and b not in _SUPCH]; sp = [b.translate(_SUPMAP) for _, b in out if b and b in _SUPCH]
+        if fn: notes['footnotes'] = fn
+        if sp: notes['superscripts'] = sp
+        t = stripped
+    return (re.sub(r'\s{2,}', ' ', t).strip() if t != text else t), notes
+
+
+def repair_cell_text(text):
+    """Cell text with the symbol repairs of repair_cell_text_notes applied; returns only the text."""
+    return repair_cell_text_notes(text)[0]
 
 
 def table_cells(page):

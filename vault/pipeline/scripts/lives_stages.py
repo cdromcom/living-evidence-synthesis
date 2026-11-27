@@ -18,7 +18,8 @@ dm.load_env(); cl.load_env()
 VAULT = cl.VAULT; R = C.ROLES; CK = C.PIPE['checks']
 AUTHORS = [(a['key'], a['model'], a['effort']) for a in R['authors']]        # who drafts (pipeline/config/models.json, roles)
 VOTERS = [(a['key'], a['model'], a['effort']) for a in R['voters']]          # who decides
-RATERS = [(a['key'], a['model'], a['effort']) for a in R['raters']]          # who rates quality signals: two raters, and a third model decides only the disagreements
+RATERS = [(a['key'], a['model'], a['effort']) for a in R['raters']]          # who rates quality signals: with three raters a rating needs two of three and no adjudicator runs; with two raters a third model decides the disagreements (older runs)
+QS_MAX = bool(C.PIPE.get('quality_signals', {}).get('max_accuracy'))   # JP, 2026-11-27: maximum accuracy for the quality tables
 QS_ADJ = R['qs_adjudicator']
 DM_LOW = CK['dm_low']; DM_SPREAD = CK['dm_spread']; SAMPLE = CK['sample']    # first guesses; calibrate on JP's labels (pipeline/config/pipeline.json)
 MAX_FINDINGS_DRAFT = 99
@@ -509,7 +510,7 @@ def stage_qs(M, mode):
         doc = fitz.open(ex(p['pdf'])); raw = []
         for r in [x[0] for x in RATERS]: raw += read(ck, p, res, r, doc)
         doc.close(); raws[ck] = raw
-        disputes[ck] = [sg for sg in SIGNALS if len({x['rating'] for x in raw if x['signal'] == sg}) > 1 or any(x['rating'] not in allowed[sg] for x in raw if x['signal'] == sg)]   # the two raters differ (or one gave no valid rating)
+        disputes[ck] = [] if len(RATERS) >= 3 else [sg for sg in SIGNALS if len({x['rating'] for x in raw if x['signal'] == sg}) > 1 or any(x['rating'] not in allowed[sg] for x in raw if x['signal'] == sg)]   # the two raters differ (or one gave no valid rating)
     reqs = []; sysa = prompt('adjudicate-signals-v2.md'); st['adjudicator_prompt'] = 'pipeline/prompts/adjudicate-signals-v2.md'
     for ck, sgs in disputes.items():
         if not sgs: continue
@@ -527,7 +528,7 @@ def stage_qs(M, mode):
             votes = [x['rating'] for x in raw if x['signal'] == sg and x['counted'] and x['rating'] in allowed[sg]]; cnt = {}
             for v in votes: cnt[v] = cnt.get(v, 0) + 1
             top = sorted(cnt.items(), key=lambda kv: -kv[1]); maj = top[0][0] if top and (len(top) == 1 or top[0][1] > top[1][1]) and (top[0][1] >= 2) else 'no majority'
-            agg.append({'paper': ck, 'signal': sg, 'votes': cnt, 'majority': maj, 'agreement': 'both raters agree' if sg not in disputes[ck] else ('Sol sided with one rater' if maj != 'no majority' else 'three different ratings'), 'adjudicated': sg in disputes[ck], 'quotes_not_found': sum(1 for x in raw if x['signal'] == sg and x['counted'] and x['quote_found'] is False)})
+            agg.append({'paper': ck, 'signal': sg, 'votes': cnt, 'majority': maj, 'agreement': ((('all raters agree' if len(cnt) == 1 and top[0][1] == len(RATERS) else 'majority of raters' if maj != 'no majority' else 'three different ratings') if len(RATERS) >= 3 else 'both raters agree')) if sg not in disputes[ck] else ('Sol sided with one rater' if maj != 'no majority' else 'three different ratings'), 'adjudicated': sg in disputes[ck], 'quotes_not_found': sum(1 for x in raw if x['signal'] == sg and x['counted'] and x['quote_found'] is False)})
         crops = {}; qd = M.dir / ck / 'qs_crops'; qd.mkdir(exist_ok=True)   # JP, 2026-11-26: every quote gets a highlighted, boxed screenshot of where it sits in the PDF
         for x in raw:
             qt = (x.get('quote_raw') or x.get('quote') or '').strip()   # the PDF's own characters, so the crop finds it

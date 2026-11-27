@@ -351,7 +351,7 @@ flowchart TB
 | Footer | `call_logger.py` | AI-use footer from the call log | none |
 | Review | `vault_to_gsheet.py` | the mirror Google Sheet | JP judges accuracy there |
 | Publish | GitHub PR, `build-graph.mjs`, Vercel | the live LIVES web app | JP approves merges |
-| Quality signals (optional) | Neon (High) and Opus 5.5 rate, Sol adjudicates disagreements; decision models and scripts check; all ratings logged to a benchmark sheet | TRIPOD-LLM and appraisal tables, Statistical Accuracy findings | JP reviews the sheet |
+| Quality signals (optional) | Neon, Opus 5.5 and Sol rate every row (all high effort, two of three decide); decision models and scripts check; all ratings logged to a benchmark sheet | TRIPOD-LLM and appraisal tables, Statistical Accuracy findings | JP reviews the sheet |
 
 ---
 
@@ -364,7 +364,7 @@ flowchart TB
 2. **Run the pipeline in `pipeline/skills/Skill.md`** (Setup, Inputs, Steps 1 to 10). For one to three PDFs at a time (the limit is built in) run `python3 pipeline/scripts/lives_run.py <pdfs> --question "<research question>" --mode standard|batch`: Gemini 4 Neon extracts findings in three tiers (primary answers the question, secondary is meta or contextual, tertiary is other context), PyMuPDF checks every quote, GPT-6.2 Sol and Claude Opus 5.5 recheck flagged findings, and the batch stops under a $5.55 cap with a run manifest. Then build the review sheet with `run_to_gsheet.py` and review it. Nodes are then written by debate (Sonnet 5.5, Sol and Neon draft and critique; Sol and Sonnet vote), crops are checked, and the audits run.
 3. **Fit the new nodes into the graph** (Skill section "Matching, linking, merging and splitting"): EmbeddingGemma 2 proposes, GPT-6.2 Sol and Claude Sonnet 5.5 judge, a person verifies every merge or split. Then run `python3 pipeline/scripts/check_links.py` and `python3 pipeline/scripts/reverse_links.py`.
 4. **Add the AI-use footer** to every page written or changed (Skill Step 4c); log every model call with `pipeline/scripts/call_logger.py`, and commit each prompt in `pipeline/prompts/` before using it.
-5. **Quality signals run after every batch:** Module Q (27 signals rated by Neon (High) and Opus 5.5, Sol adjudicating disagreements, each rating verified against its quote; provenance, links, code and data repositories and statistics checked by scripts; results in the review sheet and in the side panel of the web app). Pangram only on JP's command.
+5. **Quality signals run after every batch:** Module Q (67 rows rated by Neon, Opus 5.5 and Sol at high effort (two of three decide), each rating verified against its quote; provenance, links, code and data repositories and statistics checked by scripts; results in the review sheet and in the side panel of the web app). Pangram only on JP's command.
 6. **Record what you did:** add an entry at the top of `pipeline/logs/History.md` and, for a working session, a section in `pipeline/misc/evd-validation/LOG.md`; save the prompts to `pipeline/misc/prompts/`.
 7. **Cross-paper synthesis** (Review-Arena, MkDocs render, ESS Bases; EvidencePatterns are retired) follows in `pipeline/skills/Skill-synthesis.md`, after a batch. Do **not** auto-fill Review-Arena cells: cell-level synthesis is reserved for humans (governance decision of 2026-05-04, in `History.md`).
 8. **Publish:** run `python3 pipeline/scripts/check_repo_sync.py` against a checkout of the GitHub repository, copy the vault into the repository's `vault/` folder, open a pull request, and merge it after review. The website rebuilds from `vault/`.

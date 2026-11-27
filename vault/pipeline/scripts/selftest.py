@@ -34,7 +34,7 @@ g1 = R.numbers_list_gaps({'statement': 'GPT-4 scored 71.4% on 200 papers; Human 
 check('numbers-list check: a number in the statement with no list entry is found, a label number (Human Rater 1) and a model name digit (GPT-4) are not', g1['missing'] == ['200'] and g1['no_location'] == ['60%'])
 check('numbers-list check: 89% in the statement matches 0.89 in the list', R.numbers_list_gaps({'statement': 'Agreement was 89%.', 'numbers': [{'value': '0.89', 'table_or_figure': 'Table 1'}]}) == {'missing': [], 'no_location': []})
 check('the paper limit is 3 (4 on days JP sets it aside) and the review gate lists unreviewed batches', R.MAX_PAPERS in (3, 4) and isinstance(R.unreviewed_batches(), list))
-check('quality signals: two raters and a third-model adjudicator', len(S.RATERS) == 2 and S.QS_ADJ['model'] not in [m for _, m, _ in S.RATERS] and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
+check('quality signals: three raters from three developers at high effort (maximum accuracy), no adjudicator needed', len(S.RATERS) == 3 and len({m.split('-')[0] for _, m, _ in S.RATERS}) == 3 and all(e == 'high' for _, _, e in S.RATERS) and S.QS_MAX and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
 for n in ('draft-nodes-v4', 'critique-revise-v4', 'evd-rework-v3', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
 ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}
@@ -89,6 +89,7 @@ import tripod_items as TRI
 check('TRIPOD-LLM summary counts partial as half and ignores not-applicable items', TRI.summary({'tripod-1': 'fully', 'tripod-3a': 'partial', 'tripod-4': 'not-applicable', 'tripod-5a': 'not-reported'})['pct'] == 50 and TRI.summary({'tripod-1': 'fully'})['level'] == 'high' and TRI.label('tripod-5c') == 'TRIPOD-LLM 5c: Date range of data')
 import pdf_pages as _pp2
 check('the text-layer symbol repair fixes an interval written with the letter e and leaves scientific notation alone', _pp2.repair_cell_text('0.37e0.44') == '0.37\u20130.44' and _pp2.repair_cell_text('1e-5') == '1e-5' and _pp2.repair_cell_text('a\u00feb') == 'a+b')
+check('the symbol repair removes footnote letters from numeric cells only and keeps units, words and exponents', _pp2.repair_cell_text('62%b') == '62%' and _pp2.repair_cell_text('0.90 (0.88e0.93)a') == '0.90 (0.88\u20130.93)' and _pp2.repair_cell_text('3d') == '3d' and _pp2.repair_cell_text('ChatGPT4o') == 'ChatGPT4o' and _pp2.repair_cell_text('10\u00b3') == '10^3' and _pp2.repair_cell_text('(|24k)') == '(~24k)')
 print('packages')
 for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
     try: print(f'  {pkg} {md.version(pkg)}'); ok += 1

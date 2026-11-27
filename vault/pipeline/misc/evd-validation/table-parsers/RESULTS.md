@@ -35,9 +35,11 @@ Ground truth: findings[].numbers[] in the batch05 and batch07 picost.json files 
 | Parser | Value found | Value found in correct row | Strict subset: value (445) | Strict subset: row (445) |
 |---|---|---|---|---|
 | PyMuPDF find_tables, no repair | 424/463 = 91.6% | 419/456 = 91.9% | 423 = 95.1% | 419 = 94.2% |
-| PyMuPDF find_tables, with repair_cell_text | 430/463 = 92.9% | 425/456 = 93.2% | not recomputed | not recomputed |
+| PyMuPDF find_tables, with repair_cell_text (first version) | 430/463 = 92.9% | 425/456 = 93.2% | not recomputed | not recomputed |
+| PyMuPDF find_tables, with extended repair_cell_text | 431/463 = 93.1% | 426/456 = 93.4% | not recomputed | not recomputed |
 | Marker, no repair | 424/463 = 91.6% | 419/456 = 91.9% | 423 = 95.1% | 419 = 94.2% |
-| Marker, with repair_cell_text | 430/463 = 92.9% | 425/456 = 93.2% | not recomputed | not recomputed |
+| Marker, with repair_cell_text (first version) | 430/463 = 92.9% | 425/456 = 93.2% | not recomputed | not recomputed |
+| Marker, with extended repair_cell_text | 431/463 = 93.1% | 426/456 = 93.4% | not recomputed | not recomputed |
 | MinerU (basic), no repair | 431/463 = 93.1% | 425/456 = 93.2% | 430 = 96.6% | 425 = 95.5% |
 
 The strict subset drops 18 entries whose location is a caption, footnote or header rather than a table cell.
@@ -94,9 +96,9 @@ Limits: the ground truth covers four pilot papers only; the 27-paper evaluation 
 | Parser | rot0 | rot90 | rot270 | img0 (no text layer) | img90 (no text layer) |
 |---|---|---|---|---|---|
 | PyMuPDF, no repair | 424 / 419 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
-| PyMuPDF, with repair | 430 / 425 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| PyMuPDF, with extended repair | 431 / 426 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
 | Marker, no repair | 424 / 419 | 424 / 419 | 424 / 419 | 428 / 414 | 428 / 414 |
-| Marker, with repair | 430 / 425 | 430 / 425 | 430 / 425 | 428 / 414 | 428 / 414 |
+| Marker, with extended repair | 431 / 426 | 431 / 426 | 431 / 426 | 428 / 414 | 428 / 414 |
 | MinerU (basic) | 431 / 425 | 380 / 375 | 397 / 389 | 350 / 338 | 268 / 251 |
 
 What happened:
@@ -149,7 +151,62 @@ Cells changed by repair: PyMuPDF 203 of 8038, Marker 182 of 11090, MinerU 16 of 
 
 Present and not repaired: plus-minus signs are stored correctly as the plus-minus character (251, 287 and 293 cells, no problem); footnote letters glued to numbers such as "0.90 (0.88e0.93)a" (127, 148 and 132 cells; the letter is left in place, and the number reader still finds the value); unicode superscripts such as "(40%, 37%-44%)²" (3 cells, MinerU only); two Marker cells with Khmer letters from OCR ("ដកុត្ត 2/3 313 36", one page); and the mixed use of the hyphen, minus sign U+2212 and en dash as minus or range sign (10 and 13 cells with U+2212). The en dash repair ignores cells that are a single scientific number such as 1e-5 and can in principle change a word like "e1" between digits; none was seen in these data.
 
-Effect on results: Evaluation A with repair, PyMuPDF and Marker 430 of 463 (92.9 percent) values and 425 of 456 rows, up from 424 and 419; Evaluation B numeric cells PyMuPDF 2750 to 2769 and Marker 4240 to 4243; Jaccard PyMuPDF with Marker 0.797 (was 0.785), PyMuPDF with MinerU 0.817 (was 0.825).
+Effect on results: Evaluation A with the first repair, PyMuPDF and Marker 430 of 463 (92.9 percent) values and 425 of 456 rows, up from 424 and 419; with the extended repair 431 (93.1 percent) and 426, the same value count as MinerU (431, 425 rows).
+
+### Extended repair (second round)
+
+repair_cell_text (and its new companion repair_cell_text_notes, which also returns the removed footnote markers) now also handles: footnote letters a to d (and U+00AA) glued to a number inside an otherwise numeric cell; Unicode superscript digits and signs after a number used as footnote markers; true powers of ten (a superscript exponent after a times sign or on a bare 10, and the flattened "10" plus minus plus digits of Darcy Tables 6 to 8, written 10^-3); a vertical bar standing for a tilde before a number (Woelfle Table 1); and Khmer-script OCR noise in Marker output, marked as [unreadable] without guessing. The footnote rule never touches units or words: "3d" (days), "2b", "ChatGPT4o", "5 cm2", "(95% CI)a", star and dagger signs stay as they are. The code lives in tablelib.py and is the source of the block that goes into pipeline/scripts/pdf_pages.py (see the note on that file below).
+
+Counts on the 124 pages (symbol_report.py, repair_audit.py; PyMuPDF / Marker / MinerU with the repair applied to all three for the audit):
+
+| Item | Before extension (cells) | After extension (cells) |
+|---|---|---|
+| Cells changed by repair | 203 / 182 / 16 | 232 / 216 / 72 |
+| Footnote letters glued to numeric cells | 127 / 148 / 132 counted, none removed | removed in 62 / 62 / 53 cells (letters a 28, b 28, c 6); the rest (65 / 86 / 84 cells) are row labels such as "1a", "2b" and names such as "ChatGPT4o", left in place on purpose |
+| Unicode superscript footnote markers | 0 / 0 / 3, none removed | 3 cells (MinerU) removed, marker recorded |
+| Vertical bar for tilde (Woelfle Table 1) | 10 / 10 / 0 unrepaired | 10 / 10 / 0 repaired |
+| Flattened power of ten (Darcy) | 10 / 13 / 7 unrepaired | 10 / 13 / 0 repaired (MinerU writes a hyphen, left alone) |
+| Khmer-script cells (Marker) | 0 / 2 / 0 unrepaired | 2 marked as [unreadable] |
+| Evaluation A values found, PyMuPDF and Marker | 430 (92.9%) | 431 (93.1%) |
+| Evaluation A rows found | 425 | 426 |
+| Evaluation B numeric cells, PyMuPDF / Marker | 2769 / 4243 | 2769 / 4244 |
+
+Misfire check (repair_audit.py): every cell on the 124 pages was compared with and without the repair; 232, 216 and 72 cells changed. I read the first four examples of each rule and the list of cells whose number tokens changed. All changes are the intended ones: 148 intervals (Woelfle), 62 footnote letters (Woelfle), 10 tildes (Woelfle Table 1), 23 powers of ten (Darcy), 16 private-use digits (Huntington-Klein), 6 and 27 times and equals cells (Woelfle), 4 minus signs, 2 and 3 thorn cells, 27 soft hyphens, 2 Khmer cells. No rule fired on a cell that was not a symbol problem. What can differ from a reader's expectation: a power of ten is written 10^-3 and the number reader splits it into the tokens 10 and -3 (it does not evaluate it), and a cell such as "0.90 (0.88-0.93)a" loses the letter a from the cell text (the letter is returned in the notes by repair_cell_text_notes, but table_cells and evaluate.py use only the text).
+
+Limits: the audit has only these papers; Khmer is the only script treated as unreadable; a bar before a digit inside a cell is assumed to be a tilde (checked only against Woelfle Table 1, where MinerU reads the same character as a tilde); decimal-only cells such as "37.5d" and "3d" are never stripped, so a real footnote letter on a bare decimal is kept only when the letter is a, b or c.
+
+Unit tests: tablelib_tests.py (43 offline checks, python3 tablelib_tests.py; 0 mismatches). selftest additions are listed below.
+
+### Missed values
+
+See missed-values.md and missed-values.html: of the 33 values PyMuPDF (first repair) missed, 17 are caption or footnote text, 10 are part of row or header labels, 5 are present in a mixed text cell that my scorer rejects, and 1 was a symbol problem that the extended repair fixed. None was a table PyMuPDF did not detect.
+
+### Note on pdf_pages.py
+
+The permission system declined my attempt to edit pipeline/scripts/pdf_pages.py, so the vault copy still holds the first version of repair_cell_text. The new block is ready as vault_repair_block.py; python3 apply_vault_repair.py (default target: the vault copy, or pass a path) replaces the old function in place and is safe to run twice. I tested it on a copy in scratch/. tablelib_tests.py compares the two blocks once the vault file has them.
+
+### selftest additions
+
+Paste into pipeline/scripts/selftest.py after the existing pdf_pages checks (they use the same check(name, condition) helper and the imported module _pp):
+
+```
+r = _pp.repair_cell_text
+check('repair: en dash stored as e', r('0.37 (0.30e0.44)') == '0.37 (0.30\u20130.44)')
+check('repair: scientific number kept', r('1e-5') == '1e-5')
+check('repair: U+0004 is a minus', r('0.01 (\x040.08 to 0.08)') == '0.01 (\u22120.08 to 0.08)')
+check('repair: U+0003 is a times sign', r('27 items \x03 112 publications') == '27 items \u00d7 112 publications')
+check('repair: thorn is plus', r('Title\u00feabstract') == 'Title+abstract')
+check('repair: private-use digits', r('\uf135\uf139.\uf139 %') == '59.9 %')
+check('repair: five for equals only when the arithmetic holds', '= up to 3024' in r('27 items \x03 112 publications 5 up to 3024 ratings') and ' 5 up to 3000' in r('27 items \x03 112 publications 5 up to 3000 ratings'))
+check('repair: footnote letter after interval removed', r('0.90 (0.88\u20130.93)a') == '0.90 (0.88\u20130.93)' and r('62%b') == '62%' and r('3.1c') == '3.1')
+check('repair: footnote letter returned in notes', _pp.repair_cell_text_notes('0.90 (0.88\u20130.93)a')[1] == {'footnotes': ['a']})
+check('repair: units and words are kept', all(r(x) == x for x in ['3d', '37.5d', '2b', 'ChatGPT4o', '(95% CI)a', '5 cm\u00b2']))
+check('repair: superscript footnote removed, exponent kept', r('40% (37%)\u00b2') == '40% (37%)' and r('2 \u00d710\u00b2') == '2 \u00d710^2')
+check('repair: flattened power of ten', r('10\u22123') == '10^\u22123' and r('10\u221212 years') == '10\u221212 years')
+check('repair: bar before a number is a tilde, word bars kept', r('200k (|150k)') == '200k (~150k)' and r('2. |diff| \u2193') == '2. |diff| \u2193')
+check('repair: Khmer script marked unreadable', r('\u178a\u1780 2/3') == '[unreadable] 2/3')
+check('repair: plain cell unchanged', r('2.95 \u00b1 1.19') == '2.95 \u00b1 1.19' and r('') == '')
+```
 
 ## Files
 
@@ -159,6 +216,7 @@ Effect on results: Evaluation A with repair, PyMuPDF and Marker 430 of 463 (92.9
 - eval_A.json, eval_summary.json, eval_B_pages.tsv are the no-repair run; eval_*_norepair.* and eval_*_repair.* are both runs side by side
 - scan_rotated.py, rotated_scan.json; rotation_build.py, run_rotation.sh, score_rotation.py, rotation_results.json (copies in scratch/rot)
 - run_supp.py, run_supp.sh, score_supp.py, supp_results.json, results_supp/
+- analyze_missed.py, build_missed_report.py, missed_values.json, missed-values.md, missed-values.html, missed-values-images/ (local only); tablelib_tests.py, repair_audit.py, repair_audit.json, vault_repair_block.py, apply_vault_repair.py, symbol_report_before_extension.json
 - build_review.py, build_review_extra.py, review_index.tsv, review.html, review/ (PNG at 110 dpi and text grids per parser)
 
 ## Rerun
@@ -183,4 +241,9 @@ nohup ./run_supp.sh > scratch/supp.log 2>&1 &
 $PY score_supp.py
 # review page
 $PY build_review.py; $PY build_review_extra.py
+# missed values and the extended repair
+$PY tablelib_tests.py
+$PY repair_audit.py; $PY symbol_report.py
+$PY analyze_missed.py; $PY build_missed_report.py
+python3 apply_vault_repair.py    # puts the repair block into pipeline/scripts/pdf_pages.py (not yet applied)
 ```
