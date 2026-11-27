@@ -23,7 +23,7 @@ title: Sarol et al. excluded citation cases where evidence appeared in tables fi
 
 ## Source
 
-[[source/@sarolAssessingCitationIntegrity2024]]
+[[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
 
 ### Limitation
 

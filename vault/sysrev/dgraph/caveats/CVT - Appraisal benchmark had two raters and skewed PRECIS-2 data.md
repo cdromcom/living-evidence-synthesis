@@ -24,7 +24,7 @@ title: Evidence appraisal benchmark used only two human raters and datasets skew
 
 ## Source
 
-[[source/@woelfleBenchmarkingHumanAICollaboration2024]]
+[[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Limitation
 

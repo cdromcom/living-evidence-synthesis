@@ -13,7 +13,7 @@ title: "Can NLP models automatically identify citation integrity errors in biome
 ### Key Papers Asking Question
 
 > [!info] Papers
-> [[source/@sarolAssessingCitationIntegrity2024]]
+> [[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
 
 ### Snippet: Quote(s) & Screenshots
 

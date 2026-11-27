@@ -24,7 +24,7 @@ title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52
 
 ## Source
 
-[[source/@sarolAssessingCitationIntegrity2024]]
+[[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
 
 ## Description
 
@@ -75,7 +75,7 @@ title: "Best NLP model MultiVerS top-20 achieved micro-F1 0.59 and macro-F1 0.52
 - Differences across MultiVerS retrieval conditions were not statistically significant from the title+abstract baseline. Difference between best MultiVerS (top-20) and GPT-4 was significant (McNemar p≤.05).
 - Oracle conditions show the ceiling: gold context + gold evidence reached 0.75/0.78 (micro/macro-F1), illustrating how much further evidence-retrieval improvements could plausibly push the supervised pipeline.
 
-> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
+> [!info] TRIPOD-LLM item 17 (Performance), EVD-specific. For Methods (5a–15) and Results (16a, 16b, 16c, 16d, 18) compliance, see [[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024#TRIPOD-LLM reporting]].
 
 | Condition | Micro-F1 | Macro-F1 | ACC F1 | N_ACC F1 | IRR F1 |
 | --- | :---: | :---: | :---: | :---: | :---: |

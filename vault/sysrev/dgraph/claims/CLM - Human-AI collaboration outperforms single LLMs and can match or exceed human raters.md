@@ -16,7 +16,7 @@ title: "Human-AI collaboration outperforms individual LLMs and can match or exce
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[source/@woelfleBenchmarkingHumanAICollaboration2024]]
+> [[sysrev/dgraph/source/@woelfleBenchmarkingHumanAICollaboration2024]]
 
 ### Snippet: Quote(s) & Screenshots
 

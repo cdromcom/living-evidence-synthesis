@@ -16,7 +16,7 @@ title: "Citation quotation errors are subtle and currently challenging for NLP m
 ### Key Papers Making This Claim
 
 > [!info] Papers
-> [[source/@sarolAssessingCitationIntegrity2024]]
+> [[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
 
 ### Snippet: Quote(s) & Screenshots
 

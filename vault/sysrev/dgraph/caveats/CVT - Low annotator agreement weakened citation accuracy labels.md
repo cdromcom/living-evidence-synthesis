@@ -23,7 +23,7 @@ title: Low inter-annotator agreement on citation accuracy labels limited quality
 
 ## Source
 
-[[source/@sarolAssessingCitationIntegrity2024]]
+[[sysrev/dgraph/source/@sarolAssessingCitationIntegrity2024]]
 
 ### Limitation
 
