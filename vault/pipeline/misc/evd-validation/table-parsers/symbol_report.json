@@ -1,14 +1,17 @@
 {
  "pymupdf": {
   "cells": 8038,
-  "cells_changed_by_repair": 203,
+  "cells_changed_by_repair": 232,
   "rule_counts": {
    "x03_for_times": 6,
    "five_for_equals": 6,
    "e_for_en_dash": 148,
+   "footnote_letter": 62,
    "soft_hyphen": 27,
    "private_use_digits": 16,
    "thorn_for_plus": 2,
+   "bar_for_tilde": 10,
+   "flattened_power_of_ten": 10,
    "x04_for_minus": 4
   },
   "examples": [
@@ -50,6 +53,15 @@
    "soft_hyphen": 27,
    "unicode_minus_U+2212": 10
   },
+  "present_after_repair": {
+   "plus_minus_sign": 251,
+   "en_dash_U+2013": 165,
+   "footnote_letter_glued_to_number": 65,
+   "unicode_minus_U+2212": 14
+  },
+  "notes": {
+   "footnotes": 62
+  },
   "not_repaired_examples": {
    "plus_minus_sign": "2.95 ± 1.19",
    "footnote_letter_glued_to_number": "0.90 (0.88e0.93)a",
@@ -60,12 +72,16 @@
  },
  "marker": {
   "cells": 11090,
-  "cells_changed_by_repair": 182,
+  "cells_changed_by_repair": 216,
   "rule_counts": {
    "x03_for_times": 27,
    "five_for_equals": 27,
    "e_for_en_dash": 148,
+   "footnote_letter": 62,
    "thorn_for_plus": 3,
+   "bar_for_tilde": 10,
+   "unreadable_script": 2,
+   "flattened_power_of_ten": 13,
    "x04_for_minus": 4
   },
   "examples": [
@@ -107,6 +123,16 @@
    "khmer_or_other_script_garbage": 2,
    "unicode_minus_U+2212": 13
   },
+  "present_after_repair": {
+   "plus_minus_sign": 287,
+   "en_dash_U+2013": 168,
+   "footnote_letter_glued_to_number": 86,
+   "unicode_minus_U+2212": 17
+  },
+  "notes": {
+   "footnotes": 62,
+   "unreadable": 2
+  },
   "not_repaired_examples": {
    "plus_minus_sign": "2.95 ± 1.19",
    "footnote_letter_glued_to_number": "0.90 (0.88e0.93)a",
@@ -117,40 +143,42 @@
  },
  "mineru": {
   "cells": 9737,
-  "cells_changed_by_repair": 16,
+  "cells_changed_by_repair": 72,
   "rule_counts": {
+   "footnote_letter": 53,
+   "superscript_footnote": 3,
    "private_use_digits": 16
   },
   "examples": [
    [
-    "@huntington-kleinLLMsActRe",
-    ".%",
-    "59.9%"
+    "@woelfleBenchmarkingHumanA",
+    "0.90 (0.88–0.93)a",
+    "0.90 (0.88–0.93)"
    ],
    [
-    "@huntington-kleinLLMsActRe",
-    ".%",
-    "71.9%"
+    "@woelfleBenchmarkingHumanA",
+    "1878/1989 (94%, 93%–96%)ª",
+    "1878/1989 (94%, 93%–96%)"
    ],
    [
-    "@huntington-kleinLLMsActRe",
-    ".%",
-    "58.7%"
+    "@woelfleBenchmarkingHumanA",
+    "954/2943 (32%, 30%–34%)a",
+    "954/2943 (32%, 30%–34%)"
    ],
    [
-    "@huntington-kleinLLMsActRe",
-    ".%",
-    "89.5%"
+    "@woelfleBenchmarkingHumanA",
+    "0.81 (0.78-0.83)a",
+    "0.81 (0.78-0.83)"
    ],
    [
-    "@huntington-kleinLLMsActRe",
-    ".%",
-    "81.9%"
+    "@woelfleBenchmarkingHumanA",
+    "1955/2194 (89%, 87%-91%)ª",
+    "1955/2194 (89%, 87%-91%)"
    ],
    [
-    "@huntington-kleinLLMsActRe",
-    ".%",
-    "93.6%"
+    "@woelfleBenchmarkingHumanA",
+    "749/2943 (25%, 23%-28%)a",
+    "749/2943 (25%, 23%-28%)"
    ]
   ],
   "present_not_repaired": {
@@ -158,6 +186,15 @@
    "en_dash_U+2013": 113,
    "footnote_letter_glued_to_number": 132,
    "unicode_superscript": 3
+  },
+  "present_after_repair": {
+   "plus_minus_sign": 293,
+   "en_dash_U+2013": 113,
+   "footnote_letter_glued_to_number": 84
+  },
+  "notes": {
+   "footnotes": 53,
+   "superscripts": 3
   },
   "not_repaired_examples": {
    "plus_minus_sign": "2.95 ± 1.19",

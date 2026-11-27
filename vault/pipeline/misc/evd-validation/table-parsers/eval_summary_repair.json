@@ -2,23 +2,23 @@
  "A": {
   "pymupdf": {
    "n": 463,
-   "val": 430,
+   "val": 431,
    "nrow": 456,
-   "row": 425,
+   "row": 426,
    "strict_n": 445,
-   "strict_val": 429,
+   "strict_val": 430,
    "strict_nrow": 445,
-   "strict_row": 425
+   "strict_row": 426
   },
   "marker": {
    "n": 463,
-   "val": 430,
+   "val": 431,
    "nrow": 456,
-   "row": 425,
+   "row": 426,
    "strict_n": 445,
-   "strict_val": 429,
+   "strict_val": 430,
    "strict_nrow": 445,
-   "strict_row": 425
+   "strict_row": 426
   },
   "mineru": {
    "n": 463,
@@ -87,15 +87,15 @@
    },
    "Woelfle-et-a|pymupdf": {
     "n": 118,
-    "val": 103,
+    "val": 104,
     "nrow": 118,
-    "row": 99
+    "row": 100
    },
    "Woelfle-et-a|marker": {
     "n": 118,
-    "val": 103,
+    "val": 104,
     "nrow": 118,
-    "row": 99
+    "row": 100
    },
    "Woelfle-et-a|mineru": {
     "n": 118,
@@ -112,7 +112,7 @@
    "cells_nonempty": 6029,
    "numeric_cells": 2769,
    "pages_zero_tables": 21,
-   "mean_cover": 0.65,
+   "mean_cover": 0.647,
    "sec_per_page_mean": 0.275,
    "sec_per_page_median": 0.231,
    "errors": 0
@@ -121,9 +121,9 @@
    "pages_with_table_caption": 124,
    "tables": 164,
    "cells_nonempty": 9153,
-   "numeric_cells": 4243,
+   "numeric_cells": 4244,
    "pages_zero_tables": 17,
-   "mean_cover": 0.723,
+   "mean_cover": 0.722,
    "sec_per_page_mean": 0.315,
    "sec_per_page_median": 0.26,
    "errors": 0
@@ -139,8 +139,8 @@
    "sec_per_page_median": 1.315,
    "errors": 0
   },
-  "jac_pymupdf_marker": 0.797,
-  "jac_pymupdf_mineru": 0.817,
-  "jac_marker_mineru": 0.795
+  "jac_pymupdf_marker": 0.796,
+  "jac_pymupdf_mineru": 0.815,
+  "jac_marker_mineru": 0.794
  }
 }

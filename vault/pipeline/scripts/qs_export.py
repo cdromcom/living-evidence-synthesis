@@ -70,7 +70,7 @@ def summary_sentence(final, rows, agg, checks):
     by = {r['rater']: r['rating'] for r in rows if r.get('rating') and not str(r['rating']).startswith(('invalid', 'no answer'))}; counted = [r for r in ('neon', 'opus') if r in by]
     if not by: s = 'No rater gave a valid rating.'
     elif final == 'no majority': s = f"The raters gave different ratings ({', '.join(f'{SHORT[r]} {v}' for r, v in by.items())}), so this needs your judgment."
-    elif len(set(by[r] for r in counted)) == 1 and len(counted) == 2: s = f"Neon and Opus both rate this {final}."
+    elif len(set(by.values())) == 1 and len(by) >= 2: s = (f"{' and '.join(SHORT[r] for r in by)} both rate this {final}." if len(by) == 2 else f"All three raters (Neon, Opus, Sol) rate this {final}.")
     else:
         agree = [SHORT[r] for r, v in by.items() if v == final]; other = [f"{SHORT[r]} rated it {v}" for r, v in by.items() if v != final]
         s = f"{' and '.join(agree)} rate this {final}" + (f"; {', '.join(other)}." if other else '.')
@@ -102,14 +102,14 @@ def export_paper(M, ck, log=print):
             if v:
                 for k in VERIFIERS:
                     sc = v['scores'].get(k)
-                    if sc is not None and r['rater'] in ('neon', 'opus'): verdicts[k].append((sc, (v['reasons'].get('sonnet') if k == 'sonnet' else '')))
+                    if sc is not None and r['rater'] in ('neon', 'opus', 'sol'): verdicts[k].append((sc, (v['reasons'].get('sonnet') if k == 'sonnet' else '')))
             ratings.append({'rater': NAMES.get(r['rater'], r['rater']), 'rating': r['rating'], 'quote': '' if qt.lower() == 'none' else qt, 'locator': r.get('locator', ''), 'pdf_page': r.get('pdf_page'), 'printed_page': None,
-                            'quote_found': r.get('quote_found'), 'screenshot': shot, 'counted': bool(r.get('counted', True)) and r['rater'] in ('neon', 'opus')})
+                            'quote_found': r.get('quote_found'), 'screenshot': shot, 'counted': bool(r.get('counted', True)) and r['rater'] in ('neon', 'opus', 'sol')})
         a = aggs.get(sg, {}); final = a.get('majority', 'no majority')
         checks = [{'verifier': VERIFIERS[k], 'score': round(sum(s for s, _ in v) / len(v), 2), 'note': next((n for s, n in v if n and s < 0.75), '')} for k, v in verdicts.items() if v]
         tag = SR.SIGNAL_TAGS.get(sg); vv = vtags.get(tag) if tag else None
         if sg.startswith('tripod-'): vv = vtrip.get(sg)   # the old curated TRIPOD-LLM table on the source page
-        signals[sg] = {'id': sg, 'label': SR.label_for(sg), 'final': final, 'agreement': 'agree' if a.get('agreement') == 'both raters agree' else ('no-majority' if final == 'no majority' else 'majority'),
+        signals[sg] = {'id': sg, 'label': SR.label_for(sg), 'final': final, 'agreement': 'agree' if a.get('agreement') in ('both raters agree', 'all raters agree') else ('no-majority' if final == 'no majority' else 'majority'),
                        'summary': summary_sentence(final, rows, a, checks), 'ratings': ratings, 'checks': checks, 'tool_checks': SR.TOOL_CHECKS.get(sg, []), 'vault_value': vv, 'matches_vault': (None if vv is None else vv == final)}
     prov = {i['id']: i for i in entry.get('provenance', [])}
     for sg, tag in SR.TOOL_SIGNAL_TAGS.items():

@@ -1,0 +1,708 @@
+{
+ "pymupdf": {
+  "cells": 8038,
+  "changed": 232,
+  "rule_cells": {
+   "flattened_power_of_ten": 10,
+   "private_use_digits": 16,
+   "soft_hyphen": 27,
+   "thorn_for_plus": 2,
+   "bar_for_tilde": 10,
+   "five_for_equals": 6,
+   "x03_for_times": 6,
+   "e_for_en_dash": 148,
+   "footnote_letter": 62,
+   "x04_for_minus": 4
+  },
+  "notes": {
+   "footnotes": 62
+  },
+  "examples": {
+   "flattened_power_of_ten": [
+    [
+     "-0.37 0.51 -0.31 0.45 0.55 0.36 0.86 0.06 5.42 10−15 -2.03 1",
+     "-0.37 0.51 -0.31 0.45 0.55 0.36 0.86 0.06 5.42 10^−15 -2.03 "
+    ],
+    [
+     "-0.96 0.04 0.02 0.95 -0.21 0.70 0.92 10−2 -2.74 10−6 0.40 0.",
+     "-0.96 0.04 0.02 0.95 -0.21 0.70 0.92 10^−2 -2.74 10^−6 0.40 "
+    ],
+    [
+     "-1.92 10−2 0.34 0.48 -0.56 0.49 -2.34 10−5 -17.99 — 2.13 10−",
+     "-1.92 10^−2 0.34 0.48 -0.56 0.49 -2.34 10^−5 -17.99 — 2.13 1"
+    ],
+    [
+     "10−3",
+     "10^−3"
+    ]
+   ],
+   "private_use_digits": [
+    [
+     ". %",
+     "59.9 %"
+    ],
+    [
+     ". %",
+     "71.9 %"
+    ],
+    [
+     ". %",
+     "58.7 %"
+    ],
+    [
+     ". %",
+     "89.5 %"
+    ]
+   ],
+   "soft_hyphen": [
+    [
+     "Table 1 Error analysis of ChatGPT CONSORT-­A OCS subscores",
+     "Table 1 Error analysis of ChatGPT CONSORT-A OCS subscores"
+    ],
+    [
+     "CONSORT-­A domains",
+     "CONSORT-A domains"
+    ],
+    [
+     "*Welch’s two-­sample t-­test. CONSORT-A­, Consolidated Stand",
+     "*Welch’s two-sample t-test. CONSORT-A, Consolidated Standard"
+    ],
+    [
+     "Case study 1: Efficacy of ► Randomised controlled trial in a",
+     "Case study 1: Efficacy of ► Randomised controlled trial in a"
+    ]
+   ],
+   "thorn_for_plus": [
+    [
+     "MultiVerS models Titleþabstract",
+     "MultiVerS models Title+abstract"
+    ],
+    [
+     "Top 20 sentences þ annotated evidence Oracle (gold citation ",
+     "Top 20 sentences + annotated evidence Oracle (gold citation "
+    ]
+   ],
+   "bar_for_tilde": [
+    [
+     "200k (|150k)",
+     "200k (~150k)"
+    ],
+    [
+     "$ 0.40 (0.14-0.78) |1-2 mins",
+     "$ 0.40 (0.14-0.78) ~1-2 mins"
+    ],
+    [
+     "100k (|75k)",
+     "100k (~75k)"
+    ],
+    [
+     "$ 0.19 (0.09-0.81) |1 minute",
+     "$ 0.19 (0.09-0.81) ~1 minute"
+    ]
+   ],
+   "five_for_equals": [
+    [
+     "PRISMA (27 items \u0003 112 publications 5 up to 3024 ratings)",
+     "PRISMA (27 items × 112 publications = up to 3024 ratings)"
+    ],
+    [
+     "AMSTAR (11 items \u0003 112 publications 5 up to 1232 ratings)",
+     "AMSTAR (11 items × 112 publications = up to 1232 ratings)"
+    ],
+    [
+     "PRECIS-2 (9 items \u0003 56 publications 5 up to 504 ratings)",
+     "PRECIS-2 (9 items × 56 publications = up to 504 ratings)"
+    ]
+   ],
+   "x03_for_times": [
+    [
+     "PRISMA (27 items \u0003 112 publications 5 up to 3024 ratings)",
+     "PRISMA (27 items × 112 publications = up to 3024 ratings)"
+    ],
+    [
+     "AMSTAR (11 items \u0003 112 publications 5 up to 1232 ratings)",
+     "AMSTAR (11 items × 112 publications = up to 1232 ratings)"
+    ],
+    [
+     "PRECIS-2 (9 items \u0003 56 publications 5 up to 504 ratings)",
+     "PRECIS-2 (9 items × 56 publications = up to 504 ratings)"
+    ]
+   ],
+   "e_for_en_dash": [
+    [
+     "0.81 (0.78e0.83)",
+     "0.81 (0.78–0.83)"
+    ],
+    [
+     "2686/3024 (89%, 87%e90%)",
+     "2686/3024 (89%, 87%–90%)"
+    ],
+    [
+     "0.84 (0.80e0.88)a",
+     "0.84 (0.80–0.88)"
+    ],
+    [
+     "2384/2619 (91%, 89%e93%)a",
+     "2384/2619 (91%, 89%–93%)"
+    ]
+   ],
+   "footnote_letter": [
+    [
+     "0.84 (0.80e0.88)a",
+     "0.84 (0.80–0.88)"
+    ],
+    [
+     "2384/2619 (91%, 89%e93%)a",
+     "2384/2619 (91%, 89%–93%)"
+    ],
+    [
+     "0.51 (0.47e0.55)b",
+     "0.51 (0.47–0.55)"
+    ],
+    [
+     "2073/2943 (70%, 68%e72%)b",
+     "2073/2943 (70%, 68%–72%)"
+    ]
+   ],
+   "x04_for_minus": [
+    [
+     "0.01 (\u00040.08 to 0.08)",
+     "0.01 (−0.08 to 0.08)"
+    ],
+    [
+     "0.02 (\u00040.04 to 0.08)",
+     "0.02 (−0.04 to 0.08)"
+    ],
+    [
+     "0.04 (\u00040.05 to 0.12)b",
+     "0.04 (−0.05 to 0.12)"
+    ],
+    [
+     "0.05 (\u00040.03 to 0.13)",
+     "0.05 (−0.03 to 0.13)"
+    ]
+   ]
+  },
+  "cells_whose_number_tokens_changed": 184,
+  "number_change_samples": [
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "-0.37 0.51 -0.31 0.45 0.55 0.36 0.86 0.06 5.42 10−15 -2.03 10−5",
+    "after": "-0.37 0.51 -0.31 0.45 0.55 0.36 0.86 0.06 5.42 10^−15 -2.03 10^−5"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "-0.96 0.04 0.02 0.95 -0.21 0.70 0.92 10−2 -2.74 10−6 0.40 0.25",
+    "after": "-0.96 0.04 0.02 0.95 -0.21 0.70 0.92 10^−2 -2.74 10^−6 0.40 0.25"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "-1.92 10−2 0.34 0.48 -0.56 0.49 -2.34 10−5 -17.99 — 2.13 10−4",
+    "after": "-1.92 10^−2 0.34 0.48 -0.56 0.49 -2.34 10^−5 -17.99 — 2.13 10^−4"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−3",
+    "after": "10^−3"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−21",
+    "after": "10^−21"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−7",
+    "after": "10^−7"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−2",
+    "after": "10^−2"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−4",
+    "after": "10^−4"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−2",
+    "after": "10^−2"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−3",
+    "after": "10^−3"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ". %",
+    "after": "59.9 %"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ". %",
+    "after": "71.9 %"
+   }
+  ]
+ },
+ "marker": {
+  "cells": 11090,
+  "changed": 216,
+  "rule_cells": {
+   "flattened_power_of_ten": 13,
+   "thorn_for_plus": 3,
+   "bar_for_tilde": 10,
+   "unreadable_script": 2,
+   "five_for_equals": 27,
+   "x03_for_times": 27,
+   "e_for_en_dash": 148,
+   "footnote_letter": 62,
+   "x04_for_minus": 4
+  },
+  "notes": {
+   "unreadable": 2,
+   "footnotes": 62
+  },
+  "examples": {
+   "flattened_power_of_ten": [
+    [
+     "10−3",
+     "10^−3"
+    ],
+    [
+     "10−21",
+     "10^−21"
+    ],
+    [
+     "10−7",
+     "10^−7"
+    ],
+    [
+     "0.51 10−2",
+     "0.51 10^−2"
+    ]
+   ],
+   "thorn_for_plus": [
+    [
+     "Titleþabstract",
+     "Title+abstract"
+    ],
+    [
+     "Top 20 sentences þ",
+     "Top 20 sentences +"
+    ],
+    [
+     "Oracle (gold citation þ",
+     "Oracle (gold citation +"
+    ]
+   ],
+   "bar_for_tilde": [
+    [
+     "200k (|150k)",
+     "200k (~150k)"
+    ],
+    [
+     "$ 0.40 (0.14-0.78) |1-2 mins",
+     "$ 0.40 (0.14-0.78) ~1-2 mins"
+    ],
+    [
+     "100k (|75k)",
+     "100k (~75k)"
+    ],
+    [
+     "$ 0.19 (0.09-0.81) |1 minute",
+     "$ 0.19 (0.09-0.81) ~1 minute"
+    ]
+   ],
+   "unreadable_script": [
+    [
+     "ដកុត្ត 2/3 313 36",
+     "[unreadable] 2/3 313 36"
+    ]
+   ],
+   "five_for_equals": [
+    [
+     "PRISMA (27 items \u0003 112 publications 5 up to 3024 ratings)",
+     "PRISMA (27 items × 112 publications = up to 3024 ratings)"
+    ],
+    [
+     "AMSTAR (11 items \u0003 112 publications 5 up to 1232 ratings)",
+     "AMSTAR (11 items × 112 publications = up to 1232 ratings)"
+    ],
+    [
+     "PRECIS-2 (9 items \u0003 56 publications 5 up to 504 ratings)",
+     "PRECIS-2 (9 items × 56 publications = up to 504 ratings)"
+    ]
+   ],
+   "x03_for_times": [
+    [
+     "PRISMA (27 items \u0003 112 publications 5 up to 3024 ratings)",
+     "PRISMA (27 items × 112 publications = up to 3024 ratings)"
+    ],
+    [
+     "AMSTAR (11 items \u0003 112 publications 5 up to 1232 ratings)",
+     "AMSTAR (11 items × 112 publications = up to 1232 ratings)"
+    ],
+    [
+     "PRECIS-2 (9 items \u0003 56 publications 5 up to 504 ratings)",
+     "PRECIS-2 (9 items × 56 publications = up to 504 ratings)"
+    ]
+   ],
+   "e_for_en_dash": [
+    [
+     "0.81 (0.78e0.83)",
+     "0.81 (0.78–0.83)"
+    ],
+    [
+     "2686/3024 (89%, 87%e90%)",
+     "2686/3024 (89%, 87%–90%)"
+    ],
+    [
+     "0.84 (0.80e0.88)a",
+     "0.84 (0.80–0.88)"
+    ],
+    [
+     "2384/2619 (91%, 89%e93%)a",
+     "2384/2619 (91%, 89%–93%)"
+    ]
+   ],
+   "footnote_letter": [
+    [
+     "0.84 (0.80e0.88)a",
+     "0.84 (0.80–0.88)"
+    ],
+    [
+     "2384/2619 (91%, 89%e93%)a",
+     "2384/2619 (91%, 89%–93%)"
+    ],
+    [
+     "0.51 (0.47e0.55)b",
+     "0.51 (0.47–0.55)"
+    ],
+    [
+     "2073/2943 (70%, 68%e72%)b",
+     "2073/2943 (70%, 68%–72%)"
+    ]
+   ],
+   "x04_for_minus": [
+    [
+     "0.01 (\u00040.08 to 0.08)",
+     "0.01 (−0.08 to 0.08)"
+    ],
+    [
+     "0.02 (\u00040.04 to 0.08)",
+     "0.02 (−0.04 to 0.08)"
+    ],
+    [
+     "0.04 (\u00040.05 to 0.12)b",
+     "0.04 (−0.05 to 0.12)"
+    ],
+    [
+     "0.05 (\u00040.03 to 0.13)",
+     "0.05 (−0.03 to 0.13)"
+    ]
+   ]
+  },
+  "cells_whose_number_tokens_changed": 192,
+  "number_change_samples": [
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−3",
+    "after": "10^−3"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−21",
+    "after": "10^−21"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−7",
+    "after": "10^−7"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "0.51 10−2",
+    "after": "0.51 10^−2"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "0.06 10−2 10−5",
+    "after": "0.06 10^−2 10^−5"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−15",
+    "after": "10^−15"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−6",
+    "after": "10^−6"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−5",
+    "after": "10^−5"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−4",
+    "after": "10^−4"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "0.34 10−2",
+    "after": "0.34 10^−2"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−4",
+    "after": "10^−4"
+   },
+   {
+    "file": "@darcyMARGMultiAgentReview2024__p1",
+    "rules": [
+     "flattened_power_of_ten"
+    ],
+    "before": "10−2",
+    "after": "10^−2"
+   }
+  ]
+ },
+ "mineru": {
+  "cells": 9737,
+  "changed": 72,
+  "rule_cells": {
+   "private_use_digits": 16,
+   "footnote_letter": 53,
+   "superscript_footnote": 3
+  },
+  "notes": {
+   "footnotes": 53,
+   "superscripts": 3
+  },
+  "examples": {
+   "private_use_digits": [
+    [
+     ".%",
+     "59.9%"
+    ],
+    [
+     ".%",
+     "71.9%"
+    ],
+    [
+     ".%",
+     "58.7%"
+    ],
+    [
+     ".%",
+     "89.5%"
+    ]
+   ],
+   "footnote_letter": [
+    [
+     "0.84 (0.80–0.88)a",
+     "0.84 (0.80–0.88)"
+    ],
+    [
+     "0.51 (0.47–0.55)b",
+     "0.51 (0.47–0.55)"
+    ],
+    [
+     "2073/2943 (70%, 68%–72%)b",
+     "2073/2943 (70%, 68%–72%)"
+    ],
+    [
+     "0.68 (0.64-0.71)b",
+     "0.68 (0.64-0.71)"
+    ]
+   ],
+   "superscript_footnote": [
+    [
+     "2384/2619 (91%, 89%–93%)³",
+     "2384/2619 (91%, 89%–93%)"
+    ],
+    [
+     "1196/2997 (40%, 37%–44%)²",
+     "1196/2997 (40%, 37%–44%)"
+    ],
+    [
+     "327/1199 (27%, 25%-30%)²",
+     "327/1199 (27%, 25%-30%)"
+    ]
+   ]
+  },
+  "cells_whose_number_tokens_changed": 16,
+  "number_change_samples": [
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "59.9%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "71.9%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "58.7%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "89.5%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "81.9%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "93.6%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "75.0%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "26.1%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "89.5%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "81.9%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "47.5%"
+   },
+   {
+    "file": "@huntington-kleinLLMsActRepositori",
+    "rules": [
+     "private_use_digits"
+    ],
+    "before": ".%",
+    "after": "44.3%"
+   }
+  ]
+ }
+}

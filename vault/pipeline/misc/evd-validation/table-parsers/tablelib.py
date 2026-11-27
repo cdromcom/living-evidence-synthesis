@@ -60,33 +60,69 @@ def cell_numbers(cell):
 
 
 # ---------------------------------------------------------------- symbol repair for text-layer problems
-REPAIR_COUNTS={}
-def _count(k): REPAIR_COUNTS[k]=REPAIR_COUNTS.get(k,0)+1
-_SCI=re.compile(r'^\s*[-+]?\d+(\.\d+)?e[-+]?\d+\s*$')
-def repair_cell_text(text):
-    """Repair symbol problems of some publisher fonts in a text-layer cell. Each rule is listed in REPAIR_COUNTS when it fires.
-    1 en dash stored as the letter e between digits (0.37e0.44, 62%e66%)       -> en dash
-    2 control character U+0004 used for the minus sign ((\x040.05 to 0.12))      -> minus sign U+2212
-    3 control character U+0003 used for the multiplication sign                 -> x sign
-    4 thorn (U+00FE) used for plus                                              -> +
-    5 quarter sign (U+00BC) used for equals                                     -> =
-    6 private-use digits U+F130..U+F139 (font maps digit d to U+F130+d)         -> 0..9
-    7 soft hyphen U+00AD and ligature code points (ff, fi, fl, ffi, ffl)        -> removed / expanded
-    8 a lone digit 5 standing for '=' in 'A x B 5 up to C' when A*B equals C    -> =
-    Not repaired (only counted elsewhere): footnote letters glued to numbers (0.90 (0.88e0.93)a), unicode superscripts."""
-    t=text
+# (same code as repair_cell_text in pipeline/scripts/pdf_pages.py; tablelib_tests.py checks that the two blocks are identical)
+#BEGIN_REPAIR
+REPAIR_COUNTS = {}   # rule name -> number of cells it changed (callers may clear it)
+def _count(k): REPAIR_COUNTS[k] = REPAIR_COUNTS.get(k, 0) + 1
+_SCI = re.compile(r'^\s*[-+]?\d+(\.\d+)?e[-+]?\d+\s*$')
+_NUMCH = r'[\d\s.,%±+\-−–()\[\]/:=<>≥≤×]'
+_NUMLIKE = re.compile(r'^' + _NUMCH + r'*(?:\bto\b' + _NUMCH + r'*)*$')   # an "otherwise numeric" cell: digits, signs, brackets, percent, 'to'
+_SUPCH = '¹²³⁰⁴⁵⁶⁷⁸⁹⁺⁻'
+_SUPMAP = str.maketrans(_SUPCH, '1230456789+-')
+
+def repair_cell_text_notes(text):
+    """Repair symbol problems that some publisher fonts leave in the text layer (found in the table-parser test, 124 table pages; table-parsers/RESULTS.md). Returns (repaired text, notes);
+    notes is a dict that may hold 'footnotes' (footnote letters removed), 'superscripts' (superscript footnote markers removed) and 'unreadable' (True when unreadable script was marked).
+    1 en dash stored as the letter e between digits (0.37e0.44, 62%e66%) -> en dash. A whole-cell scientific number (1e-5) is left alone.
+    2 control character U+0004 for the minus sign -> U+2212; U+0003 for the times sign -> x; thorn (U+00FE) for plus -> +; quarter sign (U+00BC) for equals -> =;
+      private-use digits U+F130..U+F139 -> 0..9; soft hyphen removed; ff, fi, fl, ffi, ffl ligature code points expanded.
+    3 a lone 5 standing for equals in 'A x B 5 C' when A times B equals C -> =.
+    4 Khmer-script characters (OCR noise, Marker) -> '[unreadable]' (nothing is guessed; digits next to it are kept); notes['unreadable'] = True.
+    5 a vertical bar standing for a tilde before a number ('(|24k)', '| 1-2 mins') -> '~'. A bar before letters ('|diff|') is left alone.
+    6 power of ten whose superscript minus was flattened ('10-3' written with U+2212, as a token with no letters in the cell) -> '10^-3'; a superscript exponent after a times sign or on a bare 10
+      (x10 with superscript 2) -> 'x10^2'.
+    7 footnote markers glued to numbers: a letter a-d (or U+00AA) or a Unicode superscript digit/sign after a number, only when the whole cell is otherwise numeric
+      (digits, signs, brackets, percent, 'to') and the number is a bracket, percent, interval or fraction (a-d), or a decimal (a-c). The marker is removed and returned in notes.
+      Units and words are never touched: '3d' (3 days), '2b', 'ChatGPT4o', 'cm2' and '37.5 d' stay as they are; '*', dagger, section and degree signs are kept.
+    The repair is for text-layer readers (PyMuPDF, Marker); it is also safe on OCR output."""
+    t = text; notes = {}
     if not _SCI.match(t):
-        n=re.subn(r'(?<=[\d%)\]])e(?=[\d.])','\u2013',t)
-        if n[1]: _count('e_for_en_dash'); t=n[0]
-    for ch,rep,k in (('\x04','\u2212','x04_for_minus'),('\x03',' \u00d7 ','x03_for_times'),('\u00fe','+','thorn_for_plus'),('\u00bc','=','quarter_for_equals'),('\u00ad','','soft_hyphen')):
-        if ch in t: _count(k); t=t.replace(ch,rep)
-    if re.search('[\uf130-\uf139]',t):
-        _count('private_use_digits'); t=re.sub('[\uf130-\uf139]',lambda m:str(ord(m.group())-0xf130),t)
-    for lig,rep in (('\ufb00','ff'),('\ufb01','fi'),('\ufb02','fl'),('\ufb03','ffi'),('\ufb04','ffl')):
-        if lig in t: _count('ligature'); t=t.replace(lig,rep)
-    m=re.search(r'(\d+)\D*\u00d7\s*(\d+)\D+?\s(5)\s(?:up to\s)?(\d+)',t)
-    if m and int(m.group(1))*int(m.group(2))==int(m.group(4)):
-        _count('five_for_equals'); t=t[:m.start(3)]+'='+t[m.end(3):]
-    t=re.sub(r'\s{2,}',' ',t).strip() if t!=text else t
-    return t
+        n = re.subn(r'(?<=[\d%)\]])e(?=[\d.])', '–', t)
+        if n[1]: _count('e_for_en_dash'); t = n[0]
+    for ch, rep, k in (('\x04', '−', 'x04_for_minus'), ('\x03', ' × ', 'x03_for_times'), ('þ', '+', 'thorn_for_plus'), ('¼', '=', 'quarter_for_equals'), ('­', '', 'soft_hyphen')):
+        if ch in t: _count(k); t = t.replace(ch, rep)
+    if re.search('[-]', t): _count('private_use_digits'); t = re.sub('[-]', lambda m: str(ord(m.group()) - 0xf130), t)
+    for lig, rep in (('ﬀ', 'ff'), ('ﬁ', 'fi'), ('ﬂ', 'fl'), ('ﬃ', 'ffi'), ('ﬄ', 'ffl')):
+        if lig in t: _count('ligature'); t = t.replace(lig, rep)
+    m = re.search(r'(\d+)\D*×\s*(\d+)\D+?\s(5)\s(?:up to\s)?(\d+)', t)
+    if m and int(m.group(1)) * int(m.group(2)) == int(m.group(4)): _count('five_for_equals'); t = t[:m.start(3)] + '=' + t[m.end(3):]
+    if re.search('[ក-៿]', t):
+        _count('unreadable_script'); notes['unreadable'] = True; t = re.sub(r'[ក-៿]+(?:\s+[ក-៿]+)*', '[unreadable]', t)
+    n = re.subn(r'(?<=[\s(])\|\s?(?=\d)', '~', t)
+    if n[1]: _count('bar_for_tilde'); t = n[0]
+    n = re.subn(r'(×\s?10|(?<![\w.,])10)([' + _SUPCH + r']+)(?![\w])', lambda m: m.group(1) + '^' + m.group(2).translate(_SUPMAP), t)
+    if n[1]: _count('superscript_exponent'); t = n[0]
+    if not re.search('[A-Za-z]', t):
+        n = re.subn(r'(?<![\w.,\^])10−(\d{1,2})(?![\d\w])', '10^−\\1', t)
+        if n[1]: _count('flattened_power_of_ten'); t = n[0]
+    fn, sp = [], []; out = []
+    for tok in t.split(' '):
+        m = re.match(r'^(.*[\d)%\]])([a-dª]|[' + _SUPCH + r'])$', tok)
+        if m and _NUMLIKE.match(m.group(1)) and (re.search(r'[)%±/]', m.group(1)) and m.group(2) not in 'e' or (re.search(r'\d\.\d', m.group(1)) and m.group(2) in 'abcª' + _SUPCH)):
+            out.append((m.group(1), m.group(2)))
+        else: out.append((tok, ''))
+    stripped = ' '.join(a for a, _ in out)
+    if any(b for _, b in out) and _NUMLIKE.match(stripped.replace('^', '')):
+        for _, b in out:
+            if b: (sp if b in _SUPCH else fn).append(b.translate(_SUPMAP) if b in _SUPCH else ('a' if b == 'ª' else b))
+        if fn: _count('footnote_letter'); notes['footnotes'] = fn
+        if sp: _count('superscript_footnote'); notes['superscripts'] = sp
+        t = stripped
+    return (re.sub(r'\s{2,}', ' ', t).strip() if t != text else t), notes
+
+def repair_cell_text(text):
+    """Cell text with the symbol repairs of repair_cell_text_notes applied (see its doc comment); returns only the text."""
+    return repair_cell_text_notes(text)[0]
+#END_REPAIR
+
 def repair_tables(tables): return [[[repair_cell_text(c) for c in row] for row in t] for t in tables]

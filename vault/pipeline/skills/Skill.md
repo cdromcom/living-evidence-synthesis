@@ -220,7 +220,7 @@ Per paper (`Skill-templates.md`): Step 7 readability formatting (`pipeline/scrip
 
 ## Module Q: Quality signals (OPTIONAL) → see `Skill-controls.md`
 
-Runs automatically after every batch of at most four papers (JP, 2026-11-26; Pangram only on JP's command). Neon (High) and Opus 5.5 rate blind and Sol adjudicates only disagreements; scripts check quotes. The full module (rows, rules, cost, Pangram) is in part 2, "Module Q".
+Runs automatically after every batch of at most four papers (JP, 2026-11-26; Pangram only on JP's command). Neon, Opus 5.5 and Sol rate blind at high effort and two of three decide; scripts check quotes. The full module (rows, rules, cost, Pangram) is in part 2, "Module Q".
 
 ## Reference docs
 

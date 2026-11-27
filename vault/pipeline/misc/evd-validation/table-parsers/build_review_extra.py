@@ -56,7 +56,7 @@ S.append(rot_example('@woelfleBenchmarkingHumanAICollaboration2024',5,['rot270',
 sup=[]
 for p,lab in (('reader','python-docx reader'),('mineru','MinerU (flash tier, docx)'),('pymupdf','PyMuPDF opened as document'),('marker','Marker')):
     r=json.load(open(f'results_supp/{p}/1-s2.0-S0895435624002890-mmc5.docx.json'))
-    sup.append((f'{lab}: {len(r["tables"])} tables'+(' / '+r['error'][:80] if r.get('error') else ''),grid(r['tables'][1:2],8) if r['tables'] else '(nothing returned)'))
+    sup.append((f'{lab}: {len(r["tables"])} tables'+(' / not converted: WeasyPrint system library (pango) missing' if r.get('error') else ''),grid(r['tables'][1:2],8) if r['tables'] else '(nothing returned)'))
 S.append('<section><h2>Supplementary: Woelfle mmc5.docx, Supplementary Table 2 (first rows)</h2>'+cols(sup[:2])+cols(sup[2:])+'</section>')
 wk='Supp Mat - Wrightson et al 2025.pdf'; src=pymupdf.open(VAULT + '/sysrev/dgraph/source/pdfs/'+wk)
 src[2].get_pixmap(dpi=110).save('review/supp_wrightson_p3.png')
