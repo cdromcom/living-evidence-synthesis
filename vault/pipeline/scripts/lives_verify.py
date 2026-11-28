@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verification layer (JP, 2026-11-26): every extracted item is checked by a foundation model (roles.verify_judge: GPT-6.2 Sol since 2026-11-27, Claude Sonnet 5.5 before; with the screenshot where there is one) AND by the two decision models (Perplexity Decider 1.3, Liquid d1-ultra, text only), so that no extraction rests on one model. Item types: PICOST (the six slots of each finding), QUOTE (the quotes behind findings, questions, claims and caveats, against what is printed), QUE (reframed question against the original wording), CLM and CVT (claim or caveat against its passage), QUALITY (a quality-signal rating against its quote).
+"""Verification layer (JP, 2026-11-26): every extracted item is checked by a foundation model (roles.verify_judge: GPT-6.2 Sol since 2026-11-27, Claude Sonnet 5.5 before; with the screenshot where there is one) AND by the three decision models (Perplexity Decider 1.3, Liquid d1.3-ultra or d1.2-ultra, Baseten bison-1; all three read text and all three vote, JP 2026-11-27), so that no extraction rests on one model. Item types: PICOST (the six slots of each finding), QUOTE (the quotes behind findings, questions, claims and caveats, against what is printed), QUE (reframed question against the original wording), CLM and CVT (claim or caveat against its passage), QUALITY (a quality-signal rating against its quote).
 Output: pipeline/runs/<run>/verification.json, shown in the review sheet tabs "Verification (all nodes)" and "Verification summary". For each item: one score per model (the foundation model 1, 0.5 or 0, stored under the key 'sonnet' so that stored runs still read; each decision model a probability), the majority vote, the mean across models and how many models agree with the majority. JP's ground-truth columns stay empty until JP fills them; the summary tab then computes accuracy, precision, recall and specificity per model, for the majority vote and for the mean.
 Decision models cannot read images. They see text: the passage, the item, and the printed text that the quote-check model (roles.quote_check) read from the screenshot."""
 import collections, concurrent.futures as cf, json, os, re, sys
@@ -16,6 +16,7 @@ JUDGE = C.role_model(R.get('verify_judge') or R['quote_check']); JUDGE_EFFORT = 
 ALT = R.get('verify_judge_alt'); JUDGE_ALT = C.role_model(ALT) if ALT else None; JUDGE_ALT_EFFORT = C.role_effort(ALT, 'medium') if ALT else None   # judges items that the primary judge produced (a Sol fallback rating)
 JUDGE_TOK_GROUP, JUDGE_TOK_ITEM = 5000, 3000   # a reasoning model's thinking counts against the output budget
 EXTRACT = C.role_model(R['extract'])
+NOT_CALLED = 'not called: all decision models agree'
 
 
 def producer_model(it):
@@ -106,6 +107,12 @@ def quote_item(ck, tag, nid, text, v, crop):
 def to_score(v): return {'yes': 1.0, 'no': 0.0}.get(str(v).lower(), 0.5)
 
 
+def judge_needed(dm_scores, models=None):
+    """Cascade rule for the decision models (JP, 2026-11-27, three models: Perplexity, Liquid, Baseten bison-1): the judge is called UNLESS every voting decision model gave a score and all those scores are on the same side of 0.5 (all pass or all fail). One missing score (no answer, error) counts as disagreement and calls the judge. `dm_scores` is {model key: score or None}; `models` defaults to roles.decision_models. A model that abstains by design (a text-only model on an item scored from a screenshot) is left out of `models` and does not vote."""
+    vals = [dm_scores.get(m) for m in (R['decision_models'] if models is None else models)]
+    return not vals or any(v is None for v in vals) or len({v >= 0.5 for v in vals}) > 1
+
+
 def stage_verify(M, mode):
     st = M.m['stage_log'].setdefault('verify', {})
     if st.get('status') == 'done': return
@@ -114,13 +121,12 @@ def stage_verify(M, mode):
     def run(it):
         state = it['item'] if it['kind'] == 'precomputed' else f"PASSAGE:\n{it['passage']}\n\nITEM:\n{it['item']}"
         return S.run_dm(state, it['dm_q'])
-    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, items))   # first pass: Liquid d1.2-ultra and Perplexity Decider 1.3 (JP, 2026-11-26)
+    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, items))   # first pass: Perplexity Decider 1.3, Liquid and Baseten bison-1 (JP, 2026-11-27)
     def dm_low(r, pv):
         a = [x for k, x in (r.get(pv) or {}).items() if not k.startswith('_') and isinstance(x, (int, float))]
         return min(a) if a else None
-    def disagree(r):   # the judge (roles.verify_judge) is called only when the two decision models differ (or one gave no answer)
-        p, l = dm_low(r, 'perplexity'), dm_low(r, 'liquid')
-        return p is None or l is None or ((p >= 0.5) != (l >= 0.5))
+    def disagree(r):   # the judge (roles.verify_judge) is called unless all voting decision models agree (judge_needed)
+        return judge_needed({pv: dm_low(r, pv) for pv in R['decision_models']})
     call_ids = {it['id'] for it, r in zip(items, dres) if it['kind'] == 'text' and disagree(r)}; call_gids = {it['gid'] for it, r in zip(items, dres) if it['kind'] == 'slot' and disagree(r)}
     for g in groups:
         if g['gid'] in call_gids: reqs.append(L.Req('g::' + g['gid'], judge_for_model(EXTRACT)[0], f"INSTRUCTION: {g['instruction']}\n\nITEM:\n{g['item']}\n\nPASSAGE:\n{g['passage']}", sysv, None, judge_for_model(EXTRACT)[1], JUDGE_TOK_GROUP, images=[g['crop']] if g.get('crop') else []))
@@ -134,7 +140,7 @@ def stage_verify(M, mode):
         if it['kind'] == 'precomputed': it['scores']['sonnet'] = it['sonnet_score']; it['reasons']['sonnet'] = it['sonnet_reason']; it['sonnet_called'] = True   # quote_check stage: roles.quote_check reads every quote screenshot
         else:
             called = (it['gid'] in call_gids) if it['kind'] == 'slot' else (it['id'] in call_ids); it['sonnet_called'] = called
-            if not called: it['scores']['sonnet'] = None; it['reasons']['sonnet'] = 'not called: Perplexity and d1.2-ultra agree'
+            if not called: it['scores']['sonnet'] = None; it['reasons']['sonnet'] = NOT_CALLED
             elif it['kind'] == 'slot':
                 j = S.safe_json(res.get('g::' + it['gid']) or L.Res('', False)) or {}; sl = j.get('slots') or {}
                 it['scores']['sonnet'] = to_score(sl.get(it['slot'])) if it['slot'] in sl else None; it['reasons']['sonnet'] = j.get('reason', '')
@@ -243,14 +249,15 @@ def rerun_liquid_text(M):
 
 
 def human_flag(x):
-    """Reason to look at an item by hand, or '' (JP, 2026-11-27), using the judge and the three decision models. Flag when (1) the judge was asked and scored it below 0.75 or gave no answer; (2) any of Perplexity, Liquid or bison-1 scored it below 0.5 and the judge did not pass it (a judge that was not asked, because the two voting decision models agreed, did not pass it); (3) the judge passed or failed it and the majority of Perplexity and Liquid says the opposite. bison-1 takes part in (2) only; it stays out of the pass or fail vote."""
+    """Reason to look at an item by hand, or '' (JP, 2026-11-27), using the judge and the three voting decision models. Flag when (1) the judge was asked and scored it below 0.75 or gave no answer; (2) any of Perplexity, Liquid or bison-1 scored it below 0.5 and the judge did not pass it (a judge that was not asked, because all decision models agreed, did not pass it); (3) the judge passed or failed it and the strict majority of the decision models (two of three) says the opposite."""
     sc = x.get('scores') or {}; js = sc.get('sonnet'); called = x.get('sonnet_called', js is not None); why = []
     if called and js is None: why.append('the judge gave no answer')
     elif called and js < 0.75: why.append(f'the judge scored it {js:g}')
-    dms = {'Perplexity': sc.get('perplexity'), 'Liquid': sc.get('liquid'), 'bison-1': x.get('shadow_bison')}; low = [k for k, v in dms.items() if v is not None and v < 0.5]
+    dms = {'Perplexity': sc.get('perplexity'), 'Liquid': sc.get('liquid'), 'bison-1': sc.get('baseten') if 'baseten' in sc else x.get('shadow_bison')}; low = [k for k, v in dms.items() if v is not None and v < 0.5]   # runs before 2026-11-27 evening kept bison-1 outside the scores (shadow_bison)
     if low and not (js is not None and js >= 0.75): why.append(' and '.join(low) + ' scored it below 0.5 and the judge did not pass it')
-    vote = [v >= 0.5 for v in (sc.get('perplexity'), sc.get('liquid')) if v is not None]
-    if js is not None and js != 0.5 and vote and len(vote) == 2 and vote[0] == vote[1] and vote[0] != (js >= 0.75): why.append('the judge and the decision-model majority disagree')
+    vote = [sc[k] >= 0.5 for k in ('perplexity', 'liquid', 'baseten') if sc.get(k) is not None]; yes = sum(vote)   # voting decision models (three; older runs two)
+    maj = True if yes * 2 > len(vote) else (False if yes * 2 < len(vote) else None)   # a strict majority; a tie has none
+    if js is not None and js != 0.5 and maj is not None and maj != (js >= 0.75): why.append('the judge and the decision-model majority disagree')
     return '; '.join(dict.fromkeys(why))
 
 
@@ -311,12 +318,12 @@ def rerun_with_new_questions(M, mode='standard'):
     with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run_dms, idx))
     for i, d_ in zip(idx, dres):
         a, b = fresh[i], items[i]
-        if 'scores_before_rerun' not in b: b['scores_before_rerun'] = {k: b['scores'].get(k) for k in ('sonnet', 'perplexity', 'liquid')}; b['what_before_rerun'] = b['what']
+        if 'scores_before_rerun' not in b: b['scores_before_rerun'] = {k: b['scores'].get(k) for k in ('sonnet', *R['decision_models'])}; b['what_before_rerun'] = b['what']
         if a['kind'] == 'slot':
             j = S.safe_json(res.get('g::' + a['gid']) or L.Res('', False)) or {}; sl = j.get('slots') or {}; b['scores']['sonnet'] = to_score(sl.get(a['slot'])) if a['slot'] in sl else None; b['reasons']['sonnet'] = j.get('reason', '')
         else:
             j = S.safe_json(res.get(f'v{i:04d}') or L.Res('', False)) or {}; b['scores']['sonnet'] = to_score(j['verdict']) if 'verdict' in j else None; b['reasons']['sonnet'] = j.get('reason', '')
-        b['scores']['perplexity'] = d_.get('perplexity'); b['scores']['liquid'] = d_.get('liquid'); b['what'] = a['what']
+        b['scores'].update({pv: d_.get(pv) for pv in R['decision_models']}); b['what'] = a['what']
         if a['ntype'] != 'PICOST': b['passage'] = short(a.get('passage') or a['item'], 600)
         revote(b)
     f_.write_text(json.dumps(items, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
@@ -335,7 +342,7 @@ def rescore_quality(M, mode='standard'):
             r, e = dm.decide(pv, state, a['dm_q']); ans = [y.get('noul') for y in ((r or {}).get('answers') or {}).values() if isinstance(y, dict) and y.get('noul') is not None]; out[pv] = min(ans) if ans else None
         return out
     with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, new))   # first pass: d1.2-ultra and Perplexity; the judge only where they differ
-    def split(d_): return QS_MAX or d_.get('perplexity') is None or d_.get('liquid') is None or ((d_['perplexity'] >= 0.5) != (d_['liquid'] >= 0.5))
+    def split(d_): return QS_MAX or judge_needed(d_)
     called = {a['id'] for a, d_ in zip(new, dres) if split(d_)}
     for a in new:
         if a['id'] in called: reqs.append(L.Req(a['id'], judge_for(a)[0], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, judge_for(a)[1], JUDGE_TOK_ITEM, images=[a['crop']] if a.get('crop') else []))
@@ -344,7 +351,7 @@ def rescore_quality(M, mode='standard'):
     for a, d_ in zip(new, dres):
         j = (S.safe_json(res.get(a['id']) or L.Res('', False)) or {}) if a['id'] in called else {}
         it = {k: a[k] for k in ('paper', 'ntype', 'nid', 'what', 'text', 'crop')}; it['passage'] = short(a.get('passage') or a['item'], 600)
-        it['scores'] = {'sonnet': to_score(j['verdict']) if 'verdict' in j else None, 'perplexity': d_.get('perplexity'), 'liquid': d_.get('liquid')}; it['reasons'] = {'sonnet': j.get('reason', '') if a['id'] in called else 'not called: Perplexity and d1.2-ultra agree'}; it['sonnet_called'] = a['id'] in called; it['judge'] = judge_for(a)[0]
+        it['scores'] = {'sonnet': to_score(j['verdict']) if 'verdict' in j else None, **{pv: d_.get(pv) for pv in R['decision_models']}}; it['reasons'] = {'sonnet': j.get('reason', '') if a['id'] in called else NOT_CALLED}; it['sonnet_called'] = a['id'] in called; it['judge'] = judge_for(a)[0]
         revote(it); added.append(it)
     f_.write_text(json.dumps(kept + added, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     M.m['stage_log'].setdefault('verify_quality', {}).update(status='done', items=len(added)); M.save()
@@ -352,7 +359,7 @@ def rescore_quality(M, mode='standard'):
 
 
 def add_bison_shadow(M):
-    """Baseten bison-1 (a 31B decision model) scores every text item as a shadow verifier: shown in the sheet, not counted in any vote until JP's labels show how it compares (JP, 2026-11-27).
+    """OLD RUNS ONLY (no longer called by lives_run.py): bison-1 now votes in the first pass (roles.decision_models). Baseten bison-1 (a 31B decision model) scored every text item as a shadow verifier: shown in the sheet, not counted in any vote (JP, 2026-11-27 midday).
     Text only: in a test, its screenshot reading of digits was not reliable (0.03 for a correct quote), so no screenshots are sent to it."""
     import os
     if not os.environ.get(dm.KEY_ENV['baseten'], ''): return 0

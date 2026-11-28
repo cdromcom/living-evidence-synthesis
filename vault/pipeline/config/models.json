@@ -19,6 +19,7 @@
       "runs": "api",
       "price_in": 3,
       "price_out": 15,
+      "max_output_tokens": 65536,
       "batch_discount": 0.5,
       "pdf_input": true,
       "price_source": "third-party pages, 2026-11-25; confirm on Google's pricing page",
@@ -34,6 +35,7 @@
       "runs": "api",
       "price_in": 4,
       "price_out": 20,
+      "max_output_tokens": 64000,
       "batch_discount": 0.5,
       "pdf_input": true,
       "price_source": "Anthropic API reference, 2026-11",
@@ -48,6 +50,7 @@
       "runs": "api",
       "price_in": 2,
       "price_out": 10,
+      "max_output_tokens": 64000,
       "batch_discount": 0.5,
       "pdf_input": true,
       "price_source": "Anthropic API reference, 2026-11",
@@ -62,6 +65,7 @@
       "runs": "api",
       "price_in": 2,
       "price_out": 10,
+      "max_output_tokens": 100000,
       "batch_discount": 0.5,
       "pdf_input": true,
       "price_source": "OpenAI pricing page https://developers.openai.com/api/docs/pricing, read 2026-11-26: gpt-6.2-sol standard $2.00 in / $10.00 out, batch $1.00 in / $5.00 out per million tokens (short context, up to 272K); the page shows no increase, so the 25% rise JP mentioned earlier today is not visible there",
@@ -184,7 +188,7 @@
     }
   },
   "roles": {
-    "_about": "Which model does which job. Change a role here to swap a model everywhere. Model procedure chosen by JP on 2026-11-27 (pending validation): one Neon rater with a Sol fallback for low-confidence ratings; Sol writes the first drafts and there is no critique, vote or tiebreak for drafts; Neon checks node details; Neon fixes errors only in EVDs with low decision-model scores; a model never checks its own work (items produced by Neon are judged by verify_judge, Sol; items produced by Sol are judged by verify_judge_alt, Neon; a quality rating is judged by the one of the two that did not rate it); Sol reads quote screenshots because Neon extracted the quotes. Claude Opus 5.5 is not used (JP, 2026-11-27); it stays in the registry. A role is a model id, or an object {key, model, effort}; the *_effort roles give an effort to a plain model id.",
+    "_about": "Which model does which job. Change a role here to swap a model everywhere. Model procedure chosen by JP on 2026-11-27 (pending validation): one Neon rater with a Sol fallback for low-confidence ratings; Sol writes the first drafts and there is no critique, vote or tiebreak for drafts; Neon checks node details; Neon fixes errors only in EVDs with low decision-model scores; a model never checks its own work (items produced by Neon are judged by verify_judge, Sol; items produced by Sol are judged by verify_judge_alt, Neon; a quality rating is judged by the one of the two that did not rate it); Sol reads quote screenshots because Neon extracted the quotes. Claude Opus 5.5 is not used (JP, 2026-11-27); it stays in the registry. A role is a model id, or an object {key, model, effort}; the *_effort roles give an effort to a plain model id. Decision models (JP, 2026-11-27): roles.decision_models lists three voting models, Perplexity Decider 1.3, Liquid (d1.3-ultra when the API accepts it, d1.2-ultra until then) and Baseten bison-1; bison-1 and Perplexity read text only. max_output_tokens (per model, 2026-11-27) is the largest output budget (answer plus thinking) used for a request; Neon 65536 is the Gemini limit, the other three values are conservative and not yet confirmed against the providers' pages.",
     "extract": "gemini-4-neon",
     "recheck": "gpt-6.2-sol",
     "adjudicate": "claude-sonnet-5-5",
@@ -211,7 +215,8 @@
     },
     "decision_models": [
       "perplexity",
-      "liquid"
+      "liquid",
+      "baseten"
     ],
     "qs_adjudicator": {
       "key": "sol",
@@ -234,6 +239,16 @@
     "quote_check": {
       "model": "gpt-6.2-sol",
       "effort": "low"
+    },
+    "src_writer": {
+      "model": "gpt-6.2-sol",
+      "effort": "medium",
+      "_about": "Writes the SRC (source) page of a paper from the run's findings, drafted nodes and PDF text (scripts/write_src.py, stage src_write, prompt src-write-v1). Batch API only (JP, 2026-11-27)."
+    },
+    "src_judge": {
+      "model": "gemini-4-neon",
+      "effort": "medium",
+      "_about": "Judges each Findings bullet of a written SRC page against its EVD node and the extraction (write_src.py, stage src_judge, prompt src-judge-v1). Not the model that wrote the page (Sol). Batch API only (JP, 2026-11-27)."
     },
     "grouping": {
       "model": "gemini-4-neon",

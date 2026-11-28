@@ -15,7 +15,8 @@ import signal_registry as SR, lives_stages as S
 PROV = SR.VAULT / 'pipeline' / 'provenance'; STORE = PROV / 'provenance-quality-signals.json'; SHOTS = PROV / 'quality-signal-screenshots'
 NAMES = {'neon': 'Gemini 4 Neon', 'opus': 'Claude Opus 5.5', 'sol': 'GPT-6.2 Sol'}; SHORT = {'neon': 'Neon', 'opus': 'Opus', 'sol': 'Sol'}
 import config as _C
-VERIFIERS = {'sonnet': _C.display(_C.role_model(_C.ROLES.get('verify_judge') or _C.ROLES['quote_check'])), 'perplexity': 'Perplexity Decider 1.3', 'liquid': 'Liquid d1.2-ultra'}
+import decision_models as _dm
+VERIFIERS = {'sonnet': _C.display(_C.role_model(_C.ROLES.get('verify_judge') or _C.ROLES['quote_check'])), 'perplexity': _C.display(_dm.MODELS['perplexity']), 'liquid': _C.display(_dm.MODELS['liquid']), 'baseten': _C.display(_dm.MODELS['baseten'])}   # JP, 2026-11-27: three voting decision models plus the judge; names follow the models in use
 
 
 def now(): return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -99,23 +100,26 @@ def export_paper(M, ck, log=print):
     for sg in S.SIGNALS:
         rows = [r for r in raws if r['signal'] == sg]
         if not rows: continue
-        ratings = []; verdicts = {k: [] for k in VERIFIERS}
+        ratings = []; verdicts = {k: [] for k in VERIFIERS}; judges = []
         for r in rows:
             shot = None
             if r.get('crop') and Path(r['crop']).exists(): shot = f"{key}/{sg}__{r['rater']}.jpg"; jpeg(r['crop'], SHOTS / key / f"{sg}__{r['rater']}.jpg")
             qt = (r.get('quote') or '').strip(); v = ver.get(f"{sg} ({r['rater']})")
             if v:
+                if v.get('judge') and (v['scores'].get('sonnet') is not None) and v['judge'] not in judges: judges.append(v['judge'])
                 for k in VERIFIERS:
-                    sc = v['scores'].get(k)
+                    sc = v['scores'].get(k) if k in v['scores'] else (v.get('shadow_bison') if k == 'baseten' else None)   # older runs kept bison-1 outside the scores
                     if sc is not None and r['rater'] in ('neon', 'opus', 'sol'): verdicts[k].append((sc, (v['reasons'].get('sonnet') if k == 'sonnet' else '')))
             ratings.append({'rater': NAMES.get(r['rater'], r['rater']), 'rating': r['rating'], 'quote': '' if qt.lower() == 'none' else qt, 'locator': r.get('locator', ''), 'pdf_page': r.get('pdf_page'), 'printed_page': None,
                             'quote_found': r.get('quote_found'), 'confidence': r.get('confidence', ''), 'screenshot': shot, 'counted': bool(r.get('counted', True)) and r['rater'] in ('neon', 'opus', 'sol')})
         a = aggs.get(sg, {}); final = a.get('majority', 'no majority')
         checks = [{'verifier': VERIFIERS[k], 'score': round(sum(s for s, _ in v) / len(v), 2), 'note': next((n for s, n in v if n and s < 0.75), '')} for k, v in verdicts.items() if v]
+        vs = {k: (round(sum(s for s, _ in v) / len(v), 2) if v else None) for k, v in verdicts.items()}   # one number per verifier, never joined into one cell (JP, 2026-11-27)
+        verifier_scores = {'judge': vs['sonnet'], 'judge_model': ' and '.join(_C.display(j) for j in judges), 'perplexity': vs['perplexity'], 'liquid': vs['liquid'], 'baseten': vs['baseten']}
         tag = SR.SIGNAL_TAGS.get(sg); vv = vtags.get(tag) if tag else None
         if sg.startswith('tripod-'): vv = vtrip.get(sg)   # the old curated TRIPOD-LLM table on the source page
         signals[sg] = {'id': sg, 'label': SR.label_for(sg), 'final': final, 'agreement': (a['status'].replace('_', '-') if a.get('status') else 'agree' if a.get('agreement') in ('both raters agree', 'all raters agree') else ('no-majority' if final == 'no majority' else 'majority')), 'status': a.get('status', ''),
-                       'summary': summary_sentence(final, rows, a, checks), 'ratings': ratings, 'checks': checks, 'tool_checks': SR.TOOL_CHECKS.get(sg, []), 'vault_value': vv, 'matches_vault': (None if vv is None else vv == final)}
+                       'summary': summary_sentence(final, rows, a, checks), 'ratings': ratings, 'checks': checks, 'verifier_scores': verifier_scores, 'tool_checks': SR.TOOL_CHECKS.get(sg, []), 'vault_value': vv, 'matches_vault': (None if vv is None else vv == final)}
     prov = {i['id']: i for i in entry.get('provenance', [])}
     for sg, tag in SR.TOOL_SIGNAL_TAGS.items():
         ids = SR.TOOL_CHECKS.get(sg, []); items = [prov[i] for i in ids if i in prov]

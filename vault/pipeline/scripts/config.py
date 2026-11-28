@@ -10,6 +10,10 @@ MODELS = REG['models']; ROLES = REG['roles']; POLICY = REG['policy']; EMBEDDING 
 def price(model): m = MODELS[model]; return m['price_in'], m['price_out']
 def display(model): return MODELS.get(model, {}).get('display', model)
 def provider_of(model): return MODELS.get(model, {}).get('provider')
+def max_output(model, batch=True):
+    """Largest output budget (answer plus thinking) for one request to this model: max_output_tokens from models.json (64000 if not listed). Gemini batch refuses more than 65536 and llm_batch clamps to 65000, so batch mode uses 65000 for Google models."""
+    m = MODELS[model].get('max_output_tokens', 64000)
+    return min(m, 65000) if batch and provider_of(model) == 'google' else m
 def batch_discount(model): return MODELS[model].get('batch_discount', 1.0)
 def assert_allowed(model):
     """Enforce the origin policy: a hosted API model must come from an allowed country; local open-weight models may come from anywhere the policy allows."""

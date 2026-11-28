@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stages after extraction for lives_run.py (JP, 2026-11-25): checks, drafting by debate, quality-signal rating.
 
-  checks   two decision models (Perplexity Decider 1.3 and Liquid d1-ultra) score every extracted finding on relevancy, fidelity, numbers found in the source and (for
+  checks   three decision models (Perplexity Decider 1.3, Liquid d1.3-ultra or d1.2-ultra, Baseten bison-1; all vote, JP 2026-11-27) score every extracted finding on relevancy, fidelity, numbers found in the source and (for
            tables and figures) table-cell match; GPT-6.2 Sol looks at the crop of every finding (pass, fail or cannot verify); only disagreements go to Claude Opus 5.5.
   draft    EVD, QUE, CLM and CVT nodes. Primary EVDs: the authors (roles.authors) draft, the critics (roles.critics) critique and revise, the voters (roles.voters) choose
            and roles.tiebreak settles a split; everything else is one draft by the first author. Every node gets the writing-rules check; EVD, CLM and CVT get the node-detail
@@ -80,9 +80,51 @@ def wait_jobs(M, jobs):
         time.sleep(20)
 
 
+# ---------------------------------------------------------------- no paper is cut off (JP, 2026-11-27)
+CUT_FINISH = {'max_tokens', 'continuation', 'incomplete', 'length', 'max_output_tokens'}   # finish reasons of a request that ran out of output budget: Gemini MAX_TOKENS and CONTINUATION, Anthropic max_tokens, OpenAI incomplete, Tinker length
+
+
+def is_cut(x):
+    """True when a result ended because the output budget (answer plus thinking) ran out."""
+    return x is not None and (str(x.finish or '').lower() in CUT_FINISH or any(k in str(x.err or '').upper() for k in ('MAX_TOKENS', 'CONTINUATION')))
+
+
+def _next_effort(effort): return 'medium' if effort in ('high', 'xhigh', 'max') else 'low'   # medium thinking effort; a request already at medium goes to low
+
+
+def cutoff_ladder(M, key, reqs, res, mode, runner=None):
+    """JP, 2026-11-27: 'I never want runs to have papers cut off.' Applied to every LLM stage (picost, recheck, adjudicate, checks, drafts, qs, src). Returns res with every cut-off request replaced.
+    A request whose result ended with MAX_TOKENS, max_tokens, CONTINUATION, incomplete or length is sent again:
+      rung 1  in the stage's own mode (batch stays the rule) at medium thinking effort (low if it was already medium) with the largest output budget of its model (config.max_output);
+      rung 2  if it is cut off again: standard (non-batch) mode with the largest budget, marked in the manifest under cutoff_retries;
+      rung 3  if it is cut off a third time: marked needs JP (manifest needs_jp; the result gets err 'needs JP: ...'). A paper-level stage then stops that paper with status 'needs JP', which does not count toward 'two or more papers failed'.
+    Each rung is its own stage '<key>_cut1' or '<key>_cut2' (saved and resumable). `runner(stage_key, requests, mode)` returns {id: Res}; the default is _dispatch."""
+    import dataclasses
+    runner = runner or (lambda k, rs, md: _dispatch(M, k, rs, md))
+    res = dict(res); bad = [r for r in reqs if r.id in res and is_cut(res[r.id])]
+    if not bad: return res
+    first = 'standard' if (mode == 'standard' or key in STANDARD_STAGES) else 'batch'; log = M.m.setdefault('cutoff_retries', []); M.m['stage_log'].setdefault(key, {})['cutoff_retried'] = len(bad)
+    M.event(f"stage {key}: {len(bad)} request(s) ended cut off by the output limit ({', '.join(r.id for r in bad[:4])}); retrying at medium effort ({first} mode), then in standard mode")
+    for rung, md in ((1, first), (2, 'standard')):
+        if not bad: break
+        retry = [dataclasses.replace(r, effort=_next_effort(r.effort) if rung == 1 else ('low' if first == 'standard' else _next_effort(r.effort)), max_tokens=C.max_output(r.model, batch=(md == 'batch'))) for r in bad]
+        out = runner(f'{key}_cut{rung}', retry, md); still = []
+        for r, r2 in zip(bad, retry):
+            x = out.get(r.id); ok = x is not None and x.ok and not is_cut(x)
+            log.append({'stage': key, 'id': r.id, 'rung': rung, 'mode': md, 'effort': r2.effort, 'max_tokens': r2.max_tokens, 'result': 'done' if ok else ('cut off again' if is_cut(x) else 'no result')})
+            if x is not None: res[r.id] = x
+            if not ok and is_cut(x): still.append(r)
+        bad = still
+    for r in bad:
+        x = res[r.id]; why = f"needs JP: the output was cut off ({x.finish}) in {first} mode, at medium effort in {first} mode and in standard mode with the largest budget"
+        res[r.id] = dataclasses.replace(x, ok=False, err=why); M.m.setdefault('needs_jp', []).append({'stage': key, 'id': r.id, 'reason': why}); log.append({'stage': key, 'id': r.id, 'rung': 3, 'result': 'needs JP'})
+        M.event(f'[{r.id}] {why}')
+    M.save(); return res
+
+
 def dispatch(M, key, reqs, mode, cap_frac=1.0):
     """Times the stage (JP, 2026-11-27: time on task per step): stage_log[key]['elapsed_s'] is the wall-clock seconds, batch queue wait included, and 'requests' the number of requests."""
-    t0 = time.time(); res = _dispatch(M, key, reqs, mode, cap_frac)
+    t0 = time.time(); res = _dispatch(M, key, reqs, mode, cap_frac); res = cutoff_ladder(M, key, reqs, res, mode)   # a cut-off request is retried (medium effort, then standard mode) before anyone sees it
     st = M.m['stage_log'].setdefault(key, {})
     if reqs and 'elapsed_s' not in st: st['elapsed_s'] = round(time.time() - t0, 1); st['requests'] = len(reqs); st['mode_used'] = 'standard' if key in STANDARD_STAGES else mode
     return res

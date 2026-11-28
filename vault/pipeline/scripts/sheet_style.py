@@ -88,22 +88,25 @@ def polish(ws, header_row=1, jp_from=None, image_cols=(), keep_widths=(), header
     return ws
 
 
-def polish_about(ws, key_width=26, text_width=90):
-    """ABOUT tabs: a bold key column and one readable text column (line length of about 85 characters)."""
+def polish_about(ws, key_width=26, text_width=90, c_width=40, stripe=False):
+    """ABOUT tabs: a bold key column and one readable text column (line length of about 85 characters). A third column (examples) gets c_width; each row is as tall as its longest text, and a row that already has a taller height (a picture) keeps it. stripe: faint grey on every second row."""
     ws.sheet_view.showGridLines = False
+    import math
+    zebra = PatternFill('solid', fgColor=STRIPE)
     for row in ws.iter_rows():
         for c in row:
+            if stripe and c.row % 2 == 1 and ws.max_column >= 2: c.fill = zebra
             if c.value is None: continue
             first = c.column == 1
             c.font = Font(name=FONT_HEAD if first else FONT_BODY, size=SIZE, color=INK, bold=first); c.alignment = Alignment(horizontal='left', vertical='top', wrap_text=True, indent=1)
     ws.column_dimensions['A'].width = key_width; ws.column_dimensions['B'].width = text_width
-    if ws.max_column >= 3: ws.column_dimensions['C'].width = 40
-    import math
+    if ws.max_column >= 3: ws.column_dimensions['C'].width = c_width
+    lines = lambda v, w: sum(max(1, math.ceil(len(par) / (w * 0.95))) for par in str(v).split('\n'))
     for r in range(1, ws.max_row + 1):
-        v = ws.cell(r, 2).value
-        if isinstance(v, str): ws.row_dimensions[r].height = max(1, sum(max(1, math.ceil(len(par) / (text_width * 0.95))) for par in v.split('\n'))) * 15 + 6
+        n = max([lines(ws.cell(r, c).value, w) for c, w in ((1, key_width), (2, text_width), (3, c_width)) if ws.cell(r, c).value not in (None, '')] or [0])
+        if n: ws.row_dimensions[r].height = max(ws.row_dimensions[r].height or 0, n * 15 + 6)
     if str(ws.cell(1, 1).value or '') in ('Item',):   # a header row (the screening ABOUT tabs have one): headings style, no fill
-        for c in ws[1]: c.font = Font(name=FONT_HEAD, size=SIZE, color=INK, bold=True); c.fill = PatternFill(fill_type=None); c.alignment = Alignment(horizontal='left', vertical='bottom', indent=1); c.border = Border(bottom=Side(style='medium', color=RULE))
+        for c in ws[1]: c.font = Font(name=FONT_HEAD, size=SIZE, color=INK, bold=True); c.fill = PatternFill(fill_type=None); c.alignment = Alignment(horizontal='left', vertical='bottom', indent=1); c
 
 
 def layout_of(ws, header_row=1):
