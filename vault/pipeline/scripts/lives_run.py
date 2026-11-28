@@ -42,8 +42,9 @@ STAGE_PROMPT = {'picost': 'pipeline/prompts/picost-v7.md', 'recheck': 'pipeline/
 def max_out(stage, n=0):   # n = pages for picost, flagged or disputed findings for recheck and adjudicate
     """Output plus thinking budget (max tokens) per request, from pipeline/config/pipeline.json. Measured on real runs: Neon 27,317 tokens for 10 pages and 12 findings (about 11,000 visible,
     16,000 thinking); Sol about 670 per flagged finding; Opus about 226 per dispute plus a thinking floor (it ran out at 1,450 on one dispute). Beyond 10 pages the picost growth is an extrapolation."""
-    if stage == 'picost': t = TOK['picost']; return min(t['max'], t['base'] + t['per_page'] * max(n, 10))
-    t = TOK[stage]; return min(t['max'], t['base'] + t['per_finding'] * max(n, 1))
+    lim = C.max_output(C.role_model(STAGE_MODEL[stage]), batch=True)   # never above what the model allows (JP, 2026-11-27: no paper is cut off)
+    if stage == 'picost': t = TOK['picost']; return min(lim, t['max'], t['base'] + t['per_page'] * max(n, 10))
+    t = TOK[stage]; return min(lim, t['max'], t['base'] + t['per_finding'] * max(n, 1))
 STAGE_MAX_OUT = {'picost': max_out('picost', 20), 'recheck': max_out('recheck', MAX_FINDINGS), 'adjudicate': max_out('adjudicate', MAX_FINDINGS)}   # worst case, used by the dry run
 VAULT = cl.VAULT; RUNS = cl.RUNS
 now = lambda: datetime.now(timezone.utc).isoformat(timespec='seconds')
@@ -328,14 +329,15 @@ def run_stage(stage, M, mode):
     job = st['job']
     strag = S.wait_jobs(M, [job]) if job['id'] != 'standard' else False   # a batch job: wait; stragglers are cancelled after the grace period and go to human review
     if job['id'] != 'standard' and not strag and L.poll_batch(job) == 'failed': raise Halt(f"stage {stage}: batch job {job['id']} failed or expired")
-    results = {k: L.Res(**v) for k, v in job['results'].items()} if job['id'] == 'standard' else L.fetch_batch(job)
-    actual = 0.0; failed = 0
+    first = {k: L.Res(**v) for k, v in job['results'].items()} if job['id'] == 'standard' else L.fetch_batch(job)
+    results = S.cutoff_ladder(M, stage, reqs, first, mode)   # JP, 2026-11-27: a cut-off request is retried at medium effort, then in standard mode; the retries are paid and logged by their own stages (<stage>_cut1, <stage>_cut2)
+    actual = 0.0; failed = 0; held = 0
     for r in reqs:
-        x = results[r.id]; ck = r.id.split('__')[0]; c = L.cost(r.model, x.tin, x.tout, batch); actual += c
+        x = first[r.id]; ck = r.id.split('__')[0]; c = L.cost(r.model, x.tin, x.tout, batch); actual += c   # cost of the first round only
         cl.record(M.m['run_id'], stage, r.model, STAGE_PROMPT[stage], provider=L.provider_of(r.model), citekey=ck, effort=r.effort, tokens_in=x.tin, tokens_out=x.tout, latency_s=None, output_text=x.text or None, notes=f"mode={mode}; cost_usd={c:.4f}; finish={x.finish}; err={x.err}")
-        p = M.m['papers'][ck]
+        p = M.m['papers'][ck]; x = results[r.id]   # the result after the ladder
         try:
-            if not x.ok or x.finish in ('MAX_TOKENS', 'max_tokens', 'incomplete'): raise ValueError(f'request not completed ({x.finish} {x.err})')
+            if not x.ok or S.is_cut(x): raise ValueError(f'request not completed ({x.finish} {x.err})')
             data = parse_json(x.text)
             if stage == 'picost':
                 (run / ck).mkdir(exist_ok=True); (run / ck / 'picost.json').write_text(json.dumps(data, indent=1, ensure_ascii=False), encoding='utf-8'); p['stages']['picost'] = {'status': 'done', 'findings': len(data.get('findings', [])), 'tokens_in': x.tin, 'tokens_out': x.tout, 'cost_usd': round(c, 4)}
@@ -347,12 +349,18 @@ def run_stage(stage, M, mode):
             elif stage == 'adjudicate':
                 p['adjudication'] = data; p['unsure'] = [a['id'] for a in data.get('adjudications', []) if a.get('verdict') in ('unsure', 'neither')]; p['stages']['adjudicate'] = {'status': 'done', 'unsure': len(p['unsure']), 'cost_usd': round(c, 4)}
         except Exception as e:
-            failed += 1; p['failed'] = f'{stage}: {str(e)[:200]}'; M.event(f"[{ck}] {stage} FAILED: {p['failed']}")
-    M.m['spent_usd'] = round(M.m['spent_usd'] + actual, 4); st.update(status='done', actual_usd=round(actual, 4), ended=now(), failed=failed); M.save()
+            if str(x.err).startswith('needs JP'): held += 1; p['needs_jp'] = True; p['failed'] = f'needs JP: {stage} output cut off after every retry ({x.finish})'; M.event(f"[{ck}] {stage}: {p['failed']}")   # recoverable by JP: not counted as a failed paper
+            else: failed += 1; p['failed'] = f'{stage}: {str(e)[:200]}'; M.event(f"[{ck}] {stage} did not complete: {p['failed']}")
+    M.m['spent_usd'] = round(M.m['spent_usd'] + actual, 4); st.update(status='done', actual_usd=round(actual, 4), ended=now(), failed=failed, needs_jp=held); M.save()
     M.event(f"stage {stage}: done, actual ${actual:.3f} (expected ${expected:.3f}); total spent ${M.m['spent_usd']:.2f} of ${M.m['cap_usd']:.2f}")
     if M.m['spent_usd'] > M.m['cap_usd']: raise Halt('spend passed the cap')
     if actual > OVERRUN * expected: raise Halt(f'stage {stage} cost ${actual:.2f}, more than {OVERRUN}x its expected ${expected:.2f}')
-    if sum(1 for p in M.m['papers'].values() if p.get('failed')) >= 2: raise Halt('two or more papers failed')
+    if len(failed_papers(M)) >= 2: raise Halt('two or more papers failed')
+
+
+def failed_papers(M):
+    """Papers that failed a stage. A paper stopped with status 'needs JP' (output cut off after every retry) is waiting for JP and is not counted: it does not trigger the 'two or more papers failed' stop."""
+    return [ck for ck, p in M.m['papers'].items() if p.get('failed') and not p.get('needs_jp')]
 
 
 # ---------------------------------------------------------------- final report
@@ -476,6 +484,8 @@ def main():
         for k_, v_ in rough.items(): print(f'  {k_:11s} (several models) rough estimate ${v_:5.2f}   (not measured on a real paper yet)'); tot_e += v_; tot_w += v_ * 1.4
         for ck, p in M.m['papers'].items(): pf = p['preflight']; print(f"  {ck}: {pf['pages']} pages, text layer {pf['text_layer']}, {pf['size_mb']} MB, page numbers from {pf['printed_page_source']}")
         print(f'  total expected ${tot_e:.2f}, worst case ${tot_w:.2f}, cap ${M.m["cap_usd"]}'); M.m['status'] = 'dry-run'; M.save(); return
+    import decision_models as _DMX; _mk = _DMX.missing_keys(C.ROLES['decision_models'])   # JP, 2026-11-27: all three decision models vote; a run does not start with one of them unavailable
+    if _mk: sys.exit('Refused: no key set for a decision model (' + ', '.join(_mk) + ') in ~/.config/lives-ai-raters/.env.')
     M.m['status'] = 'running'; M.save()
     try:
         run_stage('picost', M, mode)
@@ -493,7 +503,7 @@ def main():
         else:
             if 'draft' not in a.skip: S.stage_draft(M, mode)
             if 'qs' not in a.skip: S.stage_qs(M, mode)
-        if 'verify' not in a.skip: import lives_verify as V; V.stage_verify(M, mode); V.add_image_scores(M); V.add_bison_shadow(M); import numbers_on_pages as NP; NP.run_numbers_check(M)   # roles.verify_judge and the two decision models verify every extracted item
+        if 'verify' not in a.skip: import lives_verify as V; V.stage_verify(M, mode); V.add_image_scores(M); import numbers_on_pages as NP; NP.run_numbers_check(M)   # roles.verify_judge and the three decision models (Perplexity, Liquid, bison-1; roles.decision_models) verify every extracted item; bison-1 votes in the first pass since 2026-11-27 evening, so the old shadow pass (V.add_bison_shadow) is not run
         if 'qs' not in a.skip and 'qs_export' not in a.skip:   # JP, 2026-11-26: quality signals after every batch: provenance, links and statistics (code only), then export for the sheet and the web app
             import qs_export as QX; QX.run(M)
         cleanup_files(M); finish(M)

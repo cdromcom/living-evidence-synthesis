@@ -59,12 +59,12 @@ N = {
  'Opus reason': 'The third model\'s explanation of its judgment.',
  # decision-model checks
  'Statement': 'The finding as one sentence (first 300 characters).',
- 'Relevancy': 'Average probability (0 to 1) from two decision models that the finding is relevant to the project\'s research question.',
- 'Fidelity': 'Average probability (0 to 1) from two decision models that the statement restates its quoted source faithfully.',
- 'Numbers found in source': 'Average probability (0 to 1) from two decision models that the statement\'s numbers appear in the quoted source or numbers list.',
- 'Table cell matches': 'Average probability (0 to 1) from two decision models that numbers taken from a table match the right table cell. Empty when the finding is not based on a table.',
+ 'Relevancy': 'Average probability (0 to 1) from the three decision models that the finding is relevant to the project\'s research question.',
+ 'Fidelity': 'Average probability (0 to 1) from the three decision models that the statement restates its quoted source faithfully.',
+ 'Numbers found in source': 'Average probability (0 to 1) from the three decision models that the statement\'s numbers appear in the quoted source or numbers list.',
+ 'Table cell matches': 'Average probability (0 to 1) from the three decision models that numbers taken from a table match the right table cell. Empty when the finding is not based on a table.',
  'Score (lowest mean)': 'The lowest of the four averages. A low score means at least one check doubts the finding.',
- 'Spread between models': 'The largest difference between the two decision models\' answers on any question.',
+ 'Spread between models': 'The largest difference between the three decision models\' answers on any question.',
  'Why Sol looked': 'Why a screenshot check by GPT-6.2 Sol was run on this finding (every finding gets one).',
  'Sol vision': 'GPT-6.2 Sol\'s verdict after looking at the screenshot: pass, not matched or cannot verify.',
  'Sol reason': 'GPT-6.2 Sol\'s short explanation of its verdict.',
@@ -116,7 +116,7 @@ N = {
  'What was checked': 'The question the verifiers answered about the item.',
  'Item (as extracted)': 'The extracted item being checked, as the pipeline wrote it.',
  'Screenshot (image)': 'Page image of the quote with the quoted text highlighted.',
- 'Sonnet 5.5 score': 'Claude Sonnet 5.5\'s judgment: 1 supported, 0.5 unsure, 0 not supported. Empty when Sonnet was not called because the two decision models agreed.',
+ 'Sonnet 5.5 score': 'Claude Sonnet 5.5\'s judgment: 1 supported, 0.5 unsure, 0 not supported. Empty when Sonnet was not called because all three decision models agreed.',
  'Sonnet 5.5 reason': 'Sonnet\'s one-sentence reason, or "not called" when the decision models agreed.',
  'Perplexity Decider 1.3 (probability)': 'Probability (0 to 1) from the decision model Perplexity Decider 1.3 that the item is supported by its passage.',
  'Liquid d1.2-ultra, text (probability)': 'Probability (0 to 1) from the decision model Liquid d1.2-ultra, reading text, that the item is supported by its passage.',
@@ -235,7 +235,7 @@ VD = _C.short(_C.ROLES['vision_dispute'])
 RWS = _C.short(_C.ROLES['evd_rework']); RWT = f"EVD rework ({_C.role_display(_C.ROLES['evd_rework'])})"   # EVD rework model, tab title
 QCD = _C.role_display(_C.ROLES['quote_check'])                           # reads the screenshot of every quote
 N.update({
- f'{JD} score': f"{JD}'s judgment: 1 supported, 0.5 unsure, 0 not supported. Empty when {JD} was not called because the two decision models agreed.",
+ f'{JD} score': f"{JD}'s judgment: 1 supported, 0.5 unsure, 0 not supported. Empty when {JD} was not called because all three decision models agreed.",
  f'{JD} reason': f"{JD}'s one-sentence reason, or \"not called\" when the decision models agreed.",
  'Sonnet 5.5 reason': 'The foundation model\'s one-sentence reason for the item (the model named in the run\'s ABOUT tab, roles.verify_judge), or "not called" when the decision models agreed.',
  f'{JS} pass (1 or 0)': f"{JS}'s verdict as 1 (pass) or 0; empty if unsure or not called.",
@@ -250,7 +250,7 @@ N.update({
  'Verdict': f"{RWS}'s decision: ok (statement is fine), rewrite, or extraction problem (the source data look wrong).",
  'Proposed correction': f'The statement with only the wrong words or numbers corrected, when {RWS} found an error. Everything else is kept word for word.',
  'Exact changes (old -> new: reason)': f'Every edit {RWS} made, as old text -> new text with the reason. The correction is applied only if these edits reproduce the proposed statement exactly and the writing rules and decision-model checks pass.',
- 'Flag for human examination (reason)': 'Why a person should look at this item. Flagged when the judge model scored it below 0.75 or gave no answer; when Perplexity, Liquid or bison-1 scored it below 0.5 and the judge did not pass it; or when the judge and the majority of the decision models disagree. bison-1 takes part in the flag but not in the pass or fail vote. Flagged items come first in the labeling queue within each node type.',
+ 'Flag for human examination (reason)': 'Why a person should look at this item. Flagged when the judge model scored it below 0.75 or gave no answer; when Perplexity, Liquid or bison-1 scored it below 0.5 and the judge did not pass it; or when the judge and the majority of the decision models disagree. Since 2026-11-27 evening bison-1 votes like the other two decision models (earlier runs kept it outside the vote). Flagged items come first in the labeling queue within each node type.',
  'Judge model (the one that did not produce the item)': 'The foundation model that judged this item. A model never judges its own work: items Neon produced go to the first judge, quality ratings the first judge made go to the second judge.',
  f'{VD} (disputes only)': f'Verdict of {_C.role_display(_C.ROLES["vision_dispute"])}, asked only when the decision models and the screenshot check disagree.',
  'Sol rating (fallback or third rater)': 'Rating by GPT-6.2 Sol. With one primary rater (2026-11-27 procedure) Sol rates only the rows where the first rater reported low confidence (the fallback rater); in the three-rater mode it is the third independent rater; older runs: asked only when Neon and Opus differed.',
@@ -259,6 +259,38 @@ N.update({
  'Needs your judgment (needs_human)': 'Signals on which the first rater and the fallback rater both reported low confidence, or gave no valid rating. They are yours to rate.',
  'Fallback rater decided': 'Signals on which the first rater reported low confidence and the fallback rater (GPT-6.2 Sol) gave the rating.',
 })
+# JP, 2026-11-27: one column per decision model and per quantity, never several numbers in one cell.
+import decision_models as _DM
+LQ = _C.display(_DM.MODELS['liquid'])   # Liquid model in use: 'Liquid d1.3-ultra' once the API accepts it, 'Liquid d1.2-ultra' until then
+_QC = 'Score from 0 (the quote does not support the rating) to 1 (it supports it) on whether the quote supports the rating, averaged over the raters of this row. Empty when the model gave no answer or was not asked.'
+N.update({
+ 'Neon quote': 'The passage Neon quoted as evidence for its rating.', 'Neon locator': 'Where Neon says the quote is: section and page.',
+ 'Opus quote': 'The passage Opus quoted as evidence for its rating.', 'Opus locator': 'Where Opus says the quote is: section and page.',
+ 'Sol rating': 'Rating by GPT-6.2 Sol, when it rated this signal (fallback or third rater).',
+ 'Quote check: Perplexity Decider 1.3 (score 0 to 1)': 'Perplexity Decider 1.3 (text only). ' + _QC,
+ f'Quote check: {LQ} (score 0 to 1)': f'{LQ} (reads text and images; here it read text). ' + _QC,
+ 'Quote check: Baseten bison-1 (score 0 to 1)': 'Baseten bison-1 (31B decision model, text only). ' + _QC,
+ 'Quote check: judge score (0 to 1)': 'The judge model\'s verdict on the quote: 1 supported, 0.5 unsure, 0 not supported. Empty when the judge was not asked, which happens when all three decision models agree.',
+ 'Quote check: judge model': 'The foundation model that acted as judge for this row (empty when it was not asked). A model never judges its own rating.',
+ 'Source (web address)': 'Where the code-only check looked.', 'Checked on (date)': 'Date (UTC) when the code-only check ran.',
+ 'Baseten bison-1, text (probability)': 'Probability (0 to 1) from the 31B decision model Baseten bison-1 that the item is supported by its passage. Since 2026-11-27 evening it votes like Perplexity and Liquid. Runs before that kept it as a shadow score that did not vote. Text only: it cannot read screenshots.',
+ 'Baseten bison-1 pass (1 or 0)': 'bison-1\'s verdict as 1 (probability 0.5 or more) or 0.',
+ 'Baseten bison-1 reading the screenshot': 'Always "not used (text only)" on rows where Liquid read a screenshot: bison-1 cannot read images (in a test it scored a correct quote 0.03), so it abstains there.',
+ 'Baseten bison-1: lowest question score': 'Lowest score among the questions answered by Baseten bison-1 (text only).',
+ 'Number not in the text of the cited pages': 'One number from the statement that is not in the text of the cited PDF pages (one row per number).',
+ 'Out of': 'The total behind the value, when the value is a count out of something (or the spending cap).', 'Share (percent)': 'The value as a percent of the total.',
+ 'Stage': 'Name of the pipeline stage.', 'Minutes': 'Minutes from the start to the end of the stage (batch waiting included).', 'Mode': 'batch (about half price, answers within a day) or standard (answered at once).', 'Requests': 'Number of model requests the stage sent.',
+ 'Requests that did not complete': 'Requests that returned no usable result.', 'Requests re-run after a cut-off': 'Requests whose answer was cut off by the output limit and were re-run with the no-cut-off ladder (medium effort in batch, then standard mode).',
+ 'New: share reported, percent (partial counts half)': 'Share of applicable TRIPOD-LLM items reported, as a percent; a partly reported item counts half.', 'New: level': 'Reporting level from that share (for example good).',
+ 'Old table: share reported, percent': 'The same percent from the curated table on the source page.', 'Old table: level': 'Reporting level from the curated table.',
+ 'New rating equals old curated rating (items)': 'Number of items on which the new rating equals the curated rating.', 'Items compared': 'Number of items that have both a new and a curated rating.',
+ 'Matches live-site tag (signals)': 'Number of signals whose final rating equals the value on the LIVES website.', 'Signals compared with the live-site tag': 'Number of signals that have a value on the LIVES website to compare with.',
+})
+TAB[('Numbers check (EVD findings)', 'Result')] = 'Outcome for this number: whether it appears on the screenshots and the control number does not.'
+for _k, _v in list(N.items()):   # the Liquid model changes with the API: headers and notes follow it
+    if 'Liquid d1.2-ultra' in _k and LQ != 'Liquid d1.2-ultra': N[_k.replace('Liquid d1.2-ultra', LQ)] = _v.replace('Liquid d1.2-ultra', LQ)
+for _k, _v in list(TAB.items()):
+    if 'Liquid d1.2-ultra' in _k[1] and LQ != 'Liquid d1.2-ultra': TAB[(_k[0], _k[1].replace('Liquid d1.2-ultra', LQ))] = _v
 TAB[('Decision-model checks (EVD)', f'{VD} reason')] = "The dispute model's explanation of its verdict."
 TAB[(RWT, 'Result')] = 'Outcome of the rework for this statement.'
 TAB[('Rechecks (EVD findings)', f'{AD} reason')] = "The third model's explanation of which reader it judged correct."

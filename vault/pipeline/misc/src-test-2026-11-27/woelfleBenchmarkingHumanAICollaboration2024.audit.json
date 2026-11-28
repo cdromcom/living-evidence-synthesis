@@ -1,0 +1,3243 @@
+{
+ "status": "test, not validated",
+ "citekey": "woelfleBenchmarkingHumanAICollaboration2024",
+ "run_id": "2026-11-26_batch07",
+ "paper_folder": "Woelfle-et-al-2024-Benchmarking-Human-AI-collabo",
+ "source_pdf": {
+  "file": "sysrev/dgraph/source/pdfs/Woelfle et al. - 2024 - Benchmarking Human–AI collaboration for common evidence appraisal tools.pdf",
+  "sha256": "0a95c3ae70deb9baa5bb62a4c405ca94c82886367f2f00d73b101a820e5f54d6"
+ },
+ "model": {
+  "id": "gpt-6.2-sol",
+  "display": "GPT-6.2 Sol",
+  "effort": "medium",
+  "mode": "batch"
+ },
+ "prompt": {
+  "id": "src-write-v1",
+  "file": null,
+  "sha256": null,
+  "saved_answer": true
+ },
+ "judge": {
+  "id": "gemini-4-neon",
+  "display": "Gemini 4 Neon",
+  "effort": "medium",
+  "mode": "batch",
+  "prompt": "src-judge-v1",
+  "verdicts": {}
+ },
+ "cost": {
+  "tokens_in": 0,
+  "tokens_out": 0,
+  "usd_batch_price": 0.0,
+  "judge_usd_batch_price": 0.0,
+  "seconds_submit_to_answer": null
+ },
+ "date_utc": "2026-11-28T02:33:58+00:00",
+ "summary": {
+  "flags_for_human_examination": 11,
+  "numbers": {
+   "found_in_paper": 166
+  },
+  "quotes": {
+   "located": 7
+  },
+  "quote_page_mismatch": 0,
+  "unknown_node_ids": [],
+  "nodes_not_linked": [],
+  "tables": [],
+  "style_flags": 3,
+  "cited_numbers": {
+   "uncited": 4,
+   "ok": 37,
+   "not_on_cited_page": 2
+  },
+  "copied_tables": 0,
+  "summary_words": 61,
+  "writing_rules_pass": true,
+  "embeds": {
+   "resolved": 3
+  }
+ },
+ "flags_for_human_examination": [
+  {
+   "kind": "citation",
+   "what": "sentence with number(s) ['2,'] has no table, figure or page citation",
+   "context": "**PRECIS-2**, Pragmatic Explanatory Continuum Indicator Summary 2, rates how closely a trial reflects usual care."
+  },
+  {
+   "kind": "citation",
+   "what": "number(s) ['15'] not printed in ['Table 2, p. 5']",
+   "context": "Analysis counts varied by model and tool, and the second human's PRISMA and AMSTAR ratings were missing for 15 reviews (Table 2, p. 5)."
+  },
+  {
+   "kind": "citation",
+   "what": "number(s) ['0'] not printed in ['Section 2.3.1, p. 3']",
+   "context": "Report Cohen's kappa, where 0 means chance agreement and 1 means perfect agreement (Section 2.3.1, p. 3)."
+  },
+  {
+   "kind": "citation",
+   "what": "sentence with number(s) ['1', '2,', '4', '5'] has no table, figure or page citation",
+   "context": "Pool PRECIS-2 scores 1 and 2, and scores 4 and 5."
+  },
+  {
+   "kind": "citation",
+   "what": "sentence with number(s) ['1', '86', '75', '1', '2', '3,', '7'] has no table, figure or page citation",
+   "context": "On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for rater 1 alone across all ratings (Tables 2 and 3, pp. 5 and 7)."
+  },
+  {
+   "kind": "citation",
+   "what": "sentence with number(s) ['2020'] has no table, figure or page citation",
+   "context": "[[V-V3]] **Older checklist versions.** The benchmark did not use PRISMA 2020 or AMSTAR-2."
+  },
+  {
+   "kind": "summary",
+   "what": "the Summary has 61 words; 100 to 125 are required"
+  },
+  {
+   "kind": "summary",
+   "what": "the Summary holds 4 citation(s) or node link(s); none are allowed"
+  },
+  {
+   "kind": "table",
+   "what": "the page has 0 copied table(s); one or two are required"
+  },
+  {
+   "kind": "judge",
+   "what": "the Neon judge was not run (offline regeneration from a saved answer)"
+  },
+  {
+   "kind": "quote",
+   "what": "S-18 (tripod-1): quality-signal quote not located in the PDF text",
+   "quote": "Benchmarking Human–AI collaboration for common evidence appraisal tools ... Benchmarking Human–AI collaboration for comm"
+  }
+ ],
+ "validation": {
+  "writing_rules": {
+   "no_emdash": true,
+   "all_caps_words": [],
+   "pass": true
+  },
+  "links": {
+   "used": [
+    "C-C1",
+    "C-C2",
+    "C-C3",
+    "C-C4",
+    "E-F1",
+    "E-F10",
+    "E-F11",
+    "E-F12",
+    "E-F13",
+    "E-F14",
+    "E-F15",
+    "E-F16",
+    "E-F2",
+    "E-F3",
+    "E-F4",
+    "E-F5",
+    "E-F6",
+    "E-F7",
+    "E-F8",
+    "E-F9",
+    "Q-Q1",
+    "Q-Q2",
+    "Q-Q3",
+    "Q-Q4",
+    "V-V1",
+    "V-V2",
+    "V-V3",
+    "V-V4",
+    "V-V5",
+    "V-V6",
+    "V-V7"
+   ],
+   "unknown_ids": [],
+   "not_linked": []
+  },
+  "numbers": [
+   {
+    "number": "96",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "> On PRISMA, a checklist for systematic review reporting, a human and a model matched human consensus on 96% of ratings they both accepted (Table 3, p. 7). Models alone a"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- **PRECIS-2**, Pragmatic Explanatory Continuum Indicator Summary 2, rates how closely a trial reflects usual care."
+   },
+   {
+    "number": "2,",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- **PRECIS-2**, Pragmatic Explanatory Continuum Indicator Summary 2, rates how closely a trial reflects usual care."
+   },
+   {
+    "number": "3",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- **Claude-3-Opus**, the only model tested with page images, including figures and tables."
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- **Claude-2**, an older Claude model tested on extracted text."
+   },
+   {
+    "number": "4",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- **GPT-4**, an OpenAI model tested on extracted text."
+   },
+   {
+    "number": "3.5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- **GPT-3.5**, an older OpenAI model tested on extracted text."
+   },
+   {
+    "number": "8",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- **Mixtral-8x22B**, an open-source model tested on extracted text."
+   },
+   {
+    "number": "112",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     5,
+     7,
+     8
+    ],
+    "context": "- **Sample.** The benchmark included 112 pediatric surgery systematic reviews for PRISMA and AMSTAR and 56 randomized PragMeta trials for PRECIS-2 (Section 2.1, p. 2). An"
+   },
+   {
+    "number": "56",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     5,
+     7,
+     8
+    ],
+    "context": "- **Sample.** The benchmark included 112 pediatric surgery systematic reviews for PRISMA and AMSTAR and 56 randomized PragMeta trials for PRECIS-2 (Section 2.1, p. 2). An"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- **Sample.** The benchmark included 112 pediatric surgery systematic reviews for PRISMA and AMSTAR and 56 randomized PragMeta trials for PRECIS-2 (Section 2.1, p. 2). An"
+   },
+   {
+    "number": "15",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     6,
+     11
+    ],
+    "context": "- **Sample.** The benchmark included 112 pediatric surgery systematic reviews for PRISMA and AMSTAR and 56 randomized PragMeta trials for PRECIS-2 (Section 2.1, p. 2). An"
+   },
+   {
+    "number": "0",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5
+    ],
+    "context": "3. Measure accuracy as the share of ratings that exactly match human consensus. Report Cohen's kappa, where 0 means chance agreement and 1 means perfect agreement (Sectio"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "3. Measure accuracy as the share of ratings that exactly match human consensus. Report Cohen's kappa, where 0 means chance agreement and 1 means perfect agreement (Sectio"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "4. Pool PRECIS-2 scores 1 and 2, and scores 4 and 5. Use weighted kappa, which gives partial credit for closer scores (Section 2.3.1, p. 3)."
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "4. Pool PRECIS-2 scores 1 and 2, and scores 4 and 5. Use weighted kappa, which gives partial credit for closer scores (Section 2.3.1, p. 3)."
+   },
+   {
+    "number": "2,",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "4. Pool PRECIS-2 scores 1 and 2, and scores 4 and 5. Use weighted kappa, which gives partial credit for closer scores (Section 2.3.1, p. 3)."
+   },
+   {
+    "number": "4",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "4. Pool PRECIS-2 scores 1 and 2, and scores 4 and 5. Use weighted kappa, which gives partial credit for closer scores (Section 2.3.1, p. 3)."
+   },
+   {
+    "number": "5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11
+    ],
+    "context": "4. Pool PRECIS-2 scores 1 and 2, and scores 4 and 5. Use weighted kappa, which gives partial credit for closer scores (Section 2.3.1, p. 3)."
+   },
+   {
+    "number": "63",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6,
+     7,
+     9
+    ],
+    "context": "- [[E-F2]] **Individual models trailed humans on review reporting.** Primary. On PRISMA, individual models matched human consensus on 63% to 70% of ratings, compared with"
+   },
+   {
+    "number": "70",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6,
+     7,
+     8
+    ],
+    "context": "- [[E-F2]] **Individual models trailed humans on review reporting.** Primary. On PRISMA, individual models matched human consensus on 63% to 70% of ratings, compared with"
+   },
+   {
+    "number": "89",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     9,
+     11
+    ],
+    "context": "- [[E-F2]] **Individual models trailed humans on review reporting.** Primary. On PRISMA, individual models matched human consensus on 63% to 70% of ratings, compared with"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F2]] **Individual models trailed humans on review reporting.** Primary. On PRISMA, individual models matched human consensus on 63% to 70% of ratings, compared with"
+   },
+   {
+    "number": "0.40",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F2]] **Individual models trailed humans on review reporting.** Primary. On PRISMA, individual models matched human consensus on 63% to 70% of ratings, compared with"
+   },
+   {
+    "number": "0.51",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5
+    ],
+    "context": "- [[E-F2]] **Individual models trailed humans on review reporting.** Primary. On PRISMA, individual models matched human consensus on 63% to 70% of ratings, compared with"
+   },
+   {
+    "number": "0.81",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F2]] **Individual models trailed humans on review reporting.** Primary. On PRISMA, individual models matched human consensus on 63% to 70% of ratings, compared with"
+   },
+   {
+    "number": "53",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6,
+     7
+    ],
+    "context": "- [[E-F3]] **Individual models trailed humans on review methods.** Primary. On AMSTAR, individual models matched human consensus on 53% to 74% of ratings, compared with 8"
+   },
+   {
+    "number": "74",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6,
+     7
+    ],
+    "context": "- [[E-F3]] **Individual models trailed humans on review methods.** Primary. On AMSTAR, individual models matched human consensus on 53% to 74% of ratings, compared with 8"
+   },
+   {
+    "number": "89",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     9,
+     11
+    ],
+    "context": "- [[E-F3]] **Individual models trailed humans on review methods.** Primary. On AMSTAR, individual models matched human consensus on 53% to 74% of ratings, compared with 8"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F3]] **Individual models trailed humans on review methods.** Primary. On AMSTAR, individual models matched human consensus on 53% to 74% of ratings, compared with 8"
+   },
+   {
+    "number": "0.27",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F3]] **Individual models trailed humans on review methods.** Primary. On AMSTAR, individual models matched human consensus on 53% to 74% of ratings, compared with 8"
+   },
+   {
+    "number": "0.56",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F3]] **Individual models trailed humans on review methods.** Primary. On AMSTAR, individual models matched human consensus on 53% to 74% of ratings, compared with 8"
+   },
+   {
+    "number": "0.80",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F3]] **Individual models trailed humans on review methods.** Primary. On AMSTAR, individual models matched human consensus on 53% to 74% of ratings, compared with 8"
+   },
+   {
+    "number": "2,",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "38",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6,
+     7,
+     11
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "55",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "75",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "0.01",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "0.12",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "0.57",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F4]] **Individual models struggled to rate trial pragmatism.** Primary. On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared wi"
+   },
+   {
+    "number": "3",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F5]] **Claude-3-Opus led on average across tools.** Primary. Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% "
+   },
+   {
+    "number": "2,",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F5]] **Claude-3-Opus led on average across tools.** Primary. Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% "
+   },
+   {
+    "number": "63",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6,
+     7,
+     9
+    ],
+    "context": "- [[E-F5]] **Claude-3-Opus led on average across tools.** Primary. Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% "
+   },
+   {
+    "number": "57",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     6,
+     8,
+     9
+    ],
+    "context": "- [[E-F5]] **Claude-3-Opus led on average across tools.** Primary. Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% "
+   },
+   {
+    "number": "59",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     6,
+     9
+    ],
+    "context": "- [[E-F5]] **Claude-3-Opus led on average across tools.** Primary. Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% "
+   },
+   {
+    "number": "0.40",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F5]] **Claude-3-Opus led on average across tools.** Primary. Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% "
+   },
+   {
+    "number": "0.24",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     7
+    ],
+    "context": "- [[E-F5]] **Claude-3-Opus led on average across tools.** Primary. Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% "
+   },
+   {
+    "number": "0.31",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     7
+    ],
+    "context": "- [[E-F5]] **Claude-3-Opus led on average across tools.** Primary. Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% "
+   },
+   {
+    "number": "9",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "9",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "75",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "88",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7,
+     8,
+     9
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "0.59",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     7
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "0.77",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7,
+     8
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "4",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "74",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6,
+     7
+    ],
+    "context": "- [[E-F6]] **Stricter model voting improved retained reporting ratings.** Primary. On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreemen"
+   },
+   {
+    "number": "9",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "9",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "74",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     6,
+     7
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "89",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     9,
+     11
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "0.56",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "0.82",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "6",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     6,
+     7,
+     11
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "84",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F7]] **Stricter model voting deferred most methods ratings.** Primary. On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with"
+   },
+   {
+    "number": "2,",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "9",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "9",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "64",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "79",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     7
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "0.11",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     7
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "0.49",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     7
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "18",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     7,
+     11
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "88",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7,
+     8,
+     9
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "29",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     8,
+     11
+    ],
+    "context": "- [[E-F8]] **Unanimous model votes retained few pragmatism ratings.** Primary. On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement "
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "96",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "89",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     9,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "4",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "35",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     7,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "25",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     8,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "8",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "10",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     6,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F9]] **Human and model ratings aligned on reporting.** Primary. On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 8"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "91",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     8,
+     9
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "4,",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "95",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     3,
+     5,
+     7,
+     8,
+     9
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "3",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "96",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "3.5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "27",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     5,
+     7,
+     8,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "30",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "52",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "8",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "10",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     6,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F10]] **Human and model pairs improved retained methods ratings.** Primary. On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude"
+   },
+   {
+    "number": "2,",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "3.5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "86",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     7,
+     8
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "75",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "3,",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "7",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     6,
+     7,
+     8,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "71",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     8
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "3.5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F11]] **Human and model pairs deferred most trial ratings.** Primary. On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F1]] **Humans also found trial pragmatism harder to rate.** Secondary: sets the human baseline. Human rater 1 matched consensus on 89% of PRISMA reporting ratings a"
+   },
+   {
+    "number": "89",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     9,
+     11
+    ],
+    "context": "- [[E-F1]] **Humans also found trial pragmatism harder to rate.** Secondary: sets the human baseline. Human rater 1 matched consensus on 89% of PRISMA reporting ratings a"
+   },
+   {
+    "number": "89",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     9,
+     11
+    ],
+    "context": "- [[E-F1]] **Humans also found trial pragmatism harder to rate.** Secondary: sets the human baseline. Human rater 1 matched consensus on 89% of PRISMA reporting ratings a"
+   },
+   {
+    "number": "75",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F1]] **Humans also found trial pragmatism harder to rate.** Secondary: sets the human baseline. Human rater 1 matched consensus on 89% of PRISMA reporting ratings a"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F1]] **Humans also found trial pragmatism harder to rate.** Secondary: sets the human baseline. Human rater 1 matched consensus on 89% of PRISMA reporting ratings a"
+   },
+   {
+    "number": "91",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     5,
+     7,
+     8,
+     9
+    ],
+    "context": "- [[E-F12]] **Human reviewers agreed least on trial pragmatism.** Secondary: compares the two human raters. They agreed with each other on 91% of PRISMA reporting ratings"
+   },
+   {
+    "number": "88",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7,
+     8,
+     9
+    ],
+    "context": "- [[E-F12]] **Human reviewers agreed least on trial pragmatism.** Secondary: compares the two human raters. They agreed with each other on 91% of PRISMA reporting ratings"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F12]] **Human reviewers agreed least on trial pragmatism.** Secondary: compares the two human raters. They agreed with each other on 91% of PRISMA reporting ratings"
+   },
+   {
+    "number": "57",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     6,
+     8,
+     9
+    ],
+    "context": "- [[E-F12]] **Human reviewers agreed least on trial pragmatism.** Secondary: compares the two human raters. They agreed with each other on 91% of PRISMA reporting ratings"
+   },
+   {
+    "number": "67",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F13]] **Repeated model ratings varied even with minimal randomness.** Secondary: checks repeatability. Across repeat runs of the same model, agreement ranged from 6"
+   },
+   {
+    "number": "94",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F13]] **Repeated model ratings varied even with minimal randomness.** Secondary: checks repeatability. Across repeat runs of the same model, agreement ranged from 6"
+   },
+   {
+    "number": "64",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     3,
+     5,
+     7
+    ],
+    "context": "- [[E-F13]] **Repeated model ratings varied even with minimal randomness.** Secondary: checks repeatability. Across repeat runs of the same model, agreement ranged from 6"
+   },
+   {
+    "number": "94",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7
+    ],
+    "context": "- [[E-F13]] **Repeated model ratings varied even with minimal randomness.** Secondary: checks repeatability. Across repeat runs of the same model, agreement ranged from 6"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F13]] **Repeated model ratings varied even with minimal randomness.** Secondary: checks repeatability. Across repeat runs of the same model, agreement ranged from 6"
+   },
+   {
+    "number": "61",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5
+    ],
+    "context": "- [[E-F13]] **Repeated model ratings varied even with minimal randomness.** Secondary: checks repeatability. Across repeat runs of the same model, agreement ranged from 6"
+   },
+   {
+    "number": "78",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     5,
+     7,
+     11
+    ],
+    "context": "- [[E-F13]] **Repeated model ratings varied even with minimal randomness.** Secondary: checks repeatability. Across repeat runs of the same model, agreement ranged from 6"
+   },
+   {
+    "number": "0.012",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     3
+    ],
+    "context": "- [[E-F14]] **Model costs and response times varied.** Secondary: compares resources. Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 "
+   },
+   {
+    "number": "8",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F14]] **Model costs and response times varied.** Secondary: compares resources. Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 "
+   },
+   {
+    "number": "1.15",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     3
+    ],
+    "context": "- [[E-F14]] **Model costs and response times varied.** Secondary: compares resources. Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 "
+   },
+   {
+    "number": "4",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F14]] **Model costs and response times varied.** Secondary: compares resources. Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 "
+   },
+   {
+    "number": "3.5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F14]] **Model costs and response times varied.** Secondary: compares resources. Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 "
+   },
+   {
+    "number": "10",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     6,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F14]] **Model costs and response times varied.** Secondary: compares resources. Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 "
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F14]] **Model costs and response times varied.** Secondary: compares resources. Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 "
+   },
+   {
+    "number": "4",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F14]] **Model costs and response times varied.** Secondary: compares resources. Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 "
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "3",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "4",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "3",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "112",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     5,
+     7,
+     8
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "3.5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "3",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "112",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     5,
+     7,
+     8
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "56",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     5,
+     7,
+     8
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "8",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "1",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "112",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     5,
+     7,
+     8
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "13",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     8,
+     11
+    ],
+    "context": "- [[E-F15]] **Some models needed retries or left reports unrated.** Secondary: checks processing coverage. Claude-2 processed all reports, but Claude-3-Opus and GPT-4 eac"
+   },
+   {
+    "number": "14",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     5,
+     7,
+     8,
+     10,
+     11
+    ],
+    "context": "- [[E-F16]] **Extracted passages usually resembled the source text.** Secondary: checks quotation coverage and fidelity. The median per report was 14 passages for PRISMA "
+   },
+   {
+    "number": "7",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     6,
+     7,
+     8,
+     10,
+     11
+    ],
+    "context": "- [[E-F16]] **Extracted passages usually resembled the source text.** Secondary: checks quotation coverage and fidelity. The median per report was 14 passages for PRISMA "
+   },
+   {
+    "number": "10",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     2,
+     3,
+     6,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F16]] **Extracted passages usually resembled the source text.** Secondary: checks quotation coverage and fidelity. The median per report was 14 passages for PRISMA "
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[E-F16]] **Extracted passages usually resembled the source text.** Secondary: checks quotation coverage and fidelity. The median per report was 14 passages for PRISMA "
+   },
+   {
+    "number": "99",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     8
+    ],
+    "context": "- [[E-F16]] **Extracted passages usually resembled the source text.** Secondary: checks quotation coverage and fidelity. The median per report was 14 passages for PRISMA "
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[C-C2]] The authors argued that pairing a human with a model could reduce second-reviewer workload for PRISMA and AMSTAR, but found less promise for PRECIS-2. Fewer it"
+   },
+   {
+    "number": "3.5",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11
+    ],
+    "context": "- [[C-C3]] Newer and larger models did not always agree more closely with human consensus. GPT-3.5 led the individual models on raw PRECIS-2 agreement, while Claude-3-Opu"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[C-C3]] Newer and larger models did not always agree more closely with human consensus. GPT-3.5 led the individual models on raw PRECIS-2 agreement, while Claude-3-Opu"
+   },
+   {
+    "number": "3",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[C-C3]] Newer and larger models did not always agree more closely with human consensus. GPT-3.5 led the individual models on raw PRECIS-2 agreement, while Claude-3-Opu"
+   },
+   {
+    "number": "2020",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     9,
+     11
+    ],
+    "context": "- [[V-V3]] **Older checklist versions.** The benchmark did not use PRISMA 2020 or AMSTAR-2. These versions may differ enough to change performance. \"the current results m"
+   },
+   {
+    "number": "2",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[V-V3]] **Older checklist versions.** The benchmark did not use PRISMA 2020 or AMSTAR-2. These versions may differ enough to change performance. \"the current results m"
+   },
+   {
+    "number": "3",
+    "status": "found_in_paper",
+    "pdf_pages": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "context": "- [[V-V4]] **Unequal access to visuals.** Only Claude-3-Opus saw page images, so the comparison cannot separate model differences from input differences. \"the LLMs used c"
+   }
+  ],
+  "quotes": [
+   {
+    "quote": "only prospective replication of these results with new human consensus datasets would eliminate the risk of train/test contamination.",
+    "found": true,
+    "pdf_pages": [
+     9
+    ],
+    "printed_pages": [
+     "9"
+    ],
+    "cited_printed": "9",
+    "page_ok": true
+   },
+   {
+    "quote": "the dataset used in this study to assess PRECIS-2 contains mostly pragmatic trials and few explanatory ones.",
+    "found": true,
+    "pdf_pages": [
+     9
+    ],
+    "printed_pages": [
+     "9"
+    ],
+    "cited_printed": "9",
+    "page_ok": true
+   },
+   {
+    "quote": "the current results might only partly apply to them.",
+    "found": true,
+    "pdf_pages": [
+     9
+    ],
+    "printed_pages": [
+     "9"
+    ],
+    "cited_printed": "9",
+    "page_ok": true
+   },
+   {
+    "quote": "the LLMs used could only process text and were blind to images.",
+    "found": true,
+    "pdf_pages": [
+     9
+    ],
+    "printed_pages": [
+     "9"
+    ],
+    "cited_printed": "9",
+    "page_ok": true
+   },
+   {
+    "quote": "the presented datasets contain ratings from only two human experts",
+    "found": true,
+    "pdf_pages": [
+     9
+    ],
+    "printed_pages": [
+     "9"
+    ],
+    "cited_printed": "9",
+    "page_ok": true
+   },
+   {
+    "quote": "This means the efﬁciency and potential time savings cannot be quantiﬁed.",
+    "found": true,
+    "pdf_pages": [
+     10
+    ],
+    "printed_pages": [
+     "10"
+    ],
+    "cited_printed": "10",
+    "page_ok": true
+   },
+   {
+    "quote": "While differences in the prompts used complicate comparisons between individual LLMs",
+    "found": true,
+    "pdf_pages": [
+     6
+    ],
+    "printed_pages": [
+     "6"
+    ],
+    "cited_printed": "6",
+    "page_ok": true
+   }
+  ],
+  "embeds": [],
+  "summary": {
+   "present": true,
+   "words": 61,
+   "in_range": false,
+   "citations": 4,
+   "ok": false
+  },
+  "tables": [],
+  "style": [
+   {
+    "rule": "not_reported_not_one_line",
+    "detail": "- The second human rater's kappa and confidence intervals in the main text. The "
+   },
+   {
+    "rule": "not_reported_not_one_line",
+    "detail": "- Exact PRISMA and AMSTAR prompt templates in the main text. The paper provides "
+   },
+   {
+    "rule": "not_reported_not_one_line",
+    "detail": "- Detailed item-level and publication-level agreement figures in the main text. "
+   }
+  ],
+  "cited_numbers": [
+   {
+    "status": "uncited",
+    "numbers": [
+     "2,"
+    ],
+    "sentence": "**PRECIS-2**, Pragmatic Explanatory Continuum Indicator Summary 2, rates how closely a trial reflects usual care."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "112",
+     "56"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 2.1, p. 2"
+    ],
+    "sentence": "**Sample.** The benchmark included 112 pediatric surgery systematic reviews for PRISMA and AMSTAR and 56 randomized PragMeta trials for PRECIS-2 (Section 2.1, p. 2)."
+   },
+   {
+    "status": "not_on_cited_page",
+    "numbers": [
+     "15"
+    ],
+    "missing": [
+     "15"
+    ],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "Analysis counts varied by model and tool, and the second human's PRISMA and AMSTAR ratings were missing for 15 reviews (Table 2, p. 5)."
+   },
+   {
+    "status": "not_on_cited_page",
+    "numbers": [
+     "0",
+     "1"
+    ],
+    "missing": [
+     "0"
+    ],
+    "cited": [
+     "Section 2.3.1, p. 3"
+    ],
+    "sentence": "Report Cohen's kappa, where 0 means chance agreement and 1 means perfect agreement (Section 2.3.1, p. 3)."
+   },
+   {
+    "status": "uncited",
+    "numbers": [
+     "1",
+     "2,",
+     "4",
+     "5"
+    ],
+    "sentence": "Pool PRECIS-2 scores 1 and 2, and scores 4 and 5."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "63",
+     "70",
+     "89",
+     "1"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "On PRISMA, individual models matched human consensus on 63% to 70% of ratings, compared with 89% for human rater 1 (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "0.40",
+     "0.51",
+     "0.81"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "PRISMA kappa ranged from 0.40 to 0.51 for models, compared with 0.81 for the human rater (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "53",
+     "74",
+     "89",
+     "1"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "On AMSTAR, individual models matched human consensus on 53% to 74% of ratings, compared with 89% for human rater 1 (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "0.27",
+     "0.56",
+     "0.80"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "AMSTAR kappa ranged from 0.27 to 0.56 for models, compared with 0.80 for the human rater (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "38",
+     "55",
+     "75",
+     "1"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "On PRECIS-2, individual models matched human consensus on 38% to 55% of ratings, compared with 75% for human rater 1 (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "0.01",
+     "0.12",
+     "0.57"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "Weighted PRECIS-2 kappa ranged from 0.01 to 0.12 for models, compared with 0.57 for the human rater (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "63",
+     "57",
+     "59"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.1.2, p. 6"
+    ],
+    "sentence": "Across PRISMA, AMSTAR, and PRECIS-2, it averaged 63% agreement with human consensus, compared with 57% to 59% for the other models (Section 3.1.2, p. 6)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "0.40",
+     "0.24",
+     "0.31"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.1.2, p. 7"
+    ],
+    "sentence": "Its average kappa across the same tools was 0.40, compared with 0.24 to 0.31 for the other models (Section 3.1.2, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "9",
+     "5",
+     "9",
+     "75",
+     "88"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "On PRISMA, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with human consensus from 75% to 88% (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "0.59",
+     "0.77",
+     "4",
+     "74"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "PRISMA kappa rose from 0.59 to 0.77, while deferral rose from 4% to 74% (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "9",
+     "5",
+     "9",
+     "74",
+     "89"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "On AMSTAR, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with human consensus from 74% to 89% (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "0.56",
+     "0.82",
+     "6",
+     "84"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "AMSTAR kappa rose from 0.56 to 0.82, while deferral rose from 6% to 84% (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "9",
+     "5",
+     "9",
+     "64",
+     "79"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "On PRECIS-2, requiring 9 rather than 5 of 9 assessments to agree raised retained agreement with human consensus from 64% to 79% (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "0.11",
+     "0.49",
+     "18",
+     "88"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "Weighted PRECIS-2 kappa rose from 0.11 to 0.49, while deferral rose from 18% to 88% (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "29"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.1.3, p. 7"
+    ],
+    "sentence": "The text gives 29% as the lower deferral figure (Section 3.1.3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "1",
+     "96",
+     "89"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "On retained PRISMA ratings, rater 1 with Claude-2 matched consensus 96% of the time, compared with 89% with GPT-4 (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "35",
+     "25"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "These pairs deferred 35% and 25% of PRISMA ratings, respectively (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "8",
+     "10"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.1.4, p. 8"
+    ],
+    "sentence": "The authors reported that 8 of 10 pairs had higher PRISMA agreement with consensus on retained ratings than the corresponding human alone (Section 3.1.4, p. 8)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "1",
+     "91",
+     "95",
+     "96"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "On retained AMSTAR ratings, rater 1 matched consensus at 91% with GPT-4, 95% with Claude-3-Opus, and 96% with GPT-3.5 (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "27",
+     "30",
+     "52"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "The pairs deferred 27%, 30%, and 52% of AMSTAR ratings, respectively (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "8",
+     "10"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.1.4, p. 8"
+    ],
+    "sentence": "The authors reported that 8 of 10 pairs had higher AMSTAR agreement with consensus on retained ratings than the corresponding human alone (Section 3.1.4, p. 8)."
+   },
+   {
+    "status": "uncited",
+    "numbers": [
+     "1",
+     "86",
+     "75",
+     "1",
+     "2",
+     "3,",
+     "7"
+    ],
+    "sentence": "On PRECIS-2, rater 1 with GPT-3.5 matched consensus on 86% of retained ratings, versus 75% for rater 1 alone across all ratings (Tables 2 and 3, pp. 5 and 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "71"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 3, p. 7"
+    ],
+    "sentence": "The pair deferred 71% of its PRECIS-2 ratings (Table 3, p. 7)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "2"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.1.4, p. 8"
+    ],
+    "sentence": "Only rater 2 with GPT-3.5 significantly outperformed the same rater alone on PRECIS-2 agreement with consensus (Section 3.1.4, p. 8)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "1",
+     "89",
+     "89"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "Human rater 1 matched consensus on 89% of PRISMA reporting ratings and 89% of AMSTAR methods ratings (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "75"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "The same rater matched consensus on 75% of PRECIS-2 trial pragmatism ratings (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "91",
+     "88"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "They agreed with each other on 91% of PRISMA reporting ratings and 88% of AMSTAR methods ratings (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "57"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "Their agreement on PRECIS-2 trial pragmatism was 57% (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "67",
+     "94",
+     "64",
+     "94"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "Across repeat runs of the same model, agreement ranged from 67% to 94% on PRISMA reporting and 64% to 94% on AMSTAR methods (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "61",
+     "78"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 2, p. 5"
+    ],
+    "sentence": "Repeat agreement on PRECIS-2 trial pragmatism ranged from 61% to 78% (Table 2, p. 5)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "0.012",
+     "1.15"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 1, p. 3"
+    ],
+    "sentence": "Median model cost per research report ranged from $0.012 for Mixtral-8x22B to $1.15 for GPT-4 (Table 1, p. 3)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "10",
+     "2"
+    ],
+    "missing": [],
+    "cited": [
+     "Table 1, p. 3"
+    ],
+    "sentence": "GPT-3.5 took about 10 seconds per report, compared with about 2 minutes for GPT-4 (Table 1, p. 3)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "3",
+     "112"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.3, p. 8"
+    ],
+    "sentence": "Claude-2 processed all reports, but Claude-3-Opus and GPT-4 each missed 3 of 112 reviews for PRISMA and AMSTAR (Section 3.3, p. 8)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "3",
+     "112",
+     "2",
+     "56"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.3, p. 8"
+    ],
+    "sentence": "GPT-3.5 missed 3 of 112 reviews for PRISMA and 2 of 56 trials for PRECIS-2 (Section 3.3, p. 8)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "1",
+     "112",
+     "13"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.3, p. 8"
+    ],
+    "sentence": "Mixtral-8x22B missed 1 of 112 reviews for PRISMA and AMSTAR, and some models needed retries on up to 13% of reports (Section 3.3, p. 8)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "14",
+     "7",
+     "10"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.3, p. 8"
+    ],
+    "sentence": "The median per report was 14 passages for PRISMA reporting, 7 for AMSTAR methods, and 10 for PRECIS-2 trial pragmatism (Section 3.3, p. 8)."
+   },
+   {
+    "status": "ok",
+    "numbers": [
+     "99"
+    ],
+    "missing": [],
+    "cited": [
+     "Section 3.3, p. 8"
+    ],
+    "sentence": "Quoted passages had 99% median text similarity to the original, but some models quoted the briefing instead of the report (Section 3.3, p. 8)."
+   },
+   {
+    "status": "uncited",
+    "numbers": [
+     "2020"
+    ],
+    "sentence": "[[V-V3]] **Older checklist versions.** The benchmark did not use PRISMA 2020 or AMSTAR-2."
+   }
+  ],
+  "table_count": {
+   "tables": 0,
+   "ok": false
+  },
+  "judge": {
+   "model": "gemini-4-neon",
+   "prompt": "src-judge-v1",
+   "verdicts": null,
+   "run": false
+  }
+ },
+ "page_parts": {
+  "quality_export": true,
+  "grounding": [
+   {
+    "cited": "table 1",
+    "file": "woelfleBenchmarkingHumanAICollaboration2024-src-table1-p3.png",
+    "pdf_page": 3,
+    "bbox": [
+     41.8,
+     58.6,
+     555.9,
+     210.5
+    ],
+    "caption": "Table 1. LLMs used: name, context length, timeframe of queries and API used, median cost and response time per publication.",
+    "method": "PyMuPDF table box next to the caption, plus footnote lines",
+    "pixels": [
+     1429,
+     423
+    ]
+   },
+   {
+    "cited": "table 2",
+    "file": "woelfleBenchmarkingHumanAICollaboration2024-src-table2-p5.png",
+    "pdf_page": 5,
+    "bbox": [
+     41.8,
+     348.4,
+     555.9,
+     725.7
+    ],
+    "caption": "Table 2. Comparison of agreement between human consensus and (1) individual human rater 1; and (2) individual LLMs (Claude-3-Opus, Claude-2, GPT-4, GPT-3.5, Mixtral-8x22B) and their reliability",
+    "method": "PyMuPDF table box next to the caption, plus footnote lines",
+    "pixels": [
+     1429,
+     1049
+    ]
+   },
+   {
+    "cited": "table 3",
+    "file": "woelfleBenchmarkingHumanAICollaboration2024-src-table3-p7.png",
+    "pdf_page": 7,
+    "bbox": [
+     41.8,
+     248.1,
+     555.9,
+     737.5
+    ],
+    "caption": "Table 3. Comparison of agreement between human consensus and (3) combined LLMs (consistent in 5 to 9 of 9 LLM ratings), (4) human-AI collaboration for each of the 3 tools. The conﬁdence intervals of bold cells are not overlapping with those of the human rater alone (compare Table 1)",
+    "method": "PyMuPDF table box next to the caption, plus footnote lines",
+    "pixels": [
+     1429,
+     1360
+    ]
+   }
+  ],
+  "quality": {
+   "rows": 57,
+   "keys": [
+    "S-01",
+    "S-02",
+    "S-03",
+    "S-04",
+    "S-05",
+    "S-06",
+    "S-07",
+    "S-08",
+    "S-09",
+    "S-10",
+    "S-11",
+    "S-12",
+    "S-13",
+    "S-14",
+    "S-15",
+    "S-16",
+    "S-17",
+    "S-18",
+    "S-19",
+    "S-20",
+    "S-21",
+    "S-22",
+    "S-23",
+    "S-24",
+    "S-25",
+    "S-26",
+    "S-27",
+    "S-28",
+    "S-29",
+    "S-30",
+    "S-31",
+    "S-32",
+    "S-33",
+    "S-34",
+    "S-35",
+    "S-36",
+    "S-37",
+    "S-38",
+    "S-39",
+    "S-40",
+    "S-41",
+    "S-42",
+    "S-43",
+    "S-44",
+    "S-45",
+    "S-46",
+    "S-47",
+    "S-48",
+    "S-49",
+    "S-50",
+    "S-51",
+    "S-52",
+    "S-53",
+    "S-54",
+    "S-55",
+    "S-56",
+    "S-57"
+   ],
+   "quotes_not_located": [
+    {
+     "key": "S-18",
+     "signal": "tripod-1",
+     "quote": "Benchmarking Human–AI collaboration for common evidence appraisal tools ... Benchmarking Human–AI collaboration for comm"
+    }
+   ]
+  },
+  "embeds_resolved": [
+   {
+    "embed": "woelfleBenchmarkingHumanAICollaboration2024-src-table1-p3.png",
+    "found": true
+   },
+   {
+    "embed": "woelfleBenchmarkingHumanAICollaboration2024-src-table2-p5.png",
+    "found": true
+   },
+   {
+    "embed": "woelfleBenchmarkingHumanAICollaboration2024-src-table3-p7.png",
+    "found": true
+   }
+  ]
+ }
+}

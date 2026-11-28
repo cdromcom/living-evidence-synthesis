@@ -236,6 +236,54 @@ _q = [{'paper': 'p', 'ntype': 'CLM', 'nid': f'C{i}', 'majority': 'pass', 'mean':
 check('flagged items come first inside their node type in the labeling queue, and the type order is kept', [x['nid'] for x in _VV.queue_order(_q)][0] == 'C2' and all(x['queue'] == '1 CLM' for x in _q))
 import estimate_cost as _EC
 check('the cost estimate re-prices a call at the new model\'s batch price (Sonnet 5.5: 2 in, 10 out, half in batch)', abs(_EC.cost('claude-sonnet-5-5', 1_000_000, 1_000_000) - 6.0) < 1e-9)
+print('SRC writer (write_src.py): checks on a model page, canned output, no call')
+import write_src as _WS
+check('roles.src_writer is Sol at medium effort, the prompt src-write-v1 exists, and the stage runs in batch mode only', C.role_model(C.ROLES['src_writer']) == 'gpt-6.2-sol' and C.role_effort(C.ROLES['src_writer']) == 'medium' and (V / 'pipeline/prompts/src-write-v3.md').exists() and (V / 'pipeline/prompts/src-judge-v1.md').exists() and 'src_write' not in C.PIPE['limits']['standard_stages'])
+sys.path.insert(0, str(here / 'tests')); import test_write_src as _TWS
+_n, _bad = _TWS.run()
+check(f'write_src tests ({_n} checks): a planted wrong number, an unlocated quote, a wrong table cell, an unknown node id, a missing screenshot placeholder and an em dash are all flagged; a good page has no flag', _bad == 0 and _n >= 45)
+print('decision-model triad and no-cut-off ladder (JP, 2026-11-27)')
+import decision_models as _DM3, llm_batch as _LB
+check('three voting decision models: roles.decision_models is Perplexity, Liquid, Baseten bison-1, each with a model id, a key variable and a registry entry', C.ROLES['decision_models'] == ['perplexity', 'liquid', 'baseten'] and all(k in _DM3.MODELS and k in _DM3.KEY_ENV for k in C.ROLES['decision_models']) and _DM3.MODELS['baseten'] in C.MODELS and C.display(_DM3.MODELS['baseten']) == 'Baseten bison-1' and _DM3.TEXT_ONLY == {'perplexity', 'baseten'})
+check('Liquid prefers d1.3-ultra and keeps d1.2-ultra until the API accepts it; the registry has both', _DM3.PREFERRED['liquid'][:2] == ['d1.3-ultra', 'd1.2-ultra'] and 'd1.3-ultra' in C.MODELS and 'd1.2-ultra' in C.MODELS)
+_j = VV.judge_needed
+check('cascade rule for three models: the judge is called unless every voting decision model gave a score and all are on the same side of 0.5 (all pass or all fail); one missing score or any split calls the judge',
+      _j({'perplexity': .9, 'liquid': .8, 'baseten': .7}) is False and _j({'perplexity': .1, 'liquid': .2, 'baseten': .3}) is False and _j({'perplexity': .9, 'liquid': .8, 'baseten': .2}) is True and _j({'perplexity': .1, 'liquid': .8, 'baseten': .9}) is True and _j({'perplexity': .9, 'liquid': .9, 'baseten': None}) is True and _j({'perplexity': .5, 'liquid': .9, 'baseten': .9}) is False and _j({'perplexity': .9, 'liquid': .9}) is True and _j({'perplexity': .9, 'liquid': .9}, models=['perplexity', 'liquid']) is False)
+check('abstention: a text-only model left out of `models` (an item scored from a screenshot) does not vote and does not call the judge', _j({'perplexity': .9, 'liquid': .9, 'baseten': None}, models=['perplexity', 'liquid']) is False)
+_hf = VV.human_flag
+check('human flag with three models: bison-1 below 0.5 flags the item unless the judge passed it; the judge against a 2-of-3 majority flags it; a unanimous clean item is not flagged; older runs (shadow_bison) still read',
+      _hf({'scores': {'sonnet': None, 'perplexity': .9, 'liquid': .9, 'baseten': .1}, 'sonnet_called': False}).startswith('bison-1 scored') and _hf({'scores': {'sonnet': 1.0, 'perplexity': .9, 'liquid': .9, 'baseten': .1}, 'sonnet_called': True}) == '' and _hf({'scores': {'sonnet': 0.0, 'perplexity': .9, 'liquid': .9, 'baseten': .1}, 'sonnet_called': True}) != '' and _hf({'scores': {'sonnet': 1.0, 'perplexity': .1, 'liquid': .2, 'baseten': .9}, 'sonnet_called': True}) == 'the judge and the decision-model majority disagree' and _hf({'scores': {'perplexity': .9, 'liquid': .9, 'baseten': .9}, 'sonnet_called': False}) == '' and _hf({'scores': {'perplexity': .9, 'liquid': .9}, 'sonnet_called': False, 'shadow_bison': .1}).startswith('bison-1 scored'))
+_rv = {'scores': {'sonnet': None, 'perplexity': .9, 'liquid': .8, 'baseten': .2}}; VV.revote(_rv)
+check('the vote counts bison-1: two pass and one fail gives a pass majority with 2 models agreeing, and the mean covers all three scores', _rv['majority'] == 'pass' and _rv['agree'] == 2 and abs(_rv['mean'] - 0.633) < 0.001)
+import json as _json
+_qsrc = (here / 'qs_export.py').read_text(encoding='utf-8')
+check('qs_export keeps the verifier scores as separate numbers (judge, judge model, Perplexity, Liquid, bison-1), not one joined cell', "'verifier_scores'" in _qsrc and all(k in _qsrc for k in ("'judge_model'", "'baseten'", "'perplexity'", "'liquid'")))
+class _FM:   # a stand-in manifest for the ladder tests
+    def __init__(self): self.m = {'stage_log': {}, 'papers': {'p': {}}}; self.events = []
+    def event(self, t): self.events.append(t)
+    def save(self): pass
+def _res(i, fin, ok=False): return _LB.Res(i, ok, 'x' if ok else '', 10, 20, fin, '' if ok else f'finishReason {fin}')
+def _ladder(first_fin, answers, key='picost', mode='batch', effort='high'):
+    calls = []; M_ = _FM(); rq = [_LB.Req('p__picost', 'gemini-4-neon', 't', effort=effort, max_tokens=1000)]
+    def runner(k, rs, md): calls.append((k, md, rs[0].effort, rs[0].max_tokens)); a = answers[len(calls) - 1]; return {rs[0].id: _res(rs[0].id, a, ok=(a == 'STOP'))}
+    out = S.cutoff_ladder(M_, key, rq, {'p__picost': _res('p__picost', first_fin)}, mode, runner); return out['p__picost'], calls, M_
+x_, c_, m_ = _ladder('MAX_TOKENS', ['STOP'])
+check('ladder, cut off then success at medium: one retry in batch mode at medium effort with the largest batch budget (65000 for Neon); the result is ok and the retry is logged in the manifest', x_.ok and c_ == [('picost_cut1', 'batch', 'medium', 65000)] and m_.m['cutoff_retries'][0]['rung'] == 1 and m_.m['cutoff_retries'][0]['result'] == 'done' and not m_.m.get('needs_jp') and m_.m['stage_log']['picost']['cutoff_retried'] == 1)
+x_, c_, m_ = _ladder('CONTINUATION', ['MAX_TOKENS', 'STOP'])
+check('ladder, cut off twice then success in standard: rung 2 runs in standard mode with the largest standard budget (65536 for Neon) and the manifest marks both retries', x_.ok and c_ == [('picost_cut1', 'batch', 'medium', 65000), ('picost_cut2', 'standard', 'medium', 65536)] and [e['rung'] for e in m_.m['cutoff_retries']] == [1, 2] and m_.m['cutoff_retries'][1]['mode'] == 'standard' and m_.m['cutoff_retries'][0]['result'] == 'cut off again')
+x_, c_, m_ = _ladder('MAX_TOKENS', ['MAX_TOKENS', 'CONTINUATION'])
+check('ladder, never succeeds: the result is marked needs JP (err starts with "needs JP"), listed in manifest needs_jp, after exactly two retries; nothing is dropped', (not x_.ok) and x_.err.startswith('needs JP') and len(c_) == 2 and m_.m['needs_jp'][0]['id'] == 'p__picost' and m_.m['cutoff_retries'][-1]['result'] == 'needs JP')
+x_, c_, m_ = _ladder('STOP', [])
+check('ladder: a finished request is left alone and nothing is sent again', c_ == [] and not m_.m.get('cutoff_retries'))
+x_, c_, m_ = _ladder('MAX_TOKENS', ['STOP'], key='quote_check', mode='batch')
+check('ladder in a stage that always runs in standard mode retries in standard mode', c_[0][1] == 'standard' and S.is_cut(_res('i', 'max_tokens')) and S.is_cut(_res('i', 'incomplete')) and S.is_cut(_res('i', 'length')) and not S.is_cut(_res('i', 'STOP', ok=True)) and not S.is_cut(_res('i', 'end_turn', ok=True)))
+x_, c_, m_ = _ladder('MAX_TOKENS', ['STOP'], effort='medium')
+check('ladder: a request already at medium effort goes to low on the retry (nothing higher to step down from)', c_[0][2] == 'low')
+_mf = _FM(); _mf.m['papers'] = {'a': {'failed': 'needs JP: picost output cut off', 'needs_jp': True}, 'b': {'failed': 'picost: bad json'}, 'c': {}}
+check("a paper stopped with status needs JP is not counted by the 'two or more papers failed' stop; a real failure is", R.failed_papers(_mf) == ['b'])
+_sg = (here / 'lives_stages.py').read_text(encoding='utf-8'); _lr = (here / 'lives_run.py').read_text(encoding='utf-8')
+check('every LLM stage goes through the ladder: S.dispatch (checks, drafts, qs, src, verify) and lives_run.run_stage (picost, recheck, adjudicate) both call cutoff_ladder', 'res = cutoff_ladder(M, key, reqs, res, mode)' in _sg and 'S.cutoff_ladder(M, stage, reqs, first, mode)' in _lr)
+check('budgets are the model limits: picost 65000 (Gemini batch), recheck and adjudicate at the limit of their models, none above the model limit; Gemini standard allows 65536', R.STAGE_MAX_OUT['picost'] == 65000 and all(R.STAGE_MAX_OUT[k] <= C.max_output(C.role_model(R.STAGE_MODEL[k])) for k in R.STAGE_MAX_OUT) and C.max_output('gemini-4-neon', batch=False) == 65536 and C.PIPE['no_cutoff']['largest_seed_pdf']['pages'] == 60 and R.max_out('picost', 60) == 65000)
 print('packages')
 for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
     try: print(f'  {pkg} {md.version(pkg)}'); ok += 1

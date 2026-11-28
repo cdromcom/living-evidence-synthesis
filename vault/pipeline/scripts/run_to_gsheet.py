@@ -10,7 +10,9 @@ from pathlib import Path
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.comments import Comment
-import column_notes as CN
+import column_notes as CN, about_steps as AS
+from openpyxl.cell.rich_text import CellRichText, TextBlock
+from openpyxl.cell.text import InlineFont
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 sys.path.insert(0, str(Path(__file__).resolve().parent)); import call_logger as cl, sheet_style as SS, config as C
@@ -56,10 +58,11 @@ def about_models_and_tools(M):
             ('Quality-signal raters', '; '.join(role(a) for a in R_['raters'])),
             *([('Quality-signal fallback rater', role(R_['qs_fallback']) + ' (rates again the rows on which the first rater reported low confidence; if it is also low, the row is marked needs_human for you)')] if R_.get('qs_fallback') else []),
             *([('Quality-signal adjudicator', role(R_['qs_adjudicator']) + ' (used only with exactly two raters)')] if len(R_['raters']) == 2 else []),
-            ('Verification judge', role(R_.get('verify_judge') or R_['quote_check']) + ' (judges an item when Perplexity Decider 1.3 and Liquid d1.2-ultra disagree; it judges the items that Neon produced: PICOST slots, quotes, QUE, CLM, CVT, and quality ratings that Neon made)'),
+            ('Verification judge', role(R_.get('verify_judge') or R_['quote_check']) + ' (judges an item unless all three decision models agree; it judges the items that Neon produced: PICOST slots, quotes, QUE, CLM, CVT, and quality ratings that Neon made)'),
             *([('Verification judge, second', role(R_['verify_judge_alt']) + ' (judges the quality ratings that the first judge made, so that no model judges its own work)')] if R_.get('verify_judge_alt') else []),
             ('Decision model 1', desc(_dm.MODELS['perplexity']) + '. Text only. Scores every verification item and every EVD check.'),
-            ('Decision model 2', desc(_dm.MODELS['liquid']) + '. Reads text and images (up to 8 per request). Scores every verification item and EVD check; looks for the digits of each quote and for missing statement numbers on screenshots. Replaced d1-ultra on 2026-11-26.'),
+            ('Decision model 2', desc(_dm.MODELS['liquid']) + '. Reads text and images (up to 8 per request). Scores every verification item and EVD check; looks for the digits of each quote and for missing statement numbers on screenshots. Replaced d1-ultra on 2026-11-26; d1.3-ultra replaces d1.2-ultra when the API accepts that id (HTTP 404 on 2026-11-27).'),
+            ('Decision model 3', desc(_dm.MODELS['baseten']) + '. Text only (it cannot read screenshots, so it abstains on items scored from a screenshot). Votes on every text item since 2026-11-27 evening; before that it was a shadow scorer.'),
             ('Embedding models (local)', '; '.join(e['name'] for e in C.EMBEDDING) + '. EmbeddingGemma 2 clusters research questions for the Question groups tab; the others are used in screening.'),
             ('Grouping', role(R_['grouping']) + ' (groups and nests the questions, claims, evidence and caveats; EmbeddingGemma 2 finds the candidates first)' if R_.get('grouping') else 'not set'),
             ('Classifier of sampled revisions', role(R_['classifier']) + ' (sorts the sampled revisions to note into kinds; optional, run only on request)' if R_.get('classifier') else 'not set')]
@@ -92,27 +95,24 @@ def main():
             if n_: c_ = Comment(n_, 'LIVES pipeline'); c_.width = 340; c_.height = 40 + 18 * (len(n_) // 48 + 1); ws.cell(1, ci_).comment = c_
         for r in rows: ws.append([_CTRL.sub('', x) if isinstance(x, str) else x for x in r])   # control characters in a quote would make openpyxl refuse the cell
         SS.polish(ws, jp_from=jp_from, image_cols=img); ws.freeze_panes = 'C2'; return ws
-    ab = wb.create_sheet('ABOUT'); ab.column_dimensions['A'].width = 26; ab.column_dimensions['B'].width = 120
-    pq = C.PIPE.get('project_question', ''); RR = C.ROLES; many = lambda lst: ' and '.join(C.role_display(a) for a in lst)
-    cascade = len(RR['raters']) == 1 and RR.get('qs_fallback') and not C.PIPE.get('quality_signals', {}).get('max_accuracy')
-    qs_txt = (f"Quality signals and TRIPOD-LLM rows: {many(RR['raters'])} ({C.role_effort(RR['raters'][0], 'high')} effort) rates every row and reports its confidence; a rating with low confidence is rated again, blind, by {C.role_display(RR['qs_fallback'])} ({C.role_effort(RR['qs_fallback'], 'high')} effort); if that rating is also low confidence the row is marked needs_human for you. (Procedure chosen by JP on 2026-11-27, pending validation.)" if cascade
-              else f"Quality signals: {many(RR['raters'])} rate every row at {C.role_effort(RR['raters'][0], 'high')} effort and " + ('two of three decide.' if len(RR['raters']) >= 3 else 'a third model decides the disagreements.'))
-    draft_txt = (f"critique and revision by {many(RR.get('critics') or RR['authors'])}; votes between the versions by {many(RR['voters'])}, with {C.role_display(RR['tiebreak'])} breaking a tie; everything else is drafted once by {C.role_display(RR['authors'][0])}. " if RR.get('voters') else f"no critique round, vote or tie-break; the first draft is final and everything else is drafted once by the same model. ")
-    step5 = f"Drafting: first draft of each primary EVD by {many(RR['authors'])}; " + draft_txt + f"The details of each EVD, CLM and CVT are checked by {many(RR.get('node_check') or RR.get('voters') or RR['authors'])}. " + qs_txt
-    step6 = f"Verification: Liquid d1.2-ultra and Perplexity Decider 1.3 first judge every PICOST slot (with page 1 and the Methods pages), question rewording (QUE), claim (CLM), caveat (CVT) and quality rating; {CN.JD} judges an item only when those two disagree (it is not the extraction model, {C.role_display(RR['extract'])}); {CN.QCD} reads the screenshot of every quote (quote check); Liquid d1.2-ultra also looks for the digits of each quote and for statement numbers missing from the PDF text on the screenshots. Quotes without digits are checked by {CN.QCD}. The tabs Verification, Numbers check and Revisions to note show the results."
-    items = [('Run', f"{M['run_id']}: {M['mode']} mode, spent ${M['spent_usd']:.2f} of a ${M['cap_usd']} cap, status {M['status']}."),
-             ('Project question', pq or M.get('question') or 'not given'),
-             ('Step 1', 'Gemini 4 Neon extracts the paper\'s questions (Abstract and Introduction) and its findings in three tiers: primary answers a question directly, secondary qualifies a primary finding, tertiary is other context.'),
-             ('Step 2', 'PyMuPDF finds every quoted span, boxes it and checks the numbers. Findings that look doubtful are flagged.'),
-             ('Step 3', f"{C.role_display(C.ROLES['recheck'])} re-reads flagged findings blind, and {C.role_display(C.ROLES['adjudicate'])} decides when {C.short(C.ROLES['recheck'])} and {C.short(C.ROLES['extract'])} disagree."),
-             ('Step 4', f'{CN.QCD} reads a screenshot of every quote and compares it with the quote text (quote_check stage). Two decision models, Perplexity Decider 1.3 (pplx-decider-v1.3, text only) and Liquid d1.2-ultra (d1.2-ultra, reads text and images), score every finding on relevancy, fidelity, numbers found in the source and table cell matches. GPT-6.2 Sol looks at a crop of every finding: pass, not matched or cannot verify (cannot verify goes to you).'),
-             ('Step 5', step5), ('Step 6', step6),
-             ('Step 7', 'You review this sheet. Your labels become the ground truth for the accuracy numbers.'),
-             ('How to review', 'Start with the Findings tab. Sort by Flags and Tier. Yellow columns are yours: say whether the tier, statement and numbers are right, add findings that were missed, and note why.'),
-             ('Flags', 'low_confidence: Neon says it is unsure. multi_page: the evidence is on more than one page. span_not_found and span_on_other_page: the quote is not where it should be. number_not_in_pdf_text: fewer than half of its numbers are in the PDF text. number_not_in_numbers_list: a number in the statement has no entry in the Numbers list. numbers_list_entry_without_location: a listed number has no table, figure or page. no_text_layer: scanned PDF.'),
-             ('Costs', 'See Metrics and Calls and cost. Batch mode is about half price; the cap is a hard limit per batch.')]
-    for k, t in items: ab.append([k, t])
-    for k, t in about_models_and_tools(M): ab.append([k, t])
+    ab = wb.create_sheet('ABOUT'); ab.column_dimensions['A'].width = 26; ab.column_dimensions['B'].width = 80
+    pq = C.PIPE.get('project_question', ''); about_imgs = []   # ABOUT: A = step id, B = bold goal phrase then explanation, C = a real example from this run (text, or a picture on the row below the text)
+    RR = C.ROLES; cascade = len(RR['raters']) == 1 and RR.get('qs_fallback') and not C.PIPE.get('quality_signals', {}).get('max_accuracy')
+    def rt(lead, rest):
+        """Cell text whose first phrase (the task or goal) is bold. openpyxl writes it as rich text runs; Google Sheets keeps bold runs when it imports an xlsx."""
+        f_ = dict(rFont=SS.FONT_BODY, sz=SS.SIZE, color=SS.INK)
+        return CellRichText(TextBlock(InlineFont(b=True, **f_), lead), TextBlock(InlineFont(**f_), ' ' + _CTRL.sub('', rest))) if rest else CellRichText(TextBlock(InlineFont(b=True, **f_), lead))
+    def arow(k, lead, rest, ex_text='', img=None):
+        ab.append([k, rt(lead, rest), _CTRL.sub('', ex_text) if ex_text else None])
+        if img and Path(img[0]).exists():   # the picture goes on the next row so that it does not cover the example text
+            ab.append(['', rt('Picture for ' + k + ':', 'the highlighted image behind the example above.'), None]); about_imgs.append((ab.max_row, img))
+    arow('Run', 'This workbook follows one runner batch.', f"{M['run_id']}: {M['mode']} mode, spent ${M['spent_usd']:.2f} of a ${M['cap_usd']} cap, status {M['status']}.", 'Column C shows a real example from this run for each step in column B (one paper and one finding per example, named in the cell).')
+    arow('Project question', 'The question every finding is read against.', pq or M.get('question') or 'not given')
+    for k_, lead_, rest_, t_, im_ in AS.steps(d, M): arow(k_, lead_, rest_, t_, im_)
+    arow('How to review', 'Review the Findings tab first.', 'Start with the Findings tab. Sort by Flags and Tier. Yellow columns are yours: say whether the tier, statement and numbers are right, add findings that were missed, and note why.')
+    arow('Flags', 'Read the flags column as reasons for a second look.', 'low_confidence: Neon says it is unsure. multi_page: the evidence is on more than one page. span_not_found and span_on_other_page: the quote is not where it should be. number_not_in_pdf_text: fewer than half of its numbers are in the PDF text. number_not_in_numbers_list: a number in the statement has no entry in the Numbers list. numbers_list_entry_without_location: a listed number has no table, figure or page. no_text_layer: scanned PDF.')
+    arow('Costs', 'See what the run cost.', 'See Metrics and Calls and cost. Batch mode is about half price; the cap is a hard limit per batch.')
+    for k, t in about_models_and_tools(M): arow(k, (t.split('. ')[0] + '.') if k == 'MODELS AND TOOLS' else f"{k}:", t.split('. ', 1)[1] if k == 'MODELS AND TOOLS' and '. ' in t else ('' if k == 'MODELS AND TOOLS' else t))
     prow = []; frow = []; crow = []; rrow = []; fkeys = []; ckeys = []
     drafts_cache = {}
     def evd_new(ck, fid):
@@ -155,7 +155,7 @@ def main():
         if (d / ck / 'checks.json').exists():
             for v in json.load(open(d / ck / 'checks.json')):
                 m = v['summary']['means']; ck_crops.append(v.get('crop')); ck_rows.append([ck, v['id'], v.get('tier', ''), v.get('statement', '')[:300], m.get('relevancy', ''), m.get('fidelity', ''), (m.get('numbers_in_source', m.get('quote_grounding', ''))), (m.get('table_cell_matches', m.get('table_figure_grounding', ''))), v['summary']['score'], v['summary']['spread'], '; '.join(v.get('why_vision', [])),
-                                                         (v.get('sol') or {}).get('overall', ''), (v.get('sol') or {}).get('reason', ''), (v.get('opus') or {}).get('overall', ''), (v.get('opus') or {}).get('reason', ''), v.get('final', ''), '', '', '', lowq(v.get('dm_liquid_d1_ultra')), lowq(v.get('dm_liquid_d12')), lowq((v.get('dm') or {}).get('perplexity'))])
+                                                         (v.get('sol') or {}).get('overall', ''), (v.get('sol') or {}).get('reason', ''), (v.get('opus') or {}).get('overall', ''), (v.get('opus') or {}).get('reason', ''), v.get('final', ''), '', '', '', lowq(v.get('dm_liquid_d1_ultra')), lowq(v.get('dm_liquid_d12') if 'dm_liquid_d12' in v else (v.get('dm') or {}).get('liquid')), lowq((v.get('dm') or {}).get('perplexity')), lowq((v.get('dm') or {}).get('baseten'))])
         if (d / ck / 'drafts.json').exists():
             dd = json.load(open(d / ck / 'drafts.json'))
             def txt_of(x): return x.get('statement') or x.get('title') or x.get('limitation') or ''
@@ -167,9 +167,9 @@ def main():
             q = json.load(open(d / ck / 'quality_signals.json'))
             for x in q['raw']: qr_rows.append([ck, x['signal'], x['rater'], 'yes' if x['counted'] else 'benchmark only', x['rating'], x.get('confidence', ''), x['quote'][:400], x['locator'], '' if x['quote_found'] is None else (('yes, taken from the PDF' + (' (' + x['quote_source'].split('(')[1] if '(' in x.get('quote_source', '') else '') if str(x.get('quote_source', '')).startswith('anchors') else 'yes') if x['quote_found'] else 'NO: anchors not found' if str(x.get('quote_source', '')).startswith('anchors') else 'NO'), ''])
             qr_crops += [x.get('crop') for x in q['raw']]
-            for x in q['aggregate']: qa_rows.append([ck, x['signal'], ', '.join(f'{k}: {v}' for k, v in x['votes'].items()), x['majority'], x['agreement'], x['quotes_not_found'], '', ''])
+            for x in q['aggregate']: qa_rows.append([ck, x['signal'], *[next((r_['rating'] for r_ in q['raw'] if r_['signal'] == x['signal'] and r_['rater'] == rk_), '') for rk_ in ('neon', 'opus', 'sol')], x['majority'], x['agreement'], x['quotes_not_found'], '', ''])   # one column per rater (was one cell 'neon: high, opus: low')
     if ck_rows:
-        ws2 = tab('Decision-model checks (EVD)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', f'{CN.VD} (disputes only)', f'{CN.VD} reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes', 'Liquid d1-ultra OLD: lowest question score', 'Liquid d1.2-ultra: lowest question score', 'Perplexity Decider 1.3: lowest question score'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30, 14, 14, 14], jp_from=18, img=(17,))
+        ws2 = tab('Decision-model checks (EVD)', ['Paper', 'Finding', 'Tier', 'Statement', 'Relevancy', 'Fidelity', 'Numbers found in source', 'Table cell matches', 'Score (lowest mean)', 'Spread between models', 'Why Sol looked', 'Sol vision', 'Sol reason', f'{CN.VD} (disputes only)', f'{CN.VD} reason', 'Result', 'Crop Sol looked at (image)', 'JP: is the finding right? (yes/no)', 'JP: notes', 'Liquid d1-ultra OLD: lowest question score', 'Liquid d1.2-ultra: lowest question score', 'Perplexity Decider 1.3: lowest question score', 'Baseten bison-1: lowest question score'], ck_rows, [30, 7, 10, 60, 9, 9, 9, 10, 9, 9, 30, 10, 40, 10, 40, 10, 60, 14, 30, 14, 14, 14, 14], jp_from=18, img=(17,))
         for i, cp in enumerate(ck_crops, 2): put_image(ws2, d, i, 17, cp, 440, thumbs)
     if dr_rows: tab('Drafts (EVD, QUE, CLM, CVT)', ['Paper', 'Node', 'Type', 'Tier', 'Winner by', 'How decided', 'Winning text', 'Chars', 'Writing rules pass', 'Numbers not on the card', 'Node-detail check', 'Fix suggested', 'Checked by', 'Decision-model score', 'Status', 'First draft: Sonnet', 'First draft: Sol', 'First draft: Neon', 'JP: best text or your own', 'JP: fidelity (yes/partly/no)', 'JP: style (good/ok/poor)', 'JP: notes'], dr_rows, [30, 8, 6, 10, 9, 18, 70, 7, 7, 14, 10, 30, 9, 10, 18, 50, 50, 50, 40, 14, 14, 30], jp_from=19)
     # ---- EVDs whose decision-model score is below the threshold: what the models saw and what they scored, for JP to suggest changes
@@ -218,24 +218,24 @@ def main():
     # ---- verification of every extracted item by the judge model (roles.verify_judge) and the two decision models, with majority vote, mean and JP's open columns
     vf = d / 'verification.json'
     if vf.exists():
-        import lives_verify as VV
+        import lives_verify as VV, decision_models as _dm
         V = VV.queue_order(json.load(open(vf))); hdr = ['Paper', 'Node type', 'Node id', 'What was checked', 'Item (as extracted)', 'Screenshot (image)', f'{CN.JD} score', f'{CN.JD} reason', 'Perplexity Decider 1.3 (probability)', 'Liquid d1.2-ultra, text (probability)', 'Majority vote', 'Mean score', 'Models agreeing with the majority',
                f'{CN.JS} pass (1 or 0)', 'Perplexity pass (1 or 0)', 'Liquid d1.2-ultra text pass (1 or 0)', 'Majority pass (1 or 0)', 'Mean pass (1 or 0)', 'JP: is the extraction correct? (yes/no/unsure)', 'JP: notes', 'Truth used for scoring (formula)',
-               'Liquid d1.2-ultra reading the screenshot (probability)', 'Liquid screenshot score counts as a vote? (digit comparisons on quotes only)', 'Liquid d1-ultra OLD, text (probability)', 'Liquid d1-ultra OLD pass (1 or 0)', 'Liquid d1.2-ultra screenshot pass (1 or 0)', 'Passage or quote it was checked against', 'Labeling queue (tonight)', 'Share of item words not found in the passage (CLM, CVT, QUE; 0 = every word is in the passage)', f'Before the rerun (cited pages only, or the stricter question): {CN.JD} score', 'Before the rerun: Perplexity (probability)', 'Before the rerun: Liquid d1.2-ultra text (probability)', 'Baseten bison-1, text (probability; shadow verifier, not in any vote)', 'Flag for human examination (reason)', 'Judge model (the one that did not produce the item)']
-        rows_ = []; crops_ = []
+               'Liquid d1.2-ultra reading the screenshot (probability)', 'Liquid screenshot score counts as a vote? (digit comparisons on quotes only)', 'Liquid d1-ultra OLD, text (probability)', 'Liquid d1-ultra OLD pass (1 or 0)', 'Liquid d1.2-ultra screenshot pass (1 or 0)', 'Passage or quote it was checked against', 'Labeling queue (tonight)', 'Share of item words not found in the passage (CLM, CVT, QUE; 0 = every word is in the passage)', f'Before the rerun (cited pages only, or the stricter question): {CN.JD} score', 'Before the rerun: Perplexity (probability)', 'Before the rerun: Liquid d1.2-ultra text (probability)', 'Baseten bison-1, text (probability)', 'Flag for human examination (reason)', 'Judge model (the one that did not produce the item)', 'Baseten bison-1 pass (1 or 0)', 'Baseten bison-1 reading the screenshot']
+        hdr = [h_.replace('Liquid d1.2-ultra', CN.LQ) for h_ in hdr]; rows_ = []; crops_ = []
         for x in V:
-            sc = x['scores']; so = sc.get('sonnet'); pe = sc.get('perplexity'); li = sc.get('liquid'); old = x.get('liquid_d1_ultra'); im = sc.get('liquid_image'); imu = x.get('liquid_image_untested'); imv = im if im is not None else imu
+            sc = x['scores']; so = sc.get('sonnet'); pe = sc.get('perplexity'); li = sc.get('liquid'); old = x.get('liquid_d1_ultra'); im = sc.get('liquid_image'); imu = x.get('liquid_image_untested'); imv = im if im is not None else imu; bi = sc.get('baseten') if 'baseten' in sc else x.get('shadow_bison')   # bison-1 votes since 2026-11-27 evening (scores['baseten']); older runs kept it as a shadow score
             rows_.append([x['paper'], x['ntype'] + (' quote' if x['nid'].endswith(' quote') else ''), x['nid'], x['what'], x['text'], '', so if so is not None else '', x['reasons'].get('sonnet', ''), pe if pe is not None else '', li if li is not None else '', x['majority'], x['mean'] if x['mean'] is not None else '', x['agree'],
                           ('' if so is None or so == 0.5 else int(so >= 0.75)), ('' if pe is None else int(pe >= 0.5)), ('' if li is None else int(li >= 0.5)), {'pass': 1, 'fail': 0}.get(x['majority'], ''), ('' if x['mean'] is None else int(x['mean'] >= 0.5)), '', '', '',
-                          imv if imv is not None else '', ('yes' if im is not None else (f'no: quotes without digits are read by {CN.QCD}' if imu is not None and (x['ntype'] == 'QUOTE' or x['nid'].endswith(' quote')) else ('no, untested' if imu is not None else ''))), old if old is not None else '', ('' if old is None else int(old >= 0.5)), ('' if imv is None else int(imv >= 0.5)), x.get('passage', ''), x.get('queue', ''), x.get('novel_share', ''), *[(x.get('scores_before_rerun') or {}).get(k, '') if (x.get('scores_before_rerun') or {}).get(k) is not None else '' for k in ('sonnet', 'perplexity', 'liquid')], x.get('shadow_bison') if x.get('shadow_bison') is not None else '', x.get('flag', ''), C.display(x['judge']) if x.get('judge') else ''])
+                          imv if imv is not None else '', ('yes' if im is not None else (f'no: quotes without digits are read by {CN.QCD}' if imu is not None and (x['ntype'] == 'QUOTE' or x['nid'].endswith(' quote')) else ('no, untested' if imu is not None else ''))), old if old is not None else '', ('' if old is None else int(old >= 0.5)), ('' if imv is None else int(imv >= 0.5)), x.get('passage', ''), x.get('queue', ''), x.get('novel_share', ''), *[(x.get('scores_before_rerun') or {}).get(k, '') if (x.get('scores_before_rerun') or {}).get(k) is not None else '' for k in ('sonnet', 'perplexity', 'liquid')], bi if bi is not None else '', x.get('flag', ''), C.display(x['judge']) if x.get('judge') else '', ('' if bi is None else int(bi >= 0.5)), (_dm.NOT_USED_TEXT_ONLY if imv is not None else '')])
             crops_.append(x.get('crop') if not (x['ntype'] == 'PICOST' and not x['nid'].endswith('Population')) else None)   # the six slot rows of a finding share one screenshot: shown on the first row only
         for i, r_ in enumerate(rows_, 2): r_[20] = f'=IF(S{i}="yes",1,IF(S{i}="no",0,""))'
-        wv = tab('Verification (all nodes)', hdr, rows_, [30, 10, 16, 30, 60, 50, 10, 40, 12, 12, 10, 9, 10, 9, 9, 9, 9, 9, 16, 30, 12, 16, 16, 14, 12, 12, 60, 22, 18, 14, 14, 14, 14, 40, 16], jp_from=19, img=(6,))
+        wv = tab('Verification (all nodes)', hdr, rows_, [30, 10, 16, 30, 60, 50, 10, 40, 12, 12, 10, 9, 10, 9, 9, 9, 9, 9, 16, 30, 12, 16, 16, 14, 12, 12, 60, 22, 18, 14, 14, 14, 14, 40, 16, 12, 22], jp_from=19, img=(6,))
         for i, cp in enumerate(crops_, 2): put_image(wv, d, i, 6, cp, 360, thumbs)
         n = len(rows_) + 1; sn = "'Verification (all nodes)'!"
         def rng(c): return f"{sn}{c}2:{c}{n}"
         summ = []
-        for label, pc, sc_c in ((f'{CN.JD} (foundation model)', 'N', 'G'), ('Perplexity Decider 1.3 (decision model)', 'O', 'I'), ('Liquid d1.2-ultra, text (decision model)', 'P', 'J'), ('Liquid d1-ultra OLD, text (decision model, replaced)', 'Y', 'X'), ('Liquid d1.2-ultra, reading screenshots (digit and other screenshot checks)', 'Z', 'V'), ('Majority vote of the voting models', 'Q', None), ('Mean score of the voting models (pass at 0.5 or more)', 'R', 'L')):
+        for label, pc, sc_c in ((f'{CN.JD} (foundation model)', 'N', 'G'), ('Perplexity Decider 1.3 (decision model)', 'O', 'I'), (f'{CN.LQ}, text (decision model)', 'P', 'J'), ('Liquid d1-ultra OLD, text (decision model, replaced)', 'Y', 'X'), (f'{CN.LQ}, reading screenshots (digit and other screenshot checks)', 'Z', 'V'), ('Baseten bison-1, text (decision model)', 'AJ', 'AG'), ('Majority vote of the voting models', 'Q', None), ('Mean score of the voting models (pass at 0.5 or more)', 'R', 'L')):
             P, T = rng(pc), rng('U')
             summ.append([label, f'=COUNT({P})', f'=IFERROR(AVERAGE({P}),"")', (f'=IFERROR(AVERAGE({rng(sc_c)}),"")' if sc_c else ''), f'=IFERROR(SUMPRODUCT(--({P}={rng("Q")}),--ISNUMBER({P}),--ISNUMBER({rng("Q")}))/SUMPRODUCT(--ISNUMBER({P}),--ISNUMBER({rng("Q")})),"")',
                          f'=COUNT({T})', f'=IFERROR(SUMPRODUCT(--ISNUMBER({T}),--ISNUMBER({P}),--({P}={T}))/SUMPRODUCT(--ISNUMBER({T}),--ISNUMBER({P})),"")', f'=IFERROR(COUNTIFS({P},1,{T},1)/COUNTIFS({P},1,{T},">=0"),"")', f'=IFERROR(COUNTIFS({P},1,{T},1)/COUNTIFS({T},1,{P},">=0"),"")', f'=IFERROR(COUNTIFS({P},0,{T},0)/COUNTIFS({T},0,{P},">=0"),"")'])
@@ -257,43 +257,66 @@ def main():
             if p.get('failed') or not pj_.exists() or not (d / ck / 'quality_signals.json').exists(): continue
             meta = json.load(open(pj_)).get('paper', {}); key = SRG.resolve_citekey(ck, meta.get('title', ''), meta.get('year', '')) or ck; E_ = store['papers'].get(key)
             if not E_: continue
-            hdr = ['Kind', 'Signal or check', 'Result', 'Agreement or status', 'Summary', 'Neon rating', 'Neon quote and locator', 'Neon screenshot (image)', 'Opus rating', 'Opus quote and locator', 'Opus screenshot (image)', 'Sol rating (fallback or third rater)', f'Quote verifiers (mean score: {CN.JD}, Liquid d1.2-ultra, Perplexity)', 'Live-site tag (Aug 2026)', 'Matches live-site tag?', 'Code-only checks that apply', 'Source and date', 'JP: right? (yes/no/unsure)', 'JP: notes']
+            LQ = C.display(__import__('decision_models').MODELS['liquid'])   # one column per verifier, a number in each (JP, 2026-11-27); the headers name the models in use
+            hdr = ['Kind', 'Signal or check', 'Result', 'Agreement or status', 'Summary', 'Neon rating', 'Neon quote', 'Neon locator', 'Neon screenshot (image)', 'Opus rating', 'Opus quote', 'Opus locator', 'Opus screenshot (image)', 'Sol rating (fallback or third rater)',
+                   'Quote check: Perplexity Decider 1.3 (score 0 to 1)', f'Quote check: {LQ} (score 0 to 1)', 'Quote check: Baseten bison-1 (score 0 to 1)', 'Quote check: judge score (0 to 1)', 'Quote check: judge model',
+                   'Live-site tag (Aug 2026)', 'Matches live-site tag?', 'Code-only checks that apply', 'Source (web address)', 'Checked on (date)', 'JP: right? (yes/no/unsure)', 'JP: notes']
+            H = {h_: i_ for i_, h_ in enumerate(hdr)}; NC_ = len(hdr)
+            def mk(**kw):
+                r_ = [''] * NC_
+                for k_, v_ in kw.items(): r_[H[k_.replace('_', ' ')] if k_.replace('_', ' ') in H else H[k_]] = v_
+                return r_
             rows_ = []; shots_ = []; rows_t = []; shots_t = []
             def rater(sig, nm):
                 return next((r for r in sig.get('ratings', []) if r['rater'] == nm), None)
+            def vscores(sig):
+                """Numbers for the five verifier columns: Perplexity, Liquid, bison-1, judge score, judge model name. Runs exported before 2026-11-27 evening have only the list of checks: split it by model name."""
+                v_ = sig.get('verifier_scores')
+                if v_: return v_
+                out = {'judge': None, 'judge_model': '', 'perplexity': None, 'liquid': None, 'baseten': None}
+                for c_ in sig.get('checks', []):
+                    nm_ = c_['verifier']; k_ = 'perplexity' if nm_.startswith('Perplexity') else 'liquid' if nm_.startswith('Liquid') else 'baseten' if nm_.startswith('Baseten') else 'judge'
+                    out[k_] = c_['score']
+                    if k_ == 'judge': out['judge_model'] = nm_
+                return out
+            def qcell(r_): return (r_['quote'], r_['locator']) if r_ else ('', '')
             for it in E_.get('provenance', []):
                 if it['id'].startswith('link-') and it['status'] != 'flag': continue   # the 'links' row sums up the others; only links with a problem get their own row
-                rows_.append(['Code-only check', it['label'], it['result'], it['status'], it.get('detail', ''), '', '', '', '', '', '', '', '', '', '', it['tool'], (it.get('url', '') + ' ' + str(it.get('checked_utc', ''))[:10]).strip(), '', '']); shots_.append((None, None))
+                rows_.append(mk(Kind='Code-only check', **{'Signal or check': it['label'], 'Result': it['result'], 'Agreement or status': it['status'], 'Summary': it.get('detail', ''), 'Code-only checks that apply': it['tool'], 'Source (web address)': it.get('url', ''), 'Checked on (date)': str(it.get('checked_utc', ''))[:10]})); shots_.append((None, None))
             for sid, sig in E_.get('signals', {}).items():
-                n_ = rater(sig, 'Gemini 4 Neon'); o_ = rater(sig, 'Claude Opus 5.5'); s_ = rater(sig, 'GPT-6.2 Sol'); ck_ = {c['verifier']: c['score'] for c in sig.get('checks', [])}
-                ver_ = ', '.join(str(ck_.get(v, '')) for v in (QE.VERIFIERS['sonnet'], 'Liquid d1.2-ultra', 'Perplexity Decider 1.3')) if ck_ else ''
+                n_ = rater(sig, 'Gemini 4 Neon'); o_ = rater(sig, 'Claude Opus 5.5'); s_ = rater(sig, 'GPT-6.2 Sol'); vs_ = vscores(sig) if sig.get('checks') or sig.get('verifier_scores') else {}
                 tools_ = ', '.join(next((i['label'] for i in E_.get('provenance', []) if i['id'] == t_), t_) for t_ in sig.get('tool_checks', []))
-                (rows_t if sid.startswith('tripod-') else rows_).append(['Signal', sig['label'], sig['final'], sig['agreement'], sig['summary'], n_['rating'] if n_ else '', (n_['quote'] + ('  [' + n_['locator'] + ']' if n_['locator'] else '')) if n_ else '', '', o_['rating'] if o_ else '', (o_['quote'] + ('  [' + o_['locator'] + ']' if o_['locator'] else '')) if o_ else '', '', s_['rating'] if s_ else '', ver_,
-                              sig.get('vault_value') or '', {True: 'yes', False: 'no', None: ''}[sig.get('matches_vault')], tools_, '', '', ''])
+                nq, nl = qcell(n_); oq, ol = qcell(o_)
+                row_ = mk(Kind='Signal', **{'Signal or check': sig['label'], 'Result': sig['final'], 'Agreement or status': sig['agreement'], 'Summary': sig['summary'], 'Neon rating': n_['rating'] if n_ else '', 'Neon quote': nq, 'Neon locator': nl, 'Opus rating': o_['rating'] if o_ else '', 'Opus quote': oq, 'Opus locator': ol, 'Sol rating (fallback or third rater)': s_['rating'] if s_ else '',
+                                            'Quote check: Perplexity Decider 1.3 (score 0 to 1)': vs_.get('perplexity') if vs_.get('perplexity') is not None else '', f'Quote check: {LQ} (score 0 to 1)': vs_.get('liquid') if vs_.get('liquid') is not None else '', 'Quote check: Baseten bison-1 (score 0 to 1)': vs_.get('baseten') if vs_.get('baseten') is not None else '',
+                                            'Quote check: judge score (0 to 1)': vs_.get('judge') if vs_.get('judge') is not None else '', 'Quote check: judge model': vs_.get('judge_model') or '', 'Live-site tag (Aug 2026)': sig.get('vault_value') or '', 'Matches live-site tag?': {True: 'yes', False: 'no', None: ''}[sig.get('matches_vault')], 'Code-only checks that apply': tools_})
+                (rows_t if sid.startswith('tripod-') else rows_).append(row_)
                 (shots_t if sid.startswith('tripod-') else shots_).append(((QE.SHOTS / n_['screenshot']) if n_ and n_.get('screenshot') else None, (QE.SHOTS / o_['screenshot']) if o_ and o_.get('screenshot') else None))
-            wq_ = tab(f"QS {ck.split('-')[0]} {meta.get('year', '')}", hdr, rows_, [14, 26, 24, 14, 50, 12, 50, 40, 12, 50, 40, 14, 22, 16, 12, 30, 40, 16, 30], jp_from=18, img=(8, 11))
-            for i_, (a_, b_) in enumerate(shots_, 2): put_image(wq_, d, i_, 8, a_, 300, thumbs); put_image(wq_, d, i_, 11, b_, 300, thumbs)
+            QW = [14, 26, 24, 14, 50, 12, 50, 24, 40, 12, 50, 24, 40, 14, 12, 12, 12, 12, 18, 16, 12, 30, 40, 12, 16, 30]; NS, OS = H['Neon screenshot (image)'] + 1, H['Opus screenshot (image)'] + 1; JPC = H['JP: right? (yes/no/unsure)'] + 1
+            wq_ = tab(f"QS {ck.split('-')[0]} {meta.get('year', '')}", hdr, rows_, QW, jp_from=JPC, img=(NS, OS))
+            for i_, (a_, b_) in enumerate(shots_, 2): put_image(wq_, d, i_, NS, a_, 300, thumbs); put_image(wq_, d, i_, OS, b_, 300, thumbs)
             if rows_t:   # TRIPOD-LLM reporting items: their own tab, same columns
-                wt_ = tab(f"TRIPOD {ck.split('-')[0]} {meta.get('year', '')}", ['Kind', 'TRIPOD-LLM item'] + hdr[2:], rows_t, [14, 30, 24, 14, 50, 12, 50, 40, 12, 50, 40, 14, 22, 16, 12, 30, 40, 16, 30], jp_from=18, img=(8, 11))
-                for i_, (a_, b_) in enumerate(shots_t, 2): put_image(wt_, d, i_, 8, a_, 300, thumbs); put_image(wt_, d, i_, 11, b_, 300, thumbs)
+                wt_ = tab(f"TRIPOD {ck.split('-')[0]} {meta.get('year', '')}", ['Kind', 'TRIPOD-LLM item'] + hdr[2:], rows_t, QW, jp_from=JPC, img=(NS, OS))
+                for i_, (a_, b_) in enumerate(shots_t, 2): put_image(wt_, d, i_, NS, a_, 300, thumbs); put_image(wt_, d, i_, OS, b_, 300, thumbs)
             import tripod_items as TI
             fin_ = {s_: x_['final'] for s_, x_ in E_.get('signals', {}).items() if s_.startswith('tripod-')}; old_ = SRG.vault_tripod(key); new_s = TI.summary(fin_); old_s = TI.summary(old_)
-            same_ = [s_ for s_ in fin_ if s_ in old_]; tri_sum.append([meta.get('title', ck)[:60], key, new_s['fully'], new_s['partial'], new_s['not-reported'], new_s['not-applicable'], (str(new_s['pct']) + '% ' + str(new_s['level'])) if new_s['pct'] is not None else '', old_s['fully'], old_s['partial'], old_s['not-reported'], old_s['not-applicable'], (str(old_s['pct']) + '% ' + str(old_s['level'])) if old_s['pct'] is not None else '', f"{sum(1 for s_ in same_ if fin_[s_] == old_[s_])} of {len(same_)}", new_s['needs_human']])
+            same_ = [s_ for s_ in fin_ if s_ in old_]; tri_sum.append([meta.get('title', ck)[:60], key, new_s['fully'], new_s['partial'], new_s['not-reported'], new_s['not-applicable'], new_s['pct'] if new_s['pct'] is not None else '', new_s['level'] if new_s['pct'] is not None else '', old_s['fully'], old_s['partial'], old_s['not-reported'], old_s['not-applicable'], old_s['pct'] if old_s['pct'] is not None else '', old_s['level'] if old_s['pct'] is not None else '', sum(1 for s_ in same_ if fin_[s_] == old_[s_]), len(same_), new_s['needs_human']])
             sigs_ = [x for x in E_.get('signals', {}).values() if x['ratings']]; st_ = M.get('stage_log', {}); t0_ = (st_.get('qs') or {}).get('started_utc', '')
             cost_ = {}; ends_ = []
             for c_ in calls:
                 if c_.get('citekey') == ck and str(c_.get('step', '')).startswith('qs') and str(c_.get('ts_utc', '')) >= t0_: (cost_.__setitem__(c_.get('model'), cost_.get(c_.get('model'), 0) + float((re.search(r'cost_usd=([0-9.]+)', str(c_.get('notes', ''))) or [0, c_.get('cost_usd_est') or 0])[1])), ends_.append(str(c_.get('ts_utc', ''))))   # billed cost from the call note (batch mode is half the list price in cost_usd_est)
             prov_ = E_.get('provenance', []); mv_ = [x for x in sigs_ if x.get('matches_vault') is not None]
-            qs_sum.append([meta.get('title', ck)[:60], key, len(sigs_), sum(1 for x in sigs_ if x['agreement'] in ('agree', 'confident')), sum(1 for x in sigs_ if x['final'] == 'no majority'), sum(1 for x in sigs_ for r_ in x['ratings'] if r_.get('quote_found') is False), f"{sum(1 for x in mv_ if x['matches_vault'])} of {len(mv_)}",
+            qs_sum.append([meta.get('title', ck)[:60], key, len(sigs_), sum(1 for x in sigs_ if x['agreement'] in ('agree', 'confident')), sum(1 for x in sigs_ if x['final'] == 'no majority'), sum(1 for x in sigs_ for r_ in x['ratings'] if r_.get('quote_found') is False), sum(1 for x in mv_ if x['matches_vault']), len(mv_),
                            sum(1 for i in prov_ if i['status'] == 'ok'), sum(1 for i in prov_ if i['status'] == 'flag'), sum(1 for i in prov_ if i['status'] == 'unavailable'), round(sum(cost_.values()), 3), '; '.join(f"{k}: ${v:.2f}" for k, v in cost_.items()), ((st_.get('qs') or {}).get('elapsed_s') or (round((__import__('datetime').datetime.fromisoformat(max(ends_)) - __import__('datetime').datetime.fromisoformat(t0_)).total_seconds()) if ends_ and t0_ else '')), (st_.get('qs_code_checks') or {}).get('papers', {}).get(ck, {}).get('elapsed_s', ''), sum(1 for x in sigs_ if x['final'] == 'needs_human'), sum(1 for x in sigs_ if x.get('status') == 'fallback')])
-        if tri_sum: tab('TRIPOD-LLM summary', ['Paper', 'Vault citekey', 'New: fully reported', 'New: partial', 'New: not reported', 'New: not applicable', 'New: share reported (partial counts half) and level', 'Old table: fully reported', 'Old: partial', 'Old: not reported', 'Old: not applicable', 'Old table: share and level', 'New rating equals old curated rating', 'New: needs your judgment (needs_human)'], tri_sum, [50, 38, 10, 10, 10, 10, 22, 10, 10, 10, 10, 22, 18, 16])
-        if qs_sum: tab('Quality signals run summary', ['Paper', 'Vault citekey', 'Signals rated by models', 'All raters agree', 'No majority', 'Quotes not found in PDF', 'Matches live-site tag', 'Code-only checks ok', 'Code-only checks flagged', 'Code-only checks unavailable', 'Rating cost USD', 'Cost by model', 'Rating time (s, batch wait included)', 'Code-only check time (s)', 'Needs your judgment (needs_human)', 'Fallback rater decided'], qs_sum, [50, 38, 12, 12, 10, 12, 14, 12, 12, 12, 10, 46, 14, 14, 16, 14])
+        if tri_sum: tab('TRIPOD-LLM summary', ['Paper', 'Vault citekey', 'New: fully reported', 'New: partial', 'New: not reported', 'New: not applicable', 'New: share reported, percent (partial counts half)', 'New: level', 'Old table: fully reported', 'Old: partial', 'Old: not reported', 'Old: not applicable', 'Old table: share reported, percent', 'Old table: level', 'New rating equals old curated rating (items)', 'Items compared', 'New: needs your judgment (needs_human)'], tri_sum, [50, 38, 10, 10, 10, 10, 16, 14, 10, 10, 10, 10, 16, 14, 16, 12, 16])
+        if qs_sum: tab('Quality signals run summary', ['Paper', 'Vault citekey', 'Signals rated by models', 'All raters agree', 'No majority', 'Quotes not found in PDF', 'Matches live-site tag (signals)', 'Signals compared with the live-site tag', 'Code-only checks ok', 'Code-only checks flagged', 'Code-only checks unavailable', 'Rating cost USD', 'Cost by model', 'Rating time (s, batch wait included)', 'Code-only check time (s)', 'Needs your judgment (needs_human)', 'Fallback rater decided'], qs_sum, [50, 38, 12, 12, 10, 12, 14, 14, 12, 12, 12, 10, 46, 14, 14, 16, 14])
     nc_f = d / 'numbers_check.json'
     if nc_f.exists():
         NC = json.load(open(nc_f)); nr = []
         for x in NC['flagged']:
-            nr.append([x['paper'], x['id'], ', '.join(map(str, x['pages'])), x['statement'], '; '.join(x['tokens']), '; '.join(f"{t}: {round(f, 2) if f is not None else ''}" for t, f in zip(x['tokens'], x['found'])), '; '.join(f"{t}: {round(c, 2) if c is not None else ''}" for t, c in zip(x['tokens'], x['control'])), '; '.join(f"{t}: {r_}" for t, r_ in zip(x['tokens'], x['result'])), '', '', ''])
-        tab('Numbers check (EVD findings)', ['Paper', 'Finding', 'Cited PDF pages', 'Statement (first 200 characters)', 'Numbers not in the text of the cited pages', 'Liquid d1.2-ultra: number appears on the screenshots (probability)', 'Control: same number with one digit changed (should be low)', 'Result per number', 'Screenshots looked at (image)', 'JP: are the numbers right? (yes/no)', 'JP: notes'], nr, [30, 8, 12, 60, 24, 40, 40, 50, 40, 16, 30], jp_from=10)
+            for t_, f_, c_, r_ in zip(x['tokens'], x['found'], x['control'], x['result']):   # one row per number (was one cell per finding with every number joined)
+                nr.append([x['paper'], x['id'], ', '.join(map(str, x['pages'])), x['statement'], t_, round(f_, 2) if f_ is not None else '', round(c_, 2) if c_ is not None else '', r_, '', '', ''])
+        tab('Numbers check (EVD findings)', ['Paper', 'Finding', 'Cited PDF pages', 'Statement (first 200 characters)', 'Number not in the text of the cited pages', 'Liquid d1.2-ultra: number appears on the screenshots (probability)', 'Control: same number with one digit changed (should be low)', 'Result', 'Screenshots looked at (image)', 'JP: are the numbers right? (yes/no)', 'JP: notes'], nr, [30, 8, 12, 60, 14, 14, 14, 24, 40, 16, 30], jp_from=10)
     fa_f = d / 'failure_analysis.json'
     if fa_f.exists():
         FA = json.load(open(fa_f)); fr = [[x['paper'], x['ntype'], x['nid'], f"'Verification (all nodes)' row {x['row']} (cells A{x['row']}:AB{x['row']})", x['item'], x['passage'], x['sonnet_reason'], x['who_is_right'], x['failure_type'], x['reason'], x['fix'], '', ''] for x in sorted(FA, key=lambda x: (x['ntype'], x['row']))]
@@ -303,7 +326,7 @@ def main():
     if qr_rows:
         wq = tab('Quality signals (raw ratings)', ['Paper', 'Signal', 'Rater', 'Counted in the vote', 'Rating', 'Confidence reported', 'Quote', 'Locator', 'Quote found in PDF', 'Quote highlighted and boxed in the PDF (image)'], qr_rows, [30, 22, 8, 12, 16, 12, 70, 24, 10, 60], img=(10,))
         for i, cp in enumerate(qr_crops, 2): put_image(wq, d, i, 10, cp, 420, thumbs)
-    if qa_rows: tab('Quality signals (votes)', ['Paper', 'Signal', 'Votes', 'Majority', 'Agreement', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 40, 16, 10, 10, 16, 30], jp_from=7)
+    if qa_rows: tab('Quality signals (votes)', ['Paper', 'Signal', 'Neon rating', 'Opus rating', 'Sol rating', 'Majority', 'Agreement', 'Quotes not found', 'JP: correct rating', 'JP: notes'], qa_rows, [30, 22, 16, 16, 16, 16, 10, 10, 16, 30], jp_from=9)
     qg = d / 'question_groups.tsv'
     if qg.exists():   # from consolidate_questions.py: unified, nested questions proposed for JP to verify
         import csv
@@ -313,15 +336,21 @@ def main():
     import datetime as dt, collections
     def iso(x): return dt.datetime.fromisoformat(x.replace('Z', '+00:00')) if x else None
     mrows = []
-    def mrow(area, metric, value, note=''): mrows.append([area, metric, value, note])
+    srows = []   # one row per stage with numbers in their own columns (was a sentence in the Metrics tab)
+    def mrow(area, metric, value, note='', of='', share=''):
+        m_ = re.fullmatch(r'(\d+) of (\d+)(?: \((\d+)%\))?', value) if isinstance(value, str) else None   # 'x of y (z%)' becomes three numeric cells
+        if m_: value, of, share = int(m_[1]), int(m_[2]), (int(m_[3]) if m_[3] else '')
+        mrows.append([area, metric, value, of, share, note])
+    def mcount(area, metric, counter, note=''):   # a count per category, one row each (was 'a: 3, b: 2' in one cell)
+        for k_, v_ in counter.most_common() or [('none', 0)]: mrow(area, f'{metric}: {k_}', v_, note)
     sl = M['stage_log']; ts_ = [iso(r.get('started')) for r in sl.values() if isinstance(r, dict) and r.get('started')] + [iso(json.loads(l).get('ts_utc')) for l in (d / 'calls.jsonl').read_text().splitlines()[:1]] if (d / 'calls.jsonl').exists() else []
     calls = [json.loads(l) for l in (d / 'calls.jsonl').read_text().splitlines()] if (d / 'calls.jsonl').exists() else []
     if calls:
-        t0 = min(iso(c_['ts_utc']) for c_ in calls); t1 = max(iso(c_['ts_utc']) for c_ in calls); mrow('Time and cost', 'First to last model call (wall clock, includes waiting for batches and any pause)', f'{(t1 - t0).total_seconds() / 60:.0f} minutes')
-    mrow('Time and cost', 'Total spent this batch (list prices; batch mode is half)', f"${M['spent_usd']:.2f} of the ${M['cap_usd']} cap" + (f" (earlier batches of this run: {', '.join('$%.2f' % b['spent_usd'] for b in M.get('spent_previous_batches', []))})" if M.get('spent_previous_batches') else ''))
+        t0 = min(iso(c_['ts_utc']) for c_ in calls); t1 = max(iso(c_['ts_utc']) for c_ in calls); mrow('Time and cost', 'First to last model call (minutes; wall clock, includes waiting for batches and any pause)', round((t1 - t0).total_seconds() / 60))
+    mrow('Time and cost', 'Total spent this batch (USD; list prices, batch mode is half; Out of = the cap)', round(M['spent_usd'], 2), (f"Earlier batches of this run: {', '.join('$%.2f' % b['spent_usd'] for b in M.get('spent_previous_batches', []))}" if M.get('spent_previous_batches') else ''), M['cap_usd'])
     mrow('Time and cost', 'Papers', len(M['papers']))
     for k, r in sl.items():
-        if isinstance(r, dict) and r.get('started') and r.get('ended'): mrow('Time per stage', k, f"{(iso(r['ended']) - iso(r['started'])).total_seconds() / 60:.1f} min, {r.get('mode', '')}, ${r.get('actual_usd', 0):.2f}, {r.get('requests', '')} requests" + (f", {r['failed'] if isinstance(r['failed'], int) else len(r['failed'])} failed" if r.get('failed') else ''))
+        if isinstance(r, dict) and r.get('started') and r.get('ended'): srows.append([k, round((iso(r['ended']) - iso(r['started'])).total_seconds() / 60, 1), r.get('mode', ''), r.get('actual_usd', 0), r.get('requests', ''), (r['failed'] if isinstance(r['failed'], int) else len(r['failed'])) if r.get('failed') else 0, r.get('cutoff_retried', 0)])
     allf = []; allq = 0; spans = [0, 0]; flagged = 0; dis = 0; verd = collections.Counter(); finals = collections.Counter(); dmscore = []; nodes = collections.Counter(); how = collections.Counter(); lintp = [0, 0]; ccp = collections.Counter(); st_ = collections.Counter(); qsd = [0, 0, 0, 0, 0]; qnf = [0, 0]; tierc = collections.Counter(); flagc = collections.Counter()
     for ck, p in M['papers'].items():
         if (d / ck / 'picost.json').exists():
@@ -344,21 +373,21 @@ def main():
             for x in q['raw']:
                 if x['quote_found'] is not None: qnf[1] += 1; qnf[0] += 0 if x['quote_found'] else 1
     mrow('Extraction', 'Questions found (all papers, repeats kept)', allq, 'from the Abstract and Introduction; no cap')
-    mrow('Extraction', 'Findings (primary / secondary / tertiary)', f"{len(allf)} ({tierc['primary']} / {tierc['secondary']} / {tierc['tertiary']})", 'no cap')
+    mrow('Extraction', 'Findings (all tiers)', len(allf), 'no cap'); [mrow('Extraction', f'Findings, {t_} tier', tierc[t_]) for t_ in ('primary', 'secondary', 'tertiary')]
     mrow('Extraction accuracy (PyMuPDF)', 'Quoted spans found in the PDF text', f"{spans[0]} of {spans[1]} ({100 * spans[0] / max(spans[1], 1):.0f}%)")
-    mrow('Extraction accuracy (PyMuPDF)', 'Findings flagged for a second look', f"{flagged} of {len(allf)} ({100 * flagged / max(len(allf), 1):.0f}%)", ', '.join(f'{k}: {v}' for k, v in flagc.most_common()))
+    mrow('Extraction accuracy (PyMuPDF)', 'Findings flagged for a second look', f"{flagged} of {len(allf)} ({100 * flagged / max(len(allf), 1):.0f}%)"); mcount('Extraction accuracy (PyMuPDF)', 'Flags raised', flagc)
     EXA = f'Extraction accuracy ({C.short(C.ROLES["recheck"])}, {CN.AD})'
     mrow(EXA, 'Sol and Neon read a different number', f"{dis} of {flagged} rechecked")
-    mrow(EXA, f'{CN.AD} verdicts (A = Neon right, B = Sol right)', ', '.join(f'{k}: {v}' for k, v in verd.most_common()) or 'none')
-    if finals: mrow('Checks (decision models, Sol vision on every crop)', 'Outcomes', ', '.join(f'{k}: {v}' for k, v in finals.most_common()), 'cannot verify = the crop does not show enough; a person looks'); mrow('Checks (decision models, Sol vision on every crop)', 'Mean decision-model score', f'{sum(dmscore) / len(dmscore):.2f}')
+    mcount(EXA, f'{CN.AD} verdicts (A = Neon right, B = Sol right)', verd)
+    if finals: mcount('Checks (decision models, Sol vision on every crop)', 'Outcomes', finals, 'cannot verify = the crop does not show enough; a person looks'); mrow('Checks (decision models, Sol vision on every crop)', 'Mean decision-model score', round(sum(dmscore) / len(dmscore), 2))
     if nodes:
-        mrow('Drafting', 'Nodes written', ', '.join(f'{k}: {v}' for k, v in nodes.most_common())); mrow('Drafting', 'How the winning text was chosen', ', '.join(f'{k}: {v}' for k, v in how.most_common()), f"only primary EVDs are critiqued and voted on; everything else is one draft by {C.short(C.ROLES['authors'][0])}")
-        mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Writing-rules check pass (length, numbers on the card, plain-language grade, no em dash)', f'{lintp[0]} of {lintp[1]} ({100 * lintp[0] / max(lintp[1], 1):.0f}%)'); mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Node-detail check overall', ', '.join(f'{k}: {v}' for k, v in ccp.most_common())); mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Status', ', '.join(f'{k}: {v}' for k, v in st_.most_common()))
+        mcount('Drafting', 'Nodes written', nodes); mcount('Drafting', 'How the winning text was chosen', how, f"only primary EVDs are critiqued and voted on; everything else is one draft by {C.short(C.ROLES['authors'][0])}")
+        mrow('Drafting accuracy (writing-rules and node-detail checks)', 'Writing-rules check pass (length, numbers on the card, plain-language grade, no em dash)', f'{lintp[0]} of {lintp[1]} ({100 * lintp[0] / max(lintp[1], 1):.0f}%)'); mcount('Drafting accuracy (writing-rules and node-detail checks)', 'Node-detail check overall', ccp); mcount('Drafting accuracy (writing-rules and node-detail checks)', 'Status', st_)
     if qsd[0]: mrow('Quality signals', 'Signals rated', qsd[0]); mrow('Quality signals', 'First rater confident (high or medium), no second look' if cascade else 'Neon (High) and Opus agree', f'{qsd[1]} of {qsd[0]} ({100 * qsd[1] / qsd[0]:.0f}%)'); mrow('Quality signals', 'Sent to the fallback rater (low confidence)' if cascade else 'Sol adjudicated', qsd[2]); mrow('Quality signals', 'Needs your judgment (needs_human)' if cascade else 'Still no majority', qsd[4] if cascade else qsd[3]); mrow('Quality signals', 'Quotes not found in the PDF', f'{qnf[0]} of {qnf[1]}')
     if (d / 'verification.json').exists():
         import lives_verify as VV2
         vx = VV2.queue_order(json.load(open(d / 'verification.json'))); fl_ = collections.Counter(x['ntype'] for x in vx if x.get('flag'))
-        mrow('Verification', 'Items flagged for human examination', f"{sum(fl_.values())} of {len(vx)}", ', '.join(f'{k}: {v}' for k, v in fl_.most_common()) + '. Flag: the judge scored the item below 0.75 or gave no answer; or Perplexity, Liquid or bison-1 scored it below 0.5 and the judge did not pass it; or the judge and the decision-model majority disagree.')
+        mrow('Verification', 'Items flagged for human examination', f"{sum(fl_.values())} of {len(vx)}", 'Flag: the judge scored the item below 0.75 or gave no answer; or Perplexity, Liquid or bison-1 scored it below 0.5 and the judge did not pass it; or the judge and the decision-model majority disagree.'); mcount('Verification', 'Items flagged for human examination, by node type', fl_)
     rwn = collections.Counter(); rwacc = 0; before = []; after = []
     for ck in M['papers']:
         if (d / ck / 'drafts.json').exists():
@@ -368,16 +397,19 @@ def main():
                     rwn[rw['verdict']] += 1; rwacc += 1 if rw.get('accepted') else 0; before.append(rw['dm_before']['score'])
                     if rw.get('dm_after'): after.append(rw['dm_after']['score'])
     if rwn:
-        mrow(CN.RWT, 'EVDs with a decision-model score below 0.60 that were checked', sum(rwn.values())); mrow(CN.RWT, 'Verdicts', ', '.join(f'{k}: {v}' for k, v in rwn.most_common()), 'ok = the statement stays; rewrite = a new statement was proposed; extraction_problem = a person checks the extraction')
-        mrow(CN.RWT, 'Rewrites accepted (writing rules pass and decision-model score at least 0.60)', rwacc); mrow(CN.RWT, 'Mean decision-model score, before and after the rewrites', f"{sum(before) / len(before):.2f} before; {sum(after) / len(after):.2f} after" if after else f"{sum(before) / len(before):.2f} before")
+        mrow(CN.RWT, 'EVDs with a decision-model score below 0.60 that were checked', sum(rwn.values())); mcount(CN.RWT, 'Verdicts', rwn, 'ok = the statement stays; rewrite = a new statement was proposed; extraction_problem = a person checks the extraction')
+        mrow(CN.RWT, 'Rewrites accepted (writing rules pass and decision-model score at least 0.60)', rwacc); mrow(CN.RWT, 'Mean decision-model score before the rewrites', round(sum(before) / len(before), 2)); after and mrow(CN.RWT, 'Mean decision-model score after the rewrites', round(sum(after) / len(after), 2))
     mrow('About these numbers', 'Accuracy here means agreement between automatic checkers', '', 'It is not accuracy against a person. Fill in the yellow JP columns on the other tabs and these metrics can be recomputed against your labels.')
-    tab('Metrics', ['Area', 'Metric', 'Value', 'Note'], mrows, [38, 70, 40, 70])
+    tab('Metrics', ['Area', 'Metric', 'Value', 'Out of', 'Share (percent)', 'Note'], mrows, [38, 70, 14, 10, 12, 70])
+    if srows: tab('Time per stage', ['Stage', 'Minutes', 'Mode', 'Cost USD', 'Requests', 'Requests that did not complete', 'Requests re-run after a cut-off'], srows, [24, 10, 10, 10, 10, 14, 14])
     crows = []
     f = d / 'calls.jsonl'
     for l in (f.read_text().splitlines() if f.exists() else []):
         r = json.loads(l); crows.append([r.get('ts_utc', '')[:19], r.get('citekey', ''), r.get('step', ''), r.get('model', ''), r.get('effort', ''), r.get('tokens_in'), r.get('tokens_out'), r.get('cost_usd_est'), (r.get('notes') or '')[:80]])
     tab('Calls and cost', ['Time (UTC)', 'Paper', 'Step', 'Model', 'Effort', 'Tokens in', 'Tokens out (incl. thinking)', 'Cost USD (list price; batch is half)', 'Notes'], crows, [20, 30, 12, 20, 8, 10, 14, 14, 50])
-    SS.polish_about(ab)
+    SS.polish_about(ab, text_width=80, c_width=60, stripe=True)
+    for r_, im_ in about_imgs: put_image(ab, d, r_, 3, im_[0], im_[1], thumbs)
+    ab.column_dimensions['C'].width = 60; ab.freeze_panes = 'B1'
     if a.tripod_only:
         for ws_ in list(wb.worksheets):
             if not (ws_.title.startswith('TRIPOD') or ws_.title == 'ABOUT'): wb.remove(ws_)

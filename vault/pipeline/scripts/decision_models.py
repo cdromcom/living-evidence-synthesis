@@ -1,4 +1,4 @@
-"""Minimal client for the two decision models (Perplexity Decider 1.3, Liquid d1.2-ultra (was d1-ultra until 2026-11-26); Jev was dropped on 2026-11-26), text only. Keys come from
+"""Minimal client for the three decision models (Perplexity Decider 1.3, Liquid d1.3-ultra when the API accepts it and d1.2-ultra until then, Baseten bison-1; Jev was dropped on 2026-11-26). JP, 2026-11-27: all three vote (roles.decision_models). bison-1 and Perplexity read text only; only Liquid reads images. Keys come from
 ~/.config/lives-ai-raters/.env (PERPLEXITY_API_KEY, LIQUID_API_KEY); never print or commit them.
 Same request shapes as benchmarking-validation/run_raters.py. A question is noul(...) (returns a probability) or choice(...)."""
 import os, time
@@ -10,7 +10,9 @@ KEY_ENV = {'perplexity': 'PERPLEXITY_API_KEY', 'liquid': 'LIQUID_API_KEY', 'base
 PRICE_PER_M = {'perplexity': 0.02, 'liquid': 0.042, 'baseten': 0.10}   # USD per million input tokens, list prices (2026-11-23; baseten bison-1 added 2026-11-27)
 
 
-PREFERRED = {'liquid': ['d1.3-ultra', 'd1.2-ultra']}   # JP, 2026-11-27: use the newest Liquid model the API accepts; d1.3-ultra was announced 2026-11-27 and returned "model does not exist" at 12:00, so d1.2-ultra stays until it answers
+PREFERRED = {'liquid': ['d1.3-ultra', 'd1.2-ultra']}   # JP, 2026-11-27: use the newest Liquid model the API accepts; d1.3-ultra was announced 2026-11-27 and returned HTTP 404 "model does not exist" at 12:00 and again in a probe later that day (ids d1.3-ultra, d1.3 and d1.3-ultra-latest), so d1.2-ultra stays until it answers
+TEXT_ONLY = {'perplexity', 'baseten'}   # cannot read screenshots: bison-1 read digits wrongly in an image test (0.03 for a correct quote), so for an item scored on a screenshot these models abstain and the sheet shows NOT_USED_TEXT_ONLY
+NOT_USED_TEXT_ONLY = 'not used (text only)'
 _PAIR = {'same': {'type': 'noul', 'instructions': 'Do TEXT A and TEXT P say exactly the same thing?'}}
 
 
@@ -35,6 +37,11 @@ def load_env(path=None):
             if '=' in line and not line.lstrip().startswith('#'):
                 k, v = line.split('=', 1); os.environ.setdefault(k.strip(), v.strip().strip('"\''))
     if not _RESOLVED and not os.environ.get('LIVES_NO_PROBE'): resolve_preferred()
+
+
+def missing_keys(providers):
+    """Names of the key variables (never their values) that are not set for these decision-model providers."""
+    return [KEY_ENV[p] for p in providers if not os.environ.get(KEY_ENV[p], '')]
 
 
 def noul(q): return {'type': 'noul', 'instructions': q}
