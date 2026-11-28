@@ -18,3 +18,16 @@ def assert_allowed(model):
     if m['runs'] == 'api' and m['country'] not in POLICY['hosted_api_allowed_countries'] and 'any' not in POLICY['hosted_api_allowed_countries']:
         raise ValueError(f"{model}: hosted APIs from {m['country']} are not allowed by the model-origin policy")
     return True
+
+
+# Roles (models.json) are a model id or an object {key, model, effort}; the helpers below read either form (JP, 2026-11-27).
+def role_model(x): return x['model'] if isinstance(x, dict) else x
+def role_effort(x, default='medium'): return (x.get('effort') or default) if isinstance(x, dict) else default
+def role_list(name, default=None):
+    """A role that holds a list of {key, model, effort} as (key, model, effort) tuples; `default` (another role name) is used when the role is missing, so older configurations keep working."""
+    v = ROLES.get(name) or (ROLES.get(default) if default else None) or []
+    return [(a['key'], a['model'], a.get('effort', 'medium')) for a in v]
+def role_display(x): return display(role_model(x))
+def short(x):
+    """Short model name for labels: 'Sol', 'Neon', 'Sonnet 5.5', 'Opus 5.5' (the display name without the developer prefix)."""
+    return role_display(x).replace('Claude ', '').replace('Gemini 4 ', '').replace('GPT-6.2 ', '')

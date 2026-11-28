@@ -57,8 +57,8 @@ def label(sig):
 
 
 def summary(ratings):
-    """ratings: {signal id: rating}. Share of applicable items fully reported, with partial counting half (a proposed measure; the thresholds for the level are not validated)."""
+    """ratings: {signal id: rating}. Share of applicable items fully reported, with partial counting half (a proposed measure; the thresholds for the level are not validated). Rows marked needs_human (the raters were not confident) are left out of the share and counted separately."""
     r = [v for s, v in ratings.items() if s.startswith('tripod-') and v in ('fully', 'partial', 'not-reported', 'not-applicable')]
     n = {k: r.count(k) for k in ('fully', 'partial', 'not-reported', 'not-applicable')}; app = len(r) - n['not-applicable']
     pct = round(100 * (n['fully'] + 0.5 * n['partial']) / app) if app else None
-    return {**n, 'applicable': app, 'pct': pct, 'level': None if pct is None else ('high' if pct >= 75 else 'moderate' if pct >= 50 else 'low')}
+    return {**n, 'needs_human': sum(1 for s, v in ratings.items() if s.startswith('tripod-') and v == 'needs_human'), 'applicable': app, 'pct': pct, 'level': None if pct is None else ('high' if pct >= 75 else 'moderate' if pct >= 50 else 'low')}

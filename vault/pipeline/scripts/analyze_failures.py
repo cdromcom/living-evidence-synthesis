@@ -19,18 +19,20 @@ def main(run, per_type=10, stage=None):
         pool[x['ntype']].append(x)
     rnd = random.Random(2026); sample = []
     for t, xs in pool.items(): sample += rnd.sample(xs, min(per_type, len(xs)))
-    sysv = S.prompt('failure-types-v1.md'); reqs = []
+    sysv = S.prompt('revision-types-v1.md'); reqs = []
     for i, x in enumerate(sample):
         sc = {k: (round(v, 2) if v is not None else None) for k, v in x['scores'].items() if k in ('sonnet', 'perplexity', 'liquid')}
         body = f"ITEM TYPE: {x['ntype']}\nWHAT WAS CHECKED: {x['what']}\n\nITEM:\n{x['_item'][:2500]}\n\nPASSAGE:\n{x['_passage']}\n\nVERIFIER SCORES: {json.dumps(sc)}\nSonnet 5.5 reason: {x['reasons'].get('sonnet', '')}"
-        reqs.append(L.Req(f'fa{i:03d}', R['adjudicate'], body, sysv, None, 'medium', 900))
+        reqs.append(L.Req(f'fa{i:03d}', R['classifier']['model'] if isinstance(R['classifier'], dict) else R['classifier'], body, sysv, None, (R['classifier'].get('effort', 'low') if isinstance(R['classifier'], dict) else 'low'), 3000))
     import time
+    res = None
     # a new stage name each time: saved answers of an earlier sample must not be reused
-    res = S.dispatch(M, stage or f'failure_analysis_{int(time.time())}', reqs, 'standard'); out = []; out = []
+    if res is None: res = S.dispatch(M, stage or f'failure_analysis_{int(time.time())}', reqs, 'standard')
+    out = []
     for i, x in enumerate(sample):
         j = S.safe_json(res.get(f'fa{i:03d}') or L.Res('', False)) or {}
         out.append({'paper': x['paper'], 'ntype': x['ntype'], 'nid': x['nid'], 'row': row[id(x)], 'item': x['text'][:500], 'passage': x.get('passage', '')[:400], 'scores': x['scores'], 'sonnet_reason': x['reasons'].get('sonnet', ''), 'who_is_right': j.get('who_is_right', ''), 'failure_type': j.get('failure_type', ''), 'reason': j.get('reason', ''), 'fix': j.get('fix', '')})
-    (M.dir / 'failure_analysis.json').write_text(json.dumps(out, indent=1, ensure_ascii=False), encoding='utf-8')
+    (M.dir / 'failure_analysis.json').write_text(json.dumps(out, indent=1, ensure_ascii=False), encoding='utf-8')   # local output never overwrites the saved Opus sample
     M.m['stage_log'].setdefault('failure_analysis', {}).update(status='done', sampled=len(out)); M.save()
     pool_n = {t: len(v) for t, v in pool.items()}; print(run, 'failing items by type (excluding QUOTE):', pool_n, 'sampled', len(out))
     c = collections.Counter((o['ntype'], o['failure_type']) for o in out)
@@ -38,7 +40,7 @@ def main(run, per_type=10, stage=None):
     print(' who is right:', dict(collections.Counter((o['ntype'], o['who_is_right']) for o in out)))
 
 
-if __name__ == '__main__': main(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 10)
+if __name__ == '__main__': main(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2].isdigit() else 10)
 
 
 def refresh_rows(run):

@@ -218,6 +218,7 @@ check('repair: plain cell unchanged', r('2.95 \u00b1 1.19') == '2.95 \u00b1 1.19
 - run_supp.py, run_supp.sh, score_supp.py, supp_results.json, results_supp/
 - analyze_missed.py, build_missed_report.py, missed_values.json, missed-values.md, missed-values.html, missed-values-images/ (local only); tablelib_tests.py, repair_audit.py, repair_audit.json, vault_repair_block.py, apply_vault_repair.py, symbol_report_before_extension.json
 - derotate.py, derotate_build.py, derotate_log.json, rotation2_build.py, run_rotation2.sh, run_rotation3.sh, run_rotation4.sh, score_rotation2.py, rotation2_results.json
+- run_mineru_derotated.py, run_rotation5.sh, score_derot_any.py, derot_any_results.json, tyser_orient.py, tyser_orientation.json, score_values.py, score_values_result.json, numbers_on_pages_test.py, numbers_on_pages_diff.txt
 - tablenumbers.py, vault_table_numbers_block.py, score_modes.py, scoring_modes.json, tablenumbers_tests.py; docx_test.py, docx_results.json, vault_docx_tables_block.py
 - build_review.py, build_review_extra.py, review_index.tsv, review.html, review/ (PNG at 110 dpi and text grids per parser)
 
@@ -253,7 +254,7 @@ Step (c), local orientation detectors: Tesseract is not installed (which tessera
 
 Recommendation: before MinerU, run derotate_page on every page that has a text layer (about 0.2 s per page, no model); for image-only pages try the four orientations with the word-share score only when the page is known or suspected to be sideways, because it costs four runs. Marker needs no step (it returned the same cells at every angle), and PyMuPDF needs the step (0 values at 90 and 270 degrees); the vault function table_cells already resets page.rotation to 0.
 
-Limits: 24 synthetic copies made from upright pages; derotated copies for 180, 270 and the other content-turned angles were not read by MinerU (the pages are identical to the upright pages the step builds, and MinerU needed 15 to 60 s per page while the machine was busy); the image-only test used 14 pages; Marker was not run on rot180 or the content-turned copies.
+Limits: 24 synthetic copies made from upright pages; derotated copies for 180, 270 and the other content-turned angles were read by MinerU later (see the follow-up section; before that they were not read, because the pages are identical to the upright pages the step builds, and MinerU needed 15 to 60 s per page while the machine was busy); the image-only test used 14 pages; Marker was not run on rot180 or the content-turned copies.
 
 ## Scoring modes: caption, footnote and any-cell matches
 
@@ -288,6 +289,48 @@ Tested on the 9 docx files in the vault pdf folder (docx_test.py, docx_results.j
 
 Merged cells: mmc5 has 8 horizontal merges (gridSpan) and 2 vertical merges (vMerge). docx_tables repeats the merged text in every covered position; the grids equal MinerU's cell for cell except 17 cells where the Word footnote letter (a superscript run) is removed by repair_cell_text and MinerU keeps it. The three tables are 6x6, 23x7 and 19x9. Old .doc files: no .doc file exists in the vault folder; soffice cannot be used here, and textutil writes a .doc that holds no tables (so my round trip is not a valid test). I could not test a real Word 97 file. Recommendation: do not convert Word files to PDF; read .docx with docx_tables (exact cells, merged spans, 0.02 to 0.16 s, 10 of 10 values), keep MinerU only as a cross-check, and for .doc ask the owner to save as .docx (or convert with soffice where a working LibreOffice is installed). python-docx is installed for the system python3 (3.14) as well as in the venv (version 1.2.0 in the venv); I did not check the system version number.
 
+## Follow-up: derotated 180 and 270 copies, Tyser image-only pages, pipeline scorer
+
+### MinerU on every derotated copy (the 24 pages that hold the 463 values)
+
+All six text-layer variants were derotated and read by MinerU (derot_rot90, derot_rot180, derot_rot270 and the content-turned derot_cont90, derot_cont180, derot_cont270; score_derot_any.py, derot_any_results.json). Values found of 463, same for each variant: strict cell scorer 431; any cell 451; any cell plus caption and footnote text 463 (MinerU cells, caption numbers from pdf_pages.caption_footnote_text of the derotated page). pdf_pages.table_numbers on the derotated pages also finds 463 of 463 in every variant. That equals the upright pages (strict 431, any 463), and the verified examples survive: Woelfle page 5, Table 2, PRECIS-2, GPT-3.5, kappa 0.04 is found at every angle after derotation, Tyser page 14 Table 5 values 0 and 5 come from the caption text, Bougie page 12 value 1,000 comes from the caption text. Not run: the other 100 of the 124 table pages (they hold no verified values; a derotated copy of an upright page is the upright page). MinerU seconds per page for the derotated copies: 5.7 to 18 (machine busy; upright was 4.7).
+
+### Tyser image-only pages: four orientations per page
+
+Pages 5, 10, 14, 15, 17, 18, 19, 31, 33 and 34 of the Tyser paper, rendered to images (no text layer), each read by MinerU in the four orientations (tyser_orient.py, tyser_orientation.json). Only pages 5, 10 and 14 hold verified values (10, 4 and 30). Values found at 0 / 90 / 180 / 270 degrees: page 5: 10 / 10 / 2 / 6; page 10: 4 / 4 / 3 / 4; page 14: 24 / 24 / 1 / 0. MinerU reads the page equally well at 0 and 90 degrees and badly at 180 degrees. Pick of the two choose_orientation scores (as-given orientation is the page upright):
+
+| Page | Digit-cell count picks | Word-share picks | Remark |
+|---|---|---|---|
+| 5 | 0 (right) | 0 (right) | 90 degrees ties on values |
+| 10 | 270 (not upright; 37 digit cells of noise, same 4 values) | 0 (right) | |
+| 14 | 0 | 0 | 24 of 30 values |
+| 15, 17 | 0 | 0 | no table text found in any orientation |
+| 18, 19 | 0 | 0 | no table text with digits; ties on values |
+| 31 | 90 (wrong: 4 digit cells against 0 upright) | 270 (word share 0.807 against 0.760 upright; not upright) | no verified values |
+| 33, 34 | 0 | 0 | |
+
+So the digit-cell count picks the wrong orientation on 2 of 10 pages (10 and 31), the word-share rule on 1 of 10 (31); on neither wrong pick was a verified value lost, because the three pages with values keep their count. A margin (switch only when the word share is higher by 0.10) was worse on all 24 pages: 372 to 316 of 463 against 402 to 406 for the plain word-share rule (score_rotation2.py, rotation2_results.json). Over all 24 image-only pages (463 values), MinerU found 350 / 268 / 65 / 307 values at 0 / 90 / 180 / 270 degrees; best of four orientations by digit cells 254; by word share 402 to 406 (it picks the as-given orientation on 18 of the 24 pages for an upright start and another orientation on the rest, with more values found there). Strict scorer; caption text is not available for image-only pages from my MinerU reading, so the any-cell plus caption scorer is not applied.
+
+MinerU reads the derotated page always: run_mineru_derotated.py (read_tables) derotates a page with a text layer (derotate_page) and, for a page without text, reads the four orientations and keeps the best word share. Tests: a content-turned Sarol page 5 (angle 270 found, 2 tables read, 61 s); the Tyser page 5 image at 90 degrees (kept as given, word share 0.923 against 0.444 at 180 degrees) and at 180 degrees (as given 0.444, picked 90 degrees at 0.923, 2 tables). Each image-only page costs four MinerU runs: 70 to 520 s per page with the machine busy. choose_orientation now turns the pixels (a copy on a page with rotation 0), because MinerU reads a /Rotate page differently from a page whose pixels are turned (an earlier version with set_rotation gave a different word share for the same orientation).
+
+### Pipeline scorer
+
+The only place where the pipeline matches a number against a page is check() in pipeline/scripts/numbers_on_pages.py (statement numbers against the text of the cited pages); no script under pipeline/scripts other than pdf_pages.py calls table_cells or find_tables. The change that makes it use pp.table_numbers is in numbers_on_pages_diff.txt (4 changed lines; table_numbers runs only for numbers missing from the page text, about 3 s per page). Test without any model call (numbers_on_pages_test.py on the runs 2026-11-26_batch05 and 2026-11-26_batch07): 76 findings, 12 flagged now, 12 flagged with table_numbers, 0 numbers rescued; the 12 are numbers derived by the model (averages and differences) that are in no cell. So the change is safe and costs little, but it changes nothing for these two runs: the page text already holds the table cells.
+
+score_values(page_numbers_fn) in score_values.py scores the 463 verified values with any function from a page to a set of numbers; with pdf_pages.table_numbers (the vault copy) it finds 463 of 463 (Sarol 96, Bougie 205, Tyser 44, Woelfle 118), 0 missing.
+
+What did not work or was not done: digit-cell count as an orientation score (2 wrong picks); the 0.10 margin rule; Marker was not rerun on the derotated copies; MinerU on the other 100 table pages after derotation was not run.
+
+## Methods table check (scripts/methods_table_check.py)
+
+Code: pipeline/scripts/methods_table_check.py (check_table, check_prose_numbers, check_vault_page, CLI) and pipeline/scripts/tests/test_methods_table_check.py (python3 tests/test_methods_table_check.py; 0 mismatches). A copied table is compared cell by cell with the source page: MinerU first (venv subprocess, derotated page, cached per PDF hash and page), PyMuPDF find_tables with repair_cell_text as fallback (also in the venv, also cached), python-docx for .docx. Each cell records its parser, source position and repair rules; the audit JSON and a crop of the source table go to pipeline/runs/_table_checks/ (paths relative to the vault).
+
+Important finding: PyMuPDF 1.27 (the system python3) finds far fewer tables than PyMuPDF 2.2 with pymupdf-layout (the venv): the 463 verified values score 232 of 463 with pdf_pages.table_numbers under the system python and 463 of 463 in the venv. The checker therefore runs PyMuPDF in the venv; the pipeline's own table_cells and table_numbers see the weaker version when run by system python3.
+
+Time per table: 0.2 s with the MinerU and PyMuPDF results cached; first read 12 to 15 s (Woelfle pages 3 and 5) and 43 s (Sarol page 6) for MinerU plus 0.6 s for PyMuPDF. Both parsers miss the table on 3 caption pages of the 124 (Akyon p. 15 Table 4, a chart; Shahid p. 12 Table 4, long text; Sridharan Assessing p. 3 Table 2); the other 15 pages with no table from either are body mentions of a table.
+
+Where it can mislead: (1) a source table with stacked lines inside one cell (Sarol Table 4 in PyMuPDF: 47 of 60 cells match only as part of a larger cell) accepts a changed number that equals another number in the same merged cell; the weak matches are counted in summary.weak_matches. (2) MinerU can misassign row labels in tables with spanning first columns (Sarol Table 4: the label 'Top 5 sentences' sits on the wrong row), so the row pairing relies on values; a wrong value that equals another row's value is not caught. (3) MinerU OCR errors (OpenAl for OpenAI) produce a text_differs unless PyMuPDF supplies the right text; a table that only MinerU reads is exposed to this. (4) Page and table location by number overlap can pick a neighbouring table with the same numbers. (5) Image-only pages are read as given, not orientation-checked.
+
 ## Rerun
 
 ```
@@ -319,5 +362,9 @@ $PY score_modes.py              # strict, any-cell and caption/footnote scoring
 python3 docx_test.py            # Word files (system python3 has python-docx)
 $PY rotation2_build.py; $PY derotate_build.py; nohup ./run_rotation2.sh > scratch/rotation2.log 2>&1 &   # long: 30 to 60 min on a busy machine
 $PY score_rotation2.py
+nohup ./run_rotation5.sh > scratch/rotation5.log 2>&1 &    # follow-up: Tyser 270, derotated 180 and 270 copies (long)
+$PY score_derot_any.py; $PY tyser_orient.py; $PY score_values.py
+python3 numbers_on_pages_test.py 2026-11-26_batch05 2026-11-26_batch07
+$PY run_mineru_derotated.py pages.json results/mineru_derotated sarol   # MinerU always on the derotated page
 python3 apply_vault_repair.py    # puts the repair block into pipeline/scripts/pdf_pages.py (not yet applied)
 ```

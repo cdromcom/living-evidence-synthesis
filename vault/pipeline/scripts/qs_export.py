@@ -14,7 +14,8 @@ import signal_registry as SR, lives_stages as S
 
 PROV = SR.VAULT / 'pipeline' / 'provenance'; STORE = PROV / 'provenance-quality-signals.json'; SHOTS = PROV / 'quality-signal-screenshots'
 NAMES = {'neon': 'Gemini 4 Neon', 'opus': 'Claude Opus 5.5', 'sol': 'GPT-6.2 Sol'}; SHORT = {'neon': 'Neon', 'opus': 'Opus', 'sol': 'Sol'}
-VERIFIERS = {'sonnet': 'Claude Sonnet 5.5', 'perplexity': 'Perplexity Decider 1.3', 'liquid': 'Liquid d1.2-ultra'}
+import config as _C
+VERIFIERS = {'sonnet': _C.display(_C.role_model(_C.ROLES.get('verify_judge') or _C.ROLES['quote_check'])), 'perplexity': 'Perplexity Decider 1.3', 'liquid': 'Liquid d1.2-ultra'}
 
 
 def now(): return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -67,8 +68,12 @@ def jpeg(src, dst, side=900):
 
 
 def summary_sentence(final, rows, agg, checks):
-    by = {r['rater']: r['rating'] for r in rows if r.get('rating') and not str(r['rating']).startswith(('invalid', 'no answer'))}; counted = [r for r in ('neon', 'opus') if r in by]
-    if not by: s = 'No rater gave a valid rating.'
+    by = {r['rater']: r['rating'] for r in rows if r.get('rating') and not str(r['rating']).startswith(('invalid', 'no answer'))}; conf = {r['rater']: r.get('confidence') for r in rows}
+    st_ = agg.get('status') if isinstance(agg, dict) else None
+    if st_ == 'needs_human': s = 'Needs your judgment: ' + (' and '.join(SHORT.get(r, r) for r in conf) or 'the raters') + ' both reported low confidence or gave no valid rating' + (f" ({', '.join(f'{SHORT.get(r, r)} said {v}' for r, v in by.items())})." if by else '.')
+    elif st_ == 'fallback': first = next((r for r in rows), None); fb = next((r for r in rows[1:]), None); s = f"{SHORT.get((first or {}).get('rater'), 'The first rater')} reported low confidence ({(first or {}).get('rating')}); the fallback rater {SHORT.get((fb or {}).get('rater'), '')} rates this {final}."
+    elif st_ == 'confident': s = f"{SHORT.get(rows[0]['rater'], rows[0]['rater'])} rates this {final} with {rows[0].get('confidence')} confidence (one rater)."
+    elif not by: s = 'No rater gave a valid rating.'
     elif final == 'no majority': s = f"The raters gave different ratings ({', '.join(f'{SHORT[r]} {v}' for r, v in by.items())}), so this needs your judgment."
     elif len(set(by.values())) == 1 and len(by) >= 2: s = (f"{' and '.join(SHORT[r] for r in by)} both rate this {final}." if len(by) == 2 else f"All three raters (Neon, Opus, Sol) rate this {final}.")
     else:
@@ -104,12 +109,12 @@ def export_paper(M, ck, log=print):
                     sc = v['scores'].get(k)
                     if sc is not None and r['rater'] in ('neon', 'opus', 'sol'): verdicts[k].append((sc, (v['reasons'].get('sonnet') if k == 'sonnet' else '')))
             ratings.append({'rater': NAMES.get(r['rater'], r['rater']), 'rating': r['rating'], 'quote': '' if qt.lower() == 'none' else qt, 'locator': r.get('locator', ''), 'pdf_page': r.get('pdf_page'), 'printed_page': None,
-                            'quote_found': r.get('quote_found'), 'screenshot': shot, 'counted': bool(r.get('counted', True)) and r['rater'] in ('neon', 'opus', 'sol')})
+                            'quote_found': r.get('quote_found'), 'confidence': r.get('confidence', ''), 'screenshot': shot, 'counted': bool(r.get('counted', True)) and r['rater'] in ('neon', 'opus', 'sol')})
         a = aggs.get(sg, {}); final = a.get('majority', 'no majority')
         checks = [{'verifier': VERIFIERS[k], 'score': round(sum(s for s, _ in v) / len(v), 2), 'note': next((n for s, n in v if n and s < 0.75), '')} for k, v in verdicts.items() if v]
         tag = SR.SIGNAL_TAGS.get(sg); vv = vtags.get(tag) if tag else None
         if sg.startswith('tripod-'): vv = vtrip.get(sg)   # the old curated TRIPOD-LLM table on the source page
-        signals[sg] = {'id': sg, 'label': SR.label_for(sg), 'final': final, 'agreement': 'agree' if a.get('agreement') in ('both raters agree', 'all raters agree') else ('no-majority' if final == 'no majority' else 'majority'),
+        signals[sg] = {'id': sg, 'label': SR.label_for(sg), 'final': final, 'agreement': (a['status'].replace('_', '-') if a.get('status') else 'agree' if a.get('agreement') in ('both raters agree', 'all raters agree') else ('no-majority' if final == 'no majority' else 'majority')), 'status': a.get('status', ''),
                        'summary': summary_sentence(final, rows, a, checks), 'ratings': ratings, 'checks': checks, 'tool_checks': SR.TOOL_CHECKS.get(sg, []), 'vault_value': vv, 'matches_vault': (None if vv is None else vv == final)}
     prov = {i['id']: i for i in entry.get('provenance', [])}
     for sg, tag in SR.TOOL_SIGNAL_TAGS.items():
@@ -119,7 +124,7 @@ def export_paper(M, ck, log=print):
         signals[sg] = {'id': sg, 'label': SR.label_for(sg), 'final': ' '.join(i['result'] for i in items[:1]), 'agreement': 'agree', 'summary': items[0]['result'], 'ratings': [], 'checks': [], 'tool_checks': ids, 'vault_value': vtags.get(tag), 'matches_vault': None, 'status': worst}
     import tripod_items as TI
     sl = M.m['stage_log']; entry['signals'] = signals; entry['tripod'] = TI.summary({s_: x_['final'] for s_, x_ in signals.items() if s_.startswith('tripod-')}); entry['tripod_old_table'] = TI.summary(vtrip)
-    entry['qs_run'] = {'run_id': M.m['run_id'], 'exported_utc': now(), 'raters': ['Gemini 4 Neon (High)', 'Claude Opus 5.5', 'GPT-6.2 Sol (adjudicates disagreements)'], 'prompt': sl.get('qs', {}).get('prompt'), 'elapsed_s': sl.get('qs', {}).get('elapsed_s'), 'signals_rated': len(S.SIGNALS), 'tripod_items_rated': len(TI.ITEMS)}
+    entry['qs_run'] = {'run_id': M.m['run_id'], 'exported_utc': now(), 'raters': ([f"{_C.display(m)} ({e})" for _, m, e in S.RATERS] + ([f"{_C.display(S.QS_FALLBACK[0][1])} ({S.QS_FALLBACK[0][2]}, fallback for low confidence)"] if S.QS_CASCADE else [])), 'prompt': sl.get('qs', {}).get('prompt'), 'elapsed_s': sl.get('qs', {}).get('elapsed_s'), 'signals_rated': len(S.SIGNALS), 'tripod_items_rated': len(TI.ITEMS)}
     save_store(store); log(f"{ck[:24]}: {len(signals)} signals exported for {key}"); return key
 
 
