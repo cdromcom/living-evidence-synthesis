@@ -178,8 +178,8 @@ N = {
  'Result per number': 'Seen on screenshot, too short to check, unclear, or not found (needs a person).', 'Screenshots looked at (image)': 'The images the model examined.',
  # failure analysis
  'Where the item is': 'Row of the item in the Verification (all nodes) tab.', 'Passage it was checked against': 'The text the item was compared with.',
- 'Opus 5.5: who is right': 'Claude Opus 5.5\'s view: the extraction is correct, the extraction is wrong, or unclear.', 'Opus 5.5: failure type': 'Kind of problem Opus assigned (see the Failure types tab for the definitions).',
- 'Opus 5.5: reason': 'Opus\'s explanation naming the words or numbers involved.', 'Opus 5.5: cheapest fix': 'The simplest change that would stop this kind of problem.',
+ 'Classifier: who is right': 'The classifier model\'s view: the extraction is correct, the extraction is wrong, or unclear.', 'Classifier: kind of revision': 'Kind of revision to note that the classifier assigned (see the Revision kinds tab).',
+ 'Classifier: reason': 'The classifier\'s explanation naming the words or numbers involved.', 'Classifier: cheapest change': 'The simplest change that would remove this kind of revision.',
  'ambiguous_instruction': 'The question asked of the verifier allows more than one reading.', 'claim_stronger_than_quote': 'The claim is stronger or more general than the quote supports.',
  'detail_dropped': 'The item leaves out a qualifier or number that changes the meaning.', 'other': 'A problem that fits no other type.',
  'rating_defensible_quote_weak': 'The rating may be right, but the quote does not show why.', 'rating_not_supported_by_quote': 'The rating does not follow from the quote.',
@@ -218,9 +218,51 @@ JP = {  # "JP:" columns: the human reviewer's input
  'is the finding right?': 'For the human reviewer: is the finding right? yes or no.', 'best text or your own': 'For the human reviewer: the best of the drafts, or your own wording.',
  'fidelity': 'For the human reviewer: does the text match its source? yes, partly or no.', 'style': 'For the human reviewer: is the style good, ok or poor?', 'suggested change': 'For the human reviewer: the change you suggest.',
  'right call?': 'For the human reviewer: was the rework decision right? yes or no.', 'is the extraction correct?': 'For the human reviewer: is the extracted item correct? yes, no or unsure.',
- 'right?': 'For the human reviewer: is the result right? yes, no or unsure.', 'are the numbers right?': 'For the human reviewer: are the numbers right? yes or no.', 'is Opus right?': 'For the human reviewer: is Opus\'s classification right? yes or no.',
+ 'right?': 'For the human reviewer: is the result right? yes, no or unsure.', 'are the numbers right?': 'For the human reviewer: are the numbers right? yes or no.', 'is the classifier right?': 'For the human reviewer: is the classifier\'s answer right? yes or no.',
  'correct rating': 'For the human reviewer: the rating you consider correct.', 'group right?': 'For the human reviewer: is this grouping right? yes or no.', 'better wording or notes': 'For the human reviewer: a better wording, or notes.',
 }
+
+
+# Model names in headers come from pipeline/config/models.json (JP, 2026-11-27), so a swapped model is named correctly: run_to_gsheet.py imports these names.
+import sys as _sys
+from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parent))
+import config as _C
+_JROLE = _C.ROLES.get('verify_judge') or _C.ROLES['quote_check']
+JD = _C.role_display(_JROLE); JS = _C.short(_JROLE)                      # verification judge: 'GPT-6.2 Sol', 'Sol'
+AD = _C.short(_C.ROLES['adjudicate'])                                    # settles Neon-versus-Sol disagreements: 'Sonnet 5.5'
+VD = _C.short(_C.ROLES['vision_dispute'])
+RWS = _C.short(_C.ROLES['evd_rework']); RWT = f"EVD rework ({_C.role_display(_C.ROLES['evd_rework'])})"   # EVD rework model, tab title
+QCD = _C.role_display(_C.ROLES['quote_check'])                           # reads the screenshot of every quote
+N.update({
+ f'{JD} score': f"{JD}'s judgment: 1 supported, 0.5 unsure, 0 not supported. Empty when {JD} was not called because the two decision models agreed.",
+ f'{JD} reason': f"{JD}'s one-sentence reason, or \"not called\" when the decision models agreed.",
+ 'Sonnet 5.5 reason': 'The foundation model\'s one-sentence reason for the item (the model named in the run\'s ABOUT tab, roles.verify_judge), or "not called" when the decision models agreed.',
+ f'{JS} pass (1 or 0)': f"{JS}'s verdict as 1 (pass) or 0; empty if unsure or not called.",
+ f'Before the rerun (cited pages only, or the stricter question): {JD} score': f"{JD}'s score before the rerun that added the Methods pages or loosened the wording check.",
+ f'Quote verifiers (mean score: {JD}, Liquid d1.2-ultra, Perplexity)': 'Average scores (0 to 1) from three verifiers on whether the quotes support the ratings.',
+ 'Liquid screenshot score counts as a vote? (digit comparisons on quotes only)': f'yes when the screenshot score is used in the majority (quotes containing digits). Quotes without digits are checked by {QCD} instead.',
+ f'{AD} verdict': f'When the two readers differ, which one a third model ({_C.role_display(_C.ROLES["adjudicate"])}) judged correct.',
+ f'{AD} verdict (A = Neon, B = Sol)': f'Which reader a third model ({_C.role_display(_C.ROLES["adjudicate"])}) judged correct: A is Neon, B is Sol.',
+ f'Where {RWS} found each number': f"For each number in the statement, where {_C.role_display(_C.ROLES['evd_rework'])} found it: in the quote, the numbers list, the screenshot or nowhere.",
+ 'Numbers found nowhere': f'Numbers {RWS} could not find in any source.',
+ 'Fidelity problems': f'Mismatches {RWS} found between the statement and its source (model names, comparator, direction, scope).',
+ 'Verdict': f"{RWS}'s decision: ok (statement is fine), rewrite, or extraction problem (the source data look wrong).",
+ 'Proposed correction': f'The statement with only the wrong words or numbers corrected, when {RWS} found an error. Everything else is kept word for word.',
+ 'Exact changes (old -> new: reason)': f'Every edit {RWS} made, as old text -> new text with the reason. The correction is applied only if these edits reproduce the proposed statement exactly and the writing rules and decision-model checks pass.',
+ 'Flag for human examination (reason)': 'Why a person should look at this item. Flagged when the judge model scored it below 0.75 or gave no answer; when Perplexity, Liquid or bison-1 scored it below 0.5 and the judge did not pass it; or when the judge and the majority of the decision models disagree. bison-1 takes part in the flag but not in the pass or fail vote. Flagged items come first in the labeling queue within each node type.',
+ 'Judge model (the one that did not produce the item)': 'The foundation model that judged this item. A model never judges its own work: items Neon produced go to the first judge, quality ratings the first judge made go to the second judge.',
+ f'{VD} (disputes only)': f'Verdict of {_C.role_display(_C.ROLES["vision_dispute"])}, asked only when the decision models and the screenshot check disagree.',
+ 'Sol rating (fallback or third rater)': 'Rating by GPT-6.2 Sol. With one primary rater (2026-11-27 procedure) Sol rates only the rows where the first rater reported low confidence (the fallback rater); in the three-rater mode it is the third independent rater; older runs: asked only when Neon and Opus differed.',
+ 'Confidence reported': 'The rater\'s own confidence in the rating (high, medium or low). A low rating goes to the fallback rater; if that one is also low the row is marked needs_human.',
+ 'New: needs your judgment (needs_human)': 'TRIPOD-LLM items on which the first rater and the fallback rater both reported low confidence. They are left out of the share reported and are yours to rate.',
+ 'Needs your judgment (needs_human)': 'Signals on which the first rater and the fallback rater both reported low confidence, or gave no valid rating. They are yours to rate.',
+ 'Fallback rater decided': 'Signals on which the first rater reported low confidence and the fallback rater (GPT-6.2 Sol) gave the rating.',
+})
+TAB[('Decision-model checks (EVD)', f'{VD} reason')] = "The dispute model's explanation of its verdict."
+TAB[(RWT, 'Result')] = 'Outcome of the rework for this statement.'
+TAB[('Rechecks (EVD findings)', f'{AD} reason')] = "The third model's explanation of which reader it judged correct."
+TAB[('Drafts (EVD, QUE, CLM, CVT)', 'Checked by')] = 'The model that checked the details of the node. "(own draft)" means the checker also wrote the winning text, so the check is not independent.'
 
 
 def note_for(tab, header):

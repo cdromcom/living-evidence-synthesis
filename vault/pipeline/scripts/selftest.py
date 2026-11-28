@@ -14,10 +14,23 @@ def check(name, cond, detail=''):
     else: fails.append(name); print(f'  FAIL  {name} {detail}')
 V = C.VAULT; here = Path(__file__).resolve().parent
 print('config and policy')
-roles = [C.ROLES[k] for k in ('extract', 'recheck', 'adjudicate', 'vision_check', 'vision_dispute', 'tiebreak')] + [x['model'] for k in ('authors', 'voters', 'raters') for x in C.ROLES[k]]
+roles = [C.ROLES[k] for k in ('extract', 'recheck', 'adjudicate', 'vision_check', 'vision_dispute')] + [x['model'] for k in ('authors', 'raters', 'node_check') for x in C.ROLES[k]] + [C.role_model(C.ROLES[k]) for k in ('qs_fallback', 'qs_adjudicator', 'evd_rework', 'verify_judge', 'verify_judge_alt', 'quote_check', 'grouping', 'classifier')]
 check('every role model is in models.json with a price', all(m in C.MODELS and C.MODELS[m]['price_in'] >= 0 for m in roles), str([m for m in roles if m not in C.MODELS]))
 check('every role model passes the origin policy', all(C.assert_allowed(m) for m in roles))
 check('every role model has a provider route', all(C.provider_of(m) in ('anthropic', 'openai', 'google', 'tinker') for m in roles), str([m for m in roles if C.provider_of(m) not in ('anthropic', 'openai', 'google', 'tinker')]))
+check('the classifier is a hosted model (Neon, low effort) and no local-model entry is left in the registry', C.role_model(C.ROLES['classifier']) == 'gemini-4-neon' and C.role_effort(C.ROLES['classifier']) == 'low' and 'gemma4-12b-qat' not in C.MODELS)
+def _all_role_models():
+    out = []
+    for v in C.ROLES.values():
+        for x in (v if isinstance(v, list) else [v]):
+            if isinstance(x, (str, dict)) and x not in ('perplexity', 'liquid') and not str(x).startswith('JP'): out.append(C.role_model(x) if not isinstance(x, str) or x in C.MODELS else None)
+    return [m for m in out if m]
+check('no role uses an Opus model (JP, 2026-11-27); the registry entry stays', not [m for m in _all_role_models() if 'opus' in m] and 'claude-opus-5-5' in C.MODELS and C.ROLES['vision_dispute'] == 'claude-sonnet-5-5')
+check('model procedure of 2026-11-27: raters = Neon high only, fallback = Sol high, adjudicate = Sonnet 5.5, authors = Sol only, no critics, voters or tiebreak roles, node check = Neon', [(a['model'], a['effort']) for a in C.ROLES['raters']] == [('gemini-4-neon', 'high')] and C.ROLES['qs_fallback']['model'] == 'gpt-6.2-sol' and C.ROLES['qs_fallback']['effort'] == 'high' and C.ROLES['adjudicate'] == 'claude-sonnet-5-5' and [a['model'] for a in C.ROLES['authors']] == ['gpt-6.2-sol'] and not any(k in C.ROLES for k in ('critics', 'voters', 'tiebreak')) and [a['model'] for a in C.ROLES['node_check']] == ['gemini-4-neon'])
+check('the verification judge is not the extraction model (a model must not judge its own extractions), and the judge is Sol medium', C.role_model(C.ROLES['verify_judge']) != C.role_model(C.ROLES['extract']) and C.role_model(C.ROLES['verify_judge']) == 'gpt-6.2-sol' and C.role_effort(C.ROLES['verify_judge']) == 'medium')
+check('Neon verifies no PICOST slot and no extracted item: no verification path uses the extraction model', all(C.role_model(x) != C.role_model(C.ROLES['extract']) for x in (C.ROLES['verify_judge'],)) and __import__('lives_verify').JUDGE != C.ROLES['extract'])
+check('quote reading is not the extraction model (Sol, low), grouping is Neon medium, EVD rework is Neon with effort medium taken from the config', C.role_model(C.ROLES['quote_check']) == 'gpt-6.2-sol' and C.role_model(C.ROLES['quote_check']) != C.ROLES['extract'] and C.role_model(C.ROLES['grouping']) == 'gemini-4-neon' and C.role_effort(C.ROLES['grouping']) == 'medium' and C.role_model(C.ROLES['evd_rework']) == 'gemini-4-neon' and C.ROLES['evd_rework_effort'] == 'medium' and C.ROLES['recheck'] == 'gpt-6.2-sol' and C.ROLES['extract'] == 'gemini-4-neon')
+check('quality signals: max_accuracy is off in the config', C.PIPE['quality_signals']['max_accuracy'] is False)
 check('limits are sane', 1 <= C.PIPE['limits']['max_papers'] <= 10 and 0 < C.PIPE['limits']['cap_usd'] < 100 and C.PIPE['limits']['overrun_factor'] >= 1)
 check('decision models named in roles exist in decision_models.py', all(k in __import__('decision_models').MODELS for k in C.ROLES['decision_models']))
 try: C.POLICY['hosted_api_allowed_countries'] = ['XX']; bad = False; C.assert_allowed('gemini-4-neon')
@@ -29,14 +42,17 @@ import lives_run as R, lives_stages as S
 for st, pth in R.STAGE_PROMPT.items(): check(f'prompt {pth}', (V / pth).exists())
 check('picost prompt has no leftover cap placeholders (no caps on questions or findings)', '{MAX_' not in (V / R.STAGE_PROMPT['picost']).read_text())
 check('vision-check-v3 allows cannot_verify', 'cannot_verify' in (V / 'pipeline/prompts/vision-check-v3.md').read_text())
-check('EVD rework: a separate frontier model (not one of the three authors) and its prompt', C.ROLES['evd_rework'] not in [m for _, m, _ in S.AUTHORS] and (V / 'pipeline/prompts/evd-rework-v1.md').exists() and 'draft_rework' in C.PIPE['limits']['standard_stages'])
+check('EVD fix (errors only): a model and an effort from the config, the new prompt evd-fix-v1 exists and the old evd-rework-v3 was not overwritten', S.RW_MODEL == C.role_model(C.ROLES['evd_rework']) and S.RW_EFFORT == C.ROLES['evd_rework_effort'] and S.RW_PROMPT == 'evd-fix-v1.md' and (V / 'pipeline/prompts/evd-fix-v1.md').exists() and 'Claude Opus' in (V / 'pipeline/prompts/evd-rework-v3.md').read_text() and 'draft_rework' in C.PIPE['limits']['standard_stages'])
 g1 = R.numbers_list_gaps({'statement': 'GPT-4 scored 71.4% on 200 papers; Human Rater 1 scored 60%.', 'numbers': [{'label': 'GPT-4 accuracy', 'value': '71.4', 'unit': '%', 'table_or_figure': 'Table 2', 'pdf_page': 5, 'printed_page': '5'}, {'label': 'Human Rater 1', 'value': '60', 'unit': '%', 'table_or_figure': '', 'pdf_page': None, 'printed_page': ''}]})
 check('numbers-list check: a number in the statement with no list entry is found, a label number (Human Rater 1) and a model name digit (GPT-4) are not', g1['missing'] == ['200'] and g1['no_location'] == ['60%'])
 check('numbers-list check: 89% in the statement matches 0.89 in the list', R.numbers_list_gaps({'statement': 'Agreement was 89%.', 'numbers': [{'value': '0.89', 'table_or_figure': 'Table 1'}]}) == {'missing': [], 'no_location': []})
 check('the paper limit is 3 (4 on days JP sets it aside) and the review gate lists unreviewed batches', R.MAX_PAPERS in (3, 4) and isinstance(R.unreviewed_batches(), list))
-check('quality signals: three raters from three developers at high effort (maximum accuracy), no adjudicator needed', len(S.RATERS) == 3 and len({m.split('-')[0] for _, m, _ in S.RATERS}) == 3 and all(e == 'high' for _, _, e in S.RATERS) and S.QS_MAX and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
-for n in ('draft-nodes-v4', 'critique-revise-v4', 'evd-rework-v3', 'vote-v1', 'node-detail-check-v1', 'rate-signals-v1', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
+check('quality signals: one rater (Neon, high) with a Sol fallback, cascade mode on, the maximum-accuracy mode off, the old adjudicator prompt still there', len(S.RATERS) == 1 and S.RATERS[0][1:] == ('gemini-4-neon', 'high') and S.QS_FALLBACK[0][1:] == ('gpt-6.2-sol', 'high') and S.QS_CASCADE and not S.QS_MAX and (V / 'pipeline/prompts/adjudicate-signals-v1.md').exists())
+check('drafting: one author (Sol), no debate (no critique, vote or tiebreak), node check Neon', [x[1] for x in S.AUTHORS] == ['gpt-6.2-sol'] and not S.DEBATE and [x[1] for x in S.NODE_CHECK] == ['gemini-4-neon'])
+for n in ('draft-nodes-v4', 'critique-revise-v4', 'critique-revise-v5', 'evd-rework-v3', 'vote-v1', 'vote-v2', 'node-detail-check-v1', 'rate-signals-v1', 'rate-signals-v2', 'rate-signals-v3', 'vision-check-v3'): check(f'prompt {n}', (V / 'pipeline/prompts' / f'{n}.md').exists())
 check('rate-signals prompt has the signals placeholder', '{SIGNALS}' in (V / 'pipeline/prompts/rate-signals-v1.md').read_text())
+_v3 = (V / 'pipeline/prompts/rate-signals-v3.md').read_text(); _v2 = (V / 'pipeline/prompts/rate-signals-v2.md').read_text()
+check('rate-signals-v3 asks for a confidence (high, medium, low) in the output, has the signals placeholder, and v2 was not overwritten', '"confidence"' in _v3 and '`low`' in _v3 and '{SIGNALS}' in _v3 and 'confidence' not in _v2)
 ids = {r['id'] for r in json.loads((V / 'pipeline/templates/quality-signal-labels.json').read_text())['rows']}
 check('quality signals rated by the models are valid row ids (TRIPOD-LLM rows have their own list)', {x for x in S.SIGNALS if not x.startswith('tripod-')} <= ids, str(sorted({x for x in S.SIGNALS if not x.startswith('tripod-')} - ids)))
 print('writing-rules check and parsing')
@@ -84,12 +100,142 @@ check('the required-tag list comes from the signal registry (power analysis is o
 check('a run folder name resolves to its vault citekey', SRG.resolve_citekey('Sarol-et-al-2024-Assessing-citation-integrity') == 'sarolAssessingCitationIntegrity2024')
 check('the summary sentence names who agrees and who does not', QXP.summary_sentence('addressed', [{'rater': 'neon', 'rating': 'addressed'}, {'rater': 'opus', 'rating': 'partial'}, {'rater': 'sol', 'rating': 'addressed'}], {}, []) == 'Neon and Sol rate this addressed; Opus rated it partial.' and QXP.summary_sentence('no majority', [{'rater': 'neon', 'rating': 'a'}, {'rater': 'opus', 'rating': 'b'}], {}, []).endswith('needs your judgment.'))
 import column_notes as CNT
-check('every column header the sheet builder writes has a hover note for outsiders', all(CNT.note_for('Verification (all nodes)', h) for h in ('Sonnet 5.5 score', 'Majority vote', 'Labeling queue (tonight)', 'JP: notes', 'JP: is the extraction correct? (yes/no/unsure)')) and CNT.note_for('QS Sarol 2024', 'Result').startswith('The final rating') and all(CNT.note_for('Papers', h) for h in ('Primary findings', 'Cost USD')))
+check('every column header the sheet builder writes has a hover note for outsiders', all(CNT.note_for('Verification (all nodes)', h) for h in (f'{CNT.JD} score', 'Majority vote', 'Labeling queue (tonight)', 'JP: notes', 'JP: is the extraction correct? (yes/no/unsure)')) and CNT.note_for('QS Sarol 2024', 'Result').startswith('The final rating') and all(CNT.note_for('Papers', h) for h in ('Primary findings', 'Cost USD')))
 import tripod_items as TRI
+check('TRIPOD-LLM summary leaves needs_human rows out of the share and counts them', TRI.summary({'tripod-1': 'fully', 'tripod-3a': 'needs_human'})['needs_human'] == 1 and TRI.summary({'tripod-1': 'fully', 'tripod-3a': 'needs_human'})['applicable'] == 1)
 check('TRIPOD-LLM summary counts partial as half and ignores not-applicable items', TRI.summary({'tripod-1': 'fully', 'tripod-3a': 'partial', 'tripod-4': 'not-applicable', 'tripod-5a': 'not-reported'})['pct'] == 50 and TRI.summary({'tripod-1': 'fully'})['level'] == 'high' and TRI.label('tripod-5c') == 'TRIPOD-LLM 5c: Date range of data')
 import pdf_pages as _pp2
 check('the text-layer symbol repair fixes an interval written with the letter e and leaves scientific notation alone', _pp2.repair_cell_text('0.37e0.44') == '0.37\u20130.44' and _pp2.repair_cell_text('1e-5') == '1e-5' and _pp2.repair_cell_text('a\u00feb') == 'a+b')
 check('the symbol repair removes footnote letters from numeric cells only and keeps units, words and exponents', _pp2.repair_cell_text('62%b') == '62%' and _pp2.repair_cell_text('0.90 (0.88e0.93)a') == '0.90 (0.88\u20130.93)' and _pp2.repair_cell_text('3d') == '3d' and _pp2.repair_cell_text('ChatGPT4o') == 'ChatGPT4o' and _pp2.repair_cell_text('10\u00b3') == '10^3' and _pp2.repair_cell_text('(|24k)') == '(~24k)')
+print('model procedure, offline (stages run with canned answers instead of model calls)')
+import threading, re as _re, llm_batch as _L
+_al = ['addressed', 'partial', 'not-addressed']
+check('cascade rule: a confident rating stands; low goes to the fallback; low again is needs_human', S.cascade_result({'rating': 'partial', 'confidence': 'high'}, None, _al)[:2] == ('confident', 'partial') and S.cascade_result({'rating': 'partial', 'confidence': 'low'}, {'rating': 'addressed', 'confidence': 'medium'}, _al)[:2] == ('fallback', 'addressed') and S.cascade_result({'rating': 'partial', 'confidence': 'low'}, {'rating': 'addressed', 'confidence': 'low'}, _al)[:2] == ('needs_human', 'needs_human') and S.cascade_result({'rating': 'partial', 'confidence': 'low'}, {'rating': 'no answer', 'confidence': ''}, _al)[0] == 'needs_human')
+check('a rating goes to the fallback when its confidence is low, missing or unreadable, or the value is not allowed', S.needs_fallback({'rating': 'partial', 'confidence': 'low'}, _al) and S.needs_fallback({'rating': 'partial', 'confidence': 'missing'}, _al) and S.needs_fallback({'rating': 'bogus', 'confidence': 'high'}, _al) and not S.needs_fallback({'rating': 'partial', 'confidence': 'medium'}, _al) and not S.needs_fallback({'rating': 'partial', 'confidence': 'high'}, _al))
+
+
+class FakeM:
+    """Just enough of the runner's Manifest for the stages."""
+    def __init__(s, d, pdf): s.dir = d; s.lock = threading.Lock(); s.m = {'run_id': 'selftest-offline', 'stage_log': {}, 'spent_usd': 0.0, 'cap_usd': 5, 'question': 'q', 'papers': {'P1': {'pdf': str(pdf), 'preflight': {'page_map': [{'pdf': 1, 'printed': 1}]}, 'stages': {'picost': {}}}}}
+    def event(s, *a): pass
+    def save(s): pass
+
+
+def ok_(rid, obj): return _L.Res(rid, True, json.dumps(obj), 100, 100, 'STOP')
+
+
+def first_val(sg): return S.SIGNALS[sg][1].split('|')[0].strip()
+
+
+def run_qs(rater_list, fallback, cascade, max_acc, answers):
+    """Run stage_qs on a one-page PDF; `answers(request, stage) -> list of rating dicts` stands in for every model call. Returns (aggregate by signal, raw rows, requests seen by stage)."""
+    seen = {}
+    def fake(M, key, reqs, mode, cap_frac=1.0):
+        seen.setdefault(key, []).extend(reqs); return {r.id: ok_(r.id, {'ratings': answers(r, key)}) for r in reqs}
+    old = (S.dispatch, S.RATERS, S.QS_FALLBACK, S.QS_CASCADE, S.QS_MAX)
+    S.dispatch, S.RATERS, S.QS_FALLBACK, S.QS_CASCADE, S.QS_MAX = fake, rater_list, fallback, cascade, max_acc
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td); d = fitz.open(); d.new_page().insert_text((72, 100), 'The study used Model A on one hundred items and reported good results.'); pdf = td / 'p.pdf'; d.save(str(pdf)); d.close()
+            (td / 'P1').mkdir(); M = FakeM(td, pdf); S.stage_qs(M, 'batch'); q = json.loads((td / 'P1' / 'quality_signals.json').read_text())
+        return {a['signal']: a for a in q['aggregate']}, q['raw'], seen
+    finally: S.dispatch, S.RATERS, S.QS_FALLBACK, S.QS_CASCADE, S.QS_MAX = old
+
+
+def rows_for(req, conf):
+    return [{'signal': sg, 'rating': first_val(sg), 'page': 1, 'quote_start': 'The study used Model A', 'quote_end': 'reported good results', 'locator': 'Methods', 'confidence': conf(sg)} for sg in _re.findall(r'^- `(.+?)`:', req.system, _re.M)]
+
+
+LOW1, LOW2 = 'baseline-adequacy', 'tripod-4'   # LOW1: Neon low, Sol medium -> the fallback decides; LOW2: Neon low, Sol low -> needs_human
+def casc(req, key):
+    if key == 'qs': return rows_for(req, lambda sg: 'low' if sg in (LOW1, LOW2) else 'high')
+    return rows_for(req, lambda sg: 'low' if sg == LOW2 else 'medium')
+agg, raw, seen = run_qs([('neon', 'gemini-4-neon', 'high')], [('sol', 'gpt-6.2-sol', 'high')], True, False, casc)
+fbsg = {x for r in seen['qs_fallback'] for x in _re.findall(r'^- `(.+?)`:', r.system, _re.M)}
+check('one rater with a fallback: only the two low-confidence rows go to the fallback rater (Sol, high), as one blind request per group; no Opus and no adjudicator', len(seen['qs']) == 2 and fbsg == {LOW1, LOW2} and all(r.model == 'gpt-6.2-sol' and r.effort == 'high' for r in seen['qs_fallback']) and 'qs_adjudicate' not in seen and all(r.model == 'gemini-4-neon' for r in seen['qs']))
+check('cascade result: a confident row keeps the rater\'s rating, a medium fallback decides one row, a low fallback marks needs_human (shown as the final value)', agg['construct-validity']['status'] == 'confident' and agg[LOW1]['status'] == 'fallback' and agg[LOW1]['majority'] == first_val(LOW1) and agg[LOW2]['status'] == 'needs_human' and agg[LOW2]['majority'] == 'needs_human' and sum(1 for a in agg.values() if a['status'] == 'needs_human') == 1 and len(agg) == len(S.SIGNALS))
+check('TRIPOD rows go through the same cascade, and the confidence is stored on every raw row', LOW2.startswith('tripod-') and all(x['confidence'] in ('high', 'medium', 'low') for x in raw))
+import qs_export as _QE
+check('the export names the status in plain words (needs your judgment, fallback decided)', 'Needs your judgment' in _QE.summary_sentence('needs_human', [x for x in raw if x['signal'] == LOW2], agg[LOW2], []) and 'fallback' in _QE.summary_sentence(agg[LOW1]['majority'], [x for x in raw if x['signal'] == LOW1], agg[LOW1], []))
+def three(req, key):
+    who = req.id.split('__qs-')[1].split('-')[0]; rows = rows_for(req, lambda sg: 'high')
+    for x in rows:
+        if who in ('opus', 'sol') and x['signal'] == 'baseline-adequacy': x['rating'] = 'partial'
+        if who == 'sol' and x['signal'] == 'human-baseline': x['rating'] = 'not-addressed'
+    return rows
+agg3, raw3, seen3 = run_qs([('neon', 'gemini-4-neon', 'high'), ('opus', 'claude-opus-5-5', 'high'), ('sol', 'gpt-6.2-sol', 'high')], [('sol', 'gpt-6.2-sol', 'high')], False, True, three)
+check('maximum-accuracy mode still works with three raters: Sol is read as a rater (it shares its key with the old adjudicator), two of three decide, no fallback or adjudicator runs', {x['rater'] for x in raw3} == {'neon', 'opus', 'sol'} and all(x['rating'] != 'no answer' for x in raw3) and agg3['baseline-adequacy']['majority'] == 'partial' and agg3['human-baseline']['majority'] == first_val('human-baseline') and agg3['construct-validity']['agreement'] == 'all raters agree' and 'qs_fallback' not in seen3 and 'qs_adjudicate' not in seen3)
+
+
+BAD_CHANGES = False
+
+
+def run_draft(authors, critics, voters, node_check, tiebreak, debate=True, dm_scores=None):
+    """stage_draft on one finding with canned answers: returns (drafts.json content, requests by stage)."""
+    seen = {}; stm = lambda r: r.id.split('__', 1)[1]
+    node = lambda txt: {'id': 'E-F1', 'type': 'EVD', 'tier': 'primary', 'source_id': 'F1', 'answers_QUE': ['Q1'], 'statement': txt, 'quote': 'Model A scored 71.4%'}
+    que = {'id': 'Q1', 'type': 'QUE', 'statement': 'How well does Model A do?', 'quote': 'x'}
+    def fake(M, key, reqs, mode, cap_frac=1.0):
+        seen.setdefault(key, []).extend(reqs); out = {}
+        for r in reqs:
+            s = stm(r)
+            if key == 'draft_r0': o = {'nodes': [que]} if s == 'single' else {'nodes': [node(f'Model A scored 71.4% (n = 100), draft by {s[3:]}.')]}
+            elif key == 'draft_r1': o = {'critiques': [], 'revised': {'nodes': [node(f'Model A scored 71.4% (n = 100), revised by {s[3:]}.')]}}
+            elif key == 'draft_vote':
+                blob = json.loads(r.text.split('Versions:\n', 1)[1].split('\n\nVote now.')[0]); me = s[5:]
+                want = next((k for k, v in blob.items() if ('revised by neon' in v['nodes'][0]['statement']) == (me == 'neon')), 'A')
+                o = {'picks': [{'node': 'E-F1', 'pick': want, 'reason': ''}]}
+            elif key == 'draft_tie': o = {'picks': [{'node': 'E-F1', 'pick': 'neon', 'reason': ''}]}
+            elif key == 'draft_check': o = {'checks': [{'node': n['id'], 'overall': 'pass'} for n in json.loads(r.text.split('Nodes to check:\n', 1)[1].split('\n\nCheck now.')[0])]}
+            elif key == 'draft_rework': o = {'verdict': 'corrected', 'corrected_statement': 'Model A scored 71.4% (n = 100), run by sol.', 'changes': [{'old': 'draft', 'new': 'run', 'reason': 'test'}]} if not BAD_CHANGES else {'verdict': 'corrected', 'corrected_statement': 'Model A scored 71.4% (n = 100), run by sol.', 'changes': [{'old': 'nothing here', 'new': 'run', 'reason': 'test'}]}
+            else: o = {}
+            out[r.id] = ok_(r.id, o)
+        return out
+    saved = (S.dispatch, S.run_dm, S.AUTHORS, S.CRITICS, S.VOTERS, S.NODE_CHECK, S.R.get('tiebreak'), S.DEBATE); scores = list(dm_scores or [0.95])
+    def fake_dm(state, questions):
+        v = scores.pop(0) if len(scores) > 1 else scores[0]; return {'perplexity': {k: v for k in questions}, 'liquid': {k: v for k in questions}}
+    S.dispatch = fake; S.run_dm = fake_dm; S.AUTHORS, S.CRITICS, S.VOTERS, S.NODE_CHECK = authors, critics, voters, node_check; S.DEBATE = debate
+    if tiebreak: S.R['tiebreak'] = tiebreak
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td); d = fitz.open(); d.new_page().insert_text((72, 100), 'Model A scored 71.4% (n = 100).'); pdf = td / 'p.pdf'; d.save(str(pdf)); d.close(); (td / 'P1').mkdir()
+            (td / 'P1' / 'picost.json').write_text(json.dumps({'paper': {}, 'questions': [{'id': 'Q1', 'reframed': 'How well does Model A do?'}], 'claims': [], 'caveats': [], 'findings': [{'id': 'F1', 'tier': 'primary', 'statement': 'Model A scored 71.4% (n = 100).', 'answers_QUE': ['Q1'], 'numbers': [{'value': '71.4', 'label': 'x'}, {'value': '100', 'label': 'n'}], 'spans': [{'text': 'Model A scored 71.4%'}]}]}))
+            M = FakeM(td, pdf); S.stage_draft(M, 'batch'); dd = json.loads((td / 'P1' / 'drafts.json').read_text())
+        return dd, seen
+    finally:
+        S.dispatch, S.run_dm, S.AUTHORS, S.CRITICS, S.VOTERS, S.NODE_CHECK, tb, S.DEBATE = saved
+        if tb is None: S.R.pop('tiebreak', None)
+        else: S.R['tiebreak'] = tb
+sol_, neon_, sonnet_ = ('sol', 'gpt-6.2-sol', 'medium'), ('neon', 'gemini-4-neon', 'medium'), ('sonnet', 'claude-sonnet-5-5', 'medium')
+dd, seen_d = run_draft([sol_], [neon_], [sol_, neon_], [neon_], 'claude-sonnet-5-5')
+fin = dd['finals']['E-F1']
+check('drafting with one author, one critic, two voters and a tiebreak: only Sol drafts, only Neon critiques, both vote, the split goes to the tiebreak model, Neon checks the details', sorted(r.id.split('__r0-')[1] for r in seen_d['draft_r0'] if '__r0-' in r.id) == ['sol'] and [r.id.split('__')[1] for r in seen_d['draft_r1']] == ['r1-neon'] and sorted(r.id.split('__')[1] for r in seen_d['draft_vote']) == ['vote-neon', 'vote-sol'] and [r.model for r in seen_d['draft_tie']] == ['claude-sonnet-5-5'] and [r.id.split('__')[1] for r in seen_d['draft_check']] == ['check-neon'])
+check('the tiebreak winner is the critic\'s revision, the label names the tiebreak model, and a check of the checker\'s own text is marked as such', fin['author'] == 'neon' and fin['how'] == 'Sonnet 5.5 tie-break' and 'revised by neon' in fin['node']['statement'] and fin['detail_check']['own_draft'] is True and fin['status'].startswith('needs JP review'))
+check('a node written by the first author (Sol) is checked by Neon without the own-draft mark', dd['finals']['Q1']['author'] == 'sol' and dd['finals']['Q1'].get('detail_check') is None)
+dd2, seen2 = run_draft([sonnet_, sol_, neon_], [sonnet_, sol_, neon_], [sol_, sonnet_], [sol_, sonnet_], 'gemini-4-neon')
+check('a multi-author configuration still works: three authors draft and revise, two voters vote, the checker is the first one that did not write the node', len([r for r in seen2['draft_r0'] if '__r0-' in r.id]) == 3 and len(seen2['draft_r1']) == 3 and len(seen2['draft_vote']) == 2 and 'E-F1' in dd2['finals'] and all(not v['detail_check'].get('own_draft') for v in dd2['finals'].values() if v.get('detail_check')))
+dd1, seen1 = run_draft([sol_], [], [], [neon_], None, debate=False)
+check('one author, no debate: only Sol drafts, no critique, vote or tiebreak request is made, the draft is final and Neon checks the details', sorted(seen1) == ['draft_check', 'draft_r0'] and dd1['finals']['E-F1']['author'] == 'sol' and dd1['finals']['E-F1']['how'].startswith('single author draft') and dd1['finals']['E-F1']['detail_check']['checker'] == 'neon' and not dd1['finals']['E-F1']['detail_check']['own_draft'] and dd1['finals']['E-F1']['status'] == 'pass')
+dd1b, _ = run_draft([sol_], [], [], [sol_], None, debate=False)
+check('a node-detail check by the model that wrote the node is marked and flagged for JP', dd1b['finals']['E-F1']['detail_check']['own_draft'] is True and dd1b['finals']['E-F1']['status'].startswith('needs JP review'))
+dd1c, seen1c = run_draft([sol_], [], [], [neon_], None, debate=False, dm_scores=[0.3, 0.95])
+rw = dd1c['finals']['E-F1']['rework']
+check('EVD fix: a low decision-model score sends the EVD to the fix model (Neon, medium) with the evd-fix prompt; the listed changes reproduce the corrected statement, which is accepted', [r.model for r in seen1c['draft_rework']] == ['gemini-4-neon'] and seen1c['draft_rework'][0].effort == 'medium' and rw['verdict'] == 'rewrite' and rw['changes'][0]['old'] == 'draft' and rw['changes_reproduce_rewrite'] is True and rw['accepted'] is True and dd1c['finals']['E-F1']['node']['statement'].endswith('run by sol.'))
+BAD_CHANGES = True
+dd1d, _ = run_draft([sol_], [], [], [neon_], None, debate=False, dm_scores=[0.3, 0.95]); BAD_CHANGES = False
+check('a correction whose listed changes do not reproduce it is not applied', dd1d['finals']['E-F1']['rework']['accepted'] is False and 'draft by sol' in dd1d['finals']['E-F1']['node']['statement'])
+check('apply_changes applies old -> new in order and returns None when an old text is missing', S.apply_changes('a b c', [{'old': 'b', 'new': 'x'}]) == 'a x c' and S.apply_changes('a b c', [{'old': 'z', 'new': 'x'}]) is None)
+import lives_verify as _VV
+mk = lambda ntype, nid: {'ntype': ntype, 'nid': nid}
+_types = [mk('PICOST', 'F1: Population'), mk('QUOTE', 'F1 quote 1'), mk('QUE', 'Q1'), mk('CLM', 'C1'), mk('CLM', 'C1 quote'), mk('CVT', 'V1'), mk('QUALITY', 'study-type (neon)'), mk('QUALITY', 'study-type (sol)'), mk('QUALITY', 'tripod-4 (neon)')]
+check('for every item type the judge is not the model that produced the item (Neon items to Sol, Sol fallback ratings to Neon, Neon ratings to Sol)', all(_VV.judge_for(x)[0] != _VV.producer_model(x) for x in _types) and _VV.judge_for(mk('QUALITY', 'study-type (sol)'))[0] == 'gemini-4-neon' and _VV.judge_for(mk('QUALITY', 'study-type (neon)'))[0] == 'gpt-6.2-sol' and _VV.judge_for(mk('PICOST', 'F1: Population'))[0] == 'gpt-6.2-sol' and C.role_model(C.ROLES['quote_check']) != C.ROLES['extract'])
+_VV.check_judge()
+_h = _VV.human_flag
+check('flag for human examination: judge below 0.75 or silent; a decision model below 0.5 with no judge pass (bison-1 counts); judge against the decision-model majority; a clean item is not flagged', 'scored it 0.5' in _h({'scores': {'sonnet': 0.5, 'perplexity': 0.9, 'liquid': 0.2}, 'sonnet_called': True}) and _h({'scores': {'sonnet': None, 'perplexity': 0.9, 'liquid': 0.2}, 'sonnet_called': True}).startswith('the judge gave no answer') and _h({'scores': {'perplexity': 0.9, 'liquid': 0.9}, 'sonnet_called': False, 'shadow_bison': 0.1}).startswith('bison-1 scored') and _h({'scores': {'sonnet': 1.0, 'perplexity': 0.1, 'liquid': 0.2}, 'sonnet_called': True}) == 'the judge and the decision-model majority disagree' and _h({'scores': {'sonnet': 1.0, 'perplexity': 0.2, 'liquid': 0.9}, 'sonnet_called': True}) == '' and _h({'scores': {'perplexity': 0.9, 'liquid': 0.9}, 'sonnet_called': False}) == '' and _h({'scores': {'perplexity': 0.2, 'liquid': 0.1}, 'sonnet_called': False}) != '')
+_q = [{'paper': 'p', 'ntype': 'CLM', 'nid': f'C{i}', 'majority': 'pass', 'mean': 0.9, 'scores': {'perplexity': 0.9, 'liquid': 0.9}} for i in range(3)]; _q[2]['scores'] = {'perplexity': 0.1, 'liquid': 0.9, 'sonnet': 0.5}; _q[2]['sonnet_called'] = True
+check('flagged items come first inside their node type in the labeling queue, and the type order is kept', [x['nid'] for x in _VV.queue_order(_q)][0] == 'C2' and all(x['queue'] == '1 CLM' for x in _q))
+import estimate_cost as _EC
+check('the cost estimate re-prices a call at the new model\'s batch price (Sonnet 5.5: 2 in, 10 out, half in batch)', abs(_EC.cost('claude-sonnet-5-5', 1_000_000, 1_000_000) - 6.0) < 1e-9)
 print('packages')
 for pkg in ('pymupdf', 'anthropic', 'openai', 'openpyxl', 'pillow', 'requests'):
     try: print(f'  {pkg} {md.version(pkg)}'); ok += 1

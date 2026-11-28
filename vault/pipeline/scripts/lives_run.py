@@ -9,10 +9,10 @@ Stages (one request per paper, or per paper with flagged findings, per stage; th
   2 spans       local, free: PyMuPDF finds every span, returns bounding boxes, saves highlighted pages, checks that each number is on the page; flags low-confidence,
                 multi-page, scanned and not-found items
   3 recheck     GPT-6.2 Sol re-extracts the flagged findings independently, without seeing Neon's values (prompts/recheck-v2.md)
-  4 adjudicate  Claude Opus 5.5 decides, from the PDF, where Neon and Sol disagree (prompts/adjudicate-v2.md)
+  4 adjudicate  roles.adjudicate (Claude Sonnet 5.5 since 2026-11-27) decides, from the PDF, where Neon and Sol disagree (prompts/adjudicate-v2.md)
   5 checks      decision models score every finding (relevancy, fidelity, quote and table grounding); Sol vision on flagged, low-confidence and 10% sampled crops; Opus on rare disputes
-  6 draft       EVD, QUE, CLM, CVT nodes by debate (Sonnet 5.5, Sol, Neon Medium; Sol and Sonnet vote; Neon tie-break; Inkling benchmark only); drafts stay in the run folder
-  7 qs          quality signals rated by Opus 5.5, Sol and Neon (majority vote); Inkling benchmark only (--skip checks draft qs leaves stages out)
+  6 draft       EVD, QUE, CLM, CVT nodes: roles.authors draft, roles.critics revise, roles.voters vote, roles.tiebreak breaks ties (see config/models.json); drafts stay in the run folder
+  7 qs          quality signals and TRIPOD-LLM rows: roles.raters rate with a confidence, roles.qs_fallback re-rates low-confidence rows, still low = needs_human (--skip checks draft qs leaves stages out)
   then STOP: status awaiting_spot_check_a. A person reviews review.md; writing nodes and the decision-model gates are separate, later steps.
 
 Safety rails (constants below, not options):
@@ -480,7 +480,7 @@ def main():
     try:
         run_stage('picost', M, mode)
         if 'spans' not in M.m['stage_log'] or M.m['stage_log']['spans'].get('status') != 'done': stage_spans(M, M.dir); M.m['stage_log']['spans'] = {'status': 'done'}; M.save()
-        S.stage_quote_check(M, mode)   # Sonnet 5.5 reads a screenshot of every quote; a quote whose differences change the meaning flags its finding for the Sol recheck
+        S.stage_quote_check(M, mode)   # roles.quote_check reads a screenshot of every quote; a quote whose differences change the meaning flags its finding for the Sol recheck
         run_stage('recheck', M, mode); run_stage('adjudicate', M, mode)
         if 'checks' not in a.skip: S.stage_checks(M, mode)
         if a.fast and 'draft' not in a.skip and 'qs' not in a.skip:   # drafting and quality signals do not depend on each other: run them at the same time
@@ -493,7 +493,7 @@ def main():
         else:
             if 'draft' not in a.skip: S.stage_draft(M, mode)
             if 'qs' not in a.skip: S.stage_qs(M, mode)
-        if 'verify' not in a.skip: import lives_verify as V; V.stage_verify(M, mode); V.add_image_scores(M); V.add_bison_shadow(M); import numbers_on_pages as NP; NP.run_numbers_check(M)   # Sonnet 5.5 and the two decision models verify every extracted item
+        if 'verify' not in a.skip: import lives_verify as V; V.stage_verify(M, mode); V.add_image_scores(M); V.add_bison_shadow(M); import numbers_on_pages as NP; NP.run_numbers_check(M)   # roles.verify_judge and the two decision models verify every extracted item
         if 'qs' not in a.skip and 'qs_export' not in a.skip:   # JP, 2026-11-26: quality signals after every batch: provenance, links and statistics (code only), then export for the sheet and the web app
             import qs_export as QX; QX.run(M)
         cleanup_files(M); finish(M)

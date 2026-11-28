@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Verification layer (JP, 2026-11-26): every extracted item is checked by a foundation model (Claude Sonnet 5.5, with the screenshot where there is one) AND by the two decision models (Perplexity Decider 1.3, Liquid d1-ultra, text only), so that no extraction rests on one model. Item types: PICOST (the six slots of each finding), QUOTE (the quotes behind findings, questions, claims and caveats, against what is printed), QUE (reframed question against the original wording), CLM and CVT (claim or caveat against its passage), QUALITY (a quality-signal rating against its quote).
-Output: pipeline/runs/<run>/verification.json, shown in the review sheet tabs "Verification (all nodes)" and "Verification summary". For each item: one score per model (Sonnet 1, 0.5 or 0; each decision model a probability), the majority vote, the mean across models and how many models agree with the majority. JP's ground-truth columns stay empty until JP fills them; the summary tab then computes accuracy, precision, recall and specificity per model, for the majority vote and for the mean.
-Decision models cannot read images. They see text: the passage, the item, and the printed text that Sonnet 5.5 read from the screenshot."""
+"""Verification layer (JP, 2026-11-26): every extracted item is checked by a foundation model (roles.verify_judge: GPT-6.2 Sol since 2026-11-27, Claude Sonnet 5.5 before; with the screenshot where there is one) AND by the two decision models (Perplexity Decider 1.3, Liquid d1-ultra, text only), so that no extraction rests on one model. Item types: PICOST (the six slots of each finding), QUOTE (the quotes behind findings, questions, claims and caveats, against what is printed), QUE (reframed question against the original wording), CLM and CVT (claim or caveat against its passage), QUALITY (a quality-signal rating against its quote).
+Output: pipeline/runs/<run>/verification.json, shown in the review sheet tabs "Verification (all nodes)" and "Verification summary". For each item: one score per model (the foundation model 1, 0.5 or 0, stored under the key 'sonnet' so that stored runs still read; each decision model a probability), the majority vote, the mean across models and how many models agree with the majority. JP's ground-truth columns stay empty until JP fills them; the summary tab then computes accuracy, precision, recall and specificity per model, for the majority vote and for the mean.
+Decision models cannot read images. They see text: the passage, the item, and the printed text that the quote-check model (roles.quote_check) read from the screenshot."""
 import collections, concurrent.futures as cf, json, os, re, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -11,7 +11,35 @@ INS_QUE = 'The question was restyled on purpose. Does the reframed question stil
 INS_CLM = 'Does the claim keep the meaning of the passage? Different wording is fine. Answer no only if the claim states a fact, number, comparison or degree of certainty that the passage does not support.'
 INS_CVT = 'Does the passage state this limitation or caveat? Different wording is fine. Answer no only if the caveat adds a fact, number or cause that the passage does not support.'
 QS_MAX = S.QS_MAX   # maximum accuracy for quality ratings: all verifiers judge every rating (no cascade)
-R = S.R; SLOTS = {'P': 'Population', 'I': 'Intervention', 'C': 'Comparator', 'O': 'Outcome', 'S': 'Study design', 'T': 'Timeframe'}
+R = S.R
+JUDGE = C.role_model(R.get('verify_judge') or R['quote_check']); JUDGE_EFFORT = C.role_effort(R.get('verify_judge') or R['quote_check'], 'low')   # judges items that Neon produced (PICOST slots, quotes, questions, claims, caveats) when the two decision models disagree
+ALT = R.get('verify_judge_alt'); JUDGE_ALT = C.role_model(ALT) if ALT else None; JUDGE_ALT_EFFORT = C.role_effort(ALT, 'medium') if ALT else None   # judges items that the primary judge produced (a Sol fallback rating)
+JUDGE_TOK_GROUP, JUDGE_TOK_ITEM = 5000, 3000   # a reasoning model's thinking counts against the output budget
+EXTRACT = C.role_model(R['extract'])
+
+
+def producer_model(it):
+    """The model that produced an item. Everything the extraction made (PICOST slots, quotes, questions, claims, caveats) is Neon's; a quality or TRIPOD rating is its rater's (the one whose key is in the item id)."""
+    if it.get('ntype') == 'QUALITY':
+        m = re.search(r'\((\w+)\)$', it.get('nid', '')); keys = {k: mod for k, mod, _ in list(S.RATERS) + list(S.QS_FALLBACK)}
+        return keys.get(m.group(1), EXTRACT) if m else EXTRACT
+    return EXTRACT
+
+
+def judge_for_model(producer):
+    """(model, effort) of a judge that is not the producer (JP, 2026-11-27: Neon must not check its own work, Sol must not judge its own work)."""
+    if JUDGE != producer: return JUDGE, JUDGE_EFFORT
+    if JUDGE_ALT and JUDGE_ALT != producer: return JUDGE_ALT, JUDGE_ALT_EFFORT
+    raise ValueError(f'no judge available that differs from the producer {producer}')
+
+
+def judge_for(it): return judge_for_model(producer_model(it))
+
+
+def check_judge():
+    if JUDGE == EXTRACT: raise ValueError(f"roles.verify_judge ({JUDGE}) is the extraction model: a model must not judge its own extractions")
+    if C.role_model(R['quote_check']) == EXTRACT: raise ValueError('roles.quote_check is the extraction model: a model must not read the screenshots of its own quotes')
+SLOTS = {'P': 'Population', 'I': 'Intervention', 'C': 'Comparator', 'O': 'Outcome', 'S': 'Study design', 'T': 'Timeframe'}
 SAME = 'Do TEXT A and TEXT P say exactly the same thing, with the same numbers, names, signs and symbols (ignore spacing, hyphenation and subscript formatting)?'
 
 
@@ -70,7 +98,7 @@ def build_items(M):
 
 
 def quote_item(ck, tag, nid, text, v, crop):
-    """A quote against what is printed: the screenshot reading (Sonnet 5.5, quote_check stage) is the foundation verdict; the decision models compare the two texts."""
+    """A quote against what is printed: the screenshot reading (roles.quote_check, quote_check stage) is the foundation verdict; the decision models compare the two texts."""
     score = 0.0 if v.get('a_changes_meaning') else 1.0
     return {'paper': ck, 'ntype': tag, 'nid': nid, 'what': 'quote equals the printed text', 'text': short(f"A (model): {text}\nP (printed): {v.get('printed')}", 600), 'kind': 'precomputed', 'sonnet_score': score, 'sonnet_reason': '; '.join(v.get('a_differences') or []) or 'equals print', 'item': f'TEXT A:\n{text}\n\nTEXT P:\n{v.get("printed", "")}', 'crop': crop, 'dm_q': {'same': dm.noul(SAME)}}
 
@@ -81,7 +109,7 @@ def to_score(v): return {'yes': 1.0, 'no': 0.0}.get(str(v).lower(), 0.5)
 def stage_verify(M, mode):
     st = M.m['stage_log'].setdefault('verify', {})
     if st.get('status') == 'done': return
-    items, groups = build_items(M); sysv = S.prompt('verify-item-v1.md'); st['prompt'] = 'pipeline/prompts/verify-item-v1.md'; reqs = []
+    check_judge(); items, groups = build_items(M); sysv = S.prompt('verify-item-v1.md'); st['prompt'] = 'pipeline/prompts/verify-item-v1.md'; reqs = []
     for i, it in enumerate(items): it['id'] = f'v{i:04d}'
     def run(it):
         state = it['item'] if it['kind'] == 'precomputed' else f"PASSAGE:\n{it['passage']}\n\nITEM:\n{it['item']}"
@@ -90,20 +118,20 @@ def stage_verify(M, mode):
     def dm_low(r, pv):
         a = [x for k, x in (r.get(pv) or {}).items() if not k.startswith('_') and isinstance(x, (int, float))]
         return min(a) if a else None
-    def disagree(r):   # Sonnet 5.5 is called only when the two decision models differ (or one gave no answer)
+    def disagree(r):   # the judge (roles.verify_judge) is called only when the two decision models differ (or one gave no answer)
         p, l = dm_low(r, 'perplexity'), dm_low(r, 'liquid')
         return p is None or l is None or ((p >= 0.5) != (l >= 0.5))
     call_ids = {it['id'] for it, r in zip(items, dres) if it['kind'] == 'text' and disagree(r)}; call_gids = {it['gid'] for it, r in zip(items, dres) if it['kind'] == 'slot' and disagree(r)}
     for g in groups:
-        if g['gid'] in call_gids: reqs.append(L.Req('g::' + g['gid'], R['quote_check'], f"INSTRUCTION: {g['instruction']}\n\nITEM:\n{g['item']}\n\nPASSAGE:\n{g['passage']}", sysv, None, 'low', 900, images=[g['crop']] if g.get('crop') else []))
+        if g['gid'] in call_gids: reqs.append(L.Req('g::' + g['gid'], judge_for_model(EXTRACT)[0], f"INSTRUCTION: {g['instruction']}\n\nITEM:\n{g['item']}\n\nPASSAGE:\n{g['passage']}", sysv, None, judge_for_model(EXTRACT)[1], JUDGE_TOK_GROUP, images=[g['crop']] if g.get('crop') else []))
     for it in items:
         if it['kind'] == 'text' and it['id'] in call_ids:
             body = f"INSTRUCTION: {it['instruction']}\n\nITEM:\n{it['item']}\n\nPASSAGE:\n{it['passage']}"
-            reqs.append(L.Req(it['id'], R['quote_check'], body, sysv, None, 'low', 600, images=[it['crop']] if it.get('crop') else []))
+            reqs.append(L.Req(it['id'], judge_for(it)[0], body, sysv, None, judge_for(it)[1], JUDGE_TOK_ITEM, images=[it['crop']] if it.get('crop') else []))
     res = S.dispatch(M, 'verify_sonnet', reqs, mode); st['sonnet_called_for'] = {'text items': len(call_ids), 'PICOST findings': len(call_gids), 'of text items': sum(1 for it in items if it['kind'] == 'text'), 'of PICOST findings': len({it['gid'] for it in items if it['kind'] == 'slot'})}
     for it, r in zip(items, dres):
-        it['scores'] = {}; it['reasons'] = {}
-        if it['kind'] == 'precomputed': it['scores']['sonnet'] = it['sonnet_score']; it['reasons']['sonnet'] = it['sonnet_reason']; it['sonnet_called'] = True   # quote_check stage: Sonnet reads every quote screenshot
+        it['scores'] = {}; it['reasons'] = {}; it['judge'] = C.role_model(R['quote_check']) if it['kind'] == 'precomputed' else (judge_for_model(EXTRACT)[0] if it['kind'] == 'slot' else judge_for(it)[0])
+        if it['kind'] == 'precomputed': it['scores']['sonnet'] = it['sonnet_score']; it['reasons']['sonnet'] = it['sonnet_reason']; it['sonnet_called'] = True   # quote_check stage: roles.quote_check reads every quote screenshot
         else:
             called = (it['gid'] in call_gids) if it['kind'] == 'slot' else (it['id'] in call_ids); it['sonnet_called'] = called
             if not called: it['scores']['sonnet'] = None; it['reasons']['sonnet'] = 'not called: Perplexity and d1.2-ultra agree'
@@ -182,7 +210,7 @@ def add_image_scores(M):
 
 
 def revote(x):
-    """Majority and mean from the scores that vote: Sonnet (1 pass, 0.5 abstains, 0 fail), Perplexity, Liquid text, and Liquid screenshot digit comparisons."""
+    """Majority and mean from the scores that vote: the foundation-model judge, stored under 'sonnet' (1 pass, 0.5 abstains, 0 fail), Perplexity, Liquid text, and Liquid screenshot digit comparisons."""
     votes = {}
     for k, sc in x['scores'].items():
         if sc is None: continue
@@ -214,16 +242,29 @@ def rerun_liquid_text(M):
     return items
 
 
+def human_flag(x):
+    """Reason to look at an item by hand, or '' (JP, 2026-11-27), using the judge and the three decision models. Flag when (1) the judge was asked and scored it below 0.75 or gave no answer; (2) any of Perplexity, Liquid or bison-1 scored it below 0.5 and the judge did not pass it (a judge that was not asked, because the two voting decision models agreed, did not pass it); (3) the judge passed or failed it and the majority of Perplexity and Liquid says the opposite. bison-1 takes part in (2) only; it stays out of the pass or fail vote."""
+    sc = x.get('scores') or {}; js = sc.get('sonnet'); called = x.get('sonnet_called', js is not None); why = []
+    if called and js is None: why.append('the judge gave no answer')
+    elif called and js < 0.75: why.append(f'the judge scored it {js:g}')
+    dms = {'Perplexity': sc.get('perplexity'), 'Liquid': sc.get('liquid'), 'bison-1': x.get('shadow_bison')}; low = [k for k, v in dms.items() if v is not None and v < 0.5]
+    if low and not (js is not None and js >= 0.75): why.append(' and '.join(low) + ' scored it below 0.5 and the judge did not pass it')
+    vote = [v >= 0.5 for v in (sc.get('perplexity'), sc.get('liquid')) if v is not None]
+    if js is not None and js != 0.5 and vote and len(vote) == 2 and vote[0] == vote[1] and vote[0] != (js >= 0.75): why.append('the judge and the decision-model majority disagree')
+    return '; '.join(dict.fromkeys(why))
+
+
 def queue_order(V):
-    """Order for the review sheet and JP's labeling session (2026-11-26): 1 every CLM, 2 every CVT, 3 a random 25% of quality ratings (fixed seed), 4 every QUE reframing; inside a group the items the models disagree on or fail come first; everything else follows in the original order. Sets x['queue']."""
+    """Order for the review sheet and JP's labeling session (2026-11-26; 2026-11-27: items flagged for human examination come first inside each group): 1 every CLM, 2 every CVT, 3 a random 25% of quality ratings (fixed seed), 4 every QUE reframing; inside a group the items the models disagree on or fail come first; everything else follows in the original order. Sets x['queue']."""
     import random
     qual = [x for x in V if x['ntype'] == 'QUALITY']; rnd = random.Random(2026); pick = {id(x) for x in rnd.sample(qual, max(1, round(0.25 * len(qual))))} if qual else set()
     for x in V:
+        x['flag'] = human_flag(x)
         jq = not x['nid'].endswith(' quote')   # the quote-versus-print rows of claims and caveats are not queued
         x['queue'] = ('1 CLM' if x['ntype'] == 'CLM' and jq else '2 CVT' if x['ntype'] == 'CVT' and jq else '3 QUALITY (25% random sample)' if id(x) in pick else '4 QUE reframing' if x['ntype'] == 'QUE' and not x['nid'].endswith(' quote') else '')
     order = {'1 CLM': 1, '2 CVT': 2, '3 QUALITY (25% random sample)': 3, '4 QUE reframing': 4, '': 9}
     idx = {id(x): i for i, x in enumerate(V)}
-    return sorted(V, key=lambda x: (order[x['queue']], 0 if x['majority'] != 'pass' else 1, x['mean'] if x['mean'] is not None else 1, idx[id(x)]) if x['queue'] else (9, 0, 0, idx[id(x)]))
+    return sorted(V, key=lambda x: (order[x['queue']], 0 if x['flag'] else 1, 0 if x['majority'] != 'pass' else 1, x['mean'] if x['mean'] is not None else 1, idx[id(x)]) if x['queue'] else (9, 0, 0, idx[id(x)]))
 
 
 STOP = set('the a an of and or to in on for with by is are was were be been that this these those as at from it its their than then which who whom into over under between across not no also can could may might would should will'.split())
@@ -250,16 +291,16 @@ def add_novel_share(M):
 
 
 def rerun_with_new_questions(M, mode='standard'):
-    """Rerun the verifiers (Sonnet 5.5, Perplexity, Liquid d1.2-ultra) on PICOST slots (now with page 1 and the Methods pages) and on CLM, CVT and QUE judgments (now with meaning-based questions: rewording and restyling are fine). The earlier scores are kept in `scores_before_rerun` for comparison."""
+    """Rerun the verifiers (the judge, Perplexity, Liquid d1.2-ultra) on PICOST slots (now with page 1 and the Methods pages) and on CLM, CVT and QUE judgments (now with meaning-based questions: rewording and restyling are fine). The earlier scores are kept in `scores_before_rerun` for comparison."""
     f_ = M.dir / 'verification.json'; items = json.loads(f_.read_text(encoding='utf-8')); fresh, groups = build_items(M)
     assert len(fresh) == len(items)
     idx = [i for i, (a, b) in enumerate(zip(fresh, items)) if a['ntype'] == 'PICOST' or (a['ntype'] in ('CLM', 'CVT', 'QUE') and not a['nid'].endswith(' quote'))]
     for i in idx: assert (fresh[i]['paper'], fresh[i]['ntype'], fresh[i]['nid']) == (items[i]['paper'], items[i]['ntype'], items[i]['nid'])
     sysv = S.prompt('verify-item-v1.md'); reqs = []
-    for g in groups: reqs.append(L.Req('g::' + g['gid'], R['quote_check'], f"INSTRUCTION: {g['instruction']}\n\nITEM:\n{g['item']}\n\nPASSAGE:\n{g['passage']}", sysv, None, 'low', 900, images=[g['crop']] if g.get('crop') else []))
+    for g in groups: reqs.append(L.Req('g::' + g['gid'], judge_for_model(EXTRACT)[0], f"INSTRUCTION: {g['instruction']}\n\nITEM:\n{g['item']}\n\nPASSAGE:\n{g['passage']}", sysv, None, judge_for_model(EXTRACT)[1], JUDGE_TOK_GROUP, images=[g['crop']] if g.get('crop') else []))
     for i in idx:
         a = fresh[i]
-        if a['kind'] == 'text': reqs.append(L.Req(f'v{i:04d}', R['quote_check'], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, 'low', 600, images=[a['crop']] if a.get('crop') else []))
+        if a['kind'] == 'text': reqs.append(L.Req(f'v{i:04d}', judge_for(a)[0], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, judge_for(a)[1], JUDGE_TOK_ITEM, images=[a['crop']] if a.get('crop') else []))
     res = S.dispatch(M, 'verify_methods', reqs, mode)
     def run_dms(i):
         a = fresh[i]; state = f"PASSAGE:\n{a['passage']}\n\nITEM:\n{a['item']}"; out = {}
@@ -283,7 +324,7 @@ def rerun_with_new_questions(M, mode='standard'):
 
 
 def rescore_quality(M, mode='standard'):
-    """After the quality-signal ratings are rerun: score the new QUALITY items (rating against its quote) with Sonnet 5.5, Perplexity and Liquid d1.2-ultra, replace the old QUALITY items in verification.json, then read their screenshots with d1.2-ultra (digits)."""
+    """After the quality-signal ratings are rerun: score the new QUALITY items (rating against its quote) with the judge model, Perplexity and Liquid d1.2-ultra, replace the old QUALITY items in verification.json, then read their screenshots with d1.2-ultra (digits)."""
     f_ = M.dir / 'verification.json'; items = json.loads(f_.read_text(encoding='utf-8')) if f_.exists() else []
     fresh, _ = build_items(M); new = [a for a in fresh if a['ntype'] == 'QUALITY']
     sysv = S.prompt('verify-item-v1.md'); reqs = []
@@ -293,17 +334,17 @@ def rescore_quality(M, mode='standard'):
         for pv in R['decision_models']:
             r, e = dm.decide(pv, state, a['dm_q']); ans = [y.get('noul') for y in ((r or {}).get('answers') or {}).values() if isinstance(y, dict) and y.get('noul') is not None]; out[pv] = min(ans) if ans else None
         return out
-    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, new))   # first pass: d1.2-ultra and Perplexity; Sonnet 5.5 only where they differ
+    with cf.ThreadPoolExecutor(8) as ex_: dres = list(ex_.map(run, new))   # first pass: d1.2-ultra and Perplexity; the judge only where they differ
     def split(d_): return QS_MAX or d_.get('perplexity') is None or d_.get('liquid') is None or ((d_['perplexity'] >= 0.5) != (d_['liquid'] >= 0.5))
     called = {a['id'] for a, d_ in zip(new, dres) if split(d_)}
     for a in new:
-        if a['id'] in called: reqs.append(L.Req(a['id'], R['quote_check'], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, 'low', 600, images=[a['crop']] if a.get('crop') else []))
+        if a['id'] in called: reqs.append(L.Req(a['id'], judge_for(a)[0], f"INSTRUCTION: {a['instruction']}\n\nITEM:\n{a['item']}\n\nPASSAGE:\n{a['passage']}", sysv, None, judge_for(a)[1], JUDGE_TOK_ITEM, images=[a['crop']] if a.get('crop') else []))
     res = S.dispatch(M, 'verify_quality', reqs, mode)
     kept = [x for x in items if x['ntype'] != 'QUALITY']; added = []
     for a, d_ in zip(new, dres):
         j = (S.safe_json(res.get(a['id']) or L.Res('', False)) or {}) if a['id'] in called else {}
         it = {k: a[k] for k in ('paper', 'ntype', 'nid', 'what', 'text', 'crop')}; it['passage'] = short(a.get('passage') or a['item'], 600)
-        it['scores'] = {'sonnet': to_score(j['verdict']) if 'verdict' in j else None, 'perplexity': d_.get('perplexity'), 'liquid': d_.get('liquid')}; it['reasons'] = {'sonnet': j.get('reason', '') if a['id'] in called else 'not called: Perplexity and d1.2-ultra agree'}; it['sonnet_called'] = a['id'] in called
+        it['scores'] = {'sonnet': to_score(j['verdict']) if 'verdict' in j else None, 'perplexity': d_.get('perplexity'), 'liquid': d_.get('liquid')}; it['reasons'] = {'sonnet': j.get('reason', '') if a['id'] in called else 'not called: Perplexity and d1.2-ultra agree'}; it['sonnet_called'] = a['id'] in called; it['judge'] = judge_for(a)[0]
         revote(it); added.append(it)
     f_.write_text(json.dumps(kept + added, indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     M.m['stage_log'].setdefault('verify_quality', {}).update(status='done', items=len(added)); M.save()

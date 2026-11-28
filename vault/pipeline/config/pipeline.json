@@ -101,7 +101,7 @@
     ]
   },
   "quality_signals": {
-    "_about": "JP, 2026-11-27: maximum accuracy for quality signals, the TRIPOD-LLM table and the quality appraisal table. Three independent raters from three developers (Gemini 4 Neon, Claude Opus 5.5, GPT-6.2 Sol, all at high effort) rate every row; a rating needs two of three; three different ratings go to JP. Every rating is checked by all verifiers (no cascade).",
-    "max_accuracy": true
+    "_about": "JP, 2026-11-27 (procedure pending validation): one rater (roles.raters, Gemini 4 Neon high) rates every quality-signal and TRIPOD-LLM row and reports a confidence (high, medium, low). A rating with low confidence goes to the fallback rater (roles.qs_fallback, GPT-6.2 Sol high); if the fallback is also low confidence the row is marked needs_human for JP. The verification cascade is not bypassed. Set max_accuracy to true (with three entries in roles.raters) for the earlier maximum-accuracy mode: three raters, a rating needs two of three, every verifier judges every rating.",
+    "max_accuracy": false
   }
 }

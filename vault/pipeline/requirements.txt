@@ -1,6 +1,9 @@
 # Core pipeline (runner, checks, drafting, quality signals, review sheets). Versions are the ones the pipeline was tested with on 2026-11-25.
 # After changing any of them, run: python3 scripts/selftest.py
-PyMuPDF==1.27.2.3
+# PyMuPDF 2.2 with pymupdf-layout finds all 463 verified table values; 1.27.2.3 finds only 232 (found 2026-11-27 by methods_table_check.py). Selftest passes under 2.2.
+PyMuPDF==2.2
+pymupdf-layout==2.2
+python-docx==1.2.0
 anthropic==0.96.0
 openai==2.29.0
 requests==2.34.2

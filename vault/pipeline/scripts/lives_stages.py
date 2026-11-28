@@ -3,10 +3,11 @@
 
   checks   two decision models (Perplexity Decider 1.3 and Liquid d1-ultra) score every extracted finding on relevancy, fidelity, numbers found in the source and (for
            tables and figures) table-cell match; GPT-6.2 Sol looks at the crop of every finding (pass, fail or cannot verify); only disagreements go to Claude Opus 5.5.
-  draft    EVD, QUE, CLM and CVT nodes. Primary EVDs are written by debate (Sonnet 5.5, GPT-6.2 Sol and Gemini 4 Neon draft, critique and revise; Sol and Sonnet vote,
-           Neon breaks ties); everything else is one Sonnet 5.5 draft. Every node gets the writing-rules check; EVD, CLM and CVT get the node-detail check by the cheaper
-           of Sol and Sonnet that did not write it; EVDs also get a decision-model check.
-  qs       quality signals rated blind by Neon (High) and Opus 5.5; GPT-6.2 Sol decides only the signals where they disagree. Everything is saved for the sheets.
+  draft    EVD, QUE, CLM and CVT nodes. Primary EVDs: the authors (roles.authors) draft, the critics (roles.critics) critique and revise, the voters (roles.voters) choose
+           and roles.tiebreak settles a split; everything else is one draft by the first author. Every node gets the writing-rules check; EVD, CLM and CVT get the node-detail
+           check by roles.node_check (a model that did not write the node when there is a choice); EVDs also get a decision-model check. Models: pipeline/config/models.json.
+  qs       quality signals and TRIPOD-LLM rows: one rater (roles.raters) reports a rating and a confidence; low confidence goes to the fallback rater (roles.qs_fallback); low
+           confidence again marks the row needs_human for JP. With three raters in roles.raters (quality_signals.max_accuracy) a rating needs two of three. Everything is saved for the sheets.
 Nothing here writes to the vault. Outputs go to pipeline/runs/<run>/<paper>/ and the review sheet."""
 import collections, concurrent.futures as cf, hashlib, json, os, random, re, sys, time
 from pathlib import Path
@@ -16,11 +17,18 @@ import fitz
 dm.load_env(); cl.load_env()
 
 VAULT = cl.VAULT; R = C.ROLES; CK = C.PIPE['checks']
-AUTHORS = [(a['key'], a['model'], a['effort']) for a in R['authors']]        # who drafts (pipeline/config/models.json, roles)
-VOTERS = [(a['key'], a['model'], a['effort']) for a in R['voters']]          # who decides
-RATERS = [(a['key'], a['model'], a['effort']) for a in R['raters']]          # who rates quality signals: with three raters a rating needs two of three and no adjudicator runs; with two raters a third model decides the disagreements (older runs)
-QS_MAX = bool(C.PIPE.get('quality_signals', {}).get('max_accuracy'))   # JP, 2026-11-27: maximum accuracy for the quality tables
+AUTHORS = C.role_list('authors')        # who drafts first (pipeline/config/models.json, roles); one author or several
+CRITICS = C.role_list('critics', 'authors')   # critique round (only with several authors; JP, 2026-11-27: one author, no critique, vote or tiebreak); the authors themselves when the role is missing
+VOTERS = C.role_list('voters')          # who decides between the versions (only with several authors); the tiebreak role settles a split
+DEBATE = len(AUTHORS) > 1 and len(VOTERS) >= 1   # False: the one author's draft is final (no critique round, no vote, no tiebreak)
+NODE_CHECK = C.role_list('node_check', 'voters') or AUTHORS   # who checks the details of the winning nodes; a model that did not write the node is preferred
+RATERS = C.role_list('raters')          # who rates quality signals: one rater with a fallback rater for low-confidence ratings (JP, 2026-11-27); with three raters a rating needs two of three and no adjudicator runs; with two raters a third model decides the disagreements (older runs)
+QS_FALLBACK = [(R['qs_fallback']['key'], R['qs_fallback']['model'], R['qs_fallback'].get('effort', 'high'))] if isinstance(R.get('qs_fallback'), dict) else []   # [] when the role is missing
+QS_MAX = bool(C.PIPE.get('quality_signals', {}).get('max_accuracy'))   # JP, 2026-11-27: true = maximum accuracy (three raters, every verifier judges every rating)
+QS_CASCADE = len(RATERS) == 1 and bool(QS_FALLBACK) and not QS_MAX      # one rater; low confidence goes to the fallback rater; low again goes to JP
 QS_ADJ = R['qs_adjudicator']
+QC_MODEL = C.role_model(R['quote_check']); QC_EFFORT = C.role_effort(R['quote_check'], 'low')   # reads the screenshot of each quote
+short_name = C.short   # 'Sol', 'Neon', 'Sonnet 5.5'
 DM_LOW = CK['dm_low']; DM_SPREAD = CK['dm_spread']; SAMPLE = CK['sample']    # first guesses; calibrate on JP's labels (pipeline/config/pipeline.json)
 MAX_FINDINGS_DRAFT = 99
 EXPECT = 0.7        # expected share of an output budget that is used
@@ -225,11 +233,13 @@ def make_crop(M, ck, f):
     except Exception: return None
 
 
+RW_PROMPT = 'evd-fix-v1.md'
+RW_MODEL = C.role_model(R['evd_rework']); RW_EFFORT = R.get('evd_rework_effort') or C.role_effort(R['evd_rework'], 'medium')
 QS = {}   # the paper's own questions, by paper, for the relevancy check
 
 
 def stage_quote_check(M, mode):
-    """JP, 2026-11-26: every extracted quote (span) is shown to Claude Sonnet 5.5 as a screenshot with the quote highlighted, together with the model's quote (A) and the PDF text layer's text (B). Sonnet transcribes what is printed and says whether each text equals the print and whether A's differences change the meaning. A quote whose differences change the meaning flags its finding (`quote_differs_from_print`), so Sol re-reads it. Decision models cannot do this check: they are text-only and cannot read the page image. Scope: all spans (config limits.quote_check_scope: 'all' or 'differing')."""
+    """JP, 2026-11-26: every extracted quote (span) is shown to the quote-check model (roles.quote_check, Gemini 4 Neon since 2026-11-27; Claude Sonnet 5.5 before) as a screenshot with the quote highlighted, together with the model's quote (A) and the PDF text layer's text (B). The model transcribes what is printed and says whether each text equals the print and whether A's differences change the meaning. A quote whose differences change the meaning flags its finding (`quote_differs_from_print`), so Sol re-reads it. Decision models cannot do this check: they are text-only and cannot read the page image. Scope: all spans (config limits.quote_check_scope: 'all' or 'differing')."""
     st = M.m['stage_log'].setdefault('quote_check', {})
     if st.get('status') == 'done': return
     scope = C.PIPE['limits'].get('quote_check_scope', 'all'); sysq = prompt('quote-check-v1.md'); reqs = []; meta = {}; st['prompt'] = 'pipeline/prompts/quote-check-v1.md'
@@ -244,7 +254,7 @@ def stage_quote_check(M, mode):
                 res = pp.crop_quote(doc, raw, str(out / f"{f['id']}_s{k}.png"), dpi=170, pad=26, tight_x=True); doc.close()
                 if not res.get('ok'): continue
                 rid = f"{ck}__qc__{f['id']}__{k}"; meta[rid] = (ck, f['id'], k)
-                reqs.append(L.Req(rid, R['quote_check'], f"TEXT A (model):\n{s['text']}\n\nTEXT B (PDF text layer):\n{raw}", sysq, None, 'low', 1500, images=[res['out']]))
+                reqs.append(L.Req(rid, QC_MODEL, f"TEXT A (model):\n{s['text']}\n\nTEXT B (PDF text layer):\n{raw}", sysq, None, QC_EFFORT, 3000, images=[res['out']]))
         for kind, tag in (('questions', 'Q'), ('claims', 'C'), ('caveats', 'V')):   # the quotes behind questions, claims and caveats are checked the same way
             for it in ps.get(kind, []):
                 text = it.get('original_wording') if kind == 'questions' else (it.get('span') or {}).get('text', '')
@@ -253,7 +263,7 @@ def stage_quote_check(M, mode):
                 res = pp.crop_quote(doc, raw, str(out / f"{it['id']}_{kind[0]}.png"), dpi=170, pad=26, tight_x=True); doc.close()
                 if not res.get('ok'): continue
                 rid = f"{ck}__qc__{kind}__{it['id']}"; meta[rid] = (ck, kind, it['id'])
-                reqs.append(L.Req(rid, R['quote_check'], f"TEXT A (model):\n{text}\n\nTEXT B (PDF text layer):\n{raw}", sysq, None, 'low', 1500, images=[res['out']]))
+                reqs.append(L.Req(rid, QC_MODEL, f"TEXT A (model):\n{text}\n\nTEXT B (PDF text layer):\n{raw}", sysq, None, QC_EFFORT, 3000, images=[res['out']]))
     res_ = dispatch(M, 'quote_check', reqs, mode); changed = []; seen = collections.Counter()
     by = {}
     for rid, (ck, fid, k) in meta.items():
@@ -264,12 +274,12 @@ def stage_quote_check(M, mode):
         for kind in ('questions', 'claims', 'caveats'):
             for it in ps.get(kind, []):
                 j = items.get((kind, it['id']))
-                if j: it['vision'] = {'printed': j.get('printed', ''), 'a_equals_print': j.get('a_equals_print'), 'a_differences': j.get('a_differences', []), 'a_changes_meaning': bool(j.get('a_changes_meaning')), 'b_equals_print': j.get('b_equals_print'), 'b_differences': j.get('b_differences', []), 'model': R['quote_check']}
+                if j: it['vision'] = {'printed': j.get('printed', ''), 'a_equals_print': j.get('a_equals_print'), 'a_differences': j.get('a_differences', []), 'a_changes_meaning': bool(j.get('a_changes_meaning')), 'b_equals_print': j.get('b_equals_print'), 'b_differences': j.get('b_differences', []), 'model': QC_MODEL}
         for f in ps.get('findings', []):
             for k, s in enumerate(f.get('spans', []), 1):
                 j = items.get((f['id'], k))
                 if not j: continue
-                s['vision'] = {'printed': j.get('printed', ''), 'a_equals_print': j.get('a_equals_print'), 'a_differences': j.get('a_differences', []), 'a_changes_meaning': bool(j.get('a_changes_meaning')), 'b_equals_print': j.get('b_equals_print'), 'b_differences': j.get('b_differences', []), 'model': R['quote_check']}
+                s['vision'] = {'printed': j.get('printed', ''), 'a_equals_print': j.get('a_equals_print'), 'a_differences': j.get('a_differences', []), 'a_changes_meaning': bool(j.get('a_changes_meaning')), 'b_equals_print': j.get('b_equals_print'), 'b_differences': j.get('b_differences', []), 'model': QC_MODEL}
                 seen['checked'] += 1; seen['equals print'] += bool(j.get('a_equals_print'))
                 if j.get('a_changes_meaning'):
                     seen['meaning changed'] += 1; changed.append((ck.split('-')[0], f['id'], k, '; '.join(j.get('a_differences', []))[:160]))
@@ -333,25 +343,37 @@ def shuffle_labels(rng, authors): idx = list(range(len(authors))); rng.shuffle(i
 def nodes_of(j): return {n['id']: n for n in (j or {}).get('nodes', []) if isinstance(n, dict) and n.get('id')}
 
 
+def apply_changes(original, changes):
+    """Apply the model's list of exact changes (old -> new) in order to the original statement; None if an old text is not in the statement."""
+    s = original
+    for c in changes or []:
+        old, new = str(c.get('old', '')), str(c.get('new', ''))
+        if not old or old not in s: return None
+        s = s.replace(old, new, 1)
+    return s
+
+
 def rework_low_scores(M, data, evd, dm_evd, cn, mode):
-    """EVD statements with a decision-model score below DM_LOW go to a separate frontier model (role evd_rework, Opus 5.5: none of the three drafting authors). It lists where each number was found, judges fidelity, and either keeps the statement, rewrites it, or says the extraction needs a person. A rewrite replaces the statement only if it passes the writing-rules check and its decision-model score is at least DM_LOW; otherwise the original stays and the proposal is shown beside it."""
-    corrected = {(ck, x['id']) for ck in {t[0] for t in evd} for x in final_findings(M, ck)[0] if x.get('corrected_from_supplement')}   # findings corrected from supplementary material are always reworked: their numbers changed
+    """Errors-only fix (JP, 2026-11-27; prompt evd-fix-v1). EVD statements with a decision-model score below DM_LOW go to the model of role evd_rework (Gemini 4 Neon, effort evd_rework_effort). It changes only words or numbers that are wrong against the passage, keeps everything else verbatim and lists every change (old, new, reason). A correction replaces the statement only if the list of changes reproduces it exactly, it passes the writing-rules check and its decision-model score is at least DM_LOW; otherwise the original stays and the proposal is shown beside it. Verdicts are stored as ok (unchanged), rewrite (corrected) and extraction_problem so that older sheets read."""
+    corrected = {(ck, x['id']) for ck in {t[0] for t in evd} for x in final_findings(M, ck)[0] if x.get('corrected_from_supplement')}   # findings corrected from supplementary material are always checked: their numbers changed
     low = [(ck, nid, f) for ck, nid, f in evd if (f.get('dm') or {}).get('score', 1) < DM_LOW or (ck, f['node'].get('source_id')) in corrected]
     if not low: return
-    sysr = prompt('evd-rework-v3.md'); reqs = []; items = {}
+    sysr = prompt(RW_PROMPT); reqs = []; items = {}
     for ck, nid, f in low:
         fnd = next((x for x in final_findings(M, ck)[0] if x['id'] == f['node'].get('source_id')), {}); crop = make_crop(M, ck, fnd) if fnd else None; items[f'{ck}__rework__{nid}'] = (ck, nid, f)
         body = {'evd_statement': f['node'].get('statement', ''), 'quote': f['node'].get('quote', ''), 'tier': f['node'].get('tier'), 'finding': {k: fnd.get(k) for k in ('id', 'statement', 'P', 'I', 'C', 'O', 'S', 'T', 'numbers', 'spans')}, 'decision_model_scores': {**f['dm']['means'], 'lowest_question': min(f['dm']['means'], key=f['dm']['means'].get) if f['dm']['means'] else ''}}
-        reqs.append(L.Req(f'{ck}__rework__{nid}', R['evd_rework'], 'Check and, if needed, rewrite this EVD statement:\n' + json.dumps(body, ensure_ascii=False), sysr, None, 'medium', 4000, images=[crop] if crop else []))
-    M.m['stage_log'].setdefault('draft_rework', {})['prompt'] = 'pipeline/prompts/evd-rework-v3.md'
+        reqs.append(L.Req(f'{ck}__rework__{nid}', RW_MODEL, 'Check this EVD statement and correct errors only:\n' + json.dumps(body, ensure_ascii=False), sysr, None, RW_EFFORT, 8000, images=[crop] if crop else []))   # reasoning tokens count against the budget
+    M.m['stage_log'].setdefault('draft_rework', {})['prompt'] = 'pipeline/prompts/' + RW_PROMPT
     res = dispatch(M, 'draft_rework', reqs, mode)
     for rid, (ck, nid, f) in items.items():
-        j = safe_json(res.get(rid) or L.Res('', False)) or {}; verdict = j.get('verdict', 'no answer'); rev = (j.get('revised_statement') or '').strip()
-        rw = {'model': R['evd_rework'], 'original': f['node'].get('statement', ''), 'dm_before': f['dm'], 'numbers': j.get('numbers', []), 'fidelity_problems': j.get('fidelity_problems', []), 'verdict': verdict, 'proposal': rev, 'note': j.get('note', ''), 'accepted': False}
+        j = safe_json(res.get(rid) or L.Res('', False)) or {}; verdict = {'unchanged': 'ok', 'corrected': 'rewrite'}.get(j.get('verdict'), j.get('verdict', 'no answer')); rev = (j.get('corrected_statement') or j.get('revised_statement') or '').strip(); orig = f['node'].get('statement', '')
+        changes = [c for c in (j.get('changes') or []) if isinstance(c, dict)]
+        rw = {'model': RW_MODEL, 'original': orig, 'dm_before': f['dm'], 'numbers': j.get('numbers', []), 'fidelity_problems': j.get('fidelity_problems', []), 'verdict': verdict, 'proposal': rev, 'changes': changes, 'note': j.get('note', ''), 'accepted': False}
         if verdict == 'rewrite' and rev:
+            rw['changes_reproduce_rewrite'] = apply_changes(orig, changes) == rev
             trial = {**f['node'], 'statement': rev}; wr = writing_rules(trial, cn[ck]); rw['writing_rules_after'] = wr
             r2 = dm_evd((ck, nid, {**f, 'node': trial})); rw['dm_after'] = dm_summary(r2)
-            if wr['pass'] and rw['dm_after']['score'] >= DM_LOW:
+            if wr['pass'] and rw['dm_after']['score'] >= DM_LOW and rw['changes_reproduce_rewrite']:
                 f['node'] = trial; f['writing_rules'] = wr; f['dm'] = rw['dm_after']; rw['accepted'] = True
         f['rework'] = rw
 
@@ -359,10 +381,10 @@ def rework_low_scores(M, data, evd, dm_evd, cn, mode):
 def stage_draft(M, mode):
     key = 'draft'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
-    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v4.md'); sys1 = prompt('critique-revise-v4.md'); sys2 = prompt('vote-v1.md'); sys3 = prompt('node-detail-check-v1.md')
+    papers = [ck for ck, p in M.m['papers'].items() if not p.get('failed') and 'picost' in p.get('stages', {})]; rng = random.Random(M.m['run_id'] + 'draft'); sys0 = prompt('draft-nodes-v4.md'); sys1 = prompt('critique-revise-v5.md'); sys2 = prompt('vote-v2.md'); sys3 = prompt('node-detail-check-v1.md')
     cards = {ck: card_text(M, ck, 'primary') for ck in papers}; rest = {ck: card_text(M, ck, 'rest') for ck in papers}; full = {ck: card_text(M, ck, 'all') for ck in papers};   # the claim check reads the whole extraction, not just the primary part
     cn = {ck: card_numbers(M, ck) for ck in papers}; cn_all = cn; data = {ck: {'authors': {}} for ck in papers}
-    # round 0: three authors (counted) and Inkling (benchmark only) draft in parallel from the same card
+    # round 0: the authors draft in parallel from the same card (one author, or several)
     reqs = [L.Req(f'{ck}__r0-{a}', m, f'Extraction:\n{cards[ck]}\n\nWrite the nodes now.', sys0, None, e, 9000) for ck in papers for a, m, e in AUTHORS]
     reqs += [L.Req(f'{ck}__single', AUTHORS[0][1], f'Extraction:\n{rest[ck]}\n\nWrite the nodes now. Write nodes only for the findings, questions, claims and caveats given here (the primary findings are drafted elsewhere; link to them by their ids, "E-" plus the source id).', sys0, None, AUTHORS[0][2], 20000) for ck in papers]   # everything except the primary EVDs: one model, one draft (JP, 2026-11-25)
     st['prompt'] = 'pipeline/prompts/draft-nodes-v4.md'; M.m['evd_rules_prompt'] = 'draft-nodes-v4'; r0 = dispatch(M, 'draft_r0', reqs, mode)
@@ -371,55 +393,65 @@ def stage_draft(M, mode):
             j = safe_json(r0.get(f'{ck}__r0-{a}') or L.Res('', False)); nodes = nodes_of(j); data[ck]['authors'][a] = {'r0': nodes, 'r0_writing_rules': {i: writing_rules(n, cn[ck]) for i, n in nodes.items()}}
     for ck in papers:
         sj = nodes_of(safe_json(r0.get(f'{ck}__single') or L.Res('', False))); data[ck]['single'] = {'author': AUTHORS[0][0], 'nodes': sj, 'writing_rules': {i: writing_rules(n, cn_all[ck]) for i, n in sj.items()}, 'failed': not sj}
-    # round 1: each author sees all three drafts (anonymous, shuffled) with writing-rules check results and revises
-    reqs = []; order = {}
-    for ck in papers:
-        have = [a for a, _, _ in AUTHORS if data[ck]['authors'][a]['r0']]
-        for a, m, e in AUTHORS:
-            idx = shuffle_labels(rng, have); order[(ck, a)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r0'].values()), 'writing_rules': data[ck]['authors'][h]['r0_writing_rules']} for k, h in enumerate(order[(ck, a)])}
-            if have: reqs.append(L.Req(f'{ck}__r1-{a}', m, f'Extraction:\n{cards[ck]}\n\nDrafts:\n{json.dumps(blob, ensure_ascii=False)}\n\nCritique and revise now.', sys1, None, e, 14000))
-    st['prompt'] = 'pipeline/prompts/critique-revise-v4.md'; r1 = dispatch(M, 'draft_r1', reqs, mode)
-    for ck in papers:
-        for a, _, _ in AUTHORS:
-            j = safe_json(r1.get(f'{ck}__r1-{a}') or L.Res('', False)); d = data[ck]['authors'][a]; d['critiques'] = (j or {}).get('critiques', []); d['r1'] = nodes_of((j or {}).get('revised')) or d['r0']; d['r1_writing_rules'] = {i: writing_rules(n, cn[ck]) for i, n in d['r1'].items()}
-    # vote: Sol and Sonnet decide (counted), Inkling votes (benchmark only)
-    reqs = []; vorder = {}
-    for ck in papers:
-        have = [a for a, _, _ in AUTHORS if data[ck]['authors'][a]['r1']]
-        if len(have) < 2: continue
-        for voter, m, e in VOTERS:
-            idx = shuffle_labels(rng, have); vorder[(ck, voter)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r1'].values()), 'writing_rules': data[ck]['authors'][h]['r1_writing_rules']} for k, h in enumerate(vorder[(ck, voter)])}
-            reqs.append(L.Req(f'{ck}__vote-{voter}', m, f'Extraction:\n{cards[ck]}\n\nVersions:\n{json.dumps(blob, ensure_ascii=False)}\n\nVote now.', sys2, None, e, 5000))
-    st['prompt'] = 'pipeline/prompts/vote-v1.md'; rv = dispatch(M, 'draft_vote', reqs, mode); ties = []
-    for ck in papers:
-        votes = {}
-        for voter in [v[0] for v in VOTERS]:
-            j = safe_json(rv.get(f'{ck}__vote-{voter}') or L.Res('', False)); lab = {chr(65 + k): a for k, a in enumerate(vorder.get((ck, voter), []))}
-            votes[voter] = {x['node']: {'author': lab.get(x.get('pick')), 'reason': x.get('reason', '')} for x in (j or {}).get('picks', []) if isinstance(x, dict) and x.get('node')}
-        data[ck]['votes'] = votes
-        for nid in {n for a in data[ck]['authors'].values() for n in a.get('r1', {})}:
-            s, c = votes[VOTERS[0][0]].get(nid, {}).get('author'), votes[VOTERS[1][0]].get(nid, {}).get('author')
-            if s and c and s != c: ties.append((ck, nid, s, c))
+    if DEBATE:
+        # round 1: each critic sees all drafts (anonymous, shuffled) with writing-rules check results and revises; a critic who is not an author adds a version of its own
+        reqs = []; order = {}
+        for ck in papers:
+            have = [a for a, _, _ in AUTHORS if data[ck]['authors'][a]['r0']]
+            for a, m, e in CRITICS:
+                idx = shuffle_labels(rng, have); order[(ck, a)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r0'].values()), 'writing_rules': data[ck]['authors'][h]['r0_writing_rules']} for k, h in enumerate(order[(ck, a)])}
+                if have: reqs.append(L.Req(f'{ck}__r1-{a}', m, f'Extraction:\n{cards[ck]}\n\nDrafts:\n{json.dumps(blob, ensure_ascii=False)}\n\nCritique and revise now.', sys1, None, e, 14000))
+        st['prompt'] = 'pipeline/prompts/critique-revise-v5.md'; r1 = dispatch(M, 'draft_r1', reqs, mode)
+        for ck in papers:
+            for a, _, _ in AUTHORS:   # an author who is not a critic keeps the first draft as the round-1 version
+                d = data[ck]['authors'][a]; d.setdefault('critiques', []); d['r1'] = d['r0']; d['r1_writing_rules'] = d['r0_writing_rules']
+            for a, _, _ in CRITICS:
+                j = safe_json(r1.get(f'{ck}__r1-{a}') or L.Res('', False)); d = data[ck]['authors'].setdefault(a, {'r0': {}, 'r0_writing_rules': {}}); d['critiques'] = (j or {}).get('critiques', []); d['r1'] = nodes_of((j or {}).get('revised')) or d['r0']; d['r1_writing_rules'] = {i: writing_rules(n, cn[ck]) for i, n in d['r1'].items()}
+        # vote: the voters decide between the round-1 versions (with one author and one critic: the original draft against the revision)
+        reqs = []; vorder = {}
+        for ck in papers:
+            have = [a for a in data[ck]['authors'] if data[ck]['authors'][a].get('r1')]
+            if len(have) < 2: continue
+            for voter, m, e in VOTERS:
+                idx = shuffle_labels(rng, have); vorder[(ck, voter)] = [have[i] for i in idx]; blob = {chr(65 + k): {'nodes': list(data[ck]['authors'][h]['r1'].values()), 'writing_rules': data[ck]['authors'][h]['r1_writing_rules']} for k, h in enumerate(vorder[(ck, voter)])}
+                reqs.append(L.Req(f'{ck}__vote-{voter}', m, f'Extraction:\n{cards[ck]}\n\nVersions:\n{json.dumps(blob, ensure_ascii=False)}\n\nVote now.', sys2, None, e, 5000))
+        st['prompt'] = 'pipeline/prompts/vote-v2.md'; rv = dispatch(M, 'draft_vote', reqs, mode); ties = []
+        for ck in papers:
+            votes = {}
+            for voter in [v[0] for v in VOTERS]:
+                j = safe_json(rv.get(f'{ck}__vote-{voter}') or L.Res('', False)); lab = {chr(65 + k): a for k, a in enumerate(vorder.get((ck, voter), []))}
+                votes[voter] = {x['node']: {'author': lab.get(x.get('pick')), 'reason': x.get('reason', '')} for x in (j or {}).get('picks', []) if isinstance(x, dict) and x.get('node')}
+            data[ck]['votes'] = votes
+            for nid in {n for a in data[ck]['authors'].values() for n in a.get('r1', {})}:
+                vs = [votes[v[0]].get(nid, {}).get('author') for v in VOTERS]; s, c = (vs + [None, None])[:2]
+                if s and c and s != c: ties.append((ck, nid, s, c))
+        reqs = []
+        for ck in sorted({t[0] for t in ties}):
+            mine = [t for t in ties if t[0] == ck]; blob = {nid: {'candidates': {a: data[ck]['authors'][a]['r1'].get(nid) for a in (s, c)}} for _, nid, s, c in mine}
+            reqs.append(L.Req(f'{ck}__tie', R.get('tiebreak') or VOTERS[0][1], f'Extraction:\n{cards[ck]}\n\nTwo voters disagree. Candidates (author names are the keys); pick the better one for each node:\n{json.dumps(blob, ensure_ascii=False)}\n\nReturn {{"picks": [{{"node": "...", "pick": "<author name>", "reason": ""}}]}}.', sys2.replace('(A, B and C, in random order)', '(named by their authors)'), None, 'medium', 3000))
+        rt = dispatch(M, 'draft_tie', reqs, mode)
+        for ck in papers:
+            j = safe_json(rt.get(f'{ck}__tie') or L.Res('', False)); tie = {x['node']: x.get('pick') for x in (j or {}).get('picks', []) if isinstance(x, dict)}; finals = {}
+            for nid in {n for a in data[ck]['authors'].values() for n in a.get('r1', {})}:
+                vs = [data[ck]['votes'][v[0]].get(nid, {}).get('author') for v in VOTERS]; s, c = (vs + [None, None])[:2]
+                win = s if s and s == c else (tie.get(nid) if tie.get(nid) in data[ck]['authors'] else (s or c or next((a for a in data[ck]['authors'] if nid in data[ck]['authors'][a].get('r1', {})), None)))
+                how = ' and '.join(short_name(v[1]) for v in VOTERS[:2]) + ' agree' if s and s == c else (short_name(R.get('tiebreak') or AUTHORS[0][1]) + ' tie-break' if tie.get(nid) in data[ck]['authors'] else 'single vote or fallback')
+                node = data[ck]['authors'].get(win, {}).get('r1', {}).get(nid)
+                if node: finals[nid] = {'node': node, 'author': win, 'how': how, 'writing_rules': writing_rules(node, cn[ck])}
+            for nid, node in data[ck]['single']['nodes'].items(): finals[nid] = {'node': node, 'author': AUTHORS[0][0], 'how': 'single draft (not debated)', 'writing_rules': writing_rules(node, cn[ck])}
+            data[ck]['finals'] = finals
+    else:   # one author (JP, 2026-11-27): the first draft is final; no critique round, no vote, no tiebreak
+        for ck in papers:
+            a0 = AUTHORS[0][0]; d0 = data[ck]['authors'][a0]; d0['r1'] = d0['r0']; d0['r1_writing_rules'] = d0['r0_writing_rules']; d0.setdefault('critiques', []); data[ck]['votes'] = {}; finals = {}
+            for nid, node in d0['r0'].items(): finals[nid] = {'node': node, 'author': a0, 'how': 'single author draft (no critique or vote)', 'writing_rules': writing_rules(node, cn[ck])}
+            for nid, node in data[ck]['single']['nodes'].items(): finals[nid] = {'node': node, 'author': AUTHORS[0][0], 'how': 'single draft (not debated)', 'writing_rules': writing_rules(node, cn[ck])}
+            data[ck]['finals'] = finals
+    # node-detail check (was "claim check"; claim now means CLM only): the first checker in roles.node_check that did not write the winner; when the only checker wrote it, it checks its own text and the check is marked as such
     reqs = []
-    for ck in sorted({t[0] for t in ties}):
-        mine = [t for t in ties if t[0] == ck]; blob = {nid: {'candidates': {a: data[ck]['authors'][a]['r1'].get(nid) for a in (s, c)}} for _, nid, s, c in mine}
-        reqs.append(L.Req(f'{ck}__tie', R['tiebreak'], f'Extraction:\n{cards[ck]}\n\nTwo voters disagree. Candidates (author names are the keys); pick the better one for each node:\n{json.dumps(blob, ensure_ascii=False)}\n\nReturn {{"picks": [{{"node": "...", "pick": "<author name>", "reason": ""}}]}}.', sys2.replace('(A, B and C, in random order)', '(named by their authors)'), None, 'medium', 3000))
-    rt = dispatch(M, 'draft_tie', reqs, mode)
+    def checker_of(author): return next((c[0] for c in NODE_CHECK if c[0] != author), NODE_CHECK[0][0])
     for ck in papers:
-        j = safe_json(rt.get(f'{ck}__tie') or L.Res('', False)); tie = {x['node']: x.get('pick') for x in (j or {}).get('picks', []) if isinstance(x, dict)}; finals = {}
-        for nid in {n for a in data[ck]['authors'].values() for n in a.get('r1', {})}:
-            s, c = data[ck]['votes'][VOTERS[0][0]].get(nid, {}).get('author'), data[ck]['votes'][VOTERS[1][0]].get(nid, {}).get('author')
-            win = s if s and s == c else (tie.get(nid) if tie.get(nid) in data[ck]['authors'] else (s or c or next((a for a in data[ck]['authors'] if nid in data[ck]['authors'][a].get('r1', {})), None)))
-            how = 'Sol and Sonnet agree' if s and s == c else ('Neon tie-break' if tie.get(nid) in data[ck]['authors'] else 'single vote or fallback')
-            node = data[ck]['authors'].get(win, {}).get('r1', {}).get(nid)
-            if node: finals[nid] = {'node': node, 'author': win, 'how': how, 'writing_rules': writing_rules(node, cn[ck])}
-        for nid, node in data[ck]['single']['nodes'].items(): finals[nid] = {'node': node, 'author': AUTHORS[0][0], 'how': 'single draft (not debated)', 'writing_rules': writing_rules(node, cn[ck])}
-        data[ck]['finals'] = finals
-    # node-detail check (was "claim check"; claim now means CLM only): the first voter (the cheaper deciders, in registry order) that did not write the winner
-    reqs = []
-    for ck in papers:
-        for chk, m, e in VOTERS:
-            mine = [f['node'] for f in data[ck]['finals'].values() if f['node'].get('type') != 'QUE' and f['author'] != chk and next((v[0] for v in VOTERS if v[0] != f['author']), None) == chk]
+        for chk, m, e in NODE_CHECK:
+            mine = [f['node'] for f in data[ck]['finals'].values() if f['node'].get('type') != 'QUE' and checker_of(f['author']) == chk]
             if mine: reqs.append(L.Req(f'{ck}__check-{chk}', m, f'Extraction:\n{full[ck]}\n\nNodes to check:\n{json.dumps(mine, ensure_ascii=False)}\n\nCheck now.', sys3, None, e, min(32000, 2000 + 450 * len(mine))))   # budget grows with the number of nodes to check
     st['prompt'] = 'pipeline/prompts/node-detail-check-v1.md'; rc = dispatch(M, 'draft_check', reqs, mode)
     # decision-model check of each final EVD (fidelity of the written text and numbers found in the source)
@@ -431,10 +463,10 @@ def stage_draft(M, mode):
     for (ck, nid, f), r in zip(evd, dres): f['dm'] = dm_summary(r)
     rework_low_scores(M, data, evd, dm_evd, cn, mode)
     for ck in papers:
-        for chk in [v[0] for v in VOTERS]:
+        for chk in [v[0] for v in NODE_CHECK]:
             j = safe_json(rc.get(f'{ck}__check-{chk}') or L.Res('', False))
             for c in (j or {}).get('checks', []):
-                if c.get('node') in data[ck]['finals']: data[ck]['finals'][c['node']]['detail_check'] = {'checker': chk, **c}
+                if c.get('node') in data[ck]['finals']: data[ck]['finals'][c['node']]['detail_check'] = {'checker': chk, 'own_draft': data[ck]['finals'][c['node']]['author'] == chk, **c}
         for nid, f in data[ck]['finals'].items():
             cc = (f.get('detail_check') or {}).get('overall'); dmv = (f.get('dm') or {}).get('score')
             ok = f['writing_rules']['pass'] and (cc in ('pass', 'minor') or f['node'].get('type') == 'QUE') and (dmv is None or dmv >= DM_LOW)
@@ -443,6 +475,7 @@ def stage_draft(M, mode):
             rwv = (f.get('rework') or {}).get('verdict')
             if rwv == 'ok' and f['writing_rules']['pass'] and (cc in ('pass', 'minor') or f['node'].get('type') == 'QUE'): f['status'] = 'pass (' + f['rework']['model'] + ' kept it despite the low decision-model score)'
             if (f.get('rework') or {}).get('verdict') == 'extraction_problem': f['status'] = 'needs JP review: extraction problem'
+            if (f.get('detail_check') or {}).get('own_draft'): f['status'] = 'needs JP review: the node-detail check was made by the model that wrote the node'   # JP, 2026-11-27: a model must not check its own work
         (M.dir / ck / 'drafts.json').write_text(json.dumps(data[ck], indent=1, ensure_ascii=False, default=str), encoding='utf-8')
     st['status'] = 'done'; st['summary'] = {ck: {'nodes': len(data[ck]['finals']), 'pass': sum(1 for f in data[ck]['finals'].values() if f['status'] == 'pass')} for ck in papers}; M.save(); M.event(f"draft: {st['summary']}")
 
@@ -481,26 +514,45 @@ import tripod_items as _TRIPOD
 SIGNALS.update(_TRIPOD.signals())   # JP, 2026-11-26: the 40 TRIPOD-LLM reporting rows are rated in the same run
 
 
+CONF = ('high', 'medium', 'low')
+
+
+def needs_fallback(row, allowed_vals):
+    """A rating goes to the fallback rater when it is not a valid value or when the rater reports low confidence. A missing or unreadable confidence counts as low (the safe side: a second rater looks)."""
+    return row.get('rating') not in allowed_vals or row.get('confidence') not in ('high', 'medium')
+
+
+def cascade_result(first, fb, allowed_vals, first_name='Neon', fb_name='Sol'):
+    """One rater with a fallback (JP, 2026-11-27). Returns (status, final rating, agreement text).
+    confident: the first rater's rating stands. fallback: the first rater was low, the fallback rater's rating stands. needs_human: the fallback rater was low too (or gave no valid rating), so JP decides."""
+    if fb is None: return ('confident', first['rating'], f'{first_name} only, confident ({first.get("confidence")})')
+    if fb.get('rating') in allowed_vals and fb.get('confidence') in ('high', 'medium'):
+        return ('fallback', fb['rating'], f'{fb_name} rated it because {first_name} was not confident' + (' (same rating as ' + first_name + ')' if fb['rating'] == first.get('rating') else f' ({first_name} said {first.get("rating")})'))
+    return ('needs_human', 'needs_human', f'needs your judgment: {first_name} and {fb_name} both reported low confidence or no valid rating')
+
+
 def stage_qs(M, mode):
     key = 'qs'; st = M.m['stage_log'].setdefault(key, {})
     if st.get('status') == 'done': return
     t0 = time.time(); st.setdefault('started_utc', time.strftime('%Y-%m-%dT%H:%M:%S+00:00', time.gmtime()))
     GROUPS = {'q': [k for k in SIGNALS if not k.startswith('tripod-')], 't': [k for k in SIGNALS if k.startswith('tripod-')]}   # two requests per rater: one thinking budget for the 27 quality signals and one for the 40 TRIPOD-LLM rows (a single request ran out of tokens on a long paper)
-    sysg = {g: prompt('rate-signals-v2.md').replace('{SIGNALS}', '\n'.join(f'- `{k}`: {SIGNALS[k][0]} Allowed values: {SIGNALS[k][1]}.' for k in ks)) for g, ks in GROUPS.items()}; st['prompt'] = 'pipeline/prompts/rate-signals-v2.md'; reqs = []
+    def sysfor(ks): return prompt('rate-signals-v3.md').replace('{SIGNALS}', '\n'.join(f'- `{k}`: {SIGNALS[k][0]} Allowed values: {SIGNALS[k][1]}.' for k in ks))
+    sysg = {g: sysfor(ks) for g, ks in GROUPS.items()}; st['prompt'] = 'pipeline/prompts/rate-signals-v3.md'; reqs = []
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
         for r, m, e in RATERS:
             for g in GROUPS: reqs.append(L.Req(f'{ck}__qs-{r}-{g}', m, 'Rate the paper now.', sysg[g], ex(p['pdf']), e, 40000 if e == 'high' else 24000))   # High thinking uses most of a small budget and returns nothing (all 25 ratings were lost in the first rerun)
     res = dispatch(M, 'qs', reqs, mode); allowed = {k: [x.strip() for x in v[1].split('|')] for k, v in SIGNALS.items()}; out = {}; raws = {}; disputes = {}
-    def read(ck, p, res_, rater, doc, only=None):
+    def read(ck, p, res_, rater, doc, keys, only=None):
+        """Rows for one rater from the request ids `keys` (explicit, so a rater and the adjudicator may share a key such as 'sol')."""
         got = {}
-        for kk in ([f'{ck}__qs-{rater}'] if rater == QS_ADJ['key'] else [f'{ck}__qs-{rater}-{g}' for g in GROUPS]):
+        for kk in keys:
             j = safe_json(res_.get(kk) or L.Res('', False)); got.update({x.get('signal'): x for x in (j or {}).get('ratings', []) if isinstance(x, dict)})
         rows = []
         for sg in SIGNALS:
             if only and sg not in only: continue
             x = got.get(sg); qstart = ((x or {}).get('quote_start') or '').strip(); qend = ((x or {}).get('quote_end') or '').strip(); raw_q = ''; src = 'quote'; pg_ = (x or {}).get('page')
-            if qstart:   # anchors (rate-signals-v2): the quote is the PDF's own text between the two anchors
+            if qstart:   # anchors (rate-signals-v2 and v3): the quote is the PDF's own text between the two anchors
                 if qstart.lower() == 'none': q = 'none'; found = None; src = 'anchors'
                 else:
                     tb = pp.text_between(doc, qstart, qend or qstart, pg_); src = 'anchors'
@@ -508,17 +560,29 @@ def stage_qs(M, mode):
                     else: q = qstart + ' ... ' + qend; found = False
             else:
                 q = (x or {}).get('quote', ''); found = None if not x or q in ('', 'none') else bool(pp.find_quote(doc, q)['found']); raw_q = q
-            rating = (x or {}).get('rating'); loc = (x or {}).get('locator', '')
+            rating = (x or {}).get('rating'); loc = (x or {}).get('locator', ''); conf = str((x or {}).get('confidence') or '').strip().lower(); conf = conf if conf in CONF else ('missing' if x else '')
             pm_ = {e['pdf']: e['printed'] for e in M.m['papers'][ck]['preflight']['page_map']}
             if pg_ and found: loc = (loc + '; ' if loc else '') + f"PDF p. {pg_}" + (f" (printed p. {pm_.get(pg_)})" if pm_.get(pg_) and str(pm_.get(pg_)) != str(pg_) else '')
-            rows.append({'paper': ck, 'signal': sg, 'rater': rater, 'counted': True, 'rating': rating if rating in allowed[sg] else ('invalid: ' + str(rating) if x else 'no answer'), 'quote': q, 'quote_raw': raw_q, 'quote_source': src, 'pdf_page': pg_ if found else None, 'locator': loc, 'quote_found': found, 'reason': (x or {}).get('reason', '')})
+            rows.append({'paper': ck, 'signal': sg, 'rater': rater, 'counted': True, 'rating': rating if rating in allowed[sg] else ('invalid: ' + str(rating) if x else 'no answer'), 'confidence': conf, 'quote': q, 'quote_raw': raw_q, 'quote_source': src, 'pdf_page': pg_ if found else None, 'locator': loc, 'quote_found': found, 'reason': (x or {}).get('reason', '')})
         return rows
     for ck, p in M.m['papers'].items():
         if p.get('failed'): continue
         doc = fitz.open(ex(p['pdf'])); raw = []
-        for r in [x[0] for x in RATERS]: raw += read(ck, p, res, r, doc)
+        for r in [x[0] for x in RATERS]: raw += read(ck, p, res, r, doc, [f'{ck}__qs-{r}-{g}' for g in GROUPS])
         doc.close(); raws[ck] = raw
-        disputes[ck] = [] if len(RATERS) >= 3 else [sg for sg in SIGNALS if len({x['rating'] for x in raw if x['signal'] == sg}) > 1 or any(x['rating'] not in allowed[sg] for x in raw if x['signal'] == sg)]   # the two raters differ (or one gave no valid rating)
+        disputes[ck] = [] if (len(RATERS) >= 3 or QS_CASCADE) else [sg for sg in SIGNALS if len({x['rating'] for x in raw if x['signal'] == sg}) > 1 or any(x['rating'] not in allowed[sg] for x in raw if x['signal'] == sg)]   # the two raters differ (or one gave no valid rating)
+    fb_need = {}; fb_by = {}
+    if QS_CASCADE:   # the one rater's low-confidence (or invalid) ratings go to the fallback rater, blind (it does not see the first rating)
+        fb_key, fb_model, fb_eff = QS_FALLBACK[0]; reqs = []
+        for ck, raw in raws.items():
+            fb_need[ck] = [x['signal'] for x in raw if needs_fallback(x, allowed[x['signal']])]; fb_by[ck] = fb_need[ck]
+            for g, ks in GROUPS.items():
+                sgs = [k for k in ks if k in fb_need[ck]]
+                if sgs: reqs.append(L.Req(f'{ck}__qsfb-{g}', fb_model, 'Rate the paper now.', sysfor(sgs), ex(M.m['papers'][ck]['pdf']), fb_eff, 40000 if fb_eff == 'high' else 24000))
+        res_fb = dispatch(M, 'qs_fallback', reqs, mode)
+        for ck, sgs in fb_need.items():
+            if not sgs: continue
+            doc = fitz.open(ex(M.m['papers'][ck]['pdf'])); raws[ck] += read(ck, M.m['papers'][ck], res_fb, fb_key, doc, [f'{ck}__qsfb-{g}' for g in GROUPS], only=set(sgs)); doc.close()
     reqs = []; sysa = prompt('adjudicate-signals-v2.md'); st['adjudicator_prompt'] = 'pipeline/prompts/adjudicate-signals-v2.md'
     for ck, sgs in disputes.items():
         if not sgs: continue
@@ -530,9 +594,17 @@ def stage_qs(M, mode):
         if p.get('failed'): continue
         raw = raws[ck]
         if disputes[ck]:
-            doc = fitz.open(ex(p['pdf'])); raw += read(ck, p, res3, QS_ADJ['key'], doc, only=set(disputes[ck])); doc.close()
+            doc = fitz.open(ex(p['pdf'])); raw += read(ck, p, res3, QS_ADJ['key'], doc, [f'{ck}__qs-{QS_ADJ["key"]}'], only=set(disputes[ck])); doc.close()
         agg = []
         for sg in SIGNALS:
+            if QS_CASCADE:
+                first = next(x for x in raw if x['signal'] == sg and x['rater'] == RATERS[0][0]); fb = next((x for x in raw if x['signal'] == sg and x['rater'] == QS_FALLBACK[0][0]), None) if sg in fb_need[ck] else None
+                if sg in fb_need[ck] and fb is None: fb = {'rating': 'no answer', 'confidence': ''}
+                status, final, how_ = cascade_result(first, fb, allowed[sg], short_name(RATERS[0][1]), short_name(QS_FALLBACK[0][1]))
+                cnt = {}
+                for x in raw:
+                    if x['signal'] == sg and x['counted'] and x['rating'] in allowed[sg]: cnt[x['rating']] = cnt.get(x['rating'], 0) + 1
+                agg.append({'paper': ck, 'signal': sg, 'votes': cnt, 'majority': final, 'status': status, 'agreement': how_, 'adjudicated': status != 'confident', 'quotes_not_found': sum(1 for x in raw if x['signal'] == sg and x['counted'] and x['quote_found'] is False)}); continue
             votes = [x['rating'] for x in raw if x['signal'] == sg and x['counted'] and x['rating'] in allowed[sg]]; cnt = {}
             for v in votes: cnt[v] = cnt.get(v, 0) + 1
             top = sorted(cnt.items(), key=lambda kv: -kv[1]); maj = top[0][0] if top and (len(top) == 1 or top[0][1] > top[1][1]) and (top[0][1] >= 2) else 'no majority'
@@ -547,7 +619,8 @@ def stage_qs(M, mode):
             x['crop'] = crops[qt]
         out[ck] = {'raw': raw, 'aggregate': agg}; (M.dir / ck / 'quality_signals.json').write_text(json.dumps(out[ck], indent=1, ensure_ascii=False), encoding='utf-8')
     st['elapsed_s'] = round(time.time() - t0)
-    st['status'] = 'done'; st['summary'] = {ck: {'signals': len(v['aggregate']), 'disagreed': len(disputes[ck]), 'no_majority': sum(1 for a in v['aggregate'] if a['majority'] == 'no majority')} for ck, v in out.items()}; M.save(); M.event(f"quality signals: {st['summary']}")
+    st['status'] = 'done'; st['mode'] = 'cascade' if QS_CASCADE else ('three raters' if len(RATERS) >= 3 else 'two raters and an adjudicator')
+    st['summary'] = {ck: {'signals': len(v['aggregate']), 'disagreed': len(disputes[ck]), 'no_majority': sum(1 for a in v['aggregate'] if a['majority'] == 'no majority'), **({'low_confidence_or_invalid': len(fb_need.get(ck, [])), 'fallback_decided': sum(1 for a in v['aggregate'] if a.get('status') == 'fallback'), 'needs_human': sum(1 for a in v['aggregate'] if a.get('status') == 'needs_human'), 'confidence_missing': sum(1 for x in v['raw'] if x['rater'] == RATERS[0][0] and x['confidence'] == 'missing')} if QS_CASCADE else {})} for ck, v in out.items()}; M.save(); M.event(f"quality signals: {st['summary']}")
 
 
 def pdf_text(pdf):

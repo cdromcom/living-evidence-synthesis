@@ -28,9 +28,11 @@ def check(M, ck, p):
     for f in ps.get('findings', []):
         pgs = sorted({s.get('pdf_page') for s in f.get('spans', []) if s.get('pdf_page')} | {n.get('pdf_page') for n in f.get('numbers', []) if n.get('pdf_page')})
         text = norm(' '.join(pp.page_text(doc[i - 1]) for i in pgs if 1 <= i <= len(doc)))
-        toks = [t for t in NUM.findall(f.get('statement', ''))]; miss = []
+        toks = [t for t in NUM.findall(f.get('statement', ''))]; miss = []; tn = None
         for t in toks:
-            if not any(re.search(r'(?<![\d.])' + re.escape(v) + r'(?![\d])', text) for v in variants(t)): miss.append(t)
+            if any(re.search(r'(?<![\d.])' + re.escape(v) + r'(?![\d])', text) for v in variants(t)): continue
+            if tn is None: tn = set().union(*[pp.table_numbers(doc[i - 1]) for i in pgs if 1 <= i <= len(doc)])   # numbers in table cells and in table captions and footnotes of the cited pages (JP, 2026-11-27)
+            if not any(pp._number_set(v) & tn for v in variants(t)): miss.append(t)
         res.append({'paper': ck, 'id': f['id'], 'pages': pgs, 'numbers': toks, 'not_on_cited_pages': miss, 'old_flag': 'number_not_in_numbers_list' in f.get('flags', []), 'old_gaps': (f.get('numbers_list_gaps') or {}).get('missing', []), 'statement': f.get('statement', '')[:200]})
     doc.close(); return res
 

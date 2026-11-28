@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Group the research questions that papers state into unified questions, and nest them (primary, secondary, tertiary). JP, 2026-11-25.
 Nothing merges automatically: the output is a proposal and JP verifies every group in the TSV.
-  python3 consolidate_questions.py --runs 2026-11-25_batch01 [RUN ...] [--threshold 0.92] [--dry-run] [--model claude-sonnet-5-5]
+  python3 consolidate_questions.py --runs 2026-11-25_batch01 [RUN ...] [--threshold 0.92] [--dry-run] [--model MODEL]   (default: roles.grouping in pipeline/config/models.json, Gemini 4 Neon at medium effort since 2026-11-27; Claude Sonnet 5.5 before)
 Steps: read questions from runs/<run>/<paper>/picost.json; embed the reframed text with EmbeddingGemma 2 (local, venv-embed python);
-cluster by average-linkage on cosine similarity; one Sonnet call per multi-member cluster (unified wording, duplicate or related);
+cluster by average-linkage on cosine similarity; one grouping-model call per multi-member cluster (unified wording, duplicate or related);
 one more call over all unified questions for the nesting under the project question. Writes question_groups.json and question_groups.tsv into runs/<first run>/.
 Spend: ledger of this script's calls is runs/<first run>/calls.jsonl (call_logger); --cap-usd (default 0.50) stops before a call that could pass it."""
 import argparse, csv, json, subprocess, sys, os
@@ -56,15 +56,23 @@ def parse(text):
 RULES = ("Rules: use only the questions given, never invent one. Write for a reader who is not a specialist: everyday words, clear, granular, "
          "name the capability being asked about, not the method or the tool. Subtle differences mean do not merge. No em dashes. Short plain sentences.")
 
+GROUP_EFFORT = C.role_effort(C.ROLES['grouping'], 'medium')
+
+
 def call(run_id, step, model, prompt, max_tokens):
-    text, rec = cl.logged_anthropic(run_id, step, model, ME, prompt, effort='medium', max_tokens=max_tokens)
+    """One standard-mode call through the provider of the grouping model (roles.grouping). Thinking tokens count against max_tokens for Gemini, so the budget is larger there."""
+    pv = C.provider_of(model)
+    if pv == 'google': text, rec = cl.logged_gemini(run_id, step, model, ME, prompt, effort=GROUP_EFFORT, max_tokens=max_tokens * 4)
+    elif pv == 'anthropic': text, rec = cl.logged_anthropic(run_id, step, model, ME, prompt, effort=GROUP_EFFORT, max_tokens=max_tokens)
+    elif pv == 'openai': text, rec = cl.logged_openai(run_id, step, model, ME, prompt, effort=GROUP_EFFORT)
+    else: raise ValueError(f'no route for {model} (provider {pv})')
     return parse(text), rec
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--runs', nargs='+', required=True); ap.add_argument('--threshold', type=float, default=0.92)
     ap.add_argument('--dry-run', action='store_true', help='show clusters only; no model calls, no spend')
-    ap.add_argument('--model', default='claude-sonnet-5-5'); ap.add_argument('--cap-usd', type=float, default=0.50); a = ap.parse_args()
+    ap.add_argument('--model', default=C.role_model(C.ROLES['grouping'])); ap.add_argument('--cap-usd', type=float, default=0.50); a = ap.parse_args()
     C.assert_allowed(a.model)
     qs = collect(a.runs)
     if not qs: sys.exit('no questions found')
@@ -80,7 +88,7 @@ def main():
         print('\nTop pairs:'); [print(f'  {s:.3f} {qs[i]["key"]} / {qs[j]["key"]}') for s, i, j in pairs]; return
     run_id = a.runs[0]; project_q = C.PIPE['project_question']; spent = 0.0
     def guard(est_in, max_out):
-        worst = cl.cost_usd(a.model, est_in, max_out) or 0
+        worst = cl.cost_usd(a.model, est_in, max_out * (4 if C.provider_of(a.model) == 'google' else 1)) or 0
         if spent + worst > a.cap_usd: sys.exit(f'stopping: spent ${spent:.3f} + worst case ${worst:.3f} would pass the ${a.cap_usd:.2f} cap')
     out = []   # unified groups
     for n, g in enumerate(groups, 1):
